@@ -1,0 +1,251 @@
+Title: Evaluating Transformer and LSTM Frameworks for Prediction in Ungauged Basins
+
+URL Source: https://arxiv.org/pdf/2606.02791v1
+
+Published Time: Wed, 03 Jun 2026 00:13:33 GMT
+
+Number of Pages: 5
+
+Markdown Content:
+# EVALUATING TRANSFORMER AND LSTM FRAMEWORKS FOR PREDICTION IN UNGAUGED BASINS 
+
+Taye Akinrele ∗, James Halgren †, Noorbakhsh Amiri Golilarz ‡ Sudip Mittal §, Shahram Rahimi ¶
+
+,
+
+Dept. of Computer Science, The University of Alabama, Tuscaloosa, USA Email: {toakinrele ∗, jshalgren †, namirigolilarz ‡, smittal1 §, srahimi ¶}@ua.edu 
+
+> †
+
+Alabama Water Institute, USA 
+
+Abstract —Watershed networks exhibit convergent topologies in which multiple tributaries merge into downstream channels, integrating diverse upstream hydrological processes. In ungauged basins, the absence of direct observations increases uncertainty and limits the ability to anticipate extreme events. This study evaluates whether an encoder-only Transformer provides an ad-vantage over an LSTM for upstream streamflow inference under limited hydrologic information, using retrospective simulations from the NOAA National Water Model (NWM). Across both upstream-only and combined configurations, the LSTM showed stronger overall performance than the Transformer model across the two configurations. Incorporating downstream information further boosted performance for all models, increasing median NNSE by more than 60%. Rather than treating this as aleaderboard-style comparison, we interpret the experiments as a test of architectural inductive bias for hydrologic sequence inference. The results indicate that recurrent memory remains better aligned with this upstream reconstruction task than an encoder-only Transformer, while downstream hydrologic context provides a strong auxiliary constraint that substantially improves prediction skill across architectures. 
+
+Index Terms —LSTM, Transformer, ungauged basins, stream-flow prediction, National Water Model (NWM). 
+
+I. I NTRODUCTION 
+
+Streamflow measurement using gauging stations and the use of these observations to predict river discharge form the foundation of modern hydrologic forecasting. In recent years, data-driven approaches, particularly deep learning (DL) models, have shown considerable promise in learning complex hydrological relationships directly from data. This has been greatly supported by the emergence of large-sample datasets which provide comprehensive hydrometeorological records across hundreds of catchments, including consistent infor-mation on physical attributes, meteorological forcings, and streamflow time series [1], thereby enabling the development of more robust and generalizable models. Notably, retrospective datasets such as CAMELS (Catch-ment Attributes and Meteorology for Large-sample Studies) [2], Caravan [3], NWM [4], EStreams [5] have become in-creasingly valuable with the rise of data-intensive machine learning models [3]. These developments have encouraged the application of DL models, with the Long Short-Term Memory (LSTM) model achieving notable success in predicting stream-flow for ungauged basins. Nearing et al. [6] demonstrated that the LSTM network can effectively forecast extreme floods in ungauged settings, while Kratzert et al. [7] showed that LSTMs outperform conceptual models and that sufficient information exists within catchment characteristics to support data-driven modeling under PUB conditions. As a gated re-current neural network, the LSTM was designed to mitigate the vanishing-gradient limitations of standard RNNs and to better preserve long-range temporal dependencies through its cell-state memory mechanism. The Transformer architecture has demonstrated outstanding performance across various tasks, including natural language processing, speech recognition, computer vision, and question answering, and has recently been adapted for hydrological modeling applications. Transformer models offer an alternative sequence-learning approach because self-attention can model dependencies across available time steps in parallel during training. Several recent studies have highlighted the effective-ness of Transformers in hydrological forecasting. Yin et al. [8] proposed the Transformer-XAJ, a process and data-driven model, which achieved strong performance in both regional and ungauged basin predictions. Similarly, Amanambu et al. [9] demonstrated that the Transformer model outperformed LSTM architectures in hydrological drought forecasting across multiple prediction time steps. Motivated by the success of LSTMs in hydrologic fore-casting and the growing use of Transformer architectures in sequence modeling, this study asks whether attention-based models provide a practical advantage over recurrent models for upstream streamflow inference in ungauged basins. To guide this investigation, we seek to answer two research questions: 
+
+RQ1: Can an LSTM more effectively capture the lagged, state-dependent dynamics of hydrologic response than an encoder-only Transformer under limited upstream information? RQ2: 
+
+Does incorporating downstream hydrologic context improve performance across architectures by providing a network-level constraint on upstream reconstruction? To answer these questions, we:  
+
+> •
+
+evaluate recurrent and attention-based architectures under a constrained upstream-only setting using NWM retro-spective simulations;  
+
+> •
+
+quantify the effect of adding downstream hydrometeoro-logical context [10], and  
+
+> •
+
+interpret the resulting performance differences in terms of hydrologic information availability and architectural inductive bias. The goal of this study is to assess which sequence-modeling bias is better suited for upstream streamflow inference under 
+
+> arXiv:2606.02791v1 [cs.AI] 1 Jun 2026
+
+limited information, and how this comparison changes when the downstream hydrologic context is incorporated. II. M ETHODOLOGY 
+
+Given the interdependence between upstream and down-stream streamflow, effective modeling requires architectures capable of capturing temporal dependencies and nonlinear hydrologic behavior. This study examines two deep learning approaches, an LSTM-based recurrent model and an encoder-only Transformer, each leveraging different mechanisms for sequence modeling. The LSTM architecture (Fig. 1a) processes time series inputs sequentially, updating its hidden state through a series of gating operations. The forget, input, and output gates (ft, it, ot) regulate how information is retained, updated, and exposed at each timestep, enabling the model to learn temporal dependencies through internal recurrence. The cell state ( Ct) acts as an explicit memory pathway, helping the LSTM maintain information across long sequences. In contrast, the encoder Transformer architecture (Fig. 1b) replaces recurrence with parallel self-attention mechanisms. Instead of processing one timestep at a time, the model computes relationships across all timesteps simultaneously, learning how different points in the sequence relate to each other through multi-head self-attention layers. Transformers rely on positional encodings to represent temporal order, since this information is not captured inherently by the architecture. During training, a causal mask is applied to ensure that pre-dictions at each timestep only attend to historical information, making the model suitable for autoregressive hydrologic fore-casting. Static catchment attributes and dynamic time series inputs are processed through separate embedding layers before being combined, enabling the model to leverage both time-varying and spatial characteristics of each basin. III. R ESULTS AND DISCUSSION 
+
+A. Data Collection and Integration 
+
+Hourly hydrometeorological data from February 1, 1979, to January 1, 2023 (44 years) were obtained from the NWM v3.0 dataset. USGS gauges were linked to their corresponding reach identifiers using the RouteLink topology for 671 CAMELS basins across CONUS. Upstream reaches were identified from river network connectivity, and basin geometries were merged to define upstream-downstream basin pairs. Dynamic meteoro-logical forcings and static catchment attributes (Table I) were included to provide both climatic and physiographic context. This study uses the simple upstream configuration of n = 1 
+
+reach. For each basin pair, meteorological forcings were spa-tially averaged over the upstream contributing area, and hourly streamflow was extracted for both downstream and upstream. All variables were stored in NetCDF format with consistent temporal alignment. 
+
+B. Data Preprocessing and Training Strategy 
+
+The dataset was processed through a structured pipeline consisting of variable filtering, temporal splitting, normaliza-tion, and sequence generation. Filtering removed basins with                                                   
+
+> TABLE I: Hydrological attributes used in this study, grouped by category (National Water Model Retrospective Dataset v3.0).
+> Category Attribute Unit Description
+> Dynamic Forcings APCP surface mm/s Accumulated precipi-tation precip rate mm/hr Precipitation rate TMP 2maboveground KNear-surface air tem-perature DSWRF surface W/m 2Downward shortwave radiation DLWRF surface W/m 2Downward longwave radiation PRES surface Pa Surface pressure UGRD 10maboveground m/s East–west wind at 10m VGRD 10maboveground m/s North–south wind at 10m SPFH 2maboveground kg/kg Specific humidity at 2m Hydrologic Input streamflow m3/s Downstream discharge Catchment Attributes basin length km Length of the basin polygon basin area km 2Area of the basin poly-gon reach length km Length of the river reach Target streamflow m3/s Upstream discharge (target variable)
+
+substantial data gaps; splitting produced training, validation, and test periods; normalization ensured consistent feature scales; and sequence generation converted continuous time series into supervised learning samples. A 70–15–15 temporal split was used (29 years training, 8 years validation, 8 years testing). Static and dynamic inputs were embedded through fully connected networks (32 units for dynamic inputs and 16 units for static attributes, both with 
+
+tanh activation and 0.1 dropout) and provided to each model as 256-length input windows. Both the LSTM and Transformer architectures were trained under matched experimental con-ditions to ensure comparability. The reported configurations were selected as comparable baseline settings under the same data split, optimizer, loss function, input window, and early-stopping rule, rather than through an exhaustive architecture-specific hyperparameter search. 
+
+LSTM configuration: consists of a recurrent layer con-taining 32 hidden units. A forget-gate bias of 3 and an output dropout rate of 0.1 were applied. Static and dynamic inputs were embedded through fully connected layers before being passed to the LSTM, and the final timestep was predicted using a linear regression head. 
+
+Transformer configuration: consists of a single Trans-former encoder layer with four attention heads, a feedforward dimension of 128, and dropout of 0.1 applied within the encoder and positional encoding layers. Temporal order is represented using sum-based positional encoding, and a causal mask is applied so that each prediction depends only on historical inputs. The final prediction is generated from the last encoder state through a linear regression head. 
+
+Training setup: Both models were trained to predict upstream streamflow one hour ahead under two input settings: ht- 1   
+
+> Ct- 1
+> ??
+> tanh
+> Ct
+> ht
+> Output (O t)
+> Input (x t)
+> ?tanh
+> ft
+> it
+> ?ct
+> Ot
+> Output Gate Input Gate Forget Gate
+> Operations
+> Layers
+
+(a) Linear  
+
+> Positional
+> Encoding
+> Output
+> NX
+> Select Last
+> Encoder state
+> (t)
+> Add & Norm
+> Feed Forward
+> Add & Norm
+> Multi- head
+> Self-Attention
+> Input
+> Embedding
+> Causal Mask
+
+(b) Fig. 1: Model architectures used in this study: (a) LSTM model highlighting gate mechanisms ( ft, it, ot) and the interaction between cell state ( Ct) and hidden state ( ht) during streamflow sequence learning (Xu et al., 2020) [11] (b) Encoder-only Transformer for hydrologic time series modeling, incorporating input embeddings, positional encoding, masked multi-head attention, and feed-forward layers (Vaswani et al., 2017) [12] 
+
+upstream-only and combined upstream–downstream. Inputs included precipitation, temperature, wind speed, pressure, and radiation. Training used AdamW with a learning rate of 
+
+1×10 −4, batch size 256, gradient clipping of 1, and NSE loss. Early stopping was applied with a patience of 10 epochs, and the best checkpoint was used for testing. The implementation is available here. 
+
+TABLE II: Summary of evaluation metrics used for model performance assessment.            
+
+> Metric Description Range, Best Fit
+> NNSE Normalized form of NSE bounded between 0 and 1 for intuitive interpretation. (0, 1), best: 1 KGE Combines correlation, bias, and variability for balanced model evaluation. (−∞ , 1), best: 1 Pearson-rMeasures linear correlation between simulated and observed streamflow. (-1, 1), best: 1 RMSE Quantifies the average magnitude of simulation errors; lower indicates better short-term fit. (0, ∞), best: 0
+
+C. Results & Performance Analysis 
+
+To evaluate how model behavior varies with information availability, we trained both the Transformer and LSTM under two distinct input configurations. The upstream-only setting represents a constrained-information setting in which upstream streamflow is predicted solely from local meteorological forc-ings and static basin attributes. In contrast, the combined setting augments these inputs with downstream meteorological forcings and downstream discharge, introducing a network-informed signal that may reflect the integrated hydrologic response of connected reaches. This design allows us to test not only whether additional inputs improve accuracy, but also how each architecture responds to a richer hydrologic context. As shown in Table III, the combined configuration consis-tently outperformed the upstream-only setup for both Trans-former and LSTM models. For example, median NNSE for the Transformer model increases from 0.56 to 0.90, and for the LSTM from 0.56 to 0.93, demonstrating substantial im-provements in predictive accuracy. A similar trend is observed for KGE, Pearson-r, and RMSE, indicating that the combined inputs enhance robustness and reduce error magnitudes across basins. The percentage of basins achieving NNSE > 0.5
+
+also increases significantly in the combined setting, for the Transformer from 75.21% to 91.68%, and for the LSTM from 
+
+TABLE III: Performance comparison of the encoder-only Transformer and LSTM models for both configurations across all basins.                             
+
+> Metric Transformer LSTM
+> Upstream Combined Upstream Combined NNSE 0.56 0.90 0.56 0.93
+> KGE 0.20 0.80 0.14 0.79 Pearson-r0.61 0.96 0.64 0.98
+> RMSE 2.41 0.56 2.24 0.44 % Basins NNSE >0.575.21% 91.68% 79.87 %93.84 %
+> Basin Count 601
+
+79.87% to 93.84%, highlighting more reliable performance across a larger fraction of the domain (see Fig. 3b). This experiment shows how much predictive skill can be recovered from network-level hydrologic context and whether that improvement varies by architecture. Both models benefit substantially from downstream information, but the LSTM shows stronger overall performance across the two configu-rations. This suggests that richer hydrologic context improves inference, but does not diminish the importance of an archi-tecture well suited to sequential runoff dynamics. Overall, the LSTM shows modest but consistent advantages over the encoder-only Transformer across both configurations, with slightly higher NNSE and Pearson-r and lower RMSE, while KGE remains comparable as seen in Fig. 3a. The difference in median NNSE in the combined setting (0.93 vs. 0.90) is small, indicating that both models achieve similar overall predictive skill. These results suggest that downstream information is the primary driver of performance gains, while the LSTM provides a modest relative benefit for streamflow reconstruction. One plausible explanation is that upstream inference is governed by temporally accumulated and state-dependent hydrologic processes. The LSTM’s sequential state updates align naturally with these dynamics, whereas the encoder-only Transformer must infer temporal structure through attention and positional encoding alone, which appears slightly less effective in this setting. To assess spatial consistency, we compare observed and predicted streamflow across CONUS. As shown in Fig. 2, both Observed Streamflow (Combined Configuration) 
+
+> 0
+> 10
+> 20
+> 30
+> 40
+> 50
+> 60
+> Streamflow (m³/s)
+
+(a) LSTM-Predicted Streamflow (Combined Configuration)  
+
+> 0
+> 10
+> 20
+> 30
+> 40
+> 50
+> 60
+> Streamflow (m³/s)
+
+(b) Transformer-Predicted Streamflow (Combined Configuration)  
+
+> 0
+> 10
+> 20
+> 30
+> 40
+> 50
+> 60
+> Streamflow (m³/s)
+
+(c) 
+
+Fig. 2: Spatial comparison of observed and model-predicted streamflow at upstream gages under the combined configuration across the CONUS: (a) observed streamflow, (b) LSTM predicted streamflow, and (c) Encoder-only Transformer predicted streamflow. Colors indicate streamflow magnitude in m³/s using a common scale across all panels. NNSE KGE RMSE PEARSON-R 
+
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> Median Score
+> Median Metric Comparison Across Models
+> LSTM Combined
+> LSTM Upstream
+> Transformer Combined
+> Transformer Upstream
+
+(a) NNSE KGE PEARSON-R RMSE      
+
+> 0
+> 20
+> 40
+> 60
+> 80
+> 100
+> Percentage of Basins Meeting Thresholds (%)
+> Basin-Level Compliance with Performance Thresholds
+> LSTM vs Transformer under Combined and Upstream-only Configurations
+> LSTM Combined
+> LSTM Upstream
+> Transformer Combined
+> Transformer Upstream
+> Thresholds:
+> NNSE > 0.75
+> KGE > 0.50
+> Pearson-r > 0.70
+> RMSE < 2.0
+
+(b) 0.0 0.2 0.4 0.6 0.8 1.0      
+
+> NNSE Score
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> Cumulative Probability
+> Combined Configuration
+> Transformer
+> Informer
+> CNN-1D
+> LSTM
+> 0.0 0.2 0.4 0.6 0.8
+> NNSE Score
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> Cumulative Probability
+> Upstream Configuration
+> Transformer
+> Informer
+> CNN-1D
+> LSTM
+> Cumulative Distribution of NNSE Scores
+
+(c) 
+
+Fig. 3: Comparison of model performance under the Combined and Upstream configurations. (a) Median basin-level performance across NNSE, KGE, RMSE, and Pearson-r for LSTM and Transformer models, highlighting improvements from incorporating downstream information. (b) Percentage of basins meeting predefined performance thresholds (NNSE > 0.75, KGE > 0.50, Pearson-r > 0.70, RMSE < 2.0). (c) Cumulative distribution functions (CDFs) of NNSE scores across LSTM, Transformer, Informer, and CNN-1D models (Combined (left) and Upstream (right) setups). Note that lower RMSE values indicate better performance, unlike the other metrics. 
+
+the LSTM and the encoder-only Transformer capture similar large-scale spatial patterns under the combined configuration. 
+
+D. Performance Comparison of Other Models 
+
+In Fig. 3c, we extend the comparison to CNN-1D [13] and Informer [14]. Across architectures, NNSE distributions be-come more similar when downstream hydrologic information is included, with most basin-level scores concentrated between 0.8 and 1.0, indicating reduced performance differences be-tween models. A plausible explanation is that downstream observations act as a strong network-level constraint, reduc-ing uncertainty and limiting the influence of model-specific inductive biases. In contrast, removing downstream context leads to a general decline in performance, with CNN-1D showing greater variability and lower median NNSE, while Informer, Transformer, and LSTM remain comparatively more stable. This suggests that architectures capable of capturing long-range dependencies or maintaining temporal state are better able to compensate when hydrologic context is limited. Overall, downstream information improves performance and narrows the gap between model classes. IV. C ONCLUSION AND FUTURE WORK 
+
+In this study, we compared LSTM and encoder-only Trans-former architectures for streamflow prediction using NWM data across CAMELS basins under two inference settings: an upstream-only configuration reflecting PUB-style constraints, and a network-informed configuration that incorporates down-stream hydrologic context. The latter is not a strict PUB setting, but represents a scenario where additional network-level information is available. Results show that incorporating downstream information consistently improves performance across architectures, indi-cating that network-level context plays a dominant role in capturing spatial hydrologic dependencies. While both models benefit substantially, the LSTM achieves modestly higher accuracy and more stable basin-wise performance, suggesting that recurrent and attention-based architectures respond differ-ently to information scarcity and network augmentation. Future work will extend this framework to larger up-stream–downstream networks and to observed USGS dis-charge data, enabling broader validation under more realistic hydrologic conditions. V. A CKNOWLEDGMENTS 
+
+This research was supported by the Cooperative Institute for Research to Operations in Hydrology (CIROH) with funding under award NA22NWS4320003 from the NOAA Coopera-tive Institute Program. The statements, findings, conclusions, and recommendations are those of the author(s) and do not necessarily reflect the opinions of NOAA. REFERENCES [1] G. Coxon, N. Addor, J. P. Bloomfield, J. Freer, M. Fry, J. Hannaford, N. J. K. Howden, R. Lane, M. Lewis, E. L. Robinson, T. Wagener, and R. Woods, “CAMELS-GB: hydrometeorological time series and landscape attributes for 671 catchments in great britain,” Earth Syst. Sci. Data , vol. 12, no. 4, pp. 2459–2483, Oct. 2020. [2] N. Addor, A. J. Newman, N. Mizukami, and M. P. Clark, “The CAMELS data set: catchment attributes and meteorology for large-sample studies,” 
+
+Hydrol. Earth Syst. Sci. , vol. 21, no. 10, pp. 5293–5313, Oct. 2017. [3] F. Kratzert, G. Nearing, N. Addor, T. Erickson, M. Gauch, O. Gilon, L. Gudmundsson, A. Hassidim, D. Klotz, S. Nevo, G. Shalev, and Y. Matias, “Caravan - a global community dataset for large-sample hydrology,” Sci. Data , vol. 10, no. 1, p. 61, Jan. 2023. [4] NOAA National Water Center, “NOAA National Water Model CONUS Retrospective Dataset - Registry of Open Data on AWS — registry.opendata.aws,” https://registry.opendata.aws/nwm-archive/, [Ac-cessed 11-08-2025]. [5] T. V. M. do Nascimento, J. Rudlang, M. H¨ oge, R. van der Ent, M. Chappon, J. Seibert, M. Hrachowitz, and F. Fenicia, “EStreams: An integrated dataset and catalogue of streamflow, hydro-climatic and landscape variables for europe,” Sci. Data , vol. 11, no. 1, p. 879, Aug. 2024. [6] G. Nearing, D. Cohen, V. Dube, M. Gauch, O. Gilon, S. Harrigan, A. Hassidim, D. Klotz, F. Kratzert, A. Metzger, S. Nevo, F. Pap-penberger, C. Prudhomme, G. Shalev, S. Shenzis, T. Y. Tekalign, D. Weitzner, and Y. Matias, “Global prediction of extreme floods in ungauged watersheds,” Nature , vol. 627, no. 8004, pp. 559–563, Mar. 2024. [7] F. Kratzert, D. Klotz, M. Herrnegger, A. K. Sampson, S. Hochreiter, and G. S. Nearing, “Toward improved predictions in ungauged basins: Exploiting the power of machine learning,” Water Resour. Res. , vol. 55, no. 12, pp. 11 344–11 354, Dec. 2019. [8] H. Yin, L. Zhao, M. Zhu, and Y. Zhang, “Runoff prediction in gauged and ungauged basins using Transformer-XAJ model,” J. Hydrol. (Amst.) ,vol. 662, no. 133954, p. 133954, Dec. 2025. [9] A. C. Amanambu, J. Mossa, and Y.-H. Chen, “Hydrological drought forecasting using a deep transformer model,” Water (Basel) , vol. 14, no. 22, p. 3611, Nov. 2022. [10] A. A. Ram´ ırez Molina, J. M. Frame, J. Halgren, and J. Gong, “A proof of concept for improving estimates of ungauged basin streamflow via an LSTM-based synthetic network simulation approach,” Journal of Geophysical Research: Machine Learning and Computation , vol. 2, no. 2, Jun. 2025. [11] W. Xu, Y. Jiang, X. Zhang, Y. Li, R. Zhang, and G. Fu, “Using long short-term memory networks for river flow prediction,” Hydrol. Res. ,vol. 51, no. 6, pp. 1358–1376, Dec. 2020. [12] A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez, . L. Kaiser, and I. Polosukhin, “Attention is all you need,” in Advances in Neural Information Processing Systems , I. Guyon, U. V. Luxburg, S. Bengio, H. Wallach, R. Fergus, S. Vishwanathan, and R. Garnett, Eds., vol. 30. Curran Associates, Inc., 2017. [13] S. P. Van, H. M. Le, D. V. Thanh, T. D. Dang, H. H. Loc, and D. T. Anh, “Deep learning convolutional neural network in rainfall–runoff modelling,” J. Hydroinformatics , vol. 22, no. 3, pp. 541–561, May 2020. [14] H. Zhou, S. Zhang, J. Peng, S. Zhang, J. Li, H. Xiong, and W. Zhang, “Informer: Beyond efficient transformer for long sequence time-series forecasting,” Proceedings of the AAAI Conference on Artificial Intelli-gence , vol. 35, no. 12, pp. 11 106–11 115, May 2021.

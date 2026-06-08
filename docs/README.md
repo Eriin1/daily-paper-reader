@@ -6,94 +6,56 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-05-10 ~ 2026-06-08
-- 运行时间：2026-06-08 12:20:19 UTC
+- 最新运行日期：2026-06-08
+- 运行时间：2026-06-08 21:36:48 UTC
 - 运行状态：成功
-- 本次总论文数：24
-- 精读区：13
-- 速读区：11
+- 本次总论文数：12
+- 精读区：6
+- 速读区：6
 
 ### 今日简报（AI）
-今日共读24篇，聚焦AI驱动的洪涝模拟与降水估算两大前沿方向。  
-最值得关注的是基于条件潜动力网络的都市洪涝数字孪生模型，以及异方差不确定性框架解决物理信息神经网络在洪涝推断中的“物理冲击”问题。  
-建议普通读者关注这些新方法在实时洪涝预警中的落地潜力，并进一步探索AI与传统物理模型协同的改进思路。
-- 详情：[/20260510-20260608/README](/20260510-20260608/README)
+今日精读6篇、速读6篇，重点聚焦算法公平与极端天气预测两大方向。最值得关注的是揭示住房搜索中LLM中介种族偏见的地理学研究（9.0分）以及用于降水预报的逆向鞅正则化循环网络（8.0分）。建议优先精读算法公正性论文，并关注基于神经切线核的极值天气预报不确定性量化方法。
+- 详情：[/202606/08/README](/202606/08/README)
 
 ### 精读区论文标签
-1. [Toward AI-Driven Digital Twins for Metropolitan Floods: A Conditional Latent Dynamics Network Surrogate of the Shallow Water Equations](/20260510-20260608/2605.13761v1-toward-ai-driven-digital-twins-for-metropolitan-floods-a-conditional-latent-dynamics-network-surrogate-of-the-shallow-water-equations)  
-   标签：评分：10.0/10、query:urban-flood
-   evidence：面向大都市洪水的AI数字孪生，使用潜在神经ODE
-2. [Overcoming "Physics Shock" in Earth Observation A Heteroscedastic Uncertainty Framework for PINN-based Flood Inference](/20260510-20260608/2605.24106v1-overcoming-physics-shock-in-earth-observation-a-heteroscedastic-uncertainty-framework-for-pinn-based-flood-inference)  
-   标签：评分：10.0/10、query:urban-flood
-   evidence：基于PINN的SAR图像洪水推断，面向城市区域
-3. [A Resilient Solution for Sewer Overflow Monitoring across Cloud and Edge](/20260510-20260608/2605.10592v1-a-resilient-solution-for-sewer-overflow-monitoring-across-cloud-and-edge)  
-   标签：评分：9.0/10、query:urban-flood
-   evidence：下水道溢流监测系统直接服务于城市雨水管理策略
-4. [Multi-Quantile Regression for Extreme Precipitation Downscaling](/20260510-20260608/2605.12762v1-multi-quantile-regression-for-extreme-precipitation-downscaling)  
-   标签：评分：9.0/10、query:urban-flood
-   evidence：极端降水降尺度直接服务于洪水风险评估
-5. [Accurate, Efficient, and Explainable Deep Learning Approaches for Environmental Science Problems](/20260510-20260608/2605.19366v1-accurate-efficient-and-explainable-deep-learning-approaches-for-environmental-science-problems)  
-   标签：评分：9.0/10、query:urban-flood
-   evidence：用于洪水预测和管理的深度学习方法，包括水位预报和预报驱动的决策支持
-6. [HaorFloodAlert: Deseasonalized ML Ensemble for 72-Hour Flood Prediction in Bangladesh Haor Wetlands](/20260510-20260608/2605.20167v1-haorfloodalert-deseasonalized-ml-ensemble-for-72-hour-flood-prediction-in-bangladesh-haor-wetlands)  
-   标签：评分：9.0/10、query:urban-flood
-   evidence：使用机器学习集成的洪水预测
-7. [Exascale Hybrid Numerical-AI Ensembles for Operational Flood-Season Forecasting in East Asia: 15-km Decadal Hindcasts and 1-km High-Resolution Capability](/20260510-20260608/2605.24896v1-exascale-hybrid-numerical-ai-ensembles-for-operational-flood-season-forecasting-in-east-asia-15-km-decadal-hindcasts-and-1-km-high-resolution-capability)  
-   标签：评分：9.0/10、query:urban-flood
-   evidence：混合数值-AI集合用于业务洪水季节预报
-8. [Low-cost IoT-Based Rainfall Monitoring with Web-Based Data Access](/20260510-20260608/2605.30528v1-low-cost-iot-based-rainfall-monitoring-with-web-based-data-access)  
-   标签：评分：9.0/10、query:urban-flood
-   evidence：低成本物联网降雨监测助力城市雨水径流管理
-9. [Deep Learning for Remote Sensing to Improve Flood Inundation Mapping](/20260510-20260608/2606.02310v1-deep-learning-for-remote-sensing-to-improve-flood-inundation-mapping)  
-   标签：评分：9.0/10、query:urban-flood
-   evidence：深度学习用于洪水淹没制图直接支持城市洪水风险评估
-10. [Physics-Informed Machine Learning for Short-Term Flood Prediction](/20260510-20260608/2606.04143v1-physics-informed-machine-learning-for-short-term-flood-prediction)  
-   标签：评分：9.0/10、query:urban-flood
-   evidence：物理信息机器学习用于短期洪水预测，直接对应城市洪水风险评估
-11. [Data-efficient flood depth prediction through domain-aware coreset selection and tabular foundation models](/20260510-20260608/2606.05265v1-data-efficient-flood-depth-prediction-through-domain-aware-coreset-selection-and-tabular-foundation-models)  
-   标签：评分：9.0/10、query:urban-flood
-   evidence：利用核心集选择和表格基础模型实现数据高效的洪水深度预测
-12. [Computational Modeling of Human Adaptation in Urban Infrastructure Management under Extreme Conditions: A Case Study of Subway Flood Scenarios](/20260510-20260608/2606.06429v1-computational-modeling-of-human-adaptation-in-urban-infrastructure-management-under-extreme-conditions-a-case-study-of-subway-flood-scenarios)  
-   标签：评分：9.0/10、query:urban-flood
-   evidence：地铁基础设施的洪水情景
-13. [Advanced Flood Prediction with Physics-Guided Deep Learning: Combining UNet, FNO, and SAR/Optical Imagery](/20260510-20260608/2606.06524v1-advanced-flood-prediction-with-physics-guided-deep-learning-combining-unet-fno-and-saroptical-imagery)  
-   标签：评分：9.0/10、query:urban-flood
-   evidence：使用卫星影像和浅水方程的物理引导深度学习洪水制图
+1. [The Geography of Algorithmic Judgment: LLM Intermediaries, Place Identity, and Racial Steering in Housing Search](/202606/08/2606.06694v1-the-geography-of-algorithmic-judgment-llm-intermediaries-place-identity-and-racial-steering-in-housing-search)  
+   标签：评分：9.0/10、query:algo-gov
+   evidence：大语言模型在住房搜索中的算法偏差与公平性
+2. [Small-Area Precipitation Forecasting and Drought--Flood Early Warning with Reverse-Martingale Regularized Recurrent Networks](/202606/08/2605.26401v1-small-area-precipitation-forecasting-and-drought--flood-early-warning-with-reverse-martingale-regularized-recurrent-networks)  
+   标签：评分：8.0/10、query:urban-flood
+   evidence：小区域降水预报与洪水早期预警，直接支持城市洪水风险评估
+3. [Learning to Refine: Spectral-Decoupled Iterative Refinement Framework for Precipitation Nowcasting](/202606/08/2606.02661v1-learning-to-refine-spectral-decoupled-iterative-refinement-framework-for-precipitation-nowcasting)  
+   标签：评分：8.0/10、query:urban-flood
+   evidence：降水临近预报直接支持城市洪水预警和风险评估
+4. [Evaluating Transformer and LSTM Frameworks for Prediction in Ungauged Basins](/202606/08/2606.02791v1-evaluating-transformer-and-lstm-frameworks-for-prediction-in-ungauged-basins)  
+   标签：评分：8.0/10、query:urban-flood
+   evidence：评估LSTM和Transformer在无径流区域的流预测，适用于洪水风险评估
+5. [Topographic shielding of coastal zones and infrastructure against high tide](/202606/08/2606.05585v1-topographic-shielding-of-coastal-zones-and-infrastructure-against-high-tide)  
+   标签：评分：8.0/10、query:urban-flood
+   evidence：利用地形防护减轻沿海区域洪水灾害
+6. [Learned Response-Field Inertia Operator for HEC-RAS 2D Water-Surface Elevation Prediction](/202606/08/2606.06385v1-learned-response-field-inertia-operator-for-hec-ras-2d-water-surface-elevation-prediction)  
+   标签：评分：8.0/10、query:urban-flood
+   evidence：学习代理模型快速预测水位，支持洪水风险评估
 
 ### 速读区论文标签
-1. [How long should a block be?](/20260510-20260608/2605.12760v1-how-long-should-a-block-be)  
-   标签：评分：8.0/10、query:urban-flood
-   evidence：极值分析中块长选择方法应用于河流流量，对洪水风险评估至关重要
-2. [A plug-and-play generative framework for multi-satellite precipitation estimation](/20260510-20260608/2605.14426v1-a-plug-and-play-generative-framework-for-multi-satellite-precipitation-estimation)  
-   标签：评分：8.0/10、query:urban-flood
-   evidence：生成式卫星降水估计框架助力洪水风险评估
-3. [SwAIther-Precip: Lead-Time-Aware Bias Correction Enables Kilometer-Scale Downscaling of Global AI Precipitation Forecasts over Switzerland](/20260510-20260608/2605.16163v1-swaither-precip-lead-time-aware-bias-correction-enables-kilometer-scale-downscaling-of-global-ai-precipitation-forecasts-over-switzerland)  
-   标签：评分：8.0/10、query:urban-flood
-   evidence：为本地洪水灾害应用的降水降尺度
-4. [HydroAgent: Closing the Gap Between Frontier LLMs and Human Experts in Hydrologic Model Calibration via Simulator-Grounded RL](/20260510-20260608/2605.17792v1-hydroagent-closing-the-gap-between-frontier-llms-and-human-experts-in-hydrologic-model-calibration-via-simulator-grounded-rl)  
-   标签：评分：8.0/10、query:urban-flood
-   evidence：用于洪水预报的水文模型校准
-5. [Assessing socio-economic climate impacts from text data](/20260510-20260608/2605.20793v1-assessing-socio-economic-climate-impacts-from-text-data)  
+1. [Scalable Uncertainty Quantification for Extreme Weather Forecasting via Empirical Neural Tangent Kernels](/202606/08/2606.02886v2-scalable-uncertainty-quantification-for-extreme-weather-forecasting-via-empirical-neural-tangent-kernels)  
    标签：评分：7.0/10、query:urban-flood
-   evidence：利用文本数据系统评估洪水等气候灾害的社会经济影响，解决评估中的挑战
-6. [A Comparative Multi-Hazard Risk Assessment of the US High-Voltage Transmission Network](/20260510-20260608/2605.23053v1-a-comparative-multi-hazard-risk-assessment-of-the-us-high-voltage-transmission-network)  
+   evidence：极端天气预报的不确定性量化可用于城市内涝分析
+2. [An Efficient Solver for the Richards Equation for Variably Saturated Flows in Porous Media](/202606/08/2606.04292v1-an-efficient-solver-for-the-richards-equation-for-variably-saturated-flows-in-porous-media)  
    标签：评分：7.0/10、query:urban-flood
-   evidence：包含洪水的多灾害风险评估框架
-7. [Optimizing Latent Representations for Robust Building Damage Assessment Onboard Earth Observation Satellites](/20260510-20260608/2605.29575v1-optimizing-latent-representations-for-robust-building-damage-assessment-onboard-earth-observation-satellites)  
+   evidence：变饱和多孔介质中Richards方程的高效求解器
+3. [Role of boundary conditions on dam-break flow across an obstacle and controlling damage of structures](/202606/08/2606.05580v1-role-of-boundary-conditions-on-dam-break-flow-across-an-obstacle-and-controlling-damage-of-structures)  
    标签：评分：7.0/10、query:urban-flood
-   evidence：星上建筑物损害评估用于灾害响应，包括洪水
-8. [Beyond MSE: Improving Precipitation Nowcasting with Multi-Quantile Regression](/20260510-20260608/2605.30122v1-beyond-mse-improving-precipitation-nowcasting-with-multi-quantile-regression)  
-   标签：评分：7.0/10、query:urban-flood
-   evidence：多分位数回归改进降水临近预报，用于强降雨预测
-9. [A 10,000-Year Global Stochastic Tropical Cyclone Catalog with Wind-Dependent Track Transitions (WHITS)](/20260510-20260608/2605.20494v1-a-10000-year-global-stochastic-tropical-cyclone-catalog-with-wind-dependent-track-transitions-whits)  
+   evidence：溃坝水流经过障碍物，控制结构损伤
+4. [Greener Than Humans? Environmental Attitudes in Large Language Models](/202606/08/2606.02741v1-greener-than-humans-environmental-attitudes-in-large-language-models)  
+   标签：评分：6.0/10、query:algo-gov
+   evidence：评估大语言模型中的环境态度，与人工智能伦理和算法治理相关
+5. [Explainable AI-Driven Cyber Risk Analytics and Model Reliability Assessment for Intelligent Governance of U.S. Critical Infrastructure: An XGBoost and SHAP-Based Intrusion Detection Framework](/202606/08/2606.05710v1-explainable-ai-driven-cyber-risk-analytics-and-model-reliability-assessment-for-intelligent-governance-of-us-critical-infrastructure-an-xgboost-and-shap-based-intrusion-detection-framework)  
+   标签：评分：6.0/10、query:algo-gov
+   evidence：用于关键基础设施智能治理的可解释AI框架，涉及AI系统的透明度和问责性
+6. [Structure-Preserving Discontinuous Galerkin Methods for Stochastic Shallow Water Equations](/202606/08/2606.07155v1-structure-preserving-discontinuous-galerkin-methods-for-stochastic-shallow-water-equations)  
    标签：评分：6.0/10、query:urban-flood
-   evidence：随机热带气旋目录用于风险评估，适用于沿海城市洪水风险
-10. [DisasterBench: Benchmarking LLM Planning under Typed Tool Interface Constraints](/20260510-20260608/2605.27957v1-disasterbench-benchmarking-llm-planning-under-typed-tool-interface-constraints)  
-   标签：评分：6.0/10、query:urban-flood
-   evidence：灾难响应中LLM规划的基准测试，包含洪水预测工具
-11. [Flow Matching for Convective-Scale Precipitation Downscaling](/20260510-20260608/2606.00281v1-flow-matching-for-convective-scale-precipitation-downscaling)  
-   标签：评分：6.0/10、query:urban-flood
-   evidence：降水降尺度方法可提高城市径流估算精度，间接支持雨水管理
+   evidence：随机浅水方程方法可用于城市洪水建模
 
 
 <div class="dpr-home-promo-card">

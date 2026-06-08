@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-08T12:03:23.555338+00:00",
-  "updated_date": "20260510-20260608",
+  "generated_at": "2026-06-08T21:27:59.043313+00:00",
+  "updated_date": "20260608",
   "carryover_days": 9,
   "tag_states": {
     "algo-gov": {
@@ -9,48 +9,9 @@
       "items": []
     },
     "urban-flood": {
-      "updated_date": "20260510-20260608",
+      "updated_date": "20260608",
       "carryover_days": 9,
-      "items": [
-        {
-          "id": "2605.26401v1",
-          "source": "arxiv",
-          "title": "Small-Area Precipitation Forecasting and Drought--Flood Early Warning with Reverse-Martingale Regularized Recurrent Networks",
-          "abstract": "Small-area precipitation forecasts support real-time decisions for reservoir operation, irrigation planning, drought monitoring, and flash-flood response. Operational value depends not only on point accuracy, but also on calibrated exceedance probabilities and warning rules that remain stable when local weather regimes depart from the training climatology. We evaluate a reverse-martingale regularized recurrent neural network (\\RMRNN) for probabilistic precipitation forecasting and sequential early warning. A backward-coherence penalty is added to the recurrent hidden state; the resulting residual process drives a Shiryaev--Roberts (SR) detector, so the same latent trajectory that produces the forecast also supplies a continuously updated drought or flood-regime indicator. The framework is tested on the Taiwan CWA dense rain-gauge network, CHIRPS v2 daily gridded precipitation over Taiwan and the Horn of Africa, and NOAA GHCN-Daily stations over the Texas Hill Country. Across 1{,}000 replications, \\RMRNN{} matches or slightly improves the GRU baseline in RMSE, MAE, and CRPS at 1~h--72~h lead while substantially improving alarm characteristics. The SR detector reduces false-alarm ratios by a factor of three to five at matched detection power. In the 2020--2021 Taiwan drought, onset is flagged 8--12 days earlier than SPI-3 thresholding; in the 2023 Typhoon Haikui flood, flash-flood risk is signalled 4~h before the CWA operational alert.",
-          "authors": [
-            "Foo Hui-Mean",
-            "Yuan-chin Ivan Chang"
-          ],
-          "primary_category": "stat.AP",
-          "categories": [
-            "stat.AP",
-            "stat.ME"
-          ],
-          "published": "2026-05-26T00:18:05+00:00",
-          "link": "https://arxiv.org/pdf/2605.26401v1",
-          "tags": [
-            "keyword:urban-flood",
-            "query:urban-flood"
-          ],
-          "llm_score": 8.0,
-          "llm_evidence_en": "precipitation forecasting and flood early warning for urban areas",
-          "llm_evidence_cn": "小区域降水预报与洪水早期预警，直接支持城市洪水风险评估",
-          "llm_evidence": "小区域降水预报与洪水早期预警，直接支持城市洪水风险评估",
-          "canonical_evidence": "小区域降水预报与洪水早期预警，直接支持城市洪水风险评估",
-          "llm_tldr_en": "Proposes a reverse-martingale regularized RNN for probabilistic precipitation forecasting and sequential early warning, improving flash-flood response.",
-          "llm_tldr_cn": "针对小区域降水预报对洪水预警的重要性，本文提出一种反向鞅正则化循环神经网络（RMRNN）用于概率降水预报和逐次洪水早期预警。该方法通过后向一致性惩罚和Shiryaev-Roberts检测器，生成校准的超额概率，提升暴雨和山洪预警的稳定性。实验表明该方法在验证期保持稳健。",
-          "llm_tldr": "针对小区域降水预报对洪水预警的重要性，本文提出一种反向鞅正则化循环神经网络（RMRNN）用于概率降水预报和逐次洪水早期预警。该方法通过后向一致性惩罚和Shiryaev-Roberts检测器，生成校准的超额概率，提升暴雨和山洪预警的稳定性。实验表明该方法在验证期保持稳健。",
-          "llm_tags": [
-            "query:urban-flood"
-          ],
-          "matched_query_tag": "query:urban-flood",
-          "matched_query_text": "flood risk assessment for urban areas",
-          "matched_requirement_id": "req-2",
-          "selection_source": "carryover_cache",
-          "paper_id": "2605.26401v1",
-          "carry_days": 1
-        }
-      ]
+      "items": []
     }
   }
 }

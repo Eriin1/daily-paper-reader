@@ -1,0 +1,474 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-08T21:27:59.042113+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 6,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 6,
+    "quick_skim_target": 11,
+    "quick_selected": 6
+  },
+  "deep_dive": [
+    {
+      "id": "2606.06694v1",
+      "source": "arxiv",
+      "title": "The Geography of Algorithmic Judgment: LLM Intermediaries, Place Identity, and Racial Steering in Housing Search",
+      "abstract": "Large language models (LLMs) are rapidly assuming an intermediary role in housing search through the integration of listing platforms within conversational interfaces, mediating access to information, search, and recommendations within urban settings. We expand on prior work on racial steering in LLMs by conducting a behavioral audit of seven open-weight and closed-source LLMs across four U.S. cities, testing location recommendations across three iterative prompting conditions that progressively add lifestyle preference context and reflect fair housing paired-testing methodologies. We find that steering is an emergent behavior of the model's interpretive license rather than primarily a static property. Steering results from the interaction of a user's identity, preference articulation, and the spatial logic that a model has internalized about learned representations of place, preference, and opportunity in a given city, and how different types of users relate to it. While steering was present, it was not uniform in direction or magnitude across evaluated conditions. Preference-conditioned testing often increased or reconfigured the number of models that exhibited steering behaviors relative to baseline conditions, suggesting that LLMs may interpret what the same housing preference means differently depending on the racial identity of the user. Our findings also demonstrate that the city is not a neutral testing unit for LLM evaluation in place-based sectors, and results from one local market cannot be assumed to generalize to another. Local and domain expertise will be required in the housing sector to ensure that legal and institutional commitments to fair housing are not undermined while adopting AI tools that mediate spatial access.",
+      "authors": [
+        "Hana Samad",
+        "Trung Lam",
+        "Christoph Mügge-Durum",
+        "Michael Akinwumi"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CY"
+      ],
+      "published": "2026-06-04T20:17:58+00:00",
+      "link": "https://arxiv.org/pdf/2606.06694v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "algorithmic bias and fairness in housing search via LLMs",
+      "llm_evidence_cn": "大语言模型在住房搜索中的算法偏差与公平性",
+      "llm_evidence": "大语言模型在住房搜索中的算法偏差与公平性",
+      "canonical_evidence": "大语言模型在住房搜索中的算法偏差与公平性",
+      "llm_tldr_en": "Audits LLMs for racial steering in housing recommendations, revealing emergent algorithm governance challenges.",
+      "llm_tldr_cn": "该论文针对大语言模型在住房搜索中可能存在的种族引导问题，对美国四城市的七个开源和闭源模型进行行为审计。研究发现引导行为是模型解释权的结果而非静态属性，揭示了算法中介在城市决策中的公平性挑战。工作为算法治理中的偏见检测与透明度提供了实证依据，对制定负责任AI政策具有启示。",
+      "llm_tldr": "该论文针对大语言模型在住房搜索中可能存在的种族引导问题，对美国四城市的七个开源和闭源模型进行行为审计。研究发现引导行为是模型解释权的结果而非静态属性，揭示了算法中介在城市决策中的公平性挑战。工作为算法治理中的偏见检测与透明度提供了实证依据，对制定负责任AI政策具有启示。",
+      "llm_tags": [
+        "query:algo-gov:composite"
+      ],
+      "matched_query_tag": "query:algo-gov:composite",
+      "matched_query_text": "Papers central to 请帮我查询关于算法治理的文章, especially work that connects or combines: algorithm governance principles and frameworks; fairness in algorithmic decision making; transparency of algorithms and models; accountability for algorithmic outcomes; ethical considerations in artificial intelligence; detecting bias in machine learning models; challenges and solutions in algorithm governance; impact of algorithm governance on society; best practices for implementing algorithm governance.",
+      "matched_requirement_id": "req-composite-algo-gov",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.02791v1",
+      "source": "arxiv",
+      "title": "Evaluating Transformer and LSTM Frameworks for Prediction in Ungauged Basins",
+      "abstract": "Watershed networks exhibit convergent topologies in which multiple tributaries merge into downstream channels,integrating diverse upstream hydrological processes. In ungauged basins, the absence of direct observations increases uncertainty and limits the ability to anticipate extreme events. This study evaluates whether an encoder-only Transformer provides an advantage over an LSTM for upstream streamflow inference under limited hydrologic information, using retrospective simulations from the NOAA National Water Model (NWM). Across both upstream-only and combined configurations, the LSTM showed stronger overall performance than the Transformer model across the two configurations. Incorporating downstream information further boosted performance for all models, increasing median NNSE by more than 60%. Rather than treating this as a leaderboard-style comparison, we interpret the experiments as a test of architectural inductive bias for hydrologic sequence inference. The results indicate that recurrent memory remains better aligned with this upstream reconstruction task than an encoder-only Transformer, while downstream hydrologic context provides a strong auxiliary constraint that substantially improves prediction skill across architectures",
+      "authors": [
+        "Taye Akinrele",
+        "James Halgren",
+        "Noorbakhsh Amiri Golilarz",
+        "Sudip Mittal",
+        "Shahram Rahimi"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-06-01T18:57:20+00:00",
+      "link": "https://arxiv.org/pdf/2606.02791v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "evaluates LSTM and Transformer for streamflow inference in ungauged basins relevant to flood risk assessment",
+      "llm_evidence_cn": "评估LSTM和Transformer在无径流区域的流预测，适用于洪水风险评估",
+      "llm_evidence": "评估LSTM和Transformer在无径流区域的流预测，适用于洪水风险评估",
+      "canonical_evidence": "评估LSTM和Transformer在无径流区域的流预测，适用于洪水风险评估",
+      "llm_tldr_en": "LSTM outperforms Transformer for upstream streamflow inference in ungauged basins using sparse data, with downstream information further improving performance, relevant to flood forecasting",
+      "llm_tldr_cn": "针对无观测流域径流预测困难的问题，论文比较了编码器Transformer和LSTM，基于NOAA国家水模型数据。结果表明LSTM在多种配置下表现更优，且引入下游信息可进一步提升效果。该研究为城市洪水评估提供了径流预测方法参考。",
+      "llm_tldr": "针对无观测流域径流预测困难的问题，论文比较了编码器Transformer和LSTM，基于NOAA国家水模型数据。结果表明LSTM在多种配置下表现更优，且引入下游信息可进一步提升效果。该研究为城市洪水评估提供了径流预测方法参考。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.02661v1",
+      "source": "arxiv",
+      "title": "Learning to Refine: Spectral-Decoupled Iterative Refinement Framework for Precipitation Nowcasting",
+      "abstract": "Accurate precipitation nowcasting is vital for disaster mitigation, but deep learning methods face a key trade-off: regression models produce over-smoothed, spectrally decaying predictions that blur convective details and violate turbulence power laws; diffusion models generate realistic yet unanchored hallucinations lacking physical grounding. We propose Spectral-Decoupled Iterative Refinement (SDIR), a deterministic framework that reformulates nowcasting as progressive frequency-decoupled refinement. SDIR first extracts a stable low-frequency synoptic skeleton, then iteratively refines high-frequency textures under physical constraints, eliminating both blurring and hallucinations. It features a dual-path design: the Synoptic Frequency-Guided Former (SFG-Former) with Scale-Adaptive Transformers for global structure, and the Fourier Residual Refiner (FR-Refiner) with Scale-Conditioned Fourier Neural Operators for fine residuals. A Physically Consistent Power Spectral Density (PCPSD) loss with dynamic masking enforces a turbulence-consistent spectral distribution. Experiments on three benchmarks show SDIR significantly outperforms SOTA methods in spatial accuracy while achieving spectral fidelity competitive with diffusion-based methods, enabling reliable high-resolution operational nowcasting. Code link: https://github.com/RuntimeWarning/SDIR.",
+      "authors": [
+        "Yunlong Zhou",
+        "Chen Zhao",
+        "Danyang Peng",
+        "Fanfan Ji",
+        "Xiao-Tong Yuan"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-06-01T07:34:30+00:00",
+      "link": "https://arxiv.org/pdf/2606.02661v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "precipitation nowcasting directly supports urban flood early warning and risk assessment",
+      "llm_evidence_cn": "降水临近预报直接支持城市洪水预警和风险评估",
+      "llm_evidence": "降水临近预报直接支持城市洪水预警和风险评估",
+      "canonical_evidence": "降水临近预报直接支持城市洪水预警和风险评估",
+      "llm_tldr_en": "Spectral-Decoupled Iterative Refinement (SDIR) improves precipitation nowcasting by separating low-frequency synoptic skeleton and iteratively refining high-frequency textures, reducing blur and hallucinations, crucial for urban flood mitigation.",
+      "llm_tldr_cn": "针对深度学习降水预报中回归模型模糊和扩散模型幻觉的问题，该论文提出谱解耦迭代精化框架（SDIR），先提取稳定低频天气骨架，再物理约束迭代细化高频纹理。实验表明该方法有效减轻模糊与幻觉，提升降水预报的物理一致性和精度，为城市洪水预警和灾害缓解提供了关键技术支撑。",
+      "llm_tldr": "针对深度学习降水预报中回归模型模糊和扩散模型幻觉的问题，该论文提出谱解耦迭代精化框架（SDIR），先提取稳定低频天气骨架，再物理约束迭代细化高频纹理。实验表明该方法有效减轻模糊与幻觉，提升降水预报的物理一致性和精度，为城市洪水预警和灾害缓解提供了关键技术支撑。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.05585v1",
+      "source": "arxiv",
+      "title": "Topographic shielding of coastal zones and infrastructure against high tide",
+      "abstract": "High tides are a threat to damage the coast and onshore structures. To investigate mitigation strategies, we simulate waves and a flood-like situation from two-dimensional (2D) dam-break flow with a ramp section at the end of the channel using smoothed particle hydrodynamics (SPH). We analyse the effects of ramps with various topographies to reduce the pressure on structures exerted by the wave. Structures of ramp surfaces influence flow behaviour significantly, absorbing kinetic energy of the wave. Increasing the ramp angle reduces the impact on the structure. A wave with a large velocity intensifies the flow impact, rendering the effects on all topography of the ramp almost insignificant. The ramp experiences the highest force exerted by the fluid on the bottom section. These insights enhance the understanding of ramp-induced energy dissipation and provide valuable implications for hydraulic engineering and structural resilience.",
+      "authors": [
+        "P. C. Harisankar",
+        "Tapas Sil"
+      ],
+      "primary_category": "physics.flu-dyn",
+      "categories": [
+        "physics.flu-dyn"
+      ],
+      "published": "2026-06-04T02:02:52+00:00",
+      "link": "https://arxiv.org/pdf/2606.05585v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "flood mitigation via topographic shielding of coastal zones",
+      "llm_evidence_cn": "利用地形防护减轻沿海区域洪水灾害",
+      "llm_evidence": "利用地形防护减轻沿海区域洪水灾害",
+      "canonical_evidence": "利用地形防护减轻沿海区域洪水灾害",
+      "llm_tldr_en": "Simulates 2D dam-break flow with SPH to study topographic ramp effects for reducing wave impact on coastal structures, offering insights for flood mitigation in coastal urban areas.",
+      "llm_tldr_cn": "该论文针对高潮汐对海岸与基础设施的威胁，采用光滑粒子流体动力学（SPH）模拟二维溃坝洪水，研究不同角度和地形的斜坡对波浪压力的缓冲效果。实验表明增大斜坡角度能有效降低结构受力，但高速波浪会削弱地形作用。研究为沿海城市防洪减灾提供了结构设计参考。",
+      "llm_tldr": "该论文针对高潮汐对海岸与基础设施的威胁，采用光滑粒子流体动力学（SPH）模拟二维溃坝洪水，研究不同角度和地形的斜坡对波浪压力的缓冲效果。实验表明增大斜坡角度能有效降低结构受力，但高速波浪会削弱地形作用。研究为沿海城市防洪减灾提供了结构设计参考。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood mitigation techniques in cities",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.26401v1",
+      "source": "arxiv",
+      "title": "Small-Area Precipitation Forecasting and Drought--Flood Early Warning with Reverse-Martingale Regularized Recurrent Networks",
+      "abstract": "Small-area precipitation forecasts support real-time decisions for reservoir operation, irrigation planning, drought monitoring, and flash-flood response. Operational value depends not only on point accuracy, but also on calibrated exceedance probabilities and warning rules that remain stable when local weather regimes depart from the training climatology. We evaluate a reverse-martingale regularized recurrent neural network (\\RMRNN) for probabilistic precipitation forecasting and sequential early warning. A backward-coherence penalty is added to the recurrent hidden state; the resulting residual process drives a Shiryaev--Roberts (SR) detector, so the same latent trajectory that produces the forecast also supplies a continuously updated drought or flood-regime indicator. The framework is tested on the Taiwan CWA dense rain-gauge network, CHIRPS v2 daily gridded precipitation over Taiwan and the Horn of Africa, and NOAA GHCN-Daily stations over the Texas Hill Country. Across 1{,}000 replications, \\RMRNN{} matches or slightly improves the GRU baseline in RMSE, MAE, and CRPS at 1~h--72~h lead while substantially improving alarm characteristics. The SR detector reduces false-alarm ratios by a factor of three to five at matched detection power. In the 2020--2021 Taiwan drought, onset is flagged 8--12 days earlier than SPI-3 thresholding; in the 2023 Typhoon Haikui flood, flash-flood risk is signalled 4~h before the CWA operational alert.",
+      "authors": [
+        "Foo Hui-Mean",
+        "Yuan-chin Ivan Chang"
+      ],
+      "primary_category": "stat.AP",
+      "categories": [
+        "stat.AP",
+        "stat.ME"
+      ],
+      "published": "2026-05-26T00:18:05+00:00",
+      "link": "https://arxiv.org/pdf/2605.26401v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "precipitation forecasting and flood early warning for urban areas",
+      "llm_evidence_cn": "小区域降水预报与洪水早期预警，直接支持城市洪水风险评估",
+      "llm_evidence": "小区域降水预报与洪水早期预警，直接支持城市洪水风险评估",
+      "canonical_evidence": "小区域降水预报与洪水早期预警，直接支持城市洪水风险评估",
+      "llm_tldr_en": "Proposes a reverse-martingale regularized RNN for probabilistic precipitation forecasting and sequential early warning, improving flash-flood response.",
+      "llm_tldr_cn": "针对小区域降水预报对洪水预警的重要性，本文提出一种反向鞅正则化循环神经网络（RMRNN）用于概率降水预报和逐次洪水早期预警。该方法通过后向一致性惩罚和Shiryaev-Roberts检测器，生成校准的超额概率，提升暴雨和山洪预警的稳定性。实验表明该方法在验证期保持稳健。",
+      "llm_tldr": "针对小区域降水预报对洪水预警的重要性，本文提出一种反向鞅正则化循环神经网络（RMRNN）用于概率降水预报和逐次洪水早期预警。该方法通过后向一致性惩罚和Shiryaev-Roberts检测器，生成校准的超额概率，提升暴雨和山洪预警的稳定性。实验表明该方法在验证期保持稳健。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "carryover_cache",
+      "paper_id": "2605.26401v1"
+    },
+    {
+      "id": "2606.06385v1",
+      "source": "arxiv",
+      "title": "Learned Response-Field Inertia Operator for HEC-RAS 2D Water-Surface Elevation Prediction",
+      "abstract": "This article presents a cross-dataset evaluation of learned native-cell surrogate models for solver-consistent water-surface elevation (WSE) prediction in HEC-RAS 2D. To avoid raster remapping error and information-access confounding, surrogates are evaluated directly on the original nonuniform computational cells under an explicit policy that separates static project inputs, current hydraulic state, project-input forcing, calibration-derived quantities, and future solver-output targets. We introduce the Learned Response-Field Inertia Operator (LRFIO), a no-forcing, increment-based learned surrogate that calibrates an inertial response operator from solved HEC-RAS trajectories and deploys the retained operator through closed-form native-cell rollout. LRFIO evaluates a base-case-first response hierarchy consisting of persistence, global calibrated inertia, and segmented response-field inertia. Segmentation, residual correction, and neuralized inertia are treated as learnable modeling choices, with added complexity retained only when validation evidence justifies its cost. Evaluated across four diverse HEC-RAS 2D benchmarks, LRFIO retains different response structures for different domains, demonstrating adaptive learned complexity. The selector audit shows controlled complexity with a maximum validation regret of 4.30%. During deployment, retained rollout times range from 0.003 s to 0.242 s, and the Beaver Bayou measured-solve comparison gives an estimated 2.75 x 10^4 horizon-normalized speedup over HEC-RAS. These results indicate that the current native-cell increment is a strong solver-conditioned predictive scaffold and that added response-field, neural, or spatial complexity should be retained only when empirically justified.",
+      "authors": [
+        "Edward Holmberg",
+        "Elias Ioup",
+        "Md Meftahul Ferdaus",
+        "Mahdi Abdelguerfi",
+        "Julian Simeonov"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-04T16:49:35+00:00",
+      "link": "https://arxiv.org/pdf/2606.06385v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "learned surrogate for water-surface elevation prediction enabling rapid flood risk assessment",
+      "llm_evidence_cn": "学习代理模型快速预测水位，支持洪水风险评估",
+      "llm_evidence": "学习代理模型快速预测水位，支持洪水风险评估",
+      "canonical_evidence": "学习代理模型快速预测水位，支持洪水风险评估",
+      "llm_tldr_en": "Introduces a learned surrogate model (LRFIO) for predicting water-surface elevation in HEC-RAS 2D, enabling fast flood risk assessment without full simulations.",
+      "llm_tldr_cn": "该论文为解决HEC-RAS二维模型计算耗时问题，提出一种学习响应场惯性算子（LRFIO），通过从历史模拟轨迹中校准惯性响应算子，实现无外力项的水位增量预测。在非均匀网格上评估，避免了重采样误差。该方法可显著加速洪水风险评估中的水位模拟，适用于城市区域。",
+      "llm_tldr": "该论文为解决HEC-RAS二维模型计算耗时问题，提出一种学习响应场惯性算子（LRFIO），通过从历史模拟轨迹中校准惯性响应算子，实现无外力项的水位增量预测。在非均匀网格上评估，避免了重采样误差。该方法可显著加速洪水风险评估中的水位模拟，适用于城市区域。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for urban flood risk assessment",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.02886v2",
+      "source": "arxiv",
+      "title": "Scalable Uncertainty Quantification for Extreme Weather Forecasting via Empirical Neural Tangent Kernels",
+      "abstract": "Deep learning weather models now match numerical weather prediction accuracy while running orders of magnitude faster, but produce deterministic forecasts without uncertainty estimates, a critical gap for high-stakes decisions during extreme weather events. This paper proposes Neural Tangent Kernel-based uncertainty quantification (NTK-UQ) using last-layer empirical features. Theoretical analysis predicts that UQ quality is architecture-dependent through two mechanisms. First, a variance collapse mechanism explains when UQ fails: when the eigenvalue truncation rank approaches the effective rank of the feature space, the GP correction term consumes nearly all prior variance, destroying discrimination between tropical cyclones and routine conditions; architectures with concentrated spectra (spectral operators) require aggressive truncation ($k \\leq 10$), while attention-based models tolerate full-rank computation. Second, decomposition performance depends on the non-Gaussian, heavy-tailed structure of extreme weather: Independent Component Analysis exploits higher-order statistics (kurtosis, negentropy) to isolate heavy-tailed extreme-event features, achieving higher discrimination than singular value decomposition, which captures only second-order variance. A data-driven selection rule chooses ICA or SVD from the feature eigenspectrum concentration ratio, correctly prescribing the superior decomposition for all four evaluated architectures. Compared to split conformal prediction (the natural post-hoc baseline), NTK-UQ achieves 31--37\\% sharper prediction intervals at 90\\% coverage, and uniquely produces \\emph{adaptive} intervals that scale with extreme event severity, which conformal prediction cannot achieve by construction. The framework requires no retraining; inference-time uncertainty requires only a single matrix-vector product per sample.",
+      "authors": [
+        "Jose Marie Antonio Miñoza",
+        "Rex Gregor Laylo",
+        "Sebastian C. Ibañez"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CE",
+        "math.PR",
+        "physics.ao-ph"
+      ],
+      "published": "2026-06-01T20:57:06+00:00",
+      "link": "https://arxiv.org/pdf/2606.02886v2",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "extreme weather forecasting UQ for pluvial flooding",
+      "llm_evidence_cn": "极端天气预报的不确定性量化可用于城市内涝分析",
+      "llm_evidence": "极端天气预报的不确定性量化可用于城市内涝分析",
+      "canonical_evidence": "极端天气预报的不确定性量化可用于城市内涝分析",
+      "llm_tldr_en": "Proposes NTK-based uncertainty quantification for deep learning weather models, improving extreme weather forecasts relevant to pluvial flooding.",
+      "llm_tldr_cn": "该论文针对深度学习天气预报模型缺乏不确定性估计的问题，提出基于神经正切核的不确定性量化方法，理论分析了方差崩溃机制。方法快速且可扩展，能够为极端天气事件（如城市内涝）提供概率预测，增强灾害决策的可靠性。实验表明该方法在不同架构下均有效。",
+      "llm_tldr": "该论文针对深度学习天气预报模型缺乏不确定性估计的问题，提出基于神经正切核的不确定性量化方法，理论分析了方差崩溃机制。方法快速且可扩展，能够为极端天气事件（如城市内涝）提供概率预测，增强灾害决策的可靠性。实验表明该方法在不同架构下均有效。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "pluvial flooding causes and impacts in urban areas",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.02741v1",
+      "source": "arxiv",
+      "title": "Greener Than Humans? Environmental Attitudes in Large Language Models",
+      "abstract": "Large language models (LLMs) are increasingly used in sustainability-related decision support, reporting, and public communication, yet little systematic evidence exists on the environmental attitudes embedded in their outputs. This paper develops a benchmark for evaluating environmental cognition, affect, and behavioural recommendations in LLMs and applies it to 31 widely used proprietary and open-weight models. Drawing on questions from established environmental awareness surveys and additional sustainability-related behavioural measures, we compare LLM responses 1) among models and 2) between models and human survey benchmarks from Germany. We assess their robustness across prompting conditions. We find that many LLMs align more closely with environmentally progressive attitudes than the average survey respondent, exhibiting higher levels of environmental affect and cognition and recommending behaviours associated with substantial potential CO2 reductions. At the same time, we observe no systematic relationship between sustainability-oriented responses and model origin, size, or release context. However, models exhibit contextual sensitivity, controlled by persona-based prompting and show sycophantic shifts mirroring user-specified ideological positions, which raises concerns about steerability and normative reliability in real-world deployments. Our findings provide a reusable evaluation framework for assessing sustainability-related value alignment in LLMs and highlight the importance of governance, transparency, and critical oversight as AI systems become increasingly embedded in sustainability transformations and public decision-making.",
+      "authors": [
+        "Stefanie Kunkel",
+        "Tilman Hartwig",
+        "Marcus Voss",
+        "Emma K. Schütt",
+        "Angelika Gellrich"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.CY"
+      ],
+      "published": "2026-06-01T18:05:53+00:00",
+      "link": "https://arxiv.org/pdf/2606.02741v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "evaluates environmental attitudes in LLMs, relevant to AI ethics and algorithmic governance",
+      "llm_evidence_cn": "评估大语言模型中的环境态度，与人工智能伦理和算法治理相关",
+      "llm_evidence": "评估大语言模型中的环境态度，与人工智能伦理和算法治理相关",
+      "canonical_evidence": "评估大语言模型中的环境态度，与人工智能伦理和算法治理相关",
+      "llm_tldr_en": "Benchmark evaluating environmental cognition and behavioural recommendations in 31 LLMs, finding many align closely with environmental attitudes, relevant to ethical AI governance.",
+      "llm_tldr_cn": "该论文开发了一个评估大语言模型环境认知、情感和行为建议的基准，对31个模型进行测试，发现许多模型与人类的环境态度高度一致，但存在提示敏感性。研究为AI在可持续发展决策中的伦理治理提供了重要参考，属于算法治理中伦理考量的范畴。",
+      "llm_tldr": "该论文开发了一个评估大语言模型环境认知、情感和行为建议的基准，对31个模型进行测试，发现许多模型与人类的环境态度高度一致，但存在提示敏感性。研究为AI在可持续发展决策中的伦理治理提供了重要参考，属于算法治理中伦理考量的范畴。",
+      "llm_tags": [
+        "query:algo-gov:composite"
+      ],
+      "matched_query_tag": "query:algo-gov:composite",
+      "matched_query_text": "Papers central to 请帮我查询关于算法治理的文章, especially work that connects or combines: algorithm governance principles and frameworks; fairness in algorithmic decision making; transparency of algorithms and models; accountability for algorithmic outcomes; ethical considerations in artificial intelligence; detecting bias in machine learning models; challenges and solutions in algorithm governance; impact of algorithm governance on society; best practices for implementing algorithm governance.",
+      "matched_requirement_id": "req-composite-algo-gov",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.04292v1",
+      "source": "arxiv",
+      "title": "An Efficient Solver for the Richards Equation for Variably Saturated Flows in Porous Media",
+      "abstract": "We present a nonlinear multigrid solver for the Richards equation in variably saturated porous media with strongly nonlinear hydraulic conductivity and water-retention relationships. The governing equation is discretized using a second-order conservative finite-difference scheme in space and an implicit backward differentiation formula in time. The core component of the solver is a nonlinear Gauss--Seidel (NGS) smoother based on a triangular splitting of the diffusion operator combined with diagonal stabilization. This construction yields a sequence of locally decoupled scalar nonlinear problems that can be solved efficiently and robustly using only a few Newton iterations. Under suitable monotonicity assumptions, we establish the convergence of the NGS iteration in the $L^\\infty$ norm and derive explicit conditions on the stabilization parameters. Numerical experiments for benchmark infiltration, drainage, and root-uptake problems demonstrate that the proposed NGS-based multigrid framework is both computationally efficient and robust.",
+      "authors": [
+        "Xuelong Gu",
+        "Qi Wang"
+      ],
+      "primary_category": "math.NA",
+      "categories": [
+        "math.NA"
+      ],
+      "published": "2026-06-02T23:44:51+00:00",
+      "link": "https://arxiv.org/pdf/2606.04292v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "efficient solver for Richards equation in variably saturated porous media",
+      "llm_evidence_cn": "变饱和多孔介质中Richards方程的高效求解器",
+      "llm_evidence": "变饱和多孔介质中Richards方程的高效求解器",
+      "canonical_evidence": "变饱和多孔介质中Richards方程的高效求解器",
+      "llm_tldr_en": "Proposes a nonlinear multigrid solver for the Richards equation, enabling efficient simulation of variably saturated flows critical for urban stormwater runoff and flood modeling.",
+      "llm_tldr_cn": "现有城市雨洪模型中变饱和水流求解效率低下，本文提出一种非线性多重网格求解器求解Richards方程，采用二阶有限差分和隐式时间离散，结合非线性Gauss-Seidel光滑子，仅需少量Newton迭代即可稳健收敛。实验表明该求解器能高效处理强非线性水力传导率，为城市雨洪评估与治理中的水文模拟提供了有力的数值工具。",
+      "llm_tldr": "现有城市雨洪模型中变饱和水流求解效率低下，本文提出一种非线性多重网格求解器求解Richards方程，采用二阶有限差分和隐式时间离散，结合非线性Gauss-Seidel光滑子，仅需少量Newton迭代即可稳健收敛。实验表明该求解器能高效处理强非线性水力传导率，为城市雨洪评估与治理中的水文模拟提供了有力的数值工具。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.05710v1",
+      "source": "arxiv",
+      "title": "Explainable AI-Driven Cyber Risk Analytics and Model Reliability Assessment for Intelligent Governance of U.S. Critical Infrastructure: An XGBoost and SHAP-Based Intrusion Detection Framework",
+      "abstract": "The increasing penetrations of the critical infrastructure sector in the United States with intelligent digital technologies have greatly increased exposure to advanced cyber adversaries and operational vulnerabilities. AI-powered governance and automated decision-making systems are becoming a key part of the operation of critical infrastructure systems, including energy, healthcare, transportation, financial services, and communication infrastructure, in order to improve efficiency and strategic management. The growing cyber threat environment, such as Distributed Denial of Service (DDos) attacks, botnets, ransomware, and Advanced Persistent Threats (APTs) pose significant challenges to infrastructure resilience, cyber security reliability, and governance trustworthiness. In a changing attack landscape and dynamic network environment, traditional cybersecurity mechanisms can often fall short of meeting the evolving needs and protecting critical systems. This study will develop a resilient cyber risk analytics and model reliability assessment framework to support intelligent governance and decision support for cyber risk exposure in the U.S. critical infrastructure environment. This study is based on the CICIDS2017 dataset for the development and testing of intrusion detection system models and cyber risk prediction models based on machine learning. Various classifiers like XGBoost, Random Forest, and Decision Tree are used to detect malicious activities on the network and determine the level of cyber risk. Furthermore, the Explainable Artificial Intelligence (XAI) techniques are integrated to enhance transparency, interpretability, and trust in cybersecurity decision-making processes. The proposed framework presents the reliability and resilience of the model by having various performance measures such as accuracy, precision, recall, F1 score, ROC-AUC, and false positive rate.",
+      "authors": [
+        "B. M. Taslimul Haque",
+        "Md. Arifur Rahman",
+        "Md. Serajul Kabir Chowdhury Rubel",
+        "Md. Iqbal Hossan"
+      ],
+      "primary_category": "cs.CR",
+      "categories": [
+        "cs.CR",
+        "cs.AI"
+      ],
+      "published": "2026-06-04T05:05:14+00:00",
+      "link": "https://arxiv.org/pdf/2606.05710v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "explainable AI framework for intelligent governance of critical infrastructure, addressing transparency and accountability in AI systems",
+      "llm_evidence_cn": "用于关键基础设施智能治理的可解释AI框架，涉及AI系统的透明度和问责性",
+      "llm_evidence": "用于关键基础设施智能治理的可解释AI框架，涉及AI系统的透明度和问责性",
+      "canonical_evidence": "用于关键基础设施智能治理的可解释AI框架，涉及AI系统的透明度和问责性",
+      "llm_tldr_en": "XGBoost and SHAP-based intrusion detection framework for U.S. critical infrastructure, emphasizing explainable AI for model reliability and governance, aligning with algorithm governance principles.",
+      "llm_tldr_cn": "论文提出基于XGBoost和SHAP的可解释入侵检测框架，用于美国关键基础设施的智能治理。通过SHAP解释模型预测，增强AI系统的透明度和可靠性，直接回应算法治理中公平性、透明度和问责制的需求。实验表明该框架在检测网络攻击时兼具高精度和可解释性，为AI治理提供实践案例。",
+      "llm_tldr": "论文提出基于XGBoost和SHAP的可解释入侵检测框架，用于美国关键基础设施的智能治理。通过SHAP解释模型预测，增强AI系统的透明度和可靠性，直接回应算法治理中公平性、透明度和问责制的需求。实验表明该框架在检测网络攻击时兼具高精度和可解释性，为AI治理提供实践案例。",
+      "llm_tags": [
+        "query:algo-gov:composite"
+      ],
+      "matched_query_tag": "query:algo-gov:composite",
+      "matched_query_text": "Papers central to 请帮我查询关于算法治理的文章, especially work that connects or combines: algorithm governance principles and frameworks; fairness in algorithmic decision making; transparency of algorithms and models; accountability for algorithmic outcomes; ethical considerations in artificial intelligence; detecting bias in machine learning models; challenges and solutions in algorithm governance; impact of algorithm governance on society; best practices for implementing algorithm governance.",
+      "matched_requirement_id": "req-composite-algo-gov",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.05580v1",
+      "source": "arxiv",
+      "title": "Role of boundary conditions on dam-break flow across an obstacle and controlling damage of structures",
+      "abstract": "We studied dam-break flow in the smoothed particle hydrodynamics framework using periodic boundary condition (PBC) instead of usually employed rigid wall boundary condition (WBC) and assessed the effects of impact of the flow on the downstream structure due to the presence of an obstacle in front of it. The results show that higher dam heights lead to larger pressure on the wall. The WBC yields higher peak pressures compared PBC. A larger hydraulic diameter of the pillar is found to be more efficient in reducing the flow's impact. A pillar located closer to the wall reduces the effect of dam-break flow and minimises structural damage. The square-shaped pillars are found to be the most effective in reducing pressure on the wall among the considered pillar shapes. These findings will help to mitigate the damage of a structure due to dam-break flow/high-tide and improve the safety of the structures downstream. These findings have direct implications for the design and management of structures in areas prone to dam-break flows.",
+      "authors": [
+        "P. C. Harisankar",
+        "Tapas Sil"
+      ],
+      "primary_category": "physics.flu-dyn",
+      "categories": [
+        "physics.flu-dyn"
+      ],
+      "published": "2026-06-04T01:53:22+00:00",
+      "link": "https://arxiv.org/pdf/2606.05580v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "dam-break flow across obstacle, controlling damage of structures",
+      "llm_evidence_cn": "溃坝水流经过障碍物，控制结构损伤",
+      "llm_evidence": "溃坝水流经过障碍物，控制结构损伤",
+      "canonical_evidence": "溃坝水流经过障碍物，控制结构损伤",
+      "llm_tldr_en": "Investigates dam-break flow with obstacles using SPH, showing that pillar shape and position significantly affect peak pressure, offering insights for urban flood mitigation structure design.",
+      "llm_tldr_cn": "城市洪涝中溃坝水流对下游结构冲击巨大，本文基于光滑粒子流体动力学框架，对比周期边界与刚性壁边界条件，研究障碍物对结构防护的影响。发现方柱形支柱、靠近墙体布置可最大程度降低壁面压力，为城市防洪减灾中的障碍物设计提供了定量依据。",
+      "llm_tldr": "城市洪涝中溃坝水流对下游结构冲击巨大，本文基于光滑粒子流体动力学框架，对比周期边界与刚性壁边界条件，研究障碍物对结构防护的影响。发现方柱形支柱、靠近墙体布置可最大程度降低壁面压力，为城市防洪减灾中的障碍物设计提供了定量依据。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood mitigation techniques in cities",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.07155v1",
+      "source": "arxiv",
+      "title": "Structure-Preserving Discontinuous Galerkin Methods for Stochastic Shallow Water Equations",
+      "abstract": "Shallow water equations (SWE) are fundamental models in fluid dynamics that are essential for studying a wide range of geophysical and engineering phenomena. In many practical applications, uncertainties arising from initial conditions and bottom topography must be taken into account, motivating the development of stable and accurate numerical methods for stochastic SWE. Building on the hyperbolicity-preserving stochastic Galerkin formulation for SWE [Dai, Epshteyn, Narayan, 2021 SISC] and a stochastic extension of the entropy stable discontinuous Galerkin methods for skew-symmetric SWE [Fu, 2022 JSC], we develop a structure-preserving, entropy conservative, and entropy stable discontinuous Galerkin--stochastic Galerkin method for the stochastic shallow water system, with the well-balanced property. We demonstrate the accuracy, applicability, and robustness of the proposed structure-preserving algorithms through several numerical experiments.",
+      "authors": [
+        "Yekaterina Epshteyn",
+        "Akil Narayan",
+        "Yinqian Yu"
+      ],
+      "primary_category": "math.NA",
+      "categories": [
+        "math.NA"
+      ],
+      "published": "2026-06-05T11:13:31+00:00",
+      "link": "https://arxiv.org/pdf/2606.07155v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "stochastic shallow water equations for flood modeling",
+      "llm_evidence_cn": "随机浅水方程方法可用于城市洪水建模",
+      "llm_evidence": "随机浅水方程方法可用于城市洪水建模",
+      "canonical_evidence": "随机浅水方程方法可用于城市洪水建模",
+      "llm_tldr_en": "Develops structure-preserving discontinuous Galerkin methods for stochastic shallow water equations, applicable to flood risk assessment.",
+      "llm_tldr_cn": "该论文针对随机浅水方程开发了保持结构的间断伽辽金方法，能够处理初始条件和底地形的不确定性，为城市洪水风险模拟提供了稳定的数值工具。方法结合了双曲保持和熵稳定特性，适用于洪水波传播的高保真计算，对城市雨洪评估有支撑作用。",
+      "llm_tldr": "该论文针对随机浅水方程开发了保持结构的间断伽辽金方法，能够处理初始条件和底地形的不确定性，为城市洪水风险模拟提供了稳定的数值工具。方法结合了双曲保持和熵稳定特性，适用于洪水波传播的高保真计算，对城市雨洪评估有支撑作用。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

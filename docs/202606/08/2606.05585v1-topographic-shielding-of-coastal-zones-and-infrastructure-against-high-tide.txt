@@ -1,0 +1,339 @@
+Title: Topographic shielding of coastal zones and infrastructure against high tide
+
+URL Source: https://arxiv.org/pdf/2606.05585v1
+
+Published Time: Fri, 05 Jun 2026 00:36:20 GMT
+
+Number of Pages: 26
+
+Markdown Content:
+# Topographic shielding of coastal zones and infrastructure against high tide 
+
+P. C. Harisankar 1, Tapas Sil 1, 
+
+> Department of Physics, Indian Institute of Information Technology, Design and Manufacturing Kancheepuram, Chennai-600127, Tamil Nadu, India,
+
+Abstract 
+
+High tides are a threat to damage the coast and onshore structures. To investigate mitigation strategies, we simulate waves and a flood-like situation from two-dimensional (2D) dam-break flow with a ramp section at the end of the channel using smoothed particle hydrodynamics (SPH). We analyse the effects of ramps with various topographies to reduce the pressure on structures exerted by the wave. Structures of ramp surfaces influence flow behaviour significantly, absorbing kinetic energy of the wave. Increasing the ramp angle reduces the impact on the structure. A wave with a large velocity intensifies the flow impact, rendering the effects on all topography of the ramp almost insignificant. The ramp experiences the highest force exerted by the fluid on the bottom section. These insights enhance the understanding of ramp-induced energy dissipation and provide valuable implications for hydraulic engineering and structural resilience. 
+
+Keywords: Dam-break flow, Ramp Structure, Smoothed Particle Hydrodynamics (SPH), Fluid-structure interaction, Pressure 
+
+1. Introduction 
+
+Events like floods, high tides, tsunamis, and flows from breached dams pose significant threats to onshore structures. Interaction happens first be-tween the wave and the coast, which reduces the energy of the wave. Rough-   
+
+> ∗Corresponding author
+> Email address: tapassil@iiitdm.ac.in (Tapas Sil)
+> Preprint submitted to Elsevier June 5, 2026
+> arXiv:2606.05585v1 [physics.flu-dyn] 4 Jun 2026
+
+ness of the shore may become critical to determine the intensity of the im-pact on the onshore object. Therefore, it is essential to investigate the role of shore-topography in mitigating the impacts of the waves on onshore infras-tructures and shoreline erosion. Our studies will focus on how the angle and surface properties of the slope affect the flow behaviour, including factors such as velocity profiles and pressure distributions. There are several prescriptions for the remedy of reducing the impact of the wave on coastal zone and infrastructure. As an example, an ecolog-ically designed honeycomb-type revetment reinforced with rigid vegetation is proposed which shows a reduction of impact by 40% for overtopping [1]. Comparison of experimental results of the use of rock bags, polyester net-ting filled with locally sourced small rocks as a sustainable alternative to traditional rock armour units in coastal revetments [2] reveals that rock bags reduce the wave by an average of 53% compared to the rock armour model. In some cases, the grass blocks are considered to mitigate the coastal dam-age [3]. Seawalls and submerged breakwaters are used to protect onshore objects [4]. The flow mitigation is also achieved on the flat shore using vari-ous types of obstacles, including a single piece with a trapezoidal shape and flat front surfaces, or an arch of multiple angles, which have been found to effectively reduce the maximum pressure on the dam surface. An arched ob-stacle achieved even greater reductions in maximum pressure [5]. The wave overtopping on different sea wall structures, i.e. stepped-face wall, curved, inclined and vertical walls, is studied [6]. Overtopping water was found to be reduced most significantly in the case of a stepped-face wall. Impact of a flow of water over a submerged plain ramp on the onshore wall obtained from SPH calculations was compared against experimental data [7]. Dam-break flows interacting with offshore trapezoidal and triangular obstructions, focusing on the effects of slanted-shaped objects in obstructing the flow [8, 9]. The dam-break model, where the sudden release of a water column under gravity generates waves, may be considered to be one of the wave mak-ers, which mimics the sudden flood and high tide situations [9–14]. Three methods are commonly employed for studying such problems numerically: the fixed grid method, the moving grid method, and the mesh-free method. Fixed grid methods, such as the volume of fluid (VOF) [5, 8] method, or Lattice Boltzmann method (LBM) [15, 16], utilise a stationary grid to track fluid movement and interface interactions. Moving grid methods, such as the finite element method (FEM) [17, 18], dynamically adjust the grid to capture changes in geometry or flow features. Mesh-free methods, such as 2smoothed particle hydrodynamics (SPH) [19, 20], operate without a defined grid structure and directly track particles. Previous studies have not explored the effect of modifying slanted sur-faces from smooth to hybrid shapes to obstruct the flow. In this article, we examine dam-break flow scenarios involving a plain and a modified slanted slab, followed by a flat shore, to analyse the wave impact on the onshore wall. We chose SPH for our studies because it has been found to be highly effective for modelling significant deformation problems compared to grid-based sim-ulation methods [21–23]. This article provides a brief overview of the SPH formulation, followed by the results and discussion section. The study begins with model validation, proceeds with a description of the model and analysis of the results, and concludes with a summary of key findings. 
+
+2. Formulation 
+
+SPH is a mesh-free Lagrangian simulation method developed in 1977 [24, 25] to study astrophysical phenomena. Over time, the method has been extended to a wide range of applications in science and engineering. SPH has become a popular tool among researchers for simulating fluid dynamics because of its ability to handle free surface tracking and moving boundary problems. SPH method consists of two approximation methods: kernel approxima-tion and particle approximation. Firstly, the Kernel approximation repre-sents a function and its derivatives in continuous form as an integral rep-resentation. The kernel approximation of a function and its derivatives are [24, 26], 
+
+⟨f (x)⟩ =
+
+Z
+
+> Ω
+
+f (x′)W (x − x′, h )dx ′, (1) 
+
+⟨∇ f (x)⟩ = −
+
+Z
+
+> Ω
+
+f (x′)∇W (x − x′)dx ′, (2) where, W (x − x′, h ) is the kernel function, which has delta function-like properties. The kernel function is defined considering neighbouring particles within a distance h, known as the smoothing length. The particle approxi-mation represents the problem domain using a set of particles and estimates the observables, such as velocity, density, stress, etc., for this set of parti-cles. The particle approximation for a function f (x) and its gradient for the 3particle at a is given by: 
+
+⟨f (xa)⟩ = X
+
+> b
+
+mb
+
+ρb
+
+f (xb)Wab , (3) 
+
+⟨∇ f (xa)⟩ = 1
+
+ρa
+
+"X
+
+> b
+
+mb(f (xb) − f (xa)) ∇Wab 
+
+#
+
+, (4) where the suffix a and b represent two SPH particles. In Eq. 3, ρ represents density, m is the mass, and W is the kernel function. The B-spline kernel function based on the cubic spline [27] is used here, which is written as 
+
+Wab = αd
+
+ 
+
+> 23
+
+− s2 + 12 s3, 0 ≤ s < 1 
+
+> 16
+
+(2 − s)3, 1 ≤ s < 20, s ≥ 2,
+
+(5) where for 2D, 
+
+αd = 15 7πh 2 and s = |xa − xb|
+
+h . (6) Here, xa and xb are the position vectors of particle a and particle b. The Navier-Stokes equation for conservation of massand momentum is given as, [28]. 
+
+Dρ Dt = −ρ∇.u, (7) 
+
+Du
+
+Dt = − 1
+
+ρ∇P + μρ ∇2u + g, (8) where, u is the velocity, P is pressure, μ is viscosity and g = (0 , 0, −9.8m/s )
+
+acceleration due to body force Fb. The pressure is calculated using Tait’s equation of state, 
+
+P = c20ρ0
+
+γ
+
+ ρρ0
+
+γ
+
+− 1
+
+
+
+, (9) where c0 = 10 umax (umax = √2gH ) is the speed of sound, ρ0 is the reference density, and γ is a polytropic constant which varies from 1 to 7, for an example, for water γ = 7 . The SPH discretised form of Eq. (7) and Eq. (8) is given as [28, 29], 
+
+Dρ a
+
+Dt = ρa
+
+X
+
+> b
+
+mb
+
+ρa
+
+(ua − ub).∇Wab , (10) 4Dua
+
+Dt = − 1
+
+ma
+
+X
+
+> b
+
+ V 2 
+
+> a
+
++ V 2
+
+> b
+
+ ˜Pab ∇Wab 
+
++ 1
+
+ma
+
+X
+
+> b
+
+ V 2 
+
+> a
+
++ V 2
+
+> b
+
+ ˜μab 
+
+xab .∇Wab 
+
+|xab |2 + ϵh 2 (ua − ub) + g, (11) where, 
+
+˜Pab = Paρb + Pbρa
+
+ρa + ρb
+
+, (12) 
+
+˜μab = μaμb
+
+μa + μb
+
+, (13) 
+
+Vi is the volume SPH particle, xab = xa − xb. A XSPH formula is adapted for stable fluid flow. The updated velocity field after XSPH correction is given as [30], 
+
+dra
+
+dt = ua + ϵ X
+
+> b
+
+mb
+
+uab 
+
+¯ρab 
+
+Wab (14) The fluid-solid interaction is considered [28, 31] by iterating the fluid velocity and pressure to the dummy wall particles, 
+
+u = 2 uw − ˆu, (15) where uw is the real wall velocity and ˆu is, 
+
+ˆu =
+
+P uwf Wwf 
+
+P Wwf 
+
+, (16) Similarly wall pressure is calculated as, 
+
+P =
+
+P Pwf Wwf 
+
+P Wwf 
+
+, (17) We have developed a SPH code using FORTRAN to solve the aforementioned equations subjected to the appropriate boundary conditions. 5Figure 1: Velocity contour from dam-break simulations. Figures in the left column rep-resent non-dimensional dam-break model discussed in [28], whereas those in the panels of the right column, show the dimensional dam-break simulation [32] 
+
+.
+
+3. Validation of results 
+
+We validate our FORTRAN code for SPH modelling by simulating a two-dimensional (2D) dam-break flow for non-dimensional (NDML) [28] and dimensional (DML) cases [32] with the inputs as given in the respective references mentioned above, and by comparing our results with available experimental data. The snapshots of velocity contours presented in Fig. 1 show that the simulated wave profiles mimic well with earlier theoretical and experimental results both for the NDML and DM [28, 32]. We plot pressure at y = 0 .19 (and y = 0 .06 m) on the opposite wall ( Py) versus time ( t) graph and compare the results obtained from our code with the experimental data [33] as shown in Fig. 2 (NDML on in the left panel a and DML is in on the 6Figure 2: Variation of pressure on the wall with time to results obtained from our SPH calculation with parameters considered in [28] (panel a) and with parameters in [32] (panel 
+
+> b). The results are compared with experimental data [33].
+
+right panel b). Both NDML and DML graphs generated by our code are in good agreement with experimental data as well as with the previous SPH simulations [28, 32]. A way of testing convergence of the results of a code against SPH particle numbers (or initial spacing between particles dx = dy ) is to check that the trajectory of the bore front (the bottom-most point of the dam and which is nearest to the opposite wall) [34]. We consider the breaking of a 2D dam (2 × 1 units, NDML). The water wave hitting a wall at L (= x = 5 .36 ) for particle spacing dx = 0 .003 , 0.004 , and 0.005 at the initial stage. We track the bore front motion until it impacts the wall and are plotted ( x versus t)in Fig. 3. It is noted that the trajectories remain almost coincident with each other, which, for the dx s considered here, confirms the convergence. We have taken dx = 0 .005 m for all calculations presented in this article. We examined the water level at two points, x1 = 1 .0m and x2 = 0 .495 m, as shown in Fig. 4 and compared with the experimental results [34]. At x1,the numerical results closely follow experimental observations over a long period of time (up to t = 7 .3s). Beyond this t (time), the theoretical water surfaces are slightly higher than the experimental water surface. At x2, the agreement with experimental results is excellent up to t = 5 .8s, beyond which the theoretical curve goes over the experimental curve and then comes down after crossing the experimental curve. The water-level curves obtained from simulations with our code agree satisfactorily with the experimental curves. 7Figure 3: Bore tip position with time for different mesh size [34] (various particle number 
+
+N ). 
+
+Figure 4: Time evolution of water surface elevation at (a) x1 = 3 .7 and (b) x2 = 4 .54 
+
+compared with experiment of [33]. 
+
+8Figure 5: Initial model ( t = 0 s) for a dam height of 2.0m. Panel (a) represents a plain ramp, (b) semicircle(SC) (c) triangular(TR) and (d) represents randomly shaped ramp(RA). 
+
+4. Results and discussion 
+
+To investigate the role of the structure of the coastal surface in reducing the impact on the onshore object, we consider coastal surfaces with a slant-ing angle θ (ramp) which meets an onshore horizontal platform (HP) at a height of 1m from the bottom of the water body. We consider a structure (e.g., a wall) located at 0.5m from the coastline. A water reservoir of length 
+
+Lx = 0 .5m and height Hm is placed on the other end of the ramp and wall system within the workspace of length L = 3 .5m, which breaks down under gravity and generates a surge of water flow towards the ramp. As a sample of the initial condition of the system for simulations, we present in Fig. 5corresponding to H = 2 .0m, θ = 30 o of various ramp topographies, i.e., ramp surface configurations (RSC): plain (PL), semicircular (SC), triangular (TR), and random-shaped (RA). Each structure has an amplitude (height from the base) of 0.05 m. Table 1 displays the height ( ha) ascended by the wave water along the ramp plus wall and time t to reach ha for various dam heights H. The slope of the ramp is θ = 30 o. Ascending height increases with an increase in H, which 9Table 1: Maximum height ha (in m) of water reached along the wall and the corresponding time (in s) ginen in the parenthesis for θ = 30 0 ramp. 
+
+H haP L (t) haSC (t) haT R (t) haRA (t)1.0 1.25 (1.30) 0.65 (1.04) 0.75 (0.93) 0.80 (0.91) 1.5 1.75 (1.28) 0.95 (1.20) 1.00 (1.07) 1.05 (1.00) 2.0 2.45 (1.40) 1.60 (1.42) 1.55 (1.38) 1.47 (1.36) 2.5 2.70 (1.49) 1.95 (1.43) 1.85 (1.44) 1.85 (1.46) 3.0 2.85 (1.63) 2.65 (1.53) 2.60 (1.51) 2.60 (1.53) is evident as kinetic energy is larger for a higher H that pushes the water to a higher ha. Each column in the table represents the results of different RSC as shown in Fig. 5. For H = 1 .0m and 1.5m, water does not possess sufficient energy to climb up the ramp and hit the wall ( ha ≤ 1.0m), except for the plain ramp. For h = 2 .0m, ha is minimum for RA ( 1.47 m, about a 40% 
+
+reduction compared to PL), indicating that the energy-dissipating ability is greater in RA than in SC and TR. For H = 3 .0m, the reduction of ha from PL is approximately ( 9.0% ) similar for all configurations, which means that at high wave velocities, the revetment geometry of the ramp becomes less effective. We may need to increase the amplitude of the ramp’s modifying structures. Figure 6 illustrates the velocity contour of the flow from dams of heights 
+
+H = 1 .0m and 1.5m during the ascent of water along the ramp ( θ = 30 o) and coastal structure (wall). Each column in the figure represents the result for ramps of different topographies. As seen from this figure as well as from the table 1, the maximum ascending height is achieved for the ramp with PL. For other RSCs, the maximum ascending heights are as follows: haSC < h aT R <haRA , for H = 1 .0m and 1.5m, which we expect to have in a reversed order. The reason for the above anomaly is that water slides up the SC, which are smoother than the TR and RA. For TR and RA, the water jumps as a jet and lands at a distance slightly farther from the expected one (first two rows; plotted at t = 0 .6s). The order of the ha values reverses for H = 2 .0m and above. Figure 7 shows the velocity contour at the time of wave impacts on the wall (just before water spreads on the wall) for H = 2 .0m, 2.5m and 3.0m(θ = 30 o) in the first, second, and third rows, respectively. Rows four to six display the velocity contour at the time of maximum ha for H mentioned above. These diagrams corroborate the results presented in Table 1. For 
+
+H = 2 .0m water slide on the ramp and horizontal platform before hitting 10 Figure 6: Velocity contour of the flow from dam heights H = 1 .0m and 1.5m ( θ = 30 o) at       
+
+> t= 0 .6s ( 1st and 3rd columns) and at the time of maximum ascent ( ha) of water ( 2nd and
+> 4th columns) along the ramp and onshore structure (a wall) for different surfaces of the ramp.
+
+the bottom ( y = 1 .05 m) of the wall for all RSCs except PL. Whereas, for 
+
+H = 2 m and PL, a water jet directly hits the wall at a point slightly above (y = 1 .2m) the base of the wall without touching the horizontal platform. The same way the water jets hit the wall directly for H = 2 .5m and 3.0m for all RSC. These plots will help us understand the maximum pressure ( P m)and its location on the wall in the later part of this article. The flow behaviour is analysed by tracking fluid particles at three points of the initial fluid column. In Fig. 8, the x-axis and y-axis movements of a fluid particle are plotted for all ramp shapes at θ = 30 o with H =2.0m, considering points pt1 ( 0.5m, 0.0025 m( = dx/ 2)), pt2 (0 .5, 1.0) , and pt3 (0 .5, 2.0) . Tracking the x-axis motion of the particle reveals that pt3, which is at the top of the water column, is minimally affected by the ramp structure of the ramp surface. The points at the bottom and the middle 11 Figure 7: Initial impact on wall (Rows 1-3) and Maximum flow height (Rows 4-6) achieved for H= 2.0m (row-1,4), 2.5m (row-2,5) and 3.0m (row-3,6), for θ = 30 ◦ for different ramp structure. Snapshots at the time impact on the wall for H = 2 .0m 2.5m and 3.0m ( θ = 30 o)in first, second and third columns. The fourth colomn respresents maximum height water travelled for H = 2 .0m and 3.0m. 
+
+12 ascend the ramp and impact the vertical wall, whereas pt3 climbs halfway up the ramp and then descends. Examining the y-axis movement of the particle displayed in Fig. 8, pt1 climbs up the ramp and settles in the horizontal slab region. Meanwhile, in the plain ramp case, pt2 reaches its maximum height     
+
+> Figure 8: Motion of SPH fluid particles at initial point pt1, pt2, pt3 for H= 2 .0mand
+> θ= 30 o
+
+before descending. Modifications to the ramp topography with triangular and random shapes significantly reduce the momentum of pt2, resulting in the lowest peak height in the displacement ( y) vs time graph. Conversely, the 13 semicircular ramp allows the fluid to gain slightly more momentum compared to the RA and TR ramps. The fluid particle at pt3 reaches the middle of the slanted slab before beginning its descent. The time evolution of pressures         
+
+> Figure 9: Variation of pressure on the wall at y= 1 .1m, 1.3m and 1.5mover time for various Hand RSC.
+
+at y = 1 .1m, 1.3m and 1.5m on the downstream coastal infrastructures for different H and various RSCs are displayed in Fig. 9. For PL, the wave hits the wall for all H and all y values considered here. The P versus t curve exhibits a peak structure except in cases where the pressures on the wall due to the water wave are insignificant (for example, the H = 2 .0m case). The peak pressure for PL is not only higher than that of other RSCs but 14 also occurs a little earlier than the other RSCs. We noted that a higher 
+
+H corresponds to a higher pressure for all RSC, as expected. The pressure on the wall due to the water wave decreases as one moves from the bottom (y = 1 .1m) to the top ( y = 1 .5m). Eventually, P becomes zero at a value of 
+
+y where the water can not reach. For H = 1 .0m and 1.5m, the fluid does not climb the ramp wall (except for PL); hence, the wall pressure for other RSC is insignificant. A discussion on the quantitative comparison of P m is given in Table 2. Maximum pressure ( P m) for various RSCs at different values of y on the wall for H = 2 .0m, 2.5m and 3.0m, θ = 30 o are tabulated in table 2. The percentage of decrease in P m for each of the RSCs in comparison to those of PL is displayed in parentheses. We note for H = 2 .0m the P m is largest (1444 Pa) at the bottom of the wall ( y = 1 .1m), which decreases with increase of height of the point ( y) as was seen from the previous figure (Fig.9). For 
+
+H = 2 .5m and 3.0m, P m is observed at y = 1 .2m, which is a little above the bottom point. The reason is that, in this case, the water jet directly hits the wall at this point (as evident from the second and third rows of Fig. 7). We observe that at H = 2 .0m, the most significant reduction in pressure is achieved by RA, followed by TR, and then SC. The maximum decrease in 
+
+P m is observed for RA, which is about 91% to 95% (y = 1 .4m). As expected, the plain slab has the least effect on momentum reduction, leading to the largest pressure on the wall. A similar trend is observed for H = 2 .5m. But for H = 3 .5m the maximum reduction of P m is around 40% (y = 1 .3m and 
+
+1.4m). The net forces Fij on three sections of the ramp (bottom, middle, and top) are computed for θ = 30 o and various ramp configurations, PL, SC, TR and RA. The index, i(= 1 , 2 and 3) corresponds to the location of the section span within dl = 0 .2m (one unit structure repeated for revetment of the ramp) centered at ( x, y ): bottom (1.062m, 0.170m), middle (1.55m, 0.460m), top (2.003m, 0.84m), whereas, j (= 1 , 2, and 3), represents dam heights of H = 1 .0m, 2.0m, and 3.0m. Time evolution of net forces F (kN) is displayed in Fig. 10 for H = 3 .0m and θ = 30 o. The directions of forces (not the magnitude) when its magnitude is the largest for various H are shown in Fig. 11. It is observed from Fig. 10 that the force acting on a particular RSC is maximum at the bottom section and is the least at the top section. In all cases, the F versus t graph shows a peak-structured pattern with fluctuations. In the bottom section, peaks are mostly around 0.7s, except for RA, which peaks at 0.6s. The kinetic energy of the incoming wave remains the same 15 Table 2: Maximum pressure (in Pa) at the wall for ramp of θ = 30 ◦. Second row give percentage of change in pm for various RSC with respect to PL 
+
+H(m) y(m) P mP L (Pa) P mSC (Pa) P mT R (Pa) P mRA (Pa) 2.0 1.1 14444 5520 3855 3753 (61.70%) (73.31%) (74.01%) 1.2 12678 2516 1538 1111 (80.15%) (87.87%) (91.23%) 1.3 8913 979 753 317 (89.01%) (91.55%) (91.27%) 1.4 4168 1038 370 207 (75.08%) (91.12%) (95.03%) 1.5 2468 380 29 -(84.60%) (98.80%) -2.5 1.1 25441 16451 19099 16749 35.33% 24.93% 34.16% 1.2 25561 21456 15101 16140 16.06% 20.21% 35.95% 1.3 19872 17705 15856 12728 49.55% 64.46% 67.52% 1.4 13253 6686 4710 4304 49.55% 64.46% 67.52% 1.5 7095 3573 3120 3510 49.64% 56.03% 50.52% 3.0 1.1 37885 30795 23551 22642 (18.71%) (37.84%) (40.23%) 1.2 40675 37150 29896 24703 (8.67%) (26.50%) (39.27%) 1.3 27195 24901 24150 23877 (8.43%) (11.20%) (12.20%) 1.4 27145 25000 25259 25297 (7.90%) (6.95%) (6.81%) 1.5 22330 19568 13767 18821 (12.37%) (38.34%) (15.71%) 16 Figure 10: Net Force acting on three sections located at bottom, middle and top of the ramp for H = 3 .0m. 
+
+for a particular value of H. The wave loses a fraction of its energy when it hits the ramp, and the remaining energy is carried towards the wall. In this case, the maximum force exerted by the wave on the ramp with RA and the least for PL, which assures that the pressure on the wall is more for PL than other cases and a maximum reduction of P on the wall occurs for RA. A comparison of numerical values is presented in table 3, which corroborates the observations from Fig. 10. We vary the amplitude Am (0.050m, 0.075m, and 0.100m) of the two structures on the ramp surface, SC and TR and computed the maximum pressure P m on the wall for H = 3 .0m, which are displayed in table 4. P m
+
+are located at y = 1 .2m for all three Ams considered here. We note that the larger the amplitude ( Am) of the structures on the ramp, the greater the reduction in P m, suggesting that one needs to adjust the amplitude based on the energy of the incoming wave (velocity) to mitigate damage to the shoreline and coastal structures. We vary θ from 30 o to 90 o in steps of 15 o
+
+to analyse the effect of the inclination of the ramp on the flow impact on 17 Figure 11: The direction of maximum force on the ramp on a unit of structure at different locations for different H.
+
+the coastal infrastructure. Figure 12 compares the flow behaviour (velocity contour) for H = 3 .0m and various topographies of the ramp’s surface. The first row depicts the velocity contour of flowing water at t when the water jet first contacts the wall for all ramp angles except θ = 90 o, in which case the water jet moves up vertically and does not hit the coastal infrastructure (wall). When the slope of the ramp is increased from 30 ◦, the fluid is striking the vertical wall at a slightly higher y and the impact time is also reduced in comparison to the 30 ◦ ramps, which is clear from the numerical values presented in table 5. We present the maximum pressure ( P m) on the wall for θ = 30 o, 45 o and 
+
+60 o for various RSCs in table 6. We consider H = 2 .5m and 3.0m. For a particular RSC, P m decreases with increasing the angle as the component of the flow velocity v along the ramp surface, is proportional to cosθ since the flow of water before impacting the ramp is mostly along the horizontal ( x)direction. The same trend is observed for all (considered) RSC and H. As for the effect of ramp topography on P m, we find that P m is reduced to its maximum value for RA. RA offers the minimum P m in all cases considered here. 18 Table 3: Maximum force experienced on sections of 30 o ramp.( y1, y 2):bottom (0.0125,0.22), middle (0.41,0.51), top (0.79,0.89) 
+
+RSC H F(N) Bottom Middle Top PL 1.5 622.63 374.34 321.00 2.0 1118.35 499.11 496.57 2.5 1666.67 681.52 643.22 3.0 1898.26 840.30 736.68 SC 1.5 1164.79 716.33 324.07 2.0 1642.48 741.67 776.66 2.5 2557.96 1256.91 892.74 3.0 2292.31 1014.67 659.87 TR 1.5 913.72 531.11 374.32 2.0 1600.81 708.17 661.53 2.5 2017.67 1034.06 689.35 3.0 2576.65 1185.22 862.31 RA 1.5 3277.02 1430.49 860.31 2.0 2299.71 1461.59 948.90 2.5 2365.77 1002.75 818.72 3.0 2759.95 1271.25 936.39 We consider ramps with plain surface (PL) at angles, θ = 30 o, 45 o, 60 o
+
+and 90 o to study the effects of ramp’s inclination on the water wave pressure on the coastal structure. We focus on three unit sections for each of them, with a length along the ramp’s surface of dl = 0 .2m, centred such a way that the water wave hits the centres of each structures at the same height, as mentioned for the corresponding structures (top, middle, and bottom) in the discussion of Fig. 10. The variation of the net force F (kN ) due to the water wave hitting on each section with time is plotted in Fig. 13 for 
+
+H = 3 .0m. For all cases studied here, the bottom and middle sections show peak structured curves, whereas the force on the top sections are almost flat and negligible. The bottom sections experience the maximum force at 
+
+t ≈ 0.7s to 0.8s, whereas the force on the top sections are negligible. For the other angles, the P m are in between those for 30 o and 90 o (Fig. 13). P m on the each ramp section increases with increasing θ, implying that the pressure on the wall will be reduced as θ increases. But with a larger θ, the impact of the water wave on the ramp (seashore) will be increased and hence the 19 Table 4: Maximum pressure on wall due to amplitude variation 
+
+Am(m) P (SC) P (TR) 0.050 37150.65 29896.93 0.075 25878.74 20327.83 0.100 21420.66 18757.66       
+
+> Table 5: Initial impact height yiof water on vertical wall for the ramp angle θ= 30 0,45 0
+> and 60 0. The time of contacting the wall first are shown the the parenthesis.
+
+θ H(m) yi (PL) yi (SC) yi (TR) yi (RA) 
+
+30 o 3.0 1.15 (0.86s) 1.20 (1.00s) 1.25 (1.01s) 1.20 (1.00s) 
+
+45 o 3.0 1.40 (0.95s) 1.40 (0.96s) 1.45 (0.94s) 1.45 (0.94s) 
+
+60 o 3.0 1.70(0.90s) 1.80 (1.00s) 1.75 (0.98s) 1.80 (1.02s) chances damage to the ramp. 
+
+5. Conclusion 
+
+We present a comprehensive analysis of the interaction of water wave (dam break model is considered as the wave-maker) with the ramp of various topographies and coastal infrastructure (wall). We studied pressure distribu-tion on the wall, time evolution of the force on the ramp, and fluid-particle tracking in different situations. The findings highlight is that the ramp’s surface structures have a significant influence on the flow behaviour, partic-ularly in reducing pressure on the coastal infrastructures for specific dam heights. The dam-break flow is validated by comparing its results with the experimental data.        
+
+> Table 6: Maximum pressure and location of maximum pressure Pmon the wall for various
+> θand RSC for H= 2 .5m and 3.0m.
+
+H(m) θ P m (PL) P m (SC) P m (TR) P m (RA) 2.5 
+
+30 o 25561.26 21456.23 19099.77 16749.35 
+
+45 o 14119.55 13092.46 12870.30 11431.63 
+
+60 o 12968.86 9041.38 8914.99 8502.72 3.0 30 o 40675.36 37150.65 29896.93 24703.16 
+
+45 o 16716.81 13605.02 12410.15 12136.84 
+
+60 o 15706.50 12409.90 11157.89 9628.88 20 Figure 12: Velocity contour of the flow at time when the water wave impact on the wall first for for H = 3 .0m for various θ.
+
+Tracking individual fluid particles reveals distinct motion patterns based on ramp’s shape, with variations in impact heights and descent behaviour. For θ = 30 o, the plain ramp (PL) consistently exhibits the highest pressure on the wall, resulting in the most significant potential for structural damage. In contrast, the RA slab provides the lowest water pressure on the wall for all 
+
+H. At H = 2 .0m, ramp structures with an amplitude Am = 0 .05 m effectively mitigate wall pressure, demonstrating their ability to manage the impact of the water flow. However, at H = 3 .0m, the influence of ramp structures is minimal, as the observed peak pressure is comparable to that of the plain slab. An increase in the amplitude of the structure on the ramp’s surface for revetment, results in a larger reduction to the maximum pressure of the wall, which suggests that the amplitude of the structure on the ramp should be fixed according to the energy (velocity) of the wave in order to get sufficient reduction in P m to protect the coastal structure. 21 Figure 13: Net Force acting on local structures located at bottom,middle and top of the ramp at H = 3 .0m for plain ramp 
+
+A part of energy of the incoming water wave is dissipated due to the interaction of the wave with the the ramp. Increasing the ramp angle θ,more energy is dissipated along the ramp surface, leading to a reduction in pressure on the coastal wall (structure). The calculation of the net force across the three ramp sections consistently shows that the bottom section experiences the highest force while the top section experiences the least force due to reduced direct impact. These findings underscore the importance of integrating coastal topo-graphical data into onshore flood risk assessments and design frameworks. The study advocates for a hybrid approach combining engineered resilience with natural coastal defences to enhance the safety and longevity of onshore infrastructure in flood-prone regions. The novelty of this work lies in its focused exploration of ramp topography as a passive energy dissipation mechanism in coastal flood scenarios, using SPH-based simulation. Insights from this study underscore the importance of ramp geometry in dam-break flow design, offering potential ways for op-22 timising structural resilience and energy dissipation in hydraulic engineering applications. 
+
+References 
+
+[1] J. Zhang, N. Zhang, Q. Zhang, F. Jiao, L. Xu, J. Qi, Numerical simula-tion of wave overtopping of an ecologically honeycomb-type revetment with rigid vegetation, Journal of Marine Science and Engineering 10 (2022) 1615. [2] H. Moss, M. Heidarzadeh, R. Sabeti, Innovative coastal defence using rock bag revetments: preliminary physical modelling, Results in Engi-neering (2025) 105151. [3] L. Barendse, V. M. van Bergeijk, W. Chen, J. J. Warmink, A. Mughal, D. Hill, S. J. Hulscher, Hydrodynamic modelling of wave overtopping over a block-covered flood defence, Journal of Marine Science and En-gineering 10 (2022) 89. [4] H. Van Dang, H. Park, S. Shin, T. Ha, D. T. Cox, Numerical mod-eling and assessment of flood mitigation structures in idealized coastal communities: Openfoam simulations for hydrodynamics and pressures on the buildings, Ocean Engineering 307 (2024) 118147. [5] A. Issakhov, Y. Zhandaulet, A. Nogaeva, Numerical simulation of dam break flow for various forms of the obstacle by vof method, International Journal of Multiphase Flow 109 (2018) 191–206. [6] B.-L. Dang, H. Nguyen-Xuan, M. A. Wahab, Numerical study on wave forces and overtopping over various seawall structures using advanced sph-based method, Engineering structures 226 (2021) 111349. [7] M. Rostami Varnousfaaderani, M. Ketabdari, Numerical simulation of plunging wave breaker impact by a modified turbulent wcsph method, Journal of the Brazilian Society of Mechanical Sciences and Engineering 37 (2015) 507–523. [8] H. Ozmen-Cagatay, S. Kocaman, Dam-break flow in the presence of obstacle: experiment and cfd simulation, Engineering applications of computational fluid mechanics 5 (2011) 541–552. 23 [9] O. Simsek, H. Islek, 2d and 3d numerical simulations of dam-break flow problem with rans, des, and les, Ocean Engineering 276 (2023) 114298. [10] S. Yang, W. Yang, S. Qin, Q. Li, B. Yang, Numerical study on charac-teristics of dam-break wave, Ocean Engineering 159 (2018) 358–371. [11] X. Tian, Smooth particle hydrodynamics simulation of dam-break im-pacting different obstacles, in: Journal of Physics: Conference Series, volume 1985, IOP Publishing, 2021, p. 012003. [12] A. Maranzoni, M. Tomirotti, Three-dimensional numerical modelling of real-field dam-break flows: Review and recent advances, Water 15 (2023) 3130. URL: https://www.mdpi.com/2073-4441/15/17/3130 .doi:10.3390/w15173130. [13] F. Aureli, A. Maranzoni, G. Petaccia, Advances in dam-break modeling for flood hazard mitigation: Theory, numerical models, and applications in hydraulic engineering, Water 16 (2024). doi:10.3390/w16081093. [14] P. Peramuna, N. Neluwala, K. Wijesundara, S. DeSilva, S. Venkatesan, P. Dissanayake, Review on model development techniques for dam break flood wave propagation, Wiley Interdisciplinary Reviews: Water 11 (2024) e1688. [15] R. J. Purbasari, A. Suryanto, S. Anam, Numerical simulations of dam-break flows by lattice boltzmann method, in: AIP Conference Proceed-ings, volume 2021, AIP Publishing, 2018. [16] S. Watanabe, S. Fujisaki, C. Hu, Numerical simulation of dam break flow impact on vertical cylinder by cumulant lattice boltzmann method, Journal of Hydrodynamics 33 (2021) 185–194. [17] T. Zhang, F. Fang, P. Feng, Simulation of dam/levee-break hydrody-namics with a three-dimensional implicit unstructured-mesh finite ele-ment model, Environmental Fluid Mechanics 17 (2017) 959–979. [18] T. Zhang, L. Peng, P. Feng, Evaluation of a 3d unstructured-mesh finite element model for dam-break floods, Computers & Fluids 160 (2018) 64–77. 24 [19] J.-M. Cherfils, G. Pinon, E. Rivoalen, Josephine: A parallel sph code for free-surface flows, Computer Physics Communications 183 (2012) 1468–1480. doi:10.1016/j.cpc.2012.02.016. [20] S. Marrone, M. Antuono, A. Colagrossi, G. Colicchio, D. Le Touzé, G. Graziani, δ-sph model for simulating violent impact flows, Computer Methods in Applied Mechanics and Engineering 200 (2011) 1526–1542. [21] P. Harisankar, T. Sil, Drop-vapour coexistence in smoothed particle hy-drodynamics, Engineering Analysis with Boundary Elements 151 (2023) 56–67. [22] P. Harisankar, T. Sil, Smoothed particle hydrodynamic simulation for forced convection in zigzag-shaped microchannel, in: Conference on Fluid Mechanics and Fluid Power, Springer, 2025, pp. 305–316. [23] T. Sil, P. Harisankar, Nanofluid microchannel heat sink in smoothed particle hydrodynamics, in: Conference on Fluid Mechanics and Fluid Power, Springer, 2023, pp. 521–531. [24] R. A. Gingold, J. J. Monaghan, Smoothed particle hydrodynamics: theory and application to non-spherical stars, Monthly notices of the royal astronomical society 181 (1977) 375–389. [25] L. B. Lucy, A numerical approach to the testing of the fission hypothesis, The astronomical journal 82 (1977) 1013–1024. [26] G.-R. Liu, M. B. Liu, Smoothed particle hydrodynamics: a meshfree particle method, World scientific, 2003. [27] J. J. Monaghan, J. C. Lattanzio, A refined particle method for astro-physical problems, Astronomy and Astrophysics (ISSN 0004-6361), vol. 149, no. 1, Aug. 1985, p. 135-143. 149 (1985) 135–143. [28] S. Adami, X. Y. Hu, N. A. Adams, A generalized wall boundary con-dition for smoothed particle hydrodynamics, Journal of Computational Physics 231 (2012) 7057–7075. [29] X. Y. Hu, N. A. Adams, A multi-phase sph method for macroscopic and mesoscopic flows, Journal of Computational Physics 213 (2006) 844–861. 25 [30] J. J. Monaghan, On the problem of penetration in particle methods, Journal of Computational Physics 82 (1989) 1–15. doi:10.1016/0021-9991(89)90032-6. [31] B. Song, A. Pazouki, T. Pöschel, Instability of smoothed particle hydro-dynamics applied to poiseuille flows, Computers & Mathematics with Applications 76 (2018) 1447–1457. [32] Z. Chen, Z. Zong, M. Liu, L. Zou, H. Li, C. Shu, An sph model for multiphase flows with complex interfaces and large density differences, Journal of Computational Physics 283 (2015) 169–188. [33] Z. Zhou, J. De Kat, B. Buchner, A nonlinear 3d approach to simulate green water dynamics on deck, in: Proceedings of the seventh inter-national conference on numerical ship hydrodynamics, Nantes, France, 1999, pp. 1–15. [34] C. Mokrani, S. Abadie, Conditions for peak pressure stability in vof simulations of dam break flow impact, Journal of Fluids and Structures 62 (2016) 86–103. 26

@@ -1,0 +1,344 @@
+Title: Role of boundary conditions on dam-break flow across an obstacle and controlling damage of structures
+
+URL Source: https://arxiv.org/pdf/2606.05580v1
+
+Published Time: Fri, 05 Jun 2026 00:35:48 GMT
+
+Number of Pages: 31
+
+Markdown Content:
+# Role of boundary conditions on dam-break flow across an obstacle and controlling damage of structures 
+
+P. C. Harisankar 1, Tapas Sil 1, 
+
+> Department of Physics, Indian Institute of Information Technology, Design and Manufacturing Kancheepuram, Chennai-600127, Tamil Nadu, India,
+
+Abstract 
+
+We studied dam-break flow in the smoothed particle hydrodynamics frame-work using periodic boundary condition (PBC) instead of usually employed rigid wall boundary condition (WBC) and assessed the effects of impact of the flow on the downstream structure due to the presence of an obstacle in front of it. The results show that higher dam heights lead to larger pressure on the wall. The WBC yields higher peak pressures compared PBC. A larger hydraulic diameter of the pillar is found to be more efficient in reducing the flow’s impact. A pillar located closer to the wall reduces the effect of dam-break flow and minimises structural damage. The square-shaped pillars are found to be the most effective in reducing pressure on the wall among the considered pillar shapes. These findings will help to mitigate the damage of a structure due to dam-break flow/high-tide and improve the safety of the structures downstream. These findings have direct implications for the design and management of structures in areas prone to dam-break flows. 
+
+Keywords: Dam-break, Smoothed Particle Hydrodynamics (SPH), Periodic Boundary Condition (PBC), Wall Boundary Condition (WBC), Obstacle, Impact 
+
+1. Introduction 
+
+The dam-break flow serves as a benchmark problem [1, 2] in fluid dy-namics simulations, where a liquid column undergoes free fall under grav-   
+
+> ∗Corresponding author
+> Email address: tapassil@iiitdm.ac.in (Tapas Sil)
+> Preprint submitted to Elsevier June 5, 2026
+> arXiv:2606.05580v1 [physics.flu-dyn] 4 Jun 2026
+
+ity, replicating the flow resulting from the sudden release of water from a breached dam. Such a setup is also widely used as a wave-maker to anal-yse the impact of water flow during natural disasters, such as tsunamis and floods, on surrounding structures and terrain. There are two aspects of such studies: flow dynamics and fluid-structure interaction. Several studies have been reported on dam-break flow in the context of fluid-structure interaction [3, 4, 5, 6, 7, 8, 9, 10], which provide valuable insights into the behaviour of fluid forces and structural responses under sudden flow conditions. Numerical simulations of fluid dynamics have been studied using vari-ous methods [11]. The Finite Difference Method (FDM) [12] approximates derivatives by using differences between function values at discrete grid points, which is straightforward and easy, but does not guarantee conservation of mass, momentum, and energy on coarse grids, and is not efficient for mod-elling complex geometries. The Finite Volume Method (FVM) [13, 14] in-volves dividing the fluid domain into small control volumes and applying the conservation laws to each volume. This method is notably better for handling complex geometries and boundary conditions. Another method for such simulation is the Finite Element Method (FEM) [15], where the com-putational domain is discretised into elements and the solution is obtained by minimising the error function using variational methods. FEM is versa-tile and efficient for specific problems, such as simulating flows with complex boundary conditions and multi-phase flows. But it is often computationally more intensive. Direct Numerical Simulation (DNS) solves the governing equations of fluid flow directly; however, turbulence is not considered [16]. It is highly accurate but computationally expensive, making it suitable mainly for simple flows or small-scale simulations. Large Eddy Simulation (LES) is a computationally more efficient method for simulating turbulent flows [4]. It resolves the larger scales of turbulence while modelling the smaller scales, providing a balance between accuracy and computation time. The Reynolds-Averaged Navier-Stokes (RANS) equations method involves aver-aging the Navier-Stokes equations to simplify the analysis of turbulent flows. RANS models are commonly used for industrial applications where turbu-lence plays a significant role [17]. The Smoothed Particle Hydrodynamics (SPH) method is a mesh-free sim-ulation technique that was developed in 1977 [18, 19] for solving problems associated with astrophysical phenomena. SPH was later adapted for various branches of science and engineering, such as solid mechanics [20], fluid dy-namics [21], liquid drop and vapour system [22, 23, 24, 25] and heat transfer 2problems [26, 27, 28, 29]. Being a particle-based meshfree method, it offers advantages in handling free-surface flows, large deformations, and complex boundary interactions, which are modelled easily and efficiently [30, 22]. The existing numerical studies primarily analyse the direct impact of dam-break flows on objects in the downstream. During the 2013 flash flood, the mountain behind the Kedarnath temple (Uttarakhand, India) broke away, sending rampaging waters through the Kedarnath valley. Destroying everything in its path, the Kedarnath temple was spared as one gigantic stone (about 20 feet wide and 12 feet tall) rolled down the mountain and stopped a few meters behind the temple, causing the water flow to split and rush around the sides of the temple and flash over the temple. It will be interesting to investigate systematically the impact of the dam-break flow on the object in the downstream, considering the effects of an obstacle in front of it. Usually, the impact directly on downstream objects is reported in the literature [31, 32, 6]. We investigate how an obstacle alters flow behaviour and evaluate the resulting forces and pressure distributions on the wall located behind it. The periodic boundary conditions (PBC) is applied to a system where a periodicity exists [33, 34, 35] and are profusely used in simulating a contin-uous flow, where the periodicity is along the direction of flow [36, 37]. In case of a wide flow as seen in sea, river and wide dam-break flow, we see the sidewise periodicity (transverse to the flow direction) if we consider a por-tion (workspace) of width. Usually imaginary side walls considered with no slip condition to model such problems [38, 39, 28, 29]. But practically, fluid particles may come in and go out of the workspace through the imaginary side-walls. Therefore, we consider PBC to model such systems. We employ the SPH method to model dam-break flow with periodic boundary condi-tions (PBC) incorporating variations of the parameters (size, location, and shapes) of the obstacle (pillar) to analyse their influence on the impacting forces on the wall. The results obtained from PBC are compared with those from rigid wall boundary conditions plus slip condition (WBC) to evaluate the effect of these boundary conditions on the dynamics of the fluid and the forces exerted on the downstream wall. This comparison provides insights into how boundary conditions influence flow dynamics, pressure distribution, and energy dissipation within the system. A brief of SPH formalism is given in section 2. In Section 3, we discuss the results obtained from our calculations for various dam-break conditions. Results are summarised and concluded in section 4. 32. Formulation 
+
+2.1. Smoothed particle hydrodynamics 
+
+Smoothed particle hydrodynamics is developed based on the Lagrangian method, which tracks individual fluid particles as they move through space and time, making it particularly well-suited for capturing free surface flows, interface dynamics, and particle-based phenomena. The SPH method con-sists of two approximations: kernel approximation and particle approxima-tion. In the Kernel approximation, a kernel function is considered, which has a delta function-like behaviour. Any given function f (x) and its derivatives are expressed in continuous form as an integral representation. The kernel approximation of a function and its derivatives is [30], 
+
+⟨f (x)⟩ =
+
+Z
+
+> Ω
+
+f (x′)W (x − x′, h )dx ′, (1) 
+
+⟨∇ f (x)⟩ = −
+
+Z
+
+> Ω
+
+f (x′)∇W (x − x′)dx ′, (2) where h is the smoothing length, which is ideally taken equal to the initial particle spacing dx , W (x − x′, h ) is the kernel function, and is defined con-sidering neighbouring particles within a distance kh , k being an integer. The particle approximation represents the problem domain using a set of parti-cles and estimates observables, such as velocity, density, and stress, for this set of particles. Then the particle approximation for a function f (x) and its gradient for the particle at a are discretised and expressed as a weighted summation over its neighbours and are given by, 
+
+⟨f (xa)⟩ = X
+
+> b
+
+mb
+
+ρb
+
+f (xb)Wab , (3) 
+
+⟨∇ f (xa)⟩ = 1
+
+ρa
+
+"X
+
+> b
+
+mb(f (xb) − f (xa)) ∇Wab 
+
+#
+
+, (4) where the suffix a and b represent two SPH particles. In Eq. (3), ρ represents density, m is the mass of the SPH particle. We consider the B-spline kernel function based on the cubic spline [19], which is written as, 
+
+Wab = αd
+
+ 
+
+> 23
+
+− s2 + 12 s3, 0 ≤ s < 1 
+
+> 16
+
+(2 − s)3, 1 ≤ s < 20, s ≥ 2,
+
+(5) 4where for 3D, 
+
+αd = 32πh 3 and s = |xa − xb|
+
+h . (6) Here, xa and xb are the position vectors of particle a and particle b. The Navier-Stokes equation for conservation of mass and momentum is given as, [21]. 
+
+Dρ Dt = −ρ∇.u, (7) 
+
+Du
+
+Dt = − 1
+
+ρ∇P + μρ ∇2u + g, (8) where, u is the velocity, P is pressure, μ is viscosity, g = (0 , 0, −9.8m/s )
+
+is acceleration due to the body force Fb (here gravity). The pressure is calculated using Tait’s equation of state, 
+
+P = c20ρ0
+
+γ
+
+ ρρ0
+
+γ
+
+− 1
+
+
+
+, (9) where c0 = 10 umax , ( umax = √2gH , is the maximum fluid velocity,) is the speed of sound, ρ0 is the reference density, and γ is a polytropic constant, which varies from 1 to 7, for an example, for water γ = 7 . The SPH discre-tised form of Eq.(7), and Eq.(8) is given as, [40, 21], 
+
+Dρ a
+
+Dt = ρa
+
+X
+
+> b
+
+mb
+
+ρb
+
+(ua − ub).∇Wab , (10) 
+
+Dua
+
+Dt = − 1
+
+ma
+
+X
+
+> b
+
+ V 2 
+
+> a
+
++ V 2
+
+> b
+
+ ˜Pab ∇Wab 
+
++ 1
+
+ma
+
+X
+
+> b
+
+ V 2 
+
+> a
+
++ V 2
+
+> b
+
+ ˜μab 
+
+xab .∇Wab 
+
+|xab |2 + ϵh 2 uab + g, (11) 5Figure 1: Schematic diagram of periodic boundary condition (PBC) and Wall boundary condition (WBC). 
+
+where, ˜Pab = Paρa+Pbρb 
+
+> ρa+ρb
+
+; ˜μab = μaμb 
+
+> μa+μb
+
+; Vi = mi 
+
+> ρi
+
+, is volume of the particle; 
+
+xab = xa − xb and uab = ua − ub.The XSPH is adapted which updates velocity field as [41], 
+
+dra
+
+dt = ua + ϵ X
+
+> b
+
+mb
+
+uab 
+
+¯ρab 
+
+Wab . (12) This correction helps to get a stable fluid flow. The fluid-solid interaction is considered [21, 42] by iterating the fluid velocity and pressure to the dummy wall particles, 
+
+u = 2 uw − ˆu, (13) where uw is the real wall velocity and ˆu is, 
+
+ˆu =
+
+P uf Wf
+
+P Wf
+
+, (14) Similarly wall pressure is calculated as, 
+
+P =
+
+P Pf Wf
+
+P Wf
+
+. (15) 6The properties of SPH particles are updated at each time step dt (n is the number of steps). Two types of boundary conditions, rigid wall boundary condition (WBC) and periodic boundary condition (PBC), are employed to solve the aforemen-tioned governing equations for fluid flow. In case of WBC, the wavefront hits the side walls, reflects, and generates secondary waves. Since we consider the slip condition, the fluid particles, after interacting with the wall particles, glide parallel to the wall, as shown in the upper panel of Fig. 1. On the other hand, for PBC, the particle leaves the domain from one side boundary. Another particle comes back into the workspace from the opposite side with the same values of flow parameters (except position), as depicted in the lower panel of Fig. 1. 
+
+3. Results and discussion 
+
+The dam-break is modelled as a column of fluid with dimensions (fluid width Ly) × (fluid length Lf ) × (fluid height H) initially reserved behind a dam. The dam gate is suddenly removed, ie, water is allowed to move in one direction (say x), and the fluid rushes out under gravity, spreading into the downstream region or flowing through a channel with impenetrable walls. The flow of water after a dam-break is simulated using a rigid wall plus slip boundary condition (WBC) and a periodic boundary condition (PBC) to study their effects on the stopping wall in the downstream, with and without an obstacle in front of the wall. We have considered a channel (workspace) of length Lx = 5 .0m with an initial liquid column of width Ly = 1 .0m. We consider pure water as a fluid with properties, density (ρ) : 1000 kg/ m3
+
+and dynamic viscosity (μ) : 0 .001 Pa.s. The length of the fluid column is 
+
+Lf = 0 .5m. 7Figure 2: Convergence test with bore front movement for different particle spacing dx .
+
+The convergence of our SPH code is tested by tracking the bore-head motion in a plain dam-break confined flow for different dx (= dy ) values representing consideration of different numbers of SPH particles ( N ). It is observed from Fig. 2 that the curves of the displacements of bore-heads for dx = 0 .030 m, 0.025 m, and 0.020 m, almost coincide with each other for both the WBC and PBC conditions. We consider dx = 0 .025 m as the initial particle spacing throughout this article. 8Figure 3: Flow pattern with PBC (first column) and WBC (second column) for dam heights H = 1 .0m, 1.5m, and 2.0m, respectively, at time t = 1 .0s. 
+
+Figure 3 presents a top-view of plain dam-break with PBC (left column) and WBC (right column) at an arbitrary time, t = 1 .0s for dam heights H =
+
+91.0m, 1.5m, and 2.0m. In the PBC setup, fluid is free to extend beyond the domain edges and is considered to have periodicity along the perpendicular direction to the flow of water. Whereas, in the case of WBC, the flow is confined between the rigid side walls. This confinement has a significant impact on flow dynamics, which yields a difference in the flow pattern of PBC and WBC, and hence the pressure distribution on the wall. The WBC exhibits almost a plain wavefront when the slip condition is applied. For PBC, parabolic structures are visible, which are more prominent for a shorter dam height ( H), i.e., when the flow is slow. Maximum pressure, Pmax (in Pascal), at a few points on the wall ( y = 0 .5m, z = 0 .1m, 0.2m, 0.3m) for dam-break-flows with different H are presented for both P P BC max and P W BC max ,in Table 1. The pressure at each point increases with increasing H, which is obvious as the taller the dam, the larger the kinetic energy in the dam-break flow. On the other hand, for a specific dam height H, Pmax is large at the bottom of the wall, which decreases with increasing z and becomes zero beyond a certain z, where the flow-water can not reach. Moreover, it is observed for a particular H, P W BC max are greater than P P BC max as observed which is very prominent at z = 0 .1m ( P W BC max ≈ 2P P BC max ).                                
+
+> Table 1: Maximum pressure Pmax (in P a ) at various zvalues on the y= 0 .5m line on the wall are presented for PBC, PP BC max P a and WBC, (PW BC max P a ).
+> Type z(m) H=1.0m H=1.5m H=2.0m H=2.5m Np 0.1 6667.11 (6977.60) 15822.79 (17780.52) 29517.69 (37733.68) 33724.90 (61877.82) 0.2 2108.72(2716.89) 4642.19(6299.25) 19108.75(22256.39) 21802.00 (27332.63) 0.3 706.35 (840.24) 3191.89(3327.17) 6092.61(6485.56) 15072.16(16473.51)
+
+A cylindrical pillar ( D = 0 .3m) placed on the downstream splits the wa-ter flow, creating a void portion (shadow) during initial impact on the wall behind it. The no-slip boundary condition is employed for the solid-fluid interaction at the surface of the pillar, a factor that significantly influences the flow dynamics. Particles of the split waves move towards the side bound-aries. In the WBC condition at the boundary of the workspace, the particles start moving along the boundary after interacting with the boundary, as we consider the slip condition at the boundary of the workspace. These parti-cles create a shield between the wall and the particles coming from the dam next, and push these newly coming particles towards the shadow. Eventually, the shadow gets filled up. The shadow gets filled up in PBC, too, but the mechanism is different. In this case, particles of the split flows go out of the working domain after crossing the boundary lines, and particles of the same 10 velocity and acceleration enter the domain from the opposite side boundary, which move towards the shadowed portion as shown in Fig. 1. Figure 4 presents snapshots of the initial impact on the wall for H = 1 .0m (left panel) and H = 2 .0m (right panel) for both PBC (top panel) and WBC plus slip (bottom panel). It is evident from the shades (colour) of the contours that the flow velocity is increased for a higher H. In comparison to PBC, fluid particles in WBC move more rapidly behind the pillar, leading to a rapid nar-rowing of the shadow for H = 1 .0m. The velocity distribution and shadow formation are similar in both boundary conditions when the flow speed is large ( H = 2 .0m). An increase in dam height ( H) results in the storage     
+
+> Figure 4: Top ( xy ) view of PBC flow (first row) and WB flow (second row) with pillar
+> D= 0 .3m for H= 1 .0m and 2.0m.
+
+of higher potential energy, and as the dam-breaks down, water flows with a greater velocity (kinetic energy). The flowing water hit the pillar ( a = 1 .0m, 
+
+D = 0 .3m), 11 Figure 5: Snapshots of three dimensional dam-break flow. Each row represents fluid column height H = 1 .0m, 1.5m and 2.0m. 
+
+12 Figure 6: Flow pattern at t = 1 .0s and 1.5s (1st, and 2nd column) for dam-height H =2.0m. WBC results are shown 1st and 3rd rows whereas PBC cases are in 2nd and 4th rows, respectively. 
+
+13 bifurcated, and progressed towards the wall behind the pillar, which stopped the fluid motion in the positive x-direction. These particles are pushed by the particles coming from the dam next and are compelled to climb up the wall. A few snapshots ( zx cross section) at t = 0 .0s, 1.2s, and 1.5s, of the progress of this process are presented in Fig. 5 for different dam heights. We observe that as the dam height increases, water climbs higher up along the wall, and more water splashes. The rise in climbing height and splashes is because the taller the dam, the greater is the kinetic energy (velocity) associated with the flow. The climbing height and splashes are somewhat higher in WBC in comparison to those obtained from PBC.             
+
+> Figure 7: Pressure versus yat z= 0 .1m, x= 5 m on the wall for NP (first two column) and in presence of a cylinder pillar a= 1 m, D= 0 .3m at different time tin WBC and PBC.
+
+14 Figure 8: Pressure on the wall with a cylindrical obstacle ( D = 0 .3m) using WBC and PBC, respectively. The values of pressures presented here are measured on the wall at different z values and y = 0 .5m. 
+
+Velocity contour of three-dimensional dam-break flow with and without 15 obstacle (pillar) for H = 2 .0m subjected to WBC and PBC is shown in Fig. 6 for t = 1 .0s and 1.5s. The figure illustrates how the presence of a pillar alters the flow path, causing a noticeable deviation in height when climbing along the wall, more clearly than in the previous figure (Fig. 5). The figure demonstrates that the presence of an obstacle reduces flow energy. As a result, the flow exhibits a reduced ascent along the wall height compared to the dam-break scenario with no pillar. The impact (ascent) of dam-break flows is reduced in cases of PBC compared to WBC. Pressure ( P ) exerted on the down stream wall by the flowing water at z = 0 .1m across the width (y variation) for H = 2 .5m with no-obstruction and a cylindrical pillar ( a =1.0m, D = 0 .3m) as obstacle at different time, t (1.03 s, 1.10 s and 1.50 s) are displayed in Fig. 7. The early-stage impact yields parabolic P versus y
+
+curves with P → 0 in the middle portion. This low P zone is wider in PBC than WBC. Structures in the curve of WBC are arising as the water particles are confined within the domain. The curves get flattened with time, and the value of P is also reduced.     
+
+> Figure 9: Top view of flow separation and shadow formation for cylindrical obstacles of diameters, D= 0 .2m, 0.3m and 0.4m. Both PBC (first row) and WBC (second row) are considered.
+
+Variation of pressures with time, at the center-line of the wall at y =0.5m for various locations varying z in presence of a cylindrical pillar with diameters D = 0 .3m for both WBC (left column) and PBC (right column) flow cases are displayed in Fig. 8 for various dam height ( H). It is noted that the pressure curves are grossly similar for both WBC and PBC, where 16 the pressure in WBC is slightly higher than in PBC. It is observed that the highest pressure on the wall occurs for H = 2 .5m, while the lowest pressure is recorded for H = 1 .0m as expected. A close look into Fig. 8 reveals that the P decreases with an increase in z. As for the temporal evolution, the maximum pressure occurs a little after (between t = 1 .1s and 1.2s) when water first makes contact with the wall (at the bottom of the wall). When water starts climbing up, the pressure is reduced. A complex flow is generated by the mixing of the incoming flow from the dam and the water that falls down, which ascends along the wall. This complex flow gives rise to several spikes on the pressure versus time curves. More spikes are observed for a taller dam. We examine the effects of the obstacle’s size on the fluid flow and its impact on the wall behind it. We consider a dam of height 2.0m, and cylin-drical pillars with different diameters ( D = 0 .2m, 0.3m, and 0.4m) located at a = 1 .0m as obstacles. It is observed from Fig. 9 that the flow separa-tion is larger for a larger D, forming a wider shadow, which means a wider zone behind the pillar is protected. The shadow structures in the case of WBC are somewhat larger than those obtained from PBC. In Fig. 10, the pressure ( P ) on the vertical line at y = 0 .5m on the wall with the change of time is displayed for the cylindrical pillars of hydraulic diameters, D = 0 .2m, 
+
+0.3m and 0.4m. The corresponding no-pillar (NP) dam-break data are also presented for comparison. We have considered both WBC and PBC in this calculation, and they are presented in rows A-C and rows P-R, respectively. It is observed that in all cases, P for NP is significantly higher compared to those with obstacles. As the D increases, P decreases. In all cases, the 
+
+P vs t curve exhibits a peaked structure, where the peaks appear after a certain time from the initial impact of the fluid on the wall. The peaks are occurring earlier for the larger H. Many spikes are visible in all the curves, which arise due to the complex flow dynamics resulting from the interaction of incoming and returning flows. The pressure dissipates for all cases over time and ultimately settles to a very low value. It is evident from the graphs in each row that the pressure ( P ) for NP and all diameter cases decreases and eventually becomes insignificant (flat) as z increases. The trends of the graphs from WBC are similar to those from PBC but somewhat larger in magnitude. 17 Figure 10: Comparison of pressure on the wall at y = 0 .5m for different cylinder radii for WBC and PBC 
+
+The maximum values of pressure, P P BC max and, P W BC max (in Pascal) on the stopping wall at various z along y = 0 .5m for cylindrical pillars of different hydraulic diameter ( D = 0 .2m, 0.3m, and 0.4m) placed at a = 1 .0m are pre-18 Table 2: P P BC max (P W BC max ) in Pascal on the stopping wall at ( y = 0 .5m, z) for cylindrical pillars of different D positioned at a = 1 .0m. Data in the second rows (in italics) for each 
+
+z value represent the percentage of reduction of Pmax with respect to the corresponding NP cases illustrated in Table 1.                                                                        
+
+> Type z(m) H=1.0m H=1.5m H=2.0m H=2.5m D=0.2m 0.1 3166.78(3544.23) 8595.77(9823.34) 21520.46(22466.94) 28888.87(30105.03)
+> 52.50 (49.21) 45.67 (44.75) 27.09 (40.46) 14.34 (51.35)
+> 0.2 1962.64(2269.79) 3611.41(4231.01) 9307.03(10869.78) 18380.83(23561.64)
+> 6.93 (16.46) 22.20 (32.83) 51.29 (51.16) 15.69 (13.80)
+> 0.3 510.10(567.01) 2521.60(3236.47) 4988.65(5563.64) 9913.67(10594.30)
+> 27.78 (32.52) 21.00 (2.73) 18.12 (14.21) 34.23 (35.69)
+> D=0.3m 0.1 2629.68(3092.97) 7900.00(8728.11) 11955.74(15425.40) 23352.85(27552.42)
+> 60.56 (55.67) 50.07 (50.91) 59.50 (59.12) 30.75 (55.47)
+> 0.2 1125.38(1145.18) 2581.18(3143.91) 8609.21(9091.38) 15689.30(17712.95)
+> 46.63 (57.85) 44.40 (50.09) 54.95 (59.15) 28.00 (35.19)
+> 0.3 417.59(477.60) 1961.81(2057.43) 4758.32(5010.19) 13064.88(14541.99)
+> 40.88 (43.16) 38.54 (38.16) 21.90 (22.75) 13.32 (11.73)
+> D=0.4m 0.1 2505.44(2755.83) 7581.06(7621.35) 9639.39 (13294.15) 18050.99(21272.95)
+> 62.42 (60.50) 52.09 (57.14) 67.34 (64.77) 46.48 (65.62)
+> 0.2 885.77(1105.51) 2604.74(2874.55) 6621.45 (6727.02) 14479.91(15847.45)
+> 57.99 (67.00) 43.89 (54.37) 65.35 (69.77) 33.58 (42.02)
+> 0.3 210.05(370.82) 1842.80 (1973.54) 3959.06(3966.99) 10819.07(11247.58)
+> 70.26 (55.87) 42.27 (40.68) 35.02 (38.83) 28.22 (31.72)
+
+sented in Table 2. Data in the second row (italics) for each z value represents the percentage of reduction of Pmax with respect to the corresponding pres-sure of NP cases shown in Table 1. It is observed that Pmax at a particular 
+
+z increases with the dam height for both PBC and WBC, but the increase is not as robust as seen for NP. For a particular H and D, Pmax is decreases with increasing z. At a particular H and z, the pressure decreases with the increase in D. The second row for each D and z (in italics) represents the percentage of the reduction of the pressure for the presence of the pillar obstacle, compared to the corresponding value for the no pillar case (NP). The percentage of reduction in Pmax in the presence of a pillar compared to 
+
+N P (P N P max ) is mostly by 40% to 60% . We do not find any regular pattern in percentage of pressure reduction, because, the spikes on both the curves (NP and PBC/WBC, the difference of which are considered to calculate the percentage of pressure reduction, ϵ = {(P N P max − Pmax )/P N P max } × 100 occur randomly. This mismatch in spikes gives rise to such a random pressure reduction locally. 19 Figure 11: Top view of three dimensional dam-break flow with D = 0 .3m and H = 2 .0m. First row shows various pillar position ( a = 1 .5m, 1.0m, and 0.5m) for PBC. Second row displays results for WBC. 
+
+The effects of the location ( a = 0 .5m, 1.0m, and 1.5m) of the obstructing pillar ( D = 0 .3m) on the dam-break ( H = 2 .0m) flow pattern and its impact on the wall behind it, as displayed by snap shots at time of initial impact of water with the wall in Fig. 11, have practical implications for safety of struc-tures in dam-break flow. For both PBC and WBC, the shadowed portions behind the pillar get changed with a. For a larger a, water particles from the split flows return to the central zone of the channel from the boundary lines, reducing the shadow and hence increasing the impact on the wall. A pillar, close to the wall (say, a = 0 .5m), reduces the chance of a merger of the split flow. The shadowed portion in WBC shows a periodic structure, whereas the shadows from PBC are triangles with straight sides. Variations of Pmax 
+
+on the wall at ( y = 0 .5m, z = 0 .1m) with time when a cylindrical pillar (D = 0 .3m) placed at a (= 0 .5m, 1.0m, and 1.5m) is presented in Fig. 12, along with the same from NP condition. Each row in the figure represents results with different dam heights H. WBC and PBC results are displayed in the left column and right column, respectively. The overall results indicate similar flow behaviour for both boundary conditions, with the key distinction being that, in the case of Pmax , the peak pressure is higher for WBC than PBC. The maximum pressure for the flow with NP consistently dominates over all cases with pillar for all dam heights H.20 Figure 12: Pressure on the dam wall on pillar positions a = 0 .5m, 1.0m and 1.5m for cylindrical pillar of d = 0 .3m. The left figure represents WBC, and the right is PBC. 
+
+21 Flow with the pillar far from the wall (say, a = 1 .5m) exhibits an increased pressure value compared to those positioned closer to the stopping wall. This may be attributed to the early merger of the split flows, resulting from the pillar in the shadowed portion, giving rise to localised pressure amplification. The least pressure is experienced for a = 0 .5m among the cases considered here. The values of P P BC max (P W BC max ) on the wall at various z along y = 0 .5m for cylindrical pillars of D = 0 .3m placed at different locations a = 0 .5m, 1.0mand 1.5m are displayed in Table 3. We observe that P W BC max is greater than the corresponding P P BC max for all cases shown here. We also notice that both P P BC max 
+
+and P W BC max at a particular z increase with the increase in H for all a. For a particular H and a, Pmax decreases with increasing z. At a particular H and 
+
+z, the pressure increases with the increase in a. The maximum percentage of reduction in Pmax in the presence of a pillar compared to the corresponding 
+
+N P values ( P N P max ) is about 70% for the cases considered here. 
+
+Table 3: Maximum pressure value at y = 0 .5m for a cylindrical pillar ( D = 0 .3m) are displayed. The data is given in the format PP BC (PW BC ), where PP BC represents the peak pressure under periodic boundary conditions, and PW BC denotes the peak pressure in WBC.                                          
+
+> Type z(m) H=1.0m H=1.5m H=2.0m H=2.5m a=1.5m 0.1 2706.88(3241.62) 8843.89(12801.85) 14021.47(17212.85) 26114.66(35662.59) 0.2 1559.10(1689.97) 3181.23(3444.78) 10484.07(11482.98) 18656.29 (24092.45) 0.3 673.94(711.01) 2181.79(2236.19) 4695.03(5688.99) 14026.52(15977.19) a=1.0m 0.1 2629.68(3092.97) 7900.00(8728.11) 11955.74(15425.40) 23352.85(27552.42) 0.2 1125.38(1145.18) 2581.18(3143.91) 8609.21(9091.38) 15689.30(17712.95) 0.3 417.59(477.60) 1961.81(2057.43) 4758.32(5010.19) 13064.88(14541.99) a=0.5m 0.1 2256.88(2750.78) 7800.00(5534.24) 9467.02 (10769.77) 17691.15(21537.46) 0.2 1075.32 (1120.36) 1718.85(2798.82) 7842.71(8070.67) 13889.70 (17215.26) 0.3 229.28(337.87) 1666.61(1861.27) 4386.32(4523.23) 12623.10(13768.19)
+
+We study the influences of the shape of the obstacle on flow dynamics. We consider pillars of four distinct geometries: cylinder, triangle, rhombus, and square, all maintaining a hydraulic diameter of D = 0 .3m. The results presented in Fig. 13 are computed considering H = 2 .0m and a = 1 .0m with WBC and PBC for all shapes. 22 Figure 13: The shape variation of pillars for PBC flow (first row) and WB flow (second row) for H = 2 .0m. Table 4: Maximum pressure value (in P a ) at y = 0 .5m at pillar position a = 1 .0m for 
+
+D = 0 .3m for different pillar shapes. The data is given in the format PP BC (PW BC ), where 
+
+PP BC is the peak pressure under PBC, and PW BC denotes the same in WBC. 
+
+Type z(m) H=1.0m H=1.5m H=2.0m H=2.5m Cyl 0.1 2629.68(3092.97) 7900.00(8728.11) 11955.74(15425.40) 23352.85(27552.42) 0.2 1125.38(1145.18) 2581.18(3143.91) 8609.21(9091.38) 15689.30(17712.95) 0.3 417.59(477.60) 1961.81(2057.43) 4758.32(5010.19) 13064.88(14541.99) Tr 0.1 1945.58(2095.58) 4879.66(5598.10) 10576.75(13520.41) 19819.208(21676.73) 0.2 1090.44(1109.81) 2346.20(3056.21) 7718.16(8514.91) 14581.978(15772.18) 0.3 205.54 (339.32) 1844.49(1961.00) 4419.033(5523.64) 10366.178(11576.85) Rh 0.1 1881.93(1896.07) 4569.27(5245.10 ) 8951.72(12209.51) 18500.00(19022.65) 0.2 915.28(1066.97) 2970.45(2990.80) 7108.99(7241.79) 13429.28(14096.97) 0.3 188.98(506.92) 1794.14(1821.84) 3409.17(5216.00) 8775.92(9824.29) Sq 0.1 1688.10(1722.72) 3892.03(4526.28) 8611.20(10977.81) 16738.78(17986.33) 0.2 692.09(975.99) 1850.63(2487.62) 6590.02(6847.84) 12023.37(13510.26 ) 0.3 102.17(302.90) 1527.27(1603.10) 2996.62(4196.51) 7002.06(11914.09 ) 
+
+It is noted from the velocity profiles (at the instant of first impact of the flow of water on the wall) displayed in Fig. 13 that the shape and size of the shadows are significantly changed with the change of the shape of the obstacle. It is observed from the velocity contours that velocity reduction is maximum in front of the square and cylindrical shapes, respectively. 23 Figure 14: Pressure on the wall at y = 0 .5m for different pillar shapes for WBC (first to third rows) and PBC (fourth to sixth row). 
+
+Whereas, in the case of triangles and rhombuses, the velocities are not re-duced much as the flow faces a sharp edge, while inclined plane (with respect to the vertical plane parallel to the incoming flow direction) surfaces meet. Figure 14 shows that, for all given dam heights, the cylindrical pillar has the least effective reduction in pressure on the wall, followed by the triangular, rhombus, and square pillars. A detailed analysis of the initial impact region z = 0 .1m reveals that the square pillar exhibits the most 24 significant reduction in pressure compared to the other pillars. The split flows passing by the square pillar are guided by the planes parallel to the side boundaries, giving rise to an almost rectangular shadow which cannot be easily filled. Hence, it offers a significant reduction in Pmax and protects the structure within the shadow for an extended period. For the triangle, two inclined planes direct the flows towards the side boundaries, which converge on the shadowed portion and merge, leading to an increase in pressure on the stopping wall. The cylindrical shape offers the highest pressure on the wall, as the round surface guides the split flows to the backside of the pillar, which contributes, along with the flows coming back from the side walls, to filling up the shadow. In WBC, the pressure pattern follows the same trend as observed in PBC. However, the pressures with WBC are slightly higher. Table 4 displays the values of P P BC max and P W BC max on the wall at various z
+
+along y = 0 .5m for pillars of different shapes (cylinder, triangle, rhumbas, and square) with the same hydraulic diameter, D = 0 .3m placed at a = 1 .0m. We observe that P W BC max is greater than the corresponding P P BC max for all cases shown here. We also notice that both P P BC max and P W BC max at a particular z
+
+increase with the increase in H for all shapes. For a specific H and shape, 
+
+Pmax decreases with increasing z. At a particular H and z, the pressure decreases to a maximum for a square shape and a minimum for a cylindrical shape, a trend that provides valuable insights into the behavior of different pillar shapes under varying conditions. Maximum percentage of reduction in 
+
+Pmax in the presence of a pillar concerning N P (P N P max ) is about 70% for the cases considered here. Our calculations of Pmax at ( y = 0 .5m, z = 1 .0m) on the front surface ( Pp)of the pillar of various shapes, both for PBC and WBC, reveal interesting insights. We also present the maximum pressure on the wall ( Pw) at the same ( y, z ) value. The results, tabulated in Table 5 considering the hydraulic diameter D = 0 .3m, a = 1 .0m, and H = 2 .0m, show that for both PBC and WBC, Pp is smallest for the cylindrical shape because the water particles follow the circular path adhering to the geometry of the pillar and go to the back of the pillar (reduces the shadowed portion). For all other shapes, water particles are not allowed to go back of the pillar and hence this offer a larger Pp. The largest pressure are observed on the square shape. The trend is reversed in the case of the values of Pw. This underscores the efficiency of the square pillar in protecting the structure behind it against the dam-break flow, along with the requirement of being strong enough to sustain the significant thrust caused by the flow. 25 Table 5: Maximum pressure value (in P a ) at the front surface of the pillar ( Pp) of D = 0 .3mand on the wall ( Pw) at y = 0 .5m, z = 0 .1m for different pillar shapes. 
+
+Shape Pp Pw Pw/Pp
+
+Cyl 16261.41 (17899.86 ) 11955.74 (15425.40) 0.74 (0.86) Tr 18439.76 (18128.58) 10576.75 (13520.41) 0.57 (0.75) Rh 19397.09 (19304.51) 8951.72 (12209.51) 0.46 (0.63) Sq 24534.36 (42617.62) 8611.20 (10977.81) 0.35 (0.49) 
+
+4. Conclusions 
+
+We studied dam-break flow in the smoothed particle hydrodynamics frame-work using PBC for the domain side boundary which corresponds to a wider flow, as a periodicity exists in the perpendicular direction of the flow, instead of usually employed rigid wall boundary plus slip/no-slip condition (WBC), which is appropriate for a narrow channel. We have assessed the change of the impact of the flow on the downstream structure (wall) due to the pres-ence of an obstacle in front of it unlike the most of the reported works which deals the impact of the directly on the structure. We present the results of a systematic study on the effect of flow speed (related to H), the presence of obstacles in the flow pattern, and the pressure exerted on the wall behind the obstacle in the downstream region. We studied how the obstacle protects the structure behind it from the dam-break flow by changing the flow pat-tern and reducing the pressure on the wall for different sizes, locations with respect to the wall, and shapes of the obstructing pillar. We compared the re-sults obtained using PBC and WBC for all the cases mentioned above. PBC exhibit a smaller impact on the structure compared to the WBC, where the particles are confined within the boundary. For a tall dam ( H), the potential energy is high, and hence the speed of the dam-break flow is large, resulting in a significant impact on the wall. The pressure is large at the bottom of the wall and decreases with increasing height ( z) in all cases. The presence of an obstacle in front of a structure on the downstream side splits the flow and creates a shadow behind the obstacle, which is observed to reduce the pressure on the structure by up to 70% (for the cases considered here). The wider the obstacle, the greater is the reduction in pressure concerning the corresponding no pillar case (Np) than a thinner one. Suppose an obstacle of the same size and shape is placed at a distant location from the wall. In that case, the flow split by the obstacle has the opportunity to return from 26 the boundary and merge within the shadowed portion, resulting in a larger pressure at a point on the wall. Therefore, the closer the obstacle to a por-tion (object) to be protected, the less impact the portion will experience. Regarding shape variation, it is observed that the least reduction in pressure occurs for a cylindrical pillar. Whereas, the pressure at a point on the wall is reduced by a large amount for the square-shaped pillar. The impact at a point (with the same (y, z ), as the point to be protected on the wall, but different x) on the front face of the pillar is largest in comparison to the other shapes considered here, implying that the strength of the pillar should be significantly more for this shape, in compared to the pillars of different shapes we considered. It’s important to note that we did not consider the turbulence term in our calculations. The inclusion of turbulence may alter the values of the calcu-lated quantities. However, we believe that the overall trends and conclusions drawn from our study, particularly regarding the influence of obstacle size, shape, and location on pressure reduction, will remain similar even with the inclusion of turbulence. We considered PBC which feel more appropriate for the systems consid-ered here. Our aim was to provide systematic results on the impact on the wall due to a dam-break flow by altering various parameters of the obstacle placed in front of the wall. We estimate the parameters of the obstacle best suited for maximum reduction of pressure on the structure. This study, with its practical implications, equips individuals with the knowledge to take pre-ventive measures and protect structures more effectively and efficiently from disasters such as dam-break flows, flash floods, and tsunamis. 
+
+References 
+
+[1] Z. Zhou, J. De Kat, B. Buchner, A nonlinear 3d approach to simulate green water dynamics on deck, in: Proceedings of the seventh inter-national conference on numerical ship hydrodynamics, Nantes, France, 1999, pp. 1–15. [2] C. Hu, M. Kashiwagi, A cip-based method for numerical simulations of violent free-surface flows, Journal of marine science and technology 9 (2004) 143–157. [3] S. Marrone, M. Antuono, A. Colagrossi, G. Colicchio, D. L. Touzé, G. Graziani, δ-sph model for simulating violent impact flows, Com-27 puter Methods in Applied Mechanics and Engineering 200 (13-16) (2011) 1526–1542. doi:10.1016/j.cma.2010.12.016. [4] L. T. T. Hien, N. V. Chien, Investigate impact force of dam-break flow against structures by both 2d and 3d numerical simulations, Water 13 (3) (2021) 344. doi:10.3390/w13030344. [5] L. Begnudelli, B. F. Sanders, Simulation of the st. francis dam-break flood, Journal of Engineering Mechanics 133 (11) (2007) 1200–1212. doi:10.1061/(ASCE)0733-9399(2007)133:11(1200). [6] F. Aureli, S. Dazzi, A. Maranzoni, P. Mignosa, R. Vacondio, Experi-mental and numerical evaluation of the force due to the impact of a dam-break wave on a structure, Advances in Water Resources 76 (2015) 29–42. [7] M. Elkholy, L. A. LaRocque, M. H. Chaudhry, J. Imran, Experimental investigations of partial-breach dam-break flows, Journal of Hydraulic Engineering 142 (11) (2016) 04016042. [8] S. Soares-Frazão, Y. Zech, Experimental study of dam-break flow against an isolated obstacle, Journal of Hydraulic Research 45 (27-36) (2007). doi:10.1080/00221686.2007.9521830. [9] C. Hu, M. Sueyoshi, Numerical simulation and experiment on dam break problem, Journal of Marine Science and Application 9 (2010) 109–114. doi:10.1007/s11804-010-9075-z. [10] M. M. Kamra, J. Al Salami, M. Sueyoshi, C. Hu, Experimental study of the interaction of dambreak with a vertical cylinder, Journal of Fluids and Structures 86 (2019) 185–199. [11] A. Maranzoni, M. Tomirotti, Three-dimensional numerical modelling of real-field dam-break flows: Review and recent advances, Water 15 (17) (2023) 3130. doi:10.3390/w15173130. [12] T. Narasimhan, P. Witherspoon, An integrated finite difference method for analyzing fluid flow in porous media, Water Resources Research 12 (1) (1976) 57–64. 28 [13] T. Barth, R. Herbin, M. Ohlberger, Finite volume methods: foundation and analysis, Encyclopedia of computational mechanics second edition (2018) 1–60. [14] L. M. Vieira, M. Giacomini, R. Sevilla, A. Huerta, A face-centred finite volume method for laminar and turbulent incompressible flows, Com-puters & Fluids 279 (2024) 106339. [15] T. Zhang, L. Peng, P. Feng, Evaluation of a 3d unstructured-mesh finite element model for dam-break floods, Computers and Fluids 160 (2018) 64–77. doi:https://doi.org/10.1016/j.compfluid.2017.10.013. [16] R. Scardovelli, S. Zaleski, Direct numerical simulation of free-surface and interfacial flow, Annual review of fluid mechanics 31 (1) (1999) 567–603. [17] X. Xiong, M. Aziz Rahman, Y. Zhang, Rans based computational fluid dynamics simulation of fully developed turbulent newtonian flow in con-centric annuli, Journal of Fluids Engineering 138 (9) (2016) 091202. [18] L. B. Lucy, A numerical approach to the testing of the fission hypothesis, The astronomical journal 82 (1977) 1013–1024. [19] J. J. Monaghan, J. C. Lattanzio, A refined particle method for astro-physical problems, Astronomy and Astrophysics (ISSN 0004-6361), vol. 149, no. 1, Aug. 1985, p. 135-143. 149 (1985) 135–143. [20] S. P. AVS, Numerical study of high strain rate phenomena in solids using smoothed particle hydrodynamics (sph), Ph.D. thesis, IIT Kanpur (2015). [21] S. Adami, X. Y. Hu, N. A. Adams, A generalized wall boundary con-dition for smoothed particle hydrodynamics, Journal of Computational Physics 231 (21) (2012) 7057–7075. [22] P. Harisankar, T. Sil, Drop-vapour coexistence in smoothed particle hy-drodynamics, Engineering Analysis with Boundary Elements 151 (2023) 56–67. [23] S. Nugent, H. Posch, Liquid drops and surface tension with smoothed particle applied mechanics, Physical Review E 62 (4) (2000) 4968. 29 [24] M. Ray, X. Yang, S.-C. Kong, L. Bravo, C.-B. M. Kweon, High-fidelity simulation of drop collision and vapor–liquid equilibrium of van der waals fluids, Proceedings of the Combustion Institute 36 (2) (2017) 2385–2392. [25] X. Yang, M. Liu, S. Peng, Smoothed particle hydrodynamics modeling of viscous liquid drop without tensile instability, Computers & Fluids 92 (2014) 199–208. [26] M. Liu, G. Liu, Meshfree particle simulation of micro channel flows with surface tension, Computational Mechanics 35 (2005) 332–341. [27] H. Nasiri, M. Y. Abdollahzadeh Jamalabadi, R. Sadeghi, M. R. Safaei, T. K. Nguyen, M. Safdari Shadloo, A smoothed particle hydrodynamics approach for numerical simulation of nano-fluid flows: application to forced convection heat transfer over a horizontal cylinder, Journal of Thermal Analysis and Calorimetry 135 (2019) 1733–1741. [28] P. Harisankar, T. Sil, Smoothed particle hydrodynamic simulation for forced convection in zigzag-shaped microchannel, in: Conference on Fluid Mechanics and Fluid Power, Springer, 2025, pp. 305–316. [29] T. Sil, P. Harisankar, Nanofluid microchannel heat sink in smoothed particle hydrodynamics, in: Conference on Fluid Mechanics and Fluid Power, Springer, 2025, pp. 521–531. [30] G.-R. Liu, M. B. Liu, Smoothed particle hydrodynamics: a meshfree particle method, World scientific, 2003. [31] S. Watanabe, S. Fujisaki, C. Hu, Numerical simulation of dam break flow impact on vertical cylinder by cumulant lattice boltzmann method, Journal of Hydrodynamics 33 (2) (2021) 185–194. doi:10.1007/s42241-021-0028-6. [32] D. Mu, L. Chen, D. Ning, Modeling impact load on a vertical cylinder in dam-break flows, Journal of Marine Science and Engineering 11 (5) (2023) 932. doi:10.3390/jmse11050932. [33] M. Ellero, N. Adams, Sph simulations of flow around a periodic array of cylinders confined in a channel, International Journal for Numerical Methods in Engineering 86 (8) (2011) 1027–1040. 30 [34] X.-y. Wang, Y. Liu, L. Lu, Analytical solution of oblique wave inter-acting with a periodic array of specific caissons connected with partially immersed thin walls (comb-type), Ocean Engineering 186 (2019) 106107. [35] R. Mardanov, S. Dunnett, S. Zaripov, Modeling of fluid flow in pe-riodic cell with porous cylinder using a boundary element method, Engineering Analysis with Boundary Elements 68 (2016) 54–62. doi:10.1016/j.enganabound.2016.03.015. [36] S. H. Kim, H. Pitsch, A generalized periodic boundary condition for lattice boltzmann method simulation of a pressure driven flow in a periodic geometry, Physics of Fluids 19 (10) (2007) 108101. doi:10.1063/1.2780194. [37] P. Jonsson, P. Andreasson, G. Hellström, P. Jonsén, S. Lundström, Smoothed particle hydrodynamic simulation of hydraulic jump using periodic open boundaries, Applied Mathematical Modelling 40 (19–20) (2016) 8391–8405. doi:10.1016/j.apm.2016.04.028. [38] E. B. Agamloh, A. K. Wallace, A. von Jouanne, Application of fluid–structure interaction simulation of an ocean wave en-ergy extraction device, Renewable Energy 33 (4) (2008) 748–757. doi:10.1016/j.renene.2007.04.010. [39] S. A. Moore, Lateral boundary conditions in numerical ocean models, Ph.D. thesis, University of Reading (2004). [40] X. Y. Hu, N. A. Adams, A multi-phase sph method for macroscopic and mesoscopic flows, Journal of Computational Physics 213 (2) (2006) 844–861. [41] J. J. Monaghan, On the problem of penetration in particle methods, Journal of Computational Physics 82 (1) (1989) 1–15. doi:10.1016/0021-9991(89)90032-6. [42] B. Song, A. Pazouki, T. Pöschel, Instability of smoothed particle hydro-dynamics applied to poiseuille flows, Computers & Mathematics with Applications 76 (6) (2018) 1447–1457. 31
