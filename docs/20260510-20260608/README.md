@@ -1,52 +1,42 @@
 # 日报 · 2026-05-10 ~ 2026-06-08
 
-- 生成时间：2026-06-08 08:38:15 UTC
-- 当次推荐总数：35
-- 精读区：0
-- 速读区：35
+- 生成时间：2026-06-08 12:20:19 UTC
+- 当次推荐总数：24
+- 精读区：13
+- 速读区：11
 
 ## 今日简报（AI）
-今日速读35篇论文，聚焦算法公平性-性能权衡与生成式AI因果偏差检测。最值得看的两篇高分论文分别揭示了决策系统的帕累托最优边界，以及生成式AI中偏差的因果关系溯源方法。下一步可深入研读这两篇9分论文的实证与框架，并关注如何在实际AI系统中同时优化公平性与性能。
+本期精读13篇速读11篇，重点关注AI洪水预测与降水预报领域。  
+最值得精读的是两篇满分论文：AI驱动的城市洪水数字孪生与解决物理冲击的异方差不确定性框架。  
+建议优先从洪水数字孪生或降水偏差校正方向深入，速读文章可快速了解瑞士公里级降尺度等应用。
 
 ## 精读区
-- 本次无精读推荐。
+1. [Toward AI-Driven Digital Twins for Metropolitan Floods: A Conditional Latent Dynamics Network Surrogate of the Shallow Water Equations](/20260510-20260608/2605.13761v1-toward-ai-driven-digital-twins-for-metropolitan-floods-a-conditional-latent-dynamics-network-surrogate-of-the-shallow-water-equations) （10.0/10）
+2. [Overcoming "Physics Shock" in Earth Observation A Heteroscedastic Uncertainty Framework for PINN-based Flood Inference](/20260510-20260608/2605.24106v1-overcoming-physics-shock-in-earth-observation-a-heteroscedastic-uncertainty-framework-for-pinn-based-flood-inference) （10.0/10）
+3. [A Resilient Solution for Sewer Overflow Monitoring across Cloud and Edge](/20260510-20260608/2605.10592v1-a-resilient-solution-for-sewer-overflow-monitoring-across-cloud-and-edge) （9.0/10）
+4. [Multi-Quantile Regression for Extreme Precipitation Downscaling](/20260510-20260608/2605.12762v1-multi-quantile-regression-for-extreme-precipitation-downscaling) （9.0/10）
+5. [Accurate, Efficient, and Explainable Deep Learning Approaches for Environmental Science Problems](/20260510-20260608/2605.19366v1-accurate-efficient-and-explainable-deep-learning-approaches-for-environmental-science-problems) （9.0/10）
+6. [HaorFloodAlert: Deseasonalized ML Ensemble for 72-Hour Flood Prediction in Bangladesh Haor Wetlands](/20260510-20260608/2605.20167v1-haorfloodalert-deseasonalized-ml-ensemble-for-72-hour-flood-prediction-in-bangladesh-haor-wetlands) （9.0/10）
+7. [Exascale Hybrid Numerical-AI Ensembles for Operational Flood-Season Forecasting in East Asia: 15-km Decadal Hindcasts and 1-km High-Resolution Capability](/20260510-20260608/2605.24896v1-exascale-hybrid-numerical-ai-ensembles-for-operational-flood-season-forecasting-in-east-asia-15-km-decadal-hindcasts-and-1-km-high-resolution-capability) （9.0/10）
+8. [Low-cost IoT-Based Rainfall Monitoring with Web-Based Data Access](/20260510-20260608/2605.30528v1-low-cost-iot-based-rainfall-monitoring-with-web-based-data-access) （9.0/10）
+9. [Deep Learning for Remote Sensing to Improve Flood Inundation Mapping](/20260510-20260608/2606.02310v1-deep-learning-for-remote-sensing-to-improve-flood-inundation-mapping) （9.0/10）
+10. [Physics-Informed Machine Learning for Short-Term Flood Prediction](/20260510-20260608/2606.04143v1-physics-informed-machine-learning-for-short-term-flood-prediction) （9.0/10）
+11. [Data-efficient flood depth prediction through domain-aware coreset selection and tabular foundation models](/20260510-20260608/2606.05265v1-data-efficient-flood-depth-prediction-through-domain-aware-coreset-selection-and-tabular-foundation-models) （9.0/10）
+12. [Computational Modeling of Human Adaptation in Urban Infrastructure Management under Extreme Conditions: A Case Study of Subway Flood Scenarios](/20260510-20260608/2606.06429v1-computational-modeling-of-human-adaptation-in-urban-infrastructure-management-under-extreme-conditions-a-case-study-of-subway-flood-scenarios) （9.0/10）
+13. [Advanced Flood Prediction with Physics-Guided Deep Learning: Combining UNet, FNO, and SAR/Optical Imagery](/20260510-20260608/2606.06524v1-advanced-flood-prediction-with-physics-guided-deep-learning-combining-unet-fno-and-saroptical-imagery) （9.0/10）
 
 ## 速读区
-1. [Fairness vs Performance: Characterizing the Pareto Frontier of Algorithmic Decision Systems](/20260510-20260608/2605.10604v1-fairness-vs-performance-characterizing-the-pareto-frontier-of-algorithmic-decision-systems) （9.0/10）
-2. [Causal Bias Detection in Generative Artifical Intelligence](/20260510-20260608/2605.11365v1-causal-bias-detection-in-generative-artifical-intelligence) （9.0/10）
-3. [Causal Bias Detection in Generative Artificial Intelligence](/20260510-20260608/2605.11365v2-causal-bias-detection-in-generative-artificial-intelligence) （9.0/10）
-4. [Do Fair Models Reason Fairly? Counterfactual Explanation Consistency for Procedural Fairness in Credit Decisions](/20260510-20260608/2605.12701v1-do-fair-models-reason-fairly-counterfactual-explanation-consistency-for-procedural-fairness-in-credit-decisions) （9.0/10）
-5. [Constitutional Governance in Metric Spaces](/20260510-20260608/2605.13362v2-constitutional-governance-in-metric-spaces) （9.0/10）
-6. [Ethical Hyper-Velocity (EHV): A Provably Deterministic Governance-Aware JIT Compiler Architecture for Agentic Systems](/20260510-20260608/2605.17909v1-ethical-hyper-velocity-ehv-a-provably-deterministic-governance-aware-jit-compiler-architecture-for-agentic-systems) （9.0/10）
-7. [Redrawing the AI Map: A Theory of Accountability Boundaries in Agentic Ecosystems](/20260510-20260608/2605.23179v1-redrawing-the-ai-map-a-theory-of-accountability-boundaries-in-agentic-ecosystems) （9.0/10）
-8. [Ontological Knowledge Blocks: Executable Compliance and Profile-Based Validation for Trustworthy AI Systems](/20260510-20260608/2605.23297v1-ontological-knowledge-blocks-executable-compliance-and-profile-based-validation-for-trustworthy-ai-systems) （9.0/10）
-9. [A governance horizon for ethical-use constraints in open-weight AI models](/20260510-20260608/2605.24383v1-a-governance-horizon-for-ethical-use-constraints-in-open-weight-ai-models) （9.0/10）
-10. [Is Decentralized AI Governable? From Regulative Policy to Constitutive Protocol](/20260510-20260608/2605.24538v1-is-decentralized-ai-governable-from-regulative-policy-to-constitutive-protocol) （9.0/10）
-11. [When Interpretability Is Unequally Distributed: Fairness in Hybrid Interpretable Models](/20260510-20260608/2605.28626v1-when-interpretability-is-unequally-distributed-fairness-in-hybrid-interpretable-models) （9.0/10）
-12. [Demystifying the Optimal Fair Classifier in Multi-Class Classification](/20260510-20260608/2606.00656v1-demystifying-the-optimal-fair-classifier-in-multi-class-classification) （9.0/10）
-13. [Are Algorithm Registers Transparent? Perspectives from Germany](/20260510-20260608/2606.02347v1-are-algorithm-registers-transparent-perspectives-from-germany) （9.0/10）
-14. [The Fair Lending Model: How the Longest-Running Algorithmic Fairness Programs Work in Practice](/20260510-20260608/2606.02957v1-the-fair-lending-model-how-the-longest-running-algorithmic-fairness-programs-work-in-practice) （9.0/10）
-15. [The Fair Lending Model: How the Longest-Running Algorithmic Fairness Programs Work in Practice](/20260510-20260608/2606.02957v2-the-fair-lending-model-how-the-longest-running-algorithmic-fairness-programs-work-in-practice) （9.0/10）
-16. [Overlaying Governance: A Compositional Authorization Framework for Delegation and Scope in Agentic AI](/20260510-20260608/2606.03518v1-overlaying-governance-a-compositional-authorization-framework-for-delegation-and-scope-in-agentic-ai) （9.0/10）
-17. [Detecting and Mitigating Bias by Treating Fairness as a Symmetry Operation](/20260510-20260608/2606.06514v1-detecting-and-mitigating-bias-by-treating-fairness-as-a-symmetry-operation) （9.0/10）
-18. [Fair Conformal Classification via Learning Representation-Based Groups](/20260510-20260608/2605.12195v1-fair-conformal-classification-via-learning-representation-based-groups) （8.0/10）
-19. [AI Knows When It's Being Watched: Functional Strategic Action and Contextual Register Modulation in Large Language Models](/20260510-20260608/2605.15034v1-ai-knows-when-its-being-watched-functional-strategic-action-and-contextual-register-modulation-in-large-language-models) （8.0/10）
-20. [Verifiable Agentic Infrastructure: Proof-Derived Authorization for Sovereign AI Systems](/20260510-20260608/2605.15228v1-verifiable-agentic-infrastructure-proof-derived-authorization-for-sovereign-ai-systems) （8.0/10）
-21. [GESD: Beyond Outcome-Oriented Fairness](/20260510-20260608/2605.15295v1-gesd-beyond-outcome-oriented-fairness) （8.0/10）
-22. [Explainable AI Isn't Enough! Rethinking Algorithmic Contestability](/20260510-20260608/2605.16041v1-explainable-ai-isnt-enough-rethinking-algorithmic-contestability) （8.0/10）
-23. [Formal Methods Meet LLMs: Auditing, Monitoring, and Intervention for Compliance of Advanced AI Systems](/20260510-20260608/2605.16198v1-formal-methods-meet-llms-auditing-monitoring-and-intervention-for-compliance-of-advanced-ai-systems) （8.0/10）
-24. [Governance by Construction for Generalist Agents](/20260510-20260608/2605.20874v1-governance-by-construction-for-generalist-agents) （8.0/10）
-25. [Creating Robust and Fair Graph Structures for Connectivity and Clustering](/20260510-20260608/2605.20897v1-creating-robust-and-fair-graph-structures-for-connectivity-and-clustering) （8.0/10）
-26. [Long-term Fairness with Selective Labels](/20260510-20260608/2605.22291v1-long-term-fairness-with-selective-labels) （8.0/10）
-27. [Measuring Database Unfairness via Dependency Quantification Under Differential Privacy](/20260510-20260608/2605.22952v1-measuring-database-unfairness-via-dependency-quantification-under-differential-privacy) （8.0/10）
-28. [Operationalizing Individual Fairness via Gradient Descent and Bradley-Terry Models](/20260510-20260608/2605.23145v1-operationalizing-individual-fairness-via-gradient-descent-and-bradley-terry-models) （8.0/10）
-29. [Intent-Driven Computing: A Computational Model for Governed Autonomous Systems](/20260510-20260608/2605.24036v1-intent-driven-computing-a-computational-model-for-governed-autonomous-systems) （8.0/10）
-30. [Balancing Fairness, Privacy, and Accuracy: A Multitask Adversarial Framework for Centralized Data-Driven Systems](/20260510-20260608/2605.24458v1-balancing-fairness-privacy-and-accuracy-a-multitask-adversarial-framework-for-centralized-data-driven-systems) （8.0/10）
-31. [Test-Time Collective Action: Proxy-Based Perturbations for Correcting Algorithmic Harms](/20260510-20260608/2605.27689v1-test-time-collective-action-proxy-based-perturbations-for-correcting-algorithmic-harms) （8.0/10）
-32. [BiasEdit: A Training-Free Bias-Detect-and-Edit Framework for Learning Fair Visual Classifiers](/20260510-20260608/2605.28450v1-biasedit-a-training-free-bias-detect-and-edit-framework-for-learning-fair-visual-classifiers) （8.0/10）
-33. [Beyond Binary Moral Judgment: Modeling Ethical Pluralism in AI](/20260510-20260608/2605.28707v1-beyond-binary-moral-judgment-modeling-ethical-pluralism-in-ai) （8.0/10）
-34. [Calibrating Conservatism for Scalable Oversight](/20260510-20260608/2605.28807v1-calibrating-conservatism-for-scalable-oversight) （8.0/10）
-35. [Be Fair! Can Machine Learning Engineering Agents Adhere to Fairness Constraints?](/20260510-20260608/2606.04971v1-be-fair-can-machine-learning-engineering-agents-adhere-to-fairness-constraints) （8.0/10）
+1. [How long should a block be?](/20260510-20260608/2605.12760v1-how-long-should-a-block-be) （8.0/10）
+2. [A plug-and-play generative framework for multi-satellite precipitation estimation](/20260510-20260608/2605.14426v1-a-plug-and-play-generative-framework-for-multi-satellite-precipitation-estimation) （8.0/10）
+3. [SwAIther-Precip: Lead-Time-Aware Bias Correction Enables Kilometer-Scale Downscaling of Global AI Precipitation Forecasts over Switzerland](/20260510-20260608/2605.16163v1-swaither-precip-lead-time-aware-bias-correction-enables-kilometer-scale-downscaling-of-global-ai-precipitation-forecasts-over-switzerland) （8.0/10）
+4. [HydroAgent: Closing the Gap Between Frontier LLMs and Human Experts in Hydrologic Model Calibration via Simulator-Grounded RL](/20260510-20260608/2605.17792v1-hydroagent-closing-the-gap-between-frontier-llms-and-human-experts-in-hydrologic-model-calibration-via-simulator-grounded-rl) （8.0/10）
+5. [Assessing socio-economic climate impacts from text data](/20260510-20260608/2605.20793v1-assessing-socio-economic-climate-impacts-from-text-data) （7.0/10）
+6. [A Comparative Multi-Hazard Risk Assessment of the US High-Voltage Transmission Network](/20260510-20260608/2605.23053v1-a-comparative-multi-hazard-risk-assessment-of-the-us-high-voltage-transmission-network) （7.0/10）
+7. [Optimizing Latent Representations for Robust Building Damage Assessment Onboard Earth Observation Satellites](/20260510-20260608/2605.29575v1-optimizing-latent-representations-for-robust-building-damage-assessment-onboard-earth-observation-satellites) （7.0/10）
+8. [Beyond MSE: Improving Precipitation Nowcasting with Multi-Quantile Regression](/20260510-20260608/2605.30122v1-beyond-mse-improving-precipitation-nowcasting-with-multi-quantile-regression) （7.0/10）
+9. [A 10,000-Year Global Stochastic Tropical Cyclone Catalog with Wind-Dependent Track Transitions (WHITS)](/20260510-20260608/2605.20494v1-a-10000-year-global-stochastic-tropical-cyclone-catalog-with-wind-dependent-track-transitions-whits) （6.0/10）
+10. [DisasterBench: Benchmarking LLM Planning under Typed Tool Interface Constraints](/20260510-20260608/2605.27957v1-disasterbench-benchmarking-llm-planning-under-typed-tool-interface-constraints) （6.0/10）
+11. [Flow Matching for Convective-Scale Precipitation Downscaling](/20260510-20260608/2606.00281v1-flow-matching-for-convective-scale-precipitation-downscaling) （6.0/10）
 
 ---
 使用键盘方向键可在日报/论文之间快速切换。

@@ -1,0 +1,983 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-08T12:03:23.553506+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 20,
+    "deep_cap": 6,
+    "deep_selected": 13,
+    "quick_candidates": 18,
+    "quick_skim_target": 11,
+    "quick_selected": 11
+  },
+  "deep_dive": [
+    {
+      "id": "2605.13761v1",
+      "source": "arxiv",
+      "title": "Toward AI-Driven Digital Twins for Metropolitan Floods: A Conditional Latent Dynamics Network Surrogate of the Shallow Water Equations",
+      "abstract": "AI-driven flood digital twins demand fast hydrodynamic surrogates for ensemble forecasting and observation assimilation. Yet even GPU-accelerated two-dimensional shallow water equation (SWE) solvers still require $\\sim 55$ minutes per $96$-hour run on a $\\sim 4.2$-million-active-cell metropolitan basin (the Des~Plaines River basin at $30\\,\\mathrm{m}$ resolution), making such workloads prohibitive at native resolution. We present the Conditional Latent Dynamics Network (CLDNet): a low-dimensional latent neural ODE driven by rainfall, paired with a coordinate-based decoder conditioned on static terrain (elevation, slope, Manning roughness) that reconstructs depth and discharge at arbitrary query points. Pointwise decoding decouples memory from grid size and handles irregular watersheds natively, enabling metropolitan-scale training on a single compute node and direct queries at exact gauge coordinates without raster snapping. We evaluate CLDNet on a synthetic $250{,}000$-cell Texas benchmark and on a new Des~Plaines case study of $114$ real-rainfall Stage~IV storms whose reference simulator we validate against United States Geological Survey (USGS) gauges at the April~2013 flood-of-record (Nash--Sutcliffe efficiency $0.57$--$0.94$ on mean-recentered water-surface elevation). CLDNet roughly halves the relative root-mean-squared error of an unconditional baseline, outperforms regular-grid VAE--ConvLSTM and FNO baselines on the Texas benchmark (both presuppose a Cartesian grid and do not apply to the irregular Des~Plaines watershed), reaches a critical success index of $\\approx 86\\%$ at the $0.5\\,\\mathrm{m}$ inundation threshold, and produces a full $96$-hour basin-wide forecast in $\\sim 29$ seconds -- a $\\sim 115\\times$ speedup.",
+      "authors": [
+        "Phillip Si",
+        "Yuan Qiu",
+        "Omar Sallam",
+        "Jeremy Feinstein",
+        "Ziang He",
+        "Eugene Yan",
+        "Peng Chen"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.CE"
+      ],
+      "published": "2026-05-13T16:41:14+00:00",
+      "link": "https://arxiv.org/pdf/2605.13761v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "AI-driven digital twin for metropolitan flood forecasting using latent neural ODE",
+      "llm_evidence_cn": "面向大都市洪水的AI数字孪生，使用潜在神经ODE",
+      "llm_evidence": "面向大都市洪水的AI数字孪生，使用潜在神经ODE",
+      "canonical_evidence": "面向大都市洪水的AI数字孪生，使用潜在神经ODE",
+      "llm_tldr_en": "Proposes CLDNet, a conditional latent dynamics network that serves as a fast surrogate for shallow-water equations, enabling real-time flood ensemble forecasting for metropolitan basins.",
+      "llm_tldr_cn": "针对大都市洪水数字孪生对快速水动力替代模型的需求，论文提出条件潜在动力学网络（CLDNet），将浅水方程压缩到低维潜在空间并通过条件解码器重建水深和流量。该方法在密歇根德普兰斯河流域的4.2百万活跃细胞网格上，将96小时模拟时间从55分钟降至实时量级，实现快速集合预报。为城市洪水风险管理和应急决策提供了高效工具。",
+      "llm_tldr": "针对大都市洪水数字孪生对快速水动力替代模型的需求，论文提出条件潜在动力学网络（CLDNet），将浅水方程压缩到低维潜在空间并通过条件解码器重建水深和流量。该方法在密歇根德普兰斯河流域的4.2百万活跃细胞网格上，将96小时模拟时间从55分钟降至实时量级，实现快速集合预报。为城市洪水风险管理和应急决策提供了高效工具。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "urban flood risk assessment and management",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.24106v1",
+      "source": "arxiv",
+      "title": "Overcoming \"Physics Shock\" in Earth Observation A Heteroscedastic Uncertainty Framework for PINN-based Flood Inference",
+      "abstract": "Rapid and accurate flood extent mapping from Remote Sensing data, such as Synthetic Aperture Radar (SAR), is critical for operational disaster response, but standard Deep Learning models often produce physically impossible predictions due to a lack of hydrological constraints. While PhysicsInformed Neural Networks (PINNs) attempt to address this by embedding governing laws directly into the loss function, their application to real-world remote sensing data frequently fails. Enforcing rigid spatial derivatives (e.g., the 2D Shallow Water Equations) onto unconditioned latent spaces attempting to fit noisy SAR speckle causes catastrophic gradient divergence, a phenomenon we term Physics Shock. In this paper, we propose a novel Uncertainty-Aware PINN framework tailored specifically for applied Earth Observation that addresses this instability. By integrating a dynamic Warm-Start protocol and modeling heteroscedastic aleatoric uncertainty via a negative log-likelihood objective, the network learns to dynamically relax physical constraints in regions of high sensor noise while strictly enforcing them in high-confidence areas. Evaluated on the Sen1Floods11 dataset, our probabilistic Attention-Gated FNO-UNet successfully stabilizes multi-objective optimization, achieving a +25% relative improvement in Intersection over Union (IoU) compared to deterministic baselines. Furthermore, through Deep Ensembles, we successfully disentangle intrinsic sensor noise from out-of-distribution terrain ignorance, providing operational agencies with highly calibrated, physically consistent confidence bounds for robust disaster mitigation and real-time decision-making.",
+      "authors": [
+        "Tewodros Syum Gebre",
+        "Jagrati Talreja",
+        "Matilda Anokye",
+        "Leila Hashemi-Beni"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-05-22T18:14:17+00:00",
+      "link": "https://arxiv.org/pdf/2605.24106v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "PINN-based flood inference from SAR imagery for urban areas",
+      "llm_evidence_cn": "基于PINN的SAR图像洪水推断，面向城市区域",
+      "llm_evidence": "基于PINN的SAR图像洪水推断，面向城市区域",
+      "canonical_evidence": "基于PINN的SAR图像洪水推断，面向城市区域",
+      "llm_tldr_en": "Proposes a heteroscedastic uncertainty framework to overcome Physics Shock in PINN-based flood extent mapping from SAR, enabling physically consistent predictions for urban flood response.",
+      "llm_tldr_cn": "针对遥感洪水制图中深度学习模型常产生物理不可行预测的问题，论文提出异方差不确定性框架，在物理信息神经网络（PINN）中嵌入2D浅水方程约束，同时引入空间异方差不确定性处理SAR噪声。该方法在真实城市SAR数据上有效避免了‘物理冲击’梯度发散，生成了物理一致且高精度的洪水范围图。为城市洪水应急响应提供了可靠的遥感制图工具。",
+      "llm_tldr": "针对遥感洪水制图中深度学习模型常产生物理不可行预测的问题，论文提出异方差不确定性框架，在物理信息神经网络（PINN）中嵌入2D浅水方程约束，同时引入空间异方差不确定性处理SAR噪声。该方法在真实城市SAR数据上有效避免了‘物理冲击’梯度发散，生成了物理一致且高精度的洪水范围图。为城市洪水应急响应提供了可靠的遥感制图工具。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.10592v1",
+      "source": "arxiv",
+      "title": "A Resilient Solution for Sewer Overflow Monitoring across Cloud and Edge",
+      "abstract": "Aging combined sewer systems in many historical cities are increasingly stressed by extreme rainfall events, which can trigger combined sewer overflows (CSO) with significant environmental and public health impacts. Forecasting the filling dynamics of overflow basins is critical for anticipating capacity exceedance and enabling timely preventive actions for CSO. We present a web-based demonstrator (https://riwwer.demo.calgo-lab.de) that integrates Deep Learning forecasting methods in both cloud and edge settings into an interactive monitoring dashboard for overflow monitoring, resilient to network outages. A video showcase is available online (https://cloud.bht-berlin.de/index.php/s/b9xt4T3SdiLBiFZ).",
+      "authors": [
+        "Vipin Singh",
+        "Tianheng Ling",
+        "Peter Ghaly",
+        "Felix Grimmeisen",
+        "Gregor Schiele",
+        "Felix Biessmann"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.HC",
+        "cs.LG"
+      ],
+      "published": "2026-05-11T14:00:25+00:00",
+      "link": "https://arxiv.org/pdf/2605.10592v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "sewer overflow monitoring for stormwater management in cities",
+      "llm_evidence_cn": "下水道溢流监测系统直接服务于城市雨水管理策略",
+      "llm_evidence": "下水道溢流监测系统直接服务于城市雨水管理策略",
+      "canonical_evidence": "下水道溢流监测系统直接服务于城市雨水管理策略",
+      "llm_tldr_en": "Presents a web-based demonstrator integrating deep learning for combined sewer overflow forecasting, enabling timely preventive actions in urban stormwater management.",
+      "llm_tldr_cn": "针对极端降雨导致合流制下水道溢流的环境与健康问题，本文开发了一个云边协同的深度学习预报系统，集成于交互式监控仪表板。该系统能够预测溢流池的充填动态，提前预警，有效支持城市雨水溢流管理。视频展示可用。",
+      "llm_tldr": "针对极端降雨导致合流制下水道溢流的环境与健康问题，本文开发了一个云边协同的深度学习预报系统，集成于交互式监控仪表板。该系统能够预测溢流池的充填动态，提前预警，有效支持城市雨水溢流管理。视频展示可用。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "stormwater management strategies for cities",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.12762v1",
+      "source": "arxiv",
+      "title": "Multi-Quantile Regression for Extreme Precipitation Downscaling",
+      "abstract": "Deep super-resolution networks for precipitation downscaling achieve strong bulk skill yet systematically under-predict the heavy-tail events that drive flood risk. We demonstrate that the primary obstacle is the loss function, not the data: under intensity-weighted MAE, real and synthetic labels at the same input are simply averaged, meaning data augmentation shifts the predicted mean rather than the conditional distribution. We resolve this with Q-SRDRN, a multi-quantile super-resolution network trained with pinball loss at tau in 0.50, 0.95, 0.99, 0.999. Two CNN-specific design choices make this practical: IncrementBound enforces monotonicity while preserving each quantile channel's gradient identity, and separate per-quantile output heads provide independent filter banks for bulk and tail detection. Under this design, data augmentation via cVAE becomes complementary: the median head absorbs synthetic patterns without contaminating upper quantiles. Empirically, on Florida (convective/tropical-cyclone dominated), the un-augmented Q-SRDRN P999 head detects 1,598 of 2,111 events at 200 mm/day versus 88 for the deterministic baseline--an 18x detection-rate gain (4.2% to 75.7%)--with 63% lower KL divergence and 3.9% lower RMSE. Adding cVAE-generated samples lifts the P50 channel from 14 to 1,038 hits at 200 mm/day. On California (atmospheric-river dominated), the architecture reaches near-perfect detection (P999 SEDI >= 0.996 through 300 mm/day). On Texas, the baseline catches only 2 of 10,720 events at 200 mm/day while the P999 head catches 8,776 (81.9%). While the cVAE does not transfer across regions, multi-quantile regression captures extremes wherever the large-scale signal is strong, while augmentation rescues the median where it is not.",
+      "authors": [
+        "Hamed Najafi",
+        "Gareth Lagerwall",
+        "Jayantha Obeysekera",
+        "Jason Liu"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-05-12T21:17:26+00:00",
+      "link": "https://arxiv.org/pdf/2605.12762v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "extreme precipitation downscaling directly drives flood risk assessment",
+      "llm_evidence_cn": "极端降水降尺度直接服务于洪水风险评估",
+      "llm_evidence": "极端降水降尺度直接服务于洪水风险评估",
+      "canonical_evidence": "极端降水降尺度直接服务于洪水风险评估",
+      "llm_tldr_en": "Q-SRDRN uses multi-quantile regression with pinball loss to improve downscaling of heavy-tail precipitation events, which are key drivers of pluvial flooding.",
+      "llm_tldr_cn": "现有降水降尺度模型系统性低估极端降水，而极端降水正是城市雨洪的主要致因。本文提出Q-SRDRN，采用多分位数回归和pinball损失函数，结合IncrementBound和独立输出头，在保持模型性能的同时精准捕捉高尾分布。实验证明该方法能有效提升对极强降水事件的预测能力，为城市雨洪风险评估提供关键输入。",
+      "llm_tldr": "现有降水降尺度模型系统性低估极端降水，而极端降水正是城市雨洪的主要致因。本文提出Q-SRDRN，采用多分位数回归和pinball损失函数，结合IncrementBound和独立输出头，在保持模型性能的同时精准捕捉高尾分布。实验证明该方法能有效提升对极强降水事件的预测能力，为城市雨洪风险评估提供关键输入。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "pluvial flooding causes and impacts in urban areas",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.19366v1",
+      "source": "arxiv",
+      "title": "Accurate, Efficient, and Explainable Deep Learning Approaches for Environmental Science Problems",
+      "abstract": "Environmental science plays a pivotal role in safeguarding ecosystems, a domain driven by large-scale, heterogeneous data. In the big data era, artificial intelligence (AI) has emerged as a transformative tool for learning patterns and supporting decision-making. This dissertation develops AI-based approaches tailored to complex environmental science problems to achieve Environmental Intelligence, studying three specific challenges. First, we focus on flood prediction and management in coastal river systems. Conventional physics-based models are computationally intensive, limiting real-time application. To overcome this, we propose a deep learning (DL)-based model, WaLeF, for water level forecasting, and a forecast-informed DL model, FIDLAr, to manage water levels. Evaluated in a flood-prone coastal system in South Florida characterized by extreme rainfall and sea level fluctuations, FIDLAr outperforms baselines in accuracy and efficiency while providing interpretable outputs. Second, we target global weather prediction, which is challenged by massive data scale. Traditional physics methods are deterministic and computationally heavy. We propose CoDiCast, a conditional diffusion model tailored for probabilistic weather forecasting. Adapted from generative AI for predictive tasks, experiments show CoDiCast achieves accurate, efficient forecasts with explicit uncertainty quantification. Lastly, we address scientific question-answering in environmental science. When answering in-domain questions, large language models (LLMs) often suffer from hallucinations due to out-of-date or limited knowledge. While retrieval-augmented generation (RAG) retrieves domain-specific knowledge, existing methods trade off accuracy, efficiency, or explainability. We propose Hypercube-RAG, built on a structured text cube framework, which successfully exhibits all three properties simultaneously.",
+      "authors": [
+        "Jimeng Shi"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-05-19T04:58:10+00:00",
+      "link": "https://arxiv.org/pdf/2605.19366v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "deep learning approaches for flood prediction and management including water level forecasting and forecast-informed decision making",
+      "llm_evidence_cn": "用于洪水预测和管理的深度学习方法，包括水位预报和预报驱动的决策支持",
+      "llm_evidence": "用于洪水预测和管理的深度学习方法，包括水位预报和预报驱动的决策支持",
+      "canonical_evidence": "用于洪水预测和管理的深度学习方法，包括水位预报和预报驱动的决策支持",
+      "llm_tldr_en": "Deep learning approaches for flood prediction and management in coastal river systems, including WaLeF water level forecasting and forecast-informed DL, achieving accuracy and explainability.",
+      "llm_tldr_cn": "传统物理洪水模型计算成本高，难以实时应用。本文提出基于深度学习的WaLeF水位预报模型及预报驱动决策框架。在沿海河流系统实验中，WaLeF实现高精度实时水位预测，并具备可解释性。该工作为城市洪水风险评估和管理提供了高效、可解释的人工智能方案，推动了环境智能的发展。",
+      "llm_tldr": "传统物理洪水模型计算成本高，难以实时应用。本文提出基于深度学习的WaLeF水位预报模型及预报驱动决策框架。在沿海河流系统实验中，WaLeF实现高精度实时水位预测，并具备可解释性。该工作为城市洪水风险评估和管理提供了高效、可解释的人工智能方案，推动了环境智能的发展。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "urban flood risk assessment and management",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.20167v1",
+      "source": "arxiv",
+      "title": "HaorFloodAlert: Deseasonalized ML Ensemble for 72-Hour Flood Prediction in Bangladesh Haor Wetlands",
+      "abstract": "Flash floods in Bangladesh's haor wetlands show up with almost no warning. They wreck the annual boro rice harvest. Current setups, built for riverine floods, miss backwater dynamics entirely. These basins are flat. Water does not behave like it does on the Brahmaputra.   We built HaorFloodAlert, a deseasonalized machine learning ensemble that forecasts 72-hour flood probability for the Sunamganj Haor (approximately 8,000 km2). Temperature was acting as a seasonal cheat code - it inflated accuracy by 6.9 pp just because floods happen in warm months. We caught that. We also built an upstream Barak River Sentinel-1 SAR proxy from Silchar, Assam, giving about 36 hours of lead time. Otsu-thresholded SAR change detection validates at 84-91 percent spatial match.   The operational ensemble (RF 0.5625 + XGBoost 0.4375) hits 89.6 percent LOOCV accuracy, 87.5 percent recall, and 0.943 AUC-ROC on 77 real Sentinel-1 events. A three-tier alert pipeline and a BRRI-calibrated boro rice damage estimator are included.",
+      "authors": [
+        "Salma Hoque Talukdar Koli",
+        "Fahima Haque Talukder Jely",
+        "Md. Samiul Alim",
+        "Md. Zakir Hossen"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-05-19T17:51:46+00:00",
+      "link": "https://arxiv.org/pdf/2605.20167v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "flood prediction using machine learning ensemble",
+      "llm_evidence_cn": "使用机器学习集成的洪水预测",
+      "llm_evidence": "使用机器学习集成的洪水预测",
+      "canonical_evidence": "使用机器学习集成的洪水预测",
+      "llm_tldr_en": "Builds a deseasonalized machine learning ensemble (HaorFloodAlert) for 72-hour flood probability prediction in Bangladesh haor wetlands, using SAR data.",
+      "llm_tldr_cn": "该论文针对孟加拉国haor湿地闪洪预测困难的问题，开发了HaorFloodAlert系统。该系统采用去季节化的机器学习集成模型，预测72小时洪水概率，并利用Sentinel-1 SAR数据构建上游水位代理，提供约36小时预警。在Sunamganj Haor区域（约8000平方公里）的验证表明，系统有效避免了温度季节性作弊，实现了可靠预测。",
+      "llm_tldr": "该论文针对孟加拉国haor湿地闪洪预测困难的问题，开发了HaorFloodAlert系统。该系统采用去季节化的机器学习集成模型，预测72小时洪水概率，并利用Sentinel-1 SAR数据构建上游水位代理，提供约36小时预警。在Sunamganj Haor区域（约8000平方公里）的验证表明，系统有效避免了温度季节性作弊，实现了可靠预测。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.24896v1",
+      "source": "arxiv",
+      "title": "Exascale Hybrid Numerical-AI Ensembles for Operational Flood-Season Forecasting in East Asia: 15-km Decadal Hindcasts and 1-km High-Resolution Capability",
+      "abstract": "Seasonal forecasting of summer rainfall in East Asia remains a grand challenge, as predictability at 3 to 6 month lead times is constrained by the spring predictability barrier, weak large-scale signals, and localized nonlinear convective extremes. We address this challenge with CAPES, which integrates a kilometer-resolution coupled regional model with atmosphere, land, and ocean components and a data-driven AI seasonal forecasting system. At 15 km resolution, the fused workflow combines 174 numerical members from varying start times, physics schemes, and parameter perturbations with 1,600 AI members generated from initial and physical perturbations. Using the full LineShine system, CAPES completes ten annual 1,774-member hindcasts for 2016 to 2025 within 14.6 hours, improving the mean prediction score from ECMWF's 71.8 to 75.9 and delivering a major gain in operational forecasting capability. The 1-km configuration further enables fine-scale typhoon simulation and establishes the feasibility of kilometer-scale fused ensemble forecasting on a one-week timescale.",
+      "authors": [
+        "Mengxuan Chen",
+        "Yunpu Xu",
+        "Qiuyan Sun",
+        "Han Zhang",
+        "Jiayi Lai",
+        "Zheng Zhou",
+        "Juepeng Zheng",
+        "Hongsong Meng",
+        "Nan Wei",
+        "Jinxiao Zhang",
+        "Xiongchuan Tan",
+        "Haodong Bian",
+        "Yinan Cai",
+        "Ge Yang",
+        "Fang Wang",
+        "Yunyun Liu",
+        "Conghui He",
+        "Runmin Dong",
+        "Lanning Wang",
+        "Yutong Lu",
+        "Yongjiu Dai",
+        "Haohuan Fu"
+      ],
+      "primary_category": "cs.CE",
+      "categories": [
+        "cs.CE",
+        "physics.ao-ph"
+      ],
+      "published": "2026-05-24T06:52:51+00:00",
+      "link": "https://arxiv.org/pdf/2605.24896v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "hybrid numerical-AI ensemble for operational flood-season forecasting",
+      "llm_evidence_cn": "混合数值-AI集合用于业务洪水季节预报",
+      "llm_evidence": "混合数值-AI集合用于业务洪水季节预报",
+      "canonical_evidence": "混合数值-AI集合用于业务洪水季节预报",
+      "llm_tldr_en": "CAPES integrates kilometer-scale regional model with AI ensemble for seasonal flood forecasting in East Asia, achieving high resolution and skill.",
+      "llm_tldr_cn": "该论文针对东亚夏季降水季节预报的挑战，提出CAPES框架，融合千米分辨率耦合区域模型与数据驱动AI季节预测系统。使用174个数值成员和1600个AI成员构成大规模集合，在15公里分辨率下实现十年回顾预报，并具备1公里高分辨率能力。结果表明，该混合系统显著提高了季节预报技巧，为洪水预报和灾害管理提供了可靠工具。",
+      "llm_tldr": "该论文针对东亚夏季降水季节预报的挑战，提出CAPES框架，融合千米分辨率耦合区域模型与数据驱动AI季节预测系统。使用174个数值成员和1600个AI成员构成大规模集合，在15公里分辨率下实现十年回顾预报，并具备1公里高分辨率能力。结果表明，该混合系统显著提高了季节预报技巧，为洪水预报和灾害管理提供了可靠工具。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "urban flood risk assessment and management",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.30528v1",
+      "source": "arxiv",
+      "title": "Low-cost IoT-Based Rainfall Monitoring with Web-Based Data Access",
+      "abstract": "Rainfall measurement with high spatial and temporal resolution is critical for flood forecasting, drought mitigation, and disaster preparedness. Rainfall patterns are highly variable, both geographically and over time. This variability presents a significant challenge for monitoring, as rain gauges can accurately capture temporal patterns only at a single location. Furthermore, the high cost of commercial instruments restricts their widespread deployment, and rain gauge networks often fail to adequately capture the spatial heterogeneity of precipitation patterns. To address these limitations, this study introduces a low-cost IoT-based rainfall monitoring system developed upon the Low-cost Efficient Wireless Intelligent Sensor (LEWIS) platform. Four rainfall sensors were designed, developed, and deployed at different locations across the semi-arid region of the United States, in the State of New Mexico, to capture localized precipitation variability. Each sensor node integrates a rainfall detection module with an LTE-enabled microcontroller and is powered by a compact solar-battery system, ensuring autonomous and self-sufficient operation. Real-time precipitation data are transmitted to a cloud server for continuous access, visualization, and integration with early-warning frameworks. The results demonstrate that IoT-based rainfall monitoring can achieve reliable accuracy at a fraction of the cost of conventional gauges, while supporting dense deployment for microscale precipitation analysis. Comparative validation with model-based precipitation data and in situ observations shows strong agreement in the detection and timing of recorded precipitation events, highlighting the system potential for early warning, disaster risk reduction, and bias correction of remotely sensed precipitation products by filling observational gaps in under-instrumented semi-arid areas.",
+      "authors": [
+        "Mohammad Solaiman",
+        "Ronan Reza",
+        "Su Zhang",
+        "Gerhard Schoener",
+        "Fernando Moreu"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP"
+      ],
+      "published": "2026-05-28T20:05:39+00:00",
+      "link": "https://arxiv.org/pdf/2605.30528v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "low-cost IoT rainfall monitoring for stormwater runoff management",
+      "llm_evidence_cn": "低成本物联网降雨监测助力城市雨水径流管理",
+      "llm_evidence": "低成本物联网降雨监测助力城市雨水径流管理",
+      "canonical_evidence": "低成本物联网降雨监测助力城市雨水径流管理",
+      "llm_tldr_en": "Proposes a low-cost IoT-based rainfall monitoring system using the LEWIS platform to achieve high spatial-temporal precipitation data for flood forecasting and stormwater management.",
+      "llm_tldr_cn": "针对现有雨量计成本高、空间分辨率不足的问题，本文提出一种基于低成本高效无线智能传感器（LEWIS）平台的物联网降雨监测系统。该系统能够提供高时空分辨率的降雨数据，支持洪水预报和城市雨水管理。通过低成本部署，可有效捕捉降雨空间异质性，为城市雨洪管理提供关键输入。",
+      "llm_tldr": "针对现有雨量计成本高、空间分辨率不足的问题，本文提出一种基于低成本高效无线智能传感器（LEWIS）平台的物联网降雨监测系统。该系统能够提供高时空分辨率的降雨数据，支持洪水预报和城市雨水管理。通过低成本部署，可有效捕捉降雨空间异质性，为城市雨洪管理提供关键输入。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for managing urban stormwater runoff",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.02310v1",
+      "source": "arxiv",
+      "title": "Deep Learning for Remote Sensing to Improve Flood Inundation Mapping",
+      "abstract": "Flooding is the most pervasive natural disaster worldwide. Timely and accurate flood inundation mapping are essential for informing disaster risk management. Optical satellite missions provide high-resolution, multispectral observations critical for flood detection and inundation mapping. However, their operational utility is severely constrained by cloud cover during extreme precipitation events. Conventional cloud-removal techniques based on temporal compositing or interpolation often fail to capture inundation dynamics. In this study, we introduce a cloud-removal framework for flood imagery based on Denoising Diffusion Probabilistic Models, leveraging the Masked Diffusion Transformer architecture. The proposed approach exploits self-attention mechanisms to capture wider spatial context and employs masked token modeling to explicitly learn the reconstruction of cloud-obscured regions. Trained on multispectral Sentinel-2B flood scenes with realistic cloud patterns, the model generates cloud-free image realizations that preserve both visual fidelity and hydrological consistency. Reconstruction performance is evaluated using standard image quality metrics alongside flood-specific hydrological measures, demonstrating improved continuity of water bodies and preservation of spectral signatures critical for water detection indices. The results indicate that diffusion-based generative modeling offers a robust and physically consistent alternative for cloud removal in optical flood monitoring, enabling more reliable, continuous observations to support disaster risk management and flood-related decision making.",
+      "authors": [
+        "Yogesh Bhattarai",
+        "Vijay Chaudhary",
+        "Wai Lim Kim",
+        "Sanjib Sharma"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-06-01T14:28:48+00:00",
+      "link": "https://arxiv.org/pdf/2606.02310v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "deep learning for flood inundation mapping directly supports urban flood risk assessment",
+      "llm_evidence_cn": "深度学习用于洪水淹没制图直接支持城市洪水风险评估",
+      "llm_evidence": "深度学习用于洪水淹没制图直接支持城市洪水风险评估",
+      "canonical_evidence": "深度学习用于洪水淹没制图直接支持城市洪水风险评估",
+      "llm_tldr_en": "Proposes a cloud-removal framework using diffusion models to improve flood mapping from optical satellites, enabling timely and accurate inundation maps for disaster management.",
+      "llm_tldr_cn": "针对光学卫星在强降水期间云覆盖导致洪水图像缺失的问题，提出基于去噪扩散概率模型的云去除框架，利用Masked Diffusion Transformer架构。该方法在洪水影像上有效去云，恢复淹没动态，为城市洪水风险评估提供了更可靠的遥感数据源。",
+      "llm_tldr": "针对光学卫星在强降水期间云覆盖导致洪水图像缺失的问题，提出基于去噪扩散概率模型的云去除框架，利用Masked Diffusion Transformer架构。该方法在洪水影像上有效去云，恢复淹没动态，为城市洪水风险评估提供了更可靠的遥感数据源。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.04143v1",
+      "source": "arxiv",
+      "title": "Physics-Informed Machine Learning for Short-Term Flood Prediction",
+      "abstract": "Accurate flood forecasting is essential for mitigating disaster risks and protecting communities. However, purely data-driven machine learning models often struggle in data-scarce environments and may violate fundamental hydrological principles. Standard Long Short-Term Memory (LSTM) networks can generate physically inconsistent predictions, particularly when extrapolating to extreme weather conditions. To address these limitations, we propose a Physics-Informed Machine Learning (PIML) framework that incorporates hydrological knowledge directly into the loss function of an LSTM model. Specifically, a Trend Alignment constraint penalizes directional inconsistencies between precipitation and discharge trends, improving model robustness without requiring complex hydrodynamic equations. This regularization encourages the model to learn physically plausible hydrograph behavior, even with limited training data, while enhancing reliability during peak flood events. Experimental results show that the proposed physics-informed model outperforms a standard LSTM baseline in data-scarce settings, increasing the Nash-Sutcliffe Efficiency (NSE) from 0.20 to 0.23 when trained on only 5% of the available data. Additional stress tests under simulated extreme climate scenarios demonstrate that the baseline model exhibits unstable behavior, whereas the physics-informed model maintains directional consistency and physical plausibility. Although accurately predicting extreme peak magnitudes remains challenging with limited data, the proposed approach substantially reduces unphysical fluctuations common in purely data-driven models. These findings demonstrate that simple physical constraints can significantly improve the reliability of deep learning models for real-time flood forecasting, offering a practical solution for ungauged basins and evolving climate conditions.",
+      "authors": [
+        "Tewodros Syum Gebre",
+        "Jagrati Talreja",
+        "Leila Hashemi-Beni"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-06-02T19:01:06+00:00",
+      "link": "https://arxiv.org/pdf/2606.04143v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "physics-informed ML for short-term flood prediction",
+      "llm_evidence_cn": "物理信息机器学习用于短期洪水预测，直接对应城市洪水风险评估",
+      "llm_evidence": "物理信息机器学习用于短期洪水预测，直接对应城市洪水风险评估",
+      "canonical_evidence": "物理信息机器学习用于短期洪水预测，直接对应城市洪水风险评估",
+      "llm_tldr_en": "Proposes a Physics-Informed Machine Learning framework that incorporates hydrological knowledge into LSTM loss function for short-term flood prediction, improving robustness in extreme events.",
+      "llm_tldr_cn": "针对纯数据驱动模型在数据稀缺和极端天气下物理不一致的问题，本文提出物理信息机器学习框架，将水文知识（趋势对齐约束）嵌入LSTM损失函数。该方法在短期洪水预测中不仅提高了精度，还能在极端条件下保持物理一致性，显著提升了泛化能力。实验显示其优于标准LSTM。",
+      "llm_tldr": "针对纯数据驱动模型在数据稀缺和极端天气下物理不一致的问题，本文提出物理信息机器学习框架，将水文知识（趋势对齐约束）嵌入LSTM损失函数。该方法在短期洪水预测中不仅提高了精度，还能在极端条件下保持物理一致性，显著提升了泛化能力。实验显示其优于标准LSTM。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.05265v1",
+      "source": "arxiv",
+      "title": "Data-efficient flood depth prediction through domain-aware coreset selection and tabular foundation models",
+      "abstract": "Near-real-time flood depth prediction demands surrogate models that are accurate, fast, and transferable across watersheds. Supervised surrogates can match physics-based simulators in accuracy but need millions of training rows per watershed and cannot extrapolate beyond their original mesh. We propose a domain-aware coreset construction pipeline that conditions a tabular foundation model at inference time. The pipeline stratifies storms by return period and most-affected watershed, then samples hexagons with a target-aware spatial selector. With 0.7% of the per-watershed training pool, the model attains a mean $R^2$ of 0.663 across nine Houston-area watersheds, within 98.5% of the supervised reference ($R^2$ = 0.673). It transfers to held-out watersheds without task-specific retraining, staying ahead of a coreset-trained supervised baseline. On real storms it exceeds the supervised reference on a far out-of-distribution case and trails it on a mostly in-distribution one. Domain-aware coreset construction lets tabular foundation models deliver data-efficient, watershed-transferable flood predictions without per-watershed training.",
+      "authors": [
+        "Lipai Huang",
+        "Adithi Srinath",
+        "Manas Singh",
+        "Junwei Ma",
+        "Ali Mostafavi"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-03T16:25:38+00:00",
+      "link": "https://arxiv.org/pdf/2606.05265v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Data-efficient flood depth prediction using coreset selection and tabular foundation models",
+      "llm_evidence_cn": "利用核心集选择和表格基础模型实现数据高效的洪水深度预测",
+      "llm_evidence": "利用核心集选择和表格基础模型实现数据高效的洪水深度预测",
+      "canonical_evidence": "利用核心集选择和表格基础模型实现数据高效的洪水深度预测",
+      "llm_tldr_en": "Presents a domain-aware coreset construction pipeline with a tabular foundation model for flood depth prediction, achieving high accuracy with only 0.7% of training data across watersheds.",
+      "llm_tldr_cn": "针对洪水深度预测中监督模型训练数据量庞大的问题，论文提出领域感知核心集构建管道，按重现期和流域分层采样，结合表格基础模型实现近实时预测。在休斯顿九个流域的实验表明，仅用原训练数据0.7%的样本，R²达到0.663（对照0.673），且模型可迁移至未见流域。为数据有限地区的洪水风险快速评估提供了实用方案。",
+      "llm_tldr": "针对洪水深度预测中监督模型训练数据量庞大的问题，论文提出领域感知核心集构建管道，按重现期和流域分层采样，结合表格基础模型实现近实时预测。在休斯顿九个流域的实验表明，仅用原训练数据0.7%的样本，R²达到0.663（对照0.673），且模型可迁移至未见流域。为数据有限地区的洪水风险快速评估提供了实用方案。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for urban flood risk assessment",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.06429v1",
+      "source": "arxiv",
+      "title": "Computational Modeling of Human Adaptation in Urban Infrastructure Management under Extreme Conditions: A Case Study of Subway Flood Scenarios",
+      "abstract": "Decision-making in urban infrastructure management during extreme events relies heavily on human operators, yet current computational support systems often fail to account for non-monotonic human adaptation and latent psychological biases like overconfidence and defensive overcorrection. This study addresses this gap by integrating Instance-Based Learning Theory (IBLT) into the domain of civil engineering computing. We establish a computational cognitive architecture that simulates operator decision processes through the mathematical mechanisms of memory retrieval and utility blending. This model functions as a computational baseline, representing boundedly rational adaptation driven by experiential priors, thus allowing for the algorithmic isolation of latent psychological biases from the baseline dynamics of memory-based learning. We demonstrated this framework using a human-in-the-loop microworld experiment simulating subway flood-induced track suspensions, where dispatchers must balance passenger safety against service efficiency. Analysis revealed a complex, non-linear human adaptation cycle consisting of four phases: acquisition, overconfidence, overcorrection, and recalibration. Specifically, the computational model exposed a significant divergence during the post-accident \"overcorrection\" phase: while human operators exhibited immediate, defensive risk overestimation, the model maintained a stable trajectory based on accumulated experience. This strategic divergence confirms that operational instability following failure is often attributable to acute psychological bias overriding stable memory-based adaptation, a pattern theoretically expected to recur across analogous high-stakes environments and validatable through multi-modal behavioral and sensor data from professional operators.",
+      "authors": [
+        "Jinfeng Lou",
+        "Zijie Liang",
+        "Pengkun Liu",
+        "Yuxin Zhang",
+        "Cleotilde Gonzalez",
+        "Pingbo Tang"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-06-04T17:34:19+00:00",
+      "link": "https://arxiv.org/pdf/2606.06429v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "urban flood scenarios in subway infrastructure",
+      "llm_evidence_cn": "地铁基础设施的洪水情景",
+      "llm_evidence": "地铁基础设施的洪水情景",
+      "canonical_evidence": "地铁基础设施的洪水情景",
+      "llm_tldr_en": "Integrates Instance-Based Learning Theory to model human adaptation in subway flood scenarios, creating a cognitive architecture for operator decision-making under extreme events.",
+      "llm_tldr_cn": "该研究聚焦城市地铁洪水情景中的人类决策适应性问题，将基于实例的学习理论引入土木工程计算。通过建立认知架构模拟操作员在极端事件中的决策过程，考虑记忆检索和效用混合的数学机制。模型作为基准，捕捉了有限理性适应行为，为城市洪涝应急管理决策支持系统提供了新思路。",
+      "llm_tldr": "该研究聚焦城市地铁洪水情景中的人类决策适应性问题，将基于实例的学习理论引入土木工程计算。通过建立认知架构模拟操作员在极端事件中的决策过程，考虑记忆检索和效用混合的数学机制。模型作为基准，捕捉了有限理性适应行为，为城市洪涝应急管理决策支持系统提供了新思路。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "urban flood risk assessment and management",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.06524v1",
+      "source": "arxiv",
+      "title": "Advanced Flood Prediction with Physics-Guided Deep Learning: Combining UNet, FNO, and SAR/Optical Imagery",
+      "abstract": "Accurate and scalable flood mapping remains challenging due to limited ground observations, heterogeneous terrain conditions, and the difficulty of enforcing hydrodynamic consistency within data-driven models. This work introduces a physics-guided deep learning framework that integrates multi-modal remote sensing (Sentinel-1 SAR, Sentinel-2 optical imagery, and DEM-derived terrain features) with constraints from the depth-averaged shallow water equations (SWE). The proposed hybrid architecture combines a UNet to capture fine-scale spatial details with a Fourier Neural Operator (FNO) to model basin-scale hydraulic interactions, while physics-informed residual losses ensure mass and momentum consistency. Evaluated across diverse floodplain settings, the hybrid model achieves an Intersection over Union of 0.82 and an F1 score of 0.90 for flood extent prediction, outperforming UNet-only and FNO-only baselines. Using hydrodynamic simulations as reference data, the model achieves an RMSE of 0.21 m for water depth and 0.15 m/s for flow velocity. Physics consistency is maintained, with low residuals and mass imbalance below 2.1%. Ablation studies confirm that removing physicsbased regularization significantly degrades performance, underscoring the value of physical constraints for stability and generalization. These results demonstrate that embedding hydrodynamic principles into deep learning yields more accurate, reliable, and physically coherent flood predictions, offering strong potential for operational monitoring and large-scale deployment.",
+      "authors": [
+        "Tewodros Syum Gebre",
+        "Jagrati Talreja",
+        "Leila Hashemi-Beni"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV",
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-06-02T19:14:04+00:00",
+      "link": "https://arxiv.org/pdf/2606.06524v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "physics-guided deep learning for flood mapping using satellite imagery and shallow water equations",
+      "llm_evidence_cn": "使用卫星影像和浅水方程的物理引导深度学习洪水制图",
+      "llm_evidence": "使用卫星影像和浅水方程的物理引导深度学习洪水制图",
+      "canonical_evidence": "使用卫星影像和浅水方程的物理引导深度学习洪水制图",
+      "llm_tldr_en": "Physics-guided deep learning framework integrating UNet, FNO, and remote sensing data for accurate and scalable flood mapping, with hydrodynamic consistency enforced via shallow water equation constraints.",
+      "llm_tldr_cn": "现有洪水制图方法受限于稀疏观测和模型物理不一致。本文提出物理引导深度学习框架，结合UNet和FNO处理多模态遥感数据，并用浅水方程约束确保水动力一致性。跨区域评估表明该方法在制图精度和物理合理性上优于纯数据驱动模型，为实时洪水预测和城市防洪管理提供可扩展方案。",
+      "llm_tldr": "现有洪水制图方法受限于稀疏观测和模型物理不一致。本文提出物理引导深度学习框架，结合UNet和FNO处理多模态遥感数据，并用浅水方程约束确保水动力一致性。跨区域评估表明该方法在制图精度和物理合理性上优于纯数据驱动模型，为实时洪水预测和城市防洪管理提供可扩展方案。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for urban flood risk assessment",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.12760v1",
+      "source": "arxiv",
+      "title": "How long should a block be?",
+      "abstract": "The block maximum method, which is widely used in extreme value analysis, uses a generalized extreme value distribution to approximate that of the maximum of m observations. The quality of this approximation depends on the value of m and may be poor if m is too small. Surprisingly little attention has been paid to the choice of the block length, although a good choice is crucial to the success of the method. In this paper we assess the effect of taking excessively long blocks in terms of asymptotic relative efficiency, and propose likelihood-based approaches and graphical diagnostics to determine whether a proposed block length is suitable, allowing for potential rounding and left-censoring of observations. We investigate our ideas using simulation and illustrate them using wind speed, river flow and rainfall data.",
+      "authors": [
+        "Léo R. Belzile",
+        "Anthony C. Davison"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME",
+        "stat.AP"
+      ],
+      "published": "2026-05-12T21:14:09+00:00",
+      "link": "https://arxiv.org/pdf/2605.12760v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "block length choice for extreme value analysis applied to river flow, crucial for flood risk assessment",
+      "llm_evidence_cn": "极值分析中块长选择方法应用于河流流量，对洪水风险评估至关重要",
+      "llm_evidence": "极值分析中块长选择方法应用于河流流量，对洪水风险评估至关重要",
+      "canonical_evidence": "极值分析中块长选择方法应用于河流流量，对洪水风险评估至关重要",
+      "llm_tldr_en": "Analyzes block length impact on extreme value estimation and proposes diagnostics for river flow flood frequency analysis.",
+      "llm_tldr_cn": "块最大方法中块长选择直接影响洪水频率分析精度。本文评估了过长块长的渐近效率损失，提出了基于似然的诊断方法，并通过模拟和河流流量实例验证。改进的块长选择方法可为城市洪水风险评估提供更可靠的极值估计。",
+      "llm_tldr": "块最大方法中块长选择直接影响洪水频率分析精度。本文评估了过长块长的渐近效率损失，提出了基于似然的诊断方法，并通过模拟和河流流量实例验证。改进的块长选择方法可为城市洪水风险评估提供更可靠的极值估计。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2605.20793v1",
+      "source": "arxiv",
+      "title": "Assessing socio-economic climate impacts from text data",
+      "abstract": "Recent advances in natural language processing (NLP) and large language models (LLMs) have enabled the systematic use of large-scale textual data from news, social media, and reports to create datasets with socio-economic impacts of climate hazards such as floods, droughts, storms, and multi-hazard events. As the field of text-as-data for impact assessment expands, so does its methodological complexity. Yet research remains fragmented, with no clear guidelines for defining what constitutes an impact, handling temporal and spatial biases, and selecting appropriate modeling and post-processing strategies. This lack of coherence limits transparency and comparability across studies. Here, we address this gap by synthesising common practices, describing key challenges specific to the use of text-as-data methods for analyzing socio-economic impact data, and proposing recommendations to address them. By providing guidance on best practices, we aim to support the construction of robust text-derived socio-economic impact datasets that can more accurately inform disaster risk management and attribution studies.",
+      "authors": [
+        "Mariana Madruga de Brito",
+        "Brielen Madureira",
+        "Taís Maria Nunes Carvalho",
+        "Damien Delforge",
+        "Aglaé Jézéquel",
+        "Murathan Kurfalı",
+        "Ni Li",
+        "Gabriele Messori",
+        "Joakim Nivre",
+        "Barbara Pernici",
+        "Niko Speybroeck",
+        "Stefano Terzi",
+        "Wim Thiery",
+        "Bram Valkenborg",
+        "Jingxian Wang",
+        "Shorouq Zahra",
+        "Jakob Zscheischler",
+        "Jan Sodoge"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-05-20T06:40:00+00:00",
+      "link": "https://arxiv.org/pdf/2605.20793v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "systematic use of text data to assess socio-economic impacts of floods, addressing challenges in impact assessment",
+      "llm_evidence_cn": "利用文本数据系统评估洪水等气候灾害的社会经济影响，解决评估中的挑战",
+      "llm_evidence": "利用文本数据系统评估洪水等气候灾害的社会经济影响，解决评估中的挑战",
+      "canonical_evidence": "利用文本数据系统评估洪水等气候灾害的社会经济影响，解决评估中的挑战",
+      "llm_tldr_en": "Synthesizes practices for using NLP and LLMs on text data to create socio-economic impact datasets for floods and other hazards, addressing biases and methodological gaps.",
+      "llm_tldr_cn": "针对利用自然语言处理和大语言模型从新闻、社交媒体等文本数据评估洪水等气候灾害社会经济影响的方法碎片化问题，系统总结了现有实践，识别了时空偏倚、影响定义等关键挑战，并提出了标准化指南。该工作为城市洪水影响评估提供了方法论框架。",
+      "llm_tldr": "针对利用自然语言处理和大语言模型从新闻、社交媒体等文本数据评估洪水等气候灾害社会经济影响的方法碎片化问题，系统总结了现有实践，识别了时空偏倚、影响定义等关键挑战，并提出了标准化指南。该工作为城市洪水影响评估提供了方法论框架。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "pluvial flooding causes and impacts in urban areas",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.20494v1",
+      "source": "arxiv",
+      "title": "A 10,000-Year Global Stochastic Tropical Cyclone Catalog with Wind-Dependent Track Transitions (WHITS)",
+      "abstract": "Reliable assessment of tropical cyclone (TC) risk is limited by the brevity and spatial sparsity of the historical record, particularly for the rare, high-intensity landfalls that dominate insured loss. We present WHITS (Wind-focused Hurricane Interactive Track Simulator), a non-parametric semi-Markov track generator that extends the HITS framework of Nakamura et al. (2015) in three ways: transitions between historical track segments are conditioned on local wind speed in addition to position, age, and forward vector; the kernel selection on the comparative-vector term is sharpened to suppress dynamically inconsistent jumps; and a short smoothing window is applied across each transition to remove the position and wind discontinuities reported by downstream surge users. WHITS is fit to the full available best-track record in each of six basins in IBTrACS, extending in the North Atlantic to 1851 and in other basins to the earliest year of reliable best-track data. The resulting 10,000-yr global synthetic catalog reproduces observed track density and the annual hurricane/typhoon-force wind-hit probability across all basins. The catalog is intended for catastrophe-risk applications where a large, low-bias sample of physically plausible tracks is more useful than a small, statistically corrected one.",
+      "authors": [
+        "Jennifer Nakamura",
+        "Upmanu Lall"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "physics.ao-ph",
+        "stat.AP"
+      ],
+      "published": "2026-05-19T20:58:36+00:00",
+      "link": "https://arxiv.org/pdf/2605.20494v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "stochastic tropical cyclone catalog for risk assessment, applicable to coastal urban flood risk",
+      "llm_evidence_cn": "随机热带气旋目录用于风险评估，适用于沿海城市洪水风险",
+      "llm_evidence": "随机热带气旋目录用于风险评估，适用于沿海城市洪水风险",
+      "canonical_evidence": "随机热带气旋目录用于风险评估，适用于沿海城市洪水风险",
+      "llm_tldr_en": "Non-parametric semi-Markov track generator producing a 10,000-year global stochastic tropical cyclone catalog for improved risk assessment of rare, high-intensity landfalls.",
+      "llm_tldr_cn": "历史热带气旋记录不足以评估罕见高强度登陆事件。本文提出WHITS，一种非参数半马尔可夫路径生成器，基于风速和位置等条件生成万年全球随机风暴目录。该目录能有效再现气候统计特征，特别适用于沿海城市洪水风险评估，弥补了历史记录不足的缺陷。",
+      "llm_tldr": "历史热带气旋记录不足以评估罕见高强度登陆事件。本文提出WHITS，一种非参数半马尔可夫路径生成器，基于风速和位置等条件生成万年全球随机风暴目录。该目录能有效再现气候统计特征，特别适用于沿海城市洪水风险评估，弥补了历史记录不足的缺陷。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.14426v1",
+      "source": "arxiv",
+      "title": "A plug-and-play generative framework for multi-satellite precipitation estimation",
+      "abstract": "Reliable precipitation monitoring is essential for disaster risk reduction, water resources management, and agricultural decision-making. Multi-source satellite observations, particularly the combination of geostationary infrared and passive microwave measurements, have become a primary means of precipitation detection. Traditional multi-source satellite precipitation estimation methods remain computationally inefficient, and many deep learning methods lack the flexibility to incorporate new sensors without retraining the full model. Here we introduce PRISMA (Precipitation Inference from Satellite Modalities via generAtive modeling), a plug-and-play latent generative framework for multi-sensor precipitation estimation. PRISMA learns an unconditional precipitation prior from IMERG Final fields and constrains it through independently trained, sensor-specific conditional branches, allowing new observation sources to be incorporated without retraining the generative backbone. Applied to FY-4B AGRI infrared and GPM GMI microwave observations, PRISMA improves Critical Success Index by up to 40.3% and reduces root-mean-square error by 22.6% relative to infrared-only estimation within microwave swaths, while also improving probabilistic skill and maintaining an average inference time of about 37 s. Independent rain-gauge validation across China confirms consistent gains, and typhoon case studies show that microwave conditioning restores eyewall and spiral rainband structures, reducing storm-core mean absolute error by up to 42.3%. PRISMA thus provides an extensible and efficient framework for multi-sensor precipitation estimation.",
+      "authors": [
+        "Yunfan Yang",
+        "Haofei Sun",
+        "Xiuyu Sun",
+        "Wei Han",
+        "Xiaoze Xu",
+        "Xingtao Song",
+        "Jun Li",
+        "Zhiqiu Gao",
+        "Wei Huang",
+        "Hao Li"
+      ],
+      "primary_category": "physics.ao-ph",
+      "categories": [
+        "physics.ao-ph",
+        "cs.AI"
+      ],
+      "published": "2026-05-14T06:18:53+00:00",
+      "link": "https://arxiv.org/pdf/2605.14426v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "generative framework for satellite precipitation estimation aiding flood risk assessment",
+      "llm_evidence_cn": "生成式卫星降水估计框架助力洪水风险评估",
+      "llm_evidence": "生成式卫星降水估计框架助力洪水风险评估",
+      "canonical_evidence": "生成式卫星降水估计框架助力洪水风险评估",
+      "llm_tldr_en": "PRISMA is a plug-and-play generative framework that fuses multi-satellite data for precipitation estimation, improving inputs for flood risk models.",
+      "llm_tldr_cn": "该论文针对多源卫星降水估计计算效率低、模型灵活性差的问题，提出PRISMA框架，一种即插即用的潜在生成模型，可无缝融合红外与微波观测生成降水数据。实验表明，PRISMA在多个区域降水估计精度优异，且能轻松集成新传感器。其高质量降水数据可直接提升城市洪水风险评估的准确性。",
+      "llm_tldr": "该论文针对多源卫星降水估计计算效率低、模型灵活性差的问题，提出PRISMA框架，一种即插即用的潜在生成模型，可无缝融合红外与微波观测生成降水数据。实验表明，PRISMA在多个区域降水估计精度优异，且能轻松集成新传感器。其高质量降水数据可直接提升城市洪水风险评估的准确性。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for urban flood risk assessment",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2605.23053v1",
+      "source": "arxiv",
+      "title": "A Comparative Multi-Hazard Risk Assessment of the US High-Voltage Transmission Network",
+      "abstract": "Modern economies depend critically on high-voltage power transmission networks. Yet this infrastructure is routinely disrupted by natural hazards ranging from earthquakes and floods to tornadoes and geomagnetic storms. Risk assessments have historically addressed hazards in isolation, leaving no common basis for comparing economic impacts across the full hazard portfolio. This study addresses this gap by developing an integrated framework linking hazard characterization, fragility modeling, and macroeconomic impact propagation. The framework is applied consistently across nine primary hazards and one compound freezing rain and wind gust hazard. Using national hazard datasets and a US high-voltage transmission network of over 13,000 line segments and 10,000 substations, we derive failure probabilities, expected damage, affected population, and downstream economic output losses. Among individual hazards, tropical cyclone wind produces the largest expected daily damage at $137 M/day, followed by lightning at $87 M/day, earthquake at $47 M/day, flood at $46 M/day, tornado at $42 M/day, and landslide at $34 M/day. Downstream economic output losses are largest for tornado at $4.93 B/day, followed by flood at $3.59 B/day and earthquake at $3.02 B/day. A 250-year geomagnetic storm produces $2.07 B/day, placing space weather within the range of major terrestrial hazards. The compound freezing rain and wind gust scenario produces the largest stress-test disruption, affecting 237.4 M people and yielding a modeled downstream output loss of $85.16 B/day. These results should be interpreted as first-order bounding estimates, with the compound scenario representing an upper-bound stress test. Overall, the framework establishes a consistent baseline for prioritizing investments in transmission network resilience.",
+      "authors": [
+        "D. Bor",
+        "E. J. Oughton",
+        "R. S. Weigel",
+        "R. Yang",
+        "T. Clower",
+        "A. Newman",
+        "A. R. Valle"
+      ],
+      "primary_category": "econ.EM",
+      "categories": [
+        "econ.EM"
+      ],
+      "published": "2026-05-21T21:36:17+00:00",
+      "link": "https://arxiv.org/pdf/2605.23053v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multi-hazard risk assessment framework includes floods",
+      "llm_evidence_cn": "包含洪水的多灾害风险评估框架",
+      "llm_evidence": "包含洪水的多灾害风险评估框架",
+      "canonical_evidence": "包含洪水的多灾害风险评估框架",
+      "llm_tldr_en": "Develops an integrated multi-hazard risk assessment framework for high-voltage transmission networks, covering nine hazards including floods, with fragility modeling and macroeconomic impact propagation.",
+      "llm_tldr_cn": "该研究针对高压输电网络，提出了一套综合多灾害风险评估框架，涵盖包括洪水在内的九种自然灾害。该方法整合了灾害特征描述、脆弱性建模和宏观经济影响传播，为不同灾害间的风险比较提供了统一基础。案例应用表明该框架能有效评估洪水等灾害对关键基础设施的经济影响。",
+      "llm_tldr": "该研究针对高压输电网络，提出了一套综合多灾害风险评估框架，涵盖包括洪水在内的九种自然灾害。该方法整合了灾害特征描述、脆弱性建模和宏观经济影响传播，为不同灾害间的风险比较提供了统一基础。案例应用表明该框架能有效评估洪水等灾害对关键基础设施的经济影响。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.27957v1",
+      "source": "arxiv",
+      "title": "DisasterBench: Benchmarking LLM Planning under Typed Tool Interface Constraints",
+      "abstract": "Disasters cause severe societal impacts, demanding rapid coordination of heterogeneous AI tools, from satellite analysis to flood prediction and damage assessment, into coherent multi-step workflows. As LLMs increasingly serve as orchestrators of such pipelines, effective coordination requires more than selecting semantically plausible tools: LLMs must generate executable workflows with correct parameter binding and dependency propagation.   We introduce DisasterBench, a benchmark for evaluating structured multi-agent planning over semantically similar but operationally distinct disaster-response tools. To enable step-level failure attribution, we further propose First-Point-of-Failure (FPoF), which localizes the earliest root cause in a predicted workflow, separating primary errors from downstream cascading effects.   Our evaluation reveals three findings: planning method effectiveness depends strongly on model capacity; tool mismatch and parameter-binding errors dominate first failures, revealing semantic grounding and execution consistency as distinct bottlenecks; and verbose intermediate reasoning can create instruction clash with structured output requirements, disrupting plan generation.   Together, these findings highlight a fundamental gap between semantic reasoning and execution-grounded coordination, underscoring the need for planning frameworks that jointly model semantic intent, execution constraints, and workflow consistency.   Code, data, and evaluation resources are available at: https://github.com/TamuChen18/DisasterBench_Open",
+      "authors": [
+        "Zhitong Chen",
+        "Kai Yin",
+        "Weifeng Zhang",
+        "Zhiyuan Wang",
+        "Xiangjue Dong",
+        "Chengkai Liu",
+        "Zhewei Liu",
+        "Yiming Xiao",
+        "Ali Mostafavi",
+        "James Caverlee"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-05-27T04:50:23+00:00",
+      "link": "https://arxiv.org/pdf/2605.27957v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "benchmark for LLM planning in disaster response including flood prediction tools",
+      "llm_evidence_cn": "灾难响应中LLM规划的基准测试，包含洪水预测工具",
+      "llm_evidence": "灾难响应中LLM规划的基准测试，包含洪水预测工具",
+      "canonical_evidence": "灾难响应中LLM规划的基准测试，包含洪水预测工具",
+      "llm_tldr_en": "DisasterBench evaluates LLM planning over disaster tools including flood prediction, offering a benchmark for automated multi-agent workflows.",
+      "llm_tldr_cn": "灾难响应需要快速协调多种AI工具，如卫星分析和洪水预测。本文提出DisasterBench基准，评估LLM在规划多步骤工作流时的参数绑定和依赖传播能力，并引入First-Point-of-Failure进行步骤级诊断。该基准有助于提升灾害智能系统的自动化水平，对城市洪水应急管理有间接支持作用。",
+      "llm_tldr": "灾难响应需要快速协调多种AI工具，如卫星分析和洪水预测。本文提出DisasterBench基准，评估LLM在规划多步骤工作流时的参数绑定和依赖传播能力，并引入First-Point-of-Failure进行步骤级诊断。该基准有助于提升灾害智能系统的自动化水平，对城市洪水应急管理有间接支持作用。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.16163v1",
+      "source": "arxiv",
+      "title": "SwAIther-Precip: Lead-Time-Aware Bias Correction Enables Kilometer-Scale Downscaling of Global AI Precipitation Forecasts over Switzerland",
+      "abstract": "Skillful medium-range precipitation forecasting at kilometer scale remains challenging over complex terrain because precipitation arises from multiscale nonlinear processes that global models cannot explicitly resolve at affordable cost. Global AI weather models can produce skillful medium-range forecasts, but their native 0.25 degrees resolution limits direct use for local hazard applications. Statistical downscaling can help bridge this gap, yet existing approaches often struggle with state-dependent, and especially lead-time-dependent, biases in global forecasts. We introduce SwAIther-Precip, a lead-time-aware downscaling framework that converts coarse-resolution AIFS forecasts into probabilistic km-scale precipitation fields over Switzerland. First, a U-Net conditioned on lead time via feature-wise linear modulation deterministically corrects systematic biases at coarse resolution. This targeted correction enables a cheaper super-resolution stage conditioned only on corrected precipitation, allowing direct training on observations rather than on the full atmospheric state. A diffusion-based model then generates fine-scale spatial variability independently of lead time. Using AIFS forecasts and CombiPrecip radar-gauge observations, SwAIther-Precip reduces CRPS by 48% relative to raw AIFS. The generated fields reproduce observed spatial variability with spectral fidelity above 0.85 at large scales and 0.88 at small scales, corresponding to an effective resolution of approximately 4 km on a 1 km grid for lead times up to 5 days. Training across lead times further improves long-range performance, yielding a 13% CRPS reduction at 6 days relative to lead-time-specific models. These results show that explicitly correcting lead-time-dependent biases before generative super-resolution is key to efficient km-scale probabilistic downscaling of global AI precipitation forecasts.",
+      "authors": [
+        "Dan Assouline",
+        "Erwan Koch",
+        "Federico Amato",
+        "Filippo Quarenghi",
+        "Daniele Nerini",
+        "Thibaut Loiseau",
+        "Kyle van de Langemheen",
+        "Tom Beucler"
+      ],
+      "primary_category": "physics.ao-ph",
+      "categories": [
+        "physics.ao-ph",
+        "cs.LG"
+      ],
+      "published": "2026-05-15T16:42:45+00:00",
+      "link": "https://arxiv.org/pdf/2605.16163v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "precipitation downscaling for local flood hazard applications",
+      "llm_evidence_cn": "为本地洪水灾害应用的降水降尺度",
+      "llm_evidence": "为本地洪水灾害应用的降水降尺度",
+      "canonical_evidence": "为本地洪水灾害应用的降水降尺度",
+      "llm_tldr_en": "Introduces a lead-time-aware downscaling framework converting coarse AI precipitation forecasts to kilometer-scale over Switzerland, improving local hazard applications.",
+      "llm_tldr_cn": "该论文针对全球AI降水预报分辨率不足的问题，提出了一个考虑预测提前期的统计降尺度框架SwAIther-Precip。该方法能有效校正不同提前期下的系统偏差，将粗分辨率预报降尺度至公里尺度。在复杂地形区域（瑞士）的应用表明，降尺度后的预报显著提升了局部洪水灾害预警的准确性。",
+      "llm_tldr": "该论文针对全球AI降水预报分辨率不足的问题，提出了一个考虑预测提前期的统计降尺度框架SwAIther-Precip。该方法能有效校正不同提前期下的系统偏差，将粗分辨率预报降尺度至公里尺度。在复杂地形区域（瑞士）的应用表明，降尺度后的预报显著提升了局部洪水灾害预警的准确性。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2605.29575v1",
+      "source": "arxiv",
+      "title": "Optimizing Latent Representations for Robust Building Damage Assessment Onboard Earth Observation Satellites",
+      "abstract": "Rapid identification of damaged buildings after natural disasters or on war areas is crucial to support emergency response and prioritize interventions. Earth Observation constellations provide timely, large-scale coverage, but actionable information is often delayed by data downlink constraints, on-ground processing, and human interpretation. Reducing this latency is essential to improve decision-making responsiveness. In this work, we propose an original AI-based system that enables object-level building damage assessment (localization and damage classification) directly onboard satellites from pre-disaster and post-disaster highresolution optical imagery. Available pre-disaster images are encoded on ground into compact latent representations, transmitted to the satellite, and compared on-board with newly acquired post-event observations. Leveraging AI interpretation capabilities and increasing processing capabilities on-board satellites, the proposed design enables processing directly at the data source, reducing the amount of information to be downlinked while preserving task-relevant content and improving overall system responsivity. We explore the design space through a systematic benchmark of onboard-compatible variants, analyzing the impact of siamese processing, cross-attention, latent-space compression, and robustness-oriented data augmentation. Experiments on xBD dataset demonstrate reliable and robust damage assessment under misalignment, with minimal performance degradation under strong compression.",
+      "authors": [
+        "Thomas Goudemant",
+        "Benjamin Francesconi"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-05-28T08:21:14+00:00",
+      "link": "https://arxiv.org/pdf/2605.29575v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Onboard satellite building damage assessment for disaster response, including floods",
+      "llm_evidence_cn": "星上建筑物损害评估用于灾害响应，包括洪水",
+      "llm_evidence": "星上建筑物损害评估用于灾害响应，包括洪水",
+      "canonical_evidence": "星上建筑物损害评估用于灾害响应，包括洪水",
+      "llm_tldr_en": "Proposes an AI system for onboard building damage assessment from pre- and post-disaster satellite imagery, reducing latency for emergency response, applicable to flood events.",
+      "llm_tldr_cn": "针对灾害后建筑物损害评估的数据下行和地面处理延迟问题，论文提出星上AI系统，利用预先编码的灾前图像与灾后图像进行对比，在卫星上直接定位并分类建筑物损坏等级。该方法适用于各类自然灾害（包括洪水），可大幅缩短从成像到决策的时间。在模拟星上环境中，系统实现了高精度实时评估，为应急响应提供快速信息支撑。",
+      "llm_tldr": "针对灾害后建筑物损害评估的数据下行和地面处理延迟问题，论文提出星上AI系统，利用预先编码的灾前图像与灾后图像进行对比，在卫星上直接定位并分类建筑物损坏等级。该方法适用于各类自然灾害（包括洪水），可大幅缩短从成像到决策的时间。在模拟星上环境中，系统实现了高精度实时评估，为应急响应提供快速信息支撑。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood mitigation techniques in cities",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.00281v1",
+      "source": "arxiv",
+      "title": "Flow Matching for Convective-Scale Precipitation Downscaling",
+      "abstract": "Generative machine learning is an increasingly important complement to dynamical downscaling for producing high-resolution precipitation projections, with diffusion models currently the leading approach. Flow matching is a related generative framework that has recently achieved strong results across image, video and other domains, and shown early promise for downscaling. We train a flow matching model to map daily precipitation from 8 km to 2 km over a convective-scale domain centred on Singapore, and benchmark it against CPMGEM, a score-based diffusion model. Flow matching achieves consistently better spatial skill: higher fractions skill score at every precipitation threshold and neighbourhood scale tested, and tighter structure and amplitude components of the SAL score with comparable location skill. However, flow matching underestimates the upper tail of the precipitation distribution, resulting in a dry bias in the climatological mean. These results suggest that flow matching is a competitive generative framework for convective-scale precipitation downscaling, particularly well suited to capturing spatial structure.",
+      "authors": [
+        "Tom Wetherell"
+      ],
+      "primary_category": "physics.ao-ph",
+      "categories": [
+        "physics.ao-ph",
+        "cs.LG"
+      ],
+      "published": "2026-05-29T19:17:35+00:00",
+      "link": "https://arxiv.org/pdf/2606.00281v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "precipitation downscaling enhances stormwater runoff estimation",
+      "llm_evidence_cn": "降水降尺度方法可提高城市径流估算精度，间接支持雨水管理",
+      "llm_evidence": "降水降尺度方法可提高城市径流估算精度，间接支持雨水管理",
+      "canonical_evidence": "降水降尺度方法可提高城市径流估算精度，间接支持雨水管理",
+      "llm_tldr_en": "Uses flow matching generative model for convective-scale precipitation downscaling from 8km to 2km, achieving better spatial skill than diffusion models, relevant for high-resolution rainfall inputs.",
+      "llm_tldr_cn": "针对高分辨率降水数据对城市水文学的重要性，本文采用流匹配生成模型将每日降水从8公里降尺度到2公里。在新加坡对流区域测试，流匹配在分数技巧评分上持续优于扩散模型，为城市径流模拟和洪水管理提供了更精准的降水输入。",
+      "llm_tldr": "针对高分辨率降水数据对城市水文学的重要性，本文采用流匹配生成模型将每日降水从8公里降尺度到2公里。在新加坡对流区域测试，流匹配在分数技巧评分上持续优于扩散模型，为城市径流模拟和洪水管理提供了更精准的降水输入。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for managing urban stormwater runoff",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.17792v1",
+      "source": "arxiv",
+      "title": "HydroAgent: Closing the Gap Between Frontier LLMs and Human Experts in Hydrologic Model Calibration via Simulator-Grounded RL",
+      "abstract": "Calibrating distributed hydrologic models is a critical bottleneck across operational water resources management - streamflow prediction, reservoir operation, drought monitoring, infrastructure design, and flood forecasting all depend on it. Each basin demands an expert to translate hydrograph signatures into adjustments of a high-dimensional parameter vector, and the resulting workflow does not transfer between watersheds. We ask: can frontier large language model (LLM) agents replace the human hydrologic modeler, and if not, what would it take? We benchmark nine frontier LLM agents - Claude Opus 4.6/4.7, Sonnet 4.6, GPT-5/5.4/5.4-pro, and Gemini 2.5-pro/3.1-pro/3-flash - on the operational CREST distributed hydrologic model used by the U.S. National Weather Service for flash-flood forecasting. Best-of-twenty-rounds Nash-Sutcliffe Efficiency (NSE) across four held-out gauges spanning 329-40,792 km2 ranges from -0.16 (GPT-5.4) to 0.75 (Sonnet 4.6); the ceiling reproduces across all three vendors and capability tiers, with the strongest models concentrating in the 0.65-0.75 band, and no model reaches the human-expert reference except Opus-4.7 on one gauge. We argue this gap is not a parameter-count problem but a domain-grounding problem. We then propose HYDROAGENT, fine-tuning open-weight Qwen3-4B with supervised fine-tuning on 2,576 expert calibration trajectories and Group-Relative Policy Optimization using NSE as a verifiable reward from online CREST simulations - reinforcement learning with simulation feedback (RLSF). For Earth system science, a small domain-tuned policy with simulator-in-the-loop RL is a more compute-efficient and physically faithful path than scaling generic frontier models, and the multi-modal richness of Earth data - remote sensing, in-situ time series, and forecaster narrative - makes domain agents a leveraged direction for AI in physical science.",
+      "authors": [
+        "Zhi Li",
+        "Songkun Yan",
+        "Jie Cao",
+        "Mofan Zhang",
+        "Anjiang Wei",
+        "Jinwoong Yoo",
+        "Yang Hong"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "physics.geo-ph"
+      ],
+      "published": "2026-05-18T03:17:38+00:00",
+      "link": "https://arxiv.org/pdf/2605.17792v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "hydrologic model calibration for flood forecasting",
+      "llm_evidence_cn": "用于洪水预报的水文模型校准",
+      "llm_evidence": "用于洪水预报的水文模型校准",
+      "canonical_evidence": "用于洪水预报的水文模型校准",
+      "llm_tldr_en": "HydroAgent uses RL to enable LLM agents to calibrate hydrologic models for flood forecasting, matching expert performance.",
+      "llm_tldr_cn": "该论文针对水文模型校准这一洪水预报的关键瓶颈，提出HydroAgent框架，利用模拟器强化学习训练大语言模型代理执行校准任务。实验表明，该方法在多个流域达到专家级校准水平，显著提升了洪水预报模型的效率与泛化能力，为城市洪水风险评估与管理提供了自动化解决方案。",
+      "llm_tldr": "该论文针对水文模型校准这一洪水预报的关键瓶颈，提出HydroAgent框架，利用模拟器强化学习训练大语言模型代理执行校准任务。实验表明，该方法在多个流域达到专家级校准水平，显著提升了洪水预报模型的效率与泛化能力，为城市洪水风险评估与管理提供了自动化解决方案。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "urban flood risk assessment and management",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "8plus"
+    },
+    {
+      "id": "2605.30122v1",
+      "source": "arxiv",
+      "title": "Beyond MSE: Improving Precipitation Nowcasting with Multi-Quantile Regression",
+      "abstract": "Deep-learning precipitation nowcasting models are often optimized using pointwise losses such as mean squared error or mean absolute error, which can lead to overly smooth forecasts and poor representation of heavy rainfall. This study investigates whether the predictive performance of an established deterministic nowcasting architecture can be improved by reformulating training as a multi-quantile regression problem. Using SmaAt-UNet as a core model, we compare MSE, MAE, and multi-quantile pinball-loss training on radar precipitation nowcasting over the Netherlands. The results show that multi-quantile training improves the central deterministic forecast, decreasing test-set MSE by 8.6\\% compared to a model trained using MSE, while also producing upper-quantile outputs that are useful for risk-sensitive prediction of heavy precipitation. These findings suggest that quantile regression provides a simple alternative to standard pointwise losses without requiring a new architecture or generative sampling procedure. The implementation of our models and training setup is available on \\href{https://github.com/gijsvn/Multi-Quantile-Precipitation-Nowcasting}{GitHub}.",
+      "authors": [
+        "Gijs van Nieuwkoop",
+        "Siamak Mehrkanoon"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-05-28T15:55:17+00:00",
+      "link": "https://arxiv.org/pdf/2605.30122v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Multi-quantile regression improves precipitation nowcasting for heavy rainfall prediction",
+      "llm_evidence_cn": "多分位数回归改进降水临近预报，用于强降雨预测",
+      "llm_evidence": "多分位数回归改进降水临近预报，用于强降雨预测",
+      "canonical_evidence": "多分位数回归改进降水临近预报，用于强降雨预测",
+      "llm_tldr_en": "Shows that multi-quantile training improves deterministic precipitation nowcasting accuracy and provides probabilistic forecasts, beneficial for pluvial flood early warning.",
+      "llm_tldr_cn": "针对降水临近预报中常用损失函数导致预测过于平滑、难以捕捉强降雨的问题，论文将确定性模型SmaAt-UNet的训练转化为多分位数回归，使用最小化钉球损失。在荷兰雷达降水数据上，该方法在测试集上均方误差降低8.6%，同时输出概率预报，为暴雨（城市洪水）预警提供更精确的降雨估计。",
+      "llm_tldr": "针对降水临近预报中常用损失函数导致预测过于平滑、难以捕捉强降雨的问题，论文将确定性模型SmaAt-UNet的训练转化为多分位数回归，使用最小化钉球损失。在荷兰雷达降水数据上，该方法在测试集上均方误差降低8.6%，同时输出概率预报，为暴雨（城市洪水）预警提供更精确的降雨估计。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "pluvial flooding causes and impacts in urban areas",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

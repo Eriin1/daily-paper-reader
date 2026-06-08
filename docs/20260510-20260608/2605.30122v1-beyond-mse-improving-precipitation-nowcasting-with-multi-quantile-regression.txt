@@ -1,0 +1,270 @@
+Title: Beyond MSE: Improving Precipitation Nowcasting with Multi-Quantile Regression
+
+URL Source: https://arxiv.org/pdf/2605.30122v1
+
+Published Time: Fri, 29 May 2026 01:51:26 GMT
+
+Number of Pages: 7
+
+Markdown Content:
+# Beyond MSE: Improving Precipitation Nowcasting with Multi-Quantile Regression 
+
+## Gijs van Nieuwkoop, Siamak Mehrkanoon ∗
+
+> Department of Information and Computing Sciences, Utrecht University, Utrecht, The Netherlands
+
+A R T I C L E I N F O 
+
+> Keywords :Precipitation Nowcasting Deep Neural Networks Quantile Regression SmaAt-UNet
+
+A B S T R A C T 
+
+> Deep-learning precipitation nowcasting models are often optimized using pointwise losses such as mean squared error or mean absolute error, which can lead to overly smooth forecasts and poor representation of heavy rainfall. This study investigates whether the predictive performance of an established deterministic nowcasting architecture can be improved by reformulating training as a multi-quantile regression problem. Using SmaAt-UNet as a core model, we compare MSE, MAE, and multi-quantile pinball-loss training on radar precipitation nowcasting over the Netherlands. The results show that multi-quantile training improves the central deterministic forecast, decreasing test-set MSE by 8.6% compared to a model trained using MSE, while also producing upper-quantile outputs that are useful for risk-sensitive prediction of heavy precipitation. These findings suggest that quantile regression provides a simple alternative to standard pointwise losses without requiring a new architecture or generative sampling procedure. The implementation of our models and training setup is available on GitHub.
+
+## 1. Introduction 
+
+Accurate short-term precipitation forecasting is impor-tant for weather-sensitive decision making, especially when localized high-intensity rainfall may cause large impacts. In the first minutes to hours ahead, such forecasts are com-monly referred to as nowcasts , and are typically based on recent radar, satellite or station observations. Because pre-cipitation evolves rapidly and has strong spatial and temporal structure, nowcasting has become a natural application area for deep learning. Most deep-learning nowcasting models formulate the task as spatiotemporal sequence prediction, where past precipitation maps are used to predict one or more future maps [1, 2, 3, 4, 5]. A broad range of architectures has been proposed, including recurrent convolutional mod-els, encoder–decoder networks, attention-based U-Nets and graph-based models [6, 7, 8, 9, 10, 11, 12, 13, 14]. However, forecast quality is determined not only by the architecture, but also by the objective used to train it. Many deterministic nowcasting models are trained with pointwise losses such as mean squared error or mean abso-lute error. These objectives are simple and stable, but they tend to favor conditional-average predictions when several future precipitation evolutions are plausible. In radar now-casting, this can lead to spatial smoothing, loss of fine-scale structure and underprediction of rare but meteorologically important heavy rainfall. The problem is amplified by the strong imbalance of precipitation data, where most pixels contain no or weak precipitation and intense rainfall oc-cupies only a small fraction of the domain. Weighted and balanced losses can partly address this by emphasizing heav-ier precipitation [7, 15], but improving high-threshold skill often comes at the cost of degraded performance elsewhere.   
+
+> ∗Corresponding author
+> gijsvannieuwkoop@gmail.com (G.v. Nieuwkoop);
+> s.mehrkanoon@uu.nl (S. Mehrkanoon)
+
+Probabilistic and generative nowcasting models address uncertainty more directly by producing multiple plausible future precipitation maps. These approaches can generate sharper and more realistic precipitation structures than con-ventional deterministic models, particularly at longer lead times and for heavier rainfall [15, 16, 17]. However, they are often more complex to train and sample from, and may be less convenient when a single actionable forecast is required. Quantile regression provides a simpler alter-native by estimating selected conditional quantiles of the predictive distribution rather than only the conditional mean [18, 19]. In neural networks, this can be implemented using the asymmetric absolute-error, or pinball loss [20]. The median quantile can be used as a central deterministic fore-cast, while higher quantiles provide upper-tail estimates that are naturally suited to risk-sensitive prediction of heavy precipitation. In this study, we test whether an established determinis-tic nowcasting architecture can be improved by changing the training objective rather than the model design. Using Small Attention U-Net (SmaAt-UNet) as a core model [8], we compare conventional MSE and MAE training with multi-quantile pinball-loss training. The model predicts several future precipitation quantiles, with the median output used as the deterministic forecast. Our goal is to isolate the effect of multi-quantile training and assess whether it improves central forecast accuracy while also producing upper-tail outputs for risk-sensitive prediction of heavier precipitation. 
+
+## 2. Related work 
+
+Deep-learning precipitation nowcasting has been ap-proached through several architectural families. Early recur-rent convolutional models such as ConvLSTM and TrajGRU formulated radar nowcasting as spatiotemporal sequence 
+
+G. van Nieuwkoop, S. Mehrkanoon: Preprint submitted to arXiv Page 1 of 7 
+
+> arXiv:2605.30122v1 [cs.LG] 28 May 2026 Improving Precipitation Nowcasting with Multi-Quantile Regression
+
+prediction, with TrajGRU introducing learned location-variant connections to better represent precipitation motion [6, 7]. Fully convolutional encoder-decoder models later be-came popular for mapping past radar observations directly to future precipitation maps; RainNet showed that U-Net-like models can outperform optical-flow baselines, while also illustrating the smoothing tendency of deterministic CNN forecasts [21]. Subsequent models improved efficiency or scale, including SmaAt-UNet with attention and depthwise-separable convolutions, and larger neural weather models such as MetNet and MetNet-2 for longer horizons and larger spatial contexts [8, 14, 13]. While these studies primarily focus on architecture design, the present work focuses on how an established architecture should be optimized. A second line of work studies training objectives that better account for the imbalance and heavy-tailed nature of precipitation. Standard pixel-wise losses such as MSE and MAE are easy to optimize, but can underemphasize rare high-intensity rainfall and encourage forecasts that per-form well on average while missing practically important events. Balanced variants of MSE and MAE address this by assigning larger weights to higher precipitation intensities [7], and related work has explored hybrid weighting, high-intensity-oriented losses and focal losses for difficult future frames [22, 23, 24]. Other objectives incorporate perceptual or structural criteria, such as SSIM-based image-quality losses, to reduce the mismatch between pixel-wise error min-imization and visually or meteorologically useful forecasts [25]. These studies show that loss functions strongly affect nowcasting skill, but most remain deterministic regression objectives or threshold-weighted variants thereof. Probabilistic nowcasting instead represents forecast un-certainty directly. Deep generative models, including adver-sarial and diffusion-based approaches, can produce sharper and more realistic future radar maps than conventional deter-ministic models [15, 16, 17], but they are often more com-plex to train and may require sampling or post-processing when a single forecast is needed. Quantile regression pro-vides a lighter-weight alternative, allowing models to esti-mate selected conditional quantiles rather than only a con-ditional mean. Quantile regression is well established in statistics and has been used for neural-network-based proba-bilistic forecasting and weather post-processing [18, 26, 27]. Direct applications to precipitation nowcasting remain com-paratively limited, although recent work has begun to use quantile-regression neural networks and pinball losses for probabilistic prediction and uncertainty estimation [28, 29]. In contrast, the present study evaluates multi-quantile train-ing as a practical extension of deterministic nowcasting. The contributions are twofold: (i) We show how multi-quantile training can be used as an auxiliary optimization strategy, where non-central quantiles provide additional learning sig-nals that may improve generalization beyond a single de-terministic target. (ii) We show how higher-quantile outputs obtained from the same training procedure can serve as risk-sensitive predictors for rare heavy and extreme precipitation events. 
+
+## 3. Methods 
+
+3.1. Prediction task and data representation 
+
+We formulate precipitation nowcasting as sequence-to-sequence prediction. Let 𝐗 𝑡 = ( 𝑥 𝑡 −𝑚 +1 , … , 𝑥 𝑡 ) denote 𝑚 past radar precipitation maps and let 𝐘 𝑡 = ( 𝑦 𝑡 +1 , … , 𝑦 𝑡 +𝐿 ) denote the corresponding sequence of 𝐿 future maps. A model with parameters 𝜃 learns a mapping 𝑓 𝜃 ∶ 𝐗 𝑡 ↦̂ 𝐘 𝑡 . In the de-terministic setting, ̂ 𝐘 𝑡 ∈ ℝ𝐿 ×𝐻 ×𝑊 , with one predicted map per lead time. In the quantile-regression setting, the output is expanded to ̂ 𝐘 𝑡 ∈ ℝ𝐿 ×||×𝐻 ×𝑊 , with one prediction for each lead time and quantile 𝑞 ∈ . All model variants are evaluated against the same observed future sequence; for the quantile model, the 𝑞 = 0 .5 output is used as the central deterministic forecast. 
+
+3.2. Base architecture 
+
+All experiments use SmaAt-UNet [8] as the core now-casting architecture. SmaAt-UNet is a lightweight U-Net-based encoder-decoder model that combines attention mech-anisms with depthwise-separable convolutions. To isolate the effect of the training objective, the same backbone is used across all experiments; only the final output dimensionality is changed. The MSE- and MAE-trained models output 𝐿 
+
+channels, corresponding to one precipitation map per lead time, whereas the quantile-regression model outputs 𝐿 ||
+
+channels, corresponding to one map for each lead-time-quantile pair, as illustrated in Figure 1. 
+
+3.3. Training Objectives 
+
+3.3.1. Multi-quantile pinball loss 
+
+For the quantile-regression models, the network predicts multiple conditional quantiles of the future precipitation distribution. Instead of producing a single precipitation es-timate for each forecast lead time and grid cell, the model outputs one prediction ̂ 𝑦 (𝑞 ) for each quantile 𝑞 ∈ , 0 <𝑞 < 1, as illustrated in Figure 1. A predicted quantile ̂ 𝑦 (𝑞 )
+
+estimates the value below which the future precipitation intensity is expected to fall with probability 𝑞 , conditional on the input sequence. Thus, the 𝑞 = 0 .50 output represents the conditional median, while higher quantiles represent upper-tail precipitation estimates. Throughout this work, we use  = {0 .5, 0.9, 0.95} . The median output is used as the central deterministic forecast when comparing with the MSE- and MAE-trained base-lines, while the 𝑞 = 0.90 and 𝑞 = 0.95 outputs pro-vide increasingly conservative upper-tail estimates for risk-sensitive prediction of heavy and extreme precipitation. This combines a central estimate with two upper quantiles suited to the zero-inflated and heavy-tailed nature of precipitation. The quantile set was chosen empirically, though further optimization of these levels may yield stronger variants. Quantile regression was optimized using the pinball loss. For a target precipitation value 𝑦 , predicted quantile ̂𝑦 (𝑞 ), and               
+
+> G. van Nieuwkoop, S. Mehrkanoon: Preprint submitted to arXiv Page 2 of 7 Improving Precipitation Nowcasting with Multi-Quantile Regression
+> Figure 1: Schematic overview of the multi-quantile training setup, with pinball losses 𝜌 𝑞 and corresponding weights 𝑤 𝑞 for quantiles
+> 𝑞 ∈𝑄 .
+> Figure 2: MSE, MAE, and pinball losses, visualized as functions of the error 𝑒 =𝑦 −̂𝑦 .
+
+error 𝑒 = 𝑦 −̂𝑦 (𝑞 ), the pinball loss is defined as follows: 
+
+𝜌 𝑞 (𝑦,̂𝑦 (𝑞 )) = max( 𝑞𝑒, (𝑞 − 1) 𝑒 )=
+
+{
+
+𝑞 |𝑒 |, 𝑒 ≥ 0,
+
+(1 − 𝑞 )|𝑒 |, 𝑒 < 0.
+
+(1) This loss is asymmetric unless 𝑞 = 0 .50 , as illustrated in Figure 2. For the median quantile, the pinball loss is proportional to MAE and has the same optimum, namely the conditional median. For higher quantiles, underprediction is penalized more strongly than overprediction, causing the learned prediction to shift upward relative to the central estimate and represent upper-tail precipitation behavior. Only one future precipitation sequence is observed for each input sequence, so the model does not receive separate target maps for different quantiles. Instead, each quantile out-put is compared with the same observed target, but through a different asymmetric loss. Across many training examples, this encourages the 𝑞 = 0 .50 output to approach the condi-tional median, while the 𝑞 = 0 .90 and 𝑞 = 0 .95 outputs are pushed toward values that are exceeded less often. The total multi-quantile loss applies the pinball loss sep-arately to each predicted quantile and combines the resulting losses using quantile-specific weights. Let 𝑤 𝑞 denote the weight assigned to quantile 𝑞 . For a batch of predictions, the implemented objective is as follows: 
+
+Q = 1
+
+𝐵 
+
+> 𝐵
+
+∑
+
+> 𝑏 =1
+
+∑
+
+> 𝑞 ∈
+
+𝑤 𝑞 𝐿 ∑
+
+> 𝓁 =1
+> 𝐻
+
+∑
+
+> 𝑖 =1
+> 𝑊
+
+∑
+
+> 𝑗 =1
+
+𝜌 𝑞 
+
+(
+
+𝑦 𝑏, 𝓁 ,𝑖,𝑗 ,̂𝑦 (𝑞 )
+
+> 𝑏, 𝓁 ,𝑖,𝑗
+
+)
+
+, (2) where 𝐵 is the batch size, 𝐿 is the number of forecast lead times, and 𝐻 × 𝑊 is the spatial grid size. Figure 1 illustrates this procedure: each quantile-specific pinball loss is weighted by 𝑤 𝑞 , and the weighted losses are summed into a single training objective. In experiments, the quantile-loss weights were set to 
+
+𝑤 0.50 = 1 .0, 𝑤 0.90 = 0 .5, and 𝑤 0.95 = 0 .5. These values were selected using a one-dimensional grid search in which 
+
+𝑤 0.50 was fixed at 1.0 and the upper-quantile weights were constrained to be equal, i.e. 𝑤 0.90 = 𝑤 0.95 . The validation MSE of the median output was used as the selection cri-terion. The full grid-search results are shown in Figure 3. The selected configuration retains the largest weight on the central estimate while still incorporating training feedback from the higher quantiles. Since all quantile outputs share the same SmaAt-UNet backbone, the upper-quantile losses not only train separate         
+
+> G. van Nieuwkoop, S. Mehrkanoon: Preprint submitted to arXiv Page 3 of 7 Improving Precipitation Nowcasting with Multi-Quantile Regression
+> Figure 3: One-dimensional grid search over the shared upper-quantile loss weight 𝑤 0.90 =𝑤 0.95 , with 𝑤 0.50 fixed at 1.0.
+
+output maps but also influence the shared representation used by the median forecast. Multi-quantile training can therefore be interpreted as a form of auxiliary training, where the model is encouraged to learn features that support both central precipitation prediction and risk-sensitive upper-tail estimation. 
+
+3.3.2. Other objectives 
+
+For comparison, we also trained deterministic SmaAt-UNet models using mean squared error (MSE) and mean absolute error (MAE), both widely used pointwise regres-sion losses, which therefore serve as natural deterministic benchmarks. These models output a single precipitation map per forecast lead time, rather than multiple quantile estimates. For target precipitation values 𝑦 and predictions ̂𝑦 , the losses are defined as follows: 
+
+MSE = 1
+
+𝐵 
+
+> 𝐵
+
+∑
+
+> 𝑏 =1
+> 𝐿
+
+∑
+
+> 𝓁 =1
+> 𝐻
+
+∑
+
+> 𝑖 =1
+> 𝑊
+
+∑
+
+> 𝑗 =1
+
+(𝑦 𝑏, 𝓁 ,𝑖,𝑗 −̂𝑦 𝑏, 𝓁 ,𝑖,𝑗 )2, (3) 
+
+MAE = 1
+
+𝐵 
+
+> 𝐵
+
+∑
+
+> 𝑏 =1
+> 𝐿
+
+∑
+
+> 𝓁 =1
+> 𝐻
+
+∑
+
+> 𝑖 =1
+> 𝑊
+
+∑
+
+> 𝑗 =1
+
+|𝑦 𝑏, 𝓁 ,𝑖,𝑗 −̂𝑦 𝑏, 𝓁 ,𝑖,𝑗 |. (4) Unlike upper-quantile pinball losses, MSE and MAE are symmetric with respect to the sign of the error, as shown in Figure 2. MSE penalizes large errors quadratically, whereas MAE applies a linear penalty to absolute errors. Comparing these benchmarks with the multi-quantile pinball loss allows us to isolate the effect of the training objective while keeping the architecture and prediction task fixed. 
+
+3.4. Evaluation metrics 
+
+Model performance was evaluated using regression met-rics and threshold-based event metrics. Regression perfor-mance is reported using test-set mean squared error (MSE) and mean absolute error (MAE), following the pointwise definitions in Equations 3 and 4; for evaluation, however, the metrics were averaged over all grid cells and lead times, rather than batch size. For event-based evaluation, predicted and observed pre-cipitation maps were converted to binary maps using precipitation-rate thresholds. The resulting true positives (TP), true nega-tives (TN), false positives (FP) and false negatives (FN) were used to compute the critical success index (CSI), probability of detection (POD), false alarm rate (FAR) and Matthews correlation coefficient (MCC): CSI = TP TP + FP + FN (5) POD = TP TP + FN (6) FAR = FP TP + FP (7) MCC = TP TN − FP FN 
+
+√(TP + FP)(TP + FN)(TN + FP)(TN + FN) .
+
+(8) The critical success index is used as the primary event-based metric, as is common in precipitation nowcasting, because it measures rainfall-event overlap while ignoring the many true negatives in imbalanced precipitation maps. The remaining metrics provide complementary informa-tion: probability of detection measures sensitivity to ob-served events, false alarm rate quantifies overprediction, and the Matthews correlation coefficient summarizes all four confusion-matrix entries, remaining informative un-der strong class imbalance. Together, these metrics give a compact view of different aspects of nowcasting per-formance, while evaluating them at increasing thresholds assesses performance on increasingly rare and heavy precip-itation events. 
+
+## 4. Experiments 
+
+To isolate the effect of the optimization objective, all models were trained and evaluated under the same experi-mental setup, using the same dataset, prediction task, pre-processing, training framework and SmaAt-UNet backbone, with only the loss function and output dimensionality varied. 
+
+4.1. Dataset and preprocessing 
+
+We use the same KNMI radar precipitation dataset as the original SmaAt-UNet study [8]. The dataset contains approximately 420,000 radar precipitation maps over the Netherlands from 2016-2019, recorded at 5-minute intervals on a 288 ×288 grid with pixel sizes of approximately 1 km 2.Pixel values represent 5-minute precipitation accumulations in millimetres; for threshold-based evaluation, these values are converted to precipitation rates in mm/h by multiplying by 12. Given 18 radar maps from the previous 90 minutes, the model predicts the next 12 maps, corresponding to lead times from 5 to 60 minutes at 5-minute resolution. The dataset was split chronologically, using 2016-2018 for train-ing and 2019 for testing, with 10% of the training samples selected for validation using seasonally stratified sampling.   
+
+> G. van Nieuwkoop, S. Mehrkanoon: Preprint submitted to arXiv Page 4 of 7
+
+Improving Precipitation Nowcasting with Multi-Quantile Regression 
+
+Figure 4: CSI as a function of forecast lead time for precipitation thresholds of 0.5, 10 and 20 mm/h. 
+
+Table 1 
+
+Test-set regression performance averaged over forecast lead time. Quantile-loss results use the median prediction ( 𝑞 =0.50 ). Bold and underlined values denote the best and second-best scores, respectively.         
+
+> Training Loss Test Set MSE Test Set MAE
+> MSE 0.0151 0.0424 MAE 0.0161 0.0348 Quantile 0.0138 0.0345
+
+Pixel values were normalized by the maximum value ob-served in the training set, and the same normalization factor was applied to the validation and test sets. To reduce the dominance of low-rainfall cases, only samples whose final target frame contained non-zero precipitation in at least 50% of pixels were retained. This yielded 5,734 training samples and 1,557 test samples. 
+
+4.2. Training setup 
+
+All models were optimized with an Adam optimizer using an initial learning rate of 10 −3 and a batch size of 16. The learning rate was reduced by a factor of 0.1 after 4 epochs without improvements to validation loss, and training was terminated after 15 such epochs. To reduce sensitivity to random initialization and mini-batch ordering, each con-figuration was trained five times, after which the checkpoint with the lowest validation loss across runs was evaluated on the test set. All runs were performed on a single NVIDIA H100 GPU with 94 GB of VRAM. 
+
+## 5. Results and discussion 
+
+Table 1 shows that the multi-quantile model achieves the best regression performance, with a test-set MSE of 0.0138 
+
+and MAE of 0.0345 . Relative to the MSE-trained baseline, this corresponds to reductions of 8.6% in MSE and 18 .6% 
+
+in MAE; relative to the MAE-trained baseline, MSE and MAE are reduced by 14 .3% and 0.8% . Thus, the median output of the quantile model improves baselines even though these were trained directly on the pointwise losses used for evaluation. 
+
+Table 2 
+
+Classification performance averaged over forecast lead time for different precipitation thresholds. Arrows indicate whether higher or lower values are better; bold and underlined values denote the best and second-best scores for each threshold.                                                                            
+
+> Threshold Loss CSI ↑POD ↑FAR ↓MCC ↑
+> ≥0.5mm/h MSE 0.594 0.837 0.330 0.605 MAE 0.641 0.779 0.223 0.670 Quantile 𝑞 =0 .50 0.652 0.795 0.223 0.681
+> Quantile 𝑞 =0 .90 0.552 0.970 0.439 0.563 Quantile 𝑞 =0 .95 0.503 0.985 0.493 0.498
+> ≥10 mm/h MSE 0.059 0.073 0.756 0.126 MAE 0.092 0.111 0.683 0.175 Quantile 𝑞 =0 .50 0.117 0.144 0.646 0.216 Quantile 𝑞 =0 .90 0.174 0.456 0.788 0.306
+> Quantile 𝑞 =0 .95 0.153 0.563 0.831 0.304
+> ≥20 mm/h MSE 0.039 0.053 0.867 0.078 MAE 0.036 0.044 0.865 0.073 Quantile 𝑞 =0 .50 0.060 0.076 0.797 0.115 Quantile 𝑞 =0 .90 0.107 0.282 0.859 0.197 Quantile 𝑞 =0 .95 0.096 0.376 0.890 0.202
+
+A likely explanation is that the upper-quantile objectives provide auxiliary training signals for the shared SmaAt-UNet backbone. By training the median forecast jointly with upper-tail estimates, the model may learn representations that are more informative than those obtained from a single deterministic target, improving the central nowcast as well as the non-central quantile outputs. The event-based results in Table 2 show that these gains are not limited to regression error. At the lowest threshold of 
+
+0.5 mm/h, the quantile median obtains the best CSI, FAR and MCC, indicating stronger general rainfall-event prediction than both deterministic baselines. The 𝑞 = 0 .90 and 𝑞 = 0 .95 
+
+outputs achieve much higher POD at this threshold, but at the cost of substantially more false alarms, making them less suitable as general-purpose low-threshold forecasts. At the higher thresholds, the advantage of quantile train-ing becomes even clearer. For events exceeding 10 and 20 
+
+mm/h, the quantile median outperforms both deterministic baselines across all reported event-based metrics, while the upper quantiles substantially increase POD and also improve CSI and MCC despite higher FAR. This indicates that the 
+
+G. van Nieuwkoop, S. Mehrkanoon: Preprint submitted to arXiv Page 5 of 7 Improving Precipitation Nowcasting with Multi-Quantile Regression  
+
+> Figure 5: Qualitative comparison of ground-truth precipitation and model predictions at selected forecast lead times.
+
+upper quantiles are not merely more sensitive forecasts, but better operating points for risk-sensitive heavy-precipitation prediction, where missed events may be more costly than additional false alarms. Figure 4 shows that CSI decreases with lead time for all models and thresholds, reflecting increasing forecast uncer-tainty. The advantage of the upper quantiles is clearest at the higher precipitation thresholds and longer lead times, supporting their use when high-intensity precipitation is harder to localize and detection-oriented performance is especially important. The qualitative example in Figure 5 is consistent with these results. The MSE-trained model produces smoother and more diffuse fields, whereas the MAE-trained model and the quantile median preserve more localized structure. The 𝑞 = 0 .90 and 𝑞 = 0 .95 outputs produce broader and more intense precipitation regions, explaining their increased detection of heavy-rainfall events and their higher false-alarm rates. The obtained results show two effects of multi-quantile training: it improves the central deterministic forecast, and it provides upper-tail outputs that are useful for risk-sensitive prediction of heavy precipitation. These gains are obtained by changing only the training objective and output dimen-sionality, leaving the underlying nowcasting architecture unchanged. 
+
+## 6. Conclusions 
+
+This study investigated whether precipitation nowcasting can be improved by changing the training objective rather than the model architecture. Using SmaAt-UNet as core model, we compared MSE and MAE training with multi-quantile pinball-loss training, using the median quantile as the central deterministic forecast. The quantile-trained model improved this central forecast across both regres-sion and event-based metrics, suggesting that upper-quantile prediction provides a useful auxiliary training signal for the shared nowcasting model. The higher quantiles further served as risk-sensitive predictors for heavy precipitation, substantially improving detection-oriented metrics at high precipitation thresholds. Overall, multi-quantile regression provides an alternative to standard pointwise losses, improv-ing deterministic forecast quality while adding upper-tail information without requiring a new architecture, sampling procedure, or fully generative framework.   
+
+> G. van Nieuwkoop, S. Mehrkanoon: Preprint submitted to arXiv Page 6 of 7
+
+Improving Precipitation Nowcasting with Multi-Quantile Regression 
+
+## References 
+
+[1] S. Mehrkanoon, Deep shared representation learning for weather elements forecasting, Knowledge-Based Systems 179 (2019) 120– 128. [2] K. Trebing, S. Mehrkanoon, Wind speed prediction using multidi-mensional convolutional neural networks, in: IEEE symposium series on computational intelligence (SSCI), IEEE, 2020, pp. 713–720. [3] Y. Wang, M. Long, J. Wang, Z. Gao, P. S. Yu, Predrnn: Recurrent neural networks for predictive learning using spatiotemporal lstms, Advances in neural information processing systems 30 (2017). [4] J. G. Fernández, I. A. Abdellaoui, S. Mehrkanoon, Deep coastal sea elements forecasting using unet-based models, Knowledge-Based Systems 252 (2022) 109445. [5] T. Stańczyk, S. Mehrkanoon, et al., Deep graph convolutional net-works for wind speed prediction, in: ESANN 2021 Proceedings-29th European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning, i6doc. com publication, 2021, pp. 147–152. [6] X. Shi, Z. Chen, H. Wang, D.-Y. Yeung, W.-K. Wong, W.-c. Woo, Convolutional lstm network: A machine learning approach for pre-cipitation nowcasting, Advances in neural information processing systems 28 (2015). [7] X. Shi, Z. Gao, L. Lausen, H. Wang, D.-Y. Yeung, W.-k. Wong, W.-c. Woo, Deep learning for precipitation nowcasting: A benchmark and a new model, Advances in neural information processing systems 30 (2017). [8] K. Trebing, T. Stańczyk, S. Mehrkanoon, SmaAt-UNet: Precipitation nowcasting using a small attention-unet architecture, Pattern Recog-nition Letters 145 (2021) 178–186. [9] L. Vatamány, S. Mehrkanoon, Graph dual-stream convolutional atten-tion fusion for precipitation nowcasting, Engineering Applications of Artificial Intelligence 141 (2025) 109788. [10] Y. Yang, S. Mehrkanoon, AA-TransUNet: Attention augmented transunet for nowcasting tasks, in: International joint conference on neural networks (IJCNN), IEEE, 2022, pp. 01–08. [11] C. Kaparakis, S. Mehrkanoon, WF-UNet: Weather data fusion using 3d-unet for precipitation nowcasting, Procedia Computer Science 222 (2023) 223–232. [12] J. G. Fernández, S. Mehrkanoon, Broad-UNet: Multi-scale feature learning for nowcasting tasks, Neural Networks 144 (2021) 419–427. [13] L. Espeholt, S. Agrawal, C. Sønderby, M. Kumar, J. Heek, C. Bromberg, C. Gazen, R. Carver, M. Andrychowicz, J. Hickey, et al., Deep learning for twelve hour precipitation forecasts, Nature communications 13 (2022) 5145. [14] C. K. Sønderby, L. Espeholt, J. Heek, M. Dehghani, A. Oliver, T. Salimans, S. Agrawal, J. Hickey, N. Kalchbrenner, Metnet: A neural weather model for precipitation forecasting, arXiv preprint arXiv:2003.12140 (2020). [15] S. Ravuri, K. Lenc, M. Willson, D. Kangin, R. Lam, P. Mirowski, M. Fitzsimons, M. Athanassiadou, S. Kashem, S. Madge, et al., Skilful precipitation nowcasting using deep generative models of radar, Nature 597 (2021) 672–677. [16] Y. Zhang, M. Long, K. Chen, L. Xing, R. Jin, M. I. Jordan, J. Wang, Skilful nowcasting of extreme precipitation with nowcastnet, Nature 619 (2023) 526–532. [17] J. Leinonen, U. Hamann, D. Nerini, U. Germann, G. Franch, La-tent diffusion models for generative precipitation nowcasting with accurate uncertainty quantification, arXiv preprint arXiv:2304.12891 (2023). [18] R. Koenker, G. Bassett Jr, Regression quantiles, Econometrica: journal of the Econometric Society (1978) 33–50. [19] R. Koenker, Quantile regression [m], Econometric Society Mono-graphs, Cambridge University Press, Cambridge (2005). [20] Q. Wang, Y. Ma, K. Zhao, Y. Tian, A comprehensive survey of loss functions in machine learning, Annals of Data Science 9 (2022) 187– 212. [21] G. Ayzel, T. Scheffer, M. Heistermann, Rainnet v1. 0: a convolutional neural network for radar-based precipitation nowcasting, Geoscien-tific Model Development 13 (2020) 2631–2644. [22] Y. Cao, L. Chen, D. Zhang, L. Ma, H. Shan, Hybrid weighting loss for precipitation nowcasting from radar images, in: ICASSP 2022-2022 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), IEEE, 2022, pp. 3738–3742. [23] J. Ko, K. Lee, H. Hwang, S.-G. Oh, S.-W. Son, K. Shin, Effective training strategies for deep-learning-based precipitation nowcasting and estimation, Computers & Geosciences 161 (2022) 105072. [24] Z. Ma, H. Zhang, J. Liu, Focal frame loss: A simple but effective loss for precipitation nowcasting, IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing 15 (2022) 6781– 6788. [25] Q.-K. Tran, S.-k. Song, Computer vision in precipitation nowcasting: Applying image quality assessment metrics for training deep neural networks, Atmosphere 10 (2019) 244. [26] J. W. Taylor, A quantile regression neural network approach to estimating the conditional density of multiperiod returns, Journal of forecasting 19 (2000) 299–311. [27] S. Rasp, S. Lerch, Neural networks for postprocessing ensemble weather forecasts, Monthly Weather Review 146 (2018) 3885–3900. [28] P. Schaumann, M. Rempel, U. Blahak, V. Schmidt, Generating syn-thetic rainfall fields by r-vine copulas applied to seamless probabilistic predictions, Quarterly Journal of the Royal Meteorological Society 150 (2024) 3078–3098. [29] P. Baron, A. Amell, S. Kawamura, S. Satoh, T. Ushio, 3d precipitation nowcasting from phased array radar with uncertainty estimation using a quantile regression neural network, in: 2025 IEEE Radar Conference (RadarConf25), IEEE, 2025, pp. 01–06. 
+
+G. van Nieuwkoop, S. Mehrkanoon: Preprint submitted to arXiv Page 7 of 7
