@@ -149,6 +149,52 @@ subscriptions:
             updated_at: '2026-06-08T08:09:59.802675+00:00'
       updated_at: '2026-06-08T07:24:30.943Z'
       paused: true
+    - tag: urban-flood
+      description: 关于城市雨洪评估与治理的文章
+      enabled: true
+      paper_sources:
+        - arxiv
+      keywords:
+        - keyword: urban stormwater management
+          keyword_cn: 城市雨水管理
+          query: methods for managing urban stormwater runoff
+        - keyword: flood risk assessment
+          keyword_cn: 洪水风险评估
+          query: flood risk assessment for urban areas
+        - keyword: urban flood risk
+          keyword_cn: 城市洪水风险
+          query: urban flood risk assessment and management
+        - keyword: stormwater management
+          keyword_cn: 雨水管理
+          query: stormwater management strategies for cities
+        - keyword: flood mitigation
+          keyword_cn: 防洪减灾
+          query: flood mitigation techniques in cities
+        - keyword: pluvial flooding
+          keyword_cn: 暴雨洪涝
+          query: pluvial flooding causes and impacts in urban areas
+      intent_queries:
+        - query: methods for urban flood risk assessment
+          query_cn: 城市洪水风险评估方法
+          enabled: true
+          source: manual
+          note: ''
+        - query: effective stormwater management practices
+          query_cn: 有效的雨水管理实践
+          enabled: true
+          source: manual
+          note: ''
+        - query: design of green infrastructure for stormwater management in cities
+          query_cn: 城市雨水管理的绿色基础设施设计
+          enabled: true
+          source: manual
+          note: ''
+        - query: impact of urbanization on flood frequency and severity
+          query_cn: 城市化对洪水频率和严重程度的影响
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-06-08T11:55:50.836Z'
 source_backends:
   arxiv:
     papers_table: arxiv_papers
