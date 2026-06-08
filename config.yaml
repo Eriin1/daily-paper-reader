@@ -25,3 +25,60 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: algo-gov
+      description: 请帮我查询关于算法治理的文章
+      enabled: true
+      paper_sources:
+        - arxiv
+      keywords:
+        - keyword: algorithm governance
+          keyword_cn: 算法治理
+          query: algorithm governance principles and frameworks
+        - keyword: algorithmic fairness
+          keyword_cn: 算法公平性
+          query: fairness in algorithmic decision making
+        - keyword: algorithmic transparency
+          keyword_cn: 算法透明度
+          query: transparency of algorithms and models
+        - keyword: algorithmic accountability
+          keyword_cn: 算法问责制
+          query: accountability for algorithmic outcomes
+        - keyword: AI ethics
+          keyword_cn: 人工智能伦理
+          query: ethical considerations in artificial intelligence
+        - keyword: bias detection
+          keyword_cn: 偏差检测
+          query: detecting bias in machine learning models
+      intent_queries:
+        - query: challenges and solutions in algorithm governance
+          query_cn: 算法治理的挑战与解决方案
+          enabled: true
+          source: manual
+          note: ''
+        - query: impact of algorithm governance on society
+          query_cn: 算法治理对社会的影响
+          enabled: true
+          source: manual
+          note: ''
+        - query: best practices for implementing algorithm governance
+          query_cn: 实施算法治理的最佳实践
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-06-08T07:24:30.943Z'
+source_backends:
+  arxiv:
+    papers_table: arxiv_papers
+    use_vector_rpc: true
+    vector_rpc: match_arxiv_papers
+    vector_rpc_exact: match_arxiv_papers_exact
+    use_bm25_rpc: true
+    bm25_rpc: match_arxiv_papers_bm25
+    sync_table: arxiv_sync_status
+    sync_success_value: success
+    schema: public
+    kind: supabase
+    enabled: true
+    url: https://lyucdwgefyfbmaiopjbk.supabase.co
+    anon_key: sb_publishable_lX-oi64Uxyd7SIVv3_w2Uw_MTOojeKq
