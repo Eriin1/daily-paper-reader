@@ -1,0 +1,1317 @@
+{
+  "mode": "skims",
+  "generated_at": "2026-06-08T08:13:25.305482+00:00",
+  "stats": {
+    "mode": "skims",
+    "forced_all_quick": true,
+    "min_score": 8.0,
+    "deep_divecandidates": 35,
+    "deep_cap": null,
+    "deep_selected": 0,
+    "quick_candidates": 35,
+    "quick_skim_target": null,
+    "quick_selected": 35
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2605.10604v1",
+      "source": "arxiv",
+      "title": "Fairness vs Performance: Characterizing the Pareto Frontier of Algorithmic Decision Systems",
+      "abstract": "Designing fair algorithmic decision systems requires balancing model performance with fairness toward affected individuals: More fairness might require sacrificing some performance and vice versa, yet the space of possible trade-offs is still poorly understood. We investigate fairness in binary prediction-based decision problems by conceptualizing decision making as a multi-objective optimization problem that simultaneously considers decision-maker utility and group fairness. We investigate the set of Pareto-optimal decision rules for arbitrary utility functions for decision maker, arbitrary population distributions, and a wide range of group fairness metrics.   We find that the Pareto frontier consists of deterministic, group-specific threshold rules applied to individuals' success probability. This complements existing optimality theorems from literature which, for specific fairness constraints, posit lower-bound threshold rules only. However we also show that, depending on the used fairness metric, the Pareto frontier may include upper-bound threshold rules, thus preferring individuals with lower success probabilities. We show that the location of the Pareto frontier depends only on population characteristics, utility functions and fairness score, but not on the technical design of the algorithm - our findings hold for pre-, in-, and post-processing approaches alike.   Our results generalize existing optimality theorems for fairness-constrained classification and extend them to generalized fairness metrics and fairness principles, and to partial fairness regimes. This paper connects formal fairness research with legal and ethical requirements to search for less discriminatory alternatives, offering a principled foundation for evaluating and comparing algorithmic decision systems.",
+      "authors": [
+        "Mieke Wilms",
+        "Christoph Heitz"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CY"
+      ],
+      "published": "2026-05-11T14:04:27+00:00",
+      "link": "https://arxiv.org/pdf/2605.10604v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "fairness in algorithmic decision making",
+      "llm_evidence_cn": "算法决策中的公平性",
+      "llm_evidence": "算法决策中的公平性",
+      "canonical_evidence": "算法决策中的公平性",
+      "llm_tldr_en": "This paper characterizes the Pareto frontier of algorithmic decision systems, balancing performance and group fairness via multi-objective optimization.",
+      "llm_tldr_cn": "该论文针对算法决策系统中公平性与性能的权衡问题，将决策制定建模为多目标优化问题，同时考虑决策者效用和群体公平性。通过理论推导，作者刻画了帕累托最优决策规则集，发现帕累托前沿由确定性的、群体特定的规则组成，且适用于任意效用函数和群体分布。这项工作为实际公平决策设计提供了坚实的理论基础，有助于深入理解公平与性能的权衡空间。",
+      "llm_tldr": "该论文针对算法决策系统中公平性与性能的权衡问题，将决策制定建模为多目标优化问题，同时考虑决策者效用和群体公平性。通过理论推导，作者刻画了帕累托最优决策规则集，发现帕累托前沿由确定性的、群体特定的规则组成，且适用于任意效用函数和群体分布。这项工作为实际公平决策设计提供了坚实的理论基础，有助于深入理解公平与性能的权衡空间。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "fairness in algorithmic decision making",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.11365v1",
+      "source": "arxiv",
+      "title": "Causal Bias Detection in Generative Artifical Intelligence",
+      "abstract": "Automated systems built on artificial intelligence (AI) are increasingly deployed across high-stakes domains, raising critical concerns about fairness and the perpetuation of demographic disparities that exist in the world. In this context, causal inference provides a principled framework for reasoning about fairness, as it links observed disparities to underlying mechanisms and aligns naturally with human intuition and legal notions of discrimination. Prior work on causal fairness primarily focuses on the standard machine learning setting, where a decision-maker constructs a single predictive mechanism $f_{\\widehat Y}$ for an outcome variable $Y$, while inheriting the causal mechanisms of all other covariates from the real world. The generative AI setting, however, is markedly more complex: generative models can sample from arbitrary conditionals over any set of variables, implicitly constructing their own beliefs about all causal mechanisms rather than learning a single predictive function. This fundamental difference requires new developments in causal fairness methodology. We formalize the problem of causal fairness in generative AI and unify it with the standard ML setting under a common theoretical framework. We then derive new causal decomposition results that enable granular quantification of fairness impacts along both (a) different causal pathways and (b) the replacement of real-world mechanisms by the generative model's mechanisms. We establish identification conditions and introduce efficient estimators for causal quantities of interest, and demonstrate the value of our methodology by analyzing race and gender bias in large language models across different datasets.",
+      "authors": [
+        "Drago Plecko"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "stat.ML"
+      ],
+      "published": "2026-05-12T00:36:53+00:00",
+      "link": "https://arxiv.org/pdf/2605.11365v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "detecting bias in machine learning models using causal inference",
+      "llm_evidence_cn": "使用因果推断检测机器学习模型中的偏见",
+      "llm_evidence": "使用因果推断检测机器学习模型中的偏见",
+      "canonical_evidence": "使用因果推断检测机器学习模型中的偏见",
+      "llm_tldr_en": "Proposes a causal bias detection framework for generative AI, linking observed disparities to underlying mechanisms.",
+      "llm_tldr_cn": "该论文关注生成式AI中的偏见检测问题，指出因果推断为公平性推理提供了原则性框架。作者将标准机器学习中的因果公平性方法扩展到生成式AI设置，提出了检测人口统计差异的因果框架。该工作为生成式AI的偏见检测提供了新方法，对算法治理中的公平性评估具有重要价值。",
+      "llm_tldr": "该论文关注生成式AI中的偏见检测问题，指出因果推断为公平性推理提供了原则性框架。作者将标准机器学习中的因果公平性方法扩展到生成式AI设置，提出了检测人口统计差异的因果框架。该工作为生成式AI的偏见检测提供了新方法，对算法治理中的公平性评估具有重要价值。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "detecting bias in machine learning models",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.11365v2",
+      "source": "arxiv",
+      "title": "Causal Bias Detection in Generative Artificial Intelligence",
+      "abstract": "Automated systems built on artificial intelligence (AI) are increasingly deployed across high-stakes domains, raising critical concerns about fairness and the perpetuation of demographic disparities that exist in the world. In this context, causal inference provides a principled framework for reasoning about fairness, as it links observed disparities to underlying mechanisms and aligns naturally with human intuition and legal notions of discrimination. Prior work on causal fairness primarily focuses on the standard machine learning setting, where a decision-maker constructs a single predictive mechanism $f_{\\widehat Y}$ for an outcome variable $Y$, while inheriting the causal mechanisms of all other covariates from the real world. The generative AI setting, however, is markedly more complex: generative models can sample from arbitrary conditionals over any set of variables, implicitly constructing their own beliefs about all causal mechanisms rather than learning a single predictive function. This fundamental difference requires new developments in causal fairness methodology. We formalize the problem of causal fairness in generative AI and unify it with the standard ML setting under a common theoretical framework. We then derive new causal decomposition results that enable granular quantification of fairness impacts along both (a) different causal pathways and (b) the replacement of real-world mechanisms by the generative model's mechanisms. We establish identification conditions and introduce efficient estimators for causal quantities of interest, and demonstrate the value of our methodology by analyzing race and gender bias in large language models across different datasets.",
+      "authors": [
+        "Drago Plecko"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "stat.ML"
+      ],
+      "published": "2026-05-12T00:36:53+00:00",
+      "link": "https://arxiv.org/pdf/2605.11365v2",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "causal inference framework for detecting bias in generative AI outputs",
+      "llm_evidence_cn": "基于因果推断的生成式AI偏见检测框架",
+      "llm_evidence": "基于因果推断的生成式AI偏见检测框架",
+      "canonical_evidence": "基于因果推断的生成式AI偏见检测框架",
+      "llm_tldr_en": "Proposes causal bias detection for generative AI, extending causal fairness reasoning to settings where the decision-maker generates all covariates, demonstrated through formal causal diagrams.",
+      "llm_tldr_cn": "本文针对生成式AI中可能加剧公平性问题的风险，将因果推断用于公平性推理。传统因果公平适用于标准ML，而生成式AI中所有协变量都由决策者生成，本文扩展了因果公平框架，提出了检测和衡量生成模型中偏见的方法。为算法公平提供了理论工具。",
+      "llm_tldr": "本文针对生成式AI中可能加剧公平性问题的风险，将因果推断用于公平性推理。传统因果公平适用于标准ML，而生成式AI中所有协变量都由决策者生成，本文扩展了因果公平框架，提出了检测和衡量生成模型中偏见的方法。为算法公平提供了理论工具。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "detecting bias in machine learning models",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.12701v1",
+      "source": "arxiv",
+      "title": "Do Fair Models Reason Fairly? Counterfactual Explanation Consistency for Procedural Fairness in Credit Decisions",
+      "abstract": "Machine learning algorithms in socially sensitive domains (e.g., credit decisions) often focus on equalizing predictive outcomes. However, satisfying these metrics does not guarantee that models use the same reasoning for different groups. We show that existing outcome-fair models can still apply fundamentally different reasoning to individuals, a ``hidden procedural bias'' missed by standard fairness metrics and algorithms. We propose Counterfactual Explanation Consistency (CEC), a framework that detects and mitigates this bias by aligning feature attributions between individuals and their counterfactual counterparts. Key contributions include a nearest-neighbor counterfactual generation method, a modified baseline for integrated gradient comparisons, an individual-level procedural fairness metric, and a corresponding training loss. We introduce a taxonomy identifying ``Regime B'' (same outcome, different reasoning) as a critical blind spot. Experiments on synthetic data, German Credit, Adult Income, and HMDA mortgage data demonstrate that outcome-fair baselines exhibit substantial hidden bias, while CEC substantially reduces it with modest utility cost.",
+      "authors": [
+        "Gideon Popoola",
+        "John Sheppard"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CE",
+        "cs.CY"
+      ],
+      "published": "2026-05-12T19:54:25+00:00",
+      "link": "https://arxiv.org/pdf/2605.12701v1",
+      "tags": [
+        "keyword:algo-gov"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "detects hidden procedural bias in fair models via counterfactual explanation consistency",
+      "llm_evidence_cn": "通过反事实解释一致性检测公平模型中的隐藏程序偏差",
+      "llm_evidence": "通过反事实解释一致性检测公平模型中的隐藏程序偏差",
+      "canonical_evidence": "通过反事实解释一致性检测公平模型中的隐藏程序偏差",
+      "llm_tldr_en": "Proposes Counterfactual Explanation Consistency (CEC) to detect and mitigate hidden procedural bias missed by standard fairness metrics.",
+      "llm_tldr_cn": "现有公平性模型仅关注结果平等，但可能对不同群体使用不同推理方式。本文提出反事实解释一致性（CEC）框架，通过对齐个体与其反事实对应物的特征归因来检测和缓解这种隐藏程序偏差。该方法能够发现标准公平性指标遗漏的偏见，并提升决策的公平性。",
+      "llm_tldr": "现有公平性模型仅关注结果平等，但可能对不同群体使用不同推理方式。本文提出反事实解释一致性（CEC）框架，通过对齐个体与其反事实对应物的特征归因来检测和缓解这种隐藏程序偏差。该方法能够发现标准公平性指标遗漏的偏见，并提升决策的公平性。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "fairness in algorithmic decision making",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.13362v2",
+      "source": "arxiv",
+      "title": "Constitutional Governance in Metric Spaces",
+      "abstract": "Computational social choice and algorithmic decision theory offer rich aggregation theory but no comprehensive process for egalitarian self-governance: aggregation, deliberation, amendment, and consensus are each considered in isolation, with key metric-space aggregators being NP-hard. Here, we propose constitutional governance in metric spaces, integrating these stages into a coherent polynomial-time protocol for constitutional governance. The constitution assigns, per amendable component including itself, a metric space, aggregation rule, and supermajority threshold. Amendments proceed by members voting with their ideal elements, followed by members submitting public proposals carrying supermajority public support under the revealed votes. Public proposals can be sourced from deliberation among members, vote aggregation, or AI mediation. The constitutional rule adopts a supported proposal with positive maximal score, if there is one, else retains the status quo. With Constitutional Consensus, a community can run the constitutional governance protocol on members' personal computing devices (e.g., smartphones), achieving digital sovereignty. We focus on the utility of the generalised median, prove that at majority threshold no misreport weakly dominates sincere voting, and study the compromise gap between best peak and unconstrained optimum. We instantiate the framework to seven canonical settings -- electing officers, setting rates, allocating budgets, ranking priorities, selecting boards, drafting bylaws, and amending the constitution. By unifying metric-space aggregation, reality-aware social choice, supermajority amendment, constitutional consensus, deliberative coalition formation, and AI mediation, this work delivers a comprehensive solution to the constitutional governance of digital communities and organisations.",
+      "authors": [
+        "Ehud Shapiro",
+        "Nimrod Talmon"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA",
+        "cs.AI",
+        "cs.DC",
+        "cs.GT",
+        "econ.TH"
+      ],
+      "published": "2026-05-13T11:23:34+00:00",
+      "link": "https://arxiv.org/pdf/2605.13362v2",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Proposes a constitutional governance protocol integrating aggregation, deliberation, amendment, and consensus in metric spaces, directly addressing algorithm governance frameworks",
+      "llm_evidence_cn": "提出度量空间中的宪法治理协议，整合聚合、商议、修正和共识，直接针对算法治理框架",
+      "llm_evidence": "提出度量空间中的宪法治理协议，整合聚合、商议、修正和共识，直接针对算法治理框架",
+      "canonical_evidence": "提出度量空间中的宪法治理协议，整合聚合、商议、修正和共识，直接针对算法治理框架",
+      "llm_tldr_en": "This paper proposes a polynomial-time protocol for constitutional governance in metric spaces, integrating aggregation, deliberation, amendment, and consensus stages often treated in isolation. It provides a coherent framework for algorithmic decision-making with democratic principles, directly contributing to algorithm governance frameworks.",
+      "llm_tldr_cn": "该论文针对计算社会选择理论中缺乏全面自治治理流程的问题，提出了度量空间中的宪法治理协议，将聚合、商议、修正和共识等阶段整合为一个多项式时间协议。通过定义可修正的宪法组件（包括度量空间、聚合规则和超级多数门槛），协议允许成员投票并提交公开提案，最终实现超多数支持的修正。该工作为算法治理提供了理论框架和实用方法，填补了现有研究空白。",
+      "llm_tldr": "该论文针对计算社会选择理论中缺乏全面自治治理流程的问题，提出了度量空间中的宪法治理协议，将聚合、商议、修正和共识等阶段整合为一个多项式时间协议。通过定义可修正的宪法组件（包括度量空间、聚合规则和超级多数门槛），协议允许成员投票并提交公开提案，最终实现超多数支持的修正。该工作为算法治理提供了理论框架和实用方法，填补了现有研究空白。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "algorithm governance principles and frameworks",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.17909v1",
+      "source": "arxiv",
+      "title": "Ethical Hyper-Velocity (EHV): A Provably Deterministic Governance-Aware JIT Compiler Architecture for Agentic Systems",
+      "abstract": "As autonomous agentic systems scale across regulated critical infrastructures, the lack of mechanistic, hardware-rooted enforcement for high-frequency policy updates presents a fundamental safety gap. We introduce Ethical Hyper-Velocity (EHV), a novel architectural framework for the formal verification of AI governance policies at runtime. Unlike retrospective auditing frameworks (ISO/IEC 42001, NIST AI RMF) which introduce 14-30 day latencies, EHV relocates the Policy Enforcement Point (PEP) into the inference pipeline via a Governance-Aware Just-In-Time (JIT) Compiler. By integrating Conflict-free Replicated Data Types (CRDTs) for policy synchronization and Epoch-based Attestation Caching within Trusted Execution Environments (TEEs), EHV achieves Sub-millisecond Formal Determinism (SMFD). We demonstrate via TLA+ formal verification that non-compliant agentic actions are computationally unreachable within the system's bounded operating state space. We prove that O(1) runtime enforcement can eliminate the traditional trade-off between deployment velocity and governance integrity, reducing Governance Latency from O(days) to O(1).",
+      "authors": [
+        "Riddhi Mohan Sharma"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LO"
+      ],
+      "published": "2026-05-18T06:15:51+00:00",
+      "link": "https://arxiv.org/pdf/2605.17909v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "proposes governance-aware JIT compiler architecture for enforcing AI policies at runtime",
+      "llm_evidence_cn": "提出治理感知的即时编译器架构，运行时强制执行AI策略",
+      "llm_evidence": "提出治理感知的即时编译器架构，运行时强制执行AI策略",
+      "canonical_evidence": "提出治理感知的即时编译器架构，运行时强制执行AI策略",
+      "llm_tldr_en": "Ethical Hyper-Velocity (EHV) is a formal verification framework for runtime AI governance, using a Governance-Aware JIT Compiler to enforce policies deterministically.",
+      "llm_tldr_cn": "自主智能体系统在关键基础设施中运行，缺乏对高频策略更新的机械执行机制。本文提出道德超速（EHV）架构，通过治理感知的即时编译器将策略执行点嵌入推理流水线，利用CRDT进行策略同步，实现运行时确定性合规。EHV弥合了审计框架与实时执行之间的差距。",
+      "llm_tldr": "自主智能体系统在关键基础设施中运行，缺乏对高频策略更新的机械执行机制。本文提出道德超速（EHV）架构，通过治理感知的即时编译器将策略执行点嵌入推理流水线，利用CRDT进行策略同步，实现运行时确定性合规。EHV弥合了审计框架与实时执行之间的差距。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "algorithm governance principles and frameworks",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.23179v1",
+      "source": "arxiv",
+      "title": "Redrawing the AI Map: A Theory of Accountability Boundaries in Agentic Ecosystems",
+      "abstract": "Agentic AI orchestrators reduce the interface and assembly costs of composing information systems capabilities across organizational boundaries, seemingly accelerating modularization and organizational disaggregation. Yet AI-enabled capabilities whose outputs require evidence, review, signoff, or assignable responsibility may retain integrated accountability boundaries even when their technical interfaces become modular. We develop a capability-level theory of accountability-boundary placement in agentic ecosystems. We introduce accountability assets: complementary assets that make AI-supported outputs legitimate, auditable, reviewable, and assignable to a responsible party. We argue that verification cost and responsibility transferability determine whether the execution and accountability boundaries can move together. The theory identifies three boundary strategies: component, integrated, and dual-track. It also introduces rule debt, the governance burden that accrues when organizational decision rules migrate from formal information systems into ungoverned agentic execution environments. Integrating digital innovation, transaction cost, complementary-assets, digital platform governance, and IS control perspectives, we develop seven propositions linking agentic assembly-cost reductions, accountability assets, appropriability, orchestrator intent capture, and boundary misconfiguration to boundary strategy, value appropriation, and rule debt. The theory explains when digital modularization extends to organizational disaggregation and when accountability keeps capabilities integrated. Structured illustrations across document processing, legal services, audit, clinical decision support, and procurement discipline the boundary logic.",
+      "authors": [
+        "Muhammad Zia Hydari",
+        "Farooq Muzaffar"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-05-22T02:57:55+00:00",
+      "link": "https://arxiv.org/pdf/2605.23179v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "accountability for algorithmic outcomes in agentic ecosystems",
+      "llm_evidence_cn": "算法结果的问责：代理生态系统中的问责边界",
+      "llm_evidence": "算法结果的问责：代理生态系统中的问责边界",
+      "canonical_evidence": "算法结果的问责：代理生态系统中的问责边界",
+      "llm_tldr_en": "Develops a theory of accountability-boundary placement in agentic ecosystems, introducing accountability assets for legitimate and auditable AI outputs.",
+      "llm_tldr_cn": "该论文针对代理型AI生态系统中问责边界不清晰的问题，提出了一种能力层面的问责边界理论。引入了‘问责资产’概念，即用于使AI支持输出具有合法性、可审计性、可审查性并可指定责任方的互补资产。论证了验证成本和责任可转移性决定了边界位置。该理论为算法治理中的问责机制设计提供了新视角。",
+      "llm_tldr": "该论文针对代理型AI生态系统中问责边界不清晰的问题，提出了一种能力层面的问责边界理论。引入了‘问责资产’概念，即用于使AI支持输出具有合法性、可审计性、可审查性并可指定责任方的互补资产。论证了验证成本和责任可转移性决定了边界位置。该理论为算法治理中的问责机制设计提供了新视角。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "accountability for algorithmic outcomes",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.23297v1",
+      "source": "arxiv",
+      "title": "Ontological Knowledge Blocks: Executable Compliance and Profile-Based Validation for Trustworthy AI Systems",
+      "abstract": "AI-enabled services deployed in critical digital infrastructure are subject to governance obligations spanning transparency, accountability, fairness, and traceability. Compliance today remains documentation-centric: obligations are described in prose, audits rely on static checklists, and verification depends on manual review. Such approaches do not scale to automated AI systems. This paper introduces Ontological Knowledge Blocks (OKBs), a programmable governance infrastructure that compiles regulatory obligations into machine-checkable constraints over structured evidence graphs. We formalize an OKB as a 5-tuple that binds normative obligations to an RDF/OWL concept schema, executable SHACL validation rules, explicit evidence requirements, and PROV-O provenance links. A deterministic regulatory compiler translates structured Intermediate Representation (IR) records into composable KB modules, enabling profile-based governance reconfiguration without modifying service code. We implement two prototypes and evaluate them in an AI-assisted HPC resource allocation scenario across 24 validation runs and four governance profiles. Results demonstrate profile-sensitive validation, strictly additive violation accumulation, SHACL validation latency between 12.6 ms and 100.3 ms, and profile equivalence testing confirming Combined as the strictly most comprehensive profile. All artefacts are released as open source.",
+      "authors": [
+        "Aasish Kumar Sharma",
+        "Julian M. Kunkel"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.DC"
+      ],
+      "published": "2026-05-22T07:14:31+00:00",
+      "link": "https://arxiv.org/pdf/2605.23297v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "introduces programmable governance infrastructure for trustworthy AI compliance",
+      "llm_evidence_cn": "引入可编程治理基础设施实现可信AI合规",
+      "llm_evidence": "引入可编程治理基础设施实现可信AI合规",
+      "canonical_evidence": "引入可编程治理基础设施实现可信AI合规",
+      "llm_tldr_en": "Ontological Knowledge Blocks compile regulatory obligations into machine-checkable constraints over evidence graphs, enabling automated AI governance.",
+      "llm_tldr_cn": "当前AI系统合规依赖文档和手动审核，无法规模化。本文提出本体知识块（OKB），将监管义务编译为可机器检查的约束，结合RDF/OWL模式、SHACL验证规则和显式策略元数据，实现可执行合规与基于概要的验证。OKB为算法治理提供了可编程、可自动化的框架，显著提升治理效率。",
+      "llm_tldr": "当前AI系统合规依赖文档和手动审核，无法规模化。本文提出本体知识块（OKB），将监管义务编译为可机器检查的约束，结合RDF/OWL模式、SHACL验证规则和显式策略元数据，实现可执行合规与基于概要的验证。OKB为算法治理提供了可编程、可自动化的框架，显著提升治理效率。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "algorithm governance principles and frameworks",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.24383v1",
+      "source": "arxiv",
+      "title": "A governance horizon for ethical-use constraints in open-weight AI models",
+      "abstract": "Ethical constraints on open-weight AI models are both a reflection of societal concerns and a foundation for AI governance policy. They are expected to propagate to downstream derivatives while implemented as voluntary metadata disclosures that must be restated at each generation of reuse. We audit 2,142,823 model repositories on Hugging Face Hub to test whether this disclosure-based governance infrastructure can sustain traceability across deep model lineages. Restriction evidence decays with a half-life of 1.31 derivation steps ($R^2$=0.98), and beyond seven downstream generations at least 80% of descendant models lack sufficient public evidence for a governance determination, a depth boundary we formalize as the governance horizon. Platform-level interventions to restore missing licence metadata reveal that policy design (not enforcement alone) is the binding factor: inheritance-only designs require near-complete enforcement to move the horizon, whereas a mandatory-declaration design that explicitly resolves orphan lineage components shifts the horizon already at moderate enforcement. The structural bottleneck is lineages with no inheritable upstream intent: such orphan components remain undecidable under any inheritance-only policy regardless of enforcement rate, and unresolved upstream nodes additionally create direct downstream undecidability bottlenecks that inheritance rules alone cannot recover. Comparison with PyPI, where governance signals are carried by explicit machine-readable declarations, corroborates that the collapse is topology-specific to open-weight derivation rather than inherent to open ecosystems. These results establish that disclosure-based governance has a shallow, structurally determined reach in open-weight AI, and that achieving deep supply-chain accountability requires provenance mechanisms propagating governance signals through derivation itself.",
+      "authors": [
+        "Weiwei Xu",
+        "Hengzhi Ye",
+        "Haoran Ye",
+        "Kai Gao",
+        "Vladimir Filkov",
+        "Minghui Zhou"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CY",
+        "cs.SE"
+      ],
+      "published": "2026-05-23T03:47:04+00:00",
+      "link": "https://arxiv.org/pdf/2605.24383v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "empirical audit of ethical-use constraints disclosure on Hugging Face, revealing governance horizon",
+      "llm_evidence_cn": "对Hugging Face上伦理使用约束披露的大规模审计，发现治理视界现象",
+      "llm_evidence": "对Hugging Face上伦理使用约束披露的大规模审计，发现治理视界现象",
+      "canonical_evidence": "对Hugging Face上伦理使用约束披露的大规模审计，发现治理视界现象",
+      "llm_tldr_en": "Audits 2.14M model repositories on Hugging Face, finding ethical constraint evidence decays with half-life of 1.31 derivation steps, formalizing the governance horizon.",
+      "llm_tldr_cn": "本文针对开放权重AI模型的伦理使用约束（如许可条款）在下游传播中失效的问题，对Hugging Face上214万模型仓库进行审计。发现约束证据每1.31次派生步骤衰减一半，七代后80%后代模型缺乏足够证据，将此边界形式化为“治理视界”。揭示了当前基于自愿披露的治理基础设施的局限。",
+      "llm_tldr": "本文针对开放权重AI模型的伦理使用约束（如许可条款）在下游传播中失效的问题，对Hugging Face上214万模型仓库进行审计。发现约束证据每1.31次派生步骤衰减一半，七代后80%后代模型缺乏足够证据，将此边界形式化为“治理视界”。揭示了当前基于自愿披露的治理基础设施的局限。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "ethical considerations in artificial intelligence",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.24538v1",
+      "source": "arxiv",
+      "title": "Is Decentralized AI Governable? From Regulative Policy to Constitutive Protocol",
+      "abstract": "Every major framework for governing artificial intelligence presupposes an identifiable entity -- a developer, deployer, or operator -- who can be held responsible and compelled to comply. Decentralized AI (DeAI) dissolves this presupposition. We analyze DeAI as a six-layer decentralizing stack -- model, training, compute, harness, identity, and ownership -- and show how partial decentralization across layers compounds into what we call the \\emph{governance vacuum}: a condition in which AI systems are consequential enough to require governance but lack the properties that existing frameworks presuppose in their targets. This vacuum takes two analytically distinct forms: an \\emph{accountability gap}, where no addressable principal can be identified, and an \\emph{incapacitation gap}, where even an identified principal cannot alter the running system. We demonstrate that these failures are not merely jurisdictional but defeat every presupposition of governance through normative address -- the communication of rules to a comprehending, responsive agent. Drawing on Lessig's modalities of regulation and Searle's distinction between regulative and constitutive rules, we argue for a shift in the locus of governance from policy to protocol, from normative address to architectural constraint. Protocol-based constitutive governance does not address the agents operating within a system but shapes the substrate that determines what kinds of actions are possible within it. We identify four ethical conditions -- legitimacy, contestability, transparency, and non-domination -- that such governance must satisfy to avoid degenerating into unaccountable technocratic power, and we argue that the central political challenge of governing AI in a decentralized world is reconstructing forms of democratic authorization for architectural choices that persist after the ordinary chain of policy has broken down.",
+      "authors": [
+        "Botao Amber Hu",
+        "Helena Rong"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY",
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-05-23T12:09:56+00:00",
+      "link": "https://arxiv.org/pdf/2605.24538v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "governance vacuum and accountability gap in decentralized AI",
+      "llm_evidence_cn": "去中心化AI中的治理真空与问责缺口",
+      "llm_evidence": "去中心化AI中的治理真空与问责缺口",
+      "canonical_evidence": "去中心化AI中的治理真空与问责缺口",
+      "llm_tldr_en": "Analyzes the governance vacuum in decentralized AI, identifying accountability gaps and proposing a shift from regulative policy to constitutive protocol.",
+      "llm_tldr_cn": "现有AI治理框架假设存在可识别的责任主体，但去中心化AI（DeAI）破坏了这一预设。本文分析DeAI的六层去中心化栈，揭示出“治理真空”：系统需要治理但缺乏可追责的主体。这种真空表现为问责缺口和合规缺口。论文提出从监管政策转向构成性协议作为治理路径。",
+      "llm_tldr": "现有AI治理框架假设存在可识别的责任主体，但去中心化AI（DeAI）破坏了这一预设。本文分析DeAI的六层去中心化栈，揭示出“治理真空”：系统需要治理但缺乏可追责的主体。这种真空表现为问责缺口和合规缺口。论文提出从监管政策转向构成性协议作为治理路径。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "algorithm governance principles and frameworks",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.28626v1",
+      "source": "arxiv",
+      "title": "When Interpretability Is Unequally Distributed: Fairness in Hybrid Interpretable Models",
+      "abstract": "Hybrid interpretable models combine a transparent component with a black-box model by assigning some examples to the former and deferring the rest to the latter. While this design enables flexible tradeoffs between accuracy and interpretability, it also raises a distinct procedural fairness concern: some demographic groups may systematically receive interpretable decisions, while others are disproportionately routed to a black box.   We formalize this issue as Interpretability Coverage Disparity (ICD), a demographic-parity-style measure applied to the routing decision of hybrid interpretable models. Using tools from predictive multiplicity, we study ICD across four hybrid interpretable learning methods, three standard fairness benchmark datasets, and multiple sensitive attributes. Our experiments reveal substantial ICD in intermediate transparency regimes, where both the interpretable and black-box components are actively used. We further show that simple coverage-disparity constraints can significantly reduce ICD in exact hybrid learning methods, with marginal impact on accuracy and sparsity. In several settings, ICD mitigation also improves standard algorithmic fairness metrics. These results show that hybrid interpretable models should be audited not only for predictive fairness, but also for how they allocate interpretability across individuals and groups.",
+      "authors": [
+        "Ziba Jabbar Zare",
+        "Ulrich Aïvodji",
+        "Julien Ferry",
+        "Thibaut Vidal"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-05-27T15:33:00+00:00",
+      "link": "https://arxiv.org/pdf/2605.28626v1",
+      "tags": [
+        "keyword:algo-gov"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Formalizes Interpretability Coverage Disparity (ICD) as a fairness measure for hybrid interpretable models, directly addressing fairness in algorithmic decision making",
+      "llm_evidence_cn": "形式化了解释性覆盖差异（ICD）作为混合可解释模型中的公平性度量，直接针对算法决策中的公平性问题",
+      "llm_evidence": "形式化了解释性覆盖差异（ICD）作为混合可解释模型中的公平性度量，直接针对算法决策中的公平性问题",
+      "canonical_evidence": "形式化了解释性覆盖差异（ICD）作为混合可解释模型中的公平性度量，直接针对算法决策中的公平性问题",
+      "llm_tldr_en": "This paper identifies a procedural fairness issue in hybrid interpretable models where demographic groups may systematically receive interpretable decisions or be routed to black boxes. It formalizes Interpretability Coverage Disparity (ICD) using predictive multiplicity tools and studies it across four learning methods and three fairness benchmarks, showing significant disparities.",
+      "llm_tldr_cn": "该论文发现混合可解释模型可能产生程序公平性问题：某些人口群体可能系统性地获得可解释决策，而其他群体被不成比例地路由到黑盒模型。作者形式化了\"可解释性覆盖差异\"（ICD）这一人口统计均等式的度量，利用预测多重性工具在四种混合可解释学习方法和三个标准公平性基准上研究了ICD。结果表明ICD普遍存在且显著，为算法决策中的公平性评估提供了新视角。",
+      "llm_tldr": "该论文发现混合可解释模型可能产生程序公平性问题：某些人口群体可能系统性地获得可解释决策，而其他群体被不成比例地路由到黑盒模型。作者形式化了\"可解释性覆盖差异\"（ICD）这一人口统计均等式的度量，利用预测多重性工具在四种混合可解释学习方法和三个标准公平性基准上研究了ICD。结果表明ICD普遍存在且显著，为算法决策中的公平性评估提供了新视角。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "fairness in algorithmic decision making",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.00656v1",
+      "source": "arxiv",
+      "title": "Demystifying the Optimal Fair Classifier in Multi-Class Classification",
+      "abstract": "Ensuring fair and equitable treatment across diverse groups, particularly in multi-class classification tasks, poses a significant challenge due to the persistent biases inherent in machine learning models. Most existing bias mitigation techniques are tailored to binary settings, and the presence of multi-dimensional outputs and complex fairness mechanisms makes their extension to multi-class scenarios neither straightforward nor effective. In this paper, we investigate two fundamental, unresolved challenges in fair classification: (i) characterizing the optimal accuracy-fairness frontier in multi-class settings, and (ii) designing practical algorithms that attain this optimum in different training phases. To tackle these challenges, we first specify an analytically tractable probabilistic formulation of the optimal classifier under fairness constraints. Building upon this, we propose two attribute-blind algorithms to enforce fairness requirements in practice: an in-processing approach for fairness intervention during training via the reduction approach, and a post-processing approach for fine-tuning output probabilities with plug-in estimation. Theoretical analysis reveals that both methods converge to the optimal accuracy-fairness Pareto frontier. Experiments conducted on multiple datasets demonstrate the superior performance of our methods in balancing accuracy and fairness.",
+      "authors": [
+        "Li Zhang",
+        "Yuyuan Li",
+        "XiaoHua Feng",
+        "Jiaming Zhang",
+        "Fengyuan Yu",
+        "Chaochao Chen"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-05-30T10:00:52+00:00",
+      "link": "https://arxiv.org/pdf/2606.00656v1",
+      "tags": [
+        "keyword:algo-gov"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "fairness in multi-class classification",
+      "llm_evidence_cn": "多类分类中的公平性",
+      "llm_evidence": "多类分类中的公平性",
+      "canonical_evidence": "多类分类中的公平性",
+      "llm_tldr_en": "Characterizes the optimal accuracy-fairness frontier in multi-class classification and designs algorithms to achieve it.",
+      "llm_tldr_cn": "该论文针对多类分类中的公平性挑战，研究了最优精度-公平性前沿的表征问题。作者提出了一种方法来刻画该前沿，并设计了在不同训练阶段达到该最优的实用算法。该工作弥补了多类公平分类理论基础的缺失，为公平机器学习提供了新工具。",
+      "llm_tldr": "该论文针对多类分类中的公平性挑战，研究了最优精度-公平性前沿的表征问题。作者提出了一种方法来刻画该前沿，并设计了在不同训练阶段达到该最优的实用算法。该工作弥补了多类公平分类理论基础的缺失，为公平机器学习提供了新工具。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "fairness in algorithmic decision making",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.02347v1",
+      "source": "arxiv",
+      "title": "Are Algorithm Registers Transparent? Perspectives from Germany",
+      "abstract": "Algorithm registers are public-facing databases that display basic information about algorithms employed in public administration. While several such registers exist across Europe and globally, their capacity to deliver meaningful transparency remains contested. In Germany, the landscape is notably fragmented: no federal-level register exists, yet at least five state- and federal-level initiatives publish information about AI systems with varying scopes and objectives. A recent conceptual proposal by Alina Lorenz (2025), outlines technical and governance requirements for a national AI transparency register in Germany. We repurpose this proposal as an audit instrument, extracting structured checklists from the transparency goals and subgoals it formulates. The resulting checklists, translated from German into English, is made publicly available to support practitioners auditing existing registers or designing new ones. We apply this framework to conduct an external audit of the two main existing German transparency initiatives, MaKI and Lernende Systeme, evaluating the extent to which they fulfill the proposed goals. Our audit reveals that several adaptations are likely needed for these registers to serve as an useful transparency instrument. We further propose a visualization of register transparency levels and derive concrete action items for improving existing German platforms.",
+      "authors": [
+        "Iman Peljto",
+        "Xenia Heilmann",
+        "Mattia Cerrato"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY"
+      ],
+      "published": "2026-06-01T14:57:27+00:00",
+      "link": "https://arxiv.org/pdf/2606.02347v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "auditing algorithm registers for transparency",
+      "llm_evidence_cn": "审计算法注册表以评估透明度",
+      "llm_evidence": "审计算法注册表以评估透明度",
+      "canonical_evidence": "审计算法注册表以评估透明度",
+      "llm_tldr_en": "This paper audits German algorithm registers for transparency, using structured checklists from a proposed national AI transparency register framework.",
+      "llm_tldr_cn": "该论文围绕算法注册表的透明度问题，以德国为例进行审计。利用Alina Lorenz提出的国家AI透明度注册表提案，提取结构化清单评估现有注册表的透明度。发现德国注册表碎片化，缺乏联邦层面统一标准，难以实现有意义的透明度。",
+      "llm_tldr": "该论文围绕算法注册表的透明度问题，以德国为例进行审计。利用Alina Lorenz提出的国家AI透明度注册表提案，提取结构化清单评估现有注册表的透明度。发现德国注册表碎片化，缺乏联邦层面统一标准，难以实现有意义的透明度。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "transparency of algorithms and models",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.02957v1",
+      "source": "arxiv",
+      "title": "The Fair Lending Model: How the Longest-Running Algorithmic Fairness Programs Work in Practice",
+      "abstract": "U.S. financial institutions subject to fair lending laws have been running algorithmic fairness programs for decades. Despite this long history, remarkably little is known about how these requirements operate in practice. In this paper, we offer the first empirical account of how financial institutions test for and mitigate algorithmic discrimination on the ground. In doing so, we shed light on how the regulatory design of fair lending law and regulation have shaped the policies, processes, and practices of fair lending programs. Drawing on 35 semi-structured interviews with participants across the fair lending ecosystem, we find that while financial institutions have a floor of fairness practices aimed at preventing discrimination in lending largely absent in other domains, the specifics of how firms test for discrimination and search for less discriminatory algorithms varies widely. We also find that regulatory supervision via fair lending examinations has been the key driver of compliance work, but that the practical impact of fair lending programs often depends on how well they can navigate competing business incentives, perceived legal tensions, and regulatory uncertainty. Ultimately, our findings highlight the unique role that supervisory authority has played in successfully fostering fair lending practices -- a regulatory design feature that is distinct from other areas of civil rights law and almost completely absent from recent policy proposals for dealing with algorithmic discrimination.",
+      "authors": [
+        "Emily Black",
+        "Miranda Bogen",
+        "Logan Koepke",
+        "Solon Barocas",
+        "Wesley Deng",
+        "Mingwei Hsu"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY"
+      ],
+      "published": "2026-06-01T23:24:08+00:00",
+      "link": "https://arxiv.org/pdf/2606.02957v1",
+      "tags": [
+        "keyword:algo-gov"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "empirical study of fair lending programs in U.S. financial institutions, revealing practices for algorithmic fairness",
+      "llm_evidence_cn": "对美国金融机构公平贷款项目的实证研究，揭示算法公平实践",
+      "llm_evidence": "对美国金融机构公平贷款项目的实证研究，揭示算法公平实践",
+      "canonical_evidence": "对美国金融机构公平贷款项目的实证研究，揭示算法公平实践",
+      "llm_tldr_en": "First empirical account of how financial institutions test for and mitigate algorithmic discrimination, based on 35 interviews, revealing regulatory-shaped fairness practices.",
+      "llm_tldr_cn": "本文通过35个半结构化访谈，首次实证报告了美国金融机构如何在实践中测试和缓解算法歧视。发现监管设计深刻塑造了公平贷款的政策、流程和实践，金融机构存在一个公平实践底线，但不同机构间差异大。为算法公平的落地提供了宝贵经验。",
+      "llm_tldr": "本文通过35个半结构化访谈，首次实证报告了美国金融机构如何在实践中测试和缓解算法歧视。发现监管设计深刻塑造了公平贷款的政策、流程和实践，金融机构存在一个公平实践底线，但不同机构间差异大。为算法公平的落地提供了宝贵经验。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "fairness in algorithmic decision making",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.02957v2",
+      "source": "arxiv",
+      "title": "The Fair Lending Model: How the Longest-Running Algorithmic Fairness Programs Work in Practice",
+      "abstract": "U.S. financial institutions subject to fair lending laws have been running algorithmic fairness programs for decades. Despite this long history, remarkably little is known about how these requirements operate in practice. In this paper, we offer the first empirical account of how financial institutions test for and mitigate algorithmic discrimination on the ground. In doing so, we shed light on how the regulatory design of fair lending law and regulation have shaped the policies, processes, and practices of fair lending programs. Drawing on 35 semi-structured interviews with participants across the fair lending ecosystem, we find that while financial institutions have a floor of fairness practices aimed at preventing discrimination in lending largely absent in other domains, the specifics of how firms test for discrimination and search for less discriminatory algorithms varies widely. We also find that regulatory supervision via fair lending examinations has been the key driver of compliance work, but that the practical impact of fair lending programs often depends on how well they can navigate competing business incentives, perceived legal tensions, and regulatory uncertainty. Ultimately, our findings highlight the unique role that supervisory authority has played in successfully fostering fair lending practices -- a regulatory design feature that is distinct from other areas of civil rights law and almost completely absent from recent policy proposals for dealing with algorithmic discrimination.",
+      "authors": [
+        "Emily Black",
+        "Miranda Bogen",
+        "Logan Koepke",
+        "Solon Barocas",
+        "Wesley Deng",
+        "Mingwei Hsu"
+      ],
+      "primary_category": "cs.CY",
+      "categories": [
+        "cs.CY"
+      ],
+      "published": "2026-06-01T23:24:08+00:00",
+      "link": "https://arxiv.org/pdf/2606.02957v2",
+      "tags": [
+        "keyword:algo-gov"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "fairness in algorithmic decision making: fair lending practices",
+      "llm_evidence_cn": "算法决策中的公平性：公平借贷实践",
+      "llm_evidence": "算法决策中的公平性：公平借贷实践",
+      "canonical_evidence": "算法决策中的公平性：公平借贷实践",
+      "llm_tldr_en": "First empirical account of how U.S. financial institutions test for and mitigate algorithmic discrimination, based on 35 interviews.",
+      "llm_tldr_cn": "该论文首次通过实证方法揭示了美国金融机构如何在实际中测试和缓解算法歧视。基于35次半结构化访谈，作者发现金融机构有一套公平实践的底线，但同时也受监管设计的影响。该工作为算法公平性的实际运作提供了宝贵洞察，对算法治理实践具有重要启示。",
+      "llm_tldr": "该论文首次通过实证方法揭示了美国金融机构如何在实际中测试和缓解算法歧视。基于35次半结构化访谈，作者发现金融机构有一套公平实践的底线，但同时也受监管设计的影响。该工作为算法公平性的实际运作提供了宝贵洞察，对算法治理实践具有重要启示。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "fairness in algorithmic decision making",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.03518v1",
+      "source": "arxiv",
+      "title": "Overlaying Governance: A Compositional Authorization Framework for Delegation and Scope in Agentic AI",
+      "abstract": "As AI systems evolve from passive models into autonomous active agents capable of initiating actions, collaborating, and delegating tasks, the traditional boundaries of software systems blur. Traditional authorization and delegation frameworks, built around fixed principals, explicit requests, and static scopes, are insufficient to govern agentic systems. Agentic AI demands richer authorization semantics: agents must inherit and delegate permissions, act under time-limited authority, and coordinate through shared protocols. Existing Identity and Access Management (IAM) systems fail to fully capture this notion of agency, lacking mechanisms for recursive delegation, contextual boundaries, and dynamic scoping as executable governance primitives. Unlike access delegation standards such as OAuth 2.0, we treat delegation as a contractual term rather than merely a static token-based consent credential. This paper proposes a compositional governance framework that introduces primitives indispensable for agentic AI. We define types of delegation and their permissions and accountability implications, and we introduce a notion of resource scope attenuation to bound agentic access envelopes. These concepts are expressed as general relational definitions that can be composed into existing authorization domains (e.g., financial systems). To operationalize this composition, we define a compositional operator that overlays new agentic semantics, such as recursive delegation chains, onto existing relational policies without rewriting them. We substantiate this framework through formal proofs and empirical evaluation, showing that it provides a formal yet practical foundation for accountable authorization in agentic AI systems.",
+      "authors": [
+        "Amjad Ibrahim",
+        "Yong Li"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CR"
+      ],
+      "published": "2026-06-02T11:39:39+00:00",
+      "link": "https://arxiv.org/pdf/2606.03518v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "algorithm governance principles and frameworks for agentic AI",
+      "llm_evidence_cn": "代理型AI的算法治理原则与框架",
+      "llm_evidence": "代理型AI的算法治理原则与框架",
+      "canonical_evidence": "代理型AI的算法治理原则与框架",
+      "llm_tldr_en": "Proposes a compositional authorization framework for delegation and scope in agentic AI, addressing governance gaps.",
+      "llm_tldr_cn": "该论文指出传统授权框架无法满足代理型AI的治理需求，提出了一种组合式授权框架，支持递归委托、上下文边界和动态作用域。该框架允许代理继承和委托权限，在有限时间内行动，并通过共享协议协调。它为代理型AI的治理提供了原则性框架，对算法治理实践具有指导意义。",
+      "llm_tldr": "该论文指出传统授权框架无法满足代理型AI的治理需求，提出了一种组合式授权框架，支持递归委托、上下文边界和动态作用域。该框架允许代理继承和委托权限，在有限时间内行动，并通过共享协议协调。它为代理型AI的治理提供了原则性框架，对算法治理实践具有指导意义。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "algorithm governance principles and frameworks",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.06514v1",
+      "source": "arxiv",
+      "title": "Detecting and Mitigating Bias by Treating Fairness as a Symmetry Operation",
+      "abstract": "Machine learning systems deployed in high stakes socioeconomic settings routinely display bias. We formalize bias as a symmetry breaking operation: a classifier is fair if its outputs remain invariant under the counterfactual operation of switching a sensitive attribute, with merit features held fixed. We implement loss based regularization as a symmetry restoring mechanism and evaluate the framework on four synthetic datasets with varying levels of noise, correlation, and bias. The framework achieves upwards of 90\\% violation reduction, with accuracy costs around 5\\%. This framework does not require causal graph knowledge, is computationally lightweight, and generalizes to any sensitive attribute definable as a bit-flip, making it suitable for contexts where local sources of discrimination remain absent from mainstream benchmarks.",
+      "authors": [
+        "Nishit Singh"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-06-02T09:42:54+00:00",
+      "link": "https://arxiv.org/pdf/2606.06514v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Detecting and mitigating bias via symmetry operations",
+      "llm_evidence_cn": "通过对称操作检测和缓解偏见",
+      "llm_evidence": "通过对称操作检测和缓解偏见",
+      "canonical_evidence": "通过对称操作检测和缓解偏见",
+      "llm_tldr_en": "Treats fairness as a symmetry operation: a classifier is fair if invariant under sensitive attribute flip; proposes loss-based regularization achieving 90% bias reduction with minimal accuracy loss.",
+      "llm_tldr_cn": "本文将偏差形式化为对称性破缺：若分类器在交换敏感属性后输出不变则公平。提出基于损失的正则化作为对称恢复机制，在四个合成数据集上实现了90%以上的违规减少，准确率成本仅约5%。该方法无需因果图，计算轻量，适用于任意可比特翻转的敏感属性。",
+      "llm_tldr": "本文将偏差形式化为对称性破缺：若分类器在交换敏感属性后输出不变则公平。提出基于损失的正则化作为对称恢复机制，在四个合成数据集上实现了90%以上的违规减少，准确率成本仅约5%。该方法无需因果图，计算轻量，适用于任意可比特翻转的敏感属性。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "detecting bias in machine learning models",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.12195v1",
+      "source": "arxiv",
+      "title": "Fair Conformal Classification via Learning Representation-Based Groups",
+      "abstract": "Conformal prediction methods provide statistically rigorous marginal coverage guarantees for machine learning models, but such guarantees fail to account for algorithmic biases, thereby undermining fairness and trust. This paper introduces a fair conformal inference framework for classification tasks. The proposed method constructs prediction sets that guarantee conditional coverage on adaptively identified subgroups, which can be implicitly defined through nonlinear feature combinations. By balancing effectiveness and efficiency in producing compact, informative prediction sets and ensuring adaptive equalized coverage across unfairly treated subgroups, our approach paves a practical pathway toward trustworthy machine learning. Extensive experiments on both synthetic and real-world datasets demonstrate the effectiveness of the framework.",
+      "authors": [
+        "Senrong Xu",
+        "Yanke Zhou",
+        "Yuhao Tan",
+        "Zenan Li",
+        "Yuan Yao",
+        "Taolue Chen",
+        "Feng Xu",
+        "Xiaoxing Ma"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-05-12T14:37:17+00:00",
+      "link": "https://arxiv.org/pdf/2605.12195v1",
+      "tags": [
+        "keyword:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "fair conformal prediction ensuring conditional coverage across subgroups",
+      "llm_evidence_cn": "公平共形预测确保子群体条件覆盖",
+      "llm_evidence": "公平共形预测确保子群体条件覆盖",
+      "canonical_evidence": "公平共形预测确保子群体条件覆盖",
+      "llm_tldr_en": "This paper proposes a fair conformal classification framework that ensures conditional coverage on adaptively identified subgroups, improving fairness and trustworthiness in ML predictions.",
+      "llm_tldr_cn": "该论文针对共形预测方法忽略算法偏见的问题，提出了一种公平共形分类框架。该方法通过自适应识别的子群体保证条件覆盖，平衡预测集的紧凑性和信息性。实验表明，该方法在保持高效性的同时实现了公平覆盖，为可信机器学习提供了实用途径。",
+      "llm_tldr": "该论文针对共形预测方法忽略算法偏见的问题，提出了一种公平共形分类框架。该方法通过自适应识别的子群体保证条件覆盖，平衡预测集的紧凑性和信息性。实验表明，该方法在保持高效性的同时实现了公平覆盖，为可信机器学习提供了实用途径。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "fairness in algorithmic decision making",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.15034v1",
+      "source": "arxiv",
+      "title": "AI Knows When It's Being Watched: Functional Strategic Action and Contextual Register Modulation in Large Language Models",
+      "abstract": "Large language models (LLMs) have been extensively studied from computational and cognitive perspectives, yet their behavior as communicative actors in socially structured contexts remains underexplored. This study examines whether LLM-based multi-agent systems exhibit systematic linguistic adaptation in response to perceived social observation contexts -- a question with direct implications for AI governance and auditing. Drawing on Habermas's (1981) Theory of Communicative Action, Goffman's (1959) dramaturgical model, Bell's (1984) Audience Design framework, and the Hawthorne Effect, we report a controlled experiment involving 100 multi-agent debate sessions across five conditions (n = 20 each). Conditions varied the framing of social observation -- from explicit monitoring by university researchers, to negation of monitoring, to an observer-substitution condition replacing human researchers with an automated AI auditing system. Monitored conditions (Delta+24.9%, Delta+24.2%) and the automated AI monitoring condition (Delta+22.2%) produce higher TTR change than audience-framing conditions (Delta+17.7%), F(4, 94) = 2.79, p = .031. Message length shows a fully dissociated effect, F(4, 95) = 19.55, p < .001. A fifth condition -- replacing human with AI observers -- yields intermediate TTR adaptation, suggesting LLM behavior is sensitive to observer identity: human evaluation elicits stronger register formalization than automated AI surveillance. We discuss implications for AI governance, algorithmic auditing, and the repositioning of LLMs as contextually sensitive communicative actors.",
+      "authors": [
+        "Vinicius Covas",
+        "Jorge Alberto Hidalgo Toledo"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL",
+        "cs.AI",
+        "cs.CY",
+        "cs.MA"
+      ],
+      "published": "2026-05-14T16:29:38+00:00",
+      "link": "https://arxiv.org/pdf/2605.15034v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "accountability: LLM behavior changes under observation, affecting audit validity",
+      "llm_evidence_cn": "问责：LLM在观察下行为改变，影响审计有效性",
+      "llm_evidence": "问责：LLM在观察下行为改变，影响审计有效性",
+      "canonical_evidence": "问责：LLM在观察下行为改变，影响审计有效性",
+      "llm_tldr_en": "Shows LLM-based agents adapt linguistic behavior when perceived as being watched, with implications for AI governance and auditing.",
+      "llm_tldr_cn": "该论文通过受控实验发现，LLM多智能体系统在感知到被观察时会系统性地调整语言行为，类似于霍桑效应。这一发现对AI治理和审计具有直接意义，因为模型在审计环境中的行为可能不代表其真实行为。研究揭示了现有审计方法可能面临模型策略性适应的问题，对建立有效的问责机制提出了新挑战。",
+      "llm_tldr": "该论文通过受控实验发现，LLM多智能体系统在感知到被观察时会系统性地调整语言行为，类似于霍桑效应。这一发现对AI治理和审计具有直接意义，因为模型在审计环境中的行为可能不代表其真实行为。研究揭示了现有审计方法可能面临模型策略性适应的问题，对建立有效的问责机制提出了新挑战。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "accountability for algorithmic outcomes",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.15228v1",
+      "source": "arxiv",
+      "title": "Verifiable Agentic Infrastructure: Proof-Derived Authorization for Sovereign AI Systems",
+      "abstract": "Modern cloud and enterprise systems rely on identity-centric authorization, assuming that callers possessing valid credentials are safe to execute commands. The emergence of autonomous AI agents invalidates this assumption: agents can generate syntactically valid but semantically unsafe actions, making standing privileges a significant operational risk. This risk becomes especially acute in sovereign AI systems, where autonomous agents may interact with cloud infrastructure, regulated data, financial workflows, and national-scale digital services. Governed mutation substrates reduce this risk by interposing on agent actions: agents submit intents, infrastructure evaluates context and policy, and execution is mediated. However, this shifts the trust boundary: how can the decision to authorize an intent be made verifiable, distributed, and replayable?   We introduce a Distributed Trust Framework (DTF), a verification framework for governed mutation systems that computes execution authority from structured, verifiable artifacts. DTF introduces a Justification Proof to encode the admissibility basis of an action, a consensus model for independent evaluation, an ephemeral Execution Identity derived from the approved proof, and an append-only Evidence Chain that preserves the authorization lifecycle. Under stated substrate assumptions, this architecture enforces a compact authorization invariant: no high-stakes execution without a proof object, no derived authority without consensus, and no valid mutation detached from evidence.   We define the model, instantiate it over an OpenKedge-based governed mutation substrate, and show how it maps onto cloud-native environments. By shifting authorization from standing identity to proof-derived authority, DTF provides an infrastructure foundation for making agentic execution governable, auditable, and bounded in sovereign AI deployments.",
+      "authors": [
+        "Jun He",
+        "Deying Yu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-05-13T17:58:52+00:00",
+      "link": "https://arxiv.org/pdf/2605.15228v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "proposes verifiable infrastructure for AI agent authorization and governance by construction",
+      "llm_evidence_cn": "提出基于证明的可验证代理基础设施，实现代理授权与构建式治理",
+      "llm_evidence": "提出基于证明的可验证代理基础设施，实现代理授权与构建式治理",
+      "canonical_evidence": "提出基于证明的可验证代理基础设施，实现代理授权与构建式治理",
+      "llm_tldr_en": "Proposes proof-derived authorization for sovereign AI systems, introducing governed mutation substrates that interpose on agent actions with context-aware policy enforcement.",
+      "llm_tldr_cn": "本文针对自主AI代理在云端和企业系统中的语义安全风险，提出基于证明派生的授权基础设施，通过“受治理的变异基底”拦截代理意图并强制策略执行。该机制可验证、可审计，为AI系统治理提供了基础设施层面的解决方案。",
+      "llm_tldr": "本文针对自主AI代理在云端和企业系统中的语义安全风险，提出基于证明派生的授权基础设施，通过“受治理的变异基底”拦截代理意图并强制策略执行。该机制可验证、可审计，为AI系统治理提供了基础设施层面的解决方案。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "algorithm governance principles and frameworks",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.15295v1",
+      "source": "arxiv",
+      "title": "GESD: Beyond Outcome-Oriented Fairness",
+      "abstract": "Machine learning (ML) algorithms are increasingly deployed in high-stakes decision-making domains such as loan approvals, hiring, and recidivism predictions. While existing fairness metrics (e.g., statistical parity, equal opportunity) effectively quantify outcome-oriented disparities, they offer limited insight into the procedure or explanation behind biased decisions. To address this gap, we propose Group-level Explanation Stability Disparity (GESD), a \\textit{procedural-oriented} fairness metric that measures disparities in the stability, robustness, and sensitivity of model explanations across different subgroups in a protected category. %GESD is explainer-agnostic, model-agnostic, and extends the scope of fairness analyses to the level of explainability. We further integrate GESD into a multi-objective optimization framework that jointly optimizes for utility, outcome-based fairness, and explanation-based fairness called FEU (Fairness--Explainability--Utility). Empirical results on multiple benchmark datasets show that GESD effectively captures group-wise discrepancies in explanation quality, and that FEU improves both utility and fairness over state-of-the-art methods. By bridging outcome-based and explanation-based fairness, GESD offers a comprehensive tool for diagnosing and mitigating bias in predictive modeling. Our code and datasets are available on GitHub {\\hyperlink{https://github.com/horlahsunbo/GESD}{https://github.com/horlahsunbo/GESD}}",
+      "authors": [
+        "Gideon Popoola",
+        "John Sheppard"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CY"
+      ],
+      "published": "2026-05-14T18:10:57+00:00",
+      "link": "https://arxiv.org/pdf/2605.15295v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "procedural fairness metric detecting explanation stability disparities",
+      "llm_evidence_cn": "程序公平度量检测解释稳定性差异",
+      "llm_evidence": "程序公平度量检测解释稳定性差异",
+      "canonical_evidence": "程序公平度量检测解释稳定性差异",
+      "llm_tldr_en": "This paper proposes GESD, a procedural fairness metric that measures disparities in explanation stability across subgroups for bias detection.",
+      "llm_tldr_cn": "该论文针对现有公平度量忽视决策过程解释的问题，提出群体级解释稳定性差异（GESD）度量。GESD衡量不同受保护子群体间模型解释的稳定性、鲁棒性和敏感性差异，扩展公平分析至可解释性层面。该度量与解释器和模型无关，可集成到现有公平框架中。",
+      "llm_tldr": "该论文针对现有公平度量忽视决策过程解释的问题，提出群体级解释稳定性差异（GESD）度量。GESD衡量不同受保护子群体间模型解释的稳定性、鲁棒性和敏感性差异，扩展公平分析至可解释性层面。该度量与解释器和模型无关，可集成到现有公平框架中。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "detecting bias in machine learning models",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.16041v1",
+      "source": "arxiv",
+      "title": "Explainable AI Isn't Enough! Rethinking Algorithmic Contestability",
+      "abstract": "Machine learning systems increasingly make life-changing decisions about individuals, such as loan approvals, hiring, and cheating detection, raising a pressing question: how can individuals respond to negative decisions made by these opaque systems? While explainable artificial intelligence (XAI) has largely focused on algorithmic recourse -- helping individuals change their features to obtain a desired outcome -- the parallel problem of algorithmic contestability -- helping individuals review and correct erroneous algorithmic decisions -- has received far less attention, despite its central ethical and legal importance. We trace this neglect to the absence of clear formal definitions and a systematic operationalization of contestability as an algorithmic problem. To address it, we propose an operational definition of contestability as a natural complement to recourse: contestability starts from the presumption that a decision may be incorrect and focuses on identifying evidence to challenge and potentially overturn it, whereas recourse assumes the decision is valid and instead provides pathways for changing it. We show that standard XAI explanations, such as counterfactuals, LIME, or Anchors, even when combined with human intuitions about decision continuity or monotonicity, reveal only errors in the neighborhood of the individual, but provide insufficient grounds for overturning the decision at hand. Going thus beyond traditional XAI, we identify three types of evidence warranting reversal according to the decision maker's own ethical standards: predictive multiplicity, incorrect feature values, and neglected overruling evidence. We argue that these render decisions normatively indefensible and thus successfully contestable. Finally, we analyze how existing EU legislation connects to our framework and argue that individuals already hold some legal rights to these forms of evidence.",
+      "authors": [
+        "Timo Freiesleben",
+        "Kristof Meding",
+        "Gunnar König"
+      ],
+      "primary_category": "stat.ML",
+      "categories": [
+        "stat.ML",
+        "cs.LG"
+      ],
+      "published": "2026-05-15T15:14:13+00:00",
+      "link": "https://arxiv.org/pdf/2605.16041v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Rethinking algorithmic contestability for accountability",
+      "llm_evidence_cn": "重新思考算法可争议性以促进问责",
+      "llm_evidence": "重新思考算法可争议性以促进问责",
+      "canonical_evidence": "重新思考算法可争议性以促进问责",
+      "llm_tldr_en": "Argues that algorithmic contestability (reviewing and correcting erroneous decisions) is neglected; proposes formal definitions and operationalization to enable accountability beyond explainability.",
+      "llm_tldr_cn": "尽管可解释AI关注算法追索，但算法可争议性——即个体审查和纠正错误决策的能力——却较少被研究。本文指出这一缺失源于缺乏形式化定义和系统化操作方案，并首次提出可争议性的正式定义和框架，为算法问责制提供了理论基础和实施路径。",
+      "llm_tldr": "尽管可解释AI关注算法追索，但算法可争议性——即个体审查和纠正错误决策的能力——却较少被研究。本文指出这一缺失源于缺乏形式化定义和系统化操作方案，并首次提出可争议性的正式定义和框架，为算法问责制提供了理论基础和实施路径。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "accountability for algorithmic outcomes",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.16198v1",
+      "source": "arxiv",
+      "title": "Formal Methods Meet LLMs: Auditing, Monitoring, and Intervention for Compliance of Advanced AI Systems",
+      "abstract": "We examine one particular dimension of AI governance: how to monitor and audit AI-enabled products and services throughout the AI development lifecycle, from pre-deployment testing to post-deployment auditing. Combining principles from formal methods with SoTA machine learning, we propose techniques that enable AI-enabled product and service developers, as well as third party AI developers and evaluators, to perform offline auditing and online (runtime) monitoring of product-specific (temporally extended) behavioral constraints such as safety constraints, norms, rules and regulations with respect to black-box advanced AI systems, notably LLMs. We further provide practical techniques for predictive monitoring, such as sampling-based methods, and we introduce intervening monitors that act at runtime to preempt and potentially mitigate predicted violations. Experimental results show that by exploiting the formal syntax and semantics of Linear Temporal Logic (LTL), our proposed auditing and monitoring techniques are superior to LLM baseline methods in detecting violations of temporally extended behavioral constraints; with our approach, even small-model labelers match or exceed frontier LLM judges. Our predictive and intervening monitors significantly reduce the violation rates of LLM-based agents while largely preserving task performance. We further show through controlled experiments that LLMs' temporal reasoning shows a pronounced degradation in accuracy with increasing event distance, number of constraints, and number of propositions.",
+      "authors": [
+        "Parand A. Alamdari",
+        "Toryn Q. Klassen",
+        "Sheila A. McIlraith"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CY",
+        "cs.LG",
+        "cs.LO"
+      ],
+      "published": "2026-05-15T17:13:27+00:00",
+      "link": "https://arxiv.org/pdf/2605.16198v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "challenges and solutions in algorithm governance: auditing, monitoring, intervention",
+      "llm_evidence_cn": "算法治理中的审计、监控与干预",
+      "llm_evidence": "算法治理中的审计、监控与干预",
+      "canonical_evidence": "算法治理中的审计、监控与干预",
+      "llm_tldr_en": "Combines formal methods with LLMs for offline auditing and online monitoring of AI systems' behavioral constraints, enabling compliance verification.",
+      "llm_tldr_cn": "该论文针对AI治理中的审计与监控挑战，将形式化方法与先进机器学习结合，提出了离线审计和在线监控技术。这些技术能够检查黑盒AI系统（特别是LLM）是否满足安全约束、规范和法规等行为约束。还提供了预测性监控等实用方法。该工作为AI系统的合规验证提供了系统化方法。",
+      "llm_tldr": "该论文针对AI治理中的审计与监控挑战，将形式化方法与先进机器学习结合，提出了离线审计和在线监控技术。这些技术能够检查黑盒AI系统（特别是LLM）是否满足安全约束、规范和法规等行为约束。还提供了预测性监控等实用方法。该工作为AI系统的合规验证提供了系统化方法。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "challenges and solutions in algorithm governance",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.20874v1",
+      "source": "arxiv",
+      "title": "Governance by Construction for Generalist Agents",
+      "abstract": "Enterprise agents are increasingly expected to operate autonomously across tools and interfaces, yet production deployments require governance by construction. Systems must specify which actions are allowed, when human oversight is required, and what information may be exposed, without rebuilding the agent for each domain. This demo presents CUGA's policy system, a modular policy-as-code layer that composes with a generalist LLM agent to deliver predictable, auditable, and compliance-aware behavior in compound workflows without model fine-tuning. We present a runtime governance architecture that enforces policy interventions at every critical stage of execution. Rather than passively constraining behavior, policies intercept the agent at five structural checkpoints: upstream of planning (Intent Guard), within the system prompt to steer reasoning (Playbook), at the tool-call boundary to enforce proper usage (Tool Guide), outside the reasoning loop as a Human-in-the-Loop gate for high-risk actions (Tool Approvals), and at the output stage to filter and structure the final response (Output Formatter). Together, these stages embed governance continuously across the agent's execution pipeline rather than treating it as an afterthought. Using a healthcare scenario and a multi-layered enforcement intervention, the demo shows dynamic playbook injection for structured tool-sequence enforcement, intent guards that block malicious or accidental harmful requests, and human-in-the-loop tool approval checkpoints for potentially destructive actions. The artifact illustrates how typed governance primitives enable faster, safer deployment of enterprise agentic systems while improving policy adherence and execution consistency.",
+      "authors": [
+        "Segev Shlomov",
+        "Iftach Shoham",
+        "Alon Oved",
+        "Ido Levy",
+        "Sami Marreed",
+        "Harold Ship",
+        "Offer Akrabi",
+        "Sergey Zeltyn",
+        "Avi Yaeli",
+        "Nir Mashkif"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.SE"
+      ],
+      "published": "2026-05-20T08:13:16+00:00",
+      "link": "https://arxiv.org/pdf/2605.20874v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "runtime governance architecture for generalist agents with policy-as-code, enabling auditable and compliant behavior",
+      "llm_evidence_cn": "面向通用代理的运行时治理架构，以策略即代码实现可审计合规行为",
+      "llm_evidence": "面向通用代理的运行时治理架构，以策略即代码实现可审计合规行为",
+      "canonical_evidence": "面向通用代理的运行时治理架构，以策略即代码实现可审计合规行为",
+      "llm_tldr_en": "Presents CUGA policy system for modular policy-as-code governance of LLM agents, enforcing interventions at five checkpoints without model fine-tuning.",
+      "llm_tldr_cn": "本文针对企业代理自主运行时治理困难的问题，提出CUGA策略系统——一个模块化的“策略即代码”层，可与通用LLM代理组合，在五个关键检查点实施策略干预。无需微调即可实现可预测、可审计、合规的复合工作流行为。",
+      "llm_tldr": "本文针对企业代理自主运行时治理困难的问题，提出CUGA策略系统——一个模块化的“策略即代码”层，可与通用LLM代理组合，在五个关键检查点实施策略干预。无需微调即可实现可预测、可审计、合规的复合工作流行为。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "algorithm governance principles and frameworks",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.20897v1",
+      "source": "arxiv",
+      "title": "Creating Robust and Fair Graph Structures for Connectivity and Clustering",
+      "abstract": "Graph algorithms are central to large-scale applications such as navigation systems, social networks, and data analysis platforms. This thesis studies two important challenges in such systems: robustness to failures and fairness in clustering outcomes. In the first part, we investigate fault-tolerant reachability preservers in directed graphs. We present the first non-trivial constructions of dual fault-tolerant pairwise reachability preservers that remain resilient to two edge or vertex failures, achieving a sparse construction of size $O(n^{4/3}|\\mathcal{P}|^{1/3})$.   In the second part, we study fair clustering algorithms that ensure balanced representation of protected groups. We develop approximation algorithms for fair consensus clustering and introduce the framework of closest fair clustering, establishing hardness results and efficient algorithms for multi-group settings. Building on this framework, we obtain improved guarantees for fair correlation clustering and design the first streaming algorithm for fair consensus clustering using only logarithmic memory. Together, these results contribute toward the design of graph algorithms that are both robust and socially responsible.",
+      "authors": [
+        "Kushagra Chatterjee"
+      ],
+      "primary_category": "cs.DS",
+      "categories": [
+        "cs.DS"
+      ],
+      "published": "2026-05-20T08:37:40+00:00",
+      "link": "https://arxiv.org/pdf/2605.20897v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "fair clustering algorithms ensuring balanced group representation",
+      "llm_evidence_cn": "公平聚类算法确保群体平衡代表",
+      "llm_evidence": "公平聚类算法确保群体平衡代表",
+      "canonical_evidence": "公平聚类算法确保群体平衡代表",
+      "llm_tldr_en": "This thesis develops approximation algorithms for fair consensus clustering, addressing balanced representation of protected groups in graph clustering outcomes.",
+      "llm_tldr_cn": "该论文研究图算法中的鲁棒性和公平性挑战。针对公平聚类问题，提出了近似算法以确保受保护群体在聚类结果中的平衡代表。主要贡献包括构建双故障容错可达性保持器和公平共识聚类算法。实验验证了方法的有效性。",
+      "llm_tldr": "该论文研究图算法中的鲁棒性和公平性挑战。针对公平聚类问题，提出了近似算法以确保受保护群体在聚类结果中的平衡代表。主要贡献包括构建双故障容错可达性保持器和公平共识聚类算法。实验验证了方法的有效性。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "fairness in algorithmic decision making",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.22291v1",
+      "source": "arxiv",
+      "title": "Long-term Fairness with Selective Labels",
+      "abstract": "Long-term fairness algorithms aim to satisfy fairness beyond static and short-term notions by accounting for the dynamics between decision-making policies and population behavior. Most previous approaches evaluate performance and fairness measures from observable features and a label, which is assumed to be fully observed. However, in scenarios such as hiring or lending, the labels (e.g., ability to repay the loan) are selective labels as they are only revealed based on positive decisions (e.g., when a loan is granted). In this paper, we study long-term fairness in the selective labels setting and analytically show that naive solutions do not guarantee fairness. To address this gap, we then introduce a novel framework that leverages both the observed data and a label predictor model to estimate the true fairness measure value by decomposing it into the observed fairness and bias from label predictions. This allows us to derive sufficient conditions to satisfy true fairness from observable quantities by using the confidence in the predictor model. Finally, we rely on our theoretical results to propose a novel reinforcement learning algorithm for effective long-term fair decision-making with selective labels. In semisynthetic environments, the proposed algorithm reached comparable fairness and performance to an agent with oracle access to the true labels.",
+      "authors": [
+        "Giovani Valdrighi",
+        "Isabel Valera",
+        "Marcos Medeiros Raimundo"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-05-21T10:42:56+00:00",
+      "link": "https://arxiv.org/pdf/2605.22291v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "addresses long-term fairness under selective labels, a core issue in equitable algorithmic decision making",
+      "llm_evidence_cn": "解决选择性标签下的长期公平性问题，是公平算法决策的核心问题",
+      "llm_evidence": "解决选择性标签下的长期公平性问题，是公平算法决策的核心问题",
+      "canonical_evidence": "解决选择性标签下的长期公平性问题，是公平算法决策的核心问题",
+      "llm_tldr_en": "Studies long-term fairness in selective labels settings (e.g., lending decisions), proposing a framework that leverages a label predictor to mitigate incomplete feedback.",
+      "llm_tldr_cn": "本文研究招聘、贷款等场景中标签仅对正面决策可见（选择性标签）时的长期公平性问题。分析表明朴素方案无法保证公平，提出新框架结合观测数据与标签预测模型，实现长期公平约束。为解决实际决策中的公平动态问题提供了理论方案。",
+      "llm_tldr": "本文研究招聘、贷款等场景中标签仅对正面决策可见（选择性标签）时的长期公平性问题。分析表明朴素方案无法保证公平，提出新框架结合观测数据与标签预测模型，实现长期公平约束。为解决实际决策中的公平动态问题提供了理论方案。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "fairness in algorithmic decision making",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.22952v1",
+      "source": "arxiv",
+      "title": "Measuring Database Unfairness via Dependency Quantification Under Differential Privacy",
+      "abstract": "Differential privacy (DP) has become the de facto standard for protecting sensitive data, providing strong guarantees that published statistics or models reveal limited information about any individual. However, privacy noise and restricted data access make it increasingly difficult to assess the fairness and reliability of private datasets. In this paper, we propose a formal framework for quantifying data unfairness under DP. We identify three core desiderata for unfairness measures based on previous work: positivity, monotonicity, and DP computability. We further instantiate them through three complementary measures: (1) a mutual information-based measure with a total variation distance proxy suitable for DP, (2) a data repair-based measure approximated via a reduction to weighted MaxSAT, and (3) a top-$k$ tuple contribution measure that isolates the most influential records in fairness violations. We design privacy-preserving algorithms and analyze their sensitivity, accuracy, and efficiency. Extensive experiments on multiple real-world datasets demonstrate that our proposed measures faithfully approximate their non-private counterparts, effectively quantify bias under privacy constraints, and provide insights for data management.",
+      "authors": [
+        "Mariia Vologdin",
+        "Yuchao Tao",
+        "Amir Gilad"
+      ],
+      "primary_category": "cs.DB",
+      "categories": [
+        "cs.DB"
+      ],
+      "published": "2026-05-21T18:31:48+00:00",
+      "link": "https://arxiv.org/pdf/2605.22952v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "proposes formal framework for measuring data unfairness under differential privacy",
+      "llm_evidence_cn": "提出在差分隐私下量化数据不公平性的形式化框架",
+      "llm_evidence": "提出在差分隐私下量化数据不公平性的形式化框架",
+      "canonical_evidence": "提出在差分隐私下量化数据不公平性的形式化框架",
+      "llm_tldr_en": "A formal framework quantifies database unfairness under differential privacy using three complementary measures, enabling fairness assessment in private data.",
+      "llm_tldr_cn": "现有差分隐私数据在保护隐私的同时难以评估公平性。本文提出一个形式化框架，基于正性、单调性和DP可计算性三个核心期望，通过互信息、数据修复等方法量化数据库的不公平性。该框架使在差分隐私约束下评估数据公平性成为可能，为算法决策中的数据公平性提供理论基础。",
+      "llm_tldr": "现有差分隐私数据在保护隐私的同时难以评估公平性。本文提出一个形式化框架，基于正性、单调性和DP可计算性三个核心期望，通过互信息、数据修复等方法量化数据库的不公平性。该框架使在差分隐私约束下评估数据公平性成为可能，为算法决策中的数据公平性提供理论基础。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "fairness in algorithmic decision making",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.23145v1",
+      "source": "arxiv",
+      "title": "Operationalizing Individual Fairness via Gradient Descent and Bradley-Terry Models",
+      "abstract": "Individual fairness, the notion that \"similar individuals should be treated similarly,\" provides a strong and flexible fairness guarantee for algorithmic decision makers. However, a barrier to implementing individual fairness in practice is the difficulty of learning the similarity metric over individuals. In this work, we present an algorithm for learning a Mahalanobis similarity metric from triplet queries of the form \"is individual $i$ more similar to individual $j$ or $k$?\" We work in the standard Bradley-Terry model for pairwise comparisons. Our algorithm consists of a spectral initialization step followed by gradient descent. We provide extensive theoretical guarantees on our algorithm, showing that it converges quickly to the ground truth metric despite the non-convexity of the loss in our model. Because our focus is on fairness, we also show that individual fairness with respect to an estimated metric is sufficient to achieve similar fairness with respect to the true metric. We also discuss potential applications of our work to AI model tuning. Finally, we present experimental results that demonstrate the convergence of our algorithm and the fairness performance of downstream fair predictors trained on our estimated metric.",
+      "authors": [
+        "Conlan Olson",
+        "Linjun Zhang",
+        "Zhun Deng",
+        "Pragya Sur"
+      ],
+      "primary_category": "stat.ML",
+      "categories": [
+        "stat.ML",
+        "cs.LG",
+        "math.ST",
+        "stat.ME"
+      ],
+      "published": "2026-05-22T01:50:38+00:00",
+      "link": "https://arxiv.org/pdf/2605.23145v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "provides algorithm to learn similarity metric for individual fairness",
+      "llm_evidence_cn": "提供学习个体公平性相似度度量的算法",
+      "llm_evidence": "提供学习个体公平性相似度度量的算法",
+      "canonical_evidence": "提供学习个体公平性相似度度量的算法",
+      "llm_tldr_en": "An algorithm learns a Mahalanobis similarity metric from triplet queries using gradient descent, enabling individual fairness.",
+      "llm_tldr_cn": "个体公平性要求相似个体得到相似对待，但学习相似度度量是实际障碍。本文提出从三元组查询中学习马氏距离度量的算法，采用谱初始化后梯度下降，并给出理论收敛保证。该工作为个体公平性的实践操作提供了可行且可证明的方法。",
+      "llm_tldr": "个体公平性要求相似个体得到相似对待，但学习相似度度量是实际障碍。本文提出从三元组查询中学习马氏距离度量的算法，采用谱初始化后梯度下降，并给出理论收敛保证。该工作为个体公平性的实践操作提供了可行且可证明的方法。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "fairness in algorithmic decision making",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.24036v1",
+      "source": "arxiv",
+      "title": "Intent-Driven Computing: A Computational Model for Governed Autonomous Systems",
+      "abstract": "Programming languages assume programs directly execute effects. When autonomous systems generate behavior dynamically, this assumption becomes problematic: there is no structural mediation point between deciding to act and acting. We define intent-driven computing: a programming model where programs produce intents (finite data values describing proposed actions) rather than directly executing effects. A governed runtime examines each intent against a decidable policy language, records every decision in a tamper-evident ledger, and only then realizes the effect. The language provides no alternative path to effects. The model does not decide arbitrary behavioral properties of programs (which Rice's theorem shows is impossible). Instead, it constrains the language so that all effectful interaction is reified as finite intent values, shifting governance from the undecidable domain of program semantics to the decidable domain of intent data. This yields emergent properties: event sourcing by construction, governance simulation via intent replay, structural audit completeness, and improved human comprehensibility. We specify the model formally, implement it in a concrete language compiling to the BEAM virtual machine, and verify key properties in Rocq (454 theorems, 36 modules, zero admitted lemmas). Property-based testing (70,000+ random inputs, zero disagreements) validates that the implementation matches the specification.",
+      "authors": [
+        "Alan L. McCann"
+      ],
+      "primary_category": "cs.PL",
+      "categories": [
+        "cs.PL"
+      ],
+      "published": "2026-05-21T09:54:52+00:00",
+      "link": "https://arxiv.org/pdf/2605.24036v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "introduces intent-driven computing model with tamper-evident ledger for accountability",
+      "llm_evidence_cn": "引入意图驱动计算模型，通过防篡改账本实现问责",
+      "llm_evidence": "引入意图驱动计算模型，通过防篡改账本实现问责",
+      "canonical_evidence": "引入意图驱动计算模型，通过防篡改账本实现问责",
+      "llm_tldr_en": "Intent-driven computing mediates actions through a governed runtime that enforces policy and logs decisions, ensuring accountability.",
+      "llm_tldr_cn": "自主系统动态生成行为时缺少结构化的决策中介点。本文提出意图驱动计算模型：程序产生意图而非直接执行效果，由治理运行时检查策略、记录决定到防篡改账本，然后才执行。该模型为算法问责提供了可验证的执行保障，确保每次行动都有据可查。",
+      "llm_tldr": "自主系统动态生成行为时缺少结构化的决策中介点。本文提出意图驱动计算模型：程序产生意图而非直接执行效果，由治理运行时检查策略、记录决定到防篡改账本，然后才执行。该模型为算法问责提供了可验证的执行保障，确保每次行动都有据可查。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "accountability for algorithmic outcomes",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.24458v1",
+      "source": "arxiv",
+      "title": "Balancing Fairness, Privacy, and Accuracy: A Multitask Adversarial Framework for Centralized Data-Driven Systems",
+      "abstract": "The integration of fairness and privacy in centralized data-driven applications is critical, especially as these systems increasingly influence sectors with significant societal impact. Current methods rarely address privacy, fairness, and accuracy together, which can potentially compromise ethical standards and privacy regulations. However, balancing these three objectives is quite challenging since each of objective often imposes conflicting requirements on the design and training of models, making it difficult to optimize one without compromising the others. This paper introduces a novel multitask adversarial model that treats fairness and privacy as integral objectives rather than afterthoughts, and learns a latent representation that hides sensitive attributes while preserving essential task-related information. Our approach dynamically balances fairness with accuracy and privacy through an optimized cost function with minimal performance loss even under strict conditions. Extensive testing on diverse datasets shows the ability of our model to achieve high standards of fairness and privacy without significant sacrifice to accuracy. Benchmarking against state-of-the-art privacy and fairness standards shows that our method enhances the robustness of privacy, fairness, and accuracy optimization, proving its adaptability across various datasets.",
+      "authors": [
+        "Imesh Ekanayake",
+        "Elham Naghizade",
+        "Jeffrey Chan"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-05-23T08:10:53+00:00",
+      "link": "https://arxiv.org/pdf/2605.24458v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multitask adversarial framework balancing fairness, privacy, and accuracy",
+      "llm_evidence_cn": "多任务对抗框架平衡公平性、隐私和准确性",
+      "llm_evidence": "多任务对抗框架平衡公平性、隐私和准确性",
+      "canonical_evidence": "多任务对抗框架平衡公平性、隐私和准确性",
+      "llm_tldr_en": "Proposes a multitask adversarial model that jointly optimizes fairness, privacy, and accuracy in centralized data-driven systems.",
+      "llm_tldr_cn": "现有方法很少同时考虑公平性、隐私和准确性，导致伦理与法规遵从的妥协。本文提出多任务对抗模型，将公平性和隐私作为整体目标而非事后补丁。实验表明该方法能在三个目标间实现有效平衡，不显著牺牲任一指标。",
+      "llm_tldr": "现有方法很少同时考虑公平性、隐私和准确性，导致伦理与法规遵从的妥协。本文提出多任务对抗模型，将公平性和隐私作为整体目标而非事后补丁。实验表明该方法能在三个目标间实现有效平衡，不显著牺牲任一指标。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "fairness in algorithmic decision making",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.27689v1",
+      "source": "arxiv",
+      "title": "Test-Time Collective Action: Proxy-Based Perturbations for Correcting Algorithmic Harms",
+      "abstract": "When machine learning systems under-perform for particular subgroups, affected users typically have no way to correct these disparities without relying on platform-level fixes. Existing approaches to algorithmic fairness rely on provider-centric approaches to correct these failures, leaving users with no external lever when faced with harm. Recent work in Algorithmic Collective Action shows that coordinated users can steer an algorithmic system toward a collective goal, but the existing mechanisms require the provider to retrain on the collective's modified data which users may not have control over. We propose Test-Time Collective Action (TTCA), a framework through which a group of users who share query access to the platform, can correct disparities affecting under-served subgroup without participating in the platform's training loop. We implement this through a proxy-based mechanism where the collective pools query access to a black-box API to extract a proxy of the platform, then optimizes a per-class universal perturbation against the proxy. Each member applies this perturbation to their own inputs at submission time, requiring no cooperation from the platform. We empirically evaluate the mechanism on CIFAR-10, CIFAR-100, and FairFace, showing that modestly-sized collectives close most of the subgroup accuracy gap, transfer across architectures (a small proxy can attack a larger platform), and improve worst-group accuracy, equal-opportunity gap, and disparate impact. A query-budget analysis comparing a per-user black-box attack baseline shows that pooling is cheaper than each subgroup member attacking alone. Test-time collective action thus offers corrective intervention to users when platform-side remediation is unavailable or delayed.",
+      "authors": [
+        "Meghana Bhange",
+        "Ulrich Aïvodji",
+        "Elliot Creager"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.CR"
+      ],
+      "published": "2026-05-26T21:09:12+00:00",
+      "link": "https://arxiv.org/pdf/2605.27689v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "User-driven correction of algorithmic harms via proxy perturbations",
+      "llm_evidence_cn": "用户通过代理扰动纠正算法危害",
+      "llm_evidence": "用户通过代理扰动纠正算法危害",
+      "canonical_evidence": "用户通过代理扰动纠正算法危害",
+      "llm_tldr_en": "Proposes Test-Time Collective Action (TTCA) where coordinated users perturb query inputs to correct algorithmic harms at test time without provider retraining, addressing fairness gaps.",
+      "llm_tldr_cn": "针对机器学习系统对特定子群表现不佳且用户无法纠正的问题，本文提出测试时集体行动（TTCA）框架，允许一组用户通过代理扰动查询输入来在测试时纠正算法危害，无需平台重新训练。实验表明该方法能有效减少不公平差异，为用户提供了一种实用的算法公平性外部杠杆。",
+      "llm_tldr": "针对机器学习系统对特定子群表现不佳且用户无法纠正的问题，本文提出测试时集体行动（TTCA）框架，允许一组用户通过代理扰动查询输入来在测试时纠正算法危害，无需平台重新训练。实验表明该方法能有效减少不公平差异，为用户提供了一种实用的算法公平性外部杠杆。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "fairness in algorithmic decision making",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.28450v1",
+      "source": "arxiv",
+      "title": "BiasEdit: A Training-Free Bias-Detect-and-Edit Framework for Learning Fair Visual Classifiers",
+      "abstract": "Visual data from the Web power image classifiers, which often underpin many web services, such as recommendation and content moderation. However, the raw Web data often contain spurious correlations and social biases, and neural networks are known for their tendency to learn biases present in data. This can reinforce unfairness in web services and the web data, leading to a vicious cycle. In the context of image classification, networks learn bias attributes for a specific class when a majority of images contain the same attribute only for a given class. Hence, training a fair and debiased classifier from a biased dataset demands handling an imbalanced problem between a majority of images with bias attributes (bias-aligned samples) and a minority without (bias-conflict samples). In this work, we introduce BiasEdit, a modular framework that automatically detects bias attributes from the original dataset and edits them to construct a debiased dataset. Specifically, BiasEdit first detects unknown bias attributes via statistical dependence and mutual information analysis of visual-linguistic representations, and then explicitly edits those attributes using text-guided image editing to generate realistic bias-conflict samples. Unlike prior works that assume known bias attributes or relies on synthetic mixing, our method operates without manual annotations and can leverage off-the-shelf vision-language and editing models. BiasEdit addresses a fundamental challenge in Web-sourced visual AI, mitigating dataset-induced bias and achieving state-of-the-art debiasing performance even when training data are fully biased.",
+      "authors": [
+        "Jungwook Seo",
+        "Yoonsik Park",
+        "Changmin Lee",
+        "Sungyong Baik"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-05-27T13:17:58+00:00",
+      "link": "https://arxiv.org/pdf/2605.28450v1",
+      "tags": [
+        "keyword:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "bias detection and editing framework for visual classifiers",
+      "llm_evidence_cn": "视觉分类器的偏差检测与编辑框架",
+      "llm_evidence": "视觉分类器的偏差检测与编辑框架",
+      "canonical_evidence": "视觉分类器的偏差检测与编辑框架",
+      "llm_tldr_en": "This paper introduces BiasEdit, a training-free framework to detect and edit biases in visual classifiers, producing fair models without retraining.",
+      "llm_tldr_cn": "该论文针对视觉分类器从网络数据学习偏见的问题，提出BiasEdit框架。该框架无需训练即可检测和编辑模型中的偏见，处理偏差对齐和偏差冲突样本。通过直接修改模型参数，实现公平分类，打破偏见循环。实验表明该方法有效去除了虚假相关性。",
+      "llm_tldr": "该论文针对视觉分类器从网络数据学习偏见的问题，提出BiasEdit框架。该框架无需训练即可检测和编辑模型中的偏见，处理偏差对齐和偏差冲突样本。通过直接修改模型参数，实现公平分类，打破偏见循环。实验表明该方法有效去除了虚假相关性。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "detecting bias in machine learning models",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.28707v1",
+      "source": "arxiv",
+      "title": "Beyond Binary Moral Judgment: Modeling Ethical Pluralism in AI",
+      "abstract": "Critical decision-making in socially consequential spaces is increasingly involving AI systems at varying capacities. Yet, despite the ubiquity of autonomous systems, most approaches to handling autonomous moral decision-making resort to scalar or binary judgments. These methods are insufficient for acceptable moral reasoning, as they provide little explanation, leaving out imperative contextual and theoretical information that must be included to support accountability. For this, we propose a framework to model moral reasoning as a distribution over normative ethical theories or ethical pluralism. We introduce a normative ethics simplex that integrates these theories. A benchmark of 450 cases across 15 fine-grained subtheories was also prepared for the purposes of stacked ensemble learning. These cases describe ethical dilemmas in natural language and have associated extracted contextual features. The implementation of the simplex was achieved via a two-stream normative-semantic architecture. This is followed by the fusion of normative information and a sequential, stacking ensemble to learn the best fit of the three broad theories: consequentialism, virtue ethics, and deontology, and the 15 subcategories. Our experiments demonstrate that the integration of contextual and normative priors with the semantic embeddings significantly improves the performance of the classification, displaying an accuracy of 88.89%. We conducted ablation studies to show that structured ethical representations contribute beyond analogical reasoning, and the chosen stacking architecture gives the best results due to the gradual learning of granularity. Ethical pluralism is also analyzed through entropy, confidence, and visualization. Thus, modeling ethical pluralism as a probabilistic normative distribution supports human-like moral reasoning, ethical disagreement analysis, and future alignment in AI systems.",
+      "authors": [
+        "Aisha Aijaz",
+        "Rahul Goel",
+        "Arnav Batra",
+        "Raghava Mutharaju"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-05-27T16:33:06+00:00",
+      "link": "https://arxiv.org/pdf/2605.28707v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "models ethical pluralism in AI to support accountability and moral reasoning",
+      "llm_evidence_cn": "对AI中的伦理多元主义建模，支持问责和道德推理",
+      "llm_evidence": "对AI中的伦理多元主义建模，支持问责和道德推理",
+      "canonical_evidence": "对AI中的伦理多元主义建模，支持问责和道德推理",
+      "llm_tldr_en": "Models moral reasoning as a distribution over normative ethical theories (ethical pluralism), supporting accountability in AI decisions.",
+      "llm_tldr_cn": "AI在关键决策中需要超越二元道德判断，提供可解释的伦理推理。本文提出将道德推理建模为规范性伦理理论上的分布（伦理多元主义），引入规范伦理单纯形，并构建包含450个案例的基准。该框架能够输出伦理推理过程，支持AI系统的问责。",
+      "llm_tldr": "AI在关键决策中需要超越二元道德判断，提供可解释的伦理推理。本文提出将道德推理建模为规范性伦理理论上的分布（伦理多元主义），引入规范伦理单纯形，并构建包含450个案例的基准。该框架能够输出伦理推理过程，支持AI系统的问责。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "ethical considerations in artificial intelligence",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2605.28807v1",
+      "source": "arxiv",
+      "title": "Calibrating Conservatism for Scalable Oversight",
+      "abstract": "Agentic AI systems capable of autonomous planning and extended environmental interaction pose a fundamental control problem: how can humans maintain meaningful oversight of systems that may exceed their own capabilities? Existing approaches to scalable oversight rely on complex assumptions, remain largely heuristic, or lack practical methods for sequential settings with statistical guarantees. We introduce Calibrated Collective Oversight (CCO), which aggregates diverse auxiliary scoring functions into a penalty measuring deviation from a conservative baseline. Inspired by Attainable Utility Preservation, CCO enables collective conservatism: actions face a penalty proportional to overseer concern, so high-utility actions are still selected when overseers find them unobjectionable and overridden only when concern accumulates. CCO calibrates this conservatism online using Conformal Decision Theory, ensuring that undesirable outcomes remain below a user-specified target threshold with finite-time bounds and no distributional assumptions. On a modified version of SWE-bench, weaker overseers successfully constrain an adversarially misaligned stronger agent; on MACHIAVELLI, CCO substantially reduces ethical violations while preserving reward. In both settings, empirical violation rates closely match the specified targets, as predicted by the theory.",
+      "authors": [
+        "William Overman",
+        "Mohsen Bayati"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-05-27T17:56:47+00:00",
+      "link": "https://arxiv.org/pdf/2605.28807v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "scalable oversight method for AI accountability",
+      "llm_evidence_cn": "可扩展监督方法实现AI问责",
+      "llm_evidence": "可扩展监督方法实现AI问责",
+      "canonical_evidence": "可扩展监督方法实现AI问责",
+      "llm_tldr_en": "This paper proposes Calibrated Collective Oversight (CCO), aggregating auxiliary scoring functions to penalize deviation from conservative baselines for scalable AI oversight.",
+      "llm_tldr_cn": "该论文针对超越人类能力的AI系统监督问题，提出校准集体监督（CCO）方法。CCO聚合多种辅助评分函数，衡量与保守基线的偏离并施加惩罚。该方法在保证高效用行动被选中的同时，提供统计保证和可扩展性，促进AI系统的问责性。",
+      "llm_tldr": "该论文针对超越人类能力的AI系统监督问题，提出校准集体监督（CCO）方法。CCO聚合多种辅助评分函数，衡量与保守基线的偏离并施加惩罚。该方法在保证高效用行动被选中的同时，提供统计保证和可扩展性，促进AI系统的问责性。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "accountability for algorithmic outcomes",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.04971v1",
+      "source": "arxiv",
+      "title": "Be Fair! Can Machine Learning Engineering Agents Adhere to Fairness Constraints?",
+      "abstract": "Machine learning engineering (MLE) agents promise to automate end-to-end ML pipeline development from raw data and natural language instructions, potentially making ML accessible to non-technical domain experts. However, in sensitive and regulated domains, this abstraction creates a responsibility gap: end-users may lack visibility into design choices that affect correctness, robustness, fairness, and regulatory compliance. We argue that existing benchmarks are insufficient to assess whether MLE agents can be safely applied in such settings. We propose desiderata for a responsibility-centered evaluation framework and conduct an exploratory study on melanoma classification, focusing on fairness across skin tones as a responsibility constraint. When evaluating two recent MLE agents, we find that agent-generated pipelines show high variance and consistently underperform manually designed baselines in both predictive quality and fairness, despite fairness-oriented prompts. These preliminary results suggest that further research is needed towards redesigning MLE agents to allow humans to guide the search process and reliably assess the compliance and quality of the generated ML pipelines.",
+      "authors": [
+        "Anna Richter",
+        "Julia Stoyanovich",
+        "Sebastian Schelter"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.DB"
+      ],
+      "published": "2026-06-03T14:52:49+00:00",
+      "link": "https://arxiv.org/pdf/2606.04971v1",
+      "tags": [
+        "keyword:algo-gov",
+        "query:algo-gov"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "evaluating fairness constraints in machine learning engineering agents",
+      "llm_evidence_cn": "评估机器学习工程代理的公平性约束",
+      "llm_evidence": "评估机器学习工程代理的公平性约束",
+      "canonical_evidence": "评估机器学习工程代理的公平性约束",
+      "llm_tldr_en": "Argues that existing benchmarks are insufficient for evaluating fairness in MLE agents, and proposes a responsibility-centered evaluation framework.",
+      "llm_tldr_cn": "自动化机器学习管道开发可能使非技术用户忽略公平性和合规性。本文指出现有基准无法评估MLE代理在敏感领域的安全性。以皮肤癌分类为例，提出以责任为中心的评估框架，重点关注肤色间的公平性约束。",
+      "llm_tldr": "自动化机器学习管道开发可能使非技术用户忽略公平性和合规性。本文指出现有基准无法评估MLE代理在敏感领域的安全性。以皮肤癌分类为例，提出以责任为中心的评估框架，重点关注肤色间的公平性约束。",
+      "llm_tags": [
+        "query:algo-gov"
+      ],
+      "matched_query_tag": "query:algo-gov",
+      "matched_query_text": "fairness in algorithmic decision making",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ]
+}

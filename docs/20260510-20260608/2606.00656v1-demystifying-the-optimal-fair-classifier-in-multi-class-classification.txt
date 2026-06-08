@@ -1,0 +1,6723 @@
+Title: Demystifying the Optimal Fair Classifier in Multi-Class Classification
+
+URL Source: https://arxiv.org/pdf/2606.00656v1
+
+Published Time: Tue, 02 Jun 2026 00:44:21 GMT
+
+Number of Pages: 42
+
+Markdown Content:
+# Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+Li Zhang 1 Yuyuan Li 2,* XiaoHua Feng 1 Jiaming Zhang 1 Fengyuan Yu 1 Chaochao Chen 1
+
+## Abstract 
+
+Ensuring fair and equitable treatment across di-verse groups, particularly in multi-class classifi-cation tasks, poses a significant challenge due to the persistent biases inherent in machine learning models. Most existing bias mitigation techniques are tailored to binary settings, and the presence of multi-dimensional outputs and complex fair-ness mechanisms makes their extension to multi-class scenarios neither straightforward nor effec-tive. In this paper, we investigate two fundamen-tal, unresolved challenges in fair classification: (i) characterizing the optimal accuracy-fairness frontier in multi-class settings , and (ii) designing practical algorithms that attain this optimum in different training phases . To tackle these chal-lenges, we first specify an analytically tractable probabilistic formulation of the optimal classi-fier under fairness constraints. Building upon this, we propose two attribute-blind algorithms to enforce fairness requirements in practice: an in-processing approach for fairness intervention during training via the reduction approach, and a post-processing approach for fine-tuning output probabilities with plug-in estimation. Theoretical analysis reveals that both methods converge to the optimal accuracy-fairness Pareto frontier. Ex-periments conducted on multiple datasets demon-strate the superior performance of our methods in balancing accuracy and fairness. 
+
+## 1. Introduction 
+
+In recent decades, machine learning models have become extensively integrated into decision-making applications in high-stakes domains such as healthcare (Liu et al., 2025; Zhang et al., 2025; Hu et al., 2024), financial ser-vices (Chouldechova, 2017; Hurlin et al., 2024; Du et al., 
+
+> 1
+
+College of Computer Science and Technology, Zhejiang Uni-versity 2School of Communication Engineering, Hangzhou Dianzi University. Correspondence to: Yuyuan Li <y2li@hdu.edu.cn >.
+
+Proceedings of the 43 rd International Conference on Machine Learning , Seoul, South Korea. PMLR 306, 2026. Copyright 2026 by the author(s). 
+
+2024), and criminal justice (Berk et al., 2021; Barocas et al., 2023; Zeng et al., 2025b). This trend has motivated a grow-ing body of research focused on developing and assessing fairness to mitigate discrimination in models. In this context, 
+
+group fairness metrics are frequently employed in practice due to their consistency with the intuition that predictions should not systematically discriminate against any group within the population. Widely used group fairness met-rics, such as demographic parity (DP; Dwork et al. (2012)), equal opportunity (EOP: Hardt et al. (2016)), and Equalized Odds (EO; Hardt et al. (2016)), vary in their definition of group-wise disparity. Achieving high predictive performance while simultane-ously enforcing group-fairness constraints poses a funda-mental problem in multi-class fair learning. Most prior studies demonstrate an inherent trade-off between fairness and accuracy, whereby improving fairness typically comes at the cost of reduced accuracy (Chen et al., 2024; Xian et al., 2023; Xu & Strohmer, 2023; Zheng et al., 2022). However, despite these empirical and theoretical advances, 
+
+an explicit characterization of the optimal accuracy-fairness frontier in multi-class settings remains elusive . This diffi-culty stems from the intrinsically non-decomposable and non-differentiable nature of most group-fairness criteria (Lo-haus et al., 2020; Yao et al., 2024), which becomes further exacerbated by the multi-dimensional output structure (Al-ghamdi et al., 2022). Consequently, it is unclear whether the performance degradation arises from intrinsic algorithmic limitations or incidental artifacts, and the Pareto boundary between fairness and accuracy has not been established. In practice, fairness calibration is commonly deployed ei-ther during training by modifying the model training objec-tive ( in-processing ; Agarwal et al. (2018); Yazdani-Jahromi et al. (2024)) or after training by adjusting the pre-trained model’s outputs ( post-processing ; Xian et al. (2023); Chen et al. (2024); Hu et al. (2025)). The current challenge in multi-class fairness calibration lies in the lack of a system-atic and consistent framework for approximating the op-timal accuracy-fairness trade-off across different training phases . Existing work typically develops in-processing and post-processing methods in isolation, with most ap-proaches focusing on one paradigm exclusively. Moreover, the in-processing methods predominantly rely on surrogate fairness metrics to design objectives or reweighting meth-1
+
+> arXiv:2606.00656v1 [cs.LG] 30 May 2026 Demystifying the Optimal Fair Classifier in Multi-Class Classification
+
+ods (Roh et al., 2021; Jung et al., 2023; Yazdani-Jahromi et al., 2024), while the inevitable surrogate gap (Yao et al., 2024; Lohaus et al., 2020) produces suboptimal performance and undermines convergence stability. For multi-class post-processing, certain advanced methods focus on a single fairness criterion (Xian et al., 2023; Denis et al., 2024), while others lack a precise characterization of the optimal fair classifier, leaving performance gains unexplored (Zhang et al., 2024; Tifrea et al., 2024). Hence, it remains an open problem to design algorithms that are applicable to multiple fairness criteria and controllable in different training phases. To address these challenges, we theoretically investigate the Pareto frontier in multi-class fair classification and propose a novel group-fairness calibration framework named OptFair , under which we separately develop an in-processing method and a post-processing method to approxi-mate the optimal accuracy-fairness trade-off. We specify the Bayes-optimal classifier under group-fairness constraints in the multi-class setting and introduce an entropic regularizer to render it analytically tractable. Building on this character-ization, we develop optimization strategies that achieve the optimal accuracy-fairness trade-off for any specified level of fairness: the in-processing task is reduced to a sequence of cost-sensitive classification problems, while the post-processing problem is reformulated as a convex optimization problem via a plug-in estimator. We further analyze the gen-eralization risk and show that both methods are statistically consistent with the optimal accuracy-fairness equilibrium. Experiments on multiple real-world datasets demonstrate that OptFair offers a more controllable accuracy-fairness balance and competitive classification performance com-pared to existing methods. Our main contributions are summarized as follows: • We present an analytically tractable formulation of the optimal classifier that achieves the optimal accuracy-fairness frontier in the multi-class setting. • In-processing and post-processing algorithms are de-veloped to approximate optimal fair classifiers, using a reduction-based method for in-processing and plug-in estimation for post-processing. • Theoretically, generalization bounds are provided to demonstrate that both methods are statistically consis-tent with the optimal fair classifier. • Extensive experiments on various datasets demonstrate that OptFair surpasses existing methods in balanc-ing accuracy and fairness, with the flexibility to adjust the accuracy-fairness trade-off. 
+
+## 2. Related Work 
+
+Multi-class group-fairness. Multi-class fairness extends classical notions such as demographic parity and equal-ized odds by imposing distributional constraints on vector-valued prediction outcomes across sensitive groups (Al-ghamdi et al., 2022; Xian et al., 2023; Denis et al., 2024; Jung et al., 2023). Unlike the binary case, where fairness constraints reduce to scalar rate matching, the multi-class setting induces coupled constraints over the probability sim-plex, resulting in more complex feasibility regions. 
+
+Accuracy-fairness trade-off. A growing body of work has investigated the trade-off between predictive utility and fairness through constrained risk minimization and Pareto-optimal frontiers, particularly in the binary classification setting (Menon & Williamson, 2018; Zeng et al., 2024; Chen et al., 2024). However, theoretical understanding of the multi-class accuracy-fairness trade-off remains limited, with many existing characterizations deriving optimal fair classifiers only under restrictive structural assumptions (De-nis et al., 2024; Xian & Zhao, 2024). Consequently, general multi-class settings still lack analytically tractable charac-terizations of Bayes-optimal fair classifiers, leaving the in-duced optimal accuracy-fairness frontier under-specified. 
+
+In-processing. Training-time fairness interventions typi-cally enforce constraints through regularization (Kim et al., 2022; Baharlouei et al., 2024; Cho et al., 2020), dual or bilevel optimization (Roh et al., 2021; Yazdani-Jahromi et al., 2024), adversarial objectives (Zhong & Tandon, 2023; Zhang et al., 2018), or reduction-based formulations (Agar-wal et al., 2018). While effective in practice, extending these methods to multi-class tasks is nontrivial due to coupled, multi-dimensional constraints, and existing theories seldom imply convergence to the accuracy-fairness frontier. 
+
+Post-processing. Post-processing approaches aim to cor-rect model outputs without retraining, e.g., by thresholding scores (Chen et al., 2024; Zeng et al., 2024), mapping pre-dictive probabilities (Tifrea et al., 2024; Alghamdi et al., 2022), or calibrating group-conditioned distribution (Xian et al., 2023; Xian & Zhao, 2024; Denis et al., 2024). Despite their computational appeal, many existing post-processing techniques are either designed for binary settings or depend on attribute-aware adjustments, making them less suitable when sensitive attributes are unavailable at inference time. 
+
+## 3. Preliminaries 
+
+Notation. The p-norm of the vector a is denoted as ∥a∥p,while 1m×m represents the m×m all-ones matrix. Write the probability simplex as ∆m = { q ∈ [0 , 1] m : ∥q∥1 = 1 },and let ei be the i-th standard basis vector. [·]⊤ represents the transpose of the vector or matrix. I{·} is the indicator function, which equals 1 if the event occurs and 0 otherwise. For two equally sized matrices A and B, their Frobenius inner product is ⟨A, B⟩ = P 
+
+> i,j
+
+aij bij . For positive integer 
+
+n, [n] := {1, . . . , n }.2Demystifying the Optimal Fair Classifier in Multi-Class Classification                                                                                                  
+
+> Table 1. Recovering Commonly Used Fairness Constraints from Group-Specific Confusion Matrices.
+> Fairness Criteria Fairness Constraints Confusion Matrices Notation Demographic parity P(bY=y|A=a)−P(bY=y)≤ξ
+> ∀a∈ A ,∀y∈ Y
+> X
+> a′∈A
+> X
+> i∈Y
+> [ωa′−Ia′=a]Ca′
+> i,y ≤ξ
+> Equal Opportunity P(bY=y|A=a, Y =y)−P(bY=y|Y=y)≤ξ
+> ∀a∈ A ,∀y∈ Y
+> X
+> a′∈A
+> ωa′[1
+> P(Y=y)−Ia′=a
+> P(Y=y, A =a) ]Ca′
+> y,y ≤ξ
+> Equal Odds P(bY=y|A=a, Y =y′)−P(bY=y|Y=y′)≤ξ
+> ∀a∈ A ,∀y, y ′∈ Y
+> X
+> a′∈A
+> ωa′[1
+> P(Y=y′)−Ia′=a
+> P(Y=y′, A =a) ]Ca′
+> y′,y ≤ξ
+
+Multi-class fair classification. Let P ∼ (X, A, Y ) be a random tuple, where X ∈ X for some feature space 
+
+X ⊆ Rd, labels Y ∈ Y = [ m], and the discrete sensitive attribute A ∈ A . Given the attribute-blind randomized classifiers h ∈ H : X → ∆m, the prediction bY is associated with the random outputs of h defined by P( bY = y | x) = 
+
+hy (x). A randomized function is said to be Bayes-optimal, denoted by η, if it computes the true class probabilities exactly. Specifically, for y ∈ [m], we denote the ground-truth conditional probability by 
+
+ηy (x) := P(Y = y | X = x),ηy (x, a ) := P(Y = y | X = x, A = a).
+
+Denote by μ the marginal distribution of the data X, and by 
+
+ωa := P(A = a) > 0 the group weight. Group-fairness constraints. Let A represent a group attribute (e.g. race and/or gender), where A ∈ A . In this work, we gener-ally focus on three commonly used group-fairness criteria, Demographic Parity (DP; Dwork et al. (2012)), Equalized Opportunity (EOP; Hardt et al. (2016)) and Equalized Odds (EO; Hardt et al. (2016)). Table 1 provides their definitions in the multi-class setting with multiple sensitive attributes, following prior work (Alghamdi et al., 2022; Denis et al., 2024; Xian et al., 2023; Xian & Zhao, 2024). 
+
+Confusion matrices. As fundamental analytical tools, confusion matrices encapsulate the information needed to derive diverse performance metrics and to assess group-fairness constraints in classification tasks (Yang et al., 2020; Narasimhan et al., 2024; Kim et al., 2020; Xu et al., 2026). Denote the population confusion matrix by C ∈ [0 , 1] m×m,with elements defined for i, j ∈ [m] as Ci,j = P(Y =
+
+i, bY = j). To represent group-fairness constraints, we focus on the group-specific confusion matrices Ca, a ∈ A , where 
+
+Cai,j := P(Y = i, bY = j | A = a).
+
+Performance and Fairness metrics. For performance metrics, we consider a risk metric expressed as a lin-ear function of the population confusion matrix, namely 
+
+R(h) = ⟨R, C(h)⟩ = P 
+
+> a∈A
+
+ωa⟨R, Ca(h)⟩. In this pa-per, we primarily focus on standard classification error rate 
+
+P( bY̸ = Y ) to set R = 1m×m − I. For fairness metrics, as presented in Table 1, the fairness constraints can typically be expressed by the following formulation: 
+
+|Dk(h)| = X
+
+> a∈A
+
+⟨Da,k , Ca(h)⟩ ≤ ξ, k ∈ [K],
+
+where K represents the number of constraints required to implement the fairness criteria. For proofs, additional fair-ness criteria, and further discussions, see Appendix A. 
+
+## 4. Optimal Fairness-Constrained Classifier 
+
+This section develops a parametric characterization of the Bayes-optimal fair classifier under mild assumptions. The proofs in this section can be found in the Appendix B. We study optimal classifiers by formulating accuracy maxi-mization under fairness constraints. Given a specified fair-ness level ξ > 0, the primal problem is defined as: 
+
+min  
+
+> h∈H
+
+R(h) = X
+
+> a∈A
+
+ωa⟨R, Ca(h)⟩,
+
+s.t. |Dk(h)| = X
+
+> a∈A
+
+⟨Da,k , Ca(h)⟩ ≤ ξ, k ∈ [K].
+
+(1) To tackle this problem, prior studies typically impose the continuity assumption on the output distribution (Chen et al., 2024; Denis et al., 2024; Xian & Zhao, 2024), which may fail in the presence of discrete distributions. In contrast, we adopt an assumption that entails negligible cost. 
+
+Assumption 4.1. (Feasibility). There exists a classifier h
+
+that is feasible for (1) when ξ = 0 .This assumption is primarily imposed to guarantee the ex-istence of the solution, ensuring that the feasible set is nonempty for any ξ > 0. The fairness criteria in Table 1 obviously meet this assumption since there exist naive clas-sifiers (e.g., h(x) = ey , y ∈ [m], ∀x ∈ X ) that satisfy the fairness constraint when ξ = 0 . This assumption also applies to other fairness criteria, as discussed in the Ap-pendix B.1. The next theorem presents a formulation of the Bayes-optimal fair classifier. 
+
+Theorem 4.2. Under the assumption 4.1, for any ξ > 0,there exists an optimal solution to the problem (1) , which 
+
+3Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+can be realized through the following form, 
+
+h∗(x) ∈ conv 
+
+(
+
+ey : y ∈ arg max 
+
+> j∈[m]
+
+βλ∗ 
+
+> j
+
+(x)
+
+)
+
+, (2) 
+
+βλ(x) = X
+
+> a∈A
+
+pa(x)[ M(a, λ )] ⊤η(x, a ), (3) 
+
+M(a, λ ) := I − 1
+
+ωaKX
+
+> k=1
+
+λkDa,k (4) 
+
+where pa(x) := P(A = a|X = x), the dual parameter 
+
+λ ∈ RK , and conv {·} denotes the convex hull. Denoting 
+
+Λ := {λ ∈ RK : ∥λ∥1 ≤ BΛ}, the parameter λ∗ is the solution of the dual problem: 
+
+min  
+
+> λ∈Λ
+
+H(λ) = EX
+
+
+
+max  
+
+> j∈[m]
+
+βλj (X)
+
+
+
++ ξ∥λ∥1. (5) 
+
+Proof Sketch. We begin by deriving the formulation of the dual problem. Considering the Lagrangian L(h, λ (1) , λ (2) ),
+
+R(h) + ( λ(1) − λ(2) )⊤D(h) − ξ∥λ(1) + λ(2) ∥1, (6) where λ(1) , λ (2) ∈ RK 
+
+> ≥0
+
+are the dual parameters, and 
+
+D(h) := {Dk(h)}k∈[K]. Denoting λ := λ(1) − λ(2) , the dual problem can be proven to be equivalent to 
+
+max 
+
+> λ∈RK
+
+min  
+
+> h∈H
+
+L(h, λ ) = R(h) + λ⊤D(h) − ξ∥λ∥1. (7) We derive that the inner minimization has a solution formu-lated in Eq. (2) , with which the dual optimization objective is deduced as Eq. (5) . Then, to verify that the primal-dual gap is zero, we further prove the boundedness, feasibility, and optimality of the solution presented above. □
+
+Although a formal characterization of the optimal fair clas-sifier is given in Theorem 4.2, learning this classifier in finite-sample settings is challenging due to its analytical in-tractability. To remedy this, we introduce a relaxed version of the primal problem. Motivated by the entropic optimal transport (Cuturi, 2013; Genevay et al., 2016), we incor-porate a tailored entropic regularizer into primal objective. For h ∈ H : X → ∆m, the differential entropy of the probabilistic classifier h is given by 
+
+E(h) := −EX
+
+" mX
+
+> i=1
+
+hi(X) log hi(X)
+
+#
+
+. (8) Since hi(x) log hi(x) → 0 as hi(x) → 0 for i ∈ [m],we define hi(x) log hi(x) := 0 when hi(x) = 0 , thereby ensuring that the differential entropy is well-defined on 
+
+∆m. The fair classification with entropic regularization is formulated as 
+
+min  
+
+> h∈H
+
+R(h) − τ E(h), s.t. |Dk(h)| ≤ ξ, k ∈ [K]. (9) In this case, τ ≥ 0 is the hyperparameter that controls the impact of the entropy regularization term. The regularized problem has the following closed-form solution. 
+
+Theorem 4.3. Under the assumption 4.1, for any ξ > 0,there exists an optimal solution defined by (9) , and its closed-form expression is given as follows, 
+
+hλ∗ 
+
+> i
+
+(x) = exp  βλ∗ 
+
+> i
+
+(x)/τ Pmj=1 exp  βλ∗ 
+
+> j
+
+(x)/τ  , i ∈ [m]. (10) 
+
+where βλi (x) denotes the i-th element of βλ(x) defined in (3) , and the parameter λ∗ ∈ RK is the solution to the dual problem: 
+
+min  
+
+> λ∈Λ
+
+H(λ) = EX
+
+τ log 
+
+> m
+
+X
+
+> j=1
+
+exp  βλj (X)/τ  + ξ∥λ∥1.
+
+The following example illustrates the form of the optimal classifier under the DP constraint, and the solutions for other fairness constraints can be derived in a similar manner. 
+
+Example 4.4. (DP .) Using the constraints for demographic parity as described in Table 1, denoting the dual parameter as λ ∈ Rm×|A| , its optimal fair classifier is determined by the decision vector βλ(x) ∈ Rm, where 
+
+βλi (x) = ηi(x) + X
+
+> a∈A
+
+λi,a 
+
+
+
+1 − pa(x)
+
+ωa
+
+
+
+, i ∈ [m]. (11) 
+
+Plugging (11) into Theorem 4.2 and Theorem 4.3 can obtain the optimal fair classifier for the original problem (1) and the entropy-regularized problem (9) .
+
+By introducing an entropic regularizer, the optimal classifi-cation problem under fairness constraints admits an explicit expression and becomes smoother and analytically tractable, thereby providing a theoretical foundation for the develop-ment of efficient debiasing algorithms that accommodate multiple fairness criteria across different training phases. 
+
+## 5. Methodology 
+
+In Theorem 4.2 and 4.3, we derive the explicit form of the ground-truth Bayes-optimal classifier under fairness con-straints, given knowledge of the distribution D = ( X, Y, A ).However, in practice, we only have access to finite data 
+
+S = {(xi, y i, a i)}Ni=1 sampling from D, and it remains necessary to develop feasible algorithms for achieving the optimal accuracy-fairness trade-off. Fairness calibration is typically performed through intervention during the train-ing phase (in-processing) or by adjusting the outputs of the pre-trained model (post-processing), both of which will be detailed subsequently. The proofs in this section can be found in the Appendix C. 4Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+5.1. Reductions Approach (In-Processing) 
+
+In-processing approach aims to directly learn the model that realizes the fairness constraint, where the classifiers h :
+
+X → ∆m are parameterized by a function class F of model 
+
+fθ : X → Rm, θ ∈ Θ. A direct approach to solving (1) is to formulate an equivalent convex-concave problem in terms of its Lagrangian. Given that h is a randomized classifier, the primal problem can be equivalently written as the following saddle-point optimization, 
+
+max  
+
+> λ∈Λ
+
+min  
+
+> h∈H
+
+L(h, λ ) = min  
+
+> h∈H
+
+max  
+
+> λ∈Λ
+
+L(h, λ ). (12) From the game-theoretic perspective, randomized classifiers act as mixed strategies for the stochastic game, with the pres-ence of equilibrium ensuring min-max interchangeability and the existence of the optimal solution (Chatterjee et al., 2004; Agarwal et al., 2018). For the inner optimization min h∈H L(h, λ ), the optimal so-lution has been provided in (2) for the original problem, which admits a simplified and sufficient form h∗(x; βλ) ∈
+
+arg max j βλj (x). However, the saddle-point solution re-mains computationally intractable due to the agnostic nature of the distribution P(A | X) and the Bayes-optimal score 
+
+η. To address this issue, we reduce the task of solving h∗
+
+given λ into a cost-sensitive learning objective. 
+
+Theorem 5.1. Let the cost-sensitive loss be defined by 
+
+ℓcal (y, f (x; θ), a, λ )= −
+
+> m
+
+X
+
+> i=1
+
+M′(a, λ ) 
+
+> y,i
+
+log exp([ f (x; θ)] i)
+
+Pmj=1 exp([ f (x; θ)] j ) , (13) 
+
+where f (x; θ) is the model to train, and M′(a, λ ) =
+
+M(a, λ ) + κ1m×m with κ chosen to ensure all matrix entries are strictly positive. Given λ ∈ Λ, the optimal score function f ∗ ∈ arg min f ED [ℓcal (Y, f, A, λ )] ensures that the corresponding classifier h∗(x; f ) is equivalent to 
+
+h∗(x; βλ). The loss ℓcal is referred to as calibrated for the objective min h∈H L(h, λ ).
+
+With calibrated loss, since the problem is convex-concave with the convex domain, we seek the saddle point using the primal-dual optimization scheme, which has proven effective in the binary case (Agarwal et al., 2018; Cotter et al., 2019), as detailed in Algorithm 1. 
+
+Theorem 5.2. Suppose that ℓcal receives a νt-approximate optimal parametric response θt+1 at each iteration t, i.e., 
+
+bL(ht+1 , λ t) ≤ min h∈H bL(h, λ t) + νt. Denoting u := max h∈H ∥ bD(h)∥∞ + ξ, and ¯νT := PTt=1 νt/T , for ηλ = 
+
+> BΛ
+> u√KT
+
+, the output ¯hT = PTt=1 ht/T, ¯λT = PTt=1 λt/T 
+
+comprises an approximate mixed Nash equilibrium: 
+
+max 
+
+> λ∈Λ
+
+bL(¯hT , λ ) − min 
+
+> h∈H
+
+bL(h, ¯λT ) ≤ ρT = ¯ νT + uB Λ
+
+r KT .
+
+Algorithm 1 OptFair (In-processing) 
+
+Input: data S = {xi, y i, a i}Ni=1 ; bound BΛ;fairness level ξ; learning rate ηθ , η λ;Compute the empirical statistics bDa,k , weight bωa;Initialize model θ, parameter λ;
+
+for t = 0 to T − 1 do 
+
+Set cM′(a, λ t) = cM(a, λ t) + κ1m×m, a ∈ A ;Performing R steps of gradient update on θt using ℓcal 
+
+(Eq. (13)), yielding θt+1 ;Update corresponding classifier ht+1 with θt+1 ;Calculate the update of λt+ 12 = λt + ηλD(ht+1 );Performing proximal operator 
+
+λt+1 = prox ηλ(ξ∥λ∥1+Iλ∈Λ)(λt+ 12 ); 
+
+end for Output: {(ht, λ t)}Tt=1 ;For the fairness criteria in Table 1, the constant u ≤ 1 + ξ.As the number of iterations T grows, this bound decreases to optimization risk ¯νT , which is also convergent with respect to the inner iteration. Therefore, Theorem 5.2 shows that the parameter solution converges to the empirical equilibrium of accuracy and fairness. Next, we provide a non-asymptotic analysis of the risk with respect to accuracy and fairness. For H determined by model θ ∈ Θ, we let Hy = {hy (·) : h ∈ H} and assume that the pseudo-dimension (Mohri et al., 2018) of Hy is finite and satisfies max y∈[m] P dim( Hy ) ≤ d.
+
+Theorem 5.3. If (¯h, ¯λ) comprises a ρ-approximate Nash equilibrium, denoting the sample number in group a ∈ A by 
+
+Na, ΩNk = max a ∥Da,k − bDa,k ∥∞, uk = max a ∥Da,k ∥1,
+
+k ∈ [K], and γd(n, 1 
+
+> δ
+
+) = 
+
+q d log( en/d )+log(1 /δ ) 
+
+> n
+
+, with prob-ability at least 1 − δ,
+
+R(¯h) ≤ R (h∗) + 2 ρ + O
+
+
+
+γd(N, m2
+
+δ )
+
+
+
+,
+
+|Dk(¯h)| ≤ ξ + 1 + 2 ρBΛ
+
++ O uk
+
+X
+
+> a∈A
+
+γd(Na, m2
+
+δ ) + Ω Nk
+
+!
+
+,
+
+where h∗ ∈ H is an optimal solution for fairness-constrained classification. 
+
+Theorem 5.3 clarifies that the risk of Algorithm 1 originates from two primary sources: the optimization error, repre-sented by the term dependent on ρ, and the generalization error, which is related to the sample size n expressed by 
+
+γ. Furthermore, it also indicates that as the sample size grows and the optimization error decreases, the model will converge to the accuracy-fairness Pareto frontier. 5Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+5.2. Plug-in Estimation (Post-Processing) 
+
+Post-processing modifies the output of a pre-trained model to ensure fairness by mitigating disparities across different groups, typically without altering the black-box model itself. Given the dataset S = {xi, y i, a i}Ni=1 , the plug-in estimator requires the ground-truth conditional probabilities P(A, Y |
+
+X). Fortunately, the powerful capabilities of modern neural networks enable us to approximate these agnostic function by training probabilistic classifiers. Previous research (Chen et al., 2024; Xian & Zhao, 2024; Denis et al., 2024; Hu et al., 2025) has shown that such auxiliary models can be flexibly constructed in accordance with the form of the pre-trained model. Therefore, we define the empirical fair classification problem with an entropic regularizer as follows: 
+
+min 
+
+> h∈H
+
+bR(h) − τ bE(h), s.t. | bDk(h)| ≤ ξ, k ∈ [K], (14) where bR, bE, bD are the corresponding empirical functions defined on the empirical distribution μS ∼ P N . Since no assumption is imposed on the sample distribution or the output distribution, the empirical solution can be derived by plugging the estimators into Theorem 4.3. 
+
+Corollary 5.4. Assume that ∃h ∈ H , such that bDk(h) = 0 ,
+
+k ∈ [K]. Denoting qa(x) := [ P(A = a | X = x, Y =
+
+y)] y∈[m], estimated by auxiliary model bqa(x) ≈ qa(x), the corresponding classifier 
+
+bhλi (x) := exp 
+
+ bβλi (x)/τ 
+
+Pmj=1 exp 
+
+ bβλj (x)/τ 
+
+ , i ∈ [m], (15) 
+
+bβλ(x) := 
+
+"X
+
+> a∈A
+
+Diag( bqa(x)) cM(a, λ )
+
+#⊤
+
+bη(x), (16) 
+
+define an optimal solution for the empirical regularized fair problem when λ = bλ∗, and the parameter bλ∗ is the solution to the empirical dual problem min λ∈Λ bH(λ),
+
+bH(λ) := τN
+
+> N
+
+X
+
+> i=1
+
+log 
+
+
+
+> m
+
+X
+
+> j=1
+
+exp 
+
+ bβλj (xi)/τ 
+
+ + ξ∥λ∥1.
+
+Proposition 5.5. Given pre-trained bη(x) and auxiliary model bP(A | X, Y ), the empirical objective can be de-composed as bH(λ) = bf (λ) + ξ∥λ∥1, where bf (λ) is convex and L-smooth with respect to λ.
+
+This property of the objective function motivates us to di-rectly apply proximal gradient descent to solve for the opti-mal value of λ, which ensures fast convergence for convex and smooth functions (Parikh et al., 2014), as outlined in Algorithm 2. We now proceed with a deeper analysis of the algorithm’s generalization risk. 
+
+Algorithm 2 OptFair (Post-Processing) 
+
+Input: data S = {xi, y i, a i}Ni=1 ; bound BΛ;fairness level ξ; learning rate ηλ;Compute the empirical statistics bDa,k , weight bωa;Training model bη and auxiliary model bqa(·);Initialize parameter λ;
+
+for t = 0 to T − 1 do 
+
+Calculate the update of λt+ 12 = λt − ηλ∇ bH(λt);Performing proximal operator 
+
+λt+1 = prox ηλ(ξ∥λ∥1+Iλ∈Λ)(λt+ 12 ); 
+
+end for 
+
+Obtain fair classifier bhλT
+
+from Eq. (15); 
+
+Output: λT , bhλT
+
+;
+
+Theorem 5.6. (Informal) . Under mild assumptions, with operator norm ∥f ∥1 := R 
+
+> X
+
+|f |dμ , denoting the risk result-ing from the auxiliary model, finite samples, and empirical statistics respectively by 
+
+ϵ1 := |A|∥ η − bη∥1 + X
+
+> a∈A
+
+∥qa − bqa∥1, ϵ 2 := 
+
+r log(1 /δ )
+
+N ,ϵ3 := 
+
+> K
+
+X
+
+> k=1
+
+ΩNk , ΩNk = max  
+
+> a
+
+∥Da,k − bDa,k ∥∞,
+
+there exists an integer N1 > 0, such that if the sample number N ≥ N1, the empirically optimal fair classifier bhbλ∗
+
+determined by bλ∗ ∈ arg max λ∈Λ bH(λ) satisfies that, for any δ ∈ (0 , 1) , with a probability of at least 1 − δ,
+
+R(bhbλ∗
+
+) ≤ R (hλ∗
+
+) + τ log m + O
+
+ 1
+
+τ + 1 
+
+ 3X
+
+> i=1
+
+ϵi
+
+!
+
+,
+
+|Dk(bhbλ∗
+
+)| ≤ ξ + O
+
+
+
+ϵ1 + 1
+
+τ ϵ2 + Ω Nk
+
+
+
+,
+
+and by adjusting τ , the risk of accuracy can achieve 
+
+R(bhbλ∗
+
+) ≤ R (hλ∗
+
+) + O (ψ(ϵ1) + ψ(ϵ2) + ψ(ϵ3)) ,
+
+where ψ(ϵ) := ϵ + ϵ 12 and classifier hλ∗
+
+∈ H is determined by the optimal solution λ∗ characterized in Theorem 4.3. 
+
+The complete theorem with its proof is provided in the Appendix C.4. Theorem 5.6 highlights the sources of gen-eralization error in the post-processing algorithm: the gap between the auxiliary model and the true conditional dis-tribution, the generalization error from finite samples, and the discrepancy between the frequency estimator and true statistics. 
+
+5.3. From Random to Deterministic Classifier 
+
+Certain practical scenarios may require the algorithm to return a deterministic classifier, even at the cost of a po-tential accuracy drop or a mild violation of the fairness 6Demystifying the Optimal Fair Classifier in Multi-Class Classification 0.00 0.03 0.06 0.09 0.12                                                                 
+
+> Demographic parity
+> 0.816
+> 0.824
+> 0.832
+> 0.840
+> 0.848
+> Accuracy
+> Adult
+> 0.04 0.08 0.12 0.16
+> Demographic parity
+> 0.20
+> 0.24
+> 0.28
+> 0.32
+> Accuracy
+> ENEM
+> 0.04 0.08 0.12 0.16
+> Demographic parity
+> 0.36
+> 0.39
+> 0.42
+> 0.45
+> 0.48
+> Accuracy
+> ACSIncome
+> 0.02 0.04 0.06 0.08 0.10
+> Demographic parity
+> 0.675
+> 0.700
+> 0.725
+> 0.750
+> Accuracy
+> CelebA
+> 0.025 0.050 0.075 0.100
+> Equalized odds
+> 0.840
+> 0.844
+> 0.848
+> 0.852
+> Accuracy
+> Adult
+> 0.04 0.08 0.12 0.16 0.20
+> Equalized odds
+> 0.250
+> 0.275
+> 0.300
+> 0.325
+> Accuracy
+> ENEM
+> 0.06 0.12 0.18 0.24 0.30
+> Equalized odds
+> 0.36
+> 0.39
+> 0.42
+> 0.45
+> 0.48
+> Accuracy
+> ACSIncome
+> 0.03 0.06 0.09 0.12 0.15
+> Equalized odds
+> 0.72
+> 0.73
+> 0.74
+> 0.75
+> 0.76
+> Accuracy
+> CelebA
+> ERM OptFair-in AdvDeBias Weight-ERM FairBatch F-divergence 0.00 0.03 0.06 0.09 0.12
+> Demographic parity
+> 0.828
+> 0.834
+> 0.840
+> 0.846
+> Accuracy
+> Adult
+> 0.00 0.04 0.08 0.12 0.16
+> Demographic parity
+> 0.285
+> 0.300
+> 0.315
+> 0.330
+> Accuracy
+> ENEM
+> 0.06 0.09 0.12 0.15 0.18
+> Demographic parity
+> 0.420
+> 0.435
+> 0.450
+> 0.465
+> 0.480
+> Accuracy
+> ACSIncome
+> 0.02 0.04 0.06 0.08 0.10
+> Demographic parity
+> 0.68
+> 0.70
+> 0.72
+> 0.74
+> 0.76
+> Accuracy
+> CelebA
+> 0.025 0.050 0.075 0.100
+> Equalized odds
+> 0.840
+> 0.843
+> 0.846
+> 0.849
+> Accuracy
+> Adult
+> 0.05 0.10 0.15 0.20
+> Equalized odds
+> 0.300
+> 0.315
+> 0.330
+> Accuracy
+> ENEM
+> 0.10 0.15 0.20 0.25 0.30
+> Equalized odds
+> 0.40
+> 0.42
+> 0.44
+> 0.46
+> 0.48
+> Accuracy
+> ACSIncome
+> 0.050 0.075 0.100 0.125 0.150
+> Equalized odds
+> 0.735
+> 0.740
+> 0.745
+> 0.750
+> 0.755
+> Accuracy
+> CelebA
+> ERM OptFair-post FairProjection LinearPost FRAPPE
+
+Figure 1. Multi-Class Fair Classification Results. The top row shows comparisons between in-processing methods and baselines, whereas the bottom row reports results for post-processing methods. The curve closer to the upper left corner indicates a better trade-off between accuracy and fairness. The error bars for each point represent the 90% confidence interval. 
+
+constraints. For the in-processing approach, the learned pair 
+
+(¯h, ¯λ) can be regarded as an approximate saddle-point solu-tion. Thus, to obtain a deterministic classifier, we fix λ = ¯λ
+
+and minimize the cost-sensitive loss in Eq. (13) , yielding the classifier closest to the equilibrium solution. For the post-processing approach, a deterministic prediction rule can be directly obtained by taking arg max h(x). In practice, τ is chosen to be small to mitigate the effect of the regularization term on the accuracy-fairness trade-off, as characterized in Theorem 5.6. Consequently, the randomized classifier in Eq. (15) is already nearly deterministic. 
+
+## 6. Experiments 
+
+We now present the empirical results demonstrating that 
+
+OptFair achieves competitive performance on accuracy-fairness trade-off compared to benchmark methods. The de-tailed information in this section is provided in Appendix E ,with additional experiments in Appendix F .
+
+6.1. Datasets and Experimental Settings Datasets. The experiments are conducted on four real-world datasets, including Adult (Asuncion et al., 2007), 
+
+ENEM (INEP, 2018), ACSIncome (Ding et al., 2021) and 
+
+CelebA (Zhang et al., 2020), which are well established for assessing bias mitigation techniques. Logistic regression is used for Adult, MLPs for ENEM and ACSIncome, and ResNet for CelebA. Except for Adult, which is a binary clas-sification dataset, the tasks constructed on all other datasets involve four or more classes. 
+
+Baselines. We compare the performance of OptFair with 7Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+in- and post-processing baselines, along with classic Empiri-cal Risk Minimization method (ERM): (i) In-processing: 
+
+AdvDebias (Zhang et al., 2018), Weight-ERM (Yang et al., 2020), FairBatch (Roh et al., 2021), and F-divergence (Zhong & Tandon, 2023); (ii) Post-processing: 
+
+FairProjection (Alghamdi et al., 2022), LinearPost (Xian & Zhao, 2024), and FRAPP ´E (Tifrea et al., 2024). We select baselines that support multi-class fairness calibration and multiple fairness notions in the attribute-blind setting; thus, binary fair learning and attribute-aware approaches are not included (e.g. Agarwal et al. (2018); Cho et al. (2020); Xian et al. (2023); Denis et al. (2024); Li et al. (2025)). 
+
+Evaluation. (i) Firstly , we partition each dataset into a 60% training set and the remaining 40% as the test set. (ii) Secondly , to ensure fair comparison, in-processing and post-processing methods are evaluated separately, since their ef-fectiveness varies across datasets, with our model denoted as 
+
+OptFair -in and OptFair -post (iii) Thirdly , we evaluate the methods with the Accuracy (Acc) and fairness metric (D), with smaller values of fairness metrics indicating a fairer model. 
+
+6.2. Overall Comparison 
+
+We compare OptFair with benchmarks tailored to multi-class classification in terms of the in-processing and post-processing case on the four datasets. The detailed Pareto frontier is reported in Figure 1 to evaluate the ability of OptFair to strike the optimal accuracy-fairness bal-ance. 
+
+Comparison results. Overall, when compared to exist-ing SOTA methods, OptFair demonstrates superior per-formance in achieving a balanced trade-off between accu-racy and fairness. We observe that, particularly in the in-processing setting, our method exhibits substantial advan-tages and offers greater controllability compared to com-peting methods. This benefit stems from the fact that our approach theoretically approximates the optimal accuracy-fairness trade-off. 
+
+Intrinsic trade-off. The experiments reveal a fundamental trade-off between fairness and accuracy; imposing fairness as a constraint typically reduces accuracy, consistent with our theoretical results. However, in some cases, such as EO on Adult, accuracy improves, especially with in-processing methods. This is due to the reduction of inherent bias, which enhances model performance, as seen in previous work (Agarwal et al., 2018). 
+
+6.3. Ablation Study 
+
+This subsection presents ablation experiments that com-bine in-processing and post-processing methods. Since ex-plicit sensitive attributes are difficult to integrate into image 0.00 0.04 0.08 0.12 0.16                 
+
+> Demographic parity
+> 0.285
+> 0.300
+> 0.315
+> 0.330
+> Accuracy
+> ENEM
+> 0.04 0.08 0.12 0.16
+> Demographic parity
+> 0.45
+> 0.46
+> 0.47
+> 0.48
+> Accuracy
+> ACSIncome
+> In-Post-1 In-Post-2 OptFair-post OptFair-in 0.04 0.08 0.12 0.16 0.20
+> Equalized odds
+> 0.300
+> 0.315
+> 0.330
+> Accuracy
+> ENEM
+> 0.10 0.15 0.20 0.25
+> Equalized odds
+> 0.40
+> 0.42
+> 0.44
+> 0.46
+> 0.48
+> Accuracy
+> ACSIncome
+> In-Post-1 In-Post-2 OptFair-post OptFair-in
+
+Figure 2. Ablation study. Top row: the post-processing module is activated when the DP disparity falls below 0.1 for In-Post-1 and 0.05 for In-Post-2 on both ENEM and ACSIncome. Bottom row: the module is activated when the EO disparity falls below 0.15/0.20 for In-Post-1 and 0.10/0.15 for In-Post-2 on ENEM/ACSIncome, respectively. 
+
+datasets, preventing the joint application of both approaches, we focus on tabular datasets and consider Equalized Odds as a representative fairness criterion on ENEM and ACSIn-come datasets. Our approach proceeds in two stages: we first train the model using the in-processing method until a predefined fairness threshold is reached, and then apply post-processing to further calibrate fairness. The experimental result is shown in Figure 2. 
+
+In- & post-processing. The results indicate that, although slight improvements may be observed in some cases, com-bining the two debiasing methods generally yields perfor-mance that lies between the two individual approaches. The in-processing method targets representation-level bias dur-ing training at a higher computational cost, whereas post-processing calibrates the model’s output distribution without correcting representation-level bias. Therefore, the combi-nation of both methods often fails to yield further improve-ments in debiasing effectiveness, as demonstrated by the ablation experiments here. 
+
+## 7. Discussion 
+
+Relation to previous work. The optimal fair classifier proposed in this paper extends prior work on generalized fairness definitions and multi-class scenarios. In the binary case, the optimal fair classifier in Theorem 4.2 degenerates into threshold retrieval on [0 , 1] , aligning with the results from previous binary fairness studies (Menon & Williamson, 2018; Chen et al., 2024). The in-processing method resem-bles the original reduction approach in the binary case (Agar-8Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+wal et al., 2018), with the primary distinction being that the loss function is formulated as cross-entropy. Furthermore, existing literature (Xian & Zhao, 2024; Denis et al., 2024) establishes that optimal fair classifiers can be obtained by modifying the Bayes-optimal scores (cf. Theorem 4.2 and Example 4.4), and these frameworks typically assume con-tinuity of the output distribution and are confined to post-processing. 
+
+Attribute-aware classifier. The intervention technique for attribute-aware classifiers also can be derived following the proof technique of Theorem 4.2. In Appendix D, we provide expressions for optimal classifiers under the corresponding fairness constraints, along with the corresponding example. Notably, the attribute-aware Bayes-optimal fair classifier for the DP constraint shares a similar structure with the formulation proposed in Denis et al. (2024). 
+
+## 8. Conclusion 
+
+This paper studies multi-class fair classification and pro-poses a group-fairness calibration framework, OptFair .We derive an analytically tractable probabilistic character-ization of the Bayes-optimal fair classifier, which makes the multi-class accuracy-fairness Pareto frontier explicit and actionable for algorithm design. Based on this characteri-zation, we develop two training-phase compatible attribute-blind methods: an in-processing reduction to cost-sensitive classification and a post-processing convex calibration of output probabilities. We provide generalization guarantees showing that both approaches are statistically consistent and converge to the optimal Pareto frontier. Experiments on multiple real-world datasets demonstrate that the pro-posed method consistently achieves a more controllable accuracy-fairness balance than existing baselines across several group-fairness criteria. Finally, OptFair offers a systematic pathway for multi-class fairness calibration and motivates extensions to richer fairness notions and broader deployment settings. 
+
+## Reproducibility Statement 
+
+Details for the experimental setting are provided in the be-ginning of Section 6 and Appendix E, and the code can be found at https://github.com/liizhang/OptFair-Multi-Class-Fairness. 
+
+## Acknowledgments 
+
+This work was supported in part by the National Natural Sci-ence Foundation of China (No. 62522217, No. 62402148). 
+
+## Impact Statement 
+
+This work advances fair machine learning for multi-class classification by providing principled methods to character-ize and approximate the optimal accuracy-fairness trade-off. Our framework may benefit high-stakes applications such as healthcare, finance, education, and criminal justice by helping reduce group-level disparities while maintaining predictive utility. It also offers flexibility under different deployment settings, and attribute-blind inference can be useful when sensitive attributes are unavailable or restricted at test time. However, the considered fairness criteria cap-ture only specific group-level notions and may not address individual fairness, intersectional harms, or domain-specific ethical concerns. Therefore, deployment should involve careful validation, monitoring, and transparent reporting of the chosen fairness criteria and limitations. 
+
+## References 
+
+Agarwal, A., Beygelzimer, A., Dud ´ık, M., Langford, J., and Wallach, H. A reductions approach to fair classification. In International conference on machine learning , pp. 60– 69. PMLR, 2018. Alghamdi, W., Hsu, H., Jeong, H., Wang, H., Michalak, P., Asoodeh, S., and Calmon, F. Beyond adult and compas: Fair multi-class prediction via information projection. 
+
+Advances in Neural Information Processing Systems , 35: 38747–38760, 2022. Alquier, P. User-friendly introduction to pac-bayes bounds. 
+
+Found. Trends Mach. Learn. , 17(2):174–303, January 2024. ISSN 1935-8237. doi: 10.1561/2200000100. Asuncion, A., Newman, D., et al. Uci machine learning repository, 2007. Baharlouei, S., Patel, S., and Razaviyayn, M. f-FERM: A scalable framework for robust fair empirical risk mini-mization. In The Twelfth International Conference on Learning Representations , 2024. Barocas, S., Hardt, M., and Narayanan, A. Fairness and Machine Learning: Limitations and Opportunities . MIT Press, 2023. Berk, R., Heidari, H., Jabbari, S., Kearns, M., and Roth, A. Fairness in criminal justice risk assessments: The state of the art. Sociological Methods & Research , 50(1):3–44, 2021. doi: 10.1177/0049124118782533. Bertsekas, D. P. Stochastic optimization problems with non-differentiable cost functionals. Journal of Optimization Theory and Applications , 12:218–231, 1973. 9Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+Chatterjee, K., Majumdar, R., and Jurdzi ´nski, M. On nash equilibria in stochastic games. In International workshop on computer science logic , pp. 26–40. Springer, 2004. Chen, W., Klochkov, Y., and Liu, Y. Post-hoc bias scoring is optimal for fair classification. In The Twelfth Interna-tional Conference on Learning Representations , 2024. Cho, J., Hwang, G., and Suh, C. A fair classifier using kernel density estimation. In Proceedings of the 34th In-ternational Conference on Neural Information Processing Systems , NIPS ’20, Red Hook, NY, USA, 2020. Curran Associates Inc. ISBN 9781713829546. Chouldechova, A. Fair prediction with disparate impact: A study of bias in recidivism prediction instruments. Big data , 5(2):153–163, 2017. Cotter, A., Jiang, H., Gupta, M., Wang, S., Narayan, T., You, S., and Sridharan, K. Optimization with non-differentiable constraints with applications to fairness, recall, churn, and other goals. Journal of Machine Learn-ing Research , 20(172):1–59, 2019. Cui, X., Lu, W., Tong, Y., Li, Y., and Zhao, Z. Multi-modal multi-behavior sequential recommendation with condi-tional diffusion-based feature denoising. In Proceedings of the 48th International ACM SIGIR Conference on Re-search and Development in Information Retrieval , pp. 1593–1602, 2025. Cuturi, M. Sinkhorn distances: lightspeed computation of optimal transport. In Proceedings of the 27th Inter-national Conference on Neural Information Processing Systems - Volume 2 , NIPS’13, pp. 2292–2300, Red Hook, NY, USA, 2013. Curran Associates Inc. Denis, C., Elie, R., Hebiri, M., and Hu, F. Fairness guaran-tees in multi-class classification with demographic parity. 
+
+Journal of Machine Learning Research , 25(130):1–46, 2024. Ding, F., Hardt, M., Miller, J., and Schmidt, L. Retiring adult: New datasets for fair machine learning. In Ranzato, M., Beygelzimer, A., Dauphin, Y., Liang, P., and Vaughan, J. W. (eds.), Advances in Neural Information Processing Systems , volume 34, pp. 6478–6490. Curran Associates, Inc., 2021. Du, T., Melis, L., and Wang, T. Remasker: Imputing tabular data with masked autoencoding. In The Twelfth Interna-tional Conference on Learning Representations , 2024. Duchi, J. C., Shalev-Shwartz, S., Singer, Y., and Tewari, A. Composite objective mirror descent. In Colt , volume 10, pp. 14–26, 2010. Dwork, C., Hardt, M., Pitassi, T., Reingold, O., and Zemel, R. Fairness through awareness. In Proceedings of the 3rd innovations in theoretical computer science conference ,pp. 214–226, 2012. Genevay, A., Cuturi, M., Peyr ´e, G., and Bach, F. Stochastic optimization for large-scale optimal transport. In Lee, D., Sugiyama, M., Luxburg, U., Guyon, I., and Garnett, R. (eds.), Advances in Neural Information Processing Systems , volume 29. Curran Associates, Inc., 2016. Han, X., Chi, J., Chen, Y., Wang, Q., Zhao, H., Zou, N., and Hu, X. FFB: A fair fairness benchmark for in-processing group fairness methods. In The Twelfth International Conference on Learning Representations , 2024. Hardt, M., Price, E., and Srebro, N. Equality of opportunity in supervised learning. Advances in neural information processing systems , 29, 2016. He, K., Zhang, X., Ren, S., and Sun, J. Deep residual learn-ing for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition ,pp. 770–778, 2016. Hu, L., Li, D., Liu, H., Chen, X., Gao, Y., Huang, S., Peng, X., Zhang, X., Bai, X., Yang, H., et al. Enhancing fairness in ai-enabled medical systems with the attribute neutral framework. Nature Communications , 15(1):8767, 2024. Hu, X., Xue, G., Lin, Z., and Yu, Y. Fairness-aware bayes optimal functional classification. arXiv preprint arXiv:2505.09471 , 2025. Hurlin, C., P ´erignon, C., and Saurin, S. The fairness of credit scoring models. Management Science , 2024. INEP, C. D. ´E. Instituto nacional de estudos e pesquisas ed-ucacionais an ´ısio teixeira. Boletim de Servi c¸ o Eletr ˆonico em , 30:04, 2018. Jung, S., Park, T., Chun, S., and Moon, T. Re-weighting based group fairness regularization via classwise robust optimization. In The Eleventh International Conference on Learning Representations , 2023. Kim, D., Kim, K., Kong, I., Ohn, I., and Kim, Y. Learning fair representation with a parametric integral probability metric. In Proceedings of the 39th International Confer-ence on Machine Learning , volume 162 of Proceedings of Machine Learning Research , pp. 11074–11101. PMLR, 17–23 Jul 2022. Kim, J. S., Chen, J., and Talwalkar, A. FACT: A diagnostic for group fairness trade-offs. In Proceedings of the 37th International Conference on Machine Learning , volume 119, pp. 5264–5274, 2020. 10 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+Lei, Y., Dogan, U., Binder, A., and Kloft, M. Multi-class svms: From tighter data-dependent generalization bounds to novel algorithms. Advances in neural information processing systems , 28, 2015. Li, G., Lin, Q., Ghosh, A., and Yang, T. Multi-output distributional fairness via post-processing. Transactions on Machine Learning Research , 2025. ISSN 2835-8856. Liu, M., Ning, Y., Teixayavong, S., Liu, X., Mertens, M., Shang, Y., Li, X., Miao, D., Liao, J., Xu, J., et al. Ascoping review and evidence gap analysis of clinical ai fairness. npj Digital Medicine , 8(1):360, 2025. Lohaus, M., Perrot, M., and Luxburg, U. V. Too relaxed to be fair. In III, H. D. and Singh, A. (eds.), Proceedings of the 37th International Conference on Machine Learn-ing , volume 119 of Proceedings of Machine Learning Research , pp. 6360–6369. PMLR, 13–18 Jul 2020. Lu, W. and Yin, L. Dmmd4sr: Diffusion model-based multi-level multimodal denoising for sequential recom-mendation. In Proceedings of the 33rd ACM International Conference on Multimedia , pp. 6363–6372, 2025. Maurer, A. A vector-contraction inequality for rademacher complexities. In International Conference on Algorithmic Learning Theory , pp. 3–17. Springer, 2016. Menon, A. K. and Williamson, R. C. The cost of fairness in binary classification. In Proceedings of the 1st Con-ference on Fairness, Accountability and Transparency ,volume 81, pp. 107–118, 2018. Menon, A. K., Jayasumana, S., Rawat, A. S., Jain, H., Veit, A., and Kumar, S. Long-tail learning via logit adjustment. In International Conference on Learning Representations ,2021. Mohri, M., Rostamizadeh, A., and Talwalkar, A. Founda-tions of machine learning . MIT press, 2018. Narasimhan, H. and Menon, A. K. Training over-parameterized models with non-decomposable objectives. NIPS ’21. Curran Associates Inc., 2021. Narasimhan, H., Ramaswamy, H. G., Tavker, S. K., Khu-rana, D., Netrapalli, P., and Agarwal, S. Consistent mul-ticlass algorithms for complex metrics and constraints. 
+
+Journal of Machine Learning Research , 25(367):1–81, 2024. Parikh, N., Boyd, S., et al. Proximal algorithms. Founda-tions and trends® in Optimization , 1(3):127–239, 2014. Rockafellar, R. and Wets, R. J.-B. Variational Analysis .Springer Verlag, Heidelberg, Berlin, New York, 2009. Roh, Y., Lee, K., Whang, S. E., and Suh, C. Fairbatch: Batch selection for model fairness. In International Conference on Learning Representations , 2021. Tewari, A. and Bartlett, P. L. On the consistency of multi-class classification methods. Journal of Machine Learn-ing Research , 8(5), 2007. Tifrea, A., Lahoti, P., Packer, B., Halpern, Y., Beirami, A., and Prost, F. FRAPP ´e: A group fairness framework for post-processing everything. In Forty-first International Conference on Machine Learning , 2024. Weerts, H., Dud ´ık, M., Edgar, R., Jalali, A., Lutz, R., and Madaio, M. Fairlearn: Assessing and improving fairness of ai systems. Journal of Machine Learning Research , 24 (257):1–8, 2023. Williamson, R. C., Vernet, E., and Reid, M. D. Composite multiclass losses. Journal of Machine Learning Research ,17(222):1–52, 2016. Xian, R. and Zhao, H. A unified post-processing framework for group fairness in classification, 2024. Xian, R., Yin, L., and Zhao, H. Fair and optimal classifi-cation via post-processing. In Proceedings of the 40th International Conference on Machine Learning , volume 202 of Proceedings of Machine Learning Research , pp. 37977–38012. PMLR, 23–29 Jul 2023. Xu, N., Zhang, J., Li, C., An, H., Zhou, C., Wang, J., Xu, B., Li, Y., Du, T., and Ji, S. Bridging the copyright gap: Do large vision-language models recognize and respect copy-righted content? In Proceedings of the AAAI Conference on Artificial Intelligence , volume 40, pp. 35949–35957, 2026. Xu, S. and Strohmer, T. Fair data representation for ma-chine learning at the pareto frontier. Journal of Machine Learning Research , 24(331):1–63, 2023. Yang, F., Cisse, M., and Koyejo, S. Fairness with overlap-ping groups; a probabilistic perspective. In Advances in Neural Information Processing Systems , volume 33, pp. 4067–4078, 2020. Yang, P., Jing, H., Zheng, N., and Ma, Y. Unibvr: Bal-ancing visual and reasoning abilities in unified 3d scene understanding. Neurocomputing , 671:132599, 2026a. doi: https://doi.org/10.1016/j.neucom.2025.132599. Yang, P., Jing, H., Zheng, N., and Ma, Y. Unihoi: Uni-fied human-object interaction understanding via unified token space. In Proceedings of the AAAI Conference on Artificial Intelligence , volume 40, pp. 11640–11648, 2026b. 11 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+Yao, W., Zhou, Z., Li, Z., Han, B., and Liu, Y. Understand-ing fairness surrogate functions in algorithmic fairness. 
+
+Transactions on Machine Learning Research , 2024. ISSN 2835-8856. Yazdani-Jahromi, M., Khodabandeh Yalabadi, A., Rajabi, A., Tayebi, A., Garibay, I., and Garibay, O. Fair bilevel neural network (fairbinn): On balancing fairness and accuracy via stackelberg equilibrium. Advances in Neu-ral Information Processing Systems , 37:105780–105818, 2024. Zeng, S., Chang, X., Xie, M., Liu, X., Bai, Y., Pan, Z., Xu, M., Wei, X., and Guo, N. Futuresightdrive: Thinking visually with spatio-temporal cot for autonomous driving. 
+
+arXiv preprint arXiv:2505.17685 , 2025a. Zeng, S., Qi, D., Chang, X., Xiong, F., Xie, S., Wu, X., Liang, S., Xu, M., and Wei, X. Janusvln: De-coupling semantics and spatiality with dual implicit memory for vision-language navigation. arXiv preprint arXiv:2509.22548 , 2025b. Zeng, X., Cheng, G., and Dobriban, E. Bayes-optimal fair classification with linear disparity constraints via pre-, in-, and post-processing. arXiv preprint arXiv:2402.02817 ,2024. Zhang, B. H., Lemoine, B., and Mitchell, M. Mitigating un-wanted biases with adversarial learning. In Proceedings of the 2018 AAAI/ACM Conference on AI, Ethics, and Society , AIES ’18, pp. 335–340, 2018. Zhang, F., Zhai, D., Bai, G., Jiang, J., Ye, Q., Ji, X., and Liu, X. Towards fairness-aware and privacy-preserving enhanced collaborative learning for healthcare. Nature Communications , 16(1):2852, 2025. Zhang, L., Roth, A., and Zhang, L. Fair risk control: A gen-eralized framework for calibrating multi-group fairness risks. In Proceedings of the 41st International Confer-ence on Machine Learning , volume 235 of Proceedings of Machine Learning Research , pp. 59783–59805. PMLR, 21–27 Jul 2024. Zhang, Y., Yin, Z., Li, Y., Yin, G., Yan, J., Shao, J., and Liu, Z. Celeba-spoof: Large-scale face anti-spoofing dataset with rich annotations. In Computer Vision–ECCV 2020: 16th European Conference , pp. 70–85. Springer, 2020. Zheng, H., Chen, Z., Du, T., Zhang, X., Cheng, Y., Ji, S., Wang, J., Yu, Y., and Chen, J. Neuronfair: Interpretable white-box fairness testing through biased neuron identifi-cation. In Proceedings of the 44th International Confer-ence on Software Engineering , pp. 1519–1531, 2022. Zhong, M. and Tandon, R. Learning fair classifiers via min-max f-divergence regularization. In 2023 59th Annual Allerton Conference on Communication, Con-trol, and Computing (Allerton) , pp. 1–8, 2023. doi: 10.1109/Allerton58177.2023.10313425. Zhou, X., Ye, W., Lee, Z., Xie, R., and Zhang, S. Boosting model resilience via implicit adversarial data augmenta-tion. arXiv preprint arXiv:2404.16307 , 2024. 12 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+## A. Fairness Criteria and Discussions 
+
+A.1. Group Fairness Criteria and Confusion-Matrix Representations 
+
+We clarify several fairness criteria and their representations through confusion matrices, including those in Table 1 (DP, EOP, EO), and additional metrics like Overall Accuracy Equality (OAE) and Mean Equalized Odds (Alghamdi et al., 2022). For random tuple (X, Y, A ), we recall the definition of attribute-blind prediction P( bY = y | x) = hy (x), and group-specific confusion matrices Ca, where a ∈ A , with Cai,j := P(Y = i, bY = j | A = a). Moreover, we use pδ to denote the probability of event δ occurring. For example, pa := P(A = a), py = P(Y = y), pa,y := P(A = a, Y = y),
+
+py|a := P(Y = y | A = a), pa|y := P(A = a | Y = y).
+
+Example A.1. For the multi-class DP criterion (Xian et al., 2023; Denis et al., 2024), 
+
+DDP = max  
+
+> y∈[m]
+
+max  
+
+> a∈A
+
+P( bY = y | A = a) − P( bY = y) ,
+
+where P(Y = y | A = a) = P 
+
+> i∈[m]
+
+P( bY = y, Y = i | A = a) = P 
+
+> i∈[m]
+
+Cai,y and P( bY = y) = P 
+
+> a′∈A
+
+P(A =
+
+a′) P 
+
+> i∈[m]
+
+P( bY = y, Y = i | A = a′) = P
+
+> a′∈A
+
+P 
+
+> i∈[m]
+
+P(A = a′)Ca′ 
+
+> i,y
+
+.Hence, we have 
+
+DDP = max  
+
+> y∈[m]
+
+max 
+
+> a∈A
+
+X
+
+> a′∈A
+
+X
+
+> i∈[m]
+
+ I[a′ = a] − P(A = a′)Ca′ 
+
+> i,y
+
+= max 
+
+> k=( y,a )∈K K=[ m]×A
+
+X
+
+> a′∈A
+
+⟨Da′,k , Ca′
+
+⟩ ,
+
+where Da′,k ∈ Rm×m, and when k = ( y, a ), the y-th column elements of Da′,k are I[a′ = a] − P(A = a′) with all other elements set to 0.
+
+Example A.2. For the multi-class EOP criterion (Xian & Zhao, 2024), 
+
+DEOP = max  
+
+> y∈[m]
+
+max  
+
+> a∈A
+
+P( bY = y | A = a, Y = y) − P( bY = y | Y = y) ,
+
+where P( bY = y | A = a, Y = y) = ωa  
+
+> P(Y=y,A =a)
+
+Cay,y and P( bY = y | Y = y) = P  
+
+> a′∈A
+> P(A=a′)
+> P(Y=y)
+
+Ca′ 
+
+> y,y
+
+.Hence, we have 
+
+DEOP = max  
+
+> y∈[m]
+
+max 
+
+> a∈A
+
+X
+
+> a′∈A
+
+ωa′
+
+ I[a′ = a]
+
+P(Y = y, A = a) − 1
+
+P(Y = y)
+
+
+
+Ca′ 
+
+> y,y
+
+= max 
+
+> k=( y,a )∈K K=[ m]×A
+
+X
+
+> a′∈A
+
+⟨Da′,k , Ca′
+
+⟩ ,
+
+where Da′,k ∈ Rm×m, and when k = ( y, a ), the entry in the y-th row and y-th column is ωa′
+
+ I[a′=a]  
+
+> P(Y=y,A =a)
+
+− 1 
+
+> P(Y=y)
+
+
+
+with all other elements set to 0.
+
+Example A.3. For the multi-class EO criterion (Xian & Zhao, 2024), 
+
+DEO = max  
+
+> y,y ′∈[m]
+
+max  
+
+> a∈A
+
+P( bY = y | A = a, Y = y′) − P( bY = y | Y = y′) ,
+
+where P( bY = y | A = a, Y = y′) = ωa  
+
+> P(Y=y′,A =a)
+
+Cay′,y and P( bY = y | Y = y′) = P  
+
+> a′∈A
+> P(A=a′)
+> P(Y=y′)
+
+Ca′ 
+
+> y′,y
+
+.Hence, we have 
+
+DEO = max  
+
+> y,y ′∈[m]
+
+max 
+
+> a∈A
+
+X
+
+> a′∈A
+
+ωa′
+
+ I[a′ = a]
+
+P(Y = y′, A = a) − 1
+
+P(Y = y′)
+
+
+
+Ca′ 
+
+> y′,y
+
+= max 
+
+> k=( y,y ′,a )∈K K=[ m]×[m]×A
+
+X
+
+> a′∈A
+
+⟨Da′,k , Ca′
+
+⟩ ,
+
+where Da′,k ∈ Rm×m, and when k = ( y, y ′, a ), the entry in the y′-th row and y-th column is ωa′
+
+ I[a′=a]  
+
+> P(Y=y′,A =a)
+
+− 1 
+
+> P(Y=y′)
+
+
+
+with all other elements set to 0.
+
+13 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+Example A.4. We follow (Alghamdi et al., 2022) to introduce another natural extension of Equalized Odds in multi-class setting, the Mean Equalized Odds (MEO), and consider its constraint representation: 
+
+DM EO = max  
+
+> y∈[m]
+
+max 
+
+> a∈A
+
+12 (|TPR y (a) − TPR y | + |FPR y (a) − FPR y |),
+
+where TPR y (a) = P( bY = y | Y = y, A = a), TPR y = P( bY = y | Y = y) and FPR y (a) = P( bY = y | Y̸ = y, A =
+
+a), FPR y = P( bY = y | Y̸ = y). We can obtain that 
+
+P( bY = y | Y̸ = y, A = a) = P( bY = y, Y ̸ = y | A = a)
+
+P(Y̸ = y | A = a) =
+
+P 
+
+> i̸=y
+
+Cai,y 
+
+P  
+
+> j̸=y
+
+P(Y = j | A = a)
+
+P( bY = y | Y̸ = y) = P( bY = y, Y ̸ = y)
+
+P(Y̸ = y) =
+
+P 
+
+> a′∈A
+
+ωa′
+
+P 
+
+> i̸=y
+
+Ca′
+
+> i,y
+
+P  
+
+> j̸=y
+
+P(Y = j) .
+
+It shows that 
+
+12 (|TPR y (a) − TPR y | + |FPR y (a) − FPR y |)= 12
+
+X
+
+> a′∈A
+
+ωa′
+
+ 1
+
+P(Y = y, A = a) I[a′ = a] − 1
+
+P(Y = y)
+
+
+
+Ca′
+
+> y,y
+
++ X
+
+> a′∈A
+
+X
+
+> i̸=y
+
+ωa′
+
+ 1
+
+P  
+
+> j̸=y
+
+P(Y = j, A = a) I[a = a′] − 1
+
+P  
+
+> j̸=y
+
+P(Y = j)
+
+
+
+Ca′ 
+
+> j,y
+
+,
+
+where the entry in the y-th row and y-th column is pa′
+
+> pa′,y
+
+I[a = a′] − pa 
+
+> py
+
+with all other elements set to 0 for Da, 0 
+
+> a′,y
+
+∈ Rm×m,and the entry in the y-th column is pa′  
+
+> P
+> yj̸=ypa′,y j
+
+I[a = a′] − paP  
+
+> yj̸=ypyj
+
+except for the y-th row with all other elements set to 
+
+0 for Da, 1 
+
+> a′,y
+
+∈ Rm×m.
+
+Example A.5. For the multi-class fairness criterion Overall Accuracy Equality (OAE), 
+
+DOAE = max  
+
+> a∈A
+
+P( bY = Y | A = a) − P( bY = Y ) ,
+
+where P( bY = Y | A = a) = P 
+
+> y∈[m]
+
+Cay,y and P( bY = Y ) = P 
+
+> a′∈A
+
+ωa′
+
+P 
+
+> y∈[m]
+
+Ca′ 
+
+> y,y
+
+. Hence, we have 
+
+DOAE = max 
+
+> a∈A
+
+X
+
+> a′∈A
+
+X
+
+> y∈[m]
+
+(I(a′ = a) − ωa′ ) Ca′ 
+
+> y,y
+
+= max 
+
+> k=a∈A
+
+X
+
+> a′∈A
+
+⟨Da′,k , Ca′
+
+⟩ ,
+
+where Da′,k ∈ Rm×m, and when k = a, the diagonal entries of the matrix are set to I(a′ = a) − ωa′ , with all other elements set to 0.
+
+## B. Proofs and Discussions for Section 4 
+
+B.1. Discussion on Assumption 4.1 
+
+(Existence ). Assumption 4.1 requires the existence of a classifier that satisfies the fairness constraint |Dk| = 0 . We now discuss the feasibility of this condition for the five fairness metrics mentioned above. First, for the DP, EO, EOP, and MEO criteria, as described in the main text, it is clear that there exist naive classifiers h(x) = ey , for y ∈ [m] and ∀x ∈ X , that satisfy the fairness constraint |Dk| = 0 . For the OAE criterion, a clear solution satisfying the constraint is the random classifier h(x) =   1 
+
+> m
+
+, · · · , 1
+
+> m
+
+ ∈ ∆m for all x ∈ X .14 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+B.2. Proof of Theorem 4.2 
+
+B.2.1. V ARIATIONAL FORMULATION AND USEFUL LEMMAS 
+
+For clarity of exposition, we first reformulate the Eq. 1 in the variational form. Let ηy (x, a ) := P(Y = y | X = x, A = a)
+
+be the attribute-aware Bayes-optimal score. For h ∈ H : X → ∆m,
+
+R(h) = 1 − X
+
+> a∈A
+
+ωa⟨I, Ca(h)⟩ = 1 − X
+
+> a∈A
+
+ωaEX|A=a
+
+[η(X, a )] ⊤h(X),
+
+Dk(h) = X
+
+> a∈A
+
+⟨Da,k , Ca(h)⟩ = X
+
+> a∈A
+
+EX|A=a
+
+[η(X, a )] ⊤Da,k h(X),
+
+where EX|A=a[f (x)] := R 
+
+> X
+
+f (x)dμ a(x).The Bayes-optimal fair classification problem in (1) can be reformulated as 
+
+min  
+
+> h∈H
+
+1 − X
+
+> a∈A
+
+ωaEX|A=a
+
+[η(X, a )] ⊤h(X),
+
+s.t. X
+
+> a∈A
+
+EX|A=a
+
+[η(X, a )] ⊤Da,k h(X) ≤ ξ, k ∈ K .
+
+(17) To prove Theorem 4.2, we first introduce some useful definitions and lemmas. 
+
+Definition B.1. Let V be a real vector space and let A, B ⊆ V . The sum of A and B is defined by 
+
+A + B := { a + b | a ∈ A, b ∈ B}.
+
+Definition B.2. (Convex hull.) For a set C ⊂ Rn, the convex hull conv {C} consists of all the convex combinations of elements of C:
+
+conv {C} =
+
+( pX
+
+> i=0
+
+αixi | xi ∈ C, α i ≥ 0,
+
+> p
+
+X
+
+> i=0
+
+αi = 1 , p ≥ 0
+
+)
+
+Lemma B.3. (Interchange rule for subdifferentials, see (Bertsekas, 1973).) The subdifferential of the function F (x) = 
+
+E{f (x, ω )} at a point x is given by 
+
+∂F (x) = E{∂f (x, ω )}
+
+where f (·, ω ) is a real-value convex function and the set E{∂f (x, ω )} is defined as 
+
+E{∂f (x,ω )} := 
+
+Z
+
+> Ω
+
+∂f (x, ω )dP(ω)=
+
+
+
+θ∗ ∈ Rn : θ∗ =
+
+Z
+
+> Ω
+
+θ∗(ω)dP(ω), θ ∗(·) : measurable , θ ∗(ω) ∈ ∂f (x, ω ) a.e. 
+
+
+
+.
+
+Lemma B.4. (Danskin’s theorem, see (Rockafellar & Wets, 2009).) Let f1, . . . , f m : Rn → (−∞ , +∞] be convex functions. Define f (x) = max {f1(x), . . . , f m(x)}, ∀x ∈ Rn. For θ ∈ Tmi=1 dom fi, define I(θ) = {i | fi(θ) = f (θ)}. Then, 
+
+∂f (θ) = conv ∂f i(θ) : i ∈ I(θ) .
+
+where conv {·} indicates the convex hull operation. 
+
+Lemma B.5. (First-Order Optimality condition, see (Rockafellar & Wets, 2009).) Let f : Rd → R be a convex continuous function. We consider the minimizer θ∗ of the function f over the set B. Then for θ∗ to be locally optimal it is necessary that 
+
+∂f (θ∗) + NB (θ∗) ∋ 0,
+
+where NB denotes the normal cone of set B.
+
+15 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+B.2.2. C OMPLETE PROOF OF THEOREM 4.2 For the primal problem Eq. (17), it follows that the formal Lagrange function can be written as 
+
+L(h,λ (1) , λ (2) )= 1 − X
+
+> a∈A
+
+ωaEX|A=a
+
+[η(X, a )] ⊤h(X) +
+
+> K
+
+X
+
+> k=1
+
+(λ(1)  
+
+> k
+
+− λ(2)  
+
+> k
+
+) X
+
+> a∈A
+
+EX|A=a
+
+[η(X, a )] ⊤Da,k h(X)
+
+− ξ
+
+> K
+
+X
+
+> k=1
+
+(λ(1)  
+
+> k
+
++ λ(2)  
+
+> k
+
+)= 1 + X
+
+> a∈A
+
+EX|A=a
+
+"
+
+[η(X, a )] ⊤
+
+> K
+
+X
+
+> k=1
+
+(λ(1)  
+
+> k
+
+− λ(2)  
+
+> k
+
+)Da,k − ωaI
+
+!
+
+h(X)
+
+#
+
+− ξ
+
+> K
+
+X
+
+> k=1
+
+(λ(1)  
+
+> k
+
++ λ(2)  
+
+> k
+
+),
+
+where λ(1) , λ (2) ∈ RK 
+
+> ≥0
+
+are the dual parameters. We first characterize the explicit form of the dual problem. 
+
+(Duality). The dual problem can be written as 
+
+max 
+
+> λ(1) ,λ (2) ∈RK
+> ≥0
+
+min  
+
+> h∈H
+
+L(h, λ (1) , λ (2) ).
+
+With M(a, λ ) = I − 1
+
+> ωa
+
+PKk=1 (λ(1)  
+
+> k
+
+− λ(2)  
+
+> k
+
+)Da,k , after removing the terms unrelated to the classifier h, the inner problem 
+
+min h∈H L(h, λ (1) , λ (2) ) turns to 
+
+max 
+
+> h∈H
+
+X
+
+> a∈A
+
+ωaEX|A=a
+
+[η(X, a )] ⊤M(a, λ )h(X) .
+
+Leveraging the definition of conditional expectation and the law of total expectation, the inner problem can be converted into a solvable form: 
+
+X
+
+> a∈A
+
+ωaEX|A=a
+
+[η(X, a )] ⊤M(a, λ )h(X)
+
+= X
+
+> a∈A
+
+P (A = a)EX|A=a
+
+[η(X, a )] ⊤M(a, λ )h(X)
+
+= EA
+
+EX|A
+
+[η(X, A )] ⊤M(A, λ )h(X) )= EX,A 
+
+[η(X, A )] ⊤M(A, λ )h(X)
+
+= EX
+
+EA|X
+
+[η(X, A )] ⊤M(A, λ )h(X) 
+
+= EX
+
+"X
+
+> a∈A
+
+P (A = a|X)[ η(X, a )] ⊤M(a, λ )h(X)
+
+#
+
+= EX
+
+" X
+
+> a∈A
+
+P (A = a|X)[ η(X, a )] ⊤M(a, λ )
+
+!
+
+h(X)
+
+#
+
+.
+
+Given (λ(1) , λ (2) ), it is explicit that the inner problem has a solution 
+
+h(x) ∈ conv 
+
+(
+
+ey : y ∈ arg max 
+
+> i∈[m]
+
+X
+
+> a∈A
+
+P (A = a|X)[ η(X, a )] ⊤M(a, λ )
+
+!
+
+> i
+
+)
+
+The definition of convex hull ( conv ) follows Def. B.2. Thus, we can derive the dual problem as min λ(1) ,λ (2) ∈RK 
+
+> ≥0
+
+H(λ(1) , λ (2) ), and 
+
+H(λ(1) , λ (2) ) = EX
+
+"
+
+max 
+
+> i∈[m]
+
+X
+
+> a∈A
+
+P(A = a|X)[ η(X, a )] ⊤M(λ, a )
+
+!
+
+> i
+
+#
+
++ ξ∥λ(1) + λ(2) ∥1.
+
+16 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+Since the dual problem minimizes the H(λ(1) , λ (2) ) subject to λ(1) , λ (2) ≥ 0 element-wise, it follows that the optimal dual parameter (λ(1) , λ (2) ) satisfies λ(1)  
+
+> k
+
+λ(2)  
+
+> k
+
+= 0 , for every k ∈ K ; that is, if λ(1)  
+
+> k
+
+> 0, then λ(2)  
+
+> k
+
+= 0 , and if λ(2)  
+
+> k
+
+> 0,then λ(1)  
+
+> k
+
+= 0 . This result can be derived via a proof by contradiction: If λ(1)  
+
+> k
+
+> λ (2)  
+
+> k
+
+> 0 in the optimal dual parameter 
+
+(λ(1) , λ (2) ), defining λ(1) ∗ 
+
+> k
+
+:= λ(1)  
+
+> k
+
+−λ(2)  
+
+> k
+
+, λ (2) ∗ 
+
+> k
+
+:= 0 , it is explicit that, with other elements unchanged, the pair (λ(1) ∗ 
+
+> k
+
+, λ (2) ∗ 
+
+> k
+
+)
+
+yields a strictly smaller value of the dual function H compared to (λ(1)  
+
+> k
+
+, λ (2)  
+
+> k
+
+), which implicates that the parameter (λ(1) , λ (2) )
+
+is not optimal. Therefore, denoting λ = λ(1) − λ(2) ∈ RK , the dual problem can be reduced to min λ∈RK H(λ), and 
+
+H(λ) = EX
+
+"
+
+max 
+
+> i∈[m]
+
+X
+
+> a∈A
+
+P(A = a|X)[ η(X, a )] ⊤M(λ, a )
+
+!
+
+> i
+
+#
+
++ ξ∥λ∥1,
+
+where M(a, λ ) = ωaI − PKk=1 λkDa,k .Now, we discuss whether the primal problem is equivalent to the dual problem, i.e., whether strong duality holds. The standard approach is to apply relaxed Slater’s condition or the Fenchel-Rockafellar theorem, which will be discussed later. However, since our domain H : X → ∆m is not even a linear vector space, we cannot rely on those theorems to prove strong duality. Thanks to its closed-form expression, we directly show that there is no duality gap between the dual and primal problems. 
+
+(Boundness.) First let us show that any optimal λ∗ is bounded. Since there exists a classifier that is feasible for ξ = 0 , the feasible set of the primal problem is non-empty for every ξ > 0. With a slight abuse of notation, considering one of the optimal classifiers h∗ 
+
+> ξ
+
+under fairness constraint ξ > 0 and the classifier h′ that is feasible for ξ = 0 , the duality gap between the primal and dual problem tells us that 
+
+max 
+
+> λ∈RK
+
+min  
+
+> h∈H
+
+L(h, λ ) = max 
+
+> λ∈RK
+
+1 − H(λ) ≤ R (h∗ 
+
+> ξ
+
+) ≤ R (h′),
+
+Note that given λ, the solution to the inner optimization does not depend on ξ. Hence, for ξ > 0,
+
+H(λ) = EX
+
+"
+
+max 
+
+> i∈[m]
+
+X
+
+> a∈A
+
+P(A = a|X)[ η(X, a )] ⊤M(λ, a )
+
+!
+
+> i
+
+#
+
++ ξ∥λ∥1 ≥ 1 − R (h′).
+
+Taking the limit ξ → 0, we obtain that H(λ) ≥ 1 + ξ∥λ∥1 − R (h′). As ∥λ∥1 → ∞ , it follows that H(λ) → ∞ , which contradicts the objective of minimizing H(λ). Therefore, we obtain that the parameter λ must be L1-bounded. 
+
+(Feasibility.) Next, it is necessary to prove that the solution induced by the dual problem is feasible for the primal problem. Note that we have denoted 
+
+βλ(x) := X
+
+> a∈A
+
+P(A = a|X = x)[ η(x, a )] ⊤M(λ, a ) ∈ Rm.
+
+To present the proof more clearly, we consider the sub-differential of H(λ) with respect to the k-th element of λ. Since 
+
+H(λ) is convex to parameters λ, the sub-differential is given by 
+
+∂∂λ k
+
+H(λ) = ∂∂λ k
+
+EX
+
+
+
+max 
+
+> i∈[m]
+
+ βλ(X)
+
+> i
+
+
+
++ ξ∂ |λk|
+
+= EX
+
+ ∂∂λ k
+
+max 
+
+> i∈[m]
+
+ βλ(X)
+
+> i
+
+
+
++ ξ∂ |λk|
+
+=
+
+(Z
+
+> X
+
+conv − X
+
+> a∈A
+
+P(A = a|X = x)[ η(x, a )] ⊤Da,k ei : i ∈ arg max  
+
+> i
+
+(βλ(x)) 
+
+!
+
+dP(x)
+
+)
+
++ ξ∂ |λk|.
+
+The second equation is due to Lemma B.3, and the third equation is by Lemma B.4. The addition here is defined by Def. B.1. Let the probabilistic classifier hλ(x) ∈ conv {ey : y ∈ arg max i∈[m] βλ(x)}. Due to the linearity, the sub-differential for 17 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+λk can be formulated as 
+
+∂∂λ k
+
+H(λ)=
+
+(
+
+−
+
+Z
+
+> X
+
+X
+
+> a∈A
+
+P(A = a|X = x)[ η(x, a )] ⊤Da,k hλ(x)dP(x) : hλ(x) ∈ conv {ey : y ∈ arg max  
+
+> i∈[m]
+
+βλ(x)}
+
+)
+
++ ξ∂ |λk|
+
+=
+
+(
+
+−EX
+
+"X
+
+> a∈A
+
+P(A = a|X)[ η(x, a )] ⊤Da,k hλ(x)
+
+#
+
+: hλ(x) ∈ conv {ey : y ∈ arg max  
+
+> i∈[m]
+
+βλ(x)}
+
+)
+
++ ξ∂ |λk|
+
+=
+
+
+
+−Dk(hλ(x)) : hλ(x) ∈ conv {ey : y ∈ arg max  
+
+> i∈[m]
+
+βλ(x)}
+
+
+
++ ξ∂ |λk|.
+
+Note that the choice of hλ does not depend on k ∈ K . Hence, we obtain the sub-differential of H with respect to λ,
+
+∂∂λ H(λ) = 
+
+
+
+−D1: K (hλ(x)) : hλ(x) ∈ conv {ey : y ∈ arg max  
+
+> i∈[m]
+
+βλ(x)}
+
+
+
++ ξ∂ ∥λ∥1,
+
+where D1: K denotes a vector of length k, with the k-th element given by Dk. This formulation naturally clarifies that each sub-gradient in ∂H can be characterized by dual parameter λ and decision hλ.By Lemma B.5, the optimality condition for the dual problem implies that 0 ∈ ∂H (λ∗). In other words, there exists at least one decision h∗ 
+
+> λ∗
+
+(x), x ∈ X that meets the optimality condition. Given optimal λ∗ and corresponding h∗ 
+
+> λ∗
+
+, if λ∗ 
+
+> k
+
+> 0, the 
+
+k-th sub-differential reduces to −Dk(h∗ 
+
+> λ∗
+
+) + ξ, which implies Dk(h∗ 
+
+> λ∗
+
+) = ξ. Similarly, if λ∗ 
+
+> k
+
+< 0, the k-th sub-differential reduces to −Dk(h∗ 
+
+> λ∗
+
+) − ξ, which implies Dk(h∗ 
+
+> λ∗
+
+) = −ξ. Besides, if λ∗ 
+
+> k
+
+= 0 , it follows that 0 ∈ − Dk(h∗ 
+
+> λ∗
+
+) + [ −ξ, ξ ],namely Dk(h∗ 
+
+> λ∗
+
+) ∈ [−ξ, ξ ].Overall, we have shown that for all k ∈ K , |Dk(h∗ 
+
+> λ∗
+
+)| ≤ ξ, which implies the feasibility. 
+
+(Optimality.) The last step is to prove that the classifier h∗ 
+
+> λ∗
+
+above is the optimal solution of the primal problem. Defining 
+
+(λ∗(1)  
+
+> k
+
+, λ ∗(2)  
+
+> k
+
+) by λ∗(1)  
+
+> k
+
+:= |λ∗
+
+> k
+
+|I(λ∗ 
+
+> k
+
+> 0) and λ∗(2)  
+
+> k
+
+:= |λ∗
+
+> k
+
+|I(λ∗ 
+
+> k
+
+< 0) , it is obvious that the pair also satisfies the optimality conditions for the dual problem given h∗ 
+
+> λ∗
+
+. From the proof above, we can obtain that, for ∀k ∈ K ,
+
+(λ(1)  
+
+> k
+
+− λ(2)  
+
+> k
+
+)Dk(h∗ 
+
+> λ∗
+
+) − (λ(1)  
+
+> k
+
++ λ(2)  
+
+> k
+
+)ξ = 0 ,
+
+which satisfies the optimality conditions for the dual solution of the constrained optimization problem. Consequently, the Lagrangian function equals the risk function when plugging in the optimal classifier, L(h∗ 
+
+> λ∗
+
+, λ ∗(1) , λ ∗(2) ) = R(h∗ 
+
+> λ∗
+
+).For any other classifier h′ ∈ H that satisfies the fairness constraints, denoting its corresponding dual parameter that maximizes the dual problem as (λ′(1) , λ ′(2) ), it can be deduced that 
+
+L(h∗ 
+
+> λ∗
+
+, λ ∗(1) , λ ∗(2) ) ≤ L (h′, λ ′(1) , λ ′(2) ) ≤ R (h′).
+
+Therefore, we arrive at 
+
+R(h∗ 
+
+> λ∗
+
+) = L(h∗ 
+
+> λ∗
+
+, λ ∗(1) , λ ∗(2) ) ≤ R (h′).
+
+This completes the proof. □
+
+B.3. Proof of theorem 4.3 
+
+B.3.1. U SEFUL LEMMA 
+
+Lemma B.6. Let α ∈ Rm be a vector that satisfies the constraints Pmi=1 αi = 1 and αi ≥ 0. Consider the optimization problem: 
+
+max  
+
+> α∈Rm
+
+f (α) = 
+
+> m
+
+X
+
+> i=1
+
+βiαi − ρα i log αi s.t. 
+
+> m
+
+X
+
+> i=1
+
+αi = 1 , αi ≥ 0,
+
+18 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+where ρ > 0 is a constant. The solution to this problem is given by: 
+
+α∗ 
+
+> i
+
+= e βiρ
+
+Pmj=1 e βjρ
+
+, for i = 1 , . . . , m. 
+
+The maximum value of the objective function is: 
+
+f (α∗) = ρ log 
+
+
+
+> m
+
+X
+
+> j=1
+
+e βjρ
+
+ .
+
+Proof of Lemma B.6. We begin by defining the Lagrangian of the problem. The Lagrangian for this constrained optimization problem is: 
+
+L(α, λ, μ ) = 
+
+> m
+
+X
+
+> i=1
+
+(βiαi − ρα i log αi) + λ
+
+> m
+
+X
+
+> i=1
+
+αi − 1
+
+!
+
++
+
+> m
+
+X
+
+> i=1
+
+μiαi,
+
+where λ and μi are Lagrange multipliers associated with the constraints Pmi=1 αi = 1 and αi ≥ 0, respectively. To find the optimal solution, we compute the partial derivative of the Lagrangian with respect to αi and set it equal to zero, 
+
+∂L
+
+∂α i
+
+= βi − ρ(1 + log αi) + λ = 0 .
+
+Solving for log αi, we get 
+
+log αi = βi + λ − ρρ .
+
+Exponentiating both sides, 
+
+αi = e βi+λ−ρρ = Ce βiρ ,
+
+where C = e λ−ρρ is a constant that we will determine using the constraint Pmi=1 αi = 1 . Next, we impose the constraint Pmi=1 αi = 1 ,
+
+> m
+
+X
+
+> i=1
+
+αi =
+
+> m
+
+X
+
+> i=1
+
+Ce βiρ = C
+
+> m
+
+X
+
+> i=1
+
+e βiρ = 1 .
+
+Solving for C, we get 
+
+C =
+
+> m
+
+X
+
+> i=1
+
+e βiρ
+
+!−1
+
+.
+
+Thus, the optimal solution for αi is: 
+
+α∗ 
+
+> i
+
+= e βiρ
+
+Pmj=1 e βjρ
+
+.
+
+Finally, substituting this solution into the objective function, the maximum value is: 
+
+f (α∗) = ρ log 
+
+
+
+> m
+
+X
+
+> j=1
+
+e βjρ
+
+ .
+
+Thus, the proof is complete. □
+
+19 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+B.3.2. C OMPLETE PROOF OF THEOREM 4.3 Denoting ρa(x) := P(A = a | X = x), as shown in the proof of Theorem 4.2, the optimization objective can be formulated as 
+
+min  
+
+> h∈H
+
+1 − EX
+
+ X
+
+> a∈A
+
+ρa(X)[ η(X, a )] ⊤h(X)
+
+
+
++ τ EX
+
+" mX
+
+> i=1
+
+hi(X) log hi(X)
+
+#
+
+,
+
+s.t. EX
+
+ X
+
+> a∈A
+
+1
+
+ωa
+
+ρa(X)[ η(X, a )] ⊤Da,k h(X)
+
+
+
+≤ ξ, k ∈ K .
+
+(18) It follows that the formal Lagrange function can be written as 
+
+L(h,λ (1) , λ (2) )= 1 + EX
+
+"X
+
+> a∈A
+
+ρa(X)[ η(X, a )] ⊤ 1
+
+ωaKX
+
+> k=1
+
+(λ(1)  
+
+> k
+
+− λ(2)  
+
+> k
+
+)Da,k − I
+
+!
+
+h(X)
+
+#
+
++ τ EX
+
+" mX
+
+> i=1
+
+hi(X) log hi(X)
+
+#
+
+− ξ
+
+> K
+
+X
+
+> k=1
+
+(λ(1)  
+
+> k
+
++ λ(2)  
+
+> k
+
+)= 1 − EX
+
+"X
+
+> a∈A
+
+ρa(X)[ η(X, a )] ⊤M(a, λ )h(X) − τ
+
+> m
+
+X
+
+> i=1
+
+hi(X) log hi(X)
+
+#
+
+− ξ
+
+> K
+
+X
+
+> k=1
+
+(λ(1)  
+
+> k
+
++ λ(2)  
+
+> k
+
+),
+
+= 1 − EX
+
+"
+
+(βλ(X)) ⊤h(X) − τ
+
+> m
+
+X
+
+> i=1
+
+hi(X) log hi(X)
+
+#
+
+− ξ
+
+> K
+
+X
+
+> k=1
+
+(λ(1)  
+
+> k
+
++ λ(2)  
+
+> k
+
+),
+
+where M(a, λ ) := I − 1
+
+> ωa
+
+PKk=1 (λ(1)  
+
+> k
+
+− λ(2)  
+
+> k
+
+)Da,k , and λ(1) , λ (2) ∈ RK 
+
+> ≥0
+
+are the dual parameters. We first characterize the explicit form of the dual problem. 
+
+(Duality). The dual problem can be written as 
+
+max 
+
+> λ(1) ,λ (2) ∈RK
+> ≥0
+
+min  
+
+> h∈H
+
+L(h, λ (1) , λ (2) ).
+
+Considering the inner optimization, after removing the terms unrelated to the classifier h, the inner problem 
+
+min h∈H L(h, λ (1) , λ (2) ) turns to 
+
+max  
+
+> h∈H
+
+EX
+
+" mX
+
+> i=1
+
+βλi (X)hi(X) − τ h i(X) log hi(X)
+
+#
+
+.
+
+By Lemma B.6, it is explicit that there exists an optimal solution 
+
+h⋆i (x) = exp  βλi (x)/τ Pmj=1 exp  βλj (x)/τ  , i = 1 , . . . , m. 
+
+Plugged the h∗ into the inner optimization, the maximum value of the objective above is 
+
+max  
+
+> h∈H
+
+EX
+
+" mX
+
+> i=1
+
+βλi (X)hi(X) − τ h i(X) log hi(X)
+
+#
+
+= EX
+
+τ log 
+
+> m
+
+X
+
+> j=1
+
+exp  βλj (X)/τ  .
+
+This result can equivalently be obtained through the Gibbs variational principle (Alquier, 2024). Consequently, the dual problem can be derived as min λ(1) ,λ (2) ∈RK 
+
+> ≥0
+
+H(λ(1) , λ (2) ), and 
+
+H(λ(1) , λ (2) ) = EX
+
+τ log 
+
+> m
+
+X
+
+> j=1
+
+exp  βλj (X)/τ  + ξ∥λ(1) + λ(2) ∥1.
+
+20 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+Following the similar derivation in Theorem 4.2, we know that the optimal dual parameters (λ(1) , λ (2) ) satisfy λ(1)  
+
+> k
+
+λ(2)  
+
+> k
+
+= 0 ,for every k ∈ K ; that is, if λ(1)  
+
+> k
+
+> 0, then λ(2)  
+
+> k
+
+= 0 , and if λ(2)  
+
+> k
+
+> 0, then λ(1)  
+
+> k
+
+= 0 . Therefore, denoting λ = λ(1) − λ(2) ∈
+
+RK , the dual problem can be reduced to min λ∈RK H(λ), and 
+
+H(λ) = EX
+
+τ log 
+
+> m
+
+X
+
+> j=1
+
+exp  βλj (X)/τ  + ξ∥λ∥1.
+
+We now follow the proof of Theorem 4.2 to show that the duality gap between the primal and dual problem is zero. 
+
+(Boundness.) It should be noted that entropy regularization is introduced only into the optimization objective, while the feasible domain of the original problem remains unchanged. Consequently, by adhering to the identical proof strategy as in Theorem 4.2, the boundedness property of the dual parameters follows directly. 
+
+(Feasibility.) Compared to the optimization problem without entropy regularization, a notable improvement here is that the dual problem is smoother. Considering the differential of βλ(x) with respect to the k-th element of λ, it is given by 
+
+∂β λ(x)
+
+∂λ k
+
+= X
+
+> a∈A
+
+ρa(x)[ η(x, a )] ⊤ ∂M(λ, a )
+
+∂λ k
+
+= − X
+
+> a∈A
+
+1
+
+ωa
+
+ρa(x)[ η(x, a )] ⊤Da,k .
+
+Thus, the sub-differential of H(λ) with respect to λk is given by 
+
+∂∂λ k
+
+H(λ) = ∂∂λ k
+
+EX
+
+τ log 
+
+> m
+
+X
+
+> j=1
+
+exp  βλj (X)/τ  + ξ∂ |λk|
+
+= EX
+
+ ∂∂λ k
+
+τ log 
+
+> m
+
+X
+
+> j=1
+
+exp  βλj (X)/τ  + ξ∂ |λk|
+
+= EX
+
+τ
+
+> 1
+> τ
+
+Pmi=1 exp( βλi (X)/τ ) ∂β λi (X)
+
+> ∂λ k
+
+Pmj=1 exp( βλj (X)/τ )
+
+ + ξ∂ |λk|
+
+= EX
+
+" mX
+
+> i=1
+
+exp( βλi (X)/τ )
+
+Pmj=1 exp( βλj (X)/τ ) − X
+
+> a∈A
+
+1
+
+ωa
+
+ρa(x)[ η(X, a )] ⊤Da,k 
+
+!
+
+> i
+
+#
+
++ ξ∂ |λk|
+
+= EX
+
+" mX
+
+> i=1
+
+[h∗
+
+> λ
+
+(X)] i − X
+
+> a∈A
+
+1
+
+ωa
+
+ρa(x)[ η(X, a )] ⊤Da,k 
+
+!
+
+> i
+
+#
+
++ ξ∂ |λk|
+
+= −EX
+
+"X
+
+> a∈A
+
+ρa(x)
+
+ωa
+
+[η(X, a )] ⊤Da,k h∗
+
+> λ
+
+(X)
+
+#
+
++ ξ∂ |λk|
+
+= − X
+
+> a∈A
+
+EX|A=a
+
+[η(X, a )] ⊤Da,k h∗
+
+> λ
+
+(X) + ξ∂ |λk|
+
+= −Dk(h∗
+
+> λ
+
+) + ξ∂ |λk|.
+
+The second equation is due to Lemma B.3, and the addition between real value and set here is also defined by Def. B.1. Hence, we obtain the sub-differential of H with respect to λ,
+
+∂∂λ H(λ) = −D1: K (h∗
+
+> λ
+
+) + ξ∂ ∥λ∥1,
+
+where D1: K denotes a vector of length k, with the k-th element given by Dk. This formulation indicates that the sub-gradient of the dual function H(λ) depends solely on the value of λ.By Lemma B.5, the optimality condition for the dual problem implies that 0 ∈ ∂H (λ∗). Given optimal λ∗ and corresponding 
+
+h∗ 
+
+> λ∗
+
+, if λ∗ 
+
+> k
+
+> 0, the k-th sub-differential reduces to −Dk(h∗ 
+
+> λ∗
+
+) + ξ, which implies Dk(h∗ 
+
+> λ∗
+
+) = ξ. Similarly, if λ∗ 
+
+> k
+
+< 0,the k-th sub-differential reduces to −Dk(h∗ 
+
+> λ∗
+
+) − ξ, which implies Dk(h∗ 
+
+> λ∗
+
+) = −ξ. Besides, if λ∗ 
+
+> k
+
+= 0 , it follows that 
+
+0 ∈ − Dk(h∗ 
+
+> λ∗
+
+) + [ −ξ, ξ ], namely Dk(h∗ 
+
+> λ∗
+
+) ∈ [−ξ, ξ ].21 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+Overall, we have shown that for all k ∈ K , |Dk(h∗ 
+
+> λ∗
+
+)| ≤ ξ, which implies the feasibility. 
+
+(Optimality.) Let h∗ 
+
+> λ∗
+
+denote the classifier induced by the optimal dual parameter λ∗. Defining (λ∗(1)  
+
+> k
+
+, λ ∗(2)  
+
+> k
+
+) by λ∗(1)  
+
+> k
+
+:= 
+
+|λ∗
+
+> k
+
+|I(λ∗ 
+
+> k
+
+> 0) and λ∗(2)  
+
+> k
+
+:= |λ∗
+
+> k
+
+|I(λ∗ 
+
+> k
+
+< 0) , it is obvious that the pair ensures feasibility of both primal and dual problems. In particular, the complementary slackness condition implies that 
+
+(λ(1)  
+
+> k
+
+− λ(2)  
+
+> k
+
+)Dk(h∗ 
+
+> λ∗
+
+) − (λ(1)  
+
+> k
+
++ λ(2)  
+
+> k
+
+)ξ = 0 , ∀k ∈ K ,
+
+so that the Lagrangian coincides with the primal objective at h∗ 
+
+> λ∗
+
+:
+
+L(h∗ 
+
+> λ∗
+
+, λ ∗(1) , λ ∗(2) ) = R(h∗ 
+
+> λ∗
+
+).
+
+For any other feasible classifier h′ ∈ H , together with its maximizing dual variable (λ′(1) , λ ′(2) ), weak duality yields 
+
+R(h∗ 
+
+> λ∗
+
+) = L(h∗ 
+
+> λ∗
+
+, λ ∗(1) , λ ∗(2) ) ≤ L (h′, λ ′(1) , λ ′(2) ) ≤ R (h′).
+
+Hence h∗ 
+
+> λ∗
+
+minimizes the risk among all feasible classifiers, completing the proof. □
+
+B.4. Proof for Example 4.4 
+
+We have shown that the constraint matrix for DP is Da, (y,a ′), where the y-th column elements of Da, (y,a ′) are I[a = a′] − ωa
+
+with all other elements set to 0. Plugging it into the expression of βλ in (44), we obtain that 
+
+βλ(x) = X
+
+> a∈A
+
+pa(x)[ M(a, λ )] ⊤η(x, a )= X
+
+> a∈A
+
+pa(x)
+
+"
+
+I − 1
+
+ωaKX
+
+> k=1
+
+λkDa,k 
+
+#⊤
+
+η(x, a )= η(x) − X
+
+> a∈A
+
+pa(x)
+
+ωa
+
+X
+
+> y∈[m],a ′∈A
+
+λy,a ′
+
+h
+
+Da, (y,a ′)i⊤
+
+η(x, a )= η(x) − X
+
+> a∈A
+
+pa(x)
+
+ωa
+
+X
+
+> y∈[m],a ′∈A
+
+λy,a ′ ey (I[a = a′] − ωa) X
+
+> j∈[m]
+
+ηj (x, a )= η(x) − X
+
+> a∈A
+
+pa(x)
+
+ωa
+
+X
+
+> y∈[m],a ′∈A
+
+λy,a ′ ey I[a = a′] + X
+
+> a∈A
+
+pa(x) X
+
+> y∈[m],a ′∈A
+
+λy,a ′ ey
+
+= η(x) − X
+
+> y∈[m]
+
+X
+
+> a∈A
+
+pa(x)
+
+ωa
+
+λy,a ey + X
+
+> y∈[m]
+
+X
+
+> a∈A
+
+λy,a ey
+
+= η(x) + X
+
+> y∈[m]
+
+X
+
+> a∈A
+
+λy,a 
+
+
+
+1 − pa(x)
+
+ωa
+
+
+
+ey
+
+Now if we only consider the i-th element of the vector βλ, the expression comes to 
+
+βλi (x) = ηi(x) + X
+
+> a∈A
+
+λi,a 
+
+
+
+1 − pa(x)
+
+ωa
+
+
+
+.
+
+This finishes the proof. □
+
+## C. Proofs and Discussions for Section 5 
+
+C.1. Proof of Theorem 5.1 
+
+In this section, we prove that the representation in Eq. (5.1) is calibrated for inner optimization problem. We begin by presenting the following lemma. 22 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+Lemma C.1. For any categorical distribution characterized by p ∈ ∆m, the minimizer of the expected risk 
+
+Ey∼p [− log ( qy )] = −
+
+> m
+
+X
+
+> i=1
+
+pi log ( qi)
+
+over all q ∈ ∆m is unique and achieved at p = q.
+
+This lemma is commonly used in the design of multiclass loss functions (Williamson et al., 2016; Menon et al., 2021; Narasimhan & Menon, 2021; Zhou et al., 2024; Zeng et al., 2025a; Yang et al., 2026b). 
+
+Proof of Theorem 5.1 . We aim to prove that for any fixed x ∈ X , the optimal scoring function f ∗ : X → Rm that minimizes the expected loss E[ℓcal (Y, f (X), A )] over the local data distribution (X, Y, A ) recovers the Bayes-optimal fair classifier 
+
+h∗ 
+
+> β
+
+given λ.To this end, by leveraging the properties of conditional expectation, the cost-sensitive loss is reformulated as a function of the marginal distribution (X, Y, A ):
+
+E(x,y,a )∼(X,Y,A )[ℓcal (y, f (x), a )] = −EX,Y,A 
+
+" mX
+
+> i=1
+
+M′
+
+> Y,i
+
+(A, λ ) log exp([ f (X)] i)
+
+Pmj=1 exp([ f (X)] j )
+
+#
+
+= −EX,A 
+
+"
+
+EY |X,A 
+
+" mX
+
+> i=1
+
+M′
+
+> Y,i
+
+(A, λ ) log exp([ f (X)] i)
+
+Pmj=1 exp([ f (X)] j )
+
+## 
+
+= −EX,A 
+
+" X
+
+> y∈[m]
+
+P(Y = y | X, A )
+
+> m
+
+X
+
+> i=1
+
+M′
+
+> y,i
+
+(A, λ ) log exp([ f (X)] i)
+
+Pmj=1 exp([ f (X)] j )
+
+## 
+
+= −EX
+
+"
+
+EA|X
+
+" X
+
+> y∈[m]
+
+ηy (X, A )
+
+> m
+
+X
+
+> i=1
+
+M′
+
+> y,i
+
+(A, λ ) log exp([ f (X)] i)
+
+Pmj=1 exp([ f (X)] j )
+
+## 
+
+= EX
+
+"
+
+− X
+
+> a∈A
+
+P(A = a|X)
+
+> m
+
+X
+
+> i=1
+
+h
+
+M′(a, λ )
+
+i⊤
+
+η(X, a )
+
+
+
+> i
+
+log exp([ f (x)] i)
+
+Pmj=1 exp([ f (x)] j )
+
+#
+
+Denoting vi(x) := P 
+
+> a∈A
+
+P(A = a|X = x)
+
+h 
+
+M′(a, λ )
+
+i⊤
+
+η(x, a )
+
+
+
+> i
+
+,we have 
+
+EX,Y,A [ℓcal (y, f (x), a )] = EX
+
+
+
+− cXmX
+
+> i=1
+
+vi(X)
+
+P 
+
+> j∈[m]
+
+vj (X) log exp([ f (X)] i)
+
+Pmj=1 exp([ f (X)] j )
+
+
+
+where cx = P 
+
+> j∈[m]
+
+vj (x) can be treated as a constant for fixed x. According to Lemma C.1, given fixed x, an optimal classifier f ∗(x) minimizing the cost-sensitive loss point-wise satisfies 
+
+vi(x)
+
+P 
+
+> j∈[m]
+
+vj (x, k ) = exp([ f ∗(x)] i)
+
+Pmj=1 exp([ f ∗(x)] j ) , ∀i ∈ [m].
+
+23 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+It presents that, for all i ∈ [m], since P 
+
+> i∈[m]
+
+ηi(x, a ) = 1 ,
+
+exp([ f ∗(x)] i) = vi(x) = X
+
+> a∈A
+
+P(A = a|X = x)
+
+h 
+
+M′(a, λ )
+
+i⊤
+
+η(x, a )
+
+
+
+> i
+
+= X
+
+> a∈A
+
+P(A = a|X = x)
+
+h 
+
+M(a, λ ) + α1m×m
+
+i⊤
+
+η(x, a )
+
+
+
+> i
+
+= X
+
+> a∈A
+
+P(A = a|X = x)
+
+h 
+
+M(a, λ )
+
+i⊤
+
+η(x, a ) + α1m
+
+
+
+> i
+
+= X
+
+> a∈A
+
+P(A = a|X = x)
+
+h 
+
+M(a, λ )
+
+i⊤
+
+η(x, a )
+
+
+
+> i
+
++ α. 
+
+= βλi (x) + α. 
+
+• For the primal problem in Eq. (1) , a straightforward solution to inner optimization is h∗(x; β) := arg max y∈[m](βλy (x)) .If there exist i̸ = j, such that βλi (x) = βλj (x) = max y∈[m](βλy (x)) , we determine h∗(x; β) = ei, for i < j , otherwise 
+
+h∗(x; β) = ej . After fixing the order, we have that 
+
+arg max 
+
+> y∈[m]
+
+[f ∗(x)] y = arg max 
+
+> y∈[m]
+
+
+
+βλ(x) + α
+
+
+
+> y
+
+= arg max 
+
+> y∈[m]
+
+
+
+βλ(x)
+
+
+
+> y
+
+,
+
+Therefore, the optimal classifier h∗(x; f ) := arg min y∈[m][f ∗(x)] y recovers the optimal classifier h∗(x; β) given λ
+
+derived from the the primal problem (1). • For the entropy-relaxed problem in Eq. (9), the classifier induced by f ∗(x) can be constructed as 
+
+h∗ 
+
+> i
+
+(x; f ) := softmax (exp([ f ∗(x)] i)/τ ) , i ∈ [m].
+
+Then, it can be obtained that 
+
+h∗ 
+
+> i
+
+(x; f ) = exp( βλi (x)/τ + α/τ )
+
+Pmy=1 exp( βλy (x)/τ + α/τ ) = exp( βλi (x)/τ )
+
+Pmy=1 exp( βλy (x)/τ ) ,
+
+which cover the optimal classifier h∗(x; β) in Eq. (10) given λ derived from the the entropy-relaxed problem (9). 
+
+□
+
+C.2. Proof of Theorem 5.2 
+
+C.2.1. N OTATIONS AND ASSUMPTIONS 
+
+With a little abuse of notation, we introduce several symbols that will be used in the proof. Note that the calculation of calibrated loss ℓcal depends on the dual parameter λ, given iteration t ∈ [T ],we let 
+
+ℓt
+
+> cal
+
+(s; θ) := −
+
+> m
+
+X
+
+> i=1
+
+M′(a, λ t) 
+
+> y,i
+
+log exp([ f (x; θ)] i)
+
+Pmj=1 exp([ f (x; θ)] j ) ,
+
+where s := ( x, y, a ).The dataset S = {xn, y n, a n}Nn=1 is sampled from the joint data distribution D = ( X, Y, A ). The empirical Lagrangian function is 
+
+bL(h, λ ) := bR(h) + λ⊤ bD(h) − ξ∥λ∥1
+
+= 1 − X
+
+> a∈A
+
+*
+
+Na
+
+N I − X
+
+> k∈K
+
+λk bDa,k , bCa(h)
+
++
+
+− ξ∥λ∥1.
+
+24 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+Assumption C.2. (ν-optimal response.) Each loss function {ℓt 
+
+> cal
+
+: t ∈ [T ]} receives an approximate optimal parameter response θt+1 , such that ht+1 (x) = arg max y∈[m] f (x; θt+1 ) achieves the νt-approximate optimal solution of empirical inner optimization min h∈H bL(h, λ t), i.e., 
+
+bL(ht+1 , λ t) ≤ min 
+
+> h∈H
+
+bL(h, λ t) + νt.
+
+Assumption C.2 is also used in previous work (Agarwal et al., 2018; Cotter et al., 2019; Yang et al., 2026a; Lu & Yin, 2025; Cui et al., 2025) for the error analysis of the algorithm’s accuracy-fairness trade-off. Besides, we tackle the equilibrium problem in multi-class classification by designing a more refined, calibrated loss for the inner optimization. Theorem 2 in Tewari & Bartlett (2007) shows that as the sample size increases, the empirical solution minimizing the calibrated loss ℓt 
+
+> cal
+
+converges to an optimal solution of the parametric inner optimization problem 
+
+min θ∈θ L(h(·; θ), λ t), where h(·; θ) := arg max y∈[m] f (·; θ), thus making Assumption C.2 mild. C.2.2. C OMPLETE PROOF OF THEOREM 5.2 For the sake of completeness, we restate Theorem 5.2 below. 
+
+Theorem C.3. Under Assumption C.2, denoting λ ∈ Λ := {λ ∈ RK : ∥λ∥1 ≤ BΛ} and u := max h∈H ∥ bD(h)∥∞ + ξ,for ηλ = BΛ 
+
+> u√2KT
+
+, the sequences of classifiers h1, · · · , h T and Lagrange multipliers λ1, · · · , λ T comprise an approximate mixed Nash equilibrium: 
+
+max 
+
+> λ∈Λ
+
+bL(¯hT , λ ) − min 
+
+> h∈H
+
+bL(h, ¯λT ) ≤ ρT := ¯ νT + uB Λ
+
+r 2KT , (19) 
+
+where ¯hT := PTt=1 ht/T, ¯λT := PTt=1 λt/T, ¯νT := PTt=1 νt/T .Proof. Considering that ∂λ bL(h, λ ) = bD(h) + ∂∥λ∥1ξ, the choices of λt then depend on sub-gradient descent and lazy projection with the learning rate ηλ. By the setting of the theorem, we have ∥λ∥22 ≤ B2Λ and bL(h, λ ) is u√K-Lipschitz with respect to λ. We introduce Corollary 3 and Corollary 4 in (Duchi et al., 2010) to bound the regret in our case. By plugging the Euclidean mirror 12 ∥x∥22 and non-smooth function r(λ) = ξ∥λ∥1 into these two corollaries, the regret bound indicates that, for any λ ∈ Λ,
+
+> T
+
+X
+
+> t=1
+
+
+
+λ⊤ bD(ht) − ξ∥λ∥1
+
+
+
+≤
+
+> T
+
+X
+
+> t=1
+
+
+
+(λt)⊤ bD(ht) − ξ∥λt∥1
+
+
+
++ ∥λ − λ0∥22
+
+2ηλ
+
++ ξ∥λ0∥1 + 12 ηλT Ku 2. (20) In particular, by setting λ0 = 0 and ηλ = BΛ 
+
+> u√KT
+
+, it shows that 
+
+> T
+
+X
+
+> t=1
+
+λ⊤ bD(ht) − ξ∥λ∥1 ≤
+
+> T
+
+X
+
+> t=1
+
+
+
+(λt)⊤ bD(ht) − ξ∥λt∥1
+
+
+
++ uB Λ
+
+√KT (21) Returning to the Lagrangian function, we can derive the sub-optimality of the problem max λ∈Λ bL(h, λ ). For any λ ∈ Λ,
+
+bL(¯hT , λ ) = 1
+
+T
+
+> T
+
+X
+
+> t=1
+
+( bR(ht) + λ⊤ bD(ht) − ξ∥λ∥1)
+
+≤ 1
+
+T
+
+> T
+
+X
+
+> t=1
+
+( bR(ht) + ( λt)⊤ bD(ht) − ξ∥λt∥1) + uB Λ
+
+r KT
+
+= 1
+
+T
+
+> T
+
+X
+
+> t=1
+
+bL(ht, λ t) + uB Λ
+
+r KT .
+
+The second equation follows the regret bound (21). The result tells us that, 
+
+max 
+
+> λ∗∈Λ
+
+bL(¯hT , λ ∗) − 1
+
+T
+
+> T
+
+X
+
+> t=1
+
+bL(ht, λ t) ≤ uB Λ
+
+r KT . (22) 25 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+On the other side, considering the optimization with respect to classifier h, under Assumption C.2, it presents that, for any classifier h ∈ H ,
+
+bL(h, ¯λT ) = 1
+
+T
+
+> T
+
+X
+
+> t=1
+
+( bR(h) + ( λt)⊤ bD(h) − ξ∥λt∥1)
+
+≥ 1
+
+T
+
+> T
+
+X
+
+> t=1
+
+( bR(ht) + ( λt)⊤ bD(ht) − ξ∥λt∥1 − νt)= 1
+
+T
+
+> T
+
+X
+
+> t=1
+
+bL(ht, λ t) − ¯νT ,
+
+where ¯νT := 1
+
+> T
+
+PTt=1 νt. The second equation follows the Assumption C.2. The result shows that, 
+
+1
+
+T
+
+> T
+
+X
+
+> t=1
+
+bL(ht, λ t) − min 
+
+> h∗∈H
+
+bL(h∗, ¯λT ) ≤ ¯νT . (23) Summing the equation (22) and (23), we derive that 
+
+max 
+
+> λ∈Λ
+
+bL(¯hT , λ ) − min 
+
+> h∈H
+
+bL(h, ¯λT ) ≤ ¯νT + uB Λ
+
+r KT := ρT , (24) which presents the approximate mixed Nash equilibrium of the stochastic saddle-point problem. Hence, it is clear that 
+
+bL
+
+
+
+hT , ¯λT 
+
+≤ bL  h, ¯λT  + ρT , ∀ h ∈ H , (25) 
+
+bL
+
+
+
+hT , ¯λT 
+
+≥ bL
+
+
+
+hT , λ 
+
+
+
+− ρT , ∀ λ ∈ Λ. (26) This completes the proof. □
+
+C.3. Proof of Theorem 5.3 
+
+C.3.1. D EFINITIONS AND USEFUL LEMMA 
+
+The empirical group-specific confusion matrix can be written as 
+
+bCai,j (h) := ES [I(Y = ei, h (X) = ej ) | A = a] = 1
+
+NaNX
+
+> n=1
+
+I(yn = ei ∧ an = a)hj (xn),
+
+where Na denotes the sample size of group a, and the conditional expectation is evaluated over the empirical distribution. Here, we recall the definition of pseudo-shattering and pseudo-dimension. 
+
+Definition C.4. (Pseudo-Shattering.) Let H be a set of real valued functions from input space X . We say C = ( x1, . . . , x m)
+
+is pseudo-shattered by H if there exists a vector r = ( r1, . . . , r m) (called ”witness”) such that for all b ∈ {± 1}m =(b1, . . . , b m) there exists hb ∈ H such that sign ( hb (xi) − ri) = b.
+
+Definition C.5. (Pseudo-Dimension.) Let H be a set of real valued functions from input space X . The pseudo-dimension 
+
+P dim( H) is the cardinality of the largest set pseudo-shattered by H.
+
+Lemma C.6. Let H : X → ∆m, D is a distribution over X × [m], of which {xi, y i}Ni=1 are i.i.d. data sampling from 
+
+D. Denoting Hy = {hy (·) ∈ [0 , 1] : h ∈ H} and max y∈[m] P dim( Hy ) ≤ d, then with probability at least 1 − δ, for 
+
+∀i, j ∈ [m],
+
+sup 
+
+> h∈H
+
+Ci,j (h) − bCi,j (h) ≤ 2
+
+r 2d log( eN/d )
+
+N +
+
+r 2 log(4 /δ )
+
+N .
+
+26 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+Proof. Given h ∈ H , letting ℓi,j (h(x), y ) = I(y = ei)hj (x), it can be shown that 
+
+ED [ℓi,j (h(x), y )] = EX [EY |X [I(y = ei)hj (x)]] = EX
+
+
+
+hj (x)
+
+> m
+
+X
+
+> y=1
+
+ηy (x)I(y = ei)
+
+
+
+= EX
+
+ηi(x)hj (x)
+
+= Ci,j (h).
+
+Hence, the loss ℓi,j is an unbiased estimator for Ci,j (h). Moreover, we consider the function class G = {g(x, y ) = 
+
+ℓi,j (h(x), y ) ∈ [0 , 1] : h ∈ H} . Let (x1, y 1), · · · , (xd′ , y d′ ) ∈ X × [m] be distinct points. Suppose G pseudo-shatters this set, then ∃r1, . . . , r d′ such that ∀b1, . . . , b d′ ∈ { 0, 1} and for all i ∈ [d′], ∃h ∈ H , I[I[y = ei]hj (xi) ≥ ri] = bi. Then, if 
+
+y = ei, we have 
+
+∃h ∈ H ,
+
+(
+
+h (xi) ≥ ri if bi = 1 
+
+h (xi) < r i if bi = 0 . (27) If y̸ = ei, g(x, y ) = 0 , we can deduce that there is not function hj ∈ H j such that the above expression holds. It indicates that y1 = y2 = · · · = yd′ = ei. Consequently, Eq. (27) holds for all i ∈ [d′], which tell us that Hj pseudo-shatters the set 
+
+x1, · · · , x d′ . Hence, the pseudo-dimension of G is less than that of Hj by the definition of Pseudo-Shattering (Def. C.4), i.e., P dim( G) ≤ P dim( Hj ) ≤ d.Therefore, by the generalization error derived from Pseudo-Dimension (e.g., Theorem 11.8 of Mohri et al. (2018)), with probability at least 1 − δ,
+
+sup 
+
+> h∈H
+
+Ci,j (h) − bCi,j (h) ≤ 2
+
+r 2d log( eN/d )
+
+N +
+
+r 2 log(4 /δ )
+
+N .
+
+This completes the proof. □
+
+C.3.2. C OMPLETE PROOF OF THEOREM 5.3 In this subsection, we state the complete formulation of Theorem 5.3 and provide the proofs. 
+
+Theorem C.7. If classifier ¯hT with dual parameters ¯λT comprise a ρT -saddle point of the empirical Lagrangian 
+
+bL(h, λ ), and an optimal solution h∗ ∈ H satisfies fairness constraints, assuming that Hy = {hy (·) ∈ [0 , 1] : h ∈ H} 
+
+and max y∈[m] P dim( Hy ) ≤ d, denoting uk := max a∈A ∥Da,k ∥1 and ΩNk := max a∈A ∥Da,k − bDa,k ∥∞, k ∈ K, then with probability at least 1 − δ,
+
+R(¯hT ) ≤ R (h∗) + 2 ρT + 2 
+
+r 8 log( eN/d ) + 2 log(4 m2/δ )
+
+N ,
+
+|Dk(¯hT )| ≤ ξ + 1 + 2 ρT
+
+BΛ
+
++ 4 uk
+
+X
+
+> a∈A
+
+s
+
+8d log( eN a/d ) + 2 log(4 m2|A| /δ )
+
+Na
+
+!
+
++ 2 |A| ΩNk .. 
+
+Proof. We analyze the generalization error of the accuracy-fairness trade-off obtained by Algorithm 1. Firstly, we derive the corresponding generalization errors for risk R and fairness constraints Dk, k ∈ K. For fairness constraints, given k ∈ K
+
+and h ∈ H , by H¨ older’s inequality, 
+
+bDk(h) − Dk(h) = X
+
+> a∈A
+
+⟨Da,k , Ca(h)⟩ − ⟨ bDa,k , bCa(h)⟩
+
+= X
+
+> a∈A
+
+⟨Da,k , Ca(h) − bCa(h)⟩ + ⟨Da,k − bDa,k , bCa(h)⟩
+
+≤ X
+
+> a∈A
+
+∥Da,k ∥1∥Ca(h) − bCa(h)∥∞ + X
+
+> a∈A
+
+∥Da,k − bDa,k ∥∞∥ bCa(h)∥1
+
+≤ X
+
+> a∈A
+
+∥Da,k ∥1∥Ca(h) − bCa(h)∥∞ + |A| 
+
+
+
+max  
+
+> a∈A
+
+∥Da,k − bDa,k ∥∞
+
+
+
+27 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+By introducing ℓa′ 
+
+> i,j
+
+(x, y, a ; h) = I(y = ei ∧ a = a′)hj (xi) and taking a union bound with respect to i, j ∈ [m] in Lemma C.6, we obtain that, for a ∈ A ,with probability at least 1 − δ,
+
+sup 
+
+> h∈H
+
+∥Ca(h) − bCa(h)∥∞ ≤ 2
+
+s
+
+2d log( eN a/d )
+
+Na
+
++
+
+s
+
+2 log(4 m2/δ )
+
+Na
+
+.
+
+We have denoted uk := max a∈A ∥Da,k ∥1 and ΩNk := max a∈A ∥Da,k − bDa,k ∥∞. Here, ΩNk → 0 as N → ∞ by the Law of Large Numbers, because Da,k is composed of the statistics of samples S. Taking a union bound with respect to a ∈ A ,the generalization bound presents that, with probability at least 1 − δ,
+
+bDk(h) − Dk(h) ≤ uk
+
+X
+
+> a∈A
+
+2
+
+s
+
+2d log( eN a/d )
+
+Na
+
++
+
+s
+
+2 log(4 m2|A| /δ )
+
+Na
+
+!
+
++ |A| ΩNk .
+
+For classification risk, given h ∈ H ,
+
+bR(h) − R (h) = ⟨I, bC(h) − C(h)⟩ ≤ ∥ bC(h) − C(h)∥∞.
+
+By taking a union bound in Lemma C.6, we obtain that, with probability at least 1 − δ,
+
+bR(h) − R (h) ≤ sup 
+
+> h∈H
+
+∥ bC(h) − C(h)∥∞ ≤ 2
+
+r 2d log( eN/d )
+
+N +
+
+r 2 log(4 m2/δ )
+
+N .
+
+Next, we turn to the generalization bound of the fairness constraints. The following proof largely follows the proof of Theorem 4 in Agarwal et al. (2018). With a little abuse of notation for clarity, given that (¯hT , ¯λT ) is an approximate saddle point of the empirical Lagrangian with relaxed bounds, 
+
+bL(h, λ ) := bR(h) + λ⊤ bDk(h) −
+
+> K
+
+X
+
+> k=1
+
+bξk|λk|,
+
+bξk := ξ + ϵk, ϵk ≥ uk
+
+X
+
+> a∈A
+
+2
+
+s
+
+2d log( eN a/d )
+
+Na
+
++
+
+s
+
+2 log(4 m2|A| /δ )
+
+Na
+
+!
+
++ |A| ΩNk .
+
+Then, since h∗ satisfies fairness constraints |Dk(h∗)| ≤ ξ, it shows that, with probability at least 1 − Kδ ,
+
+| bDk(h∗)| = | bDk(h∗) − Dk(h∗) + Dk(h∗)|≤ | bDk(h∗) − Dk(h∗)| + |Dk(h∗)|≤ ϵk + ξ = bξk.
+
+The items in empirical Lagrangian introduced by fairness constraints turn to 
+
+k ∈ K, λk bDk(h∗) − bξk|λk| = λk( bDk(h∗) − bξk) ≤ λk(c|Dk(h∗)| − bξk) ≤ 0, if λk ≥ 0; 
+
+λk bDk(h∗) − bξk|λk| = λk( bDk(h∗) + bξk) ≤ λk(bξk − | bDk(h∗)|) ≤ 0, if λk < 0.
+
+Therefore, we obtain that 
+
+bL(h∗, ¯λT ) = bR(h∗) + 
+
+> K
+
+X
+
+> k=1
+
+¯λTk bDk(h) − bξk|¯λTk |
+
+
+
+≤ bR(h∗).
+
+The approximate saddle point’s property 25 and 26 implies that 
+
+bR(¯hT ) − bR(h∗) ≤ bL(¯hT , 0K ) − bL(h∗, ¯λT )
+
+≤ bL(¯hT , ¯λT ) + ρT − bL(h∗, ¯λT )
+
+≤ bL(¯hT , ¯λT ) + ρT − bL(¯hT , ¯λT ) + ρT
+
+= 2 ρT
+
+28 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+For the risk metric, it presents that 
+
+R(¯hT ) − R (h∗) = R(¯hT ) − bR(¯hT ) + bR(¯hT ) − bR(h∗) + bR(h∗) − R (h∗)
+
+≤ bR(¯hT ) − bR(h∗) + 4 
+
+r 2d log( eN/d )
+
+N + 2 
+
+r 2 log(4 m2/δ )
+
+N
+
+≤ 2ρT + 4 
+
+r 2d log( eN/d )
+
+N + 2 
+
+r 2 log(4 m2/δ )
+
+N
+
+≤ 2ρT + 4 
+
+r 8d log( eN/d ) + 2 log(4 m2/δ )
+
+N .
+
+When it comes to the fairness constraints, denoting k∗ := arg max k∈K | bDk(¯hT )| and bBΛ := sign( bDk(¯hT )) BΛ, then we have 
+
+BΛ( bDk∗ (¯hT ) − bξk∗ ) = bL(¯h, bBΛek∗ ) − bR(¯hT ) ≤ bL(¯hT , λ T ) − bR(¯hT ) + ρT , (28) where ek∗ is the K-dimensional basis vector with 1 at the k∗-th element and 0 otherwise. Let h′ satisfy the fairness constraints. With (25), we obtain 
+
+bL(¯hT , ¯λT ) − bR(¯hT ) ≤ bL(h′, ¯λT ) − bR(¯hT ) + ρT ≤ bR(h′) − bR(¯hT ) + ρT . (29) Combining (28) and (29), it shows that 
+
+max 
+
+> k∈K
+
+  bDk(¯hT ) − bξk
+
+ ≤ bR(h′) − bR(¯hT ) + 2 ρT
+
+BΛ
+
+≤ 1 + 2 ρT
+
+BΛ
+
+. (30) Therefore, the result shows that, for any k ∈ K,
+
+|Dk(¯hT )| = |Dk(¯hT ) − bDk(¯hT ) + bDk(¯hT )| ≤ | Dk(¯hT ) − bDk(¯hT )| + | bDk(¯hT )|≤ ξ + 1 + 2 ρT
+
+BΛ
+
++ 2 uk
+
+X
+
+> a∈A
+
+2
+
+s
+
+2d log( eN a/d )
+
+Na
+
++
+
+s
+
+2 log(4 m2|A| /δ )
+
+Na
+
+!
+
++ 2 |A| ΩNk
+
+≤ ξ + 1 + 2 ρT
+
+BΛ
+
++ 4 uk
+
+X
+
+> a∈A
+
+s
+
+8d log( eN a/d ) + 2 log(4 m2|A| /δ )
+
+Na
+
+!
+
++ 2 |A| ΩNk ,
+
+which completes the proof. □
+
+C.4. Proof of Theorem 5.6 
+
+To derive the sample complexity for the post-processing algorithm, we proceed by analyzing the complexity of the hypothesis class hλ, λ ∈ Λ. To begin, we recall the definition of Rademacher complexity and introduce relevant uniform convergence bound. 
+
+Definition C.8. (Rademacher Complexity.) Let G be a family of functions mapping from z to [a, b ] and S = ( z1, . . . , z m)
+
+a fixed sample of size m with elements in z. Then, the empirical Rademacher complexity of G with respect to the sample S
+
+is defined as: 
+
+bℜS (G) = Eσ
+
+"
+
+sup 
+
+> g∈G
+
+1
+
+m
+
+> m
+
+X
+
+> i=1
+
+σig (zi)
+
+#
+
+,
+
+where σ = ( σ1, . . . , σ m)⊤, with σi s independent uniform random variables taking values in {− 1, +1 }. The random variables σi are called Rademacher variables. 
+
+Lemma C.9. Let G be a family of functions mapping from z to [0 , 1] . Then, for any δ > 0, with probability at least 1 − δ
+
+over the draw of an i.i.d. sample S of size m, the following inequality holds for all g ∈ G :
+
+E[g(z)] − 1
+
+m
+
+> m
+
+X
+
+> i=1
+
+g (zi) ≤ 2bℜS (G) + 3 
+
+r log(4 /δ )2m .
+
+29 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+Lemma C.9 follows directly from Theorem 3.3 in Mohri et al. (2018). Here, we take a union bound so that the generalization bound holds for the absolute-value expression on the left-hand side. 
+
+Lemma C.10. Let Z be any set, (z1, . . . , z N ) ∈ Z N , let G be a class of functions g : Z → ℓ2(Rm) and let fi : ℓ2(Rm) → R
+
+have Lipschitz norm L. Then 
+
+Eσ
+
+"
+
+sup 
+
+> g∈G
+> N
+
+X
+
+> n=1
+
+σnfn (g (zn)) 
+
+#
+
+≤ √2LEσ
+
+"
+
+sup 
+
+> g∈G
+> N
+
+X
+
+> n=1
+> m
+
+X
+
+> i=1
+
+σni gi (zn)
+
+#
+
+,
+
+where σni is an independent doubly indexed Rademacher sequence and gi (zn) is the i-th component of g (zn).
+
+The structural generalization risk in Lemma C.10 is the main result of previous work (Lei et al., 2015; Maurer, 2016). 
+
+Lemma C.11. Let A be a discrete random variable supported on a finite set A and P(A = a) = pa > 0. Draw i.i.d. samples {zi}Ni=1 , and define the empirical frequencies bpa := 1
+
+> N
+
+PNi=1 I(zi = a), with pmin := min a∈A pa.1. For any δ ∈ (0 , 1) ,
+
+P max  
+
+> a∈A
+
+|bpa − pa| ≤ 
+
+r 12N log 2|A| 
+
+δ
+
+!
+
+≥ 1 − δ (31) 
+
+2. For any ε ∈ (0 , 1) and any δ ∈ (0 , 1) , if N ≥ 2 
+
+> ε2pmin
+
+log |A|  
+
+> δ
+
+, it holds that 
+
+P
+
+
+
+min  
+
+> a∈A
+
+bpa ≥ (1 − ε)pmin 
+
+
+
+≥ 1 − δ. (32) 
+
+In particular, taking ε = 12 , if N ≥ 8 
+
+> pmin
+
+log |A|  
+
+> δ
+
+, then 
+
+P
+
+
+
+min  
+
+> a∈A
+
+bpa ≥ pmin 
+
+2
+
+
+
+≥ 1 − δ. (33) 
+
+Proof of Lemma C.11. Fix any a ∈ A , define the count random variable Na := PNi=1 I(zi = a). Since zi are i.i.d. and 
+
+P(zi = a) = pa, we have Na ∼ Binomial( N, p a) and bpa = Na/N . The Hoeffding’s inequality (e.g. Theorem D.2 in Mohri et al. (2018)) implies that 
+
+P (|bpa − pa| ≥ t) ≤ 2 exp( −2N t 2).
+
+Applying the union bound over a ∈ A , we obtain 
+
+P (∃a : |bpa − pa| ≥ ϵ) ≤ X
+
+> a∈A
+
+2 exp( −2N ϵ 2) = 2 |A| exp( −2N ϵ 2).
+
+With ϵ2 = 12N log 4Kδ , we obtain 
+
+P (∃a : |bpa − pa|) ≤ 2|A| exp 
+
+
+
+− log 2|A| 
+
+δ
+
+
+
+= δ, 
+
+and hence we get Eq. (31) 
+
+P max  
+
+> a∈A
+
+|bpa − pa| ≤ 
+
+r 12N log 2|A| 
+
+δ
+
+!
+
+≥ 1 − δ. 
+
+By the standard multiplicative Chernoff bound (e.g. Theorem D.4 in Mohri et al. (2018)), for any ε ∈ (0 , 1) ,
+
+P (bpa ≤ (1 − ε)pa) ≤ exp 
+
+
+
+− ε2N p a
+
+2
+
+
+
+.
+
+30 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+Consider the event E := {min a∈A bpa < (1 − ε)pmin }. 5 If min a bpa < (1 − ε)pmin , then there exists some a ∈ A such that 
+
+bpa < (1 − ε)pmin . Since pmin ≤ pa for every a, we have (1 − ε)pmin ≤ (1 − ε)pa, hence {bpa < (1 − ε)pmin } ⊆ { bpa ≤
+
+(1 − ε)pa}. Therefore, it presents that 
+
+E ⊆ [
+
+> a∈A
+
+{bpa ≤ (1 − ε)pa}.
+
+Applying the union bound and using the Chernoff bound, we obtain that 
+
+P(E) ≤ X
+
+> a∈A
+
+P (bpa ≤ (1 − ε)pa) ≤ X
+
+> a∈A
+
+exp 
+
+
+
+− ε2N p a
+
+2
+
+
+
+≤ K exp 
+
+
+
+− ε2N p min 
+
+2
+
+
+
+.
+
+The last inequality uses pa ≥ pmin for all a.Therefore, if K exp 
+
+
+
+− ε2N p min 
+
+> 2
+
+
+
+≤ δ, then P(E) ≤ δ. Rearranging the inequality gives 
+
+− ε2N p min 
+
+2 ≤ log δK ⇐⇒ N ≥ 2
+
+ε2pmin 
+
+log Kδ .
+
+Under this condition, P(E) ≤ δ, i.e., P (min a∈A bpa ≥ (1 − ε)pmin ) ≥ 1 − δ, which completes the proof. □
+
+C.4.1. C OMPLETE PROOF OF THEOREM 5.6 In this subsection, we state the complete formulation of Theorem 5.6 and provide its proof. Denoting the minimal group probability as ωmin := min a ωa, the frequency vector r = ( r1, · · · , r K ), where rk := max a∈A ∥Da,k ∥∞/ω min , k ∈ K, with the corresponding estimator br = ( br1, · · · , brK ) brk := max a∈A ∥ bDa,k ∥∞/bωmin , and 
+
+ΩNk := max a∈A ∥Da,k − bDa,k ∥∞, k ∈ K. Since the estimator bDa,k is composed by the frequencies as shown in Table 1, referring to Lemma C.11, we make the following mild assumption. 
+
+Assumption C.12. There exists Nk = Nk({Da,k }a∈A ,k ∈K , |A| , δ ), such that for any δ ∈ (0 , 1) , if N ≥ Nk, it holds that, 
+
+P
+
+
+
+max  
+
+> a∈A
+
+∥ bDa,k ∥∞ ≤ 2 max  
+
+> a∈A
+
+∥Da,k ∥∞
+
+
+
+≤ 1 − δ. 
+
+The complete formulation of Theorem 5.6 is presented as follows. 
+
+Theorem C.13. Under assumption C.12, denoting an optimal solution of the empirical objective max λ∈Λ bH(λ) as bλ∗,if N ≥ max { 8 
+
+> ωmin
+
+log 16 K|A|  
+
+> δ
+
+, max k∈[K] Nk({Da,k }a∈A ,k ∈K , |A| , δ/ 8K)}, the empirically optimal fair classifier bhbλ∗
+
+determined by bλ∗ satisfies that: 1. Regrading fairness constraints, for any δ ∈ (0 , 1) , with probability at least 1 − δ,
+
+|Dk(bhbλ∗
+
+)| ≤ ξ + rk |A|∥ η(x) − bη(x)∥1 + X
+
+> a∈A
+
+∥qa − bqa∥1
+
+!
+
++ 2|A| 
+
+ωmin 
+
+ΩNk
+
++ 16 rkBΛ
+
+τ
+
+r m∥r∥22
+
+N +
+
+r (9 + 4 r2
+
+> k
+
+/ω 2min ) log(8 |A| /δ )
+
+N .
+
+2. Regrading predictive risk, the risk can be decomposed to (1) error introduced by auxiliary model, (2) error from statistics estimator, and (3) generalization error, denoting as 
+
+ϵ1 := |A| ∥ η − bη∥1 + X
+
+> a∈A
+
+∥qa − bqa∥1, ϵ2 := 
+
+> K
+
+X
+
+> k=1
+
+ΩNk , ϵ3 := 
+
+r log(16 K|A| /δ )
+
+N , (34) 
+
+∃c1, c 2 then there exist hyperparameter τ and constant c1, c 2, c 3, c 4, such that for any δ ∈ (0 , 1) , with probability at least 1 − δ,
+
+R(bhbλ∗
+
+) ≤ R (hλ∗
+
+) + c1ϵ 12 
+
+> 1
+
++ BΛ∥r∥1ϵ1 + c2|A| ϵ 12 
+
+> 2
+
++ 2BΛ|A| 
+
+ωmin 
+
+ϵ2 + c2
+
+p∥r∥1ϵ 12 
+
+> 3
+
++ c3ϵ3 + c4
+
+ mN
+
+ 14
+
+,
+
+31 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+where c1 = (1 + BΛm∥r∥1) √2 log m, c2 = 2 
+
+q m log mB Λ(1+ BΛ∥r∥∞) 
+
+> ωmin
+
+, c3 = BΛ
+
+p9K2 + 4 ∥r∥22/ω 2min , c4 =8∥r∥1BΛ
+
+√log m.Proof. We begin with analyzing the fairness risk of post-processing method, then further considering the predictive accuracy. The proof begins by analyzing the optimality of the empirical problem, then studies the generalization bound via Rademacher complexity, and finally considers the plug-in estimation error. Subsequently, we turn to the risk of predictive accuracy, deducing the generalization bound using the property of saddle-point. 
+
+(Optimality.) Let bλ∗ := arg min λ∈Λ bH(λ). Considering the subgradient of the empirical dual function w.r.t. λk, by the additivity of subgradient in the set sense (Def B.1), 
+
+∂∂λ k
+
+bH(λ) = τN
+
+> N
+
+X
+
+> n=1
+
+∂∂λ k
+
+log 
+
+
+
+> m
+
+X
+
+> j=1
+
+exp 
+
+ bβλj (xn)/τ 
+
+ + ξ∂ |λk|
+
+= τN
+
+> N
+
+X
+
+> n=1
+
+Pmi=1 ∂∂λ k exp 
+
+ bβλi (xn)/τ 
+
+Pmj=1 exp 
+
+ bβλj (xn)/τ 
+
+ + ξ∂ |λk|
+
+= τN
+
+> N
+
+X
+
+> n=1
+
+1
+
+τ
+
+> m
+
+X
+
+> i=1
+
+exp 
+
+ bβλi (xn)/τ 
+
+Pmj=1 exp 
+
+ bβλj (xn)/τ 
+
+ · ∂∂λ k
+
+bβλi (xn) + ξ∂ |λk|
+
+= − 1
+
+N
+
+> N
+
+X
+
+> n=1
+> m
+
+X
+
+> i=1
+
+bhλi (xn) X
+
+> a∈A
+
+1
+
+bωa
+
+h
+
+Diag( bqa(xn)) bDa,k i⊤
+
+bη(xn)
+
+!
+
+> i
+
++ ξ∂ |λk|
+
+= − 1
+
+N
+
+> N
+
+X
+
+> n=1
+
+[bη(xn)] ⊤
+
+" X
+
+> a∈A
+
+1
+
+bωa
+
+Diag( bqa(xn)) bDa,k 
+
+#bhλ(xn) + ξ∂ |λk|
+
+:= − bDk(bhλ) + ξ∂ |λk|.
+
+Therefore, denoting by bD1: K := { bDk}k∈K (or simply bD), we can deduce the sub-differential of bH(λ),
+
+∂∂λ bH(λ) = − bD1: K (bhλ) + ξ∂ ∥λ∥1.
+
+By Lemma B.5, the optimality condition for the dual problem implies that 0K ∈ ∂λ bH(λ). Given optimal bλ∗ and corresponding bhbλ∗
+
+, if bλ∗ 
+
+> k
+
+> 0, the k-th sub-differential reduces to − bDk(bhbλ∗
+
+) + ξ, which implies bDk(bhbλ∗
+
+) = ξ. Similarly, if 
+
+bλ∗ 
+
+> k
+
+< 0, the k-th sub-differential reduces to − bDk(bhbλ∗
+
+) − ξ, which implies bDk(bhbλ∗
+
+) = −ξ. Besides, if bλ∗ 
+
+> k
+
+= 0 , it follows that 0 ∈ − bDk(bhbλ∗
+
+) + [ −ξ, ξ ], namely bDk(bhbλ∗
+
+) ∈ [−ξ, ξ ]. Overall, we have shown that for all k ∈ K,
+
+| bDk(bhbλ∗
+
+)| ≤ ξ (35) 
+
+(Generalization Bound.) To bridge the empirical estimator with the original formulation of fairness constraints in post-processing, we introduce the following functional to facilitate the transition, 
+
+eDk(h) := EX
+
+"
+
+[bη(x)] ⊤
+
+"X
+
+> a∈A
+
+1
+
+bωa
+
+Diag( bqa(x)) bDa,k 
+
+#
+
+h(x)
+
+#
+
+, k ∈ K. 
+
+Given samples S = ( xn, a n, y n)Nn=1 , we have that 
+
+| bDk(h)| − | eDk(h)| ≤ | bDk(h) − eDk(h)|
+
+= EX
+
+"
+
+[bη(x)] ⊤
+
+"X
+
+> a∈A
+
+1
+
+bωa
+
+Diag( bqa(x)) bDa,k 
+
+#
+
+h(x)
+
+#
+
+− 1
+
+N
+
+> N
+
+X
+
+> n=1
+
+[bη(xn)] ⊤
+
+" X
+
+> a∈A
+
+1
+
+bωa
+
+Diag( bqa(xn)) bDa,k 
+
+#
+
+h(xn)
+
+:= EP
+
+h
+
+[ bϕ(x, k )] ⊤h(x)
+
+i
+
+− 1
+
+N
+
+> N
+
+X
+
+> n=1
+
+[ bϕ(xn, k )] ⊤h(xn) ,
+
+32 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+where we define 
+
+ϕ(x, k ) := X
+
+> a∈A
+
+1
+
+ωa
+
+Diag( qa(x)) Da,k 
+
+!⊤
+
+η(x),
+
+bϕ(x, k ) := X
+
+> a∈A
+
+1
+
+bωa
+
+Diag( bqa(x)) bDa,k 
+
+!⊤
+
+bη(x).
+
+We have denoted rk := max a ∥Da,k ∥∞/ω min , the vector function ϕ(x, k ) is ℓ1-bounded by rk, since 
+
+∥ϕ(x, k )∥2 ≤ ∥ ϕ(x, k )∥1 ≤ max  
+
+> a∈A
+
+∥Da,k ∥∞
+
+X
+
+> a∈A
+
+1
+
+ωa
+
+Diag( qa(x)) 
+
+!
+
+η(x)
+
+> 1
+
+≤ rk
+
+X
+
+> a∈A
+
+Diag( qa(x)) η(x)
+
+> 1
+
+= rk
+
+X
+
+> a∈A
+
+[P(A = a, Y = y | X = x)] y∈[m]
+
+> 1
+
+= rk
+
+Following the same derivation, it shows that ∥ bϕ(x, k )∥1 ≤ brk := max a ∥ bDa,k ∥∞/bωmin . Note that take a union bound for Assumption C.12 and Lemma C.11 to make these events hold, we can obtain that, for N ≥
+
+max { 8 
+
+> pmin
+
+log 2|A|  
+
+> δ
+
+, N k({Da,k }a∈A ,k ∈K , |A| , δ/ 2) }, with the probability at least 1 − δ,
+
+brk ≤ 4 max a ∥Da,k ∥∞
+
+ωmin 
+
+= 4 rk. (36) Moreover, considering the structure of optimal fair classifiers bhλ ∈ H Λ : X → ∆m determined by the dual parameter λ, it presents that 
+
+bhλ(x) = softmax( bβλ(x)/τ )
+
+bβλ(x) = 
+
+"X
+
+> a∈A
+
+Diag( bqa(x)) I − 1
+
+bωaKX
+
+> k=1
+
+λk bDa,k 
+
+!# ⊤
+
+bη(x),
+
+= bη(x) −
+
+> K
+
+X
+
+> k=1
+
+λk bϕ(x, k ).
+
+Combining the fact that the softmax mapping is 12 -Lipschitz and plugging in the optimal fair classifier class HΛ, the generalization error of the fairness constraints satisfies that, for any δ ∈ (0 , 1) , with probability at least 1 − δ over i.i.d. samples S ∼ P N ,
+
+| bDk(bhλ)| − | eDk(bhλ)| ≤ EP
+
+h
+
+[ bϕ(x, k )] ⊤bhλ(x)
+
+i
+
+− 1
+
+N
+
+> N
+
+X
+
+> n=1
+
+[ bϕ(xn, k )] ⊤bhλ(xn) ,
+
+≤ 2bℜS ( bϕ ◦ H λ) + 3 
+
+r log(4 /δ )2N
+
+= 2 Eσ
+
+"
+
+sup 
+
+> bhλ∈H Λ
+
+1
+
+N
+
+> N
+
+X
+
+> n=1
+
+σi
+
+D bϕ(xn, k ), bhλ(xn)
+
+E#
+
++ 3 
+
+r log(4 /δ )2N
+
+≤√2
+
+τ brkEσ
+
+"
+
+sup 
+
+> λ∈Λ
+
+1
+
+N
+
+> N
+
+X
+
+> n=1
+> m
+
+X
+
+> i=1
+
+σni bβλi (xn)
+
+#
+
++ 3 
+
+r log(4 /δ )2N
+
+(37) 33 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+The second inequality (line 2) is by Lemma C.9, and the third inequality (line 4) is by Lemma C.10. To analyze the above expression, we further investigate the structure of bβλ, denoting bϕi(xn, ·) := [ bϕi(xn, k )] Kk=1 , i ∈ [m],
+
+Eσ
+
+"
+
+sup 
+
+> λ∈Λ
+
+1
+
+N
+
+> N
+
+X
+
+> n=1
+> m
+
+X
+
+> i=1
+
+σni bβλi (xn)
+
+#
+
+= Eσ
+
+"
+
+sup 
+
+> λ∈Λ
+
+1
+
+N
+
+> N
+
+X
+
+> n=1
+> m
+
+X
+
+> i=1
+
+σni bηi(xn) −
+
+> K
+
+X
+
+> k=1
+
+λk bϕi(xn, k )
+
+!# 
+
+= Eσ
+
+"
+
+sup 
+
+> λ∈Λ
+
+1
+
+N
+
+*
+
+λ, 
+
+> N
+
+X
+
+> n=1
+> m
+
+X
+
+> i=1
+
+σni bϕi(xn, ·)
+
++# 
+
+≤ BΛ
+
+N Eσ
+
+" NX
+
+> n=1
+> m
+
+X
+
+> i=1
+
+σni bϕi(xn, ·)
+
+> 2
+
+#
+
+≤ BΛ
+
+N
+
+Eσ
+
+
+
+> N
+
+X
+
+> n=1
+> m
+
+X
+
+> i=1
+
+σni bϕi(xn, ·)
+
+> 22
+
+
+
+> 12
+
+= BΛ
+
+N
+
+"
+
+Eσ
+
+" NX
+
+> n=1
+> m
+
+X
+
+> i=1
+
+bϕi(xn, ·) 22
+
+## 12
+
+≤ BΛ∥br∥2
+
+r mN
+
+(38) The second equality (line 2) follows from the symmetry of the Rademacher complexity. The first inequality (line 3) follows from the Cauchy-Schwarz inequality, and the second inequality (line 4) follows from the Jensen’s inequality. The subsequent equality (line 5) is a consequence of Eσ [σiσj ] = 0 for i̸ = j and Eσ [σ2 
+
+> i
+
+] = 1 for ∀i. The last inequality (line 6) follows from the upper bound of bϕ(x, k ) shown above. Therefore, Combining (37) and (38), it shows that, for any δ ∈ (0 , 1) , with probability at least 1 − δ
+
+| bDk(bhλ) − eDk(bhλ)| ≤ brkBΛ
+
+τ
+
+r 2m∥br∥22
+
+N + 3 
+
+r log(4 /δ )2N (39) 
+
+(Plug-in Error.) Next, we consider the plug-in error between Dk(h) and eDk(h). For any h ∈ H , given k ∈ K, since 34 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+bη(x), bqa(x), h (x) ∈ ∆m, ∀x ∈ X , we can obtain that 
+
+|Dk(h) − eDk(h)| ≤ EX
+
+"
+
+[bη(x)] ⊤
+
+"X
+
+> a∈A
+
+1
+
+bωa
+
+Diag( bqa(x)) 
+
+ bDa,k − Da,k #
+
+h(x)
+
+#
+
++ EX
+
+"
+
+[bη(x)] ⊤
+
+"X
+
+> a∈A
+
+ 1
+
+bωa
+
+− 1
+
+ωa
+
+
+
+Diag( bqa(x)) Da,k 
+
+#
+
+h(x)
+
+#
+
++ EX
+
+"
+
+[bη(x)] ⊤
+
+"X
+
+> a∈A
+
+1
+
+ωa
+
+Diag( bqa(x) − qa(x)) Da,k 
+
+#
+
+h(x)
+
+#
+
++ EX
+
+"
+
+[η(x) − bη(x)] ⊤
+
+"X
+
+> a∈A
+
+1
+
+ωa
+
+Diag( qa(x)) Da,k 
+
+#
+
+h(x)
+
+#
+
+≤ EX
+
+"
+
+|A| max a ∥Da,k − bDa,k ∥∞
+
+min a bωa
+
+#
+
++ EX
+
+"X
+
+> a∈A
+
+|ωa − bωa|∥ Da,k ∥∞
+
+ωa · bωa
+
+#
+
++ EX
+
+"X
+
+> a∈A
+
+[bη(xn)] ⊤(qa(xn) − bqa(xn)) 1
+
+Da,k h(xn)
+
+ωa ∞
+
+#
+
++ EX
+
+"
+
+∥η(x) − bη(x)∥1
+
+X
+
+> a∈A
+
+1
+
+ωa
+
+Diag( qa(x)) Da,k h(x)
+
+> ∞
+
+#
+
+≤ EX
+
+"
+
+|A| max a ∥Da,k − bDa,k ∥∞
+
+min a bωa
+
+#
+
++ EX
+
+"X
+
+> a∈A
+
+|ωa − bωa|∥ Da,k ∥∞
+
+ωa · bωa
+
+#
+
++ EX
+
+"X
+
+> a∈A
+
+∥qa(xn) − bqa(xn)) ∥1
+
+∥Da,k ∥∞
+
+ωa
+
+#
+
++ EX
+
+
+
+∥η(x) − bη(x)∥1
+
+|A| max a ∥Da,k ∥∞
+
+ωmin 
+
+
+
+If N ≥ max { 8 
+
+> pmin
+
+log 4|A|  
+
+> δ
+
+, N k({Da,k }a∈A ,k ∈K , |A| , δ/ 4) }, applying Lemma C.11, we have that, with probability at least 
+
+1 − δ 
+
+> 4
+
+, min a∈A bωa ≥ 12 ωmin . Besides, Eq. (36) shows that for N chosen in this way, with probability at least 1 − δ 
+
+> 4
+
+,
+
+brk ≤ 4rk, ∀k ∈ K, therefore ∥br∥2 ≤ 4∥r∥2. Lemma C.11 also shows that max a∈A |bωa − ωa| ≤ 
+
+q 12N log 8|A|  
+
+> δ
+
+holds with probability at least 1 − δ 
+
+> 4
+
+. Note that we assume N ≥ max { 8 
+
+> pmin
+
+log 16 K|A|  
+
+> δ
+
+, N k({Da,k }a∈A ,k ∈K , |A| , δ/ 8K)}, the expressions above certainly hold. Under these conditions, with ℓp norm defined on (X , μ X ), i.e., ∥f ∥p :=  R  
+
+> X
+
+|f |pdμ X
+
+ 1 
+
+> p
+
+, we obtain that 
+
+|Dk(h) − eDk(h)| ≤ 2|A| max a ∥Da,k − bDa,k ∥∞
+
+ωmin 
+
++ 2rk
+
+ωmin 
+
+r 12N log 8|A| 
+
+δ
+
++ rk
+
+X
+
+> a∈A
+
+EX [∥qa(xn) − bqa(xn)) ∥1] + rk|A| EX [∥η(x) − bη(x)∥1]= 2|A| 
+
+ωmin 
+
+ΩNk + 2rk
+
+ωmin 
+
+r 12N log 8|A| 
+
+δ + rk
+
+X
+
+> a∈A
+
+∥qa − bqa∥1 + |A|∥ η(x) − bη(x)∥1
+
+!
+
+Therefore, combining the result above and taking an union bound to make events introduced by Lemma C.11 and Eq. (36) 35 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+hold, we get the generalization risk of fairness constraints that, for any δ ∈ (0 , 1) , with probability at least 1 − δ,
+
+|Dk(bhbλ∗
+
+)| ≤ | bDk(bhbλ∗
+
+)| + | bDk(bhbλ∗
+
+) − eDk(bhbλ∗
+
+)| + | eDk(bhbλ∗
+
+) − Dk(bhbλ∗
+
+)|≤ ξ + rk
+
+X
+
+> a∈A
+
+∥qa − bqa∥1 + |A|∥ η − bη∥1
+
+!
+
++ 2|A| 
+
+ωmin 
+
+ΩNk
+
++ 16 rkBΛ
+
+τ
+
+r m∥r∥22
+
+N + 3 
+
+r log(16 /δ )2N + rk
+
+ωmin 
+
+r 2 log(8 |A| /δ )
+
+N
+
+≤ ξ + rk
+
+X
+
+> a∈A
+
+∥qa − bqa∥1 + |A|∥ η − bη∥1
+
+!
+
++ 2|A| 
+
+ωmin 
+
+ΩNk
+
++ 16 rkBΛ
+
+τ
+
+r m∥r∥22
+
+N +
+
+r (9 + 4 r2
+
+> k
+
+/ω 2min ) log(8 |A| /δ )
+
+N .
+
+(40) This completes the generalization risk analysis for fairness constraints. 
+
+(Risk of Accuracy.) Next, we turn to the generalization risk of accuracy. Considering the gap between the empirical fair classifier and the grounded-true Bayes-optimal fair classifier. Suppose that (hλ∗
+
+, λ ∗) achieves the optimal equilibrium of the entropically regularized mini-max problem max λ min h L(h, λ ), while (bhbλ∗
+
+, bλ∗) achieves the corresponding empirical optimum. Since (bλ∗)⊤ bD(bhbλ∗
+
+) − ξ∥bλ∗∥1 = 0 (derived by plugging the empirical sample distribution into Theorem 4.3), we obtain that 
+
+R(bhbλ∗
+
+) − τ E(bhbλ∗
+
+) = R(bhbλ∗
+
+) − τ E(bhbλ∗
+
+) + ( bλ∗)⊤ bD(bhbλ∗
+
+) − ξ∥bλ∗∥1
+
+= R(bhbλ∗
+
+) − τ E(bhbλ∗
+
+) + ( bλ∗)⊤D(bhbλ∗
+
+) − ξ∥bλ∗∥1 + ( bλ∗)⊤  bD(bhbλ∗
+
+) − D(bhbλ∗
+
+)
+
+
+
+= L(bhbλ∗
+
+, bλ∗) + ( bλ∗)⊤  bD(bhbλ∗
+
+) − D(bhbλ∗
+
+)
+
+
+
+≤ L (hλ∗
+
+, λ ∗) + 
+
+
+
+L(bhbλ∗
+
+, bλ∗) − L (hλ∗
+
+, λ ∗)
+
+
+
++ ∥bλ∗∥∞ bD(bhbλ∗
+
+) − D(bhbλ∗
+
+) 1
+
+.
+
+The last line is by the H ¨older’s inequality. We proceed to analyze the second term in the above expression. To bridge the grounded-true (hλ∗
+
+, λ ∗) and the corresponding empirical solution (bhbλ∗
+
+, bλ∗) under the Lagrangian function L, we introduce the classifier hbλ∗
+
+, such that, 
+
+hbλ∗ 
+
+> i
+
+(x) = exp 
+
+
+
+βbλ∗ 
+
+> i
+
+(x)/τ 
+
+Pmj=1 exp 
+
+
+
+βbλ∗ 
+
+> j
+
+(x)/τ 
+
+ , i ∈ [m].
+
+The proof in Theorem 4.3 indicates that hbλ∗
+
+(x) characterizes a solution of min h∈H L(h, bλ∗) given bλ∗. Hence, it satisfies that L(hbλ∗
+
+, bλ∗) ≤ L (hλ∗
+
+, λ ∗), which shows that 
+
+L(bhbλ∗
+
+, bλ∗) − L (hλ∗
+
+, λ ∗) ≤ L (bhbλ∗
+
+, bλ∗) − L (hbλ∗
+
+, bλ∗)= EX
+
+
+
+βbλ∗
+
+(x)
+
+⊤ bhbλ∗
+
+(x) − hbλ∗
+
+(x)
+
+
+
+− τ E(bhbλ∗
+
+) + τ E(hbλ∗
+
+)
+
+≤ EX
+
+h
+
+βbλ∗
+
+(x) ∞
+
+bhbλ∗
+
+(x) − hbλ∗
+
+(x) 1
+
+i
+
+− τ E(bhbλ∗
+
+) + τ E(hbλ∗
+
+)
+
+≤ EX
+
+h
+
+(1 + BΛ∥r∥∞) bhbλ∗
+
+(x) − hbλ∗
+
+(x) 1
+
+i
+
+− τ E(bhbλ∗
+
+) + τ E(hbλ∗
+
+)
+
+In the second inequality (line 3), we again apply H ¨older’s inequality. By the Lipschitz property of the softmax function, we 36 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+decompose bhbλ∗
+
+(x) − hbλ∗
+
+(x) 1
+
+as follows, 
+
+bhbλ∗
+
+(x) − hbλ∗
+
+(x) 1
+
+= softmax 1
+
+τ bη(x) −
+
+> K
+
+X
+
+> k=1
+
+bλ∗ 
+
+> k
+
+bϕ(x, k )
+
+!! 
+
+− softmax 1
+
+τ η(x) −
+
+> K
+
+X
+
+> k=1
+
+bλ∗
+
+> k
+
+ϕ(x, k )
+
+!! 
+
+> 1
+
+≤ 12τ bη(x) − η(x) + 
+
+> K
+
+X
+
+> k=1
+
+bλ∗
+
+> k
+
+h bϕ(x, k ) − ϕ(x, k )
+
+i
+
+> 1
+
+≤ 12τ ∥bη(x) − η(x)∥1 + BΛ
+
+2τ
+
+> K
+
+X
+
+> k=1
+
+bϕ(x, k ) − ϕ(x, k ) 1
+
+,
+
+Similar to the derivation of plug-in error above, it shows that 
+
+EX
+
+h bϕ(x, k ) − ϕ(x, k ) 1
+
+i
+
+≤ m|A| max a ∥Da,k − bDa,k ∥∞
+
+ωmin 
+
++ m X
+
+> a∈A
+
+|ωa − bωa|∥ Da,k ∥∞
+
+ωa · bωa
+
++ X
+
+> a∈A
+
+1
+
+ωa
+
+EX ∥(Da,k )⊤Diag( qa(x) − bqa(x)) bη(x)∥1
+
++ EX
+
+
+
+∥η(x) − bη(x)∥1
+
+m|A| max a ∥Da,k ∥∞
+
+ωmin 
+
+
+
+≤ m|A| max a ∥Da,k − bDa,k ∥∞
+
+ωmin 
+
++ m X
+
+> a∈A
+
+|ωa − bωa|∥ Da,k ∥∞
+
+ωa · bωa
+
++ mr k
+
+X
+
+> a∈A
+
+∥qa − bqa∥1 + mr k|A|∥ η − bη∥1
+
+Note that we assume N ≥ max { 8 
+
+> pmin
+
+log 16 K|A|  
+
+> δ
+
+, N k({Da,k }a∈A ,k ∈K , |A| , δ/ 8K)}, applying Lemma C.11, we have with probability at least 1 − δ 
+
+> 8K
+
+, it holds that min a∈A bωa ≥ 12 ωmin . Besides, Eq. (36) shows that for N chosen in this way, with probability at least 1 − δ 
+
+> 8K
+
+, brk ≤ 4rk, ∀k ∈ K, therefore ∥br∥2 ≤ 4∥r∥2. Lemma C.11 also shows that 
+
+max a∈A |bωa − ωa| ≤ 
+
+q 12N log 16 K|A|  
+
+> δ
+
+holds with probability at least 1 − δ 
+
+> 8K
+
+.Taking an union bound to make these events introduced by Lemma C.11 and Eq. (36) hold, we have that, for any δ ∈ (0 , 1) ,with probability at least 1 − δ 
+
+> 2K
+
+,
+
+EX
+
+h bϕ(x, k ) − ϕ(x, k ) 1
+
+i
+
+≤ 2|A| mωmin 
+
+ΩNk + 2mr k
+
+ωmin 
+
+r 12N log 16 K|A| 
+
+δ + mr k
+
+X
+
+> a∈A
+
+∥qa − bqa∥1 + |A|∥ η(x) − bη(x)∥1
+
+!
+
+.
+
+Again, taking an union bound for k ∈ [K], it shows that, with probability at least 1 − δ 
+
+> 2
+
+,
+
+L(bhbλ∗
+
+, bλ∗) − L (hλ∗
+
+, λ ∗) ≤ 1 + BΛ∥r∥∞
+
+2τ EX
+
+"
+
+∥bη(x) − η(x)∥1 + BΛ
+
+> K
+
+X
+
+> k=1
+
+bϕ(x, k ) − ϕ(x, k ) 1
+
+#
+
+− τ E(bhbλ∗
+
+) + τ E(hbλ∗
+
+)
+
+≤ 1 + BΛ∥r∥∞
+
+2τ 1 + BΛm|A| 
+
+> K
+
+X
+
+> k=1
+
+rk
+
+!
+
+∥η − bη∥1 + BΛm
+
+> K
+
+X
+
+> k=1
+
+rk
+
+X
+
+> a∈A
+
+∥qa − bqa∥1
+
+!
+
++ mB Λ(1 + BΛ∥r∥∞)
+
+τ ω min 
+
+> K
+
+X
+
+> k=1
+
+|A| ΩNk + rk
+
+r log(16 K|A| /δ )2N
+
+!
+
+− τ (E(bhbλ∗
+
+) − E (hbλ∗
+
+)) .
+
+(41) Denoting δ′ = δ 
+
+> 2K
+
+and plugging it into the generalization bound of fairness constraints (Eq. (40) ), it presents that, with 37 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+probability at least 1 − δ 
+
+> 2
+
+,
+
+> K
+
+X
+
+> k=1
+
+| bDk(bhbλ∗
+
+) − Dk(bhbλ∗
+
+)| ≤ 
+
+> K
+
+X
+
+> k=1
+
+rk
+
+X
+
+> a∈A
+
+∥qa − bqa∥1 + |A|∥ η − bη∥1
+
+!
+
++ 2|A| 
+
+ωmin 
+
+> K
+
+X
+
+> k=1
+
+ΩNk
+
++ 16 PKk=1 rkBΛ
+
+τ
+
+r m∥r∥22
+
+N +
+
+r (9 K2 + 4 ∥r∥22/ω 2min ) log(16 K|A| /δ )
+
+N .
+
+(42) Given that the entropic regularizer 0 ≤ E (h) ≤ log m, by (λ∗)⊤D(hλ∗
+
+) − ξ∥λ∗∥1 = 0 , taking the union bound again for making events introduced by Eq. (41) and Eq. (42) hold, it presents that, for any δ ∈ (0 , 1) , with probability at least 1 − δ,
+
+R(bhbλ∗
+
+) ≤ R (hλ∗
+
+) − τ
+
+
+
+E(hλ∗
+
+) − E (bhbλ∗
+
+)
+
+
+
++
+
+
+
+L(bhbλ∗
+
+, bλ∗) − L (hλ∗
+
+, λ ∗)
+
+
+
++ BΛ
+
+> K
+
+X
+
+> k=1
+
+| bDk(bhbλ∗
+
+) − Dk(bhbλ∗
+
+)|≤ R (hλ∗
+
+) + τ E(hλ∗
+
+) − E (hbλ∗
+
+) + mB Λ(1 + BΛ∥r∥∞)
+
+τ ω min 
+
+> K
+
+X
+
+> k=1
+
+|A| ΩNk + rk
+
+r log(16 K|A| /δ )2N
+
+!
+
++ 1 + BΛ∥r∥∞
+
+2τ 1 + BΛm|A| 
+
+> K
+
+X
+
+> k=1
+
+rk
+
+!
+
+∥η − bη∥1 + BΛm
+
+> K
+
+X
+
+> k=1
+
+rk
+
+X
+
+> a∈A
+
+∥qa − bqa∥1
+
+!
+
++ 16 ∥r∥21B2Λ
+
+τ
+
+r mN + BΛ
+
+r (9 K2 + 4 ∥r∥22/ω 2min ) log(16 K|A| /δ )
+
+N
+
++
+
+> K
+
+X
+
+> k=1
+
+BΛrk
+
+X
+
+> a∈A
+
+∥qa − bqa∥1 + |A|∥ η − bη∥1
+
+!
+
++ 2BΛ|A| 
+
+ωmin 
+
+> K
+
+X
+
+> k=1
+
+ΩNk .
+
+Since E(hλ∗
+
+) − E (hbλ∗
+
+) ≤ log m, by adjusting τ and using inequality 
+
+qPKi=1 αi ≤ PKi=1 
+
+√αi, for αi ≥ 0, i ∈ [K], the minimum value of right-hand-side upper bound can be achieved as follows, 
+
+R(bhbλ∗
+
+) ≤ R (hλ∗
+
+) + 2 
+
+s
+
+m log mB Λ(1 + BΛ∥r∥∞)
+
+ωmin 
+
+ |A| 
+
+> K
+
+X
+
+> k=1
+
+ΩNk
+
+! 12
+
++
+
+> K
+
+X
+
+> k=1
+
+rk
+
+! 12  log(16 K|A| /δ )2N
+
+ 14
+
+
+
++ 8 ∥r∥1BΛ
+
+plog m
+
+ mN
+
+ 14
+
++ (1 + BΛm∥r∥1) p2 log m |A| ∥ η − bη∥1 + X
+
+> a∈A
+
+∥qa − bqa∥1
+
+! 12
+
++ 2BΛ|A| 
+
+ωmin 
+
+> K
+
+X
+
+> k=1
+
+ΩNk + BΛ∥r∥1 |A|∥ η − bη∥1 + X
+
+> a∈A
+
+∥qa − bqa∥1
+
+!
+
++ BΛ
+
+r (9 K2 + 4 ∥r∥22/ω 2min ) log(16 K|A| /δ )
+
+N .
+
+This completes the proof. □
+
+## D. Discussion for Attribute-Aware Case 
+
+In this section, we derive the optimal fair classifier for the attribute-aware case. The proof technique closely parallels that of the attribute-blind setting, with only a reformulation of the classifier structure required. We provide the following theorem and example. 
+
+Theorem D.1. Under the assumption 4.1, for any ξ > 0, there exists an optimal solution to the problem (1) , which can be 
+
+38 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+realized through the following form, 
+
+h∗(x, a ) ∈ conv 
+
+(
+
+ey : y ∈ arg max 
+
+> j∈[m]
+
+βλ∗ 
+
+> j
+
+(x, a )
+
+)
+
+, (43) 
+
+βλ(x, a ) = ωa[M(a, λ )] ⊤η(x, a ), (44) 
+
+M(a, λ ) := I − 1
+
+ωaKX
+
+> k=1
+
+λkDa,k (45) 
+
+the dual parameter λ ∈ Rm, and conv {·} denotes the convex hull. Denoting Λ := {λ ∈ RK : ∥λ∥1 ≤ BΛ}, the parameter 
+
+λ∗ is the solution of the dual problem: 
+
+min  
+
+> λ∈Λ
+
+H(λ) = EX,A 
+
+
+
+max  
+
+> j∈[m]
+
+βλj (X, A )
+
+
+
++ ξ∥λ∥1.
+
+The proof of this theorem proceeds analogously to that of Theorem D.1, and we omit the details for brevity. Next, we take the DP constraint as an example to illustrate how Theorem 1 can be applied to derive the optimal fair classifier under a specific fairness constraint. 
+
+Example D.2. (DP .) Using the constraints for demographic parity as described in Table 1, denoting the dual parameter as 
+
+λ ∈ Rm×|A| , its optimal fair classifier is determined by the decision vector βλ(x, a ) ∈ Rm, where 
+
+βλi (x) = ωaηi(x, a ) + ωa
+
+X
+
+> a′∈A
+
+λi,a ′ − λi,a 
+
+!
+
+, i ∈ [m]. (46) 
+
+Plugging (46) into Theorem D.1 can obtain the optimal fair classifier for the fairness-constrained problem. 
+
+Proof. We have shown that the constraint matrix for DP is Da, (y,a ′), where the y-th column elements of Da, (y,a ′) are 
+
+I[a = a′] − ωa with all other elements set to 0. Plugging it into the expression of βλ(x, a ), we obtain that 
+
+βλ(x, a ) = 
+
+ωaI − X
+
+> y∈[m],a ′∈A
+
+λy,a ′ Da, (y,a ′)
+
+
+
+> ⊤
+
+η(x, a )= ωaη(x, a ) − X
+
+> y∈[m],a ′∈A
+
+λy,a ′ (I(a = a′) − ωa) ey
+
+= ωaη(x, a ) − X
+
+> y∈[m]
+
+λy,a ey + ωa
+
+X
+
+> y∈[m],a ′∈A
+
+λy,a ′ ey
+
+= ωaη(x, a ) + 
+
+ωa
+
+X
+
+> y∈[m],a ′∈A
+
+λy,a ′ ey − X
+
+> y∈[m]
+
+λy,a ey
+
+ .
+
+Consider the i-th element in βλ(x, a ), we get that 
+
+βλi (x) = ωaηi(x, a ) + ωa
+
+X
+
+> a′∈A
+
+λi,a ′ − λi,a 
+
+!
+
+, i ∈ [m].
+
+This completes the proof. □
+
+Plugging the expression of βλ(x, a ) into the classifier and dual problem in D.1, we obtain the Bayes-optimal classifier under DP constraint. Note that the structure of the optimal DP-fair classifier is very similar to that given in Theorem 5.1 in (Denis et al., 2024). In particular, the first component of the decision vector βλ(x, a ) takes exactly the same form, while the second component differs slightly due to the fact that Denis adopts a group-wise DP constraint, whereas this paper considers a group-to-center DP constraint. 39 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+## E. Detailed Experimental Setting 
+
+E.1. Datasets 
+
+• The Adult dataset (Asuncion et al., 2007) comprises more than 45000 samples based on 1994 U.S. census data, where the task is to predict whether the annual income of an individual is above $50,000. We consider the gender of each individual as the sensitive attribute and train the logistic regression as the classification model. • The ENEM dataset (INEP, 2018) contains about 1.4 million samples from Brazilian college entrance exam scores along with student demographic information. We follow (Alghamdi et al., 2022) to quantized the exam score into 5 classes as label, and consider race as sensitive attribute. We train two-layer MLP as the classification model. • The ACSIncome (Ding et al., 2021) extends the Adult dataset, containing much more examples ( 1, 664 , 500 in total) from recent U.S. census data. We consider a multi-group multiclass setting with race as the sensitive attribute and five income buckets ( |Y| = |A| = 5 ) following (Xian & Zhao, 2024), with the one-layer MLP (Multilayer Perceptron) as the model backbone. • The CelebA dataset (Zhang et al., 2020) is a facial image dataset consists of about 200k instances with 40 binary attribute annotations. We identify ’Age’ as the sensitive attribute, and employ the binary attributes “Smile” and “Big Nose” to construct a multiclass task by mapping their joint values {0, 1} × { 0, 1} onto a four-class label set {0, 1, 2, 3}, thereby formulating a multiclass classification problem on the CelebA dataset. We then train Resnet-10 (He et al., 2016) on CelebA as the classification model. The determination of sensitive attributes and labels on these datasets has been verified significant in previous research (Al-ghamdi et al., 2022; Han et al., 2024; Xian et al., 2023). 
+
+E.2. Baselines 
+
+We compare the performance of OptFair with the the standard baseline ERM (Empirical Risk Minimization) and four SOTA methods tailored for attribute-blind fairness calibration. These baselines are selected from past literature based on two criteria: (1) applicability to multi-class fairness calibration and (2) ability to handle various fairness concepts in the attribute-blind setting. 
+
+Standard baseline :• ERM . Empirical risk minimization is a standard machine learning method that minimizes the empirical risk over the training data. It serves as a common baseline for fairness methods. 
+
+In-processing algorithms: • AdvDebias (Zhang et al., 2018). Adversarial debiasing maximizes a classifier’s predictive ability while simultaneously minimizing an adversary’s ability to predict sensitive attributes from the predictions. We use the implementation from the Fairlearn (Weerts et al., 2023) library for demographic parity and equal Odds, and use our own implementation for multiclass equal opportunity. • Weighted-ERM (Yang et al., 2020). This algorithm attempts to extend the reduction algorithm (Agarwal et al., 2018) to the overlap fairness scenario, which is also adaptable to the multiclass setting and enables unfairness mitigation for arbitrary machine learning models with respect to confusion-matrix-based fairness constraints. • FairBatch (Roh et al., 2021). By adjusting group sampling probabilities based on observed fairness violations, this method steers standard ERM optimization toward a better accuracy–fairness trade-off without changing the model architecture. The multi-class extension of FairBatch adapting its group-wise sampling/reweighting rule to multi-class fairness constraints is built following the approach described in Appendix B.8 of the original paper. • F- divergence (Zhong & Tandon, 2023). The method achieves group-level distributional alignment by incorporating an 
+
+f -divergence regularizer between group-conditioned predictive distributions into the task loss, which is similar to kernel estimation methods in binary fairness settings (Cho et al., 2020). It alternates between variational discriminator and classifier updates to enforce DP/EO constraints without retraining the model architecture. 40 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+Post-processing algorithms: • Fairprojection (Alghamdi et al., 2022). This algorithm yeilds a fair classifier by multiplicatively tilting/calibrating the orig-inal class-probability outputs with group-dependent factors estimated from data, achieving an improved accuracy–fairness trade-off without retraining the backbone model. The KL divergence is used to quantify the divergence. • LinearPost (Xian & Zhao, 2024). This post-processing method for multi-class classification, which can be applied to various fairness concepts, including DP, EOP, and EO. It formulates the fairness post-processing problem as a linear program and constructs a generalizable optimal fair classifier by solving the dual problem. • FRAPP ´E (Tifrea et al., 2024). FRAPP ´E is a general post-processing framework that turns regularized in-processing fairness objectives (e.g., MinDiff-style penalties) into a standalone debiasing module trained on top of a fixed, pre-trained predictor. Concretely, it learns a lightweight transformation of the model’s predictions to improve the accuracy-fairness trade-off while keeping the original training pipeline unchanged. Meanwhile, we adapt OptFair to focus solely on in-processing or post-processing to calibrate group fairness, denoted as 
+
+OptFair -in and OptFair -post . Here we do not perform model output distribution calibration for all post-processing methods to test their original debiasing ability. 
+
+E.3. Parameter Settings 
+
+We provide hyperparameter selection ranges for each model in Table 2. For all other hyperparameters, we follow the codes provided by the authors and retain their default parameter settings.  
+
+> Table 2. Hyperparameter Selection Ranges
+
+Model Hyperparameter Ranges General 
+
+Learning rate {0.0001, 0.001, 0.003, 0.005, 0.01, 0.03 ,0.05 }
+
+Epoch {20, 30, 50, 80, 100 }
+
+Optimizer {Adam, SGD }
+
+AdvDeBias Step size ( α) {0.005, 0.01, 0.05, 0.3 }
+
+FairBatch Fairness budget ( λ) {0.01, 0.05, 0.1, 0.3, 1 }
+
+F-divergence Fairness regularizer {0.01, 0.05, 0.1, 0.3, 0.8 }
+
+Fairprojection Distance KL 
+
+FRAPP ´ E Fairness regularizer {0.01, 0.05, 0.1, 0.3, 0.8 }
+
+OptFair -In 
+
+Classifier number 1dual learning rate ( ηλ) {0.001, 0.005, 0.01, 0.05, 0.1 }
+
+Dual parameter bound 10 
+
+OptFair -Post Temperature τ {0.05, 0.02 }
+
+Dual parameter bound 10 
+
+E.4. Experiments Compute Resources 
+
+We conducted our experiments on a GPU server equipped with 8 CPUs and eight NVIDIA RTX 5090s (32GB). 41 Demystifying the Optimal Fair Classifier in Multi-Class Classification 
+
+## F. Additional Experiments 
+
+F.1. Deterministic versus Randomized Classifiers 
+
+To assess the performance gap between deterministic and randomized classifiers, we evaluate the deterministic variants (described in Section 5.3) on four datasets under DP constraints ϵ = 0 .001 , with results averaged over three runs.  
+
+> Table 3. Performance comparison of randomized and deterministic classifiers under DP constraints.
+
+Method Adult ENEM ACS CelebA Acc Bias Acc Bias Acc Bias Acc Bias OptFair-in-rand 82.82 0.0046 29.58 0.0187 46.99 0.0259 71.51 0.0160 OptFair-in-det 82.74 0.0042 29.45 0.0293 47.13 0.0332 72.41 0.0169 OptFair-post-rand 83.16 0.0054 27.52 0.0057 44.31 0.0553 73.83 0.0171 OptFair-post-det 83.25 0.0065 27.65 0.0074 44.42 0.0586 73.96 0.0183 Although deterministic classifiers induce a smaller hypothesis class than randomized classifiers, our results show that the deterministic variants remain very close to their randomized counterparts. This indicates that the performance gains of our methods over existing deterministic baselines do not simply stem from the use of randomized decision rules. 
+
+F.2. Scalability over the Number of Classes and Sensitive Groups 
+
+Since existing fair benchmarks rarely contain very large numbers of sensitive groups or classes, we construct datasets 
+
+C1, C 2, C 3 from CelebA by intersecting the first k ∈ { 1, 2, 3} attributes from (Young, Male, Black Hair) and the first 
+
+k + 1 attributes from (Smile, Big Nose, Attractive, Bag Under Eyes ), yielding (2 , 4) , (4 , 8) , (8 , 16) group ×class settings. ResNet18 is used under EO constraints with ξ = 0 .05 . 
+
+> Table 4. Performance scaling over different numbers of classes and groups.
+
+Method C1 C2 C3
+
+Acc Bias Acc Bias Acc Bias ERM 75.77 0.1456 63.46 0.4372 56.26 0.7138 OptFair-in 75.24 0.0591 58.45 0.0914 48.89 0.3476 OptFair-post 75.17 0.0563 60.85 0.0831 46.35 0.2604 The results show that fairness becomes more challenging as groups and classes increase, but OptFair can still improves fairness, providing empirical evidence of scalability. 42

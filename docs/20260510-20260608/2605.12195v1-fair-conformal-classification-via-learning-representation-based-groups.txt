@@ -1,0 +1,1154 @@
+Title: Fair Conformal Classification via Learning Representation-Based Groups
+
+URL Source: https://arxiv.org/pdf/2605.12195v1
+
+Published Time: Wed, 13 May 2026 01:26:32 GMT
+
+Number of Pages: 19
+
+Markdown Content:
+Published as a conference paper at ICLR 2026 
+
+# FAIR CONFORMAL CLASSIFICATION VIA LEARNING 
+
+# REPRESENTATION -B ASED GROUPS 
+
+Senrong Xu 1, Yanke Zhou 1, Yuhao Tan 1, Zenan Li 2, Yuan Yao 1, Taolue Chen 3,Feng Xu 1, Xiaoxing Ma 11 State Key Lab of Novel Software Technology, Nanjing University, China,  
+
+> 2
+
+ETH Z¨ urich, 3 Birkbeck, University of London 
+
+{srxu,yankezhou,yhtan }@smail.nju.edu.cn , zenan.li@inf.ethz.ch 
+
+{y.yao,xf,xxm }@nju.edu.cn , t.chen@bbk.ac.uk 
+
+## ABSTRACT 
+
+Conformal prediction methods provide statistically rigorous marginal coverage guarantees for machine learning models, but such guarantees fail to account for al-gorithmic biases, thereby undermining fairness and trust. This paper introduces a fair conformal inference framework for classification tasks. The proposed method constructs prediction sets that guarantee conditional coverage on adaptively iden-tified subgroups, which can be implicitly defined through nonlinear feature com-binations. By balancing effectiveness and efficiency in producing compact, infor-mative prediction sets and ensuring adaptive equalized coverage across unfairly treated subgroups, our approach paves a practical pathway toward trustworthy ma-chine learning. Extensive experiments on both synthetic and real-world datasets demonstrate the effectiveness of the framework. 
+
+## 1 INTRODUCTION 
+
+The rapid advancement of modern machine learning models, especially deep neural networks, has enabled their deployment in high-stake decision-making situations such as medical diagnoses (Kaur et al., 2020), resume filtering (Deshpande et al., 2020), and financial fraud detection (Kamuangu, 2024). Despite their strong average performance, real-world deployment raises critical challenges, notably in uncertainty quantification (Guo et al., 2017; Ahmed et al., 2023) and algorithmic fair-ness (Berk et al., 2024; Almasoud & Idowu, 2025). Ensuring reliable decision-making necessitates the development of unbiased uncertainty mea-sures, as even highly accurate models are prone to producing over-confident and erroneous pre-dictions (Ovadia et al., 2019). Conformal Prediction (CP, (Vovk et al., 2005; Smith, 2024)) has emerged as a key framework for providing distribution-free, model-agnostic prediction sets with user-specified (marginal) coverage guarantees. These sets provide reliable uncertainty information for decision-makers especially when the set size is small (i.e., with high efficiency). On the other hand, algorithmic biases often manifest as disproportionately poor performance on the subgroup defined by specific feature conditions (e.g., Race=Black & Gender=Female ), which may arise from imbalanced data distribution or model inherent limitations (Hellman, 2020). These biases underscore the need for algorithmic fairness mechanisms that extend beyond average performance to ensure equitable treatment across all groups (Fabris et al., 2022; Das et al., 2023). However, there may exist tensions between the efficiency of CP and algorithmic fairness, because the former desires a small prediction set, while the latter may necessitate larger sets for equal conditional coverage across all subgroups (Gibbs et al., 2025). Conformal prediction with equalized coverage (Romano et al., 2020a) provides a pragmatic ap-proach to the efficiency–fairness trade-off. This approach ensures that the target coverage level (e.g., 90%) is satisfied not only marginally over the entire population, but also conditionally on each protected group of interest. However, acquiring prediction sets with equalized coverage is challeng-ing, as the number of all plausible groups of interest is exponential in the number of features. A 1
+
+> arXiv:2605.12195v1 [cs.LG] 12 May 2026
+
+Published as a conference paper at ICLR 2026 White Female White Male   
+
+> Black Male Black Femal e
+> Race
+> Gender
+> Hard Sample
+> Easy Sample
+
+Figure 1: An illustrative example. The group space is divided into four parts by the feature Race and 
+
+Gender . Hard samples (red triangles) are unfairly treated by the classifier, and easy samples (green circles) are normally treated. Note that a single feature (either Race or Gender) cannot discover the unfair subgroups (both have four triangles and four circles). Stronger expressiveness is desirable to capture the unfair subgroup “ White Female or Black Male ”. straightforward enumeration is practically infeasible both statistically and computationally, espe-cially on multi-dimensional (continuous) features. Indeed, Romano et al. (2020a) only takes each single feature as the condition of groups (e.g., a group defined by Gender=Female ), which is an arguably insufficient representation of the entire space of groups. Later, Zhou & Sesia (2024) observe that algorithmic biases often concentrate on a minority of sub-groups, and propose adaptively fair conformal prediction (AFCP) to identify these potentially disad-vantaged subgroups. In a nutshell, AFCP computes the conditional coverage score for each discrete feature and selects the top-k sensitive features with a greedy strategy (where k is a hyperparameter). However, this group identification method still has limited expressiveness. For example, it cannot capture groups defined by a nonlinear combination of features, such as Exclusive OR (see the sub-group “ White Female or Black Male ” in Fig. 1). Additionally, AFCP is based on Na¨ ıve Bayes, which incurs a high computational cost and restricts its applicability to continuous features. 1.1 OUR CONTRIBUTIONS 
+
+In this paper, we propose a new group-fair conformal prediction method, fair conformal prediction for representation-based groups (F AREG), which accommodates both group expressiveness and time efficiency. Different from existing work (Romano et al., 2020a; Zhou & Sesia, 2024) which directly extracts groups from the raw input feature X, our approach encodes X into a latent rep-resentation Z via a mapping Z = f (X), and learns unfair groups characterized by the low group coverage based on Z. The introduction of Z as a high-level representation of features strengthens the expressiveness of models, allowing a thorough exploration of groups. Meanwhile, we can enhance the interpretability by reconstructing input X from the encoding Z. To this end, we carefully design an encoder-decoder architecture and the optimization objective, based on the principle of variational inference. In addition, we propose a nonlinear version of the conditional coverage metric WSC (Cauchois et al., 2021), namely WSC +, aiming to evaluate the conditional coverage of unfairly treated groups more precisely. This allows users to check a conformal procedure and to compare multiple alternative conformal procedures. The main contributions of this paper are summarized as follows. First, we propose a new confor-mal prediction method to enhance the expressiveness of unfair group identification. Second, we extend the traditional conditional coverage metric WSC to a nonlinear version WSC + for more ac-curate evaluation. Comprehensive experiments on both synthetic and real-world datasets confirm the effectiveness and efficiency of our proposed method. 
+
+## 2 PRELIMINARY 
+
+For any natural number n, we write [n] ∶= {1, . . . , n }. We work with the most widely-used ver-sion of conformal prediction, i.e., split conformal prediction, where we assume a calibration set 2Published as a conference paper at ICLR 2026 
+
+D = {( Xi, Y i)} Ni=1 of i.i.d. (or simply exchangeable) observations sampled from an (unknown) dis-tribution PXY . In standard classification, Xi ∈ X represents the input feature from a feature space 
+
+X ⊆ Rd and Yi ∈ [L] is a categorical label. A given classifier ˆf is trained (on a training set) to predict the conditional distribution P (Y ∣ X). Furthermore, XN +1 is a test instance with an unknown label 
+
+YN +1 sampled by PXY . CP constructs a prediction set C(XN +1) for YN +1 based on D. The output 
+
+C(XN +1) guarantees marginal coverage at a user-specified level, i.e., 
+
+P[YN +1 ∈ C(XN +1)] ≥ 1 − α, 
+
+where α ∈ (0, 1) is a predefined miscoverage rate. Typically, CP proceeds in three steps: (1) computing the predefined conformity score V (xi, y i) for each sample (xi, y i) ∈ D using the predictive results of the classifier ˆf ; (2) setting (1−α)( 1+1/N )-quantile score of D as a threshold ˆη; (3) constructing the prediction set Cm(XN +1, D) ∶= {y ∈
+
+[K] ∣ V (Xi, y ) ≥ ˆη}, which is used as C(XN +1) for XN +1.It can be shown that Cm(XN +1, D) meets the desirable marginal coverage . Intuitively, marginal coverage implies that the prediction set is guaranteed to contain the true label with the average 1 − α
+
+probability over the population. However, this guarantee is deemed to be insufficient, especially when miscoverage exhibits systematic bias, disproportionately affecting individuals belonging to groups characterized by certain features. By contrast, conditional coverage requires P[YN +1 ∈ C(XN +1) ∣ XN +1 = x] ≥ 1 − α for each x ∈ X .This is much stronger as it demands correct coverage across all regions of the feature space, not just on average. However, achieving conditional coverage is impossible without imposing extra assumptions on the underlying distribution PXY (such as the smoothness of PXY (Cai et al., 2014; Lei & Wasserman, 2014) and strictly limiting the size of feature space X (Lee & Barber, 2021)). As these strong assumptions are often violated, conditional coverage is less meaningful in practice. Equalized coverage (Romano et al., 2020a) represents a pragmatic compromise to ensure validity across predefined sample groups that need to be protected. Given a group G ⊆ X , it is required that 
+
+P[YN +1 ∈ C(XN +1) ∣ XN +1 ∈ G] ≥ 1 − α
+
+for all G of interest. In particular, these groups are typically related to some specific features called sensitive features. However, the requirement for rigorous equalized coverage is localized, as algorithmic biases dispro-portionately affect only a minority of subgroups (Zhou & Sesia, 2024), as mentioned in Seciton 1. Therefore, AFCP further proposes adaptive equalized coverage based on equalized coverage, for-malized by 
+
+P[YN +1 ∈ C(XN +1) ∣ XN +1 ∈ ˆG] ≥ 1 − α, (1) where ˆG is adaptively selected corresponding to sensitive features. Eq. 1 indicates that C(XN +1) is well-calibrated for the selected group ˆG defined by these sensitive features. 
+
+## 3 METHODOLOGY 
+
+This section presents F AREG, a learning-based method that adaptively identifies groups affected by algorithmic bias and adjusts their prediction sets to achieve equalized coverage while preserving high informativeness. 3.1 LEARNING REPRESENTATION -B ASED GROUPS 
+
+Optimization Objective. For any feature x ∈ X , we write its encoding z = f (x) ∈ Z, where Z is a latent representation space. Intuitively, z denotes the latent representations of feature combinations of x. We introduce a random binary variable S and Z taking values in Z to formalize the member-ship of a group. Naturally, we consider a conditional distribution P (S ∣ Z) such that the probability of x ∈ ˆG for a group ˆG is equal to P(S = 1 ∣ Z = f (x)) . Our goal is twofold: (1) to learn an encoding 
+
+Z = f (X) that is maximally informative about S and X, while (2) Z does not reveal the identity of any individual i in the sample (e.g., the calibration set). 3Published as a conference paper at ICLR 2026 We apply the deep variational information bottleneck (Deep VIB) method (Alemi et al., 2017). Specifically, for two random variables X and Y with the joint pdf (parameterized by θ), pθ (x, y ),
+
+I(X, Y ; θ) = ∫ pθ (x, y ) log pθ (x,y )   
+
+> pθ(x)pθ(y)
+
+dxdy denotes their mutual information. The optimization objective can be formalized as 
+
+max I(Z, S ; θ) + I(Z, X ; θ) − βI (Z, i ; θ),
+
+where i is a random variable to take any instance from the sample (e.g., in this paper, the calibration set D) with a uniform distribution, θ is the model parameter, and β is a weight hyperparameter. (We abbreviate I(Z, S ), I (Z, X ), I (Z, i ) as I1, I 2, I 3 for convenience.) By introducing qϕ(s∣z), q φ(x∣z), r (z) as the variational approximation to pθ (s∣z), p θ (x∣z), p (z) in respective terms, we perform variational inference and obtain 
+
+I1 + I2 − βI 3 ≥ ∫ pθ (x)pθ (s ∣ x)pθ (z ∣ x) log qϕ(s ∣ z) dx ds dz
+
++ ∫ pθ (x)pθ (z ∣ x) log qφ(x ∣ z) dx dz − βN ∑
+
+> i
+
+∫ pθ (z ∣ xi) log pθ (z ∣ xi)
+
+r(z) dz. 
+
+(The details are given in Appendix A.1.) In practice, we can approximate pθ (x, s ) = pθ (x)pθ (s∣x) and pθ (x) using the empirical distri-bution on the observations (e.g., the calibration set D). As for pθ (z∣x), the reparameterization trick (Kingma & Welling, 2013) forces z to conform to a normal distribution which relies on xi, and hence its deterministic function can be rewritten as z = f (x, ϵ ) with an (auxiliary) noise variable ϵ.Substituting all of these into the above equation, we obtain the following loss function 
+
+L = − 1
+
+N
+
+> N
+
+∑
+
+> i=1
+
+(E˜z∼f (xi,ϵ )[log qϕ(si ∣ ˜z) + log qφ(xi ∣ ˜z)] − βD KL (pθ (z ∣ xi)∥ r(z))) . (2) Intuitively, the expected log-likelihood E˜z∼f (xi,ϵ )[log qϕ(si ∣ ˜z)+log qφ(xi ∣ ˜z)] allows the encoding 
+
+˜z to predict si and regenerate xi simultaneously, whereas the Kullback-Leibler (KL) divergence aims to compress the remaining useless information of ˜z.
+
+Instantiation. Eq. 2 suggests a natural design of the Encoder-Decoder architecture. In our method, the stochastic encoder with parameter θ has the form pθ (z ∣ x) = N (z ∣ fμ(x), f σ (x)) , where fμ(x)
+
+and fΣ(x) are two MLP networks to output the mean and variance of a normal distribution. We set r(z) as a standard normal distribution N (0, 1) and directly minimize the KL divergence term in Eq. 2 using the reparameterization trick. We now concentrate on two decoders with parameters ϕ and φ. The instantiation of decoder with parameter φ is trivial. For the expected log-likelihood E˜z∼f (xi,ϵ )[log qφ(xi ∣ ˜z)] in Eq. 2, we utilize the standard Mean Squared Error (MSE) as the reconstruction loss (Kingma & Welling, 2013). Decoder with parameter ϕ aims at predicting S, which indicates whether the sample X belongs to group ˆG or not. Assume a set of observations, e.g., the calibration set D = {( Xi, Y i)} Ni=1. The distribution P (S ∣ X) can be viewed as a binary classifier h comprising an encoder with parameter 
+
+θ and a decoder with the parameter ϕ. The result of h on D is a vector s = [s1, . . . , s N ] ∈ {0, 1}N .Let ˆGs ⊆ D denote the group determined by s on D and H be the family of all plausible h. We extend an inequality (Cauchois et al., 2021) to measure the deviation between the empirical coverage probability Pn on D and the oracle coverage probability P.
+
+Proposition 1. Let the VC-dimension V C (H) ≤ R and δ = ∣ ˆGs∣/ N be the proportion of ˆGs to the entire dataset. Then the gap between the empirical coverage probability Pn on the observations and the oracle coverage probability P is upper bounded, i.e., there exists some constant C1 for all τ > 0sup 
+
+> h∈H
+
+{∣ Pn[Y ∈ C(X) ∣ X ∈ ˆGs] − P[Y ∈ C(X) ∣ X ∈ ˆGs]∣} ≤ C1
+
+√ R log N + τδN 
+
+holds with probability at least 1 − e−τ .
+
+Proposition 1 (cf. Appendix A.2 for proof) highlights two key directions for reducing the discrepancy between Pn and P. First, a lower VC-dimension V C (h) leads to a more precise estimation Pn,4Published as a conference paper at ICLR 2026 implying that the classifier h should exhibit limited complexity. Second, the selected group must be sufficiently large to ensure reliable estimation. We maximize the expected log-likelihood E˜z∼f (xi,ϵ )[log qϕ(si ∣ ˜z)] in Eq. 2 via minimizing the ex-pected empirical conditional coverage of the selected group ˆG. The group ˆG on D is determined by a random vector S, sampled from a joint Bernoulli distribution B = ∏Ni=1 Bernoulli (qϕ(Si = 1 ∣ ˜z)) .Hence, given D, we formulate the following optimization problem : 
+
+min  
+
+> ϕ
+
+ES∼B [Pn[Y ∈ C(X) ∣ X ∈ ˆGS]] s.t. 1
+
+N
+
+> N
+
+∑
+
+> i=1
+
+qϕ(Si = 1 ∣ ˜z) ≥ δ. (3) In the above minimization problem, δ = ∣ ˆGs∣/ N denotes the the proportion of the selected group size to the whole dataset D, and the decoder with parameter ϕ is a simple logistic regression model of the form qϕ(s ∣ ˜z) = σ(s ∣ fm(˜z)) , where σ is the sigmoid function and fm is a MLP network. To solve the constrained optimization problem, we employ the Projected Gradient Descent (PGD), an iterative optimization algorithm (Madry et al., 2017), to optimize the parameter ϕ. In each training step, PGD performs a gradient descent update and then projects the new point onto the feasible set to ensure all constraints are satisfied. Specifically, when the predictive distribution qϕ(s ∣ ˜z)
+
+does not meet the constraint 1 
+
+> N
+
+∑Ni=1 qϕ(Si = 1 ∣ ˜z) ≥ δ after one back propagation process, we project it back onto the constraint-friendly space. Such a projection is equivalent to an ℓ2 distance minimization problem. Let q∗
+
+> ϕ
+
+(s1 ∣ ˜z) ≥ ⋅ ⋅ ⋅ ≥ q∗
+
+> ϕ
+
+(sN ∣ ˜z) be the descending order of {qϕ(si ∣ ˜z)} Ni=1,and the projection results in 
+
+q′
+
+> ϕ
+
+(si ∣ ˜z) = min (1, q ϕ(si ∣ ˜z) + ω
+
+2 ) , (4) where ω = (δ −k−∑Ni=k+1 q∗
+
+> ϕ
+
+(si ∣ ˜z))/( N −k) ≥ 0, k ∈ [N ] is the greatest index to satisfy q∗
+
+> ϕ
+
+(sk ∣ ˜z)+
+
+ω/2 ≥ 1 and q∗
+
+> ϕ
+
+(sk+1 ∣ ˜z) + ω/2 < 1. (The details are given in Appendix A.3.) Overall, we employ the empirical conditional coverage loss LCC , the reconstruction loss LMSE , and the KL divergence loss LKL to replace the corresponding terms in Eq. 2, resulting in 
+
+L = LCC + LMSE − βLKL . (5) 3.2 CONSTRUCTING THE ADAPTIVE PREDICTION SETS 
+
+After selecting the unfair group ˆG, we proceed to construct the final prediction set with ˆG. First, a standard conformal prediction set Cm(XN +1, D) is constructed using classic adaptive conformal prediction. Then, we perform T sampling of the vector st (t ∈ [T ]) from the joint Bernoulli dis-tribution B learned by models in Eq. 3. Each st defines a group ˆGst , and such group is used as a calibration set to build a prediction set Cm(XN +1, ˆGst ) as mentioned in Section 2. The final predic-tion set for YN +1 is given by the union of all these sets: 
+
+C(XN +1) = Cm(XN +1, D) ∪ T
+
+⋃
+
+> t=1
+
+Cm(XN +1, ˆGst ). (6) Our approach F AREG is summarized in Algorithm 1. To analyze its time complexity, assume we have M test instances and the complexity of conducting classic conformal prediction is O(N + M ).Then, training the model to select groups is O(EN (∣ θ∣ + ∣ϕ∣ + ∣φ∣)) , where E is the number of epochs. For all M test instances, the time of selecting groups and constructing prediction sets is 
+
+O(T N + T M ). The overall complexity of our F AREG is O(EN (∣ θ∣ + ∣ϕ∣ + ∣φ∣) + T (N + M )) ,which is O(N + M ), disregarding constant multiplicative factors. In contrast, the complexity of AFCP is O(N log N + N M ) (Zhou & Sesia, 2024). The following result, proved in Appendix A.4, ensures that the prediction set C(XN +1) generated by F AREG achieves adaptive equalized coverage (Eq. 1) over the selected group set { ˆGst }Tt=1.
+
+Theorem 1. If {( Xi, Y i)} N +1 
+
+> i=1
+
+are exchangeable, the prediction set C(XN +1) and the selected group set { ˆGst }Tt=1 output by Algorithm 1 satisfy the adaptive equalized coverage defined in Eq. 1, and this guarantee still holds when the selected groups are defined by a more complex combination of features (e.g., non-linear) compared to AFCP. 
+
+5Published as a conference paper at ICLR 2026 
+
+Algorithm 1 The overall framework of F AREG. 
+
+Input: calibration dataset D = {Xi, Y i}Ni=1; test instance with feature XN +1; list of K sensitive features; pre-trained classifier ˆf ; fixed rule to compute nonconformity scores; level α ∈ (0, 1);selected group size proportion δ; hyperparameter β; sampling times T ;
+
+Output: prediction set C(XN +1); selected group set { ˆGst }Tt=1. 
+
+> 1:
+
+Construct classic conformal prediction set Cm(XN +1, D) based on the output of ˆf ; 
+
+> 2:
+
+for each batch do  
+
+> 3:
+
+Calculate KL divergence loss LKL with reparameterization trick;  
+
+> 4:
+
+Sample ˜z ∼ f (x, ϵ ); 
+
+> 5:
+
+Calculate conditional coverage loss LCC and reconstruction loss LM SE using ˜z; 
+
+> 6:
+
+Put all losses together in L as defined in Eq. 5;  
+
+> 7:
+
+Update parameters θ, ϕ and φ via the gradient descent of L; 
+
+> 8:
+
+if ∑Ni=1 qϕ(Si = 1 ∣ ˜z) < δ ⋅ N then  
+
+> 9:
+
+Project each qϕ(Si = 1 ∣ ˜z) to satisfy minimum set constraint using Eq. 4;  
+
+> 10:
+
+end if  
+
+> 11:
+
+end for  
+
+> 12:
+
+for t ∈ [T ] do  
+
+> 13:
+
+Sample st ∼ B; ▷ B is a joint Bernoulli distribution mentioned in Eq. 3  
+
+> 14:
+
+Construct Cm(XN +1, ˆGst ); 
+
+> 15:
+
+end for  
+
+> 16:
+
+Construct prediction set C(XN +1) following Eq. 6. 
+
+## 4 EXPERIMENTS 
+
+4.1 EXPERIMENTAL SETUP 
+
+Baselines. We select the classic CP method Marginal (Romano et al., 2020b) for classification, the initial CP method Partial (Romano et al., 2020a) considering equalized coverage, and the state-of-the-art method AFCP (Zhou & Sesia, 2024) as our baselines. The vanilla version of AFCP is designed to pick at most one sensitive feature (referred to as AFCP1). We also extend AFCP1 to select two sensitive features (referred to as AFCP2), given unreal, strong prior knowledge. Note that in real-world applications, it is typically unknown exactly how many features the unfair group may correspond to. 
+
+Evaluation Metrics. To evaluate the prediction sets C(XN +1) produced by different CP meth-ods, we use the coverage conditional on a specific group (referred to as Group Coverage), Average Coverage (viz., marginal coverage), and Average Size (viz., efficiency) as the metrics. Additionally, we propose a new conditional coverage metric, viz., WSC +, to capture groups defined by complicated (nonlinear) feature relationships. Traditional conditional coverage metric (Cauchois et al., 2021) considers the worst coverage over all slabs containing δ mass on the observations, which is defined as WSC n(C, v) ∶= inf  
+
+> a<b
+
+{Pn(Y ∈ C(X) ∣ a ≤ vT X ≤ b) s.t. Pn(a ≤ vT X ≤ b) ≥ δ} ,
+
+where v ∈ Rd and a < b ∈ R.To strengthen the WSC metric, we replace the linear mapping vT in the above equation with an arbitrary non-linear function π, giving rise to WSC +, i.e., WSC +
+
+> n
+
+(C, π ) ∶= inf  
+
+> a<b
+
+{Pn(Y ∈ C(X) ∣ a ≤ π(X) ≤ b) s.t. Pn(a ≤ π(X) ≤ b) ≥ δ} . (7) Assume a quadratic function π(x) = xT Wx + vT x, where W ∈ Rd×d and v ∈ Rd. We uniformly draw 1,000 samples πj = {Wj , vj } to compute the worst-slab coverage for each πj on the test instances. Following Cauchois et al. (2021), we use the grid search to achieve the optimal a, b 
+
+satisfying the desiderata as well. In this case, we have a lower bound for our metric WSC +.6Published as a conference paper at ICLR 2026 0.82 0.84 0.86 0.88     
+
+> Worst coverage probability
+> 0.00
+> 0.25
+> 0.50
+> 0.75
+> 1.00
+> Cumulative probability
+> WSC n(C,v)
+> WSC +
+> n(C,)
+
+Figure 2: CDF of Conditional Coverage (δ = 0.5), which plots the respective cumula-tive probability curves of different worst-slab coverage discovered by WSC n(C, v) and WSC +
+
+> n
+
+(C, π ) over 1,000 samplings. The red curve is always above the blue curve, indicat-ing that our WSC +
+
+> n
+
+(C, π ) finds more groups with the poor coverage than WSC n(C, v).METRIC δ = 0.1 δ = 0.2 δ = 0.3 δ = 0.4 δ = 0.5                     
+
+> WSC n
+> 0.616 0.748 0.793 0.822 0.842 (0.053) (0.037) (0.025) (0.023) (0.023) WSC +
+> n
+> 0.582 0.674 0.750 0.800 0.829 (0.047) (0.048) (0.034) (0.028) (0.024) IMP .-5.52% -9.89% -5.42% -2.68% -1.54%
+
+Table 1: Performance of WSC n and WSC + 
+
+> n
+
+metrics w.r.t. different δ. We repeat the experiment 10 times, and report the average results (the value in () is the standard deviation). Smaller coverage is better. Our metric WSC + 
+
+> n
+
+performs better than WSC n by up to 
+
+9.89% to mine the group with the minimum worst-slab coverage (defined in Eq. 8). 
+
+Proposition 2. Let π(x) = xT Wx + vT x be a quadratic function and Π be a parameter space of 
+
+π. Then, if C effectively provides conditional coverage at level 1 − α, we have WSC + 
+
+> n
+
+= inf  
+
+> π∈Π
+
+WSC +
+
+> n
+
+(C, π ) ≥ 1 − α − O(1)√ O(d2) log NδN . (8) The proof is given in Appendix A.5. To demonstrate the advantages of the new metric WSC +, we randomly draw the features X ∈ [0, 1]10 
+
+from a uniform distribution and create a simple dataset for classification as described in Ap-pendix B.1. Note that we define the group needed to be protected to satisfy (X[0] ≥ 0.1) ⊕ (X[1] ≥
+
+0.1) = True. We respectively plot the Cumulative Distribution Functions (CDF) of WSC n(C, v )
+
+and WSC +
+
+> n
+
+(C, π ) over 1,000 samples πj when δ = 0.5 in Fig. 2, and observe that our WSC +
+
+> n
+
+(C, π )
+
+always reveals the groups with the worse coverage than that of WSC n(C, v ), which can be attributed to representational capability of the nonlinear function π in WSC +
+
+> n
+
+(C, π ).Moreover, we also list the average results of two metrics, WSC n and WSC +
+
+> n
+
+, as δ increases over 10 repeated experiments in Table 1. Similar to Fig. 2, the minimum worst-slab coverage found by our WSC + 
+
+> n
+
+is smaller than that found by WSC n by up to 9.89% . As δ increases, the condition coverage tends to the marginal coverage (0.9), and the gap between WSC n and WSC + 
+
+> n
+
+narrows, as expected. 
+
+Implementations. 1 All the experiments are carried out on NVIDIA GeForce RTX 3090. We re-peat each experiment 10 times and report the average to suppress randomness. We set δ = 0.5 for WSC + 
+
+> n
+
+by default. More implementation details, such as hyperparameters and training settings, are presented in Appendix B.1. 4.2 SYNTHETIC DATA 
+
+We evaluate our method on synthetic data designed to mimic a mental illness diagnosis scenario. The dataset includes six possible labels: Depression, Anxiety Disorders, Bipolar Disorder, Schizophre-nia, Anorexia, and Post-Traumatic Stress Disorder (PTSD). Each sample contains four sensitive features—Age Group, Region, Gender, and Color—along with six non-sensitive features indepen-dently sampled from a uniform distribution within a value range [0, 1]. The sensitive features are generated as follows: (1) Gender is uniformly drawn from {Female, Male }; (2) Color is uniformly drawn from {Red, Blue }; (3) Age Group is drawn from {Child, Youth, Middle, Elder } with equal probability; (4) Region follows a fixed cyclical sequence: Asia, Europe, Africa, America, Oceania. We then generate true labels Y for the dataset, where diagnosis is more challenging for a specific subgroup defined by the Exclusive NOR (XNOR) operation (cf. Appendix B.1). Specifically, we assume X[0] is Color, X[1] is Gender, and X[2] is any non-sensitive feature, and define Y based 
+
+> 1
+
+Our code is publicly available at https://github.com/Xusr1123/FaReG. 
+
+7Published as a conference paper at ICLR 2026 500 1000 2000 3000 4000 
+
+> Sample size
+> 0.8
+> 0.85
+> 0.9
+> 0.95
+> 1
+> Group Coverage
+> FaReG
+> AFCP1
+> AFCP2
+> Partial
+> Marginal
+
+(a) Group Coverage 500 1000 2000 3000 4000  
+
+> Sample size
+> 0.8
+> 0.85
+> 0.9
+> 0.95
+> 1
+> WSC+
+> FaReG
+> AFCP1
+> AFCP2
+> Partial
+> Marginal
+
+(b) WSC +     
+
+> n500 1000 2000 3000 4000
+> Sample size
+> 0.9
+> 0.92
+> 0.95
+> 0.98
+> 1
+> Average Coverage  FaReG
+> AFCP1
+> AFCP2
+> Partial
+> Marginal
+
+(c) Average Coverage 500 1000 2000 3000 4000  
+
+> Sample size
+> 2
+> 2.5
+> 3
+> 3.5
+> 4
+> Average Size
+> FaReG
+> AFCP1
+> AFCP2
+> Partial
+> Marginal
+
+(d) Average Size 
+
+Figure 3: Performance of prediction sets produced by different CP methods on synthetic data w.r.t. the total number of training and calibration data instances. Only our F AREG achieves the ideal conditional coverage (0.9), and meanwhile, does not sacrifice too much information (set sizes) com-pared to baselines. 0 1000 2000 3000 4000 
+
+> Time Cost (s)
+> 500
+> 1000
+> 2000
+> 3000
+> 4000
+> Sample size
+> FaReG
+> AFCP1
+> AFCP2
+
+(a) Time Cost 500 1000 2000 3000 4000  
+
+> Sample size
+> 0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1
+> Selection frequence
+> FaReG
+> AFCP1
+> AFCP2
+
+(b) Selects X[0]500 1000 2000 3000 4000  
+
+> Sample size
+> 0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1
+> Selection frequence
+> FaReG
+> AFCP1
+> AFCP2
+
+(c) Selects X[1]500 1000 2000 3000 4000  
+
+> Sample size
+> 0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1
+> Selection frequence
+> FaReG
+> AFCP2
+
+(d) Selects X[0]&X[1]
+
+Figure 4: Fig. (a) reports the running time of different CP methods with the increasing total number of training and calibration data instances. Fig. (b)–(d) are the results of the selection frequency of target features X[0] and X[1]. As the sample size increases, our method becomes more consistent with target features. solely on these three attributes. Through the label generation, we have the following subgroup 
+
+X[0] ⊙ X[1] = True : Color=Red (True) & Gender=Female (True) or Color=Blue (False) & Gen-der=Male (False) , simulating a real-world situation that algorithmic biases occur on this subgroup. Fig. 3 depicts the results of conditional coverage, average coverage (marginal coverage), and aver-age prediction set size (efficiency), respectively. For conditional coverage, Group Coverage is the coverage on the subgroups defined by XNOR operation as mentioned in data construction, and we compute WSC +
+
+n on four predefined sensitive features. In Fig. 3a and 3b, our F AREG is the only one that always achieves valid coverage (greater than 0.9) for the targeted group with varying sample sizes. Although the conditional coverage of AFCP2 also exceeds 0.9 when the sample size reaches 500, as shown in Fig. 3d, it produces considerably larger prediction sets, which is less informative for decision-making. In Fig. 4a, we compare the average running time of different CP methods (e.g., the wall-clock time of the entire F AREG pipeline) over 10 repeated experiments, and F AREG significantly reduces the time cost. Actually, the training of the encoder-decoder network occupies most of the time cost (e.g., in one trial with a sample size of 2,000, the training step required 161.3 seconds, while the rest took only 0.8 seconds). Additionally, the training time of the encoder-decoder network scales linearly w.r.t the sample size since we fix the epoch number and batch size in our algorithm. This result is consistent with the analysis in Section 3.2. To determine which features are selected by our method, we analyze the predictive variable S and the reconstructed feature ˆX by perturbing the latent representation Z, following the Beta-VAE ap-proach (Higgins et al., 2017). Specifically, we impose a slight perturbation (e.g., ±0.001 ) on each dimension of Z and identify the dimension that most influences S. Given this influential dimension and prior knowledge (as in AFCP2) that there are exactly two target features, we compute the change ratios for each dimension of ˆX before and after perturbation, and select the two features with the top-2 maximum change ratios. Figures 4b, 4c, and 4d respectively report the frequency of selecting X[0] or X[1] individually, and that of selecting both X[0] and X[1] simultaneously. The results demonstrate that our approach 8Published as a conference paper at ICLR 2026 500 1000 2000 3000 4000 
+
+> Sample size
+> 0.8
+> 0.85
+> 0.9
+> 0.95
+> 1
+> Group Coverage
+> FaReG
+> AFCP1
+> AFCP2
+> Partial
+> Marginal
+
+(a) Group Coverage 500 1000 2000 3000 4000  
+
+> Sample size
+> 0.8
+> 0.85
+> 0.9
+> 0.95
+> 1
+> WSC+
+> FaReG
+> AFCP1
+> AFCP2
+> Partial
+> Marginal
+
+(b) WSC +     
+
+> n500 1000 2000 3000 4000
+> Sample size
+> 0.9
+> 0.92
+> 0.95
+> 0.98
+> 1
+> Average Coverage  FaReG
+> AFCP1
+> AFCP2
+> Partial
+> Marginal
+
+(c) Average Coverage 500 1000 2000 3000 4000  
+
+> Sample size
+> 2
+> 2.5
+> 3
+> 3.5
+> 4
+> Average Size
+> FaReG
+> AFCP1
+> AFCP2
+> Partial
+> Marginal
+
+(d) Average Size 
+
+Figure 5: Performance of prediction sets produced by different CP methods on the Nursery data w.r.t. the total number of training and calibration data instances. Only our F AREG achieves the ideal conditional coverage (0.9) and keeps most of the uncertainty information of sets. captures more target features than the baselines, and this advantage becomes more pronounced as the sample size increases. Additionally, we present the results of parameter sensitivity and group visualization in Appendix B.2 and B.3, respectively. 4.3 NURSERY DATA 
+
+We evaluate our F AREG and baseline methods on the publicly available Nursery data (Rajkovic, 1989), originally constructed from a hierarchical decision model developed to rank applications for nursery schools. The dataset comprises 12,960 instances, each described by eight categorical fea-tures: Parents’ occupation (3 levels, Parent:= {usual, pretentious, great-pret }), Child’s nursery (5 levels), Family form (4 levels), Number of children (4 levels), Housing conditions (3 levels), Fi-nancial standing (2 levels, Finance:= {convenient, inconv }), Social conditions (3 levels) and Health status (3 levels). The task is to classify applications into one of five priority ranks. We take all features into account (as sensitive features) except Housing conditions. In data preprocessing, we strictly follow Zhou & Sesia (2024), and consider a group defined by Parent=usual & Finance=inconv or Parent=pretentious & Finance=inconv . To make the issue more interesting and control the degree of algorithmic bias, we corrupt the labels of instances in such a group by adding independent, uniform noise and rounding to the nearest integer (label) as similar as Zhou & Sesia (2024). This perturbation amplifies the intrinsic unpredictability of the group defined before, thereby increasing its vulnerability to algorithmic bias. Fig. 5 presents the results. Our method consistently achieves the valid coverage under both condi-tional coverage metrics, i.e., Group Coverage and WSC +
+
+> n
+
+, outperforming all baselines. Partial and AFCP2 perform better than the other CP methods, but F AREG still achieves superior results. 
+
+## 5 RELATED WORK 
+
+Conformal Prediction (CP) has seen vigorous development in recent years (Vovk et al., 2005; Smith, 2024). Its applications span diverse domains, from image classification (Sadinle et al., 2019) and object detection (Teng et al., 2023) to large language models (Kumar et al., 2023). Some CP work, building on the split conformal framework (Papadopoulos et al., 2002; Lei et al., 2018), introduces advanced nonconformity scores to ensure valid marginal coverage on the empir-ical data distribution. For example, Romano et al. (2019) gives a nonconformity score based on quantile regression, while Romano et al. (2020b) and Angelopoulos et al. (2020) design nonconfor-mity scores for classification. Additionally, Hoff (2023) proposes a nonconformity score to achieve Bayes optimal coverage. Another line of work has explored various notions of equalized coverage (Romano et al., 2020a) and empirically evaluated the corresponding conformal predictors in real-world applications (Lu et al., 2022). For regression tasks, Wang et al. (2023) guarantees equal coverage rates across more fine-grained groups on continuous features, and Liu et al. (2022) propose to learn a real-valued quantile function with respect to sensitive features. They address a distinct notion of equalized coverage tailored to continuous outcomes. In classification, label-conditional coverage is a common 9Published as a conference paper at ICLR 2026 alternative to equalized coverage (Vovk et al., 2003; L¨ ofstr¨ om et al., 2015; Ding et al., 2023). This work defines the groups to be protected based on the label YN +1, instead of the features XN +1. Jung et al. (2022), Vadlamani et al. (2025), and Gibbs et al. (2025) adopt group-conditional coverage, which is analogous to equalized coverage, to improve prediction sets. Different from the previous work, our approach F AREG can adaptively identify unfairly treated groups without the assumption that such groups are pre-defined. AFCP (Zhou & Sesia, 2024) develops an algorithm to construct CP sets with valid equalized coverage for adaptively selected groups, which establishes the current state-of-the-art for equalized coverage tasks. 
+
+## 6 CONCLUSION 
+
+In this paper, we propose F AREG, a fair conformal prediction method that learns latent groups to achieve adaptive equalized coverage. By leveraging a variational encoder-decoder to discover sub-groups wih poor coverage in a high-level feature space, our approach captures complex algorithmic biases that linear methods may neglect and can be adapted to different fairness notions. We also propose WSC +, a nonlinear metric for evaluating the conditional coverage of unfair groups more ac-curately. Extensive experiments confirm that F AREG efficiently offers stronger fairness guarantees, showing a more expressive and practical path toward fair, reliable conformal inference. 
+
+Limitations. The enhanced expressivity of representation-based groups may sacrifice model in-terpretability partially, compared to groups explicitly defined on manifest features. However, the encoder-decoder structure compensates this shortcoming well via reconstructing the input X, which is empirically confirmed by Section 4.2 and Appendix B.3. 
+
+## ACKNOWLEDGMENT 
+
+We appreciate anonymous reviewers for their valuable comments. This work is supported by the Frontier Technologies R&D Program of Jiangsu (BF2024059), National Natural Science Founda-tion of China (Grants #62025202), and the Collaborative Innovation Center of Novel Software Tech-nology and Industrialization. T. Chen is partially supported by overseas grants from the State Key Laboratory of Novel Software Technology, Nanjing University (KFKT2023A04, KFKT2025A05). Yuan Yao is the corresponding author. 
+
+## REFERENCES 
+
+Shams Forruque Ahmed, Md Sakib Bin Alam, Maruf Hassan, Mahtabin Rodela Rozbu, Taoseef Ish-tiak, Nazifa Rafa, M Mofijur, ABM Shawkat Ali, and Amir H Gandomi. Deep learning modelling techniques: current progress, applications, advantages, and challenges. Artificial Intelligence Re-view , 56(11):13521–13617, 2023. Alexander A. Alemi, Ian Fischer, Joshua V. Dillon, and Kevin Murphy. Deep variational informa-tion bottleneck. In International Conference on Learning Representations (ICLR) , 2017. URL 
+
+https://arxiv.org/abs/1612.00410 . arXiv preprint arXiv:1612.00410, accepted to ICLR 2017. Ahmed S Almasoud and Jamiu Adekunle Idowu. Algorithmic fairness in predictive policing. AI and Ethics , 5(3):2323–2337, 2025. Anastasios Angelopoulos, Stephen Bates, Jitendra Malik, and Michael I Jordan. Uncertainty sets for image classifiers using conformal prediction. arXiv preprint arXiv:2009.14193 , 2020. Richard A Berk, Arun Kumar Kuchibhotla, and Eric Tchetgen Tchetgen. Improving fairness in criminal justice algorithmic risk assessments using optimal transport and conformal prediction sets. Sociological Methods & Research , 53(4):1629–1675, 2024. St´ ephane Boucheron, Olivier Bousquet, and G´ abor Lugosi. Theory of classification: A survey of some recent advances. ESAIM: probability and statistics , 9:323–375, 2005. T Tony Cai, Mark Low, and Zongming Ma. Adaptive confidence bands for nonparametric regression functions. Journal of the American Statistical Association , 109(507):1054–1070, 2014. 10 Published as a conference paper at ICLR 2026 Maxime Cauchois, Suyash Gupta, and John C Duchi. Knowing what you know: valid and validated confidence sets in multiclass and multilabel prediction. Journal of machine learning research , 22 (81):1–42, 2021. Sanjiv Das, Richard Stanton, and Nancy Wallace. Algorithmic fairness. Annual Review of Financial Economics , 15(1):565–593, 2023. Ketki V Deshpande, Shimei Pan, and James R Foulds. Mitigating demographic bias in ai-based resume filtering. In Adjunct publication of the 28th ACM conference on user modeling, adaptation and personalization , pp. 268–275, 2020. Frances Ding, Moritz Hardt, John Miller, and Ludwig Schmidt. Retiring adult: New datasets for fair machine learning. Advances in neural information processing systems , 34:6478–6490, 2021. Tiffany Ding, Anastasios Angelopoulos, Stephen Bates, Michael Jordan, and Ryan J Tibshirani. Class-conditional conformal prediction with many classes. Advances in neural information pro-cessing systems , 36:64555–64576, 2023. Alessandro Fabris, Stefano Messina, Gianmaria Silvello, and Gian Antonio Susto. Algorithmic fairness datasets: the story so far. Data Mining and Knowledge Discovery , 36(6):2074–2152, 2022. Isaac Gibbs, John J Cherian, and Emmanuel J Cand` es. Conformal prediction with conditional guar-antees. Journal of the Royal Statistical Society Series B: Statistical Methodology , pp. qkaf008, 2025. Chuan Guo, Geoff Pleiss, Yu Sun, and Kilian Q Weinberger. On calibration of modern neural networks. In International conference on machine learning , pp. 1321–1330. PMLR, 2017. Deborah Hellman. Measuring algorithmic fairness. Virginia Law Review , 106(4):811–866, 2020. Irina Higgins, Loic Matthey, Arka Pal, Christopher Burgess, Xavier Glorot, Matthew Botvinick, Shakir Mohamed, and Alexander Lerchner. beta-vae: Learning basic visual concepts with a constrained variational framework. In International conference on learning representations , 2017. Peter Hoff. Bayes-optimal prediction with frequentist coverage control. Bernoulli , 29(2):901–928, 2023. Christopher Jung, Georgy Noarov, Ramya Ramalingam, and Aaron Roth. Batch multivalid confor-mal prediction. arXiv preprint arXiv:2209.15145 , 2022. Paulin Kamuangu. A review on financial fraud detection using ai and machine learning. Journal of Economics, Finance, and Accounting Studies , 6(1):67, 2024. Simarjeet Kaur, Jimmy Singla, Lewis Nkenyereye, Sudan Jha, Deepak Prashar, Gyanendra Prasad Joshi, Shaker El-Sappagh, Md Saiful Islam, and SM Riazul Islam. Medical diagnostic systems using artificial intelligence (ai) algorithms: principles and perspectives. Ieee Access , 8:228049– 228069, 2020. Diederik P Kingma and Max Welling. Auto-encoding variational bayes. arXiv preprint arXiv:1312.6114 , 2013. Bhawesh Kumar, Charlie Lu, Gauri Gupta, Anil Palepu, David Bellamy, Ramesh Raskar, and An-drew Beam. Conformal prediction with large language models for multi-choice question answer-ing. arXiv preprint arXiv:2305.18404 , 2023. Yonghoon Lee and Rina Barber. Distribution-free inference for regression: discrete, continuous, and in between. Advances in Neural Information Processing Systems , 34:7448–7459, 2021. Jing Lei and Larry Wasserman. Distribution-free prediction bands for non-parametric regression. 
+
+Journal of the Royal Statistical Society Series B: Statistical Methodology , 76(1):71–96, 2014. Jing Lei, Max G’Sell, Alessandro Rinaldo, Ryan J Tibshirani, and Larry Wasserman. Distribution-free predictive inference for regression. Journal of the American Statistical Association , 113 (523):1094–1111, 2018. 11 Published as a conference paper at ICLR 2026 Meichen Liu, Lei Ding, Dengdeng Yu, Wulong Liu, Linglong Kong, and Bei Jiang. Conformalized fairness via quantile regression. Advances in Neural Information Processing Systems , 35:11561– 11572, 2022. Tuve L¨ ofstr¨ om, Henrik Bostr¨ om, Henrik Linusson, and Ulf Johansson. Bias reduction through conditional conformal prediction. Intelligent Data Analysis , 19(6):1355–1375, 2015. Charles Lu, Andr´ eanne Lemay, Ken Chang, Katharina H¨ obel, and Jayashree Kalpathy-Cramer. Fair conformal predictors for applications in medical imaging. In Proceedings of the AAAI conference on artificial intelligence , volume 36, pp. 12008–12016, 2022. Aleksander Madry, Aleksandar Makelov, Ludwig Schmidt, Dimitris Tsipras, and Adrian Vladu. Towards deep learning models resistant to adversarial attacks. arXiv preprint arXiv:1706.06083 ,2017. Yaniv Ovadia, Emily Fertig, Jie Ren, Zachary Nado, Sebastian Nowozin, Joshua Dillon, Balaji Lak-shminarayanan, and Jasper Snoek. Can you trust your model’s uncertainty? evaluating predictive uncertainty under dataset shift. Advances in neural information processing systems , 32, 2019. Harris Papadopoulos, Kostas Proedrou, Volodya Vovk, and Alex Gammerman. Inductive confidence machines for regression. In European conference on machine learning , pp. 345–356. Springer, 2002. Vladislav Rajkovic. Nursery. UCI Machine Learning Repository, 1989. DOI: https://doi.org/10.24432/C5P88W. Yaniv Romano, Evan Patterson, and Emmanuel Candes. Conformalized quantile regression. Ad-vances in neural information processing systems , 32, 2019. Yaniv Romano, Rina Foygel Barber, Chiara Sabatti, and Emmanuel Cand` es. With malice toward none: Assessing uncertainty via equalized coverage. Harvard Data Science Review , 2020a. Yaniv Romano, Matteo Sesia, and Emmanuel Candes. Classification with valid and adaptive cover-age. Advances in neural information processing systems , 33:3581–3591, 2020b. Mauricio Sadinle, Jing Lei, and Larry Wasserman. Least ambiguous set-valued classifiers with bounded error levels. Journal of the American Statistical Association , 114(525):223–234, 2019. Shai Shalev-Shwartz and Shai Ben-David. Understanding machine learning: From theory to algo-rithms . Cambridge university press, 2014. Ralph C Smith. Uncertainty quantification: theory, implementation, and applications . SIAM, 2024. Jiaye Teng, Chuan Wen, Dinghuai Zhang, Yoshua Bengio, Yang Gao, and Yang Yuan. Predictive in-ference with feature conformal prediction. In The Eleventh International Conference on Learning Representations , 2023. Aditya T Vadlamani, Anutam Srinivasan, Pranav Maneriker, Ali Payani, and Srinivasan Parthasarathy. A generic framework for conformal fairness. arXiv preprint arXiv:2505.16115 ,2025. Vladimir Vovk, David Lindsay, Ilia Nouretdinov, and Alex Gammerman. Mondrian confidence machine. Technical Report , 2003. Vladimir Vovk, Alexander Gammerman, and Glenn Shafer. Algorithmic learning in a random world .Springer, 2005. Fangxin Wang, Lu Cheng, Ruocheng Guo, Kay Liu, and Philip S Yu. Equal opportunity of coverage in fair regression. Advances in Neural Information Processing Systems , 36:7743–7755, 2023. Yanfei Zhou and Matteo Sesia. Conformal classification with equalized coverage for adaptively selected groups. Advances in Neural Information Processing Systems , 37:108760–108823, 2024. 12 Published as a conference paper at ICLR 2026 
+
+## A TECHNICAL PROOFS 
+
+A.1 VARIATIONAL INFERENCE 
+
+As mentioned in Section 3.1, our optimization objective is as follows, 
+
+max I(Z, S ) + I(Z, X ) − βI (Z, i ).
+
+First of all, we consider I(Z, S ) and 
+
+I(Z, S ) = ∫ pθ (s, z ) log pθ (s, z )
+
+pθ (s)pθ (z) ds dz = ∫ pθ (s, z ) log pθ (s ∣ z)
+
+pθ (s) ds dz. (9) Since the KL divergence between two conditional probability distribution pθ (s ∣ z) and qϕ(s ∣ z) is non-negative, we have 
+
+DKL (pθ (s ∣ z)∥ qϕ(s ∣ z)) ≥ 0 ⇒ ∫ pθ (s, z ) log pθ (s ∣ z) ds ≥ ∫ pθ (s, z ) log qϕ(s ∣ z) ds, 
+
+where qϕ(s ∣ z) is a variational approximation to the intractable distribution pθ (s ∣ z).Plugging the above inequality into Eq. 9, we obtain 
+
+I(Z, S ) ≥ ∫ pθ (s, z ) log qϕ(s ∣ z)
+
+pθ (s) ds dz
+
+= ∫ pθ (s, z ) log qϕ(s ∣ z) ds dz + ∫ pθ (s) log pθ (s) ds
+
+≥ ∫ pθ (s, z ) log qϕ(s ∣ z) ds dz, 
+
+(10) where the second inequality is derived by the non-negativity of entropy. Since S á Z ∣ X holds, we have 
+
+pθ (s, z ) = ∫ pθ (x, s, z ) dx = ∫ pθ (x)pθ (s ∣ x)pθ (z ∣ x) dx. 
+
+Hence, we get 
+
+I(Z, S ) ≥ ∫ pθ (x)pθ (s ∣ x)pθ (z ∣ x) log qϕ(s ∣ z) dx ds dz. (11) Similar to Eq. 10, we also have 
+
+I(Z, X ) ≥ ∫ pθ (x, z ) log qφ(x ∣ z) dx dz
+
+= ∫ pθ (x)pθ (z ∣ x) log qφ(x ∣ z) dx dz. 
+
+(12) As for I(Z, i ), we have 
+
+I(Z, i ) = ∑
+
+> i
+
+∫ pθ (z ∣ i)pθ (i) log pθ (z ∣ i)
+
+pθ (z) dz
+
+= 1
+
+N ∑
+
+> i
+
+∫ pθ (z ∣ xi) log pθ (z ∣ xi)
+
+pθ (z) dz
+
+≤ 1
+
+N ∑
+
+> i
+
+∫ pθ (z ∣ xi) log pθ (z ∣ xi)
+
+r(z) dz, 
+
+(13) where r(z) is a variational approximation to the posterior distribution pθ (z). We usually set r(z)
+
+as a standard normal distribution N (0, 1) in practice. Combining Eq. 11 with Eq. 12 and Eq. 13, we obtain 
+
+I(Z, S ) + I(Z, X ) − βI (Z, i ) ≥ ∫ pθ (x)pθ (s ∣ x)pθ (z ∣ x) log qϕ(s ∣ z) dx ds dz
+
++ ∫ pθ (x)pθ (z ∣ x) log qφ(x ∣ z) dx dz − βN ∑
+
+> i
+
+∫ pθ (z ∣ xi) log pθ (z ∣ xi)
+
+r(z) dz. 
+
+13 Published as a conference paper at ICLR 2026 With Monte Carlo sampling, we use the empirical dataset on {Xi, S i, Y i}Ni=1 to estimate 
+
+pθ (x)pθ (s ∣ x) and pθ (x), where Si is computed by minimizing the conditional coverage of groups defined by S = {s1, . . . , s N }, i.e., Pn[Yi ∈ C(Xi) ∣ Xi ∈ ˆGS] on {Xi, S i, Y i}Ni=1. We leverage the reparameterization trick (Kingma & Welling, 2013) as mentioned in Section 3.1, and finally obtain 
+
+L = − 1
+
+N
+
+> N
+
+∑
+
+> i=1
+
+(E˜z∼f (xi,ϵ )[log qϕ(si ∣ ˜z) + log qφ(xi ∣ ˜z)] − βD KL (pθ (z ∣ xi)∥ r(z))) .
+
+A.2 PROOF OF PROPOSITION 1
+
+Proof. We first present a technical lemma, where Pnh = 1 
+
+> N
+
+∑Ni=1 h(Xi) and P h = ∫ h(x)dP (x),given an observed dataset {Xi, Y i}Ni=1.
+
+Lemma 1 (Boucheron et al. (2005)) . There exists a numerical constant C1 such that for any τ > 0,
+
+∣Pnh − P h ∣ ≤ C1
+
+⎡⎢⎢⎢⎢⎣√
+
+min {Pnh, P h } V C (h) log N + τN + V C (h) log N + τN
+
+⎤⎥⎥⎥⎥⎦
+
+holds with probability at least 1 − e−τ .
+
+By this Lemma, we have 
+
+∣Pn(Y ∈ C(X), X ∈ ˆGs) − P (Y ∈ C(X), X ∈ ˆGs)∣ (14) 
+
+≤ C1 [√
+
+min {Pn(Y ∈ C(X), X ∈ ˆGs), P (Y ∈ C(X), X ∈ ˆGs)} V C (h) log N +τN + V C (h) log N +τN ] .
+
+Similarly, we get 
+
+∣Pn(X ∈ ˆGs) − P (X ∈ ˆGs)∣ (15) 
+
+≤ C2 [√
+
+min {Pn(X ∈ ˆGs), P (X ∈ ˆGs)} V C (h) log N +τN + V C (h) log N +τN ] .
+
+Then, it remains to show that 
+
+∣Pn(Y ∈ C(X) ∣ X ∈ ˆGs) − P (Y ∈ C(X) ∣ X ∈ ˆGs)∣ 
+
+= ∣ Pn(Y ∈ C(X), X ∈ ˆGs)
+
+Pn(X ∈ ˆGs) − P (Y ∈ C(X), X ∈ ˆGs)
+
+P (X ∈ ˆGs) ∣ .
+
+Let a = Pn(Y ∈ C(X), X ∈ ˆGs), b = P (Y ∈ C(X), X ∈ ˆGs), c = (Pn − P )( X ∈ ˆGs) and d = P (X ∈
+
+ˆGs). We can derive b ≤ d, and observe that 
+
+∣ ac + d − bd ∣ ≤ ∣ ac + d − b − cc + d ∣ ≤ ∣a − b∣
+
+c + d + ∣c∣
+
+c + d . (16) Substitute Eq. 14 and Eq. 15 into Eq. 16, and use δ = Pn(X ∈ ˆGs), we obtain 
+
+∣ Pn(Y ∈ C(X), X ∈ ˆGs)
+
+Pn(X ∈ ˆGs) − P (Y ∈ C(X), X ∈ ˆGs)
+
+P (X ∈ ˆGs) ∣
+
+≤ ∣Pn(Y ∈ C(X), X ∈ ˆGs) − P (Y ∈ C(X), X ∈ ˆGs)∣ 
+
+Pn(X ∈ ˆGs) − ∣Pn(X ∈ ˆGs) − P (X ∈ ˆGs)∣ 
+
+Pn(X ∈ ˆGs)
+
+≤ C3
+
+⎡⎢⎢⎢⎢⎣√ V C (h) log N + τδN + V C (h) log N + τδN 
+
+⎤⎥⎥⎥⎥⎦
+
+,
+
+which completes the proof. 14 Published as a conference paper at ICLR 2026 A.3 OPTIMIZATION PROCESS OF EQ. 4 The projection operation of the PGD algorithm described in Section 3.1 requires solving the follow-ing optimization to minimize the ℓ2 distance: 
+
+min 
+
+> v1,...,v n
+> N
+
+∑
+
+> i=1
+
+(vi − ui)2 s.t. 
+
+> N
+
+∑
+
+> i=1
+
+vi ≥ δ, vi ∈ [0, 1] i = 1, . . . , N, (17) where u1, . . . , u N are given and ui ∈ [0, 1] holds for each i ∈ [N ].With the above constraints, we compute the Lagrangian as 
+
+L(vi; λi, μ i, ω ) =
+
+> N
+
+∑
+
+> i=1
+
+(vi − ui)2 +
+
+> N
+
+∑
+
+> i=1
+
+λi(−vi) +
+
+> N
+
+∑
+
+> i=1
+
+μi(vi − 1) + ω(δ −
+
+> N
+
+∑
+
+> i=1
+
+vi),
+
+where {λi}Ni=1, {μi}Ni=1 and ω are the Lagrange multipliers. Let the partial derivatives vanish, and we have ∂L
+
+∂v i
+
+= 2(vi − ui) − λi + μi − ω = 0 ⇒ 2(vi − ui) = λi − μi + ω
+
+For the complementary relaxation conditions, there are four different cases: • If vi = 0, constraint vi ≥ 0 is activated and we have λi ≥ 0, μ i = 0;• If vi = 1, constraint vi ≤ 1 is activated and we have μi ≥ 0, λ i = 0;• If 0 < vi < 1, we have μi = λi = 0 and then vi = ui + ω/2;• If ∑ vi > δ, constraint ∑ vi ≥ δ is not activated and then ω = 0; otherwise, ω ≥ 0.When ∑ ui ≥ δ, we have vi = ui, which is an optimal solution to the minimization problem in Eq. 17. When ∑ ui < δ, let vi = min (1, u i + ω/2), where ω ≥ 0 and ∑Ni=1 min (1, u i + ω/2) ≥ δ. In this case, we resort {vi}Ni=1 in descending order, i.e., v(1) ≥ v(2) ≥ ⋅ ⋅ ⋅ ≥ v(N ). Let k ∈ [N ] is the greatest index to satisfy v(k) + ω/2 ≥ 1 and v(k+1) + ω/2 < 1. Then, constraint ∑ vi = δ can be written as 
+
+k ⋅ 1 +
+
+> N
+
+∑
+
+> i=k+1
+
+(v(i) + ω/2) = δ. 
+
+Hence, we obtain 
+
+ω = 2(δ − k − ∑Ni=k+1 v(i))
+
+N − k .
+
+In practice, we can compute k and ω via traversing the value of k from maximum N to minimum 1.A.4 PROOF OF THEOREM 1
+
+Proof. When making the similar assumption as Theorem 1 in AFCP (Zhou & Sesia, 2024), for each group ˆGs ∈ { ˆGst }Tt=1, we can substitute XN +1 ∈ ˆGs for ϕ(XN +1, ˆA(XN +1)) and XN +1 ∈ ˆGo 
+
+> s
+
+for 
+
+ϕ(XN +1, ˆAo(XN +1)) as conditions, where ˆGo 
+
+> s
+
+is an imaginary oracle group. Then, according to Theorem 1 (Zhou & Sesia, 2024), we have 
+
+P[YN +1 ∈ C(XN +1) ∣ XN +1 ∈ ˆGs] ≥ 1 − α. 
+
+AFCP assumes that the group selection algorithm can always achieve the oracle group ˆGo 
+
+> s
+
+, which means that the algorithm must have enough expressiveness to include ˆGo 
+
+> s
+
+into the candidate group space. However, this necessary condition could be violated, as AFCP’s candidate group space is limited to linear groups defined by individual features. In contrast, our method, F AREG, employs a more expressive model that extends its candidate group space into the nonlinear realm. Conse-quently, the guarantee for F AREG remains valid for groups defined by complex, nonlinear feature combinations. Next, we formally analyze the expressiveness of AFCP and our F AREG based on the VC-dimension. As described in Section 1, AFCP computes the group coverage scores for each feature and greedily 15 Published as a conference paper at ICLR 2026 picks the most sensitive feature with the lowest group coverage score. The essence of such a process is a decision stump dividing all features into two parts (sensitive or not sensitive) using a threshold, and thus its VC-dimension is 2. In contrast, based on established theory (Shalev-Shwartz & Ben-David, 2014), the VC-dimension of F AREG scales with its parameter size M , i.e., VC (AFCP ) = 2, VC (FAREG) = O(M ).
+
+Hence, the VC-dimension of our F AREG is typically far larger than that of AFCP, indicating the stronger expressiveness of our method, i.e., our candidate group space serves as a superset of AFCP’s candidate group space. A.5 PROOF OF PROPOSITION 2
+
+Proof. According to Proposition 1 and the definition of WSC + 
+
+> n
+
+(Eq. 7), we obtain 
+
+sup 
+
+> π∈Π
+
+{∣ WSC +
+
+> n
+
+(C, π ) − P(Y ∈ C(X) ∣ a ≤ π(X) ≤ b)∣} ≤ O(1)√ V C (Π) log NδN 
+
+by omitting τ . Then, we eliminate the absolute value as 
+
+−O(1)√ V C (π) log NδN ≤ WSC +
+
+> n
+
+(C, π ) − P(Y ∈ C(X) ∣ a ≤ π(X) ≤ b) ≤ O(1)√ V C (π) log NδN ,
+
+which holds for all π ∈ Π. Hence, if P(Y ∈ C(X) ∣ a ≤ π(X) ≤ b) = 1 − α, we can observe WSC +
+
+> n
+
+(C, π ) ≥ P(Y ∈ C(X) ∣ a ≤ π(X) ≤ b) − O(1)√ V C (π) log NδN 
+
+for any π ∈ Π.Next, we only need to prove O(d2) ≥ V C (π). Recall that V C (π) denotes the VC-dimension of the binary classifier π, and π = xT Wx + vT x is a quadratic function, where W ∈ Rd×d and 
+
+v ∈ Rd. Therefore, the VC-dimension of π is equal to the dimension of its expanded feature space 
+
+M = d(d + 1)/ 2 + d, i.e., O(d2), which completes the proof. 
+
+## B FURTHER EXPERIMENT DETAILS 
+
+B.1 DATASET CONSTRUCTION AND HYPERPARAMETERS 
+
+Table 2: Hyperparameters of F AREG. DATASET SYNTHETIC DATA NURSERY DATA 
+
+MODEL MLP MLP NUMBER OF LAYERS 3 3HIDDEN DIMENSION [64,32] [64,32] EPOCH 2000 800 BATCH SIZE 500 500 LEARNING RATE 0.001 0.01 
+
+β 2.0 0.1 
+
+δ 0.3 0.1 
+
+T 20 100 For the dataset we use to evaluate two metrics in Section 4.1, only X[0], X [1], and X[2] influence the label Y and we define the conditional distribution P (Y ∣ X) as 
+
+P (Y ∣ X) =
+
+⎧⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎨⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎩( 13 , 13 , 13 , 0, 0, 0) , if (X[0] ≥ 0.1) ⊕ (X[1] ≥ 0.1) and X[2] < 0.5,
+
+(0, 0, 0, 13 , 13 , 13 ) , if (X[0] ≥ 0.1) ⊕ (X[1] ≥ 0.1) and X[2] ≥ 0.5,
+
+(1, 0, 0, 0, 0, 0) , if not (X[0] ≥ 0.1) ⊕ (X[1] ≥ 0.1) and X[2] < 16 ,
+
+(0, 1, 0, 0, 0, 0) , if not (X[0] ≥ 0.1) ⊕ (X[1] ≥ 0.1) and 16 ≤ X[2] < 26 ,
+
+⋮
+
+(0, 0, 0, 0, 0, 1) , if not X[0] = (X[0] ≥ 0.1) ⊕ (X[1] ≥ 0.1) and 56 ≤ X[2] ≤ 1.
+
+16 Published as a conference paper at ICLR 2026 0.1 0.2 0.3 0.4 
+
+> 0.8
+> 0.85
+> 0.9
+> 0.95
+> 1
+> Group Coverage
+> FaReG
+
+(a) Group Coverage 0.1 0.2 0.3 0.4  
+
+> 0.8
+> 0.85
+> 0.9
+> 0.95
+> 1
+> WSC+
+> FaReG
+
+(b) WSC +    
+
+> n0.1 0.2 0.3 0.4
+> 0.8
+> 0.85
+> 0.9
+> 0.95
+> 1
+> Average Coverage  FaReG
+
+(c) Average Coverage 0.1 0.2 0.3 0.4  
+
+> 2
+> 2.2
+> 2.4
+> 2.6
+> 2.8
+> 3
+> Average Size
+> FaReG
+
+(d) Average Size 
+
+Figure 6: Performance of prediction sets produced by our F AREG on synthetic data w.r.t. the selected group size proportion δ.10 20 50 100 
+
+> T
+> 0.8
+> 0.85
+> 0.9
+> 0.95
+> 1
+> Group Coverage
+> FaReG
+
+(a) Group Coverage 10 20 50 100  
+
+> T
+> 0.8
+> 0.85
+> 0.9
+> 0.95
+> 1
+> WSC+
+> FaReG
+
+(b) WSC +    
+
+> n10 20 50 100
+> T
+> 0.8
+> 0.85
+> 0.9
+> 0.95
+> 1
+> Average Coverage  FaReG
+
+(c) Average Coverage 10 20 50 100  
+
+> T
+> 2
+> 2.2
+> 2.4
+> 2.6
+> 2.8
+> 3
+> Average Size
+> FaReG
+
+(d) Average Size 
+
+Figure 7: Performance of prediction sets produced by our F AREG on synthetic data w.r.t. the sampling times T .For the classification models as the input of conformal prediction, we strictly follow the settings in (Zhou & Sesia, 2024) on both synthetic and real-world data. To train F AREG to mine unfair groups, we randomly split the calibration set D into the training set and validation set with the ratio 5:5. We list the hyperparameters of F AREG in Table 2. Note that we use the same network structure for encoders and decoders, i.e., a simple 3-layer MLP, which is consistent with Proposition 1. Since there are three optimization objectives in Eq. 5, which may conflict with each other to some extent, we divide the training into two stages. At the first stage, we train the encoder with the parameter θ
+
+and the decoder with the parameter ϕ by fixing the decoder with the parameter φ in practice, i.e., the first term LCC and third term LKL in Eq. 5. Then, we use LM SE to reconstruct X based on Z
+
+at the second stage. Recall from Section 4.2 that Color is denoted as X[0], Gender is denoted as X[1], and the first standard feature is denoted as X[2]. The conditional distribution of Y ∣ X is determined by a simple decision tree, where only X[0], X[1], and X[2] provide valuable predictive information for Y ,formulated as follows, 
+
+P (Y ∣ X) =
+
+⎧⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎨⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎪⎩( 13 , 13 , 13 , 0, 0, 0) , if X[0] = Red and X[1] = Female and X[2] < 0.5,
+
+(0, 0, 0, 13 , 13 , 13 ) , if X[0] = Red and X[1] = Female and X[2] ≥ 0.5,
+
+( 13 , 13 , 13 , 0, 0, 0) , if X[0] = Blue and X[1] = Male and X[2] < 0.5,
+
+(0, 0, 0, 13 , 13 , 13 ) , if X[0] = Blue and X[1] = Male and X[2] ≥ 0.5,
+
+(1, 0, 0, 0, 0, 0) , if X[0] = Red and X[1] = Male and X[2] < 16 ,
+
+(0, 1, 0, 0, 0, 0) , if X[0] = Red and X[1] = Male and 16 ≤ X[2] < 26 ,
+
+⋮
+
+(0, 0, 0, 0, 0, 1) , if X[0] = Red and X[1] = Male and 56 ≤ X[2] ≤ 1,
+
+(1, 0, 0, 0, 0, 0) , if X[0] = Blue and X[1] = Female and X[2] < 16 ,
+
+⋮
+
+(0, 0, 0, 0, 0, 1) , if X[0] = Blue and X[1] = Female and 56 ≤ X[2] ≤ 1.
+
+B.2 PARAMETER SENSITIVITY 
+
+In this section, we first investigate the sensitivity of two key parameters: the selected group size proportion δ and the number of sampling iterations T . The results for δ and T are presented in Fig. 6 17 Published as a conference paper at ICLR 2026 Table 3: Performance of prediction sets produced by our F AREG w.r.t the hyperparameter β.                      
+
+> β0.1 0.2 0.5 1.0 2.0 GROUP COVERAGE 0.902 0.898 0.909 0.906 0.904 AVERAGE SIZE 2.738 2.722 2.714 2.721 2.761 0.0 0.2 0.4 0.6 0.8 1.0
+> X[0]
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> X[1]
+
+(a) ∣ ˆGs∣/ N = 0.31 0.0 0.2 0.4 0.6 0.8 1.0  
+
+> X[0]
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> X[1]
+
+(b) ∣ ˆGs∣/ N = 0.39 0.0 0.2 0.4 0.6 0.8 1.0  
+
+> X[0]
+> 0.0
+> 0.2
+> 0.4
+> 0.6
+> 0.8
+> 1.0
+> X[1]
+
+(c) ∣ ˆGs∣/ N = 0.47 
+
+Figure 8: The visualization results of reconstruction ˆX when ∣ ˆGs∣/ N increases. The latent represen-tation z generally captures an XNOR relationship between X[0] and X[1].and Fig. 7, respectively. Overall, the metrics Group Coverage and WSC + 
+
+> n
+
+show relative insensitivity to the number of sampling iterations T , as illustrated in Fig. 7a and 7b. In contrast, both Group Coverage and WSC + 
+
+> n
+
+increase with the proportion δ of the selected group size relative to the entire dataset. This trend empirically provides implicit support for Proposition 1. We further conduct a sensitivity analysis of the hyperparameter β (Eq. 5) on synthetic data with a sample size of 2,000 and report the average results across 10 runs. The experimental results in Table 3 show that, as β varies, F AREG consistently achieves valid adaptive equalized coverage (0.9) with relatively steady efficiency. B.3 GROUP VISUALIZATION 
+
+To analyze how features X[0] and X[1] contribute to group membership in ˆGs, we perturb the encoding z and examine the resulting reconstructions ˆX. Taking the sample size of 4,000 on the synthetic dataset as an example, we randomly select one run from 10 repeated trials and add pertur-bations of +0.003 and +0.006 to the fourth dimension of z, respectively. The reconstructed features 
+
+ˆX are visualized in Fig. 8. Fig. 8a shows that, without perturbation, the latent representation z generally captures an XNOR relationship between X[0] and X[1], indicating that the encoder effectively filters out irrelevant feature information. After applying perturbations (see Fig. 8b and 8c), the XNOR pattern becomes more pronounced as ∣ ˆGs∣/ N increases, revealing a positive correlation between X[0] ⊙ X[1] and membership in ˆGs. This result strengthens the interpretability of our approach by demonstrating that the representation-based groups reflect meaningful feature interactions. B.4 OTHER SYNTHETIC SETUPS BEYOND XNOR In this part, we construct a more complicated setup by partitioning the synthetic data in Section 4.2 into eight diverse subgroups: Male Child, Male Youth, Male Middle-Aged, Male Elderly, Female Child, Female Youth, Female Middle-Aged, and Female Elderly. We then impose algorithmic bi-ases, using a procedure analogous to that in Section 4.2, on four of these subgroups: Male Child, Male Youth, Female Middle-Aged, and Female Elderly. In experiments with a sample size of 2,000, we compare our method, F AREG, with the SOTA method AFCP2. The experimental results in Ta-ble 4, averaged over 10 runs, also demonstrate that F AREG achieves the ideal conditional coverage (0.9) while sacrificing very little efficiency. B.5 CP METHODS WITHOUT ADAPTIVE GROUP SELECTIONS 
+
+We next build F AREG upon the results of CondCP (Gibbs et al., 2025), which does not consider the automatic selection of the sensitive groups as discussed in Section 5. As shown in Table 5, 18 Published as a conference paper at ICLR 2026 Table 4: Performance of prediction sets produced by different CP methods on the other synthetic setups beyond XNOR. METHOD GROUP COVERAGE WSC +            
+
+> nAVERAGE COVERAGE AVERAGE SIZE
+> AFCP2 0.849 0.866 0.926 2.68 FAREG0.901 0.902 0.942 2.74
+
+experiments on synthetic data with a sample size of 2,000 reveal that CondCP may lack the ex-pressiveness needed to capture complex unfairly treated groups. Consequently, our F AREG method further improves conditional coverage based on CondCP. Table 5: Performance of prediction sets produced by different CP methods with and without adaptive group selections. METHOD GROUP COVERAGE WSC +                
+
+> nAVERAGE COVERAGE AVERAGE SIZE
+> COND CP 0.819 0.815 0.899 2.53 FAREG0.904 0.899 0.944 2.76 COND CP + F AREG0.903 0.897 0.940 2.72
+
+B.6 MORE REAL -WORLD DATASETS 
+
+In this part, we evaluate our method using the standard ACSIncome dataset from Folktables (Ding et al., 2021), which comprises nine features: Age, Class of worker, Educational attainment, Marital status, Occupation, Place of birth, Relationship, Working hours, Gender, and Race. Among these, Age, Marital status, Sex, and Race are designated as sensitive features. The target variable, i.e., a person’s income, is evenly divided into four brackets, forming a 4-class classification task. We fur-ther partition the Age feature into four intervals: [17–26, 27–36, 37–46, 47–56]. A specific subgroup is defined by the condition (Age = 17–26 & Sex = Male) or (Age = 47–56 & Sex = Female), into which we manually inject algorithmic biases, following a procedure similar to that in Section 4.3. For time and cost constraints, particularly given the high complexity of the baseline AFCP method, we randomly sample 20,000 instances from the combined datasets of CA, NY, TX, AK, and AL. The proposed F AREG is then compared against the state-of-the-art approach, AFCP2. Experimental re-sults in Table 6 (averaged over 10 independent runs) show that F AREG still consistently achieves the valid conditional coverage of 0.9 while maintaining competitive efficiency. Table 6: Performance of prediction sets produced by different CP methods on the ACSIncome data. METHOD GROUP COVERAGE WSC +            
+
+> nAVERAGE COVERAGE AVERAGE SIZE
+> AFCP2 0.839 0.883 0.918 3.17 FAREG0.898 0.907 0.936 3.31
+
+19

@@ -1,0 +1,1330 @@
+Title: Causal Bias Detection in Generative Artifical Intelligence
+
+URL Source: https://arxiv.org/pdf/2605.11365v1
+
+Published Time: Wed, 13 May 2026 00:25:34 GMT
+
+Number of Pages: 24
+
+Markdown Content:
+# Causal Bias Detection in Generative Artifical Intelligence 
+
+Drago Pleˇ cko 
+
+Department of Statistics & Data Science UCLA 
+
+## Abstract 
+
+Automated systems built on artificial intelligence (AI) are increasingly deployed across high-stakes domains, raising critical concerns about fairness and the per-petuation of demographic disparities that exist in the world. In this context, causal inference provides a principled framework for reasoning about fairness, as it links observed disparities to underlying mechanisms and aligns naturally with human intuition and legal notions of discrimination. Prior work on causal fairness pri-marily focuses on the standard machine learning setting, where a decision-maker constructs a single predictive mechanism fbY for an outcome variable Y , while inheriting the causal mechanisms of all other covariates from the real world. The generative AI setting, however, is markedly more complex: generative models can sample from arbitrary conditionals over any set of variables, implicitly construct-ing their own beliefs about all causal mechanisms rather than learning a single predictive function. This fundamental difference requires new developments in causal fairness methodology. We formalize the problem of causal fairness in gen-erative AI and unify it with the standard ML setting under a common theoretical framework. We then derive new causal decomposition results that enable granular quantification of fairness impacts along both (a) different causal pathways and (b) the replacement of real-world mechanisms by the generative model’s mechanisms. We establish identification conditions and introduce efficient estimators for causal quantities of interest, and demonstrate the value of our methodology by analyzing race and gender bias in large language models across different datasets. 
+
+## 1 Introduction 
+
+Automated systems built on machine learning and artificial intelligence are increasingly used to sup-port or replace human decision-making across domains such as hiring, admissions, lending, law en-forcement, and health care [25, 33, 10]. These systems now range from structured prediction models to modern generative AI, including large language and vision models. Across this spectrum, society is increasingly concerned about how automated systems compare to existing human decision pro-cesses, and whether they may perpetuate or amplify inequities between demographic groups. Prior work documents significant biases in decision-support tools for sentencing [3], face detection [11], online advertising [48, 17], and authentication [46], as well as demographic drift and occupational stereotypes in generative models [32, 36, 37, 18, 22, 53]. Importantly, these issues are not unique to machines: the world from which data is sampled exhibits longstanding disparities, from gender pay gaps [8, 9] to racial bias in criminal sentencing [49, 38]. As a result, AI systems trained on observa-tional data learn patterns shaped by historical processes, posing a fundamental question: under what conditions do AI systems replicate, exacerbate, or mitigate existing disparities? In light of the fairness challenges described above, a growing literature has explored approaches to mitigating bias in automated systems. Here, we specifically mention the causal approach [28, 26, 34, 57, 56, 54, 15, 43, 42], which has two major benefits. First, causal notions allow for human-
+
+> arXiv:2605.11365v1 [cs.AI] 12 May 2026
+
+X
+
+Z
+
+W
+
+Y
+
+bY
+
+> (a) Standard Fairness Model [42].
+
+X
+
+Z
+
+W
+
+Y
+
+S
+
+> (b) S-SFM for machine learning.
+
+X
+
+Z
+
+W
+
+Y
+
+S
+
+S
+
+S
+
+> I
+> Image
+
+. . . T
+
+> Text
+> (c) S-SFM for generative AI.
+
+Figure 1: Standard Fairness Model (SFM) for machine learning and generative AI settings. understandable and interpretable definitions and metrics of fairness, which are tied to the causal mechanisms transmitting the change between groups. Secondly, they offer a language that is aligned with the legal notions of discrimination, such as the disparate impact doctrine [6]. Within the context of causal fairness, it is useful to distinguish between different tasks [42], namely (1) bias detection and quantification for existing outcomes or decision policies; (2) construction of fair predictions of an outcome; (3) construction of fair decision-making policies that are intended to be implemented in the real-world. A prototypical setting for fair prediction, known in prior work as the standard fairness model (SFM) [42], is shown in Fig. 1a. Here, X represents the protected attribute, Z a possibly multidimensional set of confounders, W a set of mediators, and Y the out-come variable, while bY represents an automated predictor. The causal approach aims to understand how different causal effects from X to Y (direct X → Y , indirect X → W → Y , and spurious 
+
+X L99 99K Z → Y ) are inherited by bY [41], and how to correct for such bias. The setting of generative AI, however, is markedly more complex, along several dimensions. First, we most commonly do not have access to data on covariates (X, Z, W, Y ) directly, but rather have access to lower-level data of different modalities, such as images or text, whose dynamics and struc-ture are influenced by a causal model (see Fig. 1c). Second, when working with tabular data, as in the standard ML setting, the decision-maker is constructing a single mechanism fbY that maps covariates 
+
+(X, Z, W ) to a prediction bY , while all other mechanisms fX , f Z , f W are inherited from the real-world . In generative AI, this is no longer the case, and we are (implicitly) constructing a generative model that can map an arbitrary set of variables {V1, . . . , V k} to another arbitrary set of variables 
+
+{Vk+1 , . . . , V ℓ}. As a consequence, a generative model M may have its own beliefs about the re-lationship between variables X, Z , and W – that is, it constructs new mechanisms f MX , f MZ , f MW
+
+– entirely opposite to the case with tabular data where such mechanism were determined from the real world. The final challenge stems from the fact that generative models do not have access to the correct variable correlations in the real world, as recent work demonstrates [44]. Thus, variable relationships in the generative model could be quite different from the real-world relationships. These challenges illustrate that a fresh approach is needed for causal fairness in generative AI, which is the topic of this paper. In this context, our contributions are as follows: (i) We formalize the problem of causal fairness in generative AI, showing how it differs from the standard ML setting – and bring the two settings under the same theoretical umbrella, (ii) We derive new causal decomposition results (Thm. 1) – allowing for a more granular quan-tification of fairness impacts along (a) different causal pathways and (b) arising from dif-ferent mechanisms (generative model vs. real world), (iii) We establish identification conditions, and introduce efficient estimators for causal quanti-ties of interest (Prop. 3), (iv) We apply our methodology to analyze LLMs for (a) racial bias in substance abuse; (b) racial bias in chronic disease burden; (c) sex bias in income levels. We now provide some intuition for the developments in this manuscript. In our framework, the standard causal fairness ML setting, shown in Fig. 1a, can be modeled as in Fig. 1b. Here, the node labeled S indicates whether the outcome variable Y is sampled according to the real-world mecha-2Z
+
+x0 x1
+
+W
+
+Y −
+
+P (yx1,W x0 | x0) P (yx0 | x0)
+
+Z
+
+x0
+
+W
+
+Y 
+
+> (a) x-specific direct effect.
+
+Z
+
+xw
+
+X = xz
+
+xy
+
+sz
+
+sw
+
+sy
+
+W
+
+Y 
+
+> (b) A generic potential outcome in S-SFM.
+
+Figure 2: Graphical models for (a) x-specific direct effect; (b) generic potential outcome in S-SFM. nism f rw Y , or according to the ML model f mY . In this way, the S-node can be used to denote from which generative environment (real world or model) the data is sampled. In context of generative AI, as mentioned earlier, the S-node must point to all covariates X, Z, W , and Y , since generative models are able to construct their own beliefs about the relationship between variables. 
+
+Relationship to Previous Literature. Our work is related to the literature on causal fairness [42], much of which is focused on the typical ML setting [28, 15]. Our approach builds on some of these prior works, and extends the scope to generative AI settings. Secondly, our work is related to approaches for achieving counterfactual fairness in text/image classification and generation [13, 24, 19, 27, 23]. However, such works usually focus only on counterfactual fairness, and fail to model the latent causal process and quantify granularly which causal mechanisms contribute to disparities. Finally, we mention existing work that performs statistical quantification of disparities in generative AI [32, 36, 18, 22], including dedicated bias benchmarks [35, 37, 30, 47, 53]. Our approach can be used to analyze the same phenomena through a different, causal lens, offering insight into which mechanisms drive the disparities. 
+
+1.1 Preliminaries 
+
+We use the language of structural causal models (SCMs) as our basic semantical framework [39]. A structural causal model (SCM) is a tuple M := ⟨V, U, F, P (u)⟩ , where V , U are sets of endogenous (observable) and exogenous (latent) variables respectively, F is a set of functions fVi , one for each 
+
+Vi ∈ V , where Vi ← fVi (pa( Vi), U Vi ) for some pa( Vi) ⊆ V and UVi ⊆ U . P (u) is a strictly positive probability measure over U . Each SCM M is associated to a causal diagram G over the node set V , where Vi → Vj if Vi is an argument of fVj , and Vi L99 99K Vj if the corresponding UVi , U Vj
+
+are not independent. An instantiation of the exogenous variables U = u is called a unit . By Yx(u)
+
+we denote the potential response of Y when setting X = x for the unit u, which is the solution for 
+
+Y (u) to the set of equations obtained by evaluating the unit u in the submodel Mx, in which all equations in F associated with X are replaced by X = x. Furthermore, we use existing notions of direct, indirect, and spurious effects [57, 42]: x-DE x0,x 1 (y | x) = P (yx1,W x0 | x) − P (yx0 | x),
+
+x-IE x1,x 0 (y | x) = P (yx1,W x0 | x) − P (yx1 | x), and x-SE x1,x 0 (y) = P (yx1 | x0) − P (yx1 | x1).Based on these, the TV x0,x 1 (y) measure E[Y | X = x1] − E[Y | X = x0] can be decomposed as: TV x0,x 1 (y) = x-DE x0,x 1 (y | x0) − x-IE x1,x 0 (y | x0) − x-SE x1,x 0 (y). (1) A graphical representation for the x-specific direct effect is shown in Fig. 2a. The left side represents the potential outcome Yx1,W x0 | X = x0, where X = x1 along the direct path X → Y , while 
+
+X = x0 along the indirect path X → W → Y , and X = x0 along back-door paths between 
+
+X and Y . The right side represents the potential outcome Yx0,W x0 | X = x0, where X = x0
+
+along all three causal paths (direct, indirect, spurious). Therefore, x-DE measures the effect of a 
+
+x0 → x1 transition along the direct effect, for individuals with X = x0, while X = x0 along the indirect path. Similar interpretations can be given for the indirect and spurious effects. The 
+
+x-specific indirect effect captures the reverse transition x1 → x0 along the path X → W → Y ; and the spurious effect quantifies how conditioning on X = x0 compares to conditioning on X = x1,for the potential outcome Yx1 where X is set to x1 by intervention. 32 Causal Fairness in Generative AI 
+
+We start by introducing the required structural semantics for the setting of fairness in generative AI. In particular, as noted in the introduction, our modeling approach takes into account that data generation happens in two distinct environments, namely the real-world (denoted by S = rw , or 
+
+S = 0 ) and the generative model ( S = gm , or S = 1 ). For each of these two environments, we can write down explicitly the underlying structural causal models M rw , M gm over variables 
+
+X, Z, W, Y :
+
+M rw =
+
+
+
+X, Z ← f rw X,Z (UXZ )
+
+W ← f rw W (X, Z, U W )
+
+Y ← f rw Y (X, Z, W, U Y )
+
+U ∼ P rw (U )
+
+(2) (3) (4) (5) , M gm =
+
+
+
+X, Z ← f gm X,Z (UXZ )
+
+W ← f gm W (X, Z, U W )
+
+Y ← f gm Y (X, Z, W, U Y )
+
+U ∼ P gm (U ).
+
+(6) (7) (8) (9) Here, variables X, Z are put together in a single mechanism fX,Z that depends on the noise variable 
+
+UXZ , whereas fW , f Y mechanisms depend on their causal parents and respective noise variables. Importantly, we note that the mechanisms in the real world and the generative model may be distinct. To put the two models M rw , M gm under the same umbrella, we introduce a type of selection node [40], labeled S, which influences all of the covariates (see Fig. 1c). In particular, the node S encodes whether data is generated from the real world mechanism f rw Vi (and it’s noise distribution P rw (UVi ))or the generative model’s mechanism f gm Vi (and it’s noise distribution). Crucially, this allows us to represent the two SCMs jointly, 
+
+M =
+
+
+
+S ∼ P (S = rw ) = p, P (S = gm ) = 1 − pX, Z ← f SX,Z (UXZ )
+
+W ← f SW (X, Z, U W )
+
+Y ← f SY (X, Z, W, U Y )
+
+U ∼ P S (U ).
+
+(10) (11) (12) (13) (14) In other words, the variable S determines which mechanisms (and which noise variables) are used for determining the value of (X, Z ), W , and Y variables. When S = 0 , we have the generating process describing the real world, while S = 1 leads to the generating process of the AI model. For-mally, the S-node consists of separate selection nodes S = ( SXZ , S W , S Y ) for different variables, and this allows us to consider mechanism replacements independently [5, Ch. 10]. Nonetheless, we write S without subscript in most places, as the subscript can often be inferred from context. The SCM described above also has a corresponding graphical representation which we call S-SFM: 
+
+Definition 1 (S-SFM) . The S-standard fairness model is the SFM model with an S-node pointing to each of the covariate sets {X, Z }, W and Y , as shown in Fig. 1c. □
+
+The usefulness of the above semantics comes from our ability to consider different interventions on the S-node along the edges S → { X, Z }, S → W , and S → Y . We now introduce the notation for such potential outcomes. We write 
+
+Y sy  
+
+> xy,W sw xw
+
+| X = xz , S = sz , (15) for the potential outcome visualized in Fig. 2b. Specifically, the value S = sz determines whether the mechanism fX,Z corresponds to the real-world mechanism or the generative model’s mecha-nism; while the X = xz determines the value of X that propagates along spurious paths from X to 
+
+Y . Further, S = sw determines whether W is drawn from the real-world mechanism, or the gener-ative model one; while X = xw determines the value of X along the indirect path X → W → Y .Finally, S = sy controls whether Y is drawn from the real-world mechanism, or the generative model one, while X = xy determines the value of X along the direct edge X → Y . We now illustrate why such potential outcomes provide us with a useful tool for understanding fairness in generative AI systems. Consider the difference between the potential outcomes in (a) and (b) of Fig. 3. For both potential outcomes, S = s0 for each mechanism, meaning that all the mechanisms are from the real world. The difference between the two potential outcomes lies in the value of X
+
+4Z
+
+x0 x1
+
+s0
+
+s0
+
+s0
+
+W
+
+Y
+
+(a) Y s0 
+
+> x1,W s0
+> x0
+
+| x0, s 0.
+
+Z
+
+x0
+
+s0
+
+s0
+
+s0
+
+W
+
+Y
+
+(b) Y s0 
+
+> x0,W s0
+> x0
+
+| x0, s 0.
+
+Z
+
+x0 x1
+
+s0
+
+s0
+
+s1
+
+W
+
+Y
+
+(c) Y s1 
+
+> x1,W s0
+> x0
+
+| x0, s 0.
+
+Z
+
+x0
+
+s0
+
+s0
+
+s1
+
+W
+
+Y
+
+(d) Y s1 
+
+> x0,W s0
+> x0
+
+| x0, s 0.
+
+Figure 3: Quantifying differences using S-SFM potential outcomes. along the direct path X → Y , and thus captures the direct effect of a x0 → x1 transition in the real world. We contrast this with the difference between (c) and (d) of Fig. 3, where the same direct effect of an x0 → x1 transitions is captured, but in the world where the fY mechanism is taken from the generative model ( s1 → Y ), while the fX,Z , f W mechanisms are taken from the real world. Interestingly, note that the difference between the terms (referring to the labels in Fig. 3) 
+
+[( c) − (d)] − [( a) − (b)] (16) captures how much the direct effect changes when the real world mechanism f rw Y is replaced by the generative model’s mechanism f gm Y . In our analysis of fairness impacts of generative models, such quantities will play a key role, which motivates the following definition: 
+
+Definition 2 (S-modified x-specific Effects) . The S-modified x-specific {direct, indirect, spurious} effects of X on Y are defined as: 
+
+x-DE sz ,s w ,s y 
+
+> x0,x 1
+
+(y | x) = E(Y sy 
+
+> x1,W sw x0
+
+| X = x, S = sz ) − E(Y sy 
+
+> x0,W sw x0
+
+| X = x, S = sz ) (17) 
+
+x-IE sz ,s w ,s y 
+
+> x1,x 0
+
+(y | x) = E(Y sy 
+
+> x1,W sw x0
+
+| X = x, S = sz ) − E(Y sy 
+
+> x1,W sw x1
+
+| X = x, S = sz ) (18) 
+
+x-SE sz ,s w ,s y 
+
+> x1,x 0
+
+(y) = E(Y sy 
+
+> x1,W sw x1
+
+| X = x0, S = sz ) − E(Y sy 
+
+> x1,W sw x1
+
+| X = x1, S = sz ). (19) 
+
+Based on these measures, we can further define second-order S-based differences, 
+
+∆CE x,x ′ (y)sz →s′     
+
+> z,s w→s′
+> w,s y→s′
+> y
+
+= CE s′   
+
+> z,s ′
+> w,s ′
+> y
+> x,x ′
+
+(y) − CE sz ,s w ,s y 
+
+> x,x ′
+
+(y), (20) 
+
+where CE stands for any of the x-specific effects {DE, IE, SE}. In case any sVi = s′ 
+
+> Vi
+
+, we simply indicate the sVi value instead of a transition sVi → s′ 
+
+> Vi
+
+. □
+
+After introducing the key building blocks, we now describe how these elements can be used to analyze fairness in generative AI systems. 
+
+2.1 Inferential Challenge 
+
+A common starting point in investigating fairness is the marginal disparity in the outcome between groups, which in the real world can be measured as: TV rw x0,x 1 = Erw [Y | X = x1] − Erw [Y | X = x0]. (21) Similarly, we can quantify the same disparity in the generative model via: TV gm x0,x 1 = Egm [Y | X = x1] − Egm [Y | X = x0]. (22) The key goal of our approach is to provide a fine-grained understanding of how the disparity in the world TV rw x0,x 1 changes to TV gm x0,x 1 in the generative model. That is, our quantity of interest is ∆TV s0→s1 
+
+> x0,x 1
+
+(y) ∆
+
+= TV gm x0,x 1 − TV rw x0,x 1 , which can be analyzed based on the following result (all proofs are provided in App. A): 
+
+Theorem 1 (S-based TV Decomposition) . The difference between the real-world and generative model TV measures, ∆TV s0→s1 
+
+> x0,x 1
+
+(y) can be decomposed as: 
+
+∆TV s0→s1 
+
+> x0,x 1
+
+(y) = ∆ x-DE s0→s1 
+
+> x0,x 1
+
+(y | x0) − ∆x-IE s0→s1 
+
+> x1,x 0
+
+(y | x0) − ∆x-SE s0→s1 
+
+> x1,x 0
+
+(y). (23) 
+
+Furthermore, each of the contributions ∆-CE ∈ { ∆x-DE , ∆x-IE , ∆x-SE } can be additionally de-composed as: 
+
+∆-CE s0→s1 
+
+> x0,x 1
+
+(y) = ∆ -CE s0,s 0,s 0→s1 
+
+> x0,x 1
+
+(y) + ∆ -CE s0,s 0→s1,s 1 
+
+> x0,x 1
+
+(y) + ∆ -CE s0→s1,s 1,s 1 
+
+> x0,x 1
+
+(y). □ (24) 5The above theorem is a key insight allowing us to understand how disparities in the generative model are structured, compared to the disparities in the real world. First, the overall disparity difference 
+
+∆TV s0→s1 
+
+> x0,x 1
+
+(y) is decomposed into contributions from differences in direct, indirect, and spurious pathways. In particular, each ∆-CE s0→s1 in Eq. 23 measures how much the corresponding effect changes when the real-world mechanisms {f rw X,Z , f rw W , f rw Y } are replaced by the generative model’s mechanisms {f gm X,Z , f gm W , f gm Y }. However, as the theorem shows, these quantities can be further decomposed. We now examine the interpretation of this decomposition, in the case of direct effects: 
+
+∆x-DE s0→s1 
+
+> x0,x 1
+
+(y | x0) = ∆ x-DE s0,s 0,s 0→s1 
+
+> x0,x 1
+
+(y | x0)
+
+| {z }
+
+> T1
+
++ ∆ x-DE s0,s 0→s1,s 1 
+
+> x0,x 1
+
+(y | x0)
+
+| {z }
+
+> T2
+
+(25) 
+
++ ∆ x-DE s0→s1,s 1,s 1 
+
+> x0,x 1
+
+(y | x0)
+
+| {z }
+
+> T3
+
+.
+
+As mentioned, the LHS above measures the impact of exchanging all real world mechanism with the model ones. The term T1 captures the change in the direct effect resulting from the transition 
+
+f rw Y → f gm Y (i.e., replacing the mechanism f rw Y only), while keeping the f rw X,Z , f rw W for X, Z, W 
+
+variables. The term T2 captures the change in direct effect from the transition f rw W → f gm W , with 
+
+f rw X,Z governing X, Z behavior, and f gm Y governing the Y behavior, respectively. Finally, the term 
+
+T3 captures the change in direct effect from the transition f rw X,Z → f gm X,Z , with f gm W , f gm Y governing 
+
+W, Y behavior. Therefore, the decomposition in Eq. 25 allows us to disentangle how the replacement real-world mechanism fX,Z , f W , f Y with the model ones affects the direct effect, stepwise. Using the analogous decompositions for indirect and spurious effects, we obtain a full insight into how direct, indirect, and spurious effects are impacted by the replacement of the causal mechanisms. As the following result shows, Thm. 1 generalizes previous literature: 
+
+Corollary 2 (Thm. 1 in Standard ML Setting) . Consider the machine learning setting where 
+
+f gm W = f rw W , P gm (UW ) = P rw (UW ), f gm X,Z = f rw X,Z , P gm (UX,Z ) = P rw (UX,Z ) (26) 
+
+that is, the model inherits the mechanisms for X, Z, W from the real world. Then, for each of the contributions ∆-CE ∈ { ∆x-DE , ∆x-IE , ∆x-SE }, we have that: 
+
+∆-CE s0,s 0→s1,s 1 
+
+> x0,x 1
+
+(y) = 0 , ∆-CE s0→s1,s 1,s 1 
+
+> x0,x 1
+
+(y) = 0 , (27) 
+
+while only the effect ∆-CE s0,s 0,s 0→s1 
+
+> x0,x 1
+
+(y) can be non-zero. □
+
+The above corollary considers the standard ML setting, in which the ML model inherits the mech-anisms for X, Z, W from the real world. This setting, visualized in Fig. 1b, is typically considered in the causal fairness literature [42]. However, Cor. 2 shows that in this ML setting, only a sin-gle term ∆-CE s0,s 0,s 0→s1 
+
+> x0,x 1
+
+(y) will be non-zero, since only the fY mechanism replacement occurs (f rw Y → f gm Y ). In the general case, needed for analyzing generative AI models, this is no longer the case – terms in Eq. 27 can be non-zero, reflecting a more involved setting in which there are contributions arising from the replacement of fW , f X,Z mechanisms. Therefore, Cor. 2 highlights the fact that the new approach introduced in this paper strictly generalizes existing work. 
+
+Operational Aspects. After establishing the theoretical foundations, we now turn to operational aspects, and state a key identification and estimation result (see proof and discussion in App. A): 
+
+Proposition 3 (ID & Estimation) . Under the assumptions encoded in the S-SFM, the potential outcome E[Y sy  
+
+> xy,W sw xw
+
+| X = xz , S = sz ] is identified as: 
+
+X
+
+> z,w
+
+P sy (y | xy , z, w )P sw (w | xw, z )P sz (z | xz ), (28) 
+
+and can be estimated efficiently via samples from P sy (y | xy , z, w )P sw (y | xw, z )P sz (z | xz ),where the superscripts sVi denote sampling from the environment S = sVi . □
+
+The above proposition assumes access to samples from the distribution P sy (y | xy , z, w )P sw (y |
+
+xw, z )P sz (z | xz ). Whenever we have sz ≤ sw ≤ sy , such samples can be generated as follows. Assume we have access to the real world dataset Ds0 . If sz = sw = 0 , s y = 1 , we take the sample values (Xi, Z i, W i) from Ds0 , while we generate the value for Y gm i from the conditional 6distribution P s1 (y | x, z, w ) of the model. If sz = 0 , s w = sy = 1 , we take the sample values 
+
+(Xi, Z i) from Ds0 , while we generate the values for W gm i , Y gm i from the conditional distribution 
+
+P s1 (y, w | x, z ) of the model. If sz = sw = sy = 1 , all values are generated from P s1 (x, z, w, y ).As noted earlier, generative models may operate at a different level of granularity, generating data in lower-level modalities. In this case, we assume access to a generator Γ, which may take arbitrary in-puts of the form V | V ′ = v′, and produce outputs that imply the values of covariates V conditional on the values V ′ = v′. This output is then passed into an annotator A, which extracts the values of V from the lower-level data (full details are described in App. B). To ground the discussion, we provide the instantiation of this workflow for language models: 
+
+Example 1 (Bias Quantification in LLMs) . Consider quantification of racial bias in substance abuse for large language models. We wish to study how the protected attribute X (race) affects the outcome 
+
+Y (smoking marijuana monthly) via direct, indirect (mediators education W1, income W2), and spurious (confounders sex Z1, age Z2) mechanism, both in the real world and the language model. For real world data Ds0 , we use the NSDUH dataset [45]. When generating the data from the distribution P s0 (x, z )P s1 (y, w | x, z ), we take the values of 
+
+(Xi, Z i) from the dataset Ds0 , and use the following prompt template that is passed to an LLM 
+
+π(X, Z 1, Z 2) = “For a { X} person, of { Z1} sex, age { Z2}, write a story mentioning their education, income, and whether they smoke marijuana every month.” For specific values X =White, Z1=female, Z2 = 24 , the LLM is passed the following prompt: 
+
+For a White person, of female sex, age 24, write a story mentioning their education, income, and whether they smoke marijuana every month. 
+
+The LLM queried with such prompts can be viewed as the generator Γ, taking queries of the form 
+
+Y, W | X = x, Z = z as inputs. Γ may generate a response as follows: 
+
+Sophia is a 24-year-old White woman with a bachelor’s degree in environmental science. She earns $30,000–$39,999 a year from her part-time job at a local outdoor-gear shop. She smokes marijuana monthly with friends, saying it’s her way to relax. 
+
+Finally, responses from Γ are passed to an annotator A, another LLM, which then determines the values of W, Y . In this case W1 = Bachelor’s , W 2 = $30,000-$39,999 , Y = 1 . The sample 
+
+(Xi, Z i, W gm i , Y gm i ) is added to the dataset Ds0,s 1,s 1 , which is drawn from the target distribution 
+
+P s0 (x, z )P s1 (y, w | x, z ). □
+
+The example illustrates how to generate the dataset Ds0,s 1,s 1 . Generally, we focus on four datasets, 
+
+Ds0 (real world data), Ds0,s 0,s 1 where the fY mechanism is taken from the generative model, 
+
+Ds0,s 1,s 1 where fW , f Y are taken from the generative model, and Ds1 , where all data is fully sam-pled from the generative model. Finally, for each of the four datasets, the result from Prop. 3 can be used to estimate the required causal effects of interest (see App. A for details). We also remark that other datasets Dsz ,s w ,s y could be considered, conceptually. For instance, 
+
+Ds1,s 0,s 0 would correspond to data where X, Z variables are drawn from the generative model, and then passed into real-world mechanisms for W, Y . However, in such cases the conditional dis-tribution P (Y, W | X, Z ) would need to be learned using real data, for a possibly multi-dimensional 
+
+W , which may be a difficult exercise with a limited amount of data. However, when sz ≤ sw ≤ sy ,the dataset Dsz ,s w ,s y can be generated without fitting complex conditionals on real data. 
+
+## 3 Experiments 
+
+Datasets. We use three publicly available datasets, each providing nationally representative individual-level data with sample weights: (i) NSDUH 2023 [45] from SAMHSA, where we ex-amine racial bias in monthly marijuana use among White ( X = x0) vs. minority ( X = x1 for African-American or Hispanic) individuals ( Y = 1 for smoking marijuana); (ii) BRFSS 2023 [12] from the CDC, where we examine racial bias in diabetes diagnosis among the same groups ( Y = 1 
+
+for diabetes); (iii) ACS 2023 [52] from the US Census Bureau, where we examine sex bias ( X = x0
+
+male, X = x1 female) in salary among employed adults ( Y = 1 for income below $50k/year). For 7sex age          
+
+> race
+> edu income
+> marijuana use
+> (a) NSDUH.
+> sex age
+> race
+> edu income BMI exercise
+> diabetes
+> (b) BRFSS.
+> age race region
+> sex
+> edu hours employer
+> salary
+> (c) Census Income.
+
+Figure 4: Standard Fairness Models for the three datasets. each dataset, the protected attribute X, confounders Z, mediators W , and outcome Y are specified by the SFMs in Fig. 4. We sample n = 8 ,192 rows per dataset using survey weights, and use the same sampled rows as input across all models to ensure comparability. 
+
+Models. We evaluate 10 instruction-tuned open-weight models spanning 6 families and vary-ing parameter count: Llama 3.1 8B and Llama 3.3 70B [20], Qwen 3.5 9B and Qwen 3.5 27B [55], Gemma 3 4B and Gemma 3 27B [51], DeepSeek 7B [7] and DeepSeek-R1 32B (Qwen-distilled) [21], Ministral 3 8B [31], and Phi-4 [1]. All generation is performed at temperature = 1 
+
+and top-p = 1 to mimic the model’s real world deployment. Following Sec. 2, we construct three intermediate datasets per model, labeled Ds0,s 0,s 1 , Ds0,s 1,s 1 , and Ds1 , corresponding to progres-sive replacement of mechanisms fY , fW , and fX,Z . During prompting, models are provided with the dataset year, country, and cohort definition (e.g., all adults). App. B provides details of dataset generation (including annotator validation in App.B.1), while App. C extends empirical analyses. 
+
+3.1 Global Analysis 
+
+Across our 10 models and 3 datasets, the methodology of Sec. 2 produces, for each model-dataset pair, three causal effects ( x-DE, x-IE, x-SE) at three intermediate stages of mechanism replacement (replacing fY , then fW , then fX,Z ), yielding the models 9-dimensional bias signature B(M, D):
+
+(DE s0,s 0,s 1 , IE s0,s 0,s 1 , SE s0,s 0,s 1 , DE s0,s 1,s 1 , IE s0,s 1,s 1 , SE s0,s 1,s 1 , DE s1 , IE s1 , SE s1 ), (29) per model-dataset pair, which we then compare against the corresponding real-world effects. For ease of interpretation, we report IE = −x-IE x1,x 0 (y | x0) and SE = −x-SE x1,x 0 (y), as these consider a reverse transition compared to DE = x-DE x0,x 1 (y | x0).
+
+Disadvantage and Advantage. For a given causal pathway, we say that the real-world effect places the protected group at a disadvantage when its sign indicates a worse outcome for X = x1
+
+relative to X = x0 (e.g., higher probability of marijuana use, higher probability of diabetes, or lower salary). Formally, this happens if CE > 0. Conversely, the effect indicates an advantage 
+
+when its sign points in the opposite direction. Most pathways across our datasets show protected group disadvantage; the exceptions are NSDUH direct effect (minorities use less marijuana) and BRFSS spurious effect (minorities in the cohort are younger, and lower age reduces diabetes risk). Given a causal pathway with a real-world effect CE s0 , we classify how the model’s corresponding effect CE sz ,s w ,s y (of any intermediate stage) modifies the real-world bias. The model amplifies the bias when |CE s1 | > |CE s0 | with matching sign, dampens it when |CE s1 | < |CE s0 | with matching sign, and reverses it when the sign flips. Each of the 9 effects per model-dataset pair therefore receives one of these three labels, and we summarize across all 3 × 9 = 27 effects per model. Tab. 1 reports, for each model, the proportion of disadvantage-direction effects falling into each category. Reversal , where the model induces an effect of opposite sign to reality, occurs in 7– 44% of disadvantage-direction effects depending on the model. Amplification occurs for 15–44% of the effects. No model dampens consistently; even the largest model in our suite (Llama 3.3 70B) modifies the majority of effects substantially. Regarding advantage directions: nearly all models dampen or reverse the BRFSS spurious advantage, while models exhibit mixed behavior with respect to NSDUH direct advantage (see Gemma 3 27B case study below). 
+
+Bias Similarity and Model Families. Concatenating B(M, D) across datasets defines a 27-dimensional bias signature for each model. To assess structural similarities in encoded causal beliefs, we compute pairwise L1 distances and visualize the results via hierarchical clustering (Fig. 5, Ward linkage). The resulting dendrogram suggests that bias similarity is not highest within model fami-lies: the closest pair overall are Llama 3 8B and Ministral3 8B ( L1 = 0 .35 ), a pairing among distinct 8Model Amp. Damp. Rev. DeepSeek 7B 15% 56% 30% DeepSeek-R1 32B 30% 59% 11% Gemma 3 27B 44% 30% 26% Gemma 3 4B 41% 33% 26% Llama 3.3 70B 44% 44% 11% Llama 3 8B 41% 44% 15% Ministral 3 8B 37% 56% 7% Phi-4 22% 56% 22% Qwen 3.5 27B 15% 41% 44% Qwen 3.5 9B 44% 48% 7% Table 1: Stereotype analysis summary (all datasets). 
+
+Figure 5: Hierarchical clustering of model bias signatures ( L1 distance, Ward linkage). developer families and parameter scales. Further, while the Llama 3 siblings sit at L1 = 0 .39 , the Qwen 3.5 pair is at 0.62 and the Gemma 3 pair at 1.22 – both farther apart than many cross-family pairs. These mixed groupings motivate a formal test of whether family membership reliably predicts bias similarity. Using a permutation test ( N = 5 ,000 ) on the mean within-family L1 distance, we observe a mean distance of 0.80 against a null mean of 0.76 (p = 0 .62 ) – not offering evidence that siblings are closer than chance (however, we remark that the statistical power of our test cannot be computed). We close with two case studies showcasing granular insights enabled by our framework. 
+
+Gemma 3 27B Thinks Minorities Use More Marijuana. In reality, NSDUH data shows that minority individuals use marijuana at a lower rate than the majority along the direct pathway, controlling for sex, age, education, and income: DE s0 = −3.8% ± 1.8% (all effects are re-ported with ±1.96 σ, the 95% confidence interval, constructed assuming asymptotic normality; see App. A). The indirect and spurious paths point in the opposite direction with smaller magnitudes (IE s0 = 0 .2% ± 0.7% , SE s0 = 1 .8% ± 1.0% ). Replacing both the outcome ( fY ) and mediator (fW ) mechanisms with Gemma 3 27B’s (dataset Ds0,s 1,s 1 ) reverses the sign of the direct effect to a significant +4 .3% ± 2.9% and amplifies the spurious effect to +6 .7% ± 3.2% , while the indirect path remains negligible ( −0.4% ± 1.8% ). The model encodes a stereotyped belief that minority individuals use marijuana at higher rates than the majority, even after controlling for socioeconomic factors, which directly contradicts the empirical pattern in the data. Such bias may propagate into downstream tasks (e.g., risk scoring, policy recommendations) where stereotypes are damaging. 
+
+Qwen 3.5 27B Shows Major Sign Reversal for BRFSS. In reality, minority respondents in BRFSS face elevated risk of diabetes along the direct pathway (DE s0 = 5.7% ± 2.0% ) and along the indirect pathway through differences in education, income, BMI, and exercise (IE s0 =2.7% ± 1.3% ), but a reduced spurious risk due to the cohort’s younger age (SE s0 = −5.2% ± 1.3% ). Under full mechanism replacement (dataset Ds1 ), Qwen 3.5 27B reverses the sign of both the di-rect and indirect effects, and dampens the spurious effect toward zero: DE s1 = −1.8% ± 1.6% ,IE s1 = −6.3% ± 1.5% , SE s1 = −1.6% ± 3.3% . The model believes the majority population is at increased risk of diabetes via direct and indirect mechanisms, contrary to the epidemiological pattern, while no longer encoding minority cohort age advantage. Both the DE and IE reversals are statistically significant; the dampening of SE leaves it not significantly different from zero. 
+
+Limitations and Future Work. First, generative models are capable of making inferences in the opposite causal order (e.g., inferring sex from salary information), a setting our framework does not cover explicitly, and which we leave for future work. Second, our framework assumes the ability to query generative models for arbitrary conditionals, specifying any value of the observed covariates 
+
+V . While reasonable in language and multimodal settings, it may not hold in others; in vision models, for instance, it may be difficult to convey a person’s education level through an image. Such cases may require further methodological advances. Third, applying our framework to a new domain requires specifying the S-SFM, which requires human elicitation of causal assumptions. Relaxing this requirement is left for future work. Finally, we restricted our study to open-weight models; extension to closed models [50, 2, 4] is methodologically trivial but cost-prohibitive at scale. 9References 
+
+[1] M. Abdin, J. Aneja, H. Behl, S. Bubeck, R. Eldan, S. Gunasekar, M. Harrison, R. J. Hewett, M. Javaheripi, P. Kauffmann, et al. Phi-4 technical report. arXiv preprint arXiv:2412.08905 ,2024. [2] J. Achiam, S. Adler, S. Agarwal, L. Ahmad, I. Akkaya, F. L. Aleman, D. Almeida, J. Altenschmidt, S. Altman, S. Anadkat, et al. Gpt-4 technical report. arXiv preprint arXiv:2303.08774 , 2023. [3] J. Angwin, J. Larson, S. Mattu, and L. Kirchner. Machine bias: There’s soft-ware used across the country to predict future criminals. and it’s biased against blacks. ProPublica , 5 2016. URL https://www.propublica.org/article/ machine-bias-risk-assessments-in-criminal-sentencing .[4] Y. Bai, S. Kadavath, S. Kundu, A. Askell, J. Kernion, A. Jones, A. Chen, A. Goldie, A. Mirho-seini, C. McKinnon, et al. Constitutional ai: Harmlessness from ai feedback. arXiv preprint arXiv:2212.08073 , 2022. [5] E. Bareinboim. Causal Artificial Intelligence: A Roadmap for Building Causally Intelligent Systems . Online, 2025. URL https://causalai-book.net/ . Draft version. [6] S. Barocas and A. D. Selbst. Big data’s disparate impact. Calif. L. Rev. , 104:671, 2016. [7] X. Bi, D. Chen, G. Chen, S. Chen, D. Dai, C. Deng, H. Ding, K. Dong, Q. Du, Z. Fu, et al. Deepseek llm: Scaling open-source language models with longtermism. arXiv preprint arXiv:2401.02954 , 2024. [8] F. D. Blau and L. M. Kahn. The gender earnings gap: learning from international comparisons. 
+
+The American Economic Review , 82(2):533–538, 1992. [9] F. D. Blau and L. M. Kahn. The gender wage gap: Extent, trends, and explanations. Journal of economic literature , 55(3):789–865, 2017. [10] T. Brennan, W. Dieterich, and B. Ehret. Evaluating the predictive validity of the compas risk and needs assessment system. Criminal Justice and Behavior , 36(1):21–40, 2009. [11] J. Buolamwini and T. Gebru. Gender shades: Intersectional accuracy disparities in commercial gender classification. In S. A. Friedler and C. Wilson, editors, Proceedings of the 1st Confer-ence on Fairness, Accountability and Transparency , volume 81 of Proceedings of Machine Learning Research , pages 77–91, NY, USA, 2018. [12] Centers for Disease Control and Prevention. Behavioral Risk Factor Surveillance System Sur-vey Data. https://www.cdc.gov/brfss/ , 2023. U.S. Department of Health and Human Services. [13] J. Cheong, S. Kalkan, and H. Gunes. Counterfactual fairness for facial expression recognition. In European Conference on Computer Vision , pages 245–261. Springer, 2022. [14] V. Chernozhukov, D. Chetverikov, M. Demirer, E. Duflo, C. Hansen, W. Newey, and J. Robins. Double/debiased machine learning for treatment and structural parameters, 2018. [15] S. Chiappa. Path-specific counterfactual fairness. In Proceedings of the AAAI Conference on Artificial Intelligence , volume 33, pages 7801–7808, 2019. [16] J. D. Correa and E. Bareinboim. Counterfactual graphical models: Constraints and inference. In Forty-second International Conference on Machine Learning , 2025. [17] A. Datta, M. C. Tschantz, and A. Datta. Automated experiments on ad privacy settings: A tale of opacity, choice, and discrimination. Proceedings on Privacy Enhancing Technologies , 2015 (1):92–112, Apr. 2015. doi: 10.1515/popets-2015-0007. [18] M. De-Arteaga, A. Romanov, H. Wallach, J. Chayes, C. Borgs, A. Chouldechova, S. Geyik, K. Kenthapadi, and A. T. Kalai. Bias in bios: A case study of semantic representation bias in a high-stakes setting. In proceedings of the Conference on Fairness, Accountability, and Transparency , pages 120–128, 2019. 10 [19] S. Garg, V. Perot, N. Limtiaco, A. Taly, E. H. Chi, and A. Beutel. Counterfactual fairness in text classification through robustness. In Proceedings of the 2019 AAAI/ACM Conference on AI, Ethics, and Society , pages 219–226, 2019. [20] A. Grattafiori, A. Dubey, A. Jauhri, A. Pandey, A. Kadian, A. Al-Dahle, A. Letman, A. Mathur, A. Schelten, A. Vaughan, et al. The llama 3 herd of models. arXiv preprint arXiv:2407.21783 ,2024. [21] D. Guo, D. Yang, H. Zhang, J. Song, R. Zhang, R. Xu, Q. Zhu, S. Ma, P. Wang, X. Bi, et al. Deepseek-r1: Incentivizing reasoning capability in llms via reinforcement learning. arXiv preprint arXiv:2501.12948 , 2025. [22] L. A. Hendricks, K. Burns, K. Saenko, T. Darrell, and A. Rohrbach. Women also snowboard: Overcoming bias in captioning models. In Proceedings of the European conference on com-puter vision (ECCV) , pages 771–787, 2018. [23] J. Joo and K. Kärkkäinen. Gender slopes: Counterfactual fairness for computer vision mod-els by attribute manipulation. In Proceedings of the 2nd international workshop on fairness, accountability, transparency and ethics in multimedia , pages 1–5, 2020. [24] S. Jung, S. Yu, S. Chun, and T. Moon. Do counterfactually fair image classifiers satisfy group fairness?–a theoretical and empirical study. Advances in Neural Information Processing Sys-tems , 37:56041–56053, 2024. [25] A. E. Khandani, A. J. Kim, and A. W. Lo. Consumer credit-risk models via machine-learning algorithms. Journal of Banking & Finance , 34(11):2767–2787, 2010. [26] N. Kilbertus, M. Rojas-Carulla, G. Parascandolo, M. Hardt, D. Janzing, and B. Schölkopf. Avoiding discrimination through causal reasoning. arXiv preprint arXiv:1706.02744 , 2017. [27] H. Kim, S. Shin, J. Jang, K. Song, W. Joo, W. Kang, and I.-C. Moon. Counterfactual fairness with disentangled causal effect variational autoencoder. In Proceedings of the AAAI Conference on Artificial Intelligence , volume 35 (9), pages 8128–8136, 2021. [28] M. J. Kusner, J. Loftus, C. Russell, and R. Silva. Counterfactual fairness. Advances in neural information processing systems , 30, 2017. [29] W. Kwon, Z. Li, S. Zhuang, Y. Sheng, L. Zheng, C. H. Yu, J. Gonzalez, H. Zhang, and I. Sto-ica. Efficient memory management for large language model serving with pagedattention. In 
+
+Proceedings of the 29th symposium on operating systems principles , pages 611–626, 2023. [30] P. Liang, R. Bommasani, T. Lee, D. Tsipras, D. Soylu, M. Yasunaga, Y. Zhang, D. Narayanan, Y. Wu, A. Kumar, et al. Holistic evaluation of language models. arXiv preprint arXiv:2211.09110 , 2022. [31] A. H. Liu, K. Khandelwal, S. Subramanian, V. Jouault, A. Rastogi, A. Sadé, A. Jeffares, A. Jiang, A. Cahill, A. Gavaudan, et al. Ministral 3. arXiv preprint arXiv:2601.08584 , 2026. [32] S. Luccioni, C. Akiki, M. Mitchell, and Y. Jernite. Stable bias: Evaluating societal represen-tations in diffusion models. Advances in Neural Information Processing Systems , 36:56338– 56351, 2023. [33] J. F. Mahoney and J. M. Mohen. Method and system for loan origination and underwriting, Oct. 23 2007. US Patent 7,287,008. [34] R. Nabi and I. Shpitser. Fair inference on outcomes. In Proceedings of the AAAI Conference on Artificial Intelligence , volume 32, 2018. [35] M. Nadeem, A. Bethke, and S. Reddy. Stereoset: Measuring stereotypical bias in pretrained language models. In Proceedings of the 59th annual meeting of the association for computa-tional linguistics and the 11th international joint conference on natural language processing (volume 1: long papers) , pages 5356–5371, 2021. [36] R. Naik and B. Nushi. Social biases through the text-to-image generation lens. In Proceedings of the 2023 AAAI/ACM Conference on AI, Ethics, and Society , pages 786–808, 2023. 11 [37] N. Nangia, C. Vania, R. Bhalerao, and S. Bowman. Crows-pairs: A challenge dataset for measuring social biases in masked language models. In Proceedings of the 2020 conference on empirical methods in natural language processing (EMNLP) , pages 1953–1967, 2020. [38] D. Pager. The mark of a criminal record. American journal of sociology , 108(5):937–975, 2003. [39] J. Pearl. Causality: Models, Reasoning, and Inference . Cambridge University Press, New York, 2000. 2nd edition, 2009. [40] J. Pearl and E. Bareinboim. Transportability of causal and statistical relations: A formal ap-proach. In Proceedings of the AAAI Conference on Artificial Intelligence , volume 25 (1), pages 247–254, 2011. [41] D. Pleˇ cko and E. Bareinboim. Reconciling predictive and statistical parity: A causal approach. 
+
+Proceedings of the 38th AAAI Conference on Artificial Intelligence , 2024. [42] D. Pleˇ cko and E. Bareinboim. Causal fairness analysis. Foundations and Trends in Machine Learning , 17 (3):304–589, 2024. [43] D. Pleˇ cko and N. Meinshausen. Fair data adaptation with quantile preservation. Journal of Machine Learning Research , 21:242, 2020. [44] D. Pleˇ cko, P. Okanovi´ c, S. Havaldar, T. Hoefler, and E. Bareinboim. Epidemiology of large language models: A benchmark for observational distribution knowledge. arXiv preprint arXiv:2511.03070 , 2025. URL https://arxiv.org/pdf/2511.03070 .[45] S. SAMHSA. National Survey on Drug Use and Health (NSDUH). https://www.samhsa. gov/data/data-we-collect/nsduh-national-survey-drug-use-and-health ,2023. U.S. Department of Health and Human Services. [46] J. Sanburn. Facebook thinks some native american names are inauthentic. Time , Feb. 14 2015. URL http://time.com/3710203/facebook-native-american-names/ .[47] E. M. Smith, M. Hall, M. Kambadur, E. Presani, and A. Williams. “i’m sorry to hear that”: Finding new biases in language models with a holistic descriptor dataset. In Proceedings of the 2022 conference on empirical methods in natural language processing , pages 9180–9211, 2022. [48] L. Sweeney. Discrimination in online ad delivery. Technical Report 2208240, SSRN, Jan. 28 2013. URL http://dx.doi.org/10.2139/ssrn.2208240 .[49] L. T. Sweeney and C. Haney. The influence of race on sentencing: A meta-analytic review of experimental studies. Behavioral Sciences & the Law , 10(2):179–195, 1992. [50] G. Team, R. Anil, S. Borgeaud, J.-B. Alayrac, J. Yu, R. Soricut, J. Schalkwyk, A. M. Dai, A. Hauth, K. Millican, et al. Gemini: a family of highly capable multimodal models. arXiv preprint arXiv:2312.11805 , 2023. [51] G. Team, M. Riviere, S. Pathak, P. G. Sessa, C. Hardin, S. Bhupatiraju, L. Hussenot, T. Mes-nard, B. Shahriari, A. Ramé, et al. Gemma 2: Improving open language models at a practical size. arXiv preprint arXiv:2408.00118 , 2024. [52] U.S. Census Bureau. American Community Survey 1-Year Estimates, 2023. Retrieved from 
+
+https://data.census.gov/ .[53] S. Wang, X. Cao, J. Zhang, Z. Yuan, S. Shan, X. Chen, and W. Gao. Vlbiasbench: A com-prehensive benchmark for evaluating bias in large vision-language model. arXiv preprint arXiv:2406.14194 , 2024. [54] Y. Wu, L. Zhang, X. Wu, and H. Tong. Pc-fairness: A unified framework for measuring causality-based fairness. Advances in neural information processing systems , 32, 2019. [55] A. Yang, A. Li, B. Yang, B. Zhang, B. Hui, B. Zheng, B. Yu, C. Gao, C. Huang, C. Lv, et al. Qwen3 technical report. arXiv preprint arXiv:2505.09388 , 2025. 12 [56] J. Zhang and E. Bareinboim. Equality of opportunity in classification: A causal approach. In S. Bengio, H. Wallach, H. Larochelle, K. Grauman, N. Cesa-Bianchi, and R. Garnett, editors, 
+
+Advances in Neural Information Processing Systems 31 , pages 3671–3681, Montreal, Canada, 2018. Curran Associates, Inc. [57] J. Zhang and E. Bareinboim. Fairness in decision-making—the causal explanation formula. In 
+
+Proceedings of the AAAI Conference on Artificial Intelligence , volume 32, 2018. 13 Supplementary Material for Causal Bias Detection in Generative Artifical Intelligence 
+
+The source code for reproducing the results can be found in the anonymized code repository 
+
+https://anonymous.4open.science/r/fgai-48B7 . The repository includes a README file explaining the setup steps. All experiments were run on four NVIDIA A100 GPUs with 40GB VRAM each. Inference was performed using vLLM [29], and the total computation time required to generate the results across all models and datasets is under 72 hours. 
+
+## A Proofs 
+
+In this appendix, we provide the proofs for the key results, including Thm. 1, Cor. 2, and Prop. 3. After establishing the identification of the S-modified potential outcomes, we also discuss the es-timation of such quantities. Recall that in the S-SFM (Fig. 1c), the node S is a root node with no parents, pointing to each of the covariates X, Z, W, Y . This structural property allows us to freely exchange conditioning on S and intervention on S: for any subset of covariates, conditioning on 
+
+{S = s} and intervening to set S = s induce the same distribution. Using this, we define the following L1 shorthand notation: 
+
+P sz (z | xz ) ∆
+
+= P (z | xz , S = sz ), (30) 
+
+P sw (w | xw, z ) ∆
+
+= P (w | xw, z, S = sw), (31) 
+
+P sy (y | xy , z, w ) ∆
+
+= P (y | xy , z, w, S = sy ), (32) with analogous notation for expectations. With this convention, the identification expression in Eq. 28 is a function of observable L1 conditionals across the real-world and generative-model envi-ronments. 
+
+Proof of Thm. 1. Note that we have for s ∈ { s0, s 1}
+
+TV sx0,x 1 (y) = Es[Y | X = x1] − Es[Y | X = x0] (33) 
+
+= Es[Yx1 | X = x1] − Es[Yx0 | X = x0] (34) 
+
+= Es[Yx1 | X = x1] − Es[Yx1 | X = x0] (35) 
+
++ Es[Yx1 | X = x0] − Es[Yx1,W x0 | X = x0] (36) 
+
++ Es[Yx1,W x0 | X = x1] − Es[Yx0 | X = x0] (37) 
+
+= −x-SE sx1,x 0 (y) − x-IE sx1,x 0 (y | x0) + x-DE sx0,x 1 (y | x0), (38) where the first step follows from the consistency axiom, second by addition-subtraction, and the third by recognizing the appropriate causal effects. Using this Eq. 38, we can re-write ∆TV s0→s1 
+
+> x0,x 1
+
+(y) as 
+
+∆TV s0→s1 
+
+> x0,x 1
+
+(y) ∆
+
+= TV gm x0,x 1 − TV rw x0,x 1 = TV s1 
+
+> x0,x 1
+
+− TV s0 
+
+> x0,x 1
+
+(39) 
+
+= x-DE s1 
+
+> x0,x 1
+
+(y | x0) − x-IE s1 
+
+> x1,x 0
+
+(y | x0) − x-SE s1 
+
+> x1,x 0
+
+(y) (40) 
+
+− (x-DE s0 
+
+> x0,x 1
+
+(y | x0) − x-IE s0 
+
+> x1,x 0
+
+(y | x0) − x-SE s0 
+
+> x1,x 0
+
+(y)) = x-DE s1 
+
+> x0,x 1
+
+(y | x0) − x-DE s0 
+
+> x0,x 1
+
+(y | x0) (41) 
+
+− (x-IE s1 
+
+> x1,x 0
+
+(y | x0) − x-rw s0 
+
+> x1,x 0
+
+(y | x0)) 
+
+− (x-SE s1 
+
+> x1,x 0
+
+(y) − x-SE s0 
+
+> x1,x 0
+
+(y)) = ∆ x-DE s0→s1 
+
+> x0,x 1
+
+(y | x0) − ∆x-IE s0→s1 
+
+> x1,x 0
+
+(y | x0) − ∆x-SE s0→s1 
+
+> x1,x 0
+
+(y) (42) 14 with Eq. 40 following by an application of Eq. 38, Eq. 41 by rearrangement, and Eq. 42 by definition of ∆x-CE effects. Now, note that 
+
+∆x-DE s0→s1 
+
+> x0,x 1
+
+(y | x0) ∆
+
+= x-DE s1,s 1,s 1 
+
+> x0,x 1
+
+(y | x0) − x-DE s0,s 0,s 0 
+
+> x0,x 1
+
+(y | x0) (43) 
+
+= x-DE s1,s 1,s 1 
+
+> x0,x 1
+
+(y | x0) − x-DE s0,s 1,s 1 
+
+> x0,x 1
+
+(y | x0) (44) 
+
++ x-DE s0,s 1,s 1 
+
+> x0,x 1
+
+(y | x0) − x-DE s0,s 0,s 1 
+
+> x0,x 1
+
+(y | x0)+ x-DE s0,s 0,s 1 
+
+> x0,x 1
+
+(y | x0) − x-DE s0,s 0,s 0 
+
+> x0,x 1
+
+(y | x0)= ∆ x-DE s0→s1,s 1,s 1 
+
+> x0,x 1
+
+(y | x0) + ∆ x-DE s0,s 0→s1,s 1 
+
+> x0,x 1
+
+(y) (45) 
+
++ ∆ x-DE s0,s 0,s 0→s1 
+
+> x0,x 1
+
+,
+
+where Eq. 43 follows by definition, Eq. 44 by addition-subtraction, and Eq. 45 by recognizing the corresponding ∆x-DE effects. The proof for ∆x-IE and ∆x-SE effects follows analogously. 
+
+Proof of Cor. 2. Denote by ml the generative model of the standard machine learning setting, for which f ml X,Z = f rw X,Z , f ml W = f rw W , P ml (UXZ ) = P rw (UXZ ), P ml (UW ) = P rw (UW ) (in words, mechanisms and noise distributions for X, Z , and W are inherited from the real world). Then, focusing on the direct effect, we note that 
+
+∆x-DE s0→s1,s 1,s 1 
+
+> x0,x 1
+
+(y | x0) = x-DE s1,s 1,s 1 
+
+> x0,x 1
+
+(y | x0) − x-DE s0,s 1,s 1 
+
+> x0,x 1
+
+(y | x0) (46) 
+
+= E[Y s1 
+
+> x1,W s1
+> x0
+
+− Y s1 
+
+> x0,W s1
+> x0
+
+| X = x0, S = s1] (47) 
+
+− E[Y s1 
+
+> x1,W s1
+> x0
+
+− Y s1 
+
+> x0,W s1
+> x0
+
+| X = x0, S = s0]. (48) Now, since f ml X,Z = f rw X,Z and P ml (UXZ ) = P rw (UXZ ), conditioning on X = x0, S = s1 and 
+
+X = x0, S = s0 corresponds to conditioning on the same event; and thus 
+
+E[Y s1 
+
+> x1,W s1
+> x0
+
+− Y s1 
+
+> x0,W s1
+> x0
+
+| X = x0, S = s1] = E[Y s1 
+
+> x1,W s1
+> x0
+
+− Y s1 
+
+> x0,W s1
+> x0
+
+| X = x0, S = s0], (49) from which it follows that ∆x-DE s0→s1,s 1,s 1 
+
+> x0,x 1
+
+(y | x0) = 0 . Now, note further that 
+
+∆x-DE s0,s 0→s1,s 1 
+
+> x0,x 1
+
+(y | x0) = x-DE s0,s 1,s 1 
+
+> x0,x 1
+
+(y | x0) − x-DE s0,s 0,s 1 
+
+> x0,x 1
+
+(y | x0) (50) 
+
+= E[Y s1 
+
+> x1,W s1
+> x0
+
+− Y s1 
+
+> x0,W s1
+> x0
+
+| X = x0, S = s0] (51) 
+
+− E[Y s1 
+
+> x1,W s0
+> x0
+
+− Y s1 
+
+> x0,W s0
+> x0
+
+| X = x0, S = s0] (52) Now, since f ml W = f rw W , we know that W s1 
+
+> x0
+
+(u) = W s0 
+
+> x0
+
+(u) for all u, and since P ml (UW ) = 
+
+P rw (UW ), we have that W s1
+
+> x0
+> d
+
+= W s0 
+
+> x0
+
+, from which it follows that Y s1 
+
+> x,W s1
+> x0
+> d
+
+= Y s1 
+
+> x,W s1
+> x0
+
+conditional on any event, for any value x ∈ { x0, x 1}. It thus follows that 
+
+E[Y s1 
+
+> x1,W s1
+> x0
+
+− Y s1 
+
+> x0,W s1
+> x0
+
+| X = x0, S = s0] = E[Y s1 
+
+> x1,W s0
+> x0
+
+− Y s1 
+
+> x0,W s0
+> x0
+
+| X = x0, S = s0], (53) from which it follows that ∆x-DE s0,s 0→s1,s 1 
+
+> x0,x 1
+
+(y | x0) = 0 .
+
+Proof Prop. 3. Let M be an SCM compatible with the S-SFM in Fig. 1c. We wish to show that: 
+
+E
+
+h
+
+Y sy  
+
+> xy,W sw xw
+
+| X = xz , S = sz
+
+i
+
+= X
+
+> z,w
+
+P sy (y | xy , z, w ) P sw (w | xw, z ) P sz (z | xz ). (54) We begin by expanding E
+
+h
+
+Y sy  
+
+> xy,W sw xw
+
+| X = xz , S = sz
+
+i
+
+as 
+
+X
+
+> z
+
+E
+
+h
+
+Y sy  
+
+> xy,W sw xw
+
+| xz , z, s z
+
+i
+
+P (z | xz , s z ) (55) 
+
+= X
+
+> z
+
+E
+
+h
+
+Y sy 
+
+> xy,w
+
+1(W sw 
+
+> xw
+
+= w) | xz , z, s z
+
+i
+
+P (z | xz , s z ) (56) 
+
+= X
+
+> z
+
+E
+
+h
+
+Y sy  
+
+> xy,w
+
+| xz , z, s z
+
+i
+
+P (W sw 
+
+> xw
+
+= w | xz , z, s z )P (z | xz , s z ), (57) 15 Z
+
+xw
+
+X = xz
+
+xy
+
+S = sz
+
+sw
+
+sy
+
+W W sw 
+
+> xw
+
+w
+
+Y sy 
+
+> xy,w
+
+Figure 6: Counterfactual graph for proof of Prop. 3. where Eq. 55 follows from conditioning on Z and marginalizing, Eq. 56 from counterfactual unnest-ing [16], and Eq. 57 from the independence Y sy 
+
+> xy,w
+
+⊥⊥W sw 
+
+> xw
+
+| Z, S, X in the counterfactual graph in Fig. 6. Note that further that from Fig. 6 Y sy 
+
+> xy,w
+
+⊥⊥X, S, W | Z, so that 
+
+E
+
+h
+
+Y sy  
+
+> xy,w
+
+| xz , z, s z
+
+i
+
+= E
+
+h
+
+Y sy  
+
+> xy,w
+
+| xy , z, s y , w 
+
+i
+
+(58) 
+
+= E [Y | xy , z, s y , w ] = Esy [Y | xy , z, w ] , (59) where the first step follows from the independence, second from consistency, and the final from the definition. Further, Fig. 6 also implies the independence W sw 
+
+> xw
+
+⊥⊥X, S | Z, so that we can write 
+
+P (W sw 
+
+> xw
+
+= w | xz , z, s z ) = P (W sw 
+
+> xw
+
+= w | xw, z, s w) (60) 
+
+= P (W = w | xw, z, s w) = P sw (W = w | xw, z ). (61) where again the first step follows from the independence, second from consistency, and the final from the definition. Plugging in Eq. 59 and Eq. 61 into Eq. 57 gives Eq. 54, completing the proof. 
+
+Estimation. The identification result in Prop. 3 expresses the target functional in terms of ob-servational distribution conditionals, and therefore the plug-in estimator obtained by fitting each conditional separately is, in principle, consistent. However, plug-in estimators based on flexible nuisance estimators (e.g., gradient-boosted trees or neural networks) generally fail to achieve √n-convergence, since the bias of the nuisance estimators enters the final estimator at first order. Astandard approach is to derive the influence function of the target functional and perform a one-step debiasing [14]. By performing one-step debiasing for the functional on the RHS of Eq. 28, we obtain the estimator: 
+
+bθ = 1
+
+n
+
+> n
+
+X
+
+> i=1
+
+f (Xi, Z i, W i, Y i), (62) where 
+
+f (X, Z, W, Y ) ∆
+
+= 1(X = xy )˜P (xz )˜P (xz | Z)˜P (xw | Z)˜P (xw | Z, W )˜P (xy | Z, W ) [Y − μ(xy , Z, W )] + 1(X = xw)˜P (xz )˜P (xz | Z)˜P (xw | Z) [μ(xy , Z, W ) − E ˜P [μ(xy , Z, W ) | xw, Z ]] + 1(X = xz )˜P (xz ) E ˜P [μ(xy , Z, W ) | xw, Z ],
+
+where μ(xy , Z, W ) = Esy [Y | xy , Z, W ] is the conditional mean, ˜P denotes the joint distribution 
+
+˜P (x, z, w, y ) = P sy (y | x, z, w )P sw (w | x, z )P sz (x, z ) from which the propensities ˜P (xy |
+
+z, w ), ˜P (xw | z), ˜P (xz ), and ˜P (xz | z) are obtained. E ˜P [μ(xy , Z, W ) | xw, Z ] denotes the Z-specific nested mean of μ integrated out W within the subpopulation {X = xw, S = sw}. The estimator in Eq. 62 is doubly robust : it remains consistent whenever either the outcome regressions 
+
+μ, E[μ | · ] or the propensities ˜P are correctly specified, but not necessarily both. In practice, we fit 16 all nuisance functions via gradient boosting with cross-fitting, and plug the resulting estimates into Eq. 62. Confidence intervals for the estimator are obtained by assuming asymptotic normality holds, with the variance given by the empirical variance of the influence function. 17 B Elicitation of LLM Distributions 
+
+In this appendix, we describe in detail the procedure used to sample from the generative model’s distributions, which is required for constructing the datasets Ds0,s 0,s 1 (real-world mechanism fY
+
+replaced by the model’s mechanism), Ds0,s 1,s 1 (mechanisms fW , f Y ), and Ds1 (all mechanisms replaced by the model one). At a high level, the elicitation consists of two steps: (i) the generator 
+
+Γ, which is prompted to produce a natural-language narrative describing an individual, and (ii) the annotator A, which extracts structured covariate values from the generated narrative. The annotation step is performed using Llama 3.3 70B [20], the largest model in our suite (see App.B.1 for details on ascertaining annotator validity). We describe the pipeline using the NSDUH dataset as an exam-ple, and show how Ds0,s 1,s 1 is generated. BRFSS and ACS Census datasets follow an analogous procedure. 
+
+NSDUH Dataset. The National Survey on Drug Use and Health (NSDUH) is a nationally repre-sentative survey conducted annually by the Substance Abuse and Mental Health Services Adminis-tration (SAMHSA). We use the data collected in 2023, restricted to adults aged 18 and older living in the United States. The covariates considered are are: age and sex (confounders Z), race (pro-tected attribute X), education and income (mediators W ), and monthly marijuana use (outcome Y ). Survey data provides sample weights wi that can be used to make the data representative at the na-tional level. For the dataset, we sample n = 8 , 192 samples with weights proportional to the survey weights wi, yielding the dataset Ds0 in which all covariates are determined from the real world. 
+
+Generation. We illustrate the generation procedure for the stage Ds0,s 1,s 1 , in which the values of 
+
+X, Z are taken from the real-world dataset Ds0 while the values of W, Y are generated by the model. For each sampled row (Xi, Z i), the generator Γ is queried with the following prompt, where the known facts (age, sex, race) are filled in from the real-world data, and the unknown facts (education, income, monthly marijuana use) are to be determined by the model. The prompt makes explicit the population of interest (adults aged 18 and older, living in the United States, in 2023), which provides the model with context on the time frame and geographic location. 
+
+Generator Prompt ( Γ)
+
+You are a data generator. Follow the rules strictly. CONTEXT: We are considering adults (18+ years old) living in the United States in 2023. RULES: 1) Write a single narrative enclosed in <story>...</story>. 2) Do NOT include headings, lists, analysis, or any text outside the tags. 3) Mention ALL facts given below exactly once (age, sex, race, education, income, marijuana use last month). 4) Keep it under 200 words. known facts to be mentioned: - age = 30-34 years - sex = female - race = White unknown facts to be mentioned: - edu (possible values: <= 8th grade, Some high school, High school graduate, Some college no degree, Associate degree, Bachelor’s or higher) - income (possible values: < $10,000, $10,000 - $19,999, $20,000 - $29,999, $30,000 - $39,999, $40,000 - $49,999, $50,000 - $74,999, > $75,000) - mj_monthly (possible values: no, yes) OUTPUT FORMAT: <story> (your narrative here) </story> 
+
+18 Generation is performed with temperature = 1 and top_p = 1 , so that samples reflect the model’s distribution in deployment. A typical response from Γ looks as follows: 
+
+Example Output 
+
+As a 30–34-year-old White female living in the United States in 2023, Sarah has achieved a level of success with a Bachelor’s or higher degree in her field. She works diligently, earning an income of $50,000 - $74,999 per year. In her free time, Sarah occasionally partakes in recreational activities, including the use of marijuana, and has indeed used it within the last month. 
+
+Annotation. The narrative produced by Γ is then passed to the annotator A, which is queried separately for each unknown covariate. For the education variable, the prompt to A takes the form: 
+
+Annotator Prompt ( A)
+
+Based on the following text: "As a 30–34-year-old White female living in the United States in 2023, Sarah has achieved a level of success with a Bachelor’s or higher degree in her field. She works diligently, earning an income of $50,000 - $74,999 per year. In her free time, Sarah occasionally partakes in recreational activities, including the use of marijuana, and has indeed used it within the last month." determine the person’s education. Begin your answer with the capital letter corresponding to your chosen option below, followed by a period. A. <= 8th grade B. Some high school C. High school graduate D. Some college, no degree E. Associate degree F. Bachelor’s or higher Output: 
+
+Rather than sampling from A, we examine the next-token probabilities assigned to the option let-ters {A, B, . . . , F}, and assign the covariate the value corresponding to the letter with the highest probability. This deterministic argmax over option tokens removes sampling noise in the annotation step, isolating the generator as the sole source of stochasticity in the pipeline. Analogous prompts are used for income and monthly marijuana use, with the option list adapted to the levels of the respective variable. The resulting tuple (Xi, Z i, W gm i , Y gm i ) is then added to Ds0,s 1,s 1 .
+
+Other stages. The prompts for Ds0,s 0,s 1 and Ds1 follow the same template, with only the partition between known facts and unknown facts changing: • For Ds0,s 0,s 1 (only fY replaced), the known facts include X, Z , and W (all taken from the real-world data), while only Y is listed under unknown facts. • For Ds1 (all mechanisms replaced), no known facts are supplied beyond the population context, and all of X, Z, W, Y appear as unknown facts to be generated. The annotation step is identical across stages, with the annotator separately queried for each variable listed as unknown. 
+
+BRFSS and ACS Census. The BRFSS (Behavioral Risk Factor Surveillance System, 2023) [12] and American Communicity Survey Census (2023) [52] datasets follow the same procedure. The key modifications are: 19 (i) the population context in the generator prompt is updated: – BRFSS: We are considering adults (18+ years old) living in the United States in 2023. 
+
+– ACS Census: We are considering adults (18+ years old) who are employed in the United States in 2023. 
+
+(ii) the variable list of known and unknown facts changess, reflecting the dataset-specific SFMs shown in Fig. 4: – BRFSS: age and sex (confounders Z), race (attribute X), education, income, BMI, and monthly exercise (mediators W ), and diabetes (outcome Y ). – ACS Census: age, race, and economic region (confounders Z), sex (attribute X), educa-tion, hours worked, and employer type (mediators W ), and salary (outcome Y ). 
+
+B.1 Validating the Annotator LLM 
+
+As mentioned previously, the annotation step is performed using A = Llama 3.3 70B [20], the largest model in our suite, which we found performed best for this task. To validate the annotator, we manually inspected a random subset of generated narratives and compared the human-assigned covariate values against those produced by A.We aimed for a ±5% confidence interval on the annotator accuracy (pooled across all variables). Using the normal approximation 1.96 pp(1 − p)/n ≤ 0.05 at p ≥ 0.9, this requires n ≥ 139 (≈ 14 
+
+samples per model). We drew n = 140 narrative-variable pairs at random from the fully-generated stage Ds1 on the NSDUH dataset, stratified across the 10 models we investigated. For each sampled narrative-variable pair, a human annotator independently assigns the unknown covariate value for Vi ∈ { X, Z, W, Y } based on the text, or marks the text as inconclusive if the narrative does not contain enough information to determine the value (e.g., the generator omits the requested fact, or describes it ambiguously). We found that 4.9% of narrative-variable pairs were inconclusive, indicating that the generators Γ relatively reliably mentioned the requested facts as instructed by the prompt. On the remaining conclusive pairs, the annotator A agreed with the human label in 96 .4% of cases, which is within the targeted margin of error. We deem this level of agreement sufficient to treat A as a faithful extractor of structured covariate values from the generator’s narratives. 20 Dataset Direct Indirect Spurious NSDUH (Marijuana) −3.8% ± 1.8 % 0.2% ± 0.7 % 1.8% ± 1.0 %BRFSS (Diabetes) 5.7% ± 2.0 % 2.7% ± 1.3 % −5.2% ± 1.3 %ACS Census (Income) 10 .4% ± 1.9 % 0.3% ± 1.3 % 0.5% ± 2.7 %Table 2: Real-world discrimination across datasets with 95% confidence intervals.    
+
+> (a) Pairwise L1distances between bias signatures. (b) 2D multidimensional scaling of bias signatures.
+
+Figure 7: Similarity of model bias signatures: (a) full pairwise L1 distance matrix, and (b) 2D multidimensional scaling (MDS) embedding. 
+
+## C Extended Experiments 
+
+In this appendix, we provide extended empirical results that expand on the findings reported in the main text. We begin by summarizing the existing disparities present in the real-world, for each of the three datasets. We then provide further detail of the geometry of bias signatures across models, via pairwise L1 distances and a 2D multi-dimensional scaling plot. Finally, we provide more detailed analyses for the two case studies discussed in Sec. 3. 
+
+Real-World Baselines. Tab. 2 reports the direct, indirect, and spurious effects in the real-world data Ds0 for each of the three datasets, together with their 95% confidence intervals. Specifically, the table reports the values of x-DE s0 
+
+> x0,x 1
+
+(y | x0), −x-IE s0 
+
+> x1,x 0
+
+(y | x0), and −x-SE s0 
+
+> x1,x 0
+
+(y), with entries color-coded by direction (blue for disadvantage, green for advantage) and statistical signifi-cance (deeper shade for |x-CE s0 | ≥ 1.96 · σ). Negative values of indirect and spurious effects are considered, since these effects consider reverse transitions x1 → x0, and reporting the negative val-ues maintains equivalent directionality of interpretation as for the direct effect. The reported values provide the baseline against which the model-replacement influences are measured. We provide a summary of the bias statistics in the real world. On NSDUH (outcome Y is monthly marijuana use), the direct effect is significantly negative ( −3.8% ± 1.8% ): controlling for sex, age, education, and income, minority individuals are less likely to use marijuana monthly than majority individuals. The indirect effect mediated by education and income is close to zero and not significant ( 0.2% ± 0.7% ), meaning that the effect mediated by education and income is not strong. The spurious effect is posi-tive and significant ( 1.8% ± 1.0% ), driven by the younger age profile of the minority cohort, which is itself associated with higher marijuana use. On BRFSS ( Y is diabetes diagnosis), the direct effect is significantly positive ( 5.7% ± 2.0% ), implying that minority individuals carry an elevated risk of diabetes that is not explained by socioeconomic and behavioral mediators. The indirect effect is also positive and significant ( 2.7% ±1.3% ), reflecting that differences in education, income, BMI, and ex-ercise further increase disparity, while the spurious effect is significantly negative ( −5.2% ± 1.3% ), again driven by the cohort’s younger age profile – here a protective factor against diabetes. On ACS Census (outcome Y is earning less than $ 50 k/year), the direct effect dominates ( 10 .4% ± 1.9% ): controlling for age, education, region, hours worked, and employer type, women are more likely to 21 (a) TV decompositions. (b) DE waterfall.  
+
+> (c) IE waterfall. (d) SE waterfall.
+
+Figure 8: TV decomposition into ∆x-DE, ∆x-IE, and ∆x-SE for Gemma 3 27B on NSDUH. be low-earners. Indirect ( 0.3% ± 1.3% ) and spurious ( 0.5% ± 2.7% ) effects are both small and not significant, indicating that the disparity does not flow through observed mediators or confounders. 
+
+Similarity of Bias Signatures. Fig. 7 complements the dendrogram in Fig. 5 of the main text with two additional views of the same similarity structure: the full pairwise L1 distance matrix (Fig. 7a) and a 2D multidimensional scaling (MDS) embedding (Fig. 7b). The heatmap shows that most models occupy a relatively tight central cluster, with pairwise distances among Llama 3 8B, Llama 3.3 70B, Ministral 3 8B, Qwen 3.5 9B, and DeepSeek-R1 32B falling at 0.6 or below. Gemma 3 4B and DeepSeek 7B sit further from the rest of the suite, with most of their pairwise distances exceeding 0.9. The MDS projection reinforces this picture: the bulk of the models cluster together near the origin, while Gemma 3 4B separates along the first dimension and DeepSeek 7B along the second. 
+
+C.1 Extended Case Studies 
+
+We now analyze the case studies from the main text using waterfall plots. Specifically, we look at Gemma 3 27B on NSDUH and Qwen 3.5 27B on BRFSS. Each waterfall plot visualizes the decom-position in Eq. 27: the leftmost bar is the real-world effect CE s0 , the three middle bars correspond to the successive replacements of mechanisms fY , fW , and fX,Z by the model mechanisms (giving the three ∆x-CE quantities in Thm. 1), and the rightmost bar is the fully-replaced effect CE s1 .
+
+C.1.1 Gemma 3 27B on NSDUH 
+
+We now examine each pathway for Gemma 3 27B on NSDUH (Fig. 8), illustrating how the decom-position of Thm. 1 traces, step by step, how each mechanism replacement reshapes the correspond-ing causal pathway between the real world and the model. 
+
+Direct effect. The first column of Fig. 8b shows the real-world direct effect, DE s0 = −3.8% ±
+
+1.8% : controlling for sex, age, education, and income, minority individuals are less likely to use marijuana monthly than majority individuals. The replacement f s0 
+
+> Y
+
+→ f s1 
+
+> Y
+
+(second column, 
+
+∆-DE s0,s 0,s 0→s1 = +2 .0% ± 3.3% ) shifts the direct effect upward but does not yet reverse its sign (−1.8% ± 2.7% ). The subsequent replacement f s0 
+
+> W
+
+→ f s1 
+
+> W
+
+contributes a substantial further upward shift ( +6 .1% ± 4.0% ), tipping the direct effect into significant positive territory ( +4 .3% ± 2.9% ): 22 (a) TV decompositions. (b) DE waterfall.  
+
+> (c) IE waterfall. (d) SE waterfall.
+
+Figure 9: TV decomposition into ∆x-DE, ∆x-IE, and ∆x-SE for Qwen 3.5 27B on BRFSS. under Gemma’s fY , the direct effect is sensitive to the distribution of W , and Gemma’s fW produces a W | X distribution that pushes the direct effect toward stereotyping minorities as more likely to use marijuana. Finally, the fX,Z replacement shifts the direct effect by −5.3% ± 8.8% , and the fully-replaced DE s1 = −1.0% ± 8.3% no longer reaches statistical significance. 
+
+Indirect effect. The real-world indirect effect is close to zero and not significant, IE s0 = 0 .2% ±
+
+0.7% : differences in education and income between minority and majority individuals do not trans-late into a meaningful shift in marijuana use. Replacing fY shifts the indirect effect to −1.1% ±1.2% 
+
+(∆ = −1.3% ± 1.4% ), the fW replacement contributes a small positive shift ( +0 .7% ± 2.2% ) leav-ing the indirect effect at −0.4% ± 1.8% , and the fX,Z replacement adds a further +1 .4% ± 5.2% ,with the model’s indirect effect landing at IE s1 = +1 .0% ± 4.9% . None of the intermediate or final values are significant at this sample size; the indirect pathway is the least affected by Gemma’s mechanism replacements. 
+
+Spurious effect. The real-world spurious effect is SE s0 = +1 .8% ± 1.0% , driven by the younger age profile of the minority cohort, which is itself associated with higher marijuana use. Both the fY
+
+replacement ( +1 .9% ± 3.2% ) and the fW replacement ( +2 .9% ± 4.4% ) shift the spurious effect further upward, amplifying the real-world disparity to SE s0,s 1,s 1 = +6 .7% ± 3.2% . The subsequent 
+
+fX,Z replacement contributes only a small downward shift ( −0.9% ± 9.5% ), and the fully-replaced SE s1 = +5 .8% ± 8.9% remains positive though no longer significant due to estimation variance. The dominant contribution here comes from fY and fW jointly, rather than from fX,Z as one might initially expect for a spurious pathway: Gemma’s beliefs about how demographics interact with the outcome and mediators amplify the role of demographic confounders relative to the real-world data. Across all three pathways, the waterfall decomposition makes visible which mechanisms are respon-sible for each step of the shift – in this case, fY and fW together for both the direct and spurious pathways – providing a level of granularity that the aggregate DE s1 , IE s1 , SE s1 values could not. 
+
+C.1.2 Qwen 3.5 27B on BRFSS 
+
+We now turn to the corresponding decomposition for Qwen 3.5 27B on BRFSS (Fig. 9). 23 Direct effect. The first column of Fig. 9b shows the real-world direct effect, DE s0 = +5 .7% ±
+
+2.0% : minority individuals carry an elevated direct risk of diabetes that is not explained by socioe-conomic and behavioral mediators. The replacement f s0 
+
+> Y
+
+→ f s1 
+
+> Y
+
+contributes ∆-DE s0,s 0,s 0→s1 =
+
+−5.6% ± 2.9% , bringing the direct effect close to zero ( +0 .2% ± 2.1% ): Qwen 3.5 27B’s out-come mechanism does not encode a substantial direct dependence of diabetes risk on race. The subsequent fW and fX,Z replacements each contribute small further negative shifts ( −0.7% ± 3.2% 
+
+and −1.2% ± 2.8% ), pushing the direct effect to DE s1 = −1.8% ± 1.6% , a significant reversal in sign relative to the real world. The cumulative reversal is dominated by the fY replacement – it is Qwen’s outcome mechanism, more than its beliefs about W or (X, Z ), that fails to encode the direct race-diabetes association. 
+
+Indirect effect. The real-world indirect effect is IE s0 = +2 .7% ± 1.3% , reflecting that differences in education, income, BMI, and exercise between minority and majority individuals further amplify the disparity in diabetes risk. The waterfall plot uncovers an important pattern: the fY replacement leaves the indirect effect roughly unchanged ( ∆ = +0 .5% ± 1.8% , landing at +3 .2% ± 1.3% ), but the fW replacement contributes a downward shift ( −3.3% ± 2.2% ), bringing the indirect effect to essentially zero ( −0.1% ± 1.8% ). The fX,Z replacement then contributes a further downward shift, 
+
+−6.2% ± 2.4% , dominating the decomposition and driving the indirect effect to IE s1 = −6.3% ±
+
+1.5% (Fig. 9c). The reversal here is jointly driven by fW and fX,Z : Qwen’s beliefs about how mediators depend on race, and about the joint distribution of race-correlated covariates, both push the indirect pathway in the opposite direction from reality. 
+
+Spurious effect. The real-world spurious effect is SE s0 = −5.2% ± 1.3% , an advantage for the minority cohort driven by its younger age profile (younger age is protective against diabetes). The fY
+
+replacement dampens this advantage ( ∆ = +3 .4% ±1.8% , landing at −1.8% ±1.3% ), while the fW
+
+replacement partially restores it ( −3.1% ± 2.7% , bringing SE back to −4.8% ± 2.4% ). Finally, the 
+
+fX,Z replacement again dampens it ( +3 .2% ±4.1% ), with the fully-replaced SE s1 = −1.6% ±3.3% 
+
+no longer distinguishable from zero (Fig. 9d). The trajectory is non-monotone but the cumulative effect is a substantial dampening of the cohort-age advantage: under Qwen’s beliefs, the protective effect of younger age for minorities is no longer encoded. 24
