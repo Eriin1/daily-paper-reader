@@ -1,0 +1,216 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-09T22:00:22.698955+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2606.04292v1",
+      "source": "arxiv",
+      "title": "An Efficient Solver for the Richards Equation for Variably Saturated Flows in Porous Media",
+      "abstract": "We present a nonlinear multigrid solver for the Richards equation in variably saturated porous media with strongly nonlinear hydraulic conductivity and water-retention relationships. The governing equation is discretized using a second-order conservative finite-difference scheme in space and an implicit backward differentiation formula in time. The core component of the solver is a nonlinear Gauss--Seidel (NGS) smoother based on a triangular splitting of the diffusion operator combined with diagonal stabilization. This construction yields a sequence of locally decoupled scalar nonlinear problems that can be solved efficiently and robustly using only a few Newton iterations. Under suitable monotonicity assumptions, we establish the convergence of the NGS iteration in the $L^\\infty$ norm and derive explicit conditions on the stabilization parameters. Numerical experiments for benchmark infiltration, drainage, and root-uptake problems demonstrate that the proposed NGS-based multigrid framework is both computationally efficient and robust.",
+      "authors": [
+        "Xuelong Gu",
+        "Qi Wang"
+      ],
+      "primary_category": "math.NA",
+      "categories": [
+        "math.NA"
+      ],
+      "published": "2026-06-02T23:44:51+00:00",
+      "link": "https://arxiv.org/pdf/2606.04292v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Efficient solver for Richards equation, crucial for urban stormwater and flood modeling",
+      "llm_evidence_cn": "城市雨洪模拟中的Richards方程高效求解器",
+      "llm_evidence": "城市雨洪模拟中的Richards方程高效求解器",
+      "canonical_evidence": "城市雨洪模拟中的Richards方程高效求解器",
+      "llm_tldr_en": "A nonlinear multigrid solver for the Richards equation enables fast and robust simulation of variably saturated flows in porous media, essential for urban stormwater management and flood risk assessment.",
+      "llm_tldr_cn": "该论文针对城市雨洪模拟中的关键方程——Richards方程，提出了一种高效的非线性多重网格求解器。通过采用基于三角分裂的Gauss-Seidel光滑子和对角稳定化技术，该求解器仅需少量Newton迭代即可稳健收敛，有效处理了强非线性水力参数。数值实验验证了其高效性和鲁棒性，为城市径流管理和洪水风险评估提供了关键数值工具。",
+      "llm_tldr": "该论文针对城市雨洪模拟中的关键方程——Richards方程，提出了一种高效的非线性多重网格求解器。通过采用基于三角分裂的Gauss-Seidel光滑子和对角稳定化技术，该求解器仅需少量Newton迭代即可稳健收敛，有效处理了强非线性水力参数。数值实验验证了其高效性和鲁棒性，为城市径流管理和洪水风险评估提供了关键数值工具。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.02661v1",
+      "source": "arxiv",
+      "title": "Learning to Refine: Spectral-Decoupled Iterative Refinement Framework for Precipitation Nowcasting",
+      "abstract": "Accurate precipitation nowcasting is vital for disaster mitigation, but deep learning methods face a key trade-off: regression models produce over-smoothed, spectrally decaying predictions that blur convective details and violate turbulence power laws; diffusion models generate realistic yet unanchored hallucinations lacking physical grounding. We propose Spectral-Decoupled Iterative Refinement (SDIR), a deterministic framework that reformulates nowcasting as progressive frequency-decoupled refinement. SDIR first extracts a stable low-frequency synoptic skeleton, then iteratively refines high-frequency textures under physical constraints, eliminating both blurring and hallucinations. It features a dual-path design: the Synoptic Frequency-Guided Former (SFG-Former) with Scale-Adaptive Transformers for global structure, and the Fourier Residual Refiner (FR-Refiner) with Scale-Conditioned Fourier Neural Operators for fine residuals. A Physically Consistent Power Spectral Density (PCPSD) loss with dynamic masking enforces a turbulence-consistent spectral distribution. Experiments on three benchmarks show SDIR significantly outperforms SOTA methods in spatial accuracy while achieving spectral fidelity competitive with diffusion-based methods, enabling reliable high-resolution operational nowcasting. Code link: https://github.com/RuntimeWarning/SDIR.",
+      "authors": [
+        "Yunlong Zhou",
+        "Chen Zhao",
+        "Danyang Peng",
+        "Fanfan Ji",
+        "Xiao-Tong Yuan"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-06-01T07:34:30+00:00",
+      "link": "https://arxiv.org/pdf/2606.02661v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "precipitation nowcasting for pluvial flood prediction",
+      "llm_evidence_cn": "降水临近预报用于城市暴雨洪水预测",
+      "llm_evidence": "降水临近预报用于城市暴雨洪水预测",
+      "canonical_evidence": "降水临近预报用于城市暴雨洪水预测",
+      "llm_tldr_en": "Proposes SDIR, a deterministic framework that refines precipitation nowcasts by decoupling low-frequency synoptic skeleton and high-frequency textures, eliminating blurring and hallucinations for accurate rainfall prediction.",
+      "llm_tldr_cn": "针对降水临近预报中回归模型过平滑和扩散模型产生幻象的问题，提出频谱解耦迭代细化框架，通过分离低频和高频成分并迭代细化，在物理约束下实现精确预测，有力支持城市暴雨洪水预警。",
+      "llm_tldr": "针对降水临近预报中回归模型过平滑和扩散模型产生幻象的问题，提出频谱解耦迭代细化框架，通过分离低频和高频成分并迭代细化，在物理约束下实现精确预测，有力支持城市暴雨洪水预警。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "pluvial flooding causes and impacts in urban areas",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.07780v1",
+      "source": "arxiv",
+      "title": "Land cover and flood type govern the detection limits of satellite-based flood mapping across diverse global flood events",
+      "abstract": "Floods are among the most destructive natural hazards, and their increasing frequency under climate change makes satellite-based inundation mapping essential for disaster response. Geospatial foundation models pretrained on satellite archives offer geographic transferability, but their operational reliability across diverse, unseen events remains uncharacterized. Here we deploy Prithvi-EO-2.0 across 19 out-of-distribution flood events (2017-2025) spanning six continents, eight climate zones, and six flood mechanisms, validating against two independent reference products. Detection accuracy depended jointly on land cover and flood type, with cropland yielding the highest agreement (IoU=52%) and riverine events the strongest detection (F1=0.69), while tree cover and built-up areas showed near-zero detection (IoU=4%) regardless of flood mechanism. Dual-reference validation revealed that apparent model error partly reflects definitional inconsistency between reference products rather than detection failure. Iterative pipeline testing identified 23 failure modes, with pipeline engineering dominating initial error over model capacity. These findings establish environment-dependent detection boundaries for operational satellite flood mapping.",
+      "authors": [
+        "Venkatesh Kolluru",
+        "Rajat Shinde",
+        "Abdelhak Marouane",
+        "Caden Helbling",
+        "Deepak Shah",
+        "Othneil Drew",
+        "Iksha Gurung",
+        "Manil Maskey",
+        "Rahul Ramachandran"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-06-05T18:46:03+00:00",
+      "link": "https://arxiv.org/pdf/2606.07780v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "satellite-based flood mapping accuracy governed by land cover and flood type",
+      "llm_evidence_cn": "基于卫星的洪水测绘精度受土地覆盖和洪水类型影响",
+      "llm_evidence": "基于卫星的洪水测绘精度受土地覆盖和洪水类型影响",
+      "canonical_evidence": "基于卫星的洪水测绘精度受土地覆盖和洪水类型影响",
+      "llm_tldr_en": "Analysis of satellite flood mapping limits across 19 global flood events, showing accuracy depends on land cover and flood type.",
+      "llm_tldr_cn": "该研究利用基础模型Prithvi-EO-2.0对2017-2025年间19个全球洪水事件进行测试，发现卫星洪水测绘的检测精度主要取决于土地覆盖类型和洪水机制，其中农田区域的IoU最高达52%，河流洪水的检测效果优于其他类型。研究揭示了不同环境条件下洪水遥感映射的可靠性边界，为城市洪水应急响应提供了重要参考。",
+      "llm_tldr": "该研究利用基础模型Prithvi-EO-2.0对2017-2025年间19个全球洪水事件进行测试，发现卫星洪水测绘的检测精度主要取决于土地覆盖类型和洪水机制，其中农田区域的IoU最高达52%，河流洪水的检测效果优于其他类型。研究揭示了不同环境条件下洪水遥感映射的可靠性边界，为城市洪水应急响应提供了重要参考。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.09486v1",
+      "source": "arxiv",
+      "title": "LangRetrieval: Language-Guided Self-Evolving Satellite-to-Radar Retrieval via CSI-Driven Reward",
+      "abstract": "Satellite-to-radar (S2R) retrieval estimates ground radar precipitation from geostationary satellite observations, providing a critical solution for precipitation monitoring in radar-sparse regions. However, S2R retrieval is intrinsically ill-posed: similar cloud-top radiances can correspond to distinct precipitation regimes, storm organizations, and surface intensities, which are difficult to uniquely determine the underlying meteorological state from local spectral cues alone. Meteorological semantics offer complementary scene-level information that can help resolve this ambiguity. Yet existing static semantic conditioning is often insufficient, as externally predefined semantics cannot adapt to dynamic convective scenes or align with retrieval objectives. To this end, we propose LangRetrieval, a language-guided conditional flow matching (CFM) framework that establishes a closed-loop optimization mechanism between meteorological semantics and retrieval accuracy. Specifically, LangRetrieval consists of two core components: (i) Semantic Warm-up: structured meteorological attributes are injected into the CFM backbone through cross-attention conditioning, enabling continuous semantic guidance throughout the generation trajectory; and (ii) Self-Evolving Semantic Optimization: a lightweight attribute policy is first initialized from vision-language model annotations and subsequently refined via Group Relative Policy Optimization (GRPO) using multi-threshold Critical Success Index (CSI) rewards, enabling semantic generation to evolve directly toward improved retrieval accuracy.",
+      "authors": [
+        "Chunlei Shi",
+        "Junming Hou",
+        "Yi-Lin Wei",
+        "Jiong Wang",
+        "Yecheng Zhang",
+        "Yichao Dong",
+        "Wenqi Ren",
+        "Dan Niu"
+      ],
+      "primary_category": "cs.MM",
+      "categories": [
+        "cs.MM"
+      ],
+      "published": "2026-06-08T13:40:52+00:00",
+      "link": "https://arxiv.org/pdf/2606.09486v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Satellite-to-radar precipitation retrieval supports stormwater management",
+      "llm_evidence_cn": "卫星到雷达降水反演支持城市暴雨管理",
+      "llm_evidence": "卫星到雷达降水反演支持城市暴雨管理",
+      "canonical_evidence": "卫星到雷达降水反演支持城市暴雨管理",
+      "llm_tldr_en": "Proposes a language-guided self-evolving satellite-to-radar retrieval framework using CSI-driven reward to adapt meteorological semantics dynamically, improving precipitation estimation for radar-sparse regions and enabling better stormwater management.",
+      "llm_tldr_cn": "针对卫星到雷达降水反演中云顶亮温与降水关系的不确定性，提出语言引导的自进化反演框架，利用CSI奖励动态适应气象语义。该方法解决了静态语义无法适应对流场景的问题，提升了无雷达区降水估计精度，为城市暴雨径流管理提供了关键输入。",
+      "llm_tldr": "针对卫星到雷达降水反演中云顶亮温与降水关系的不确定性，提出语言引导的自进化反演框架，利用CSI奖励动态适应气象语义。该方法解决了静态语义无法适应对流场景的问题，提升了无雷达区降水估计精度，为城市暴雨径流管理提供了关键输入。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for managing urban stormwater runoff",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.09391v1",
+      "source": "arxiv",
+      "title": "Kling-Gupta linear regression",
+      "abstract": "Although the Kling-Gupta efficiency ($\\mathrm{KGE}$) is widely adopted for model evaluation in hydrology, its properties as a statistical estimator remain unexplored. Investigating these properties is necessary because parameter estimation and forecast evaluation are inherently linked. To address this, we formalize the negatively oriented Kling-Gupta loss $L_\\mathrm{KG} = (1 - \\mathrm{KGE})^2$ within an extremum estimation framework (equivalent to maximizing $\\mathrm{KGE}$) and analyze its behavior in multiple linear regression. We establish explicit formulas for the parameter estimates, showing that Kling-Gupta linear regression scales the ordinary least squares (OLS) coefficient vector by a variance-inflation factor governed by the sample variances and covariances of the predictors and the response. We show that Kling-Gupta linear regression predictions replicate the sample variance of the response on the training set, in contrast to the variance reduction inherent to OLS, while both estimators maintain the sample mean of the observations and achieve the same sample correlation between the predictions and the response. We show analytically that no single estimator can simultaneously maximize both the Nash-Sutcliffe efficiency $\\mathrm{NSE}$ and $\\mathrm{KGE}$: the OLS estimator attains the maximum possible $\\mathrm{NSE}$ but not the maximum $\\mathrm{KGE}$, while the Kling-Gupta estimator maximizes $\\mathrm{KGE}$ at the cost of $\\mathrm{NSE}$. We prove the almost sure convergence of the Kling-Gupta estimator to well-defined population limits and express those limits algebraically. Furthermore, we evaluate the training and test set performance metrics for both estimators, demonstrating that for each estimator the metrics on the training set and on an independent test set converge asymptotically to identical limits (though the limits differ between OLS and Kling-Gupta regression).",
+      "authors": [
+        "Hristos Tyralis",
+        "Georgia Papacharalampous"
+      ],
+      "primary_category": "math.ST",
+      "categories": [
+        "math.ST",
+        "physics.ao-ph",
+        "stat.ME"
+      ],
+      "published": "2026-06-08T12:06:14+00:00",
+      "link": "https://arxiv.org/pdf/2606.09391v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "KGE loss proposed for hydrologic model evaluation, applicable to flood risk models",
+      "llm_evidence_cn": "提出KGE损失用于水文模型评估，可应用于洪水风险评估模型",
+      "llm_evidence": "提出KGE损失用于水文模型评估，可应用于洪水风险评估模型",
+      "canonical_evidence": "提出KGE损失用于水文模型评估，可应用于洪水风险评估模型",
+      "llm_tldr_en": "Formalizes KGE as a statistical estimator in linear regression, providing closed-form expressions for parameter estimation.",
+      "llm_tldr_cn": "本文研究了水文模型评价中广泛使用的Kling-Gupta效率（KGE）在多元线性回归中的统计性质，将负向KGE损失纳入极值估计框架，推导出参数估计的显式公式。结果显示KGE线性回归通过方差膨胀因子缩放OLS系数，为该指标在洪水模型校准中的理论应用奠定了基础。这对于城市洪水风险模型的准确评价具有重要意义。",
+      "llm_tldr": "本文研究了水文模型评价中广泛使用的Kling-Gupta效率（KGE）在多元线性回归中的统计性质，将负向KGE损失纳入极值估计框架，推导出参数估计的显式公式。结果显示KGE线性回归通过方差膨胀因子缩放OLS系数，为该指标在洪水模型校准中的理论应用奠定了基础。这对于城市洪水风险模型的准确评价具有重要意义。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for urban flood risk assessment",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
