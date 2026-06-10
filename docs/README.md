@@ -6,37 +6,38 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-09
-- 运行时间：2026-06-09 22:05:00 UTC
+- 最新运行日期：2026-06-10
+- 运行时间：2026-06-10 22:21:44 UTC
 - 运行状态：成功
-- 本次总论文数：5
+- 本次总论文数：6
 - 精读区：4
-- 速读区：1
+- 速读区：2
 
 ### 今日简报（AI）
-今日处理5篇推荐，精读4篇速读1篇，高评分聚焦多孔介质流求解与降水预测优化。  
-最值得关注的是《An Efficient Solver for the Richards Equation》（9.0分）与《Learning to Refine》（8.0分），分别解决变饱和流高效求解和降水临近预报的迭代精炼。  
-建议优先精读这两篇高分论文，把握数值模拟与深度学习结合的实践方向。
-- 详情：[/202606/09/README](/202606/09/README)
+今日精读高分论文聚焦算法公平与高精度传感，速读涉及气候优化与天气模型评估。最值得关注LLM在住房搜索中可能强化种族导向的地理偏见，以及光学半导体实现高精度土壤湿度测量。建议优先精读算法公平性研究，思考AI应用中的社会伦理风险。
+- 详情：[/202606/10/README](/202606/10/README)
 
 ### 精读区论文标签
-1. [An Efficient Solver for the Richards Equation for Variably Saturated Flows in Porous Media](/202606/09/2606.04292v1-an-efficient-solver-for-the-richards-equation-for-variably-saturated-flows-in-porous-media)  
+1. [The Geography of Algorithmic Judgment: LLM Intermediaries, Place Identity, and Racial Steering in Housing Search](/202606/10/2606.06694v1-the-geography-of-algorithmic-judgment-llm-intermediaries-place-identity-and-racial-steering-in-housing-search)  
+   标签：评分：9.0/10、query:algo-gov
+   evidence：研究LLM在住房搜索中的算法导向与公平性问题
+2. [Multi-Channel Soil Moisture Measurement: High Accuracy and Low Crosstalk Through Optical-Semiconductor Based Differential Sensing](/202606/10/2606.11020v1-multi-channel-soil-moisture-measurement-high-accuracy-and-low-crosstalk-through-optical-semiconductor-based-differential-sensing)  
    标签：评分：9.0/10、query:urban-flood
-   evidence：城市雨洪模拟中的Richards方程高效求解器
-2. [Learning to Refine: Spectral-Decoupled Iterative Refinement Framework for Precipitation Nowcasting](/202606/09/2606.02661v1-learning-to-refine-spectral-decoupled-iterative-refinement-framework-for-precipitation-nowcasting)  
+   evidence：土壤湿度测量支持雨水径流管理
+3. [An Efficient Solver for the Richards Equation for Variably Saturated Flows in Porous Media](/202606/10/2606.04292v1-an-efficient-solver-for-the-richards-equation-for-variably-saturated-flows-in-porous-media)  
    标签：评分：8.0/10、query:urban-flood
-   evidence：降水临近预报用于城市暴雨洪水预测
-3. [Land cover and flood type govern the detection limits of satellite-based flood mapping across diverse global flood events](/202606/09/2606.07780v1-land-cover-and-flood-type-govern-the-detection-limits-of-satellite-based-flood-mapping-across-diverse-global-flood-events)  
+   evidence：Richards方程的高效求解器，可直接应用于雨洪径流中的变饱和流动模拟
+4. [Temporal Context Conditioning for Seasonality-Aware Precipitation Nowcasting of High-Intensity Rainfall](/202606/10/2606.09959v1-temporal-context-conditioning-for-seasonality-aware-precipitation-nowcasting-of-high-intensity-rainfall)  
    标签：评分：8.0/10、query:urban-flood
-   evidence：基于卫星的洪水测绘精度受土地覆盖和洪水类型影响
-4. [LangRetrieval: Language-Guided Self-Evolving Satellite-to-Radar Retrieval via CSI-Driven Reward](/202606/09/2606.09486v1-langretrieval-language-guided-self-evolving-satellite-to-radar-retrieval-via-csi-driven-reward)  
-   标签：评分：8.0/10、query:urban-flood
-   evidence：卫星到雷达降水反演支持城市暴雨管理
+   evidence：针对高强度降雨的降水临近预报模型，与城市雨洪相关
 
 ### 速读区论文标签
-1. [Kling-Gupta linear regression](/202606/09/2606.09391v1-kling-gupta-linear-regression)  
-   标签：评分：7.0/10、query:urban-flood
-   evidence：提出KGE损失用于水文模型评估，可应用于洪水风险评估模型
+1. [U-Net-Accelerated Quality-Diversity Optimization for Climate-Adaptive Urban Layouts](/202606/10/2606.04658v1-u-net-accelerated-quality-diversity-optimization-for-climate-adaptive-urban-layouts)  
+   标签：评分：6.0/10、query:urban-flood
+   evidence：城市布局优化气候适应，方法可迁移至暴雨管理
+2. [PhysMetrics.Weather: An Evaluation Framework for Physical Consistency in ML Weather Models](/202606/10/2606.10642v1-physmetricsweather-an-evaluation-framework-for-physical-consistency-in-ml-weather-models)  
+   标签：评分：6.0/10、query:urban-flood
+   evidence：评估ML天气模型物理一致性的框架，与洪水预报相关
 
 
 <div class="dpr-home-promo-card">

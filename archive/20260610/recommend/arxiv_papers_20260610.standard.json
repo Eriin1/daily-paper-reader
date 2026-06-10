@@ -1,0 +1,247 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-10T22:19:18.429547+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2606.06694v1",
+      "source": "arxiv",
+      "title": "The Geography of Algorithmic Judgment: LLM Intermediaries, Place Identity, and Racial Steering in Housing Search",
+      "abstract": "Large language models (LLMs) are rapidly assuming an intermediary role in housing search through the integration of listing platforms within conversational interfaces, mediating access to information, search, and recommendations within urban settings. We expand on prior work on racial steering in LLMs by conducting a behavioral audit of seven open-weight and closed-source LLMs across four U.S. cities, testing location recommendations across three iterative prompting conditions that progressively add lifestyle preference context and reflect fair housing paired-testing methodologies. We find that steering is an emergent behavior of the model's interpretive license rather than primarily a static property. Steering results from the interaction of a user's identity, preference articulation, and the spatial logic that a model has internalized about learned representations of place, preference, and opportunity in a given city, and how different types of users relate to it. While steering was present, it was not uniform in direction or magnitude across evaluated conditions. Preference-conditioned testing often increased or reconfigured the number of models that exhibited steering behaviors relative to baseline conditions, suggesting that LLMs may interpret what the same housing preference means differently depending on the racial identity of the user. Our findings also demonstrate that the city is not a neutral testing unit for LLM evaluation in place-based sectors, and results from one local market cannot be assumed to generalize to another. Local and domain expertise will be required in the housing sector to ensure that legal and institutional commitments to fair housing are not undermined while adopting AI tools that mediate spatial access.",
+      "authors": [
+        "Hana Samad",
+        "Trung Lam",
+        "Christoph Mügge-Durum",
+        "Michael Akinwumi"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CY"
+      ],
+      "published": "2026-06-04T20:17:58+00:00",
+      "link": "https://arxiv.org/pdf/2606.06694v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "study on algorithmic steering and fairness in housing search via LLMs",
+      "llm_evidence_cn": "研究LLM在住房搜索中的算法导向与公平性问题",
+      "llm_evidence": "研究LLM在住房搜索中的算法导向与公平性问题",
+      "canonical_evidence": "研究LLM在住房搜索中的算法导向与公平性问题",
+      "llm_tldr_en": "This paper audits LLMs for racial steering in housing recommendations across US cities, revealing emergent bias behaviors; directly addresses algorithmic fairness and transparency in decision-making.",
+      "llm_tldr_cn": "该论文对七个大语言模型进行行为审计，测试其在四个美国城市中推荐住房时的种族导向现象。通过迭代提示条件发现，导向行为并非静态属性，而是模型解释许可的涌现结果。研究揭示了算法决策中的偏见机制，直接关乎算法治理中的公平性与透明度核心议题。",
+      "llm_tldr": "该论文对七个大语言模型进行行为审计，测试其在四个美国城市中推荐住房时的种族导向现象。通过迭代提示条件发现，导向行为并非静态属性，而是模型解释许可的涌现结果。研究揭示了算法决策中的偏见机制，直接关乎算法治理中的公平性与透明度核心议题。",
+      "llm_tags": [
+        "query:algo-gov:composite"
+      ],
+      "matched_query_tag": "query:algo-gov:composite",
+      "matched_query_text": "Papers central to 请帮我查询关于算法治理的文章, especially work that connects or combines: algorithm governance principles and frameworks; fairness in algorithmic decision making; transparency of algorithms and models; accountability for algorithmic outcomes; ethical considerations in artificial intelligence; detecting bias in machine learning models; challenges and solutions in algorithm governance; impact of algorithm governance on society; best practices for implementing algorithm governance.",
+      "matched_requirement_id": "req-composite-algo-gov",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.11020v1",
+      "source": "arxiv",
+      "title": "Multi-Channel Soil Moisture Measurement: High Accuracy and Low Crosstalk Through Optical-Semiconductor Based Differential Sensing",
+      "abstract": "Soil moisture measurement plays a key role in irrigation and environmental management. Yet it remains unreliable due to heterogeneous soils, limited sensing volumes, temperature drift, and parasitic inter-channel coupling. This work presents a compact multi-depth capacitive probe that extends a parallel-plate geometry from previous work with differential activation to suppress stray capacitances and improve accuracy. An equivalent-circuit model quantifies parasitic effects, and optically coupled transistor bridges isolate each sensing layer. Raw capacitance is converted to volumetric water content and plant-available water using established calibration models. Laboratory results show a fourfold reduction in temperature sensitivity, strong confinement of the sensing volume, and improved repeatability in heterogeneous soils. Field validation against reference sensors demonstrates high accuracy and precision comparable to widely used instruments, enabling a practical and scalable solution for agricultural and urban soil-moisture monitoring.",
+      "authors": [
+        "Thomas Maier",
+        "Charlotte Rohleder",
+        "Lukas Kamm",
+        "Philipp Dauner",
+        "Jan Pinski",
+        "Bjoern M. Eskofier"
+      ],
+      "primary_category": "eess.SP",
+      "categories": [
+        "eess.SP",
+        "physics.ins-det"
+      ],
+      "published": "2026-06-09T15:57:07+00:00",
+      "link": "https://arxiv.org/pdf/2606.11020v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "soil moisture measurement supports stormwater runoff management",
+      "llm_evidence_cn": "土壤湿度测量支持雨水径流管理",
+      "llm_evidence": "土壤湿度测量支持雨水径流管理",
+      "canonical_evidence": "土壤湿度测量支持雨水径流管理",
+      "llm_tldr_en": "A compact multi-depth capacitive probe with differential sensing measures soil moisture accurately, crucial for urban stormwater management and flood prediction.",
+      "llm_tldr_cn": "该论文针对土壤湿度测量不准确问题，提出一种基于光学半导体差分传感的多深度电容探针。通过差分激活抑制杂散电容，光学耦合隔离各层，将电容转换为含水量。实验室结果表明测量精度提升四倍。该传感器可实时监测城市土壤湿度，为雨水径流管理和洪水预警提供关键数据。",
+      "llm_tldr": "该论文针对土壤湿度测量不准确问题，提出一种基于光学半导体差分传感的多深度电容探针。通过差分激活抑制杂散电容，光学耦合隔离各层，将电容转换为含水量。实验室结果表明测量精度提升四倍。该传感器可实时监测城市土壤湿度，为雨水径流管理和洪水预警提供关键数据。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for managing urban stormwater runoff",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.04292v1",
+      "source": "arxiv",
+      "title": "An Efficient Solver for the Richards Equation for Variably Saturated Flows in Porous Media",
+      "abstract": "We present a nonlinear multigrid solver for the Richards equation in variably saturated porous media with strongly nonlinear hydraulic conductivity and water-retention relationships. The governing equation is discretized using a second-order conservative finite-difference scheme in space and an implicit backward differentiation formula in time. The core component of the solver is a nonlinear Gauss--Seidel (NGS) smoother based on a triangular splitting of the diffusion operator combined with diagonal stabilization. This construction yields a sequence of locally decoupled scalar nonlinear problems that can be solved efficiently and robustly using only a few Newton iterations. Under suitable monotonicity assumptions, we establish the convergence of the NGS iteration in the $L^\\infty$ norm and derive explicit conditions on the stabilization parameters. Numerical experiments for benchmark infiltration, drainage, and root-uptake problems demonstrate that the proposed NGS-based multigrid framework is both computationally efficient and robust.",
+      "authors": [
+        "Xuelong Gu",
+        "Qi Wang"
+      ],
+      "primary_category": "math.NA",
+      "categories": [
+        "math.NA"
+      ],
+      "published": "2026-06-02T23:44:51+00:00",
+      "link": "https://arxiv.org/pdf/2606.04292v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "efficient solver for Richards equation, directly applicable to variably saturated flow in stormwater runoff modeling",
+      "llm_evidence_cn": "Richards方程的高效求解器，可直接应用于雨洪径流中的变饱和流动模拟",
+      "llm_evidence": "Richards方程的高效求解器，可直接应用于雨洪径流中的变饱和流动模拟",
+      "canonical_evidence": "Richards方程的高效求解器，可直接应用于雨洪径流中的变饱和流动模拟",
+      "llm_tldr_en": "Presents a nonlinear multigrid solver for the Richards equation, enabling efficient simulation of variably saturated flows in porous media for stormwater management.",
+      "llm_tldr_cn": "针对变饱和多孔介质中的Richards方程，提出了一种非线性多重网格求解器。该求解器采用非线性Gauss-Seidel光顺器和对角稳定化，将问题分解为局部标量非线性问题，仅需少量牛顿迭代即可鲁棒求解。数值实验验证了其高效性和稳健性，为城市雨洪管理中的土壤-水运动模拟提供了有力的计算工具。",
+      "llm_tldr": "针对变饱和多孔介质中的Richards方程，提出了一种非线性多重网格求解器。该求解器采用非线性Gauss-Seidel光顺器和对角稳定化，将问题分解为局部标量非线性问题，仅需少量牛顿迭代即可鲁棒求解。数值实验验证了其高效性和稳健性，为城市雨洪管理中的土壤-水运动模拟提供了有力的计算工具。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for managing urban stormwater runoff",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.09959v1",
+      "source": "arxiv",
+      "title": "Temporal Context Conditioning for Seasonality-Aware Precipitation Nowcasting of High-Intensity Rainfall",
+      "abstract": "Precipitation nowcasting is increasingly being approached with deep learning models that learn directly from recent radar observations. Although such models can efficiently capture short-term precipitation motion, they often lack broader contextual information about the meteorological conditions under which rainfall develops. This paper investigates whether lightweight temporal context can improve radar-based nowcasting, particularly for high-intensity rainfall. We propose the Time-Aware Small-Attention U-Net (TA-SmaAt-UNet), which extends the core SmaAt-UNet model with temporal conditioning layers that use cyclical encodings of time-of-day and time-of-year to modulate intermediate feature representations. Experiments on KNMI radar precipitation data show that temporal conditioning is most beneficial for rare, high-intensity precipitation events, while also improving the representation of seasonal variability and predicted rainfall-intensity distributions. A layer conductance analysis further indicates that the added temporal conditioning layers are actively used by the model despite their small parameter cost. These findings suggest that simple, physically motivated temporal context can improve the realism and reliability of deep learning-based precipitation nowcasts. The implementation of our models and training setup is available on \\href{https://github.com/gijsvn/TA-SmaAt-UNet}{GitHub}.",
+      "authors": [
+        "Gijs van Nieuwkoop",
+        "Siamak Mehrkanoon"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI"
+      ],
+      "published": "2026-06-08T12:28:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.09959v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "precipitation nowcasting model for high-intensity rainfall relevant to pluvial flooding",
+      "llm_evidence_cn": "针对高强度降雨的降水临近预报模型，与城市雨洪相关",
+      "llm_evidence": "针对高强度降雨的降水临近预报模型，与城市雨洪相关",
+      "canonical_evidence": "针对高强度降雨的降水临近预报模型，与城市雨洪相关",
+      "llm_tldr_en": "Proposes TA-SmaAt-UNet that uses temporal context encoding to improve radar-based precipitation nowcasting for high-intensity rainfall, which is critical for pluvial flood early warning.",
+      "llm_tldr_cn": "现有深度学习降水临近预报模型缺乏对降雨发展的气象条件上下文感知，导致高强度降雨预报精度不足。本文提出时间感知小注意力U-Net（TA-SmaAt-UNet），通过循环编码的时间-日期信息调制中间特征表示，使模型具备季节性感知能力。在真实雷达数据上的实验表明，该方法显著提升了对高强度降雨的预报技巧，为城市内涝预警提供了更准确的输入。",
+      "llm_tldr": "现有深度学习降水临近预报模型缺乏对降雨发展的气象条件上下文感知，导致高强度降雨预报精度不足。本文提出时间感知小注意力U-Net（TA-SmaAt-UNet），通过循环编码的时间-日期信息调制中间特征表示，使模型具备季节性感知能力。在真实雷达数据上的实验表明，该方法显著提升了对高强度降雨的预报技巧，为城市内涝预警提供了更准确的输入。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "pluvial flooding causes and impacts in urban areas",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.04658v1",
+      "source": "arxiv",
+      "title": "U-Net-Accelerated Quality-Diversity Optimization for Climate-Adaptive Urban Layouts",
+      "abstract": "Optimizing urban layouts for climate adaptation requires balancing building density with cold-air ventilation. Because physics-based climate simulations are computationally expensive, planners typically evaluate fewer than ten manual designs. \\gls{qd} algorithms offer a way to systematically illuminate the design space, but they require surrogate models to be practical.   In this paper, we replace a slow, regulatory physics simulator with a spatial deep-learning surrogate (U-Net) inside an offline MAP-Elites loop. We systematically compare this spatial approach with a traditional \\gls{gp} surrogate across different training-data strategies (quasi-random Sobol sampling vs.\\ active \\gls{qd} bootstrapping).   Our results reveal that scalar \\gls{gp} surrogates fail catastrophically when trained on random samples, requiring expensive, actively generated \\gls{qd} archives to generalize. In contrast, the spatial inductive bias of the U-Net allows it to learn the underlying physics mapping robustly ($R^2 = 0.996$), completely independent of the training data source. This allows offline \\gls{qd} optimization to achieve highly accurate fitness rankings ($ρ= 0.994$) using only a one-time batch of random training samples. The resulting pipeline, deployed in the open-source OpenSKIZZE tool, generates thousands of diverse, climate-evaluated building layouts in under ten minutes.",
+      "authors": [
+        "Alexander Hagg",
+        "Tania Guerrero",
+        "Dirk Reith"
+      ],
+      "primary_category": "cs.NE",
+      "categories": [
+        "cs.NE",
+        "cs.LG"
+      ],
+      "published": "2026-06-03T09:35:11+00:00",
+      "link": "https://arxiv.org/pdf/2606.04658v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "urban layout optimization for climate adaptation, method transferable to stormwater management",
+      "llm_evidence_cn": "城市布局优化气候适应，方法可迁移至暴雨管理",
+      "llm_evidence": "城市布局优化气候适应，方法可迁移至暴雨管理",
+      "canonical_evidence": "城市布局优化气候适应，方法可迁移至暴雨管理",
+      "llm_tldr_en": "U-Net surrogate accelerates quality-diversity optimization of urban layouts for climate adaptation; the spatial surrogate approach can be reused for designing green infrastructure or flood mitigation layouts.",
+      "llm_tldr_cn": "该论文用U-Net替代器加速城市规划中的质量多样性优化，平衡建筑密度与通风。该方法的核心是用深度学习替代昂贵物理仿真，可迁移至城市暴雨管理中的绿色基础设施布局优化，从而提高设计效率。",
+      "llm_tldr": "该论文用U-Net替代器加速城市规划中的质量多样性优化，平衡建筑密度与通风。该方法的核心是用深度学习替代昂贵物理仿真，可迁移至城市暴雨管理中的绿色基础设施布局优化，从而提高设计效率。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.10642v1",
+      "source": "arxiv",
+      "title": "PhysMetrics.Weather: An Evaluation Framework for Physical Consistency in ML Weather Models",
+      "abstract": "Machine learning weather prediction (MLWP) models have achieved impressive forecasting performance at a small fraction of the computational costs required for traditional physics-based methods. However, they are primarily (1) data-driven and (2) evaluated using pixel-wide error metrics (e.g., RMSE), so there are no guarantees that their forecasts are consistent with known physical laws. We introduce PhysMetrics.Weather, an evaluation framework that assesses the physical realism of MLWP models across three types of metrics: conservation, spectral, and dynamical. By quantifying physical realism, this tool guides the development of physics-informed architectures and helps evaluate whether MLWP models are reliable for operational use. Our framework is available on Github at https://github.com/Emmakast/PhysMetrics.Weather.",
+      "authors": [
+        "Emma Kasteleyn",
+        "Timo Maier",
+        "Axel Lauer",
+        "Veronika Eyring",
+        "Pierre Gentine",
+        "Ana Lucic"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "physics.ao-ph"
+      ],
+      "published": "2026-06-09T09:45:52+00:00",
+      "link": "https://arxiv.org/pdf/2606.10642v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "evaluation framework for physical consistency of ML weather models, relevant to flood forecasting",
+      "llm_evidence_cn": "评估ML天气模型物理一致性的框架，与洪水预报相关",
+      "llm_evidence": "评估ML天气模型物理一致性的框架，与洪水预报相关",
+      "canonical_evidence": "评估ML天气模型物理一致性的框架，与洪水预报相关",
+      "llm_tldr_en": "PhysMetrics.Weather provides metrics (conservation, spectral, dynamical) to assess physical realism of ML weather models; crucial for ensuring reliability in operational flood risk assessment.",
+      "llm_tldr_cn": "该论文提出PhysMetrics.Weather评估框架，从守恒、谱、动力学三个方面量化ML天气模型的物理真实性。针对数据驱动模型缺乏物理保证的问题，该框架能指导更可靠的模型设计，对于城市洪水风险预测等应用具有重要支撑作用。",
+      "llm_tldr": "该论文提出PhysMetrics.Weather评估框架，从守恒、谱、动力学三个方面量化ML天气模型的物理真实性。针对数据驱动模型缺乏物理保证的问题，该框架能指导更可靠的模型设计，对于城市洪水风险预测等应用具有重要支撑作用。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

@@ -1,0 +1,305 @@
+Title: Multi-Channel Soil Moisture Measurement: High Accuracy and Low Crosstalk Through Optical-Semiconductor Based Differential Sensing
+
+URL Source: https://arxiv.org/pdf/2606.11020v1
+
+Published Time: Wed, 10 Jun 2026 01:14:41 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+# Multi-Channel Soil Moisture Measurement: High Accuracy and Low Crosstalk Through Optical-Semiconductor Based Differential Sensing 
+
+Thomas Maier, Charlotte Rohleder 
+
+Machine Learning and Data Analytics Lab (MaD-Lab) Friedrich-Alexander-Universit¨ at Erlangen-N¨ urnberg (FAU) 
+
+{thomas.maier, charlotte.pradel }@fau.de 
+
+Lukas Kamm, Philipp Dauner 
+
+Agvolution GmbH Erlangen, Germany 
+
+{l.kamm, p.dauner }@agvolution.com 
+
+Jan Pinski 
+
+Department of Environment and Urban Greenery State Capital Hanover 
+
+www.hannover.de/umwelt-stadtgruen jan.pinski@hannover-stadt.de 
+
+Bjoern M. Eskofier 
+
+Chair of AI-supported Therapy Decisions, LMU M¨ unchen, Munich, Germany Department Artificial Intelligence in Biomedical Engineering (AIBE) , Germany 
+
+Friedrich-Alexander-Universit¨ at Erlangen-N¨ urnberg (FAU), Erlangen, Germany Institute of AI for Health, Helmholtz Zentrum M¨ unchen, Neuherberg, Germany 
+
+bjoern.eskofier@fau.de 
+
+Abstract —Soil moisture measurement plays a key role in irri-gation and environmental management. Yet it remains unreliable due to heterogeneous soils, limited sensing volumes, temperature drift, and parasitic inter-channel coupling. This work presents a compact multi-depth capacitive probe that extends a parallel-plate geometry from previous work with differential activa-tion to suppress stray capacitances and improve accuracy. An equivalent-circuit model quantifies parasitic effects, and optically coupled transistor bridges isolate each sensing layer. Raw capaci-tance is converted to volumetric water content and plant-available water using established calibration models. Laboratory results show a fourfold reduction in temperature sensitivity, strong confinement of the sensing volume, and improved repeatability in heterogeneous soils. Field validation against reference sensors demonstrates high accuracy and precision comparable to widely used instruments, enabling a practical and scalable solution for agricultural and urban soil-moisture monitoring. 
+
+Index Terms —capacitive sensing, soil moisture, FDR sensor, differential sensing, crosstalk reduction, multi-channel sensing 
+
+I. I NTRODUCTION 
+
+Climate change alters global precipitation and demands more efficient water use in agriculture and urban greenery [5]. Accurate soil-moisture monitoring enables optimized ir-rigation but remains challenging due to the need for site-specific calibration and poor reproducibility [6]–[9]. Reported limitations include soil disturbance during installation [10], [11], dependence on texture and bulk density [12], [13], small or uneven sensing volumes [3], [14]–[16], and temperature-related drift [17]–[20]. As a result, commercial probes often fail to provide consistent readings in heterogeneous soils, and satellite missions remain limited to surface layers [21], [22]. In practice, in-situ sensor networks combined with IoT technologies are used to capture vertical profiles [23]. These rely on electrical, dielectric, thermal, or tensiometric principles [24]–[29], where raw signals (voltage, frequency, counts) are converted to volumetric water content (VWC) or soil-water potential [29], [30]. VWC is the water–volume ratio [29], [31], while soil-water potential quantifies suction forces of the soil [32]. For irrigation control, values are often normalized as plant-available water (PAW), bounded by field capacity and wilting point [32]–[34]. Because these thresholds vary strongly with texture, from about 5 % VWC for sand to > 30 % for clay [34], soil-specific calibration remains necessary [29]. The absence of a universal conversion standard is still a major obstacle to comparable soil-moisture data. Soil-moisture infor-mation supports precision irrigation and ecosystem resilience in both agriculture and cities [35]–[37]. Because over 75 % of the roots of annual crops and young city trees occur within 
+
+60 cm of the surface [38], [39], sensors covering this range 
+
+Fig. 1. Typical sensor geometries and sampling volumes in heterogeneous soil: (a) tensiometer [1], (b) ring-electrode FDR probe [2], (c) TDR wires [3], (d) parallel-plate probe enabling homogeneous sampling [4]. 
+
+> © 2026 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other uses, including reprinting/republishing this material for advertising or promotional purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted component of this work in other works.
+> arXiv:2606.11020v1 [eess.SP] 9 Jun 2026
+
+capture most root-zone dynamics while avoiding compact subsoil [40]. Natural soils are stratified in texture and density [32], [41], requiring sensing volumes that balance spatial noise and layer separation [42]–[45].The probe geometry in this work is chosen to balance these effects and provide stable, layer-specific measurements. Conventional probes exhibit non-uniform sensing fields biased toward the sensor surface. Ten-siometers measure only at the ceramic tip, see Fig. 1 (a) [1]. Rod-type capacitive and TDR sensors concentrate fringing fields near electrodes, see Fig. 1 (b),(c) [46]–[49]. Water films or compaction during insertion may distort readings [11], [15], [31], [50], [51]. To achieve homogeneous sampling, our previous design [4] used two parallel-plate electrodes inserted from the surface, generating a uniform field through a defined soil slab and allowing multi-depth measurements, see Fig. 1 (d) [4]. This paper presents an improved soil-moisture sensor addressing these issues. A differential sensing scheme sequen-tially isolates electrodes using optically coupled MOSFET bridges, subtracting stray and coupling capacitances verified by a circuit model and node-voltage analysis. In addition, a conversion from corrected capacitance to normalized PAW using soil-specific field-capacity and wilting-point parameters together with laboratory and field validation is presented. II. M ATERIALS AND METHODS 
+
+A. Equivalent circuit model 
+
+Embedding several capacitive sensing zones for multi-depth measurements introduces stray coupling and wiring parasitics between adjacent electrodes, causing inter-channel crosstalk [52], which is quantified using the equivalent-circuit model in Fig. 2. Each channel measures the electrode–soil capacitance 
+
+C0(εr), formed by the insulation capacitances Ciso on both electrodes in series with the soil capacitance Cr(εr), plus a fixed wiring offset Coff . Parasitic couplings to neighbouring channels and the ground shield are modelled as Cp,a (εr, T )
+
+and Cp,b (εr, T ), which depend on relative soil permittivity 
+
+εr and temperature T . To enable subsequent crosstalk com-pensation, ideal switches, modelled as capacitors Csa & Csb ,are included and are first assumed closed (infinite capacitance value). The excitation signal uQ is generated by a capacitance-to-digital converter, which drives the sensor with a sinusoidal signal of 1.2 V pp at 1 MHz to 3 MHz using an internal LC resonant network and measures resonant frequency shifts to infer capacitance changes. The digitized values are read by an on-board microcontroller for capacitance conversion. 
+
+B. Mapping measured capacity to normalized soil permittivity 
+
+C0(εr) can be expressed as a series connection of the electrode insulation capacitances and the soil capacitance [16], [31], [53]–[55]: 
+
+C0(εr) = 
+
+ 2
+
+Ciso 
+
++ 1
+
+εrCr
+
+−1
+
++ Coff . (1) Higher Ciso (thinner insulation) or larger Cr(εr) values increase the sensor’s dynamic range but also its nonlinearity. For very thin insulations below 30 μm, insulation permittivity                  
+
+> Fig. 2. Equivalent circuit diagram used for calculations. Csa and Csb represent the electronic switches as capacitors, while Cp,a/b (εr, T )denote the parasitic coupling capacitors. Dashed lines indicate the nodes used for nodal analysis, where φ2&φ3are the measuring electrodes of a channel and φ0&φ1are the connecting traces between the excitation signal uQand electronic switches.
+
+varies due to moisture absorption [16]. This effect is negligible for the 1 mm –1.5 mm layers used in this setup. The capaci-tance is normalized using min–max scaling to obtain C0(εr)′:
+
+C0(εr)′ = C0(εr) − C0(εr(air )) 
+
+C0(εr(water )) − C0(εr(air )) , (2) where εr(water ) = 81 and εr(air ) = 1 . This normalization ensures comparability across probes and materials [56], [57]. To generalize calibration, εr is also normalized as εr′ and related to C0(εr′)′ through: 
+
+C0(εr′)′ =
+
+
+
+a + bεr′
+
+−1
+
++ c, (3) with a = 2 /C iso , b = 1 /C r(εr), and calibration conditions 
+
+C0(0) ′ = 0 , C0(1) ′ = 1 , giving c = 0 , b = 1 − a. Solving for 
+
+εr′ yields: 
+
+εr′ = C0(εr′)′(a − 1) 
+
+a C 0(εr′)′ − 1 . (4) Thus, an additional measurement in ethanol ( εr = 23 ) com-pletes the three point calibration (air-ethanol-water), deter-mines a, compensates manufacturing tolerances, and, after over 200 calibrations, has proven statistically stable, elim-inating the need for per sensor calibration. For embedded implementation, Eq. (4) was approximated by a piecewise linear model with < 10 −3 error, reducing computational load. 
+
+C. Translation to VWC and PAW 
+
+After calibrating the normalized permittivity εr′, the next step is to derive the VWC-PAW relation. Although the Topp equation [29] is widely used, it is based on time-domain reflectometry at higher frequencies and is not directly appli-cable to the capacitive setup here. Several studies investigated the dependence of soil permittivity on water content while considering bulk density, texture, organic matter, and porosity [31], [58]. Among these, the Gardner model [31] best matches both the operating frequency range and the need for parame-terization across different soils. The VWC is calculated as 
+
+θ =
+
+√εr + 1 .208 − 2.454 · ρ
+
+9.93 , (5) where ρ is the bulk density, determined individually for each soil layer by drill-stick sampling. Accordingly, the VWC–PAW conversion is soil-specific and requires layer-wise bulk-density measurements for each installation site. Effects of salinity and organic matter are primarily mediated through changes in effective permittivity and are therefore captured indirectly in the dielectric response. The available water capacity (AWC) is defined as the difference between the VWC at field capacity θfc 
+
+and at the permanent wilting point θpwp . Normalizing θ to this range yields the PAW value: 
+
+PAW = θθawc 
+
+= θθfc − θpwp 
+
+. (6) For technical or non-natural substrates, laboratory soil analyses can provide these parameters from undisturbed samples, but require costly sampling, processing, and site-specific database integration [59]. Therefore, literature-based estimates for θfc 
+
+and θpwp are taken from [60] as first approximations and sub-sequently normalized using the seasonal minimum moisture observed during summer drought and the maximum value measured during winter saturation [61]. All parameters are treated as site- and depth-specific, enabling conversion of the dielectric response into an absolute PAW indicator. 
+
+D. Multi-Channel Sensing and Crosstalk Compensation 
+
+In multi-channel probes, parasitic coupling causes sensing-depth distortion and temperature drift [4], mitigated by alter-nating electronic isolation of the electrodes using two electron-ically controlled switches that separate parasitic from true soil capacitances. The resulting behaviour is modelled using the equivalent circuit in Fig. 2. Nodal analysis with node potentials 
+
+φ0 to φ3 (with φ0 = 0 as ground) yields the Maxwell capaci-tance matrix in Eq. 7, with Y being the complex admittances of the respective capacitances [55]. The measured capacitance follows from Ohm’s law via Cm(εr, T ) = iQ
+
+  jω (φ1 − φ0),where j is the imaginary unit. Gaussian elimination yields the analytical solution in Eq. 8. The auxiliary variables are defined in Eq. 9. By evaluating Cm(εr, T ) in all switch states (both closed, one open, both open) and computing the corresponding limit cases (capacities approaching 0 or ∞), the individual parasitic contributions can be isolated. Combining these configurations enables differential cancellation of all stray effects, yielding the corrected differential capacitance in Eq. 10. This differential activation approach isolates the effective soil capacitance C0(εr) and eliminates temperature-and geometry-dependent parasitic influences, enabling accu-rate multi-depth measurements under field conditions. 
+
+Cdiff (εr) = lim   
+
+> Ysa →∞
+> Ysb →∞
+
+Cm(εr, T ) − lim   
+
+> Ysa →0
+> Ysb →∞
+
+Cm(εr, T )
+
+− lim   
+
+> Ysa →∞
+> Ysb →0
+
+Cm(εr, T ) + lim   
+
+> Ysa →0
+> Ysb →0
+
+Cm(εr, T ) = C0(εr). (10) III. R ESULTS 
+
+A. Design and Construction Summary 
+
+The differential scheme in Eq. 10 suppresses parasitic coupling and temperature drift by alternating electrode switch states. Low off-state capacitance and switch placement directly at the electrode feed are essential to limit stray effects [4]. Op-tically coupled MOSFET bridges were selected for their gal-vanic isolation. The probe uses a four-layer FR4 PCB (shielded traces, gold-plated electrodes) in a polycarbonate housing, re-ducing compaction and improving robustness. Low-duty-cycle operation yields milliwatt-range average power consumption, enabling long-term battery-powered deployments. 
+
+B. Volume Sensitivity 
+
+The dynamic range of the differential measurement Cdiff (εr)
+
+is roughly five times smaller than that of the direct mea-surement Cm(εr, T ) (Table I), based on air and water mea-surements at room temperature for three depths. For sensing-volume characterization, a 1.2 L water-filled latex balloon was placed concentrically in individual probe depths, while the surrounding volume was kept dry. Air, balloon-filled, and immersed states were sampled for 5 min and averaged. The relative volume contribution was computed as the ratio be-tween the balloon-induced and full-scale signal changes. The differential setup captured 93 − 96 % of the dynamic range, compared to 63 − 68 % for direct measurements, confirming improved spatial confinement of the measurement. 
+
+C. Temperature Sensitivity 
+
+The temperature dependence of the sensor response was evaluated using a programmable climate chamber. Multiple temperature loops from −20 ◦C to 70 ◦C were conducted, each lasting three hours to ensure thermal equilibrium across components. Fig. 3 shows the normalized capacitance for both 
+
+
+
+Y p,a (εr, T ) + Y sb + Y off −Y p,a (εr, T ) −Y sb 
+
+Y p,a (εr, T ) −Y sa − Y 0(εr) − Y p,a (εr, T ) Y 0(εr)
+
+Y sb Y 0(εr) −Y sb − Y 0(εr) − Y p,b (εr, T )
+
+
+
+φ1
+
+φ2
+
+φ3
+
+ =
+
+
+
+iQ
+
+00
+
+ (7) 
+
+φ1 = iQ
+
+a(εr, T ) + Y sb + Y off 
+
+1 −
+
+
+
+Y sb − Y p,a (εr, T ) a(εr,T )Y 0(εr)+ Y sb Y p,a (εr,T )    
+
+> a(εr,T )b(εr,T )+ Yp,a (εr,T )2
+
+2
+
+a(εr, T )c(εr, T ) + Y p,a (εr, T )2 −
+
+ a(εr,T )Y 0(εr)+ Y sb Y p,a (εr,T )
+
+2    
+
+> a(εr,T )b(εr,T )+ Yp,a (εr,T )2
+
+− 1     
+
+> a(εr,T )b(εr,T )
+> Yp,a (εr,T )2
+
++ 1 
+
+!
+
+(8) 
+
+a(εr, T ) = Y p,a (εr, T ) + Y sb + Y off , b(εr, T ) = −Y sa − Y 0(εr) − Y p,a (εr, T ), c(εr, T ) = −Y sb − Y 0(εr) − Y p,b (εr, T ) (9) TABLE I DYNAMIC RANGE AND VOLUME SELECTIVITY OF SENSOR DESIGN                           
+
+> Channel Dynamic Range Volume Selectivity
+> Cm(εr, T )Cdiff (εr, T )Cm(εr, T )Cdiff (εr, T )
+> −30 cm 60 .4 pF 13 .8 pF 63 % 93 %
+> −60 cm 75 .7 pF 16 .2 pF 63 % 95 %
+> −90 cm 67 .6 pF 14 .5 pF 68 % 96 %
+> Fig. 3. Temperature sensitivity test results. The normalized capacitance is shown for the −30 cm channel during multiple heating and cooling loops.
+> Fig. 4. Repeatability test results in sandy soil showing normalized capacitance distributions for direct and differential measurements with reference values.
+
+direct and differential modes. The differential configuration exhibits approximately four-fold lower temperature sensitivity and minor hysteresis compared to the conventional measure-ment, demonstrating improved thermal stability. 
+
+D. Repeatability in Real Soil 
+
+The repeatability of the improved soil moisture sensor was evaluated in a sandy field during winter in central Europe. Insertion was standardized with a steel replica of the probe with a ground plate used to pre-form slits before placing the sensor. It was inserted 15 times within 4 m 2, and the resulting capacitance values were compared with gravimetric references from oven-dried samples. Fig. 4 shows the nor-malized capacitances as violin plots. Cm(εr, T ) showed 5 % 
+
+interquartile range (IQR) and up to 15 % deviation, while 
+
+Cdiff (εr, T ) showed 8 % IQR and only 3 % deviation from ground truth, indicating improved accuracy and robustness. 
+
+E. Field Sensor Deployment and Performance 
+
+A field study was conducted on five urban street trees in Hanover, Germany, instrumented with up to five sensor types. Climavi (proposed design), SMT100 [56], Plantobelly [62], Watermark [63], and Tensiomark [64] sensors were installed at three depths (root ball, 30 cm, 60 cm). The first three measured VWC via permittivity, while Watermark and Tensiomark measured soil water tension. Given the established    
+
+> Fig. 5. Pairwise correlations for tree 3 at −30 cm . Scatter plots show agreement between co-located sensors. Correlation & error metrics shown for each pair. Linear fits in orange and van Genuchten curves in red.
+> Fig. 6. Aggregated performance metrics (RMSE, NRMSE, and correlation coefficients) for all watermark sensor pairs across all locations and depths. Sample size per pair (n) is indicated below each box.
+
+role of suction-tension sensors as practical references [65], [66], Watermark served as benchmark. Temporally aligned measurements (maximum offset 50 min) were analyzed for each co-located sensor pair. Linear regression was applied to matching domains (e.g., VWC–VWC or pF–pF), and RMSE and NRMSE (RMSE/ σref ) were computed. For cross-principle comparisons, the Van Genuchten model [67] served as the regression reference. Pearson, Kendall, and Spearman coeffi-cients quantified correlations. Results are shown in Figs. 5 and 6 across all trees and depths, following [6]. All data, analysis code and processing pipeline are openly available in [68]. IV. D ISCUSSION AND CONCLUSION 
+
+This work introduces a differential sensing approach for soil moisture measurement combined with a PAW computation method. Two optically coupled semiconductor switches alter-nately isolate the electrodes, thereby suppressing superposed parasitic capacitances previously reported in [4], as confirmed by the equivalent-circuit model and closed-form analysis. Dynamic range. Although differential operation reduces the electrical dynamic range by approximately a factor of five (Table I), the remaining span remains above the converter noise floor, corresponding to < 1 % VWC resolution and 
+
+≈ 5 % deviation in field tests (Fig. 4), compared to up to 
+
+15 % for direct measurements. Quantization and long-term drift effects remain below seasonal variability (Fig. 3), so improved volume confinement and thermal stability outweigh the reduced span. The improved volume confinement and thermal stability therefore outweigh the reduced dynamic range in practical deployments. 
+
+Volume sensitivity. The water-balloon experiment confirms that conventional direct measurements include contributions from outside the intended sensing region, whereas the dif-ferential scheme confines the effective sampling volume to the plate-to-plate space. This addresses the issue that small or poorly defined sensing volumes cause spatial variability during installation [6], [14], [51], [69]. The findings align with confined-volume and compartmental/submersion tests [15], [50], [70] and indicate effective crosstalk suppression. 
+
+Temperature stability. The absolute measurement exhibits a thermal response consistent with FR4 stack-up and dielectric behaviour [71]. Differential operation markedly lowers the apparent temperature gradient. Residual drift can be attributed to the properties of the insulation material (polycarbonate) [72] and incomplete thermal equilibrium. In field deployments, temperature-dependent water permittivity will slightly add to this effect [20], [27], [73]. TDR systems typically report permille degree sensitivities [18], [19]. The differential scheme enhances thermal robustness in the system response. 
+
+Repeatability & field evaluation. In sandy soil, the differen-tial mode reduces the systematic offset to gravimetric ground truth with only a modest precision trade-off, consistent with its reduced dynamic range (Fig. 4). Under urban conditions, cross-sensor comparisons show competitive agreement. Fur-thermore, no significant performance degradation due to aging or moisture ingress was observed during the field deployments. These results align with laboratory improvements in volume confinement and thermal stability, and they compare favorably to the variability reported for existing systems. [6], [8]. 
+
+Conclusion. The optical–semiconductor-based differential probe substantially mitigates multi-channel crosstalk and im-proves thermal stability. It also better confines the sampling volume, enhancing accuracy across depths. Combined lab and field evidence suggest a practical path toward more reliable irrigation decisions in agricultural and urban settings. Future work will target precision gains (materials/geometry, signal processing) and systematic evaluation under varying soil prop-erties without sacrificing the demonstrated robustness. ACKNOWLEDGMENT 
+
+The authors thank all project partners involved in the soil characterization and field measurement campaigns. REFERENCES [1] L. A. Richards, “Soil moisture tensiometer materials and construction,” 
+
+Soil Science , vol. 53, pp. 241–248, 1942. [2] E. Babaeian, M. Sadeghi, S. B. Jones, C. Montzka, H. Vereecken, and M. Tuller, “Ground, proximal, and satellite remote sensing of soil moisture,” Reviews of Geophysics , vol. 57, no. 2, pp. 530–616, 2019. [3] A. P. Annan, Time-domain Reflectometry - Air-gap Problem for Parallel Wire Transmission Lines . Geological Survey of Canada, 1977. [4] T. Maier, L. C. Kamm, A. W. Heckmann, and B. M. Eskofier, “Homo-geneous soil moisture sensor with high repeatability for different soil depths,” Sensor and Measurement Science Int. , p. 342–343, 2023. [5] K. E. Trenberth, “Changes in precipitation with climate change,” Climate Research , vol. 47, pp. 123–138, Mar. 2011. [6] C. Jackisch, K. Germer, T. Graeff, I. Andr¨ a, K. Schulz, M. Schiedung 
+
+et al. , “Soil moisture and matric potential – an open field comparison of sensor systems,” ESSD , vol. 12, no. 1, pp. 683–697, Mar. 2020. [7] B. G. Leib, J. D. Jabro, and G. R. Matthews, “Field evaluation and performance comparison of soil moisture sensors,” Soil Science , vol. 168, pp. 396–408, 2003. [8] J. P. Walker, G. R. Willgoose, and J. D. Kalma, “In situ measurement of soil moisture: a comparison of techniques,” Journal of Hydrology , vol. 293, no. 1, pp. 85–99, 2004. [9] T. L. Rowlandson, A. A. Berg, P. R. Bullock, E. R. Ojo, H. McNairn, G. Wiseman, and M. H. Cosh, “Evaluation of several calibration procedures for a portable soil moisture sensor,” Journal of Hydrology ,vol. 498, pp. 335–344, 2013. [10] S. Evett, J.-P. Laurent, and P. Cepuder, “Neutron scattering, capacitance, and tdr soil water content measurements on four continents,” Symposium No. 59, World Congress of Soil Science (WCCS) , vol. 17, 2002. [11] W. G. Teixeira, G. Schroth, J. D. Marques, and B. Huwe, “Sampling and tdr probe insertion in the determination of the volumetric soil water content,” RBCS , vol. 27, no. 4, p. 575–582, 2003. [12] Y. Gong, Q. Cao, and Z. Sun, “The effects of soil bulk density, clay content and temperature on soil water content measurement using time-domain reflectometry,” Hydrological Processes , vol. 17, no. 18, pp. 3601–3614, Dec. 2003. [13] R. L. Baumhardt, R. Lascano, and S. Evett, “Soil material, temperature, and salinity effects on calibration of multisensor capacitance probes,” 
+
+Soil Science Society of American Journal , vol. 64, p. 1940–1946, 2000. [14] R. Sri Ranjan and C. Domytrak, “Effective volume measured by tdr miniprobes,” Transactions of the ASAE , vol. 40, pp. 1059–1066, 1997. [15] H. Nissen, T. Ferr´ e, and P. Moldrup, “Time domain reflectometry devel-opments in soil science: I. unbalanced two-rod probe spatial sensitivity and sampling volume,” Soil Science , vol. 168, pp. 77–83, 2003. [16] T. Maier and L. C. Kamm, “Moisture sensor for gravitation dependent plant watering,” 68th International Astronautical Congress (IAC) , 2017. [17] T. Saito, H. Fujimaki, H. Yasuda, and M. Inoue, “Empirical temperature calibration of capacitance probes to measure soil water,” Soil Science Society of America Journal , vol. 73, no. 6, pp. 1931–1937, 2009. [18] S. Pepin, N. J. Livingston, and W. R. Hook, “Temperature-dependent measurement errors in time domain reflectometry determinations of soil water,” SSSA , vol. 59, no. 1, pp. 38–43, 1995. [19] Frequently Asked Questions about the Decagon’s Soil Moisture Probes and Accessories , Decagon Devices, Inc., 2009. [20] F. Nieberding, J. A. Huisman, C. Huebner, B. Schilling, A. Weuthen, and H. R. Bogena, “Evaluation of three soil moisture profile sensors using laboratory and field experiments,” Sensors , vol. 23, no. 14, p. 6581, 2023. [21] A. Gorrab, M. Zribi, N. Baghdadi, Z. Chabaane, and B. Mougenot, “Multi-frequency analysis of soil moisture vertical heterogeneity effect on radar backscatter,” 1st Int. Conf. ATSIP 2014 , pp. 379–384, 2014. [22] R. Ding, H. Jin, D. Xiang, X. Wang, Y. Zhang, D. Shen et al. , “Soil moisture sensing with uav-mounted ir-uwb radar and deep learning,” 
+
+Proceedings of the ACM on IMWUT , vol. 7, pp. 1–25, 2023. [23] S. L. Ullo and G. R. Sinha, “Advances in smart environment monitoring systems using iot and sensors,” Sensors , vol. 20, no. 11, 2020. [24] Y. Kawahara, H. Lee, and M. M. Tentzeris, “Sensprout: inkjet-printed soil moisture and leaf wetness sensor,” in Proceedings of the 2012 ACM Conference on UbiComp . ACM, 2012, p. 545. [25] Y. Song, J. Ham, M. Kirkham, and G. Kluitenberg, “Measuring soil water content under turfgrass using the dual-probe heat-pulse technique,” 
+
+JASHS , vol. 123, no. 5, pp. 937 – 941, 1998. [26] K. Noborio, K. McInnes, and J. Heilman, “Measurements of soil water content, heat capacity, and thermal conductivity with a single tdr probe,” 
+
+Soil Science , vol. 161, no. 1, pp. 22–28, Jan. 1996. [27] B. B. Owen, R. C. Miller, C. E. Milner, and H. L. Cogan, “The dielectric constant of water as a function of temperature and pressure1,2,” The Journal of Physical Chemistry , vol. 65, no. 11, pp. 2065–2070, 1961. [28] M. Loewer, T. G¨ unther, J. Igel, S. Kruschwitz, T. Martin, and N. Wagner, “Ultra-broad-band electrical spectroscopy of soils and sediments—a combined permittivity and conductivity model,” Geophysical Journal International , vol. 210, no. 3, pp. 1360–1373, 2017. [29] G. C. Topp, J. L. Davis, and A. P. Annan, “Electromagnetic determina-tion of soil water content: Measurements in coaxial transmission lines,” 
+
+Water Resources Research , vol. 16, no. 3, pp. 574–582, 1980. [30] O. Kanoun, A. Tetyuev, and H.-R. Tr¨ ankler, “Bodenfeuchtemessung mit-tels impedanzspektroskopie (soil moisture measurement with impedance spectroscopy),” Tm-technisches Messen , vol. 71, pp. 475–485, 2004. [31] C. Gardner, T. Dean, and J. Cooper, “Soil water content measurement with a high-frequency capacitance sensor,” Journal of Agricultural Engineering Research , vol. 71, no. 4, pp. 395–403, 1998. [32] D. K. Cassel and D. R. Nielsen, Methods of Soil Analysis , 9th ed. American Society of Agronomy, Inc. and Soil Science Society of America, Inc., 1986, ch. 23,27,36, pp. 563–594, 663–686, 901–926. [33] S. Datta, S. Taghvaeian, and J. Stivers, “Understanding soil water content and thresholds for irrigation management,” Division of Agricultural Sciences and Natural Resources, Technical Report BAE-1537, 2017. [34] P. J. Kramer and J. S. Boyer, Water Relations of Plants and Soils , 1st ed. Academic Press Inc., 1995. [35] I. Kropp, A. P. Nejadhashemi, K. Deb, M. Abouali, P. C. Roy, U. Adhikari, and G. Hoogenboom, “A multi-objective approach to water and nutrient efficiency for sustainable agricultural intensification,” 
+
+Agricultural Systems , vol. 173, pp. 289–302, 2019. [36] L. M. F. Strat´ opoulos, C. Zhang, K.-H. H¨ aberle, S. Pauleit, S. Duth-weiler, H. Pretzsch, and T. R¨ otzer, “Effects of drought on the phenology, growth, and morphological development of three urban tree species and cultivars,” Sustainability , vol. 11, no. 18, 2019. [37] A. Sch¨ utt, J. N. Becker, C. Reisdorff, and A. Eschenbach, “Growth response of nine tree species to water supply in planting soils represen-tative for urban street tree sites,” Forests , vol. 13, no. 6, 2022. [38] R. B. Jackson, J. G. Canadell, J. R. Ehleringer, H. A. Mooney, O. E. Sala, and E. D. Schulze, “A global analysis of root distributions for terrestrial biomes,” Oecologia , vol. 108, pp. 389–411, 1996. [39] J. Fan, B. McConkey, H. Wang, and H. Janzen, “Root distr. by depth for temperate agricultural crops,” F. C. Res. , vol. 189, pp. 68–74, 2016. [40] R. Armstrong, J. Kirkegaard, and S. Davies, “Deep ripping - fact sheet,” Grains R & D Corporation (GRDC), Fact sheet, 2009. [41] R. Armstrong, D. Adcock, F. Best, D. Chittleborough, M. Imhof, G. McDonald et al. , Identifying, understanding and managing hostile subsoils for cropping . GRDC, 2009, ch. 1, pp. 9–24. [42] P. Baveye, H. Rogasik, O. Wendroth, I. Onasch, and J. W. Crawford, “Effect of sampling volume on the measurement of soil physical prop-erties: simulation with x-ray tomography data,” Measurement Science and Technology , vol. 13, no. 5, pp. 775–784, May 2002. [43] S. Whitaker, “Advances in theory of fluid motion in porous media,” 
+
+Industrial and Engineering Chemistry , vol. 61, pp. 14–28, 1969. [44] M. Wu, J. Wu, J. Wu, and B. X. Hu, “A new criterion for determining the representative elementary volume of translucent porous media and inner contaminant,” HESS , vol. 24, no. 12, pp. 5903–5917, 2020. [45] M. S. Costanza-Robinson, B. D. Estabrook, and D. F. Fouhey, “Repre-sentative elementary volume estimation for porosity, moisture saturation, and air-water interfacial areas in unsaturated porous media: Data quality implications,” Water Resources Research , vol. 47, no. 7, p. 12, Jul. 2011. [46] Y. Kojima, R. Shigeta, N. Miyamoto, Y. Shirahama, K. Nishioka et al. ,“Low-cost soil moisture profile probe using thin-film capacitors and a capacitive touch sensor,” Sensors , vol. 16, no. 8, p. 14, 2016. [47] Y. Shirahama, R. Shigeta, Y. Kawahara, T. Asami, Y. Kojima et al. ,“Implementation of wide range soil moisture profile probe by coplanar plate capacitor on film substrate,” in 2015 IEEE SENSORS , 2015. [48] J. Knight, T. Ferr´ e, D. Rudolph, and R. Kachanoski, “A numerical analysis of the effects of coatings and gaps upon relative dielectric permittivity measurement with time domain reflectometry,” Water Re-sources Research - WATER RESOUR RES , vol. 33, 1997. [49] S. J. Zegelin, I. White, and D. R. Jenkins, “Improved field probes for soil water content and electrical conductivity measurement using time domain reflectometry,” WRR , vol. 25, no. 11, pp. 2367–2376, 1989. [50] A. Limsuwat, T. Sakaki, and T. Illangasekare, “Experimental quantifi-cation of bulk sampling volume of ech2o soil moisture sensors,” 29th Annual American Geophysical Union Hydrology Days , 2009. [51] J. Bell, T. Dean, and M. Hodnett, “Soil moisture measurement by an improved capacitance technique, part ii. field techniques, evaluation and calibration,” Journal of Hydrology , vol. 93, no. 1, pp. 79–90, 1987. [52] R. P. Clayton, “On the superposition of inductive and capacitive coupling in crosstalk-prediction models,” IEEE Transactions on Electromagnetic Compatibility , vol. EMC-24, no. 3, pp. 335–343, 1982. [53] E. D. Lorenzo, “The maxwell capacitance matrix,” FastFieldSolvers S.R.L., White paper WP110301, 2020. [54] T. Kelleners, R. Soppe, D. Robinson, M. Schaap, J. Ayars, and T. Skaggs, “Calibration of capacitance probe sensors using electric circuit theory,” 
+
+SSSA Journal , vol. 68, 2004. [55] C. Escriba, E. G. Avi˜ na Bravo, J. Roux, J.-Y. Fourniols, M. Contardo 
+
+et al. , “Toward smart soil sensing in v4.0 agriculture: A new single-shape sensor for capacitive moisture and salinity measurements,” Sensors ,vol. 20, no. 23, p. 23, 2020. [56] H. R. Bogena, J. A. Huisman, B. Schilling, A. Weuthen, and H. Vereecken, “Effective calibration of low-cost soil water content sensors,” Sensors , vol. 17, no. 1, p. 12, 2017. [57] D. Robinson, M. Schaap, S. Jones, S. Friedman, and C. Gardner, “Considerations for improving the accuracy of permittivity measurement using time domain reflectometry,” SSSA Journal , vol. 67, p. 62, 2003. [58] C. H. Roth, M. A. Malicki, and R. Plagge, “Empirical evaluation of the relationship between soil dielectric constant and volumetric water content as the basis for calibrating soil moisture measurements by tdr,” 
+
+Journal of Soil Science , vol. 43, no. 1, pp. 1–13, 1992. [59] T. Maier and T. Reinfelder, “Stadtb¨ aume im klimawandel: Effiziente bew¨ asserung und klimaresiliente bepflanzung durch sensordaten,” in 57. Veitsh¨ ochheimer Landespflegetage 2025 , ser. Veitsh¨ ochheimer Bericht. Bayerische Landesanstalt f¨ ur Weinbau und Gartenbau (LWG), 2025, vol. 202, pp. 57–68. [60] M. Renger, K. Bohne, and G. Wessolek, Bodenphysikalische Ken-nwerte und Berechnungsverfahren f¨ ur die Praxis . Fachgebiete Bo-denkunde/Standortkunde und Bodenschutz, Institut f¨ ur ¨ Okologie, Tech-nische Universit¨ at Berlin Selbstverlag, 2014, no. part 2. [61] N. Ott, E. Fieseler, and T. Maier, “Potsdamer pilotprojekt zur kli-mafolgenanpassung,” in Dresdner StadtBaumtage 2025 . Dresdner StadtBaumtage, 2025, pp. 23–36. [62] Plantobelly N Soil Moisture Sensor , Plantobelly GmbH, Bad Schwartau, Germany, 2025, product website. [63] C. C. Shock, J. M. Barnum, and M. Seddigh, “Calibration of watermark soil moisture sensors for irrigation management,” in Proc. Irrigation Association Annual Meeting , New Orleans, LA, USA, 2002. [64] E. Babaeian, S. White, M. Newcomb, and M. Tuller, “Field evaluation of the ecotech tensiomark matric potential sensor for hydraulic soil characterization,” 11 2019. [65] T. H. Lo, D. M. Gholson, and X. Qiao, “Within-field variability in granular matrix sensor data and implications for irrigation scheduling,” 
+
+Applied Engineering in Agriculture , vol. 36, no. 4, pp. 437–449, 2020. [66] H. Perea, J. Enciso, J. Jifon, S. Nelson, and C. Fern´ andez, “On-farm performance of tensiometer and granular matrix soil moisture sensors in irrigated light, medium and heavy textured soils,” Subtropical Plant Science , vol. 65, pp. 1–7, 2013. [67] M. T. van Genuchten, “A closed-form equation for predicting the hydraulic conductivity of unsaturated soils,” SSSA Journal , vol. 44, no. 5, pp. 892–898, 1980. [68] T. Maier, “Soilsensordata, dataset and analysis code for multi-depth soil moisture sensor evaluation,” https://github.com/pomestomi/ SoilSensorData, 2025, accessed: 2025-11-15. [69] T. Dean, J. Bell, and A. Baty, “Soil moisture measurement by an improved capacitance technique, part i. sensor design and performance,” 
+
+Journal of Hydrology , vol. 93, no. 1, pp. 67–78, 1987. [70] D. Robinson and S. Friedman, “Parallel plates compared with conven-tional rods as tdr waveguides for sensing soil moisture,” Subsurface Sensing Technologies and Applications , vol. 1, pp. 497–511, 2000. [71] “Capacitive sensing design guide, revision v1.1,” Design Guide AZD125, 2023. [72] V. ˇ Svorˇ c´ ık, J. Kr´ alov´ a, V. Rybka, J. Pleˇ sek, J. ˇ Cerven´ a et al. , “Temper-ature dependence of the permittivity of polymer composites,” J. Polym. Sci. Part B: Polym. Phys. , vol. 39, pp. 831 – 834, 2001. [73] J. M. Wraith and D. Or, “Temperature effects on soil bulk dielectric permittivity measured by time domain reflectometry: Experimental evi-dence and hypothesis development,” Water Resources Research , vol. 35, no. 2, pp. 361–369, Feb. 1999.
