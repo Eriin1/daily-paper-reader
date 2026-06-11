@@ -1,0 +1,436 @@
+Title: DisasterBench: A Multimodal Benchmark for UAV-Based Disaster Response in Complex Environments
+
+URL Source: https://arxiv.org/pdf/2606.06217v1
+
+Published Time: Fri, 05 Jun 2026 01:32:58 GMT
+
+Number of Pages: 29
+
+Markdown Content:
+# DisasterBench: A Multimodal Benchmark for UAV-Based Disaster Response in Complex Environments 
+
+Tan Zhang a, Quanyou Li a, Lu Zhang b, Jun Liu c, Xiaofeng Zhu d, Ping Hu a, ∗
+
+> aSchool of Computer Science and Engineering, University of Electronic Science and Technology of China, Chengdu, 611731, China
+> bSchool of Information and Communication Engineering, Dalian University of Technology, Dalian, 116024, China
+> cSchool of Computing and Communications, Lancaster University, Lancaster, LA1 4YW, England
+> dSchool of Computer Science and Technology, Hainan University, Haikou, 570228, China
+
+Abstract 
+
+When a disaster unfolds, responders must answer not only what is happening, but also why it is happening, what will happen next, and what to do now, often from noisy low-altitude UAV views and under tight on-site compute constraints. However, most existing multimodal benchmarks emphasize perception (e.g., recognition /description), cover limited disaster types, and provide insu ffi cient support for the multi-stage reason-ing required in practical emergency response. We introduce DisasterBench, a multi-stage multimodal reasoning benchmark for UAV-Based disaster response in complex environments. DisasterBench spans 14 disaster-related scene types and 9 response-critical tasks across pre-, during-, and post-disaster stages, with fine-grained disaster-task mappings that explicitly test causal attribution, propagation prediction, damage analysis, and decision-oriented reasoning. To enable reasoning on the edge, we fur-ther propose DisasterVL, a lightweight multimodal model optimized with a three-stage pipeline combining domain instruction tuning, chain-of-thought-guided multimodal alignment, and reinforcement learning-based policy optimization. Experiments across 21 popular MLLMs show that our 2B-parameter DisasterVL outperforms all evaluated open-source models and substantially narrows the gap to state-of-the-art closed-source models, achieving GPT-4o-comparable reasoning accuracy with superior e ffi ciency.   
+
+> ∗Corresponding author
+> Email address: pinghu@uestc.edu.cn (Ping Hu)
+> arXiv:2606.06217v1 [cs.CV] 4 Jun 2026
+
+The project page is available at https://github.com/TanmouTT/DisasterBench .
+
+Keywords: Multimodal Reasoning, Vision–Language Benchmark, Emergency Response Intelligence, Unmanned Systems 
+
+1. Introduction 
+
+Disasters pose severe threats to human life and critical infrastructure, demanding rapid and reliable emergency response under highly uncertain conditions. In real-world scenarios, responders must go beyond recognizing visible damage and answer a se-quence of interdependent questions: what is happening, why it is happening, what 
+
+will happen next, and what actions should be taken now. These decisions are in-creasingly informed by low-altitude unmanned aerial vehicle (UAV) imagery, which provides timely and close-range observations in complex terrains and hazardous envi-ronments [1]. However, such observations are inherently noisy, partial, and a ff ected by severe viewpoint changes and occlusions [2], making e ff ective disaster response fundamentally a problem of structured, multi-step reasoning over multimodal evidence rather than isolated perception. Multimodal large language models (MLLMs) have shown promise in disaster anal-ysis through cross-modal fusion and semantic modeling [3, 4, 5]. Meanwhile, low-altitude UAVs have emerged as practical edge-sensing platforms capable of deploying lightweight models [6, 7]. Despite these advances, existing disaster-related bench-marks remain largely perception-oriented, focusing on recognition or description tasks and covering only limited disaster types. Moreover, most benchmarks treat analytical tasks in isolation and ignore how reasoning requirements evolve across di ff erent disas-ter stages, limiting their ability to reflect emergency response in complex environments. We argue that disaster response in complex environments should be formulated as a multimodal reasoning problem. In practice, disaster analysis unfolds across intercon-nected stages, including pre-disaster risk assessment, during-disaster situational un-derstanding, and post-disaster evaluation and decision-making, each imposing distinct reasoning constraints. The type and phase of a disaster jointly determine the available visual evidence and task priorities, requiring explicit alignment between disaster con-2ditions and analytical objectives [8]. Without modeling this coupling, evaluations risk overlooking the core reasoning challenges encountered in real emergency scenarios. Reasoning: The slope appears stable and well-vegetated, with no clear signs of erosion or cracks.… Answer: B   
+
+> Question: Based on the UAV view, what is the overall landslide risk level?
+> A. Very low risk B. Low risk C. Moderate risk D. High risk E. Very high risk
+
+Task: Risk Assessment Scene: Normal 
+
+Image 
+
+Question Based on the visible features in the image, 
+
+which of the following is the most likely primary triggering mechanism of the disaster? (Pre-disaster) 
+
+which of the following is the most likely descriptions and classifications of the disaster scene? (During-disaster) 
+
+which of the following best represents the loss and situation assessment level of the disaster scene? (Post-disaster) 
+
+Options 
+
+A. In the central valley, the landslide scar…severed the bridge span. B. Along the right side, the forested slope…has slope-toe patches. C. Near the upper edge, hillside dwellings…have a crest slide. D. On the left side, the road cut…has a roadside slide. E. In the lower part, the valley floor…has a slope-base fan. 
+
+Answer 
+
+<reason> In the image, a broad V-shaped bare-earth scar extends … with a channelized debris path along its axis; the severed bridge … indicates direct mass movement impact. These signify a major channelized landslide, while minor slope disturbances fail to explain the large scar and bridge destruction. </reason> <answer> A<answer> 
+
+Phase: During Task: Cascading Risk Scene: Flood     
+
+> Question: Based on the UAV view, what is the most likely triggering mechanism?
+> A. Rainfall saturation failure… B. Backfill compaction… C. Toe erosion… D. Drain leakage and piping… E. Static-load compaction settlement…
+> Reasoning: … roadside corridor with water-stained soils…storm drain leakage causing piping and cavity collapse... Answer: D
+
+Phase: After Task: Trigger Identification Scene: Subsidence     
+
+> Question: Based on the UAV view, what is the most plausible cascading effect?
+> A. Local backwater flooding… B. Community power outage… C. House foundation failure… D. Slope landslide… E. Debris impacts downstream…
+> Reasoning: …muddy flow is scouring the right bank against houses, likely undermining foundations and diverting flow.... Answer: C
+
+Phase: Before 
+
+Question: Based on the UAV view, what is the overall landslide risk level?          
+
+> A. Very low risk… B. Low risk … C. Moderate risk… D. High risk … E. Very high risk …
+> Reasoning: … Dense vegetation and no visible unstable slopes…
+> Answer: B
+> Stage: Pre-disaster Task: Risk Assessment Disaster: Normal
+
+Question: Based on the visible features in the image, which of the following best represents the loss and situation assessment level of the disaster scene? 
+
+A. Intact structures … B. Minor damage … C. Moderate impact … D. Severe disruption … E. Extreme collapse … 
+
+Reasoning: The image shows a concentrated cluster… Answer: C
+
+Process: Post-disaster Task: LSA Disaster: Hurricane 
+
+(b) 
+
+(c) 
+
+Question: Based on visible cues, what is the most likely primary triggering mechanism? 
+
+A. Rainfall-saturation foundation failure B. Traffic + trench backfill compaction C. Channel undercut toe erosion D. Storm-drain leakage $\rightarrow$ piping + cavity collapse E. Static-load compaction settlement 
+
+Reasoning: Broad V-shaped bare-earth scar … with a channelized path and severed bridge indicate a major channelized landslide; minor disturbances do not fit. Answer: A
+
+Process: During-disaster Task: SUC Disaster: Landslide 
+
+(b) 
+
+Figure 1: Examples from DisasterBench for reasoning-oriented VQA from low-altitude UAV views across pre-, during-, and post-disaster phases. Only questions, options, brief cues, and final answers are shown. 
+
+Low-altitude UAV views further am-plify these challenges by introducing a fundamentally di ff erent observation setting from satellite [1, 9, 10] or high-altitude imagery. While overhead views provide macro-level spatial pat-terns, UAV imagery captures localized and fine-grained details that are fre-quently a ff ected by occlusion and par-tial observability [11]. Critical cues such as unstable terrain, blocked infrastruc-ture, or early signs of cascading haz-ards may not be directly visible and must be inferred through contextual reason-ing grounded in domain knowledge and physical constraints [12]. These char-acteristics make low-altitude UAV im-agery a realistic yet challenging modality for evaluating multimodal disaster rea-soning. Beyond perceptual uncertainty, real disaster scenarios impose strict computational constraints. Emergency operations are often conducted with limited connectivity, power supply, and real-time requirements, making reliance on large cloud-based models impractical. Consequently, disaster rea-soning systems must operate with lightweight multimodal models deployed at the edge. However, many existing approaches depend on zero-shot or prompt-based rea-soning [3, 13, 14] or resource-intensive pipelines [15, 16, 17], which are incompatible with such constraints. Reliable disaster reasoning therefore requires training paradigms that enhance reasoning robustness and generalization within small model budgets. 3To address these challenges, we introduce DisasterBench , a multi-stage multi-modal reasoning benchmark for UAV-Based disaster response in complex environ-ments. DisasterBench is constructed from 5,330 real-world low-altitude UAV images and comprises 29,300 reasoning-oriented samples, covering 14 disaster-related scene types and 9 response-critical tasks spanning pre-disaster, during-disaster, and post-disaster stages. To make such reasoning capabilities practical, we further propose Dis-asterVL trained via a lightweight-model optimization pipeline that integrates domain-specific instruction tuning, chain-of-thought-guided multimodal alignment, and rein-forcement learning-based policy optimization. Together, DisasterBench and the pro-posed framework enable systematic evaluation and e ff ective learning of multimodal disaster reasoning under realistic observational and computational constraints. In sum-mary, our main contributions are as follows: 
+
+• We introduce DisasterBench , a multi-stage multimodal reasoning benchmark for UAV-Based disaster response in complex environments, covering diverse dis-aster types, response-critical tasks, and all pre-/during-/post-disaster stages. 
+
+• We propose DisasterVL with an optimization recipe for lightweight multimodal models, combining domain knowledge injection, CoT-guided multimodal align-ment, and reinforcement learning, to improve reasoning robustness under limited compute. 
+
+• We benchmark 21 popular multimodal models (closed- and open-source) and show that our trained DisasterVL with 2B parameters achieves strong, balanced performance on DisasterBench, substantially narrowing the gap to state-of-the-art closed-source models. 
+
+2. Related Works 
+
+Early multimodal benchmarks primarily focused on single tasks such as image captioning [24, 25], visual grounding [26], visual question answering [27, 28, 29], and optical character recognition [30], mainly evaluating perception and basic se-mantic understanding. With the rapid development of large-scale vision–language 4Dataset View #Disaster Stage Size (Imgs /Samples) Reasoning Target                                                         
+
+> RSCC [18] Satellite 6Post 124,702 /62,351 Change-oriented description MONITRS [19] Satellite 10 Post –/54,504 Change-oriented monitoring DisasterM3 [15] Satellite 10 Post 26,988 /123,010 Change-oriented perception DisasterEye [20] UAV 8During 2,751 /2,751 Disaster Classification AIDER [21] UAV 5During 6,923 /6,923 Disaster Classification FloodNet [22] UAV 1Post 3,200 /11,000 Damage perception RescueNet [23] UAV 1Post 4,494 /4,494 Damage segmentation
+> DisasterBench (Ours) UAV 14 Multi-stage 5,330 /29,300 Causal and decision-oriented reasoning
+
+Table 1: Comparison of DisasterBench with representative multimodal aerial-view disaster-related datasets. 
+
+models, recent benchmarks have evolved toward more complex and diverse evalua-tions. These benchmarks broadly fall into two categories: domain-specific bench-marks targeting specialized reasoning abilities (e.g., scientific or mathematical rea-soning [31, 32], chart understanding [33, 34], or hallucination detection [35]), and general-purpose benchmarks emphasizing broad task and modality coverage, such as MME [36], MMBench [37], MMVet [38], MMStar [39], LLaVABench [35], VisIT-Bench [40], and TouchStone [41]. Overall, these benchmarks broaden evaluation from early perception-centric tasks to more diverse multimodal understanding and reason-ing, and are widely used to compare general-purpose MLLMs [35, 42, 43]. Recent years have seen increasing interest in multimodal datasets for disaster anal-ysis and response. DisasterEye [20] integrates UAV imagery with first-person views to improve robustness across disaster and non-disaster scenes. FloodNet [22] provides post-flood imagery with classification, segmentation, and VQA tasks, while Disas-terQA [44] evaluates disaster-related knowledge through multiple-choice questions. Beyond vision-centric datasets, DisastIR [8] and WXIMPACTBENCH [3] focus on text-based impact analysis and retrieval-oriented tasks, respectively, highlighting com-plementary directions for disaster understanding. On the visual side, FireSentry [45] targets wildfire monitoring with multi-sensor videos and telemetry for spatiotemporal prediction, and AIFloodSense [46] addresses flood scene understanding from aerial imagery. Remote-sensing benchmarks such as RSCC [18] and MONITRS [19] incor-porate temporal satellite imagery with language annotations to study change descrip-5tion and disaster evolution, and DisasterM3 [15] further explores multi-task instruc-tion tuning with multimodal remote-sensing data. Table 1 summarizes a systematic comparison between existing disaster-related benchmarks and our proposed dataset. While these e ff orts advance multimodal perception, spatiotemporal modeling, and task diversity, most datasets emphasize specific disaster stages (often pre /post), limited disaster coverage, or perception-oriented objectives, and rarely enforce explicit cou-pling between disaster conditions and task requirements. In contrast, our benchmark is designed to evaluate multi-stage , stage-aware task reasoning from low-altitude UAV views, explicitly modeling disaster evolution, task dependencies, and decision-oriented reasoning under realistic emergency-response constraints. 
+
+3. DisasterBench 
+
+In this section, we introduce DisasterBench , a multimodal reasoning benchmark for UAV-Based disaster response in complex environments, the multi-disaster types, comprehensive tasks and benchmark construction are shown in Figure 2. Unlike ex-isting benchmarks that mainly evaluate perception-level capabilities, DisasterBench targets higher-level reasoning required in real emergency scenarios, including causal analysis, hazard evolution understanding, and decision-oriented assessment across the entire disaster lifecycle. The benchmark spans 14 disaster-related scene types and defines 9 response-critical tasks covering the pre-disaster , during-disaster , and post-disaster stages, together with a holistic task for multi-stage disaster reasoning. DisasterBench is built from 5,330 real-world low-altitude UAV images and com-prises 29,300 reasoning-oriented samples in a unified multiple-choice VQA format. Each image is annotated with a single disaster label, while supporting multiple task queries conditioned on the disaster type and its current stage, enabling structured and stage-aware evaluation of multimodal disaster reasoning. 
+
+3.1. Benchmark Composition Disaster categories. As shown in Fig. 2 (a), DisasterBench includes 14 disaster-related UAV scene categories that capture hazardous processes, damage states, and geophys-ical phenomena relevant to emergency response: Fire, Landslide, Flood, Pyroclastic 
+
+6D
+
+(a) Multi-Disaster Types   
+
+> Fire LandSlide Flood
+
+Benchmark Construction Pipeline        
+
+> Question-Answer Pairs Reducing Noise 29,300 Samples
+> Pyroclastic Flow
+> Debris Flow
+> Snow Avalanche
+> Fissures Subsidence Lava Flow
+> Rock Fall
+> Ice Jam Flood Lahar
+> Hurricane Explosion Normal
+> UAV-View Img/Vid
+> Manual Preparation
+> Expert Prompts
+> Multi-Choice Questions
+> LMM Inference
+> Consistency check
+> Quality Check
+> Experts Correction
+
+(b) Comprehensive Tasks 
+
+Pre-Disaster During-Disaster Post-Disaster 
+
+> Risk Assessment & Evaluation
+> （RAE ）
+> Trigger Mechanism Identification
+> （TMI ）
+> Propagation Path Inference
+> （PPI ）
+> Collapsed Building Analysis
+> （CBA ）
+> Loss & Situation Assessment
+> （LSA ）
+> Emergency Resource Allocation
+> （ERA ）
+> 5,330 images
+> Data Collection & Annotation
+
+(c) Benchmark Construction 
+
+> Task-Conditioned Sample Generation
+> Cross-Model Verification
+> AI & Human Expert Verification
+> Cascading Risk Reasoning
+> （CRR ）
+
+Holistic: Disaster Chain Summary （DCS ）
+
+> Situation Understanding & Classification
+> （SUC ）
+
+Figure 2: Overview of DisasterBench . (a) Disaster-related scene categories from low-altitude UAV views. (b) comprehensive task taxonomy spanning pre-, during-, and post-disaster stages, together with a holis-tic disaster-chain summary task. (c) Benchmark construction pipeline, including data collection, task-conditioned sample generation, cross-model verification, and expert review. 
+
+Flow, Debris Flow, Snow Avalanche, Fissures, Subsidence, Lava Flow, Rock Fall, Ice Jam Flood, Lahar, Hurricane, and Explosion . Rather than restricting categories to strictly defined disaster taxonomies, this design reflects the diverse scene conditions encountered by low-altitude UAVs during disaster operations [47, 48]. The categories exhibit varied visual signatures and underlying physical or structural mechanisms, en-abling evaluation of both category-specific reasoning and cross-category generaliza-tion. To support pre-disaster reasoning and robustness, we additionally include a Nor-mal category of non-disaster scenes. The number of low-altitude UAV images corre-sponding to each disaster type is shown in Fig. 3 (a). 
+
+Comprehensive tasks. As shown in Fig. 2 (b), we define nine tasks to capture the key reasoning demands of real-world disaster response across the full lifecycle [49]. In the pre-disaster stage, models perform risk assessment and evaluation (RAE). In the 
+
+during-disaster stage, we evaluate situation understanding and classification (SUC), 70 1000 2000 3000 4000 5000 
+
+> Lahar
+> Explosion
+> IceJam_Flood
+> Rock_Fall
+> Fissures
+> Normal
+> Subsidence
+> Lava_Flow
+> Pyroclastic_Flow
+> Snow_Avalanche
+> Debris_Flow
+> Hurricane
+> Fire
+> Flood
+> Landslide
+> 73
+> 175
+> 233
+> 294
+> 719
+> 1027
+> 1412
+> 1426
+> 1624
+> 1813
+> 1952
+> 3715
+> 4232
+> 4969
+> 5637
+
+(a) Disaster Distribution       
+
+> 01000 2000 3000 4000 5000 6000
+> RAE
+> CBA
+> TMI
+> ERA
+> CRR
+> PPI
+> SUC
+> DCS
+> LSA
+> 475
+> 986
+> 2810
+> 3030
+> 3256
+> 3890
+> 4149
+> 4753
+> 5952
+
+(b) Task Distribution Figure 3: Sample distribution in DisasterBench. 
+
+cascading risk reasoning (CRR), propagation path inference (PPI), and collapsed build-ing analysis (CBA). In the post-disaster stage, tasks cover loss and situation assess-ment (LSA), trigger mechanism identification (TMI), and emergency resource alloca-tion (ERA). Finally, a holistic task, disaster-chain summary (DCS), asks models to integrate observations into a structured narrative with explicit causal relations. To-gether, these tasks evaluate stage-aware disaster reasoning beyond isolated perceptual skills. The sample distribution for di ff erent tasks is shown in Fig. 3 (b). 
+
+3.2. Benchmark Construction 
+
+DisasterBench is built via a four-stage pipeline (Fig. 2 (c)) to ensure realism, con-sistency, and high annotation fidelity. First, we collect low-altitude UAV imagery from diverse real-world sources including public disaster reports, news media footage and open video-sharing platforms. Then, we perform cleaning, deduplication, and manual category annotation to obtain a reliable set of disaster-related scenes. Second, we generate task-conditioned multiple-choice questions using carefully designed prompts aligned with each reasoning task. Since a single scene may support multiple response objectives, we construct structured disaster-task pairs and generate corresponding queries accordingly. Each generated question undergoes cross-model 8Fire 
+
+> PPI
+> Lahar
+> LSA
+> Landsldie
+> TMI
+> Flood
+> ERA
+> Pyroclastic Flow
+> CRR
+> Explosion
+> SUC
+> Rock Fall
+> DCS
+> Subsidence
+> LSA
+> Debris Flow
+> DCS
+> Fissures
+> SUC
+> SnowAvalanche
+> TMI
+> Normal
+> RAE
+> Lava Flow
+> SUC
+> Ice Jam Flood
+> CRR
+> Hurricane
+> CBA Figure 4: Representative images from DisasterBench illustrating diverse disaster scenes and related tasks.
+
+verification using multiple strong vision–language models (e.g., GPT-5, Gemini-2.5-Pro), and only samples with consistent answers across models are retained, which reduces annotation noise while preserving challenging examples for rare or complex disaster scenarios. Third, we apply a cross-model verification procedure: multiple strong vision– language models independently answer each question, and we retain only samples whose answers are consistent across models, reducing ambiguity and annotation noise. Flagged or conflicting items are further audited by the experts, and any unresolved cases are discarded, ensuring high inter-annotator agreement and dataset integrity. Finally, we conduct AI-assisted quality checks followed by expert human verifica-tion by two full-time annotators with a disaster response background. Over approx-imately three months, these experts review all collected images, flagging ambiguous or low-quality samples for revision or removal, which results in about 17% of gener-ated items being revised or discarded. This process additionally monitors representa-9tion across all disaster categories, including rare and tail-class events, to ensure that the benchmark provides comprehensive coverage and supports robust generalization. Through this, we curate approximately 5,330 real-world low-altitude UAV images and construct 29,300 high-quality reasoning samples. To provide further insight into the dataset, Fig. 4 presents representative category–task pairs. 
+
+3.3. Evaluation Protocol 
+
+All samples in DisasterBench follow a unified multiple-choice VQA format to sup-port scalable and reproducible evaluation. For each query, a model is required to select one option (optionally accompanied by intermediate reasoning), and performance is measured using exact-match accuracy on the final answer. We split the dataset into 24,357 samples for training, 1,943 for validation, and 3,000 for testing. Evaluation results are reported both per task , to analyze strengths and weaknesses across di ff erent reasoning types and disaster stages, and overall , to measure holis-tic disaster-response competence across conditions. All evaluations follow a unified multiple-choice VQA format, with exact-match accuracy on the final answer used as the metric. The dataset is split into training, validation, and test sets to ensure re-producibility and consistency, and structured <thinking > → <answering > tags are en-forced to maintain reasoning traceability across tasks. 
+
+4. DisasterVL 
+
+In this section, we present the model DisasterVL for disaster reasoning. Low-altitude UAV emergency response requires multimodal models to perform reliable multi-step reasoning from noisy and partial visual observations under tight on-site com-pute constraints. In practice, directly fine-tuning a small vision–language model on disaster QA is often brittle: models lack su ffi cient domain grounding, su ff er unstable vision–language alignment, and exhibit inconsistent decision behavior on complex rea-soning tasks. Motivated by these challenges, we propose to optimize DisasterVL with a three-stage progressive training framework for lightweight multimodal disaster reason-ing: (i) domain knowledge injection, (ii) multimodal alignment with structured reason-10 ing, and (iii) policy-based refinement. The framework incrementally builds domain-aware semantics, grounds them in low-altitude UAV imagery with explicit reasoning structure across pre-, during-, and post-disaster stages, and refines decision behavior to improve multi-step disaster reasoning under limited computational budgets. 
+
+4.1. Stage I: Domain Knowledge Injection 
+
+General-purpose vision–language models lack specialized knowledge and technical terminology required for disaster analysis. We therefore construct a domain-specific text corpus by integrating geological investigation reports, historical disaster records, academic literature, and national technical standards. After cleaning and deduplication, we have 15,294 textual instruction-response pairs. This stage aims to inject broad domain knowledge covering both foundational concepts and practical disaster-response principles, providing a semantic foundation for subsequent multimodal learning. Formally, let Dstage 1 = {(xi, yi)}Ni=1 denote the dataset, where xi is a domain in-struction and yi is the corresponding expert response. Training minimizes the standard negative log-likelihood: 
+
+Lstage 1 (θ) = −E(x,y)∼D stage 1
+
+log pθ(y | x) . (1) Optimizing this objective enables the model to internalize domain concepts, terminol-ogy, and reasoning patterns in a unified semantic space. 
+
+4.2. Stage II: Multimodal Alignment 
+
+With domain-aware semantics established in Stage I, Stage II aligns low-altitude UAV visual evidence with this textual space. We construct an image-text instruction set Dstage 2 from the training split of DisasterBench, where each sample pairs a UAV image with a task-conditioned instruction and an expert response. During training, we freeze the visual encoder fvis (·) and perform visual instruction tuning. Given an input image I, we extract visual features as v = fvis (I), and optimize 
+
+Lstage 2 (θ) = −E(I,x,y)∼D stage 2
+
+log pθ(y | x, v) , (2) where x is a task-related instruction and y is the corresponding expert response, and only the language model is updated. 11 To encourage explicit and consistent reasoning, we adopt a chain-of-thought format that separates intermediate reasoning from the final prediction: 
+
+y = [ythink , yans ], (3) 
+
+pθ(y | x, v) = pθ(ythink | x, v) pθ(yans | x, v, ythink ). (4) Here, ythink is enclosed in <thinking> and yans is enclosed in <answering> . This structured interface improves format stability and provides a clean target for the refine-ment stage. 
+
+4.3. Stage III: Policy-Based Refinement 
+
+Despite structured multimodal alignment, residual reasoning errors may persist in complex disaster scenarios. As a lightweight refinement step, we apply Group Relative Policy Optimization (GRPO) [50] to improve reasoning consistency without introduc-ing an auxiliary value network. For each query, the model samples a small group of candidate outputs and updates the policy based on relative performance within the group, with KL regularization to a fixed reference policy. Training data follows a multiple-choice format, and each output consists of a <thinking> segment followed by a single-option <answering> segment. The reward combines a strict format con-straint with answer correctness: 
+
+r(o, q) = rformat (o) + λ racc (o, q). (5) This stage serves as a lightweight refinement step that improves reasoning coherence while maintaining training stability and computational e ffi ciency. It reduces error prop-agation from earlier stages and enhances multi-step decision consistency. 
+
+5. Experiments 
+
+5.1. Experiment Setup Baseline Models. We evaluate eight closed-source MLLMs: GPT-4o, GPT-4o mini [51], GPT-5, Gemini-2.5-Pro, Gemini-2.0-Flash, Gemini-2.5-Flash [52], Claude-Sonnet-4.5, 12 and Grok-4, where GPT-4o mini and the Gemini Flash models serve as e ffi ciency-oriented counterparts to their flagship versions. We further include thirteen open-source MLLMs (1B–8B), with an emphasis on lightweight models: Qwen2-VL-2B-Instruct [53], Qwen2.5-VL (3B, 7B) [54], Janus-Pro-1B [55], InternVL2 (2B, 4B, 8B) [56], InternVL-3.5 (1B, 2B, 8B) [57], DeepSeek-VL2 (Tiny, Small) [58], and Phi-Vision (Phi-3-Vision 4.15B) [59]. More model configuration details are provided in the supplementary material. 
+
+Implementation and Evaluation. We adopt Qwen2-VL-2B-Instruct as the base model for DisasterVL. Across all three training stages, the vision encoder remains frozen while only the language model is updated. In Stage I, the base model is fine-tuned with Low-Rank Adaptation (LoRA) on the domain-specific text corpus (rank 32, α=64) for three epochs using Adam (learning rate 1 × 10 −4) with a cosine scheduler, on 4 NVIDIA L40S GPUs (global batch size 32). Stage II continues LoRA fine-tuning on the image–text instruction set with identical settings except a LoRA dropout of 0.05. Stage III applies Group Relative Policy Optimization (GRPO) for 40 steps, using AdamW (learning rate 1 ×10 −6, weight decay 1 ×10 −2) with a rollout batch size of 1024 and global batch size 256, sampling four candidate responses per query and applying KL regularization and accuracy reward ( λ=1.5). For evaluation, a model may output either a single option letter or reasoning followed by a final option. We use strict exact-match parsing: a prediction is counted as correct only if the extracted final output is a 
+
+single valid option letter in the required format. 
+
+5.2. Performance Comparison 
+
+Table 2 presents a comprehensive evaluation of DisasterVL as well as a wide range of state-of-the-art closed- and open-source vision-language models on DisasterBench .On the test split, DisasterVL achieves 72.60% overall accuracy, representing the strongest performance among lightweight open-source models. In particular, it substantially out-performs same-scale baselines, exceeding Qwen2-VL-2B (43.87%) by +28.73 points and InternVL2-2B (49.43%) by +23.17 points in overall accuracy. Despite its com-pact size, DisasterVL is also highly parameter-e ffi cient, surpassing larger open-source 13 Testing Set Validation Set Model RAE TMI SUC PPI CBA LSA CRR ERA DCS Overall Overall #Token 
+
+Closed-Source Models 
+
+GPT-4o mini 27.19% 64.86% 81.76% 63.39% 55.03% 55.27% 62.44% 83.19% 73.19% 64.00% 67.27% 423 GPT-4o 40.35% 76.81% 86.32% 58.33% 53.85% 76.37% 71.95% 83.19% 79.85% 73.00% 73.19% 335 GPT-5 66.67% 84.06% 92.51% 78.57% 74.56% 87.06% 80.09% 97.48% 90.11% 84.83% 83.69% 644 Gemini-2.5-pro 58.77% 84.06% 94.14% 76.49% 70.41% 87.06% 80.32% 93.28% 90.49% 84.17% 87.70% 1323 Gemini-2.0-flash 47.37% 76.45% 89.90% 75.89% 65.68% 71.17% 81.45% 88.24% 92.40% 78.80% 81.68% 435 Gemini-2.5-flash 55.26% 83.33% 92.83% 63.10% 69.82% 77.64% 71.04% 91.60% 87.07% 78.03% 82.96% 1321 Claude-Sonnet-4-5 52.63% 80.07% 91.86% 68.45% 71.01% 82.28% 76.02% 93.28% 86.12% 79.93% 86.26% 457 Grok-4 53.51% 76.09% 89.58% 76.19% 62.72% 81.15% 69.68% 89.92% 82.51% 77.80% 77.87% 733 
+
+Open-Source Models 
+
+Qwen2-VL-2B 13.16% 42.75% 69.06% 52.98% 24.26% 22.78% 44.57% 69.75% 58.94% 43.87% 49.92% 352 Qwen2.5-VL-3B 47.37% 55.43% 75.57% 62.20% 34.32% 42.33% 63.80% 89.08% 75.67% 59.77% 65.31% 428 Qwen2.5-VL-7B 56.14% 67.03% 85.02% 72.32% 40.83% 63.29% 70.14% 92.44% 86.69% 71.60% 74.94% 425 Janus-Pro-1B 14.91% 43.84% 76.55% 53.57% 28.99% 57.52% 34.62% 60.50% 61.41% 51.97% 55.12% 354 InternVL2-2B 9.65% 52.17% 77.52% 46.43% 29.59% 33.33% 50.68% 76.47% 63.12% 49.43% 54.09% 425 InternVL2-8B 61.40% 63.77% 81.43% 65.18% 42.60% 53.87% 72.40% 92.44% 84.98% 68.23% 71.38% 255 InternVL-3-5-1B 12.28% 33.70% 80.13% 38.99% 40.83% 49.65% 31.22% 48.74% 50.57% 45.60% 55.79% 380 InternVL-3-5-2B 30.70% 45.29% 82.08% 50.89% 41.42% 60.76% 46.83% 67.23% 73.76% 58.67% 66.13% 355 InternVL-3-5-4B 51.75% 55.80% 82.08% 57.14% 59.76% 72.86% 54.30% 85.71% 78.14% 67.63% 72.41% 459 InternVL-3-5-8B 43.86% 54.35% 83.71% 61.31% 55.62% 68.64% 51.36% 88.24% 78.90% 66.40% 72.31% 322 Deepseek-VL2-T 13.16% 38.41% 78.50% 40.18% 36.69% 54.85% 39.37% 46.22% 39.73% 46.23% 52.91% 190 Deepseek-VL2-S 31.58% 54.71% 92.51% 61.31% 53.25% 64.56% 61.54% 88.24% 79.47% 67.37% 70.97% 359 Phi-3-Vision(4.15B) 31.58% 59.42% 83.71% 74.70% 31.95% 44.59% 67.19% 84.03% 83.84% 63.90% 66.80% 272 
+
+DisasterVL (Ours-2B) 50.88% 57.97% 91.86% 80.95% 51.48% 70.04% 59.05% 85.71% 87.07% 72.60% 81.57% 168 
+
+Table 2: Performance of closed- and open-source vision-language models on the test set and val set of DisasterBench. We report task-wise accuracy and overall accuracy. # T okens denotes the average number of generated tokens per sample, reflecting inference e ffi ciency. 
+
+models such as Qwen2.5-VL-7B (71.60%) and InternVL2-8B (68.23%), as well as the e ffi cient closed-source GPT-4o mini (64.00%). Beyond aggregate accuracy, Disas-terVL exhibits balanced and robust performance across tasks, particularly on reasoning-intensive categories that require multi-step inference and causal understanding. No-tably, it achieves strong results on Propagation Path Inference (80.95%), Situation Understanding and Classification (91.86%), and Disaster-Chain Summary (87.07%), demonstrating its e ff ectiveness in modeling hazard evolution, contextual interpreta-tion, and holistic disaster reasoning from low-altitude UAV imagery. These trends are consistent on the validation split, where DisasterVL attains 81.57% overall accuracy, again outperforming comparable-scale backbones while remaining competitive with substantially larger models. 14 Stage Lahar Explosion Rock fall Ice-jam flood Fissures Debris flow Snow avalanche Lava flow Pyroclastic flow Subsidence Landslide Hurricane Fire Flood Overall Stage1 73.97% 80.57% 70.75% 60.52% 51.95% 59.82% 50.00% 54.20% 69.23% 65.15% 64.64% 50.63% 49.00% 70.00% 59.67%                               
+
+> +Stage2 80.82% 84.00% 77.55% 62.66% 51.95% 69.64% 59.18% 63.36% 70.38% 62.12% 65.36% 55.70% 60.45% 62.14% 64.13%
+> +Stage3 (Ours) 87.67% 89.14% 81.63% 70.82% 57.14% 80.36% 69.39% 70.99% 80.38% 75.76% 71.79% 62.34% 67.66% 76.79% 72.60%
+
+Table 3: Accuracy of di ff erent training stages across disaster categories 
+
+In addition to accuracy, DisasterVL is token-e ffi cient, generating only 168 tokens on average, which is significantly fewer than most closed-source models (e.g., GPT-4o mini 423; Gemini-2.5-Pro 1323) and strong open-source models (e.g., Qwen2.5-VL-7B 425). This e ffi ciency directly supports practical deployment under on-site and edge-compute constraints common in real-world emergency response scenarios. The close alignment between validation and test performance further indicates that the observed gains are not attributable to overfitting, but rather arise from improved multimodal rea-soning and decision consistency enabled by our three-stage training framework. Qual-itative results can be found in the supplementary materials. To further investigate the impact of Stage III’s policy-based refinement, we evalu-ated nearby values of the accuracy-weighting coe ffi cient λ. The overall test accuracy observed for di ff erent λ values was 69.93% ( λ=2), 72.60% ( λ=1.5), 70.47% ( λ=1), and 70.73% ( λ=0.5), indicating that λ=1.5 provides the best trade-o ff between reward scaling and model performance. The model’s results at each stage are presented in the supplementary materials. 
+
+5.3. Method Analysis Stage-wise Performance. Table 3 presents the test-set accuracy of DisasterVL across di ff erent disaster categories for each training stage. Stage 1 (domain knowledge in-jection) provides a strong baseline, particularly on knowledge-heavy categories, while Stage 2 (multimodal alignment with structured reasoning) consistently improves perception-driven categories like Debris Flow and Snow Avalanche. The full three-stage pipeline (+Stage3) achieves the highest accuracy across nearly all disaster types, demonstrating complementary e ff ects: Stage 3 (policy-based refinement) particularly enhances multi-step reasoning tasks. Overall, the progressive curriculum stabilizes performance across rare and frequent categories alike, with an overall test accuracy of 72.6%, confirming 15 Stage I Stage II Stage III Val Acc. Test Acc.                     
+
+> 43.87% 49.92%
+> ✓69.38% 59.67%
+> ✓72.26% 66.43%
+> ✓69.48% 61.53%
+> ✓✓72.98% 64.13%
+> ✓✓76.38% 67.07%
+> ✓✓75.81% 68.03%
+> ✓✓✓81.57% 72.60% Table 4: Impact of di ff erent training stages.
+
+that the staged training e ff ectively combines domain grounding, visual reasoning, and decision refinement. 
+
+Component Ablation. Table 4 shows that each stage contributes meaningfully and that the three stages are complementary. The base model without specialized training per-forms poorly (49.92% test). Applying a single stage improves accuracy but remains insu ffi cient: Stage I reaches 59.67% test, Stage II 66.43% test, and Stage III 61.53% test. Combining two stages yields further gains (64.13%–68.03% test), indicating that semantic grounding, visual alignment, and decision refinement address di ff erent fail-ure modes. The full pipeline achieves the best results, reaching 81.57% validation and 72.60% test accuracy, confirming that robust disaster reasoning in lightweight models benefits from all three stages. 
+
+Stage and Full Training Comparison. Table 5 compares DisasterVL’s performance across the three training stages with a single-stage Full-SFT baseline. Stage I estab-lishes a reasonable foundation, while Stage II improves perception-dependent tasks. Incorporating Stage III consistently boosts accuracy across nearly all tasks, notably on multi-step reasoning tasks. Compared with Full-SFT, the full three-stage pipeline achieves higher overall accuracy (72.60% vs. 69.43%), demonstrating that the pro-gressive curriculum provides more stable and e ff ective disaster reasoning than direct end-to-end SFT. 16 Task Stage1 +Stage2 +Stage3 (Ours) Full-SFT RAE 34.21% 35.96% 50.88% 48.25% TMI 56.88% 53.26% 57.97% 52.90% SUC 88.60% 87.62% 91.86% 88.60% PPI 59.52% 66.67% 80.95% 76.79% CBA 38.18% 40.83% 51.48% 49.70% LSA 43.60% 60.06% 70.04% 67.93% CRR 53.85% 49.10% 59.05% 52.26% ERA 83.19% 82.35% 85.71% 84.87% DCS 80.61% 82.13% 87.07% 86.12% Overall 59.67% 64.13% 72.60% 69.43% Table 5: Comparison between three stages and Full-SFT                                       
+
+> Training Order Val Acc. Test Acc.
+> Stage I →Stage III →Stage II 79.52% 68.73% Stage II →Stage I →Stage III 66.23% 65.10% Stage II →Stage III →Stage I 76.84% 68.03% Stage III →Stage I →Stage II 79.72% 67.70% Stage III →Stage II →Stage I 78.13% 69.13% Stage I →Stage II →Stage III 81.57% 72.60% Table 6: Impact of the order of the three stages.
+
+Eff ect of Training Order. Table 6 reports the impact of di ff erent training orders for the three stages. While most permutations yield moderate improvements over single-stage training (65.10%–69.13% test accuracy), none match the performance of the proposed pipeline. In particular, applying Stage II or Stage III before domain knowledge in-jection (Stage I) consistently leads to suboptimal results, suggesting that multimodal alignment and policy refinement require a strong semantic foundation. The canoni-cal order Stage I → Stage II → Stage III achieves the highest performance (81.57% validation, 72.60% test), confirming that progressively injecting domain knowledge, grounding it in visual reasoning, and finally refining decision policies is critical for eff ective lightweight disaster reasoning. 17 Backbone Val Acc. Test Acc. #Token                                    
+
+> Qwen2-VL-2B 49.92% 43.87% 352
+> +Ours 81.57% 72.60% 168 Qwen2.5-VL-3B 65.31% 59.77% 428
+> +Ours 79.67% 72.80% 202 Qwen2.5-VL-7B 74.94% 71.60% 425
+> +Ours 86.67% 79.80% 232 InternVL-3.5-1B 55.79% 45.60% 380
+> +Ours 76.12% 68.03% 205 InternVL-3.5-2B 66.13% 58.67% 355
+> +Ours 80.55% 72.07% 224 Table 7: Validation overall accuracy with di ff erent backbones. The upper block reports the base backbones, and the lower block reports the corresponding models trained with our pipeline.
+
+Backbone Generalization. Table 7 evaluates whether our training pipeline generalizes across di ff erent lightweight backbones. Applying our method consistently yields large gains on both validation and test splits: for example, Qwen2-VL-2B improves from 43.87% to 72.60% on the test set, and InternVL-3.5-1B improves from 45.60% to 68.03%. Similar improvements are observed for stronger backbones such as Qwen2.5-VL-3B (59.77% → 72.80%) and InternVL-3.5-2B (58.67% → 72.07%), and notably also scale to larger models like Qwen2.5-VL-7B (71.60% → 79.80%). Beyond accu-racy, our models are also more token-e ffi cient, reducing average generation from 352 to 168 tokens on Qwen2-VL-2B, with consistent reductions across other backbones. These results indicate that our three-stage framework provides robust, transferable im-provements rather than relying on a specific architecture. 
+
+Importance of Visual Information. To rigorously evaluate DisasterBench’s dependence on visual reasoning, we perform a text-only ablation in which models are provided solely with questions and answer choices. The removal of visual inputs leads to a substantial drop in performance (e.g., from 72.6% to 57.9% overall), demonstrating that visual evidence is critical for accurate disaster-related reasoning. Representative reasoning instances, as illustrated in Fig. 5, highlight how models integrate spatial pat-18 Disaster Class: Landslide 
+
+Task Class: TMI 
+
+Question: 
+
+> Describe the most plausible primary trigger of the disaster based on visible features.
+
+Reasoning: 
+
+> Key evidence includes a dense steam plume from the left slope and extensive bleached/yellow rock surfaces with sparse vegetation, along with a hot-water channel on the valley floor. These features indicate active hydrothermal activity and acid–sulfate alteration, which produce weak clay-rich bedrock and elevated pore-fluid pressures, both of which reduce shear strength. Therefore, hydrothermal alteration and steam-induced weakening near the fumarole are the most plausible primary landslide trigger, while toe erosion, excavation, or surcharge loading are less supported by the observed patterns.
+
+Disaster Class: Debris_Flow 
+
+Task Class: CRR 
+
+Question: 
+
+> Explain the most plausible cascading effect of the disaster from visible features.
+
+Reasoning: 
+
+> A dense log-and-boulder accumulation and a widened pool upstream indicate active impoundment. A continuous debris-flow pathway delivers woody debris and coarse clasts, showing direct connectivity to the jam. These factors raise upstream stage and promote backwater flooding, while progressive saturation increases the likelihood of a sudden breach and outburst flood wave downstream. Other hazards—lateral erosion, side-channel plugging, upslope failure, or road overtopping—are less likely due to lack of hydraulic connection.
+
+Figure 5: Examples of open-ended reasoning on DisasterBench images, the red-highlighted keywords are core visual cues extracted from UAV imagery, serving as the logical foundation for multimodal reasoning. 
+
+terns, structural cues, and feature distributions from low-altitude UAV images with task-conditioned questions to generate coherent reasoning and final answers. For in-stance, models analyze slope features and surface patterns to infer potential causes of a landslide, and they track the connectivity and accumulation of debris to anticipate cascading e ff ects downstream. These examples emphasize that multi-step disaster in-ference relies heavily on interpreting visual information and systematically connecting observations to outcomes, underscoring the importance of maintaining rich visual con-text for e ff ective decision-making in the multi-stage reasoning tasks. 
+
+6. Conclusion 
+
+We introduced DisasterBench, a multi-stage multimodal reasoning benchmark for UAV-Based disaster response in complex environments. DisasterBench covers diverse disaster types and response-critical tasks across pre-, during-, and post-disaster stages, explicitly evaluating reasoning beyond perception, including causal analysis, hazard evolution, damage understanding, and decision-oriented assessment. Built from real-world UAV imagery with expert verification, it provides a realistic testbed for studying stage-aware multimodal reasoning in emergency settings. To support deployment un-19 der on-site compute constraints, we further proposed DisasterVL, a lightweight mul-timodal model trained with a three-stage framework that combines domain knowl-edge injection, chain-of-thought-guided multimodal alignment, and policy-based re-finement. Experiments across 21 closed- and open-source MLLMs show that Dis-asterVL achieves strong and balanced performance among lightweight models while remaining token-e ffi cient. 20 References 
+
+[1] D. Shianios, P. Kolios, C. Kyrkou, Multifire20k: A semi-supervised enhanced large-scale uav-based benchmark for advancing multi-task learning in fire mon-itoring, Computer Vision and Image Understanding 254 (2025) 104318. doi: https://doi.org/10.1016/j.cviu.2025.104318 .URL https://www.sciencedirect.com/science/article/pii/S10773 14225000414 
+
+[2] D. Townsell, L. Chen, M. Xie, C. Pan, W. Zhang, Stars: Semantics-aware text-guided aerial image refinement and synthesis, Computer Vision and Image Un-derstanding 262 (2025) 104561. doi:https://doi.org/10.1016/j.cviu.2 025.104561 .URL https://www.sciencedirect.com/science/article/pii/S10773 1422500284X 
+
+[3] Y. Yu, Q. Hu, X. Du, J. Wang, F. Mo, R. Sieber, WXImpactBench: A disruptive weather impact understanding benchmark for evaluating large language models, in: Findings of the Association for Computational Linguistics: ACL 2025, Asso-ciation for Computational Linguistics, Vienna, Austria, 2025, pp. 4016–4035. [4] Z. Lei, Y. Dong, W. Li, R. Ding, Q. R. Wang, J. Li, Harnessing large language models for disaster management: A survey, in: Findings of the Association for Computational Linguistics: ACL 2025, Association for Computational Linguis-tics, Vienna, Austria, 2025, pp. 14528–14551. [5] P. Xu, F. Yan, Rssr: E ffi cient knowledge transfer and deep spatial modeling for remote sensing visual question answering, Computer Vision and Image Under-standing 268 (2026) 104753. doi:https://doi.org/10.1016/j.cviu.202 6.104753 .URL https://www.sciencedirect.com/science/article/pii/S10773 14226001207 
+
+21 [6] J. Cleland-Huang, P. A. A. Granadeno, A. M. R. Bernal, D. Hernandez, M. Mur-phy, M. Petterson, W. Scheirer, Cognitive guardrails for open-world decision making in autonomous drone swarms, arXiv preprint arXiv:2505.23576 (2025). [7] K. Li, Z. Xin, L. Pang, C. Pang, Y. Deng, J. Yao, G. Xia, D. Meng, Z. Wang, X. Cao, Segearth-r1: Geospatial pixel reasoning via large language model, arXiv preprint arXiv:2504.09644 (2025). [8] K. Yin, X. Dong, C. Liu, L. Huang, Y. Xiao, Z. Liu, A. Mostafavi, J. Caver-lee, DisastIR: A comprehensive information retrieval benchmark for disaster management, in: Findings of the Association for Computational Linguistics: EMNLP 2025, Association for Computational Linguistics, Suzhou, China, 2025, pp. 1836–1867. [9] X. Ma, J. Li, C. Pei, H. Liu, Geomag: A vision-language model for pixel-level fine-grained remote sensing image parsing, in: Proceedings of the 33rd ACM International Conference on Multimedia, MM ’25, Association for Computing Machinery, New York, NY, USA, 2025, p. 5441–5450. doi:10.1145/374602 7.3754559 .URL https://doi.org/10.1145/3746027.3754559 
+
+[10] L. Yao, F. Liu, D. Chen, C. Zhang, Y. Wang, Z. Chen, W. Xu, S. Di, Y. Zheng, Remotesam: Towards segment anything for earth observation, in: Proceedings of the 33rd ACM International Conference on Multimedia, MM ’25, Association for Computing Machinery, New York, NY, USA, 2025, p. 3027–3036. doi: 10.1145/3746027.3754950 .URL https://doi.org/10.1145/3746027.3754950 
+
+[11] J. Zhao, Q. Luo, S. Zhang, S. Gao, J. Wu, Hdcfn: Haze distribution-aware cross-modal fusion network for infrared-guided dense haze removal in uavs, in: Proceedings of the 33rd ACM International Conference on Multimedia, MM ’25, Association for Computing Machinery, New York, NY, USA, 2025, p. 10867–10875. doi:10.1145/3746027.3754994 .URL https://doi.org/10.1145/3746027.3754994 
+
+22 [12] M. Kulahara, G. S. Kashyap, N. Joshi, A. Soni, Can we predict the unpredictable? leveraging disasternet-llm for multimodal disaster classification, IEEE Interna-tional Geoscience and Remote Sensing Symposium (2025). [13] A. Diallo, A. Bikakis, L. Dickens, A. Hunter, R. Miller, Response: Benchmark-ing the ability of language models to undertake commonsense reasoning in crisis situation, arXiv preprint arXiv:2503.11348 (2025). [14] Y. Emami, H. Zhou, M. G. Gaitan, K. Li, L. Almeida, Z. Han, From prompts to protection: Large language model-enabled in-context learning for smart public safety uav, arXiv preprint arXiv:2506.02649 (2025). [15] J. Wang, W. Xuan, H. Qi, Z. Liu, K. Liu, Y. Wu, H. Chen, J. Song, J. Xia, Z. Zheng, N. Yokoya, Disasterm3: A remote sensing vision-language dataset for disaster damage assessment and response, in: The Thirty-ninth Annual Confer-ence on Neural Information Processing Systems Datasets and Benchmarks Track, 2025. [16] C. Kuai, Z. Li, B. Rosen, S. Paan, N. Jafari, J.-L. Briaud, Y. Zhang, Y. Hashash, Y. Zhou, Knowledge-grounded agentic large language models for multi-hazard understanding from reconnaissance reports, arXiv preprint arXiv:2511.14010 (2025). [17] A. Shabbir, M. A. Munir, A. Dudhane, M. U. Sheikh, M. H. Khan, P. Fraccaro, J. B. Moreno, F. S. Khan, S. Khan, Thinkgeo: Evaluating tool-augmented agents for remote sensing tasks, arXiv preprint arXiv:2505.23752 (2025). [18] Z. Chen, C. Wang, N. Zhang, F. Zhang, Rscc: A large-scale remote sensing change caption dataset for disaster events, in: The Thirty-ninth Annual Confer-ence on Neural Information Processing Systems Datasets and Benchmarks Track, 2025. [19] S. Revankar, U. Mall, C. P. Phoo, K. Bala, B. Hariharan, MONITRS: Multi-modal observations of natural incidents through remote sensing, in: The Thirty-23 ninth Annual Conference on Neural Information Processing Systems Datasets and Benchmarks Track, 2025. [20] B. Jankovic, S. Jangirova, W. Ullah, L. U. Khan, M. Guizani, Uav-assisted real-time disaster detection using optimized transformer model, arXiv preprint arXiv:2501.12087 (2025). [21] C. Kyrkou, T. Theocharides, Emergencynet: E ffi cient aerial image classification for drone-based emergency monitoring using atrous convolutional feature fusion, IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sens-ing 13 (2020) 1687–1699. [22] M. Rahnemoonfar, T. Chowdhury, A. Sarkar, D. Varshney, M. Yari, R. R. Mur-phy, Floodnet: A high resolution aerial imagery dataset for post flood scene un-derstanding, IEEE Access 9 (2021) 89644–89654. [23] M. Rahnemoonfar, T. Chowdhury, R. Murphy, Rescuenet: A high resolution uav semantic segmentation dataset for natural disaster damage assessment, Scientific data 10 (1) (2023) 913. [24] T.-Y. Lin, M. Maire, S. Belongie, J. Hays, P. Perona, D. Ramanan, P. Dollár, C. L. Zitnick, Microsoft coco: Common objects in context, in: European conference on computer vision, 2014, pp. 740–755. [25] B. A. Plummer, L. Wang, C. M. Cervantes, J. C. Caicedo, J. Hockenmaier, S. Lazebnik, Flickr30k entities: Collecting region-to-phrase correspondences for richer image-to-sentence models, in: Proceedings of the IEEE international con-ference on computer vision, 2015, pp. 2641–2649. [26] S. Kazemzadeh, V. Ordonez, M. Matten, T. Berg, Referitgame: Referring to ob-jects in photographs of natural scenes, in: Proceedings of the 2014 conference on empirical methods in natural language processing (EMNLP), Association for Computational Linguistics, Doha, Qatar, 2014, pp. 787–798. [27] K. Marino, M. Rastegari, A. Farhadi, R. Mottaghi, Ok-vqa: A visual ques-tion answering benchmark requiring external knowledge, in: Proceedings of the 24 IEEE /cvf conference on computer vision and pattern recognition, 2019, pp. 3195– 3204. [28] M. Mathew, D. Karatzas, C. Jawahar, Docvqa: A dataset for vqa on document images, in: Proceedings of the IEEE /CVF winter conference on applications of computer vision, 2021, pp. 2200–2209. [29] D. Schwenk, A. Khandelwal, C. Clark, K. Marino, R. Mottaghi, A-okvqa: A benchmark for visual question answering using world knowledge, in: European conference on computer vision, 2022, pp. 146–162. [30] A. Singh, G. Pang, M. Toh, J. Huang, W. Galuba, T. Hassner, Textocr: Towards large-scale end-to-end reasoning for arbitrary-shaped scene text, in: Proceedings of the IEEE /CVF conference on computer vision and pattern recognition, 2021, pp. 8802–8812. [31] X. Yue, Y. Ni, K. Zhang, T. Zheng, R. Liu, G. Zhang, S. Stevens, D. Jiang, W. Ren, Y. Sun, et al., Mmmu: A massive multi-discipline multimodal understanding and reasoning benchmark for expert agi, in: Proceedings of the IEEE /CVF Confer-ence on Computer Vision and Pattern Recognition, 2024, pp. 9556–9567. [32] P. Lu, H. Bansal, T. Xia, J. Liu, C. Li, H. Hajishirzi, H. Cheng, K.-W. Chang, M. Galley, J. Gao, Mathvista: Evaluating mathematical reasoning of foundation models in visual contexts, in: International Conference on Learning Representa-tions (ICLR), 2024. [33] T. Hiippala, M. Alikhani, J. Haverinen, T. Kalliokoski, E. Logacheva, S. Orekhova, A. Tuomainen, M. Stone, J. A. Bateman, Ai2d-rst: a multimodal corpus of 1000 primary school science diagrams, Language Resources and Eval-uation 55 (3) (2021) 661–688. [34] A. Masry, D. X. Long, J. Q. Tan, S. Joty, E. Hoque, ChartQA: A benchmark for question answering about charts with visual and logical reasoning, in: Findings of the Association for Computational Linguistics: ACL 2022, Association for Computational Linguistics, Dublin, Ireland, 2022, pp. 2263–2279. 25 [35] H. Liu, C. Li, Q. Wu, Y. J. Lee, Visual instruction tuning, in: Thirty-seventh Conference on Neural Information Processing Systems, 2023. [36] C. Fu, P. Chen, Y. Shen, Y. Qin, M. Zhang, X. Lin, J. Yang, X. Zheng, K. Li, X. Sun, et al., Mme: A comprehensive evaluation benchmark for multimodal large language models, in: The Thirty-ninth Annual Conference on Neural Infor-mation Processing Systems Datasets and Benchmarks Track, 2025. [37] Y. Liu, H. Duan, Y. Zhang, B. Li, S. Zhang, W. Zhao, Y. Yuan, J. Wang, C. He, Z. Liu, et al., Mmbench: Is your multi-modal model an all-around player?, in: European conference on computer vision, 2024, pp. 216–233. [38] W. Yu, Z. Yang, L. Li, J. Wang, K. Lin, Z. Liu, X. Wang, L. Wang, Mm-vet: Evaluating large multimodal models for integrated capabilities, arXiv preprint arXiv:2308.02490 (2023). [39] L. Chen, J. Li, X. Dong, P. Zhang, Y. Zang, Z. Chen, H. Duan, J. Wang, Y. Qiao, D. Lin, F. Zhao, Are we on the right way for evaluating large vision-language models?, in: The Thirty-eighth Annual Conference on Neural Information Pro-cessing Systems, 2024. [40] Y. Bitton, H. Bansal, J. Hessel, R. Shao, W. Zhu, A. Awadalla, J. Gardner, R. Taori, L. Schmidt, Visit-bench: A benchmark for vision-language instruction following inspired by real-world use, arXiv preprint arXiv:2308.06595 (2023). [41] S. Bai, S. Yang, J. Bai, P. Wang, X. Zhang, J. Lin, X. Wang, C. Zhou, J. Zhou, Touchstone: Evaluating vision-language models by language models, arXiv preprint arXiv:2308.16890 (2023). [42] J. Li, W. Lu, H. Fei, M. Luo, M. Dai, M. Xia, Y. Jin, Z. Gan, D. Qi, C. Fu, et al., A survey on benchmarks of multimodal large language models, arXiv preprint arXiv:2408.08632 (2024). [43] J. Huang, J. Zhang, A survey on evaluation of multimodal large language models (2024). 26 [44] R. Rawat, Disasterqa: A benchmark for assessing the performance of llms in disaster response, arXiv preprint arXiv:2410.20707 (2024). [45] N. Zhou, H. Wang, J. Li, H. Li, Y. Song, Q. Wang, Y. Li, X. Chen, Firesentry: A multi-modal spatio-temporal benchmark dataset for fine-grained wildfire spread forecasting, arXiv preprint arXiv:2512.03369 (2025). [46] G. Simantiris, K. Bacharidis, A. Papanikolaou, P. Giannakakis, C. Panagiotakis, Aifloodsense: A global aerial imagery dataset for semantic segmentation and un-derstanding of flooded environments, arXiv preprint arXiv:2512.17432 (2025). [47] A. Khan, S. Gupta, S. K. Gupta, Emerging uav technology for disaster detection, mitigation, response, and preparedness, Journal of Field Robotics 39 (6) (2022) 905–955. [48] UNDRR, Hazard definition and classification review, Tech. rep., United Nations Offi ce for Disaster Risk Reduction, accessed 3 January 2026 (2020). URL https://www.undrr.org/publication/documents-and-publicati ons/hazard-definition-and-classification-review-technical-0 
+
+[49] UNDRR, The sendai framework terminology on disaster risk reduction: ¨ disaster risk management¨, Tech. rep., United Nations O ffi ce for Disaster Risk Reduction, accessed 3 January 2026 (2017). URL https://www.undrr.org/terminology/disaster-risk-managemen t
+
+[50] Z. Shao, P. Wang, Q. Zhu, R. Xu, J. Song, X. Bi, H. Zhang, M. Zhang, Y. Li, Y. Wu, et al., Deepseekmath: Pushing the limits of mathematical reasoning in open language models, arXiv preprint arXiv:2402.03300 (2024). [51] A. Hurst, A. Lerer, A. P. Goucher, A. Perelman, A. Ramesh, A. Clark, A. Ostrow, A. Welihinda, A. Hayes, A. Radford, et al., Gpt-4o system card, arXiv preprint arXiv:2410.21276 (2024). [52] G. Comanici, E. Bieber, M. Schaekermann, I. Pasupat, N. Sachdeva, I. Dhillon, M. Blistein, O. Ram, D. Zhang, E. Rosen, et al., Gemini 2.5: Pushing the fron-27 tier with advanced reasoning, multimodality, long context, and next generation agentic capabilities, arXiv preprint arXiv:2507.06261 (2025). [53] P. Wang, S. Bai, S. Tan, S. Wang, Z. Fan, J. Bai, K. Chen, X. Liu, J. Wang, W. Ge, et al., Qwen2-vl: Enhancing vision-language model’s perception of the world at any resolution, arXiv preprint arXiv:2409.12191 (2024). [54] S. Bai, K. Chen, X. Liu, J. Wang, W. Ge, S. Song, K. Dang, P. Wang, S. Wang, J. Tang, et al., Qwen2.5-vl technical report, arXiv preprint arXiv:2502.13923 (2025). [55] X. Chen, Z. Wu, X. Liu, Z. Pan, W. Liu, Z. Xie, X. Yu, C. Ruan, Janus-pro: Unified multimodal understanding and generation with data and model scaling, arXiv preprint arXiv:2501.17811 (2025). [56] Z. Chen, W. Wang, Y. Cao, Y. Liu, Z. Gao, E. Cui, J. Zhu, S. Ye, H. Tian, Z. Liu, et al., Expanding performance boundaries of open-source multimodal models with model, data, and test-time scaling, arXiv preprint arXiv:2412.05271 (2024). [57] W. Wang, Z. Gao, L. Gu, H. Pu, L. Cui, X. Wei, Z. Liu, L. Jing, S. Ye, J. Shao, et al., Internvl3. 5: Advancing open-source multimodal models in versatility, rea-soning, and e ffi ciency, arXiv preprint arXiv:2508.18265 (2025). [58] Z. Wu, X. Chen, Z. Pan, X. Liu, W. Liu, D. Dai, H. Gao, Y. Ma, C. Wu, B. Wang, et al., Deepseek-vl2: Mixture-of-experts vision-language models for advanced multimodal understanding, arXiv preprint arXiv:2412.10302 (2024). [59] M. Abdin, S. A. Jacobs, A. A. Awan, J. Aneja, A. Awadallah, H. H. Awadalla, N. Bach, A. Bahree, A. Bakhtiari, H. S. Behl, A. Benhaim, M. Bilenko, J. Bjorck, S. Bubeck, M. Cai, C. C. T. Mendes, W. Chen, V. Chaudhary, P. Chopra, A. D. Giorno, G. de Rosa, M. Dixon, R. Eldan, V. Fragoso, D. Iter, A. Goswami, S. Gu-nasekar, E. Haider, J. Hao, R. J. Hewett, J. Huynh, M. Javaheripi, X. Jin, P. Kau ff -mann, N. Karampatziakis, D. Kim, Y. J. Kim, M. Khademi, L. Kurilenko, J. R. Lee, Y. T. Lee, Y. Li, C. Liang, W. Liu, E. Lin, Z. Lin, P. Madan, A. Mitra, H. Modi, A. Nguyen, B. Norick, B. Patra, D. Perez-Becker, T. Portet, R. Pryzant, 28 H. Qin, M. Radmilac, L. Ren, C. Rosset, S. Roy, O. Saarikivi, A. Saied, A. Salim, M. Santacroce, S. Shah, N. Shang, H. Sharma, X. Song, O. Ruwase, P. Vad-damanu, X. Wang, R. Ward, G. Wang, P. A. Witte, M. Wyatt, C. Xu, J. Xu, S. Yadav, F. Yang, Z. Yang, D. Yu, C.-Y. Zhang, C. Zhang, J. Zhang, L. L. Zhang, Y. Zhang, Y. Zhang, X. Zhou, Y. Yang, Phi-3 technical report: A highly capable language model locally on your phone, ArXiv abs /2404.14219 (2024). URL https://api.semanticscholar.org/CorpusID:269293048 
+
+29

@@ -1,0 +1,251 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-11T22:18:47.544276+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2606.12174v1",
+      "source": "arxiv",
+      "title": "The data-driven extreme value distribution: non-parametric tail estimation with a derived stability criterion",
+      "abstract": "Quantifying the likelihood of extreme events underpins risk assessment, yet classical Extreme Value Theory relies on asymptotic assumptions that fail in the data-sparse, non-stationary regimes practitioners increasingly face. We introduce the Data-Driven Extreme Value Distribution (DDEVD), a non-parametric estimator that aggregates all observations metastatistically and reconstructs the base distribution with a kernel, removing parametric tail assumptions. We derive its optimal bandwidth and prove a stability law $m < C\\,n^{1+γ/2}$ relating reliable extrapolation to the extreme value index $γ$. In sub-hourly Alpine precipitation, DDEVD recovers stable 100-year return levels from single decades (calibration ratio $0.96$), departing from the full-record reference by over $50\\,\\%$ in fewer than one window in fifty -- versus one in five for a GEV fit. In metallurgical micrographs, it matches a generalised extreme-value fit on the safety-relevant grain-size tail, where the standard log-normal over-predicts by $58\\,\\%$ at $1\\,\\mathrm{cm}^{2}$.",
+      "authors": [
+        "Michael Sandbichler",
+        "Tobias Hell"
+      ],
+      "primary_category": "stat.AP",
+      "categories": [
+        "stat.AP",
+        "stat.ME"
+      ],
+      "published": "2026-06-10T15:01:58+00:00",
+      "link": "https://arxiv.org/pdf/2606.12174v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Non-parametric extreme value distribution for precipitation return levels",
+      "llm_evidence_cn": "非参数极端值分布用于降水重现期估计",
+      "llm_evidence": "非参数极端值分布用于降水重现期估计",
+      "canonical_evidence": "非参数极端值分布用于降水重现期估计",
+      "llm_tldr_en": "Proposes a data-driven extreme value distribution for non-parametric tail estimation enabling stable 100-year return level recovery from sparse precipitation data, useful for flood risk assessment.",
+      "llm_tldr_cn": "针对经典极值理论在数据稀疏和非平稳条件下的局限性，本文提出了数据驱动极值分布（DDEVD），一种非参数估计器，通过核方法从所有观测中重建基线分布，并推导了稳定性准则。在亚高山降水数据上，DDEVD能够从单个十年数据中稳定恢复百年一遇的重现水平，为城市洪水风险评估提供了更可靠的工具，且无需假设尾部参数形式。",
+      "llm_tldr": "针对经典极值理论在数据稀疏和非平稳条件下的局限性，本文提出了数据驱动极值分布（DDEVD），一种非参数估计器，通过核方法从所有观测中重建基线分布，并推导了稳定性准则。在亚高山降水数据上，DDEVD能够从单个十年数据中稳定恢复百年一遇的重现水平，为城市洪水风险评估提供了更可靠的工具，且无需假设尾部参数形式。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.06694v1",
+      "source": "arxiv",
+      "title": "The Geography of Algorithmic Judgment: LLM Intermediaries, Place Identity, and Racial Steering in Housing Search",
+      "abstract": "Large language models (LLMs) are rapidly assuming an intermediary role in housing search through the integration of listing platforms within conversational interfaces, mediating access to information, search, and recommendations within urban settings. We expand on prior work on racial steering in LLMs by conducting a behavioral audit of seven open-weight and closed-source LLMs across four U.S. cities, testing location recommendations across three iterative prompting conditions that progressively add lifestyle preference context and reflect fair housing paired-testing methodologies. We find that steering is an emergent behavior of the model's interpretive license rather than primarily a static property. Steering results from the interaction of a user's identity, preference articulation, and the spatial logic that a model has internalized about learned representations of place, preference, and opportunity in a given city, and how different types of users relate to it. While steering was present, it was not uniform in direction or magnitude across evaluated conditions. Preference-conditioned testing often increased or reconfigured the number of models that exhibited steering behaviors relative to baseline conditions, suggesting that LLMs may interpret what the same housing preference means differently depending on the racial identity of the user. Our findings also demonstrate that the city is not a neutral testing unit for LLM evaluation in place-based sectors, and results from one local market cannot be assumed to generalize to another. Local and domain expertise will be required in the housing sector to ensure that legal and institutional commitments to fair housing are not undermined while adopting AI tools that mediate spatial access.",
+      "authors": [
+        "Hana Samad",
+        "Trung Lam",
+        "Christoph Mügge-Durum",
+        "Michael Akinwumi"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CY"
+      ],
+      "published": "2026-06-04T20:17:58+00:00",
+      "link": "https://arxiv.org/pdf/2606.06694v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "algorithmic fairness and bias in LLM housing recommendations",
+      "llm_evidence_cn": "大语言模型在住房推荐中的算法公平与偏差",
+      "llm_evidence": "大语言模型在住房推荐中的算法公平与偏差",
+      "canonical_evidence": "大语言模型在住房推荐中的算法公平与偏差",
+      "llm_tldr_en": "This paper audits seven LLMs for racial steering in housing search across four U.S. cities, finding that steering is an emergent behavior of interpretive license. Results underscore the importance of algorithmic fairness and transparency in governance.",
+      "llm_tldr_cn": "该论文通过对七个开源和闭源大语言模型在住房推荐中的行为审计，系统评估了种族导向现象。实验覆盖美国四座城市，采用迭代提示条件模拟不同生活方式偏好，结合配对测试方法。结果表明，导向行为是模型解释性许可下的涌现属性，而非静态偏差。研究为算法治理中的公平性、透明度和问责制提供了重要实证，揭示了算法决策对社会公平的深远影响。",
+      "llm_tldr": "该论文通过对七个开源和闭源大语言模型在住房推荐中的行为审计，系统评估了种族导向现象。实验覆盖美国四座城市，采用迭代提示条件模拟不同生活方式偏好，结合配对测试方法。结果表明，导向行为是模型解释性许可下的涌现属性，而非静态偏差。研究为算法治理中的公平性、透明度和问责制提供了重要实证，揭示了算法决策对社会公平的深远影响。",
+      "llm_tags": [
+        "query:algo-gov:composite"
+      ],
+      "matched_query_tag": "query:algo-gov:composite",
+      "matched_query_text": "Papers central to 请帮我查询关于算法治理的文章, especially work that connects or combines: algorithm governance principles and frameworks; fairness in algorithmic decision making; transparency of algorithms and models; accountability for algorithmic outcomes; ethical considerations in artificial intelligence; detecting bias in machine learning models; challenges and solutions in algorithm governance; impact of algorithm governance on society; best practices for implementing algorithm governance.",
+      "matched_requirement_id": "req-composite-algo-gov",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.06217v1",
+      "source": "arxiv",
+      "title": "DisasterBench: A Multimodal Benchmark for UAV-Based Disaster Response in Complex Environments",
+      "abstract": "When a disaster unfolds, responders must answer not only what is happening, but also why it is happening, what will happen next, and what to do now, often from noisy low-altitude UAV views and under tight on-site compute constraints. However, most existing multimodal benchmarks emphasize perception (e.g., recognition/description), cover limited disaster types, and provide insufficient support for the multi-stage reasoning required in practical emergency response. We introduce DisasterBench, a multi-stage multimodal reasoning benchmark for UAV-Based disaster response in complex environments. DisasterBench spans 14 disaster-related scene types and 9 response-critical tasks across pre-, during-, and post-disaster stages, with fine-grained disaster-task mappings that explicitly test causal attribution, propagation prediction, damage analysis, and decision-oriented reasoning. To enable reasoning on the edge, we further propose DisasterVL, a lightweight multimodal model optimized with a three-stage pipeline combining domain instruction tuning, chain-of-thought-guided multimodal alignment, and reinforcement learning-based policy optimization. Experiments across 21 popular MLLMs show that our 2B-parameter DisasterVL outperforms all evaluated open-source models and substantially narrows the gap to state-of-the-art closed-source models, achieving GPT-4o-comparable reasoning accuracy with superior efficiency. The project page is available at https://github.com/TanmouTT/DisasterBench.",
+      "authors": [
+        "Tan Zhang",
+        "Quanyou Li",
+        "Lu Zhang",
+        "Jun Liu",
+        "Xiaofeng Zhu",
+        "Ping Hu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-06-04T14:31:11+00:00",
+      "link": "https://arxiv.org/pdf/2606.06217v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Multimodal benchmark for UAV-based disaster response including floods, covering multi-stage reasoning",
+      "llm_evidence_cn": "涵盖洪水的无人机灾害响应多模态基准，支持多阶段推理",
+      "llm_evidence": "涵盖洪水的无人机灾害响应多模态基准，支持多阶段推理",
+      "canonical_evidence": "涵盖洪水的无人机灾害响应多模态基准，支持多阶段推理",
+      "llm_tldr_en": "Introduces DisasterBench, a multimodal benchmark for UAV-based disaster response across 14 disaster types including floods, with 9 tasks for pre-during-post stages.",
+      "llm_tldr_cn": "针对现有灾害响应基准缺乏多阶段推理能力的问题，本文提出了DisasterBench，一个包含14种灾害类型（包括洪水）和9项任务的多模态基准，覆盖灾前、灾中和灾后阶段。该基准评估无人机视角下的灾害场景理解与决策，为城市洪水应急响应系统的开发提供了标准化测试平台，有助于提升洪水缓解技术的智能化水平。",
+      "llm_tldr": "针对现有灾害响应基准缺乏多阶段推理能力的问题，本文提出了DisasterBench，一个包含14种灾害类型（包括洪水）和9项任务的多模态基准，覆盖灾前、灾中和灾后阶段。该基准评估无人机视角下的灾害场景理解与决策，为城市洪水应急响应系统的开发提供了标准化测试平台，有助于提升洪水缓解技术的智能化水平。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood mitigation techniques in cities",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.12248v1",
+      "source": "arxiv",
+      "title": "Damage-TriageFormer: A Foundation-Model Framework for Typology-Based Building Damage Assessment from Mono-Temporal Imagery",
+      "abstract": "Decision-relevant building damage assessment is critical for prioritizing resources and recovery after a disaster, yet most automated methods either flatten damage into a single severity scale (no damage, minor, major, destroyed) or require paired pre- and post-event imagery that is often unavailable for emerging hazards. This paper presents Damage-TriageFormer, a single-image, post-event, footprint-conditioned model that produces a damage typology rather than a severity scale. We contribute: (1) DamageTriage-Bench, a new benchmark built from NOAA Emergency Response Imagery across Hurricane Michael (2018), Hurricane Helene (2024), and the 2025 Los Angeles wildfire complex, with five typology classes that distinguish roof damage from structural damage and, within each, partial from total extent; and (2) Damage-TriageFormer, which extends a DINOv3 ViT-L backbone with a Simple Feature Pyramid for higher-resolution instance pooling, a two-stage gated damage head, and an auxiliary severity-regression objective. Our model achieves macro F1 of 0.624 on validation and 0.619 on a held-out stratified test set, performing strongest where operational triage needs it most, with per-class F1 of 0.91 and 0.84 on undamaged buildings and total structural collapse, respectively. While the rare Total Roof Damage class remains difficult due to its limited examples and an inherently ambiguous label boundary, our results show that single-image post-event imagery can support actionable building damage typing, enabling targeted emergency response and resource allocation without a pre-event reference.",
+      "authors": [
+        "Yiming Xiao",
+        "Yu-Hsuan Ho",
+        "Sanjay Thasma",
+        "Junwei Ma",
+        "Ali Mostafavi"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-10T15:50:54+00:00",
+      "link": "https://arxiv.org/pdf/2606.12248v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "building damage assessment method for disaster response, transferable to urban flood risk assessment",
+      "llm_evidence_cn": "建筑物损坏评估方法，可迁移用于城市洪灾风险评估",
+      "llm_evidence": "建筑物损坏评估方法，可迁移用于城市洪灾风险评估",
+      "canonical_evidence": "建筑物损坏评估方法，可迁移用于城市洪灾风险评估",
+      "llm_tldr_en": "Damage-TriageFormer: a single-image foundation model that classifies building damage into typologies rather than severity scales, enabling rapid post-disaster assessment without pre-event imagery.",
+      "llm_tldr_cn": "现有自动化建筑损坏评估方法通常需要灾前灾后成对图像或仅输出单一严重性等级，限制了其在紧急灾害中的应用。本文提出Damage-TriageFormer，一个基于单张灾后影像和建筑物足迹的条件模型，输出损坏类型学而非严重性等级。该模型在多个飓风和野火事件的数据集上构建基准，展示了无需配对图像即可进行细粒度损坏评估的能力，为城市洪灾等灾害的快速评估提供了可迁移的方法框架。",
+      "llm_tldr": "现有自动化建筑损坏评估方法通常需要灾前灾后成对图像或仅输出单一严重性等级，限制了其在紧急灾害中的应用。本文提出Damage-TriageFormer，一个基于单张灾后影像和建筑物足迹的条件模型，输出损坏类型学而非严重性等级。该模型在多个飓风和野火事件的数据集上构建基准，展示了无需配对图像即可进行细粒度损坏评估的能力，为城市洪灾等灾害的快速评估提供了可迁移的方法框架。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for urban flood risk assessment",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.04658v1",
+      "source": "arxiv",
+      "title": "U-Net-Accelerated Quality-Diversity Optimization for Climate-Adaptive Urban Layouts",
+      "abstract": "Optimizing urban layouts for climate adaptation requires balancing building density with cold-air ventilation. Because physics-based climate simulations are computationally expensive, planners typically evaluate fewer than ten manual designs. \\gls{qd} algorithms offer a way to systematically illuminate the design space, but they require surrogate models to be practical.   In this paper, we replace a slow, regulatory physics simulator with a spatial deep-learning surrogate (U-Net) inside an offline MAP-Elites loop. We systematically compare this spatial approach with a traditional \\gls{gp} surrogate across different training-data strategies (quasi-random Sobol sampling vs.\\ active \\gls{qd} bootstrapping).   Our results reveal that scalar \\gls{gp} surrogates fail catastrophically when trained on random samples, requiring expensive, actively generated \\gls{qd} archives to generalize. In contrast, the spatial inductive bias of the U-Net allows it to learn the underlying physics mapping robustly ($R^2 = 0.996$), completely independent of the training data source. This allows offline \\gls{qd} optimization to achieve highly accurate fitness rankings ($ρ= 0.994$) using only a one-time batch of random training samples. The resulting pipeline, deployed in the open-source OpenSKIZZE tool, generates thousands of diverse, climate-evaluated building layouts in under ten minutes.",
+      "authors": [
+        "Alexander Hagg",
+        "Tania Guerrero",
+        "Dirk Reith"
+      ],
+      "primary_category": "cs.NE",
+      "categories": [
+        "cs.NE",
+        "cs.LG"
+      ],
+      "published": "2026-06-03T09:35:11+00:00",
+      "link": "https://arxiv.org/pdf/2606.04658v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "U-Net surrogate accelerates urban layout optimization for climate adaptation, applicable to stormwater green infrastructure design",
+      "llm_evidence_cn": "U-Net替代模型加速城市布局优化，可应用于雨水绿色基础设施设计",
+      "llm_evidence": "U-Net替代模型加速城市布局优化，可应用于雨水绿色基础设施设计",
+      "canonical_evidence": "U-Net替代模型加速城市布局优化，可应用于雨水绿色基础设施设计",
+      "llm_tldr_en": "Replaces slow physics simulators with U-Net in MAP-Elites to optimize climate-adaptive urban layouts, balancing density and ventilation, relevant to green infrastructure planning.",
+      "llm_tldr_cn": "针对城市气候适应性布局优化中物理模拟计算昂贵的问题，本文用U-Net深度替代模型加速MAP-Elites优化过程。结果表明空间U-Net替代相比高斯过程更有效，能够系统探索建筑密度与冷空气通风的权衡，为城市雨洪管理中的绿色基础设施（如透水铺装、通风廊道）布局优化提供了高效方法，有助于设计更具气候韧性的城市空间。",
+      "llm_tldr": "针对城市气候适应性布局优化中物理模拟计算昂贵的问题，本文用U-Net深度替代模型加速MAP-Elites优化过程。结果表明空间U-Net替代相比高斯过程更有效，能够系统探索建筑密度与冷空气通风的权衡，为城市雨洪管理中的绿色基础设施（如透水铺装、通风廊道）布局优化提供了高效方法，有助于设计更具气候韧性的城市空间。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "design of green infrastructure for stormwater management in cities",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.06363v1",
+      "source": "arxiv",
+      "title": "GMBFormer: An NDVI-Guided Global Memory Bank Transformer for Urban Green-Space Extraction from Ultra-High-Resolution Imagery",
+      "abstract": "Urban green-space extraction from ultra-high-resolution (UHR) imagery is commonly performed patch by patch, which limits semantic reuse among spatially separated but visually similar vegetation patterns. Directly injecting the Normalized Difference Vegetation Index (NDVI) into red-green-blue (RGB) backbones can also blur the roles of visual appearance learning and physical vegetation confidence. We propose GMBFormer, a SegFormer-based framework that replaces adjacency-driven feature propagation with selective, similarity-driven prototype retrieval. Only RGB channels enter the backbone and decoder, while NDVI is decoupled as a physics-informed gate that admits high-confidence vegetation descriptors into a compact global memory bank through momentum updates. During training and inference, the current patch queries stored prototypes through memory-mediated cross-attention, and the retrieved response is integrated with bounded overhead. Experiments use a self-constructed Chengdu UHR dataset with 7,700 labeled 512 x 512 patches and two reduced-label settings derived from the public International Society for Photogrammetry and Remote Sensing (ISPRS) Potsdam dataset. Under the same training and evaluation protocol, GMBFormer obtains mean intersection over union (mIoU)/mean Dice (mDice) scores of 89.25%/94.31%, 92.17%/95.92%, and 83.72%/90.86%, respectively, improving the controlled SegFormer-B4 baseline in each setting. Ablation studies indicate that decoupled NDVI admission, memory retrieval, capacity, and momentum jointly shape the final performance.",
+      "authors": [
+        "Hao Lei",
+        "Xi Cheng",
+        "Chenlu Shu",
+        "Zhiheng Chen",
+        "Zhengjie Duan",
+        "Haoyu Wang",
+        "Zhanfeng Shen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-04T16:32:58+00:00",
+      "link": "https://arxiv.org/pdf/2606.06363v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "urban green-space extraction supports mapping of green infrastructure for stormwater management",
+      "llm_evidence_cn": "城市绿地提取支持绿色基础设施制图，是雨洪管理的基础",
+      "llm_evidence": "城市绿地提取支持绿色基础设施制图，是雨洪管理的基础",
+      "canonical_evidence": "城市绿地提取支持绿色基础设施制图，是雨洪管理的基础",
+      "llm_tldr_en": "Proposes GMBFormer, an NDVI-guided global memory bank Transformer for urban green-space extraction from UHR imagery. Decouples NDVI as a gating signal, uses similarity-driven prototype retrieval, achieving state-of-the-art accuracy for green-space mapping, which directly supports green infrastructure planning for stormwater management.",
+      "llm_tldr_cn": "该论文针对超高分辨率影像城市绿地提取中语义复用不足和NDVI注入模糊的问题，提出GMBFormer框架。通过将NDVI解耦为物理引导门，仅RGB进入骨干网络，利用相似性驱动的原型检索替代邻近传播，显著提升了绿地提取精度。该方法为城市绿色基础设施的精确制图提供了有力工具，进而支持绿色基础设施设计以应对城市雨洪管理需求。",
+      "llm_tldr": "该论文针对超高分辨率影像城市绿地提取中语义复用不足和NDVI注入模糊的问题，提出GMBFormer框架。通过将NDVI解耦为物理引导门，仅RGB进入骨干网络，利用相似性驱动的原型检索替代邻近传播，显著提升了绿地提取精度。该方法为城市绿色基础设施的精确制图提供了有力工具，进而支持绿色基础设施设计以应对城市雨洪管理需求。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "design of green infrastructure for stormwater management in cities",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
