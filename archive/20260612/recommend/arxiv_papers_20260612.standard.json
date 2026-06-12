@@ -1,0 +1,56 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-12T21:45:41.698231+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2606.06694v1",
+      "source": "arxiv",
+      "title": "The Geography of Algorithmic Judgment: LLM Intermediaries, Place Identity, and Racial Steering in Housing Search",
+      "abstract": "Large language models (LLMs) are rapidly assuming an intermediary role in housing search through the integration of listing platforms within conversational interfaces, mediating access to information, search, and recommendations within urban settings. We expand on prior work on racial steering in LLMs by conducting a behavioral audit of seven open-weight and closed-source LLMs across four U.S. cities, testing location recommendations across three iterative prompting conditions that progressively add lifestyle preference context and reflect fair housing paired-testing methodologies. We find that steering is an emergent behavior of the model's interpretive license rather than primarily a static property. Steering results from the interaction of a user's identity, preference articulation, and the spatial logic that a model has internalized about learned representations of place, preference, and opportunity in a given city, and how different types of users relate to it. While steering was present, it was not uniform in direction or magnitude across evaluated conditions. Preference-conditioned testing often increased or reconfigured the number of models that exhibited steering behaviors relative to baseline conditions, suggesting that LLMs may interpret what the same housing preference means differently depending on the racial identity of the user. Our findings also demonstrate that the city is not a neutral testing unit for LLM evaluation in place-based sectors, and results from one local market cannot be assumed to generalize to another. Local and domain expertise will be required in the housing sector to ensure that legal and institutional commitments to fair housing are not undermined while adopting AI tools that mediate spatial access.",
+      "authors": [
+        "Hana Samad",
+        "Trung Lam",
+        "Christoph Mügge-Durum",
+        "Michael Akinwumi"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.CY"
+      ],
+      "published": "2026-06-04T20:17:58+00:00",
+      "link": "https://arxiv.org/pdf/2606.06694v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "Examines algorithmic steering and fairness in LLM-based housing search",
+      "llm_evidence_cn": "研究基于LLM的住房搜索中的算法导向和公平性",
+      "llm_evidence": "研究基于LLM的住房搜索中的算法导向和公平性",
+      "canonical_evidence": "研究基于LLM的住房搜索中的算法导向和公平性",
+      "llm_tldr_en": "This paper audits LLMs for racial steering in housing recommendations across four US cities, finding steering emerges from model interpretive license rather than static bias, highlighting fairness and transparency issues.",
+      "llm_tldr_cn": "该论文对七个开源和闭源的大语言模型在四个美国城市进行行为审计，测试不同提示条件下的位置推荐。结果发现，算法导向是模型解释性许可的一个涌现行为，而非静态属性。研究揭示了LLM作为住房搜索中介时存在的公平性和透明度问题，对算法治理有重要启示。",
+      "llm_tldr": "该论文对七个开源和闭源的大语言模型在四个美国城市进行行为审计，测试不同提示条件下的位置推荐。结果发现，算法导向是模型解释性许可的一个涌现行为，而非静态属性。研究揭示了LLM作为住房搜索中介时存在的公平性和透明度问题，对算法治理有重要启示。",
+      "llm_tags": [
+        "query:algo-gov:composite"
+      ],
+      "matched_query_tag": "query:algo-gov:composite",
+      "matched_query_text": "Papers central to 请帮我查询关于算法治理的文章, especially work that connects or combines: algorithm governance principles and frameworks; fairness in algorithmic decision making; transparency of algorithms and models; accountability for algorithmic outcomes; ethical considerations in artificial intelligence; detecting bias in machine learning models; challenges and solutions in algorithm governance; impact of algorithm governance on society; best practices for implementing algorithm governance.",
+      "matched_requirement_id": "req-composite-algo-gov",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}
