@@ -1,0 +1,69 @@
+{
+  "label": "2026-06-13",
+  "date": "2026-06-13",
+  "generated_at": "2026-06-13T21:19:57",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202606/13/2606.11678v1-can-ai-reason-like-an-urban-planner-benchmarking-large-language-models-against-professional-judgment",
+      "section": "deep",
+      "title_en": "Can AI Reason Like an Urban Planner? Benchmarking Large Language Models Against Professional Judgment",
+      "authors": "Yijie Deng, He Zhu, Wen Wang, Junyou Su, Minxin Chen, Wenjia Zhang",
+      "date": "2026-06-10",
+      "pdf": "https://arxiv.org/pdf/2606.11678v1",
+      "score": "8.0",
+      "evidence": "评估LLM在城市规划中的推理，涉及AI决策透明度和问责制",
+      "tldr": "大型语言模型在规划领域的推理能力尚缺乏系统评估。本研究提出Urban Planning Bench (UPBench)框架，基于四个知识支柱和五个认知层次评估25个LLM。结果显示模型在高阶分析任务上优于事实回忆，但存在监管幻觉、概念混淆等四种认知缺陷。研究建议差异化授权，LLM可用于综合与场景生成，但需警惕法规与价值冲突问题，并强调规划教育应加强制度素养和情境敏感性。",
+      "tags": "query:algo-gov",
+      "abstract_en": "Problem, Research Strategy, and Findings: The rise of large language models (LLMs) raises a key question for urban planning: which forms of professional planning knowledge can AI replicate, and which still require human judgment? Although AI tools are increasingly used in planning practice, there is still no systematic framework for testing whether they can reason with the contextual sensitivity, value awareness, and institutional literacy central to planning expertise. This paper introduces Urban Planning Bench (UPBench), a domain-specific evaluation framework that assesses LLM reasoning through a 4x5 matrix of four knowledge pillars and five cognitive levels adapted from Bloom's revised taxonomy. Evaluating 25 LLMs with automated scoring and expert review, we find a non-monotonic cognitive curve: models perform better on higher-order analytical tasks than on factual recall and integrative judgment. This suggests that planning knowledge often treated as lower-order is deeply shaped by institutional, jurisdictional, and temporal context, making it hard for LLMs to generalize. We summarize these limits as four epistemic diagnostics: regulatory hallucination, conceptual conflation, wickedness paralysis, and phronetic deficit.   Takeaway for Practice: The findings support differential delegation in planning. LLMs can assist with cross-disciplinary synthesis, literature review, scenario generation, and preliminary policy analysis. However, they remain unreliable for jurisdiction-specific regulation, normative conflict resolution, and context-sensitive procedure. Agencies should require verification for AI-assisted regulatory analysis, while planning education should emphasize institutional literacy, normative judgment, and contextual sensitivity.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/13/2606.11989v1-from-nominal-intensity-to-equivalent-rainfall-a-path-based-credibility-evaluation-framework-for-simulated-rainfall-in-autonomous-driving-perception-tests",
+      "section": "quick",
+      "title_en": "From Nominal Intensity to Equivalent Rainfall: A Path-Based Credibility Evaluation Framework for Simulated Rainfall in Autonomous-Driving Perception Tests",
+      "authors": "Tian Xia, Xin Zhao, Shaolingfeng Ye, Junyi Chen",
+      "date": "2026-06-10",
+      "pdf": "https://arxiv.org/pdf/2606.11989v1",
+      "score": "7.0",
+      "evidence": "模拟降雨可信度评估，对暴雨管理有直接价值",
+      "tldr": "模拟降雨条件对自动驾驶感知测试的可靠性至关重要，但传统方法仅用名义降雨强度或单点测量，难以对齐模拟与真实降雨。本文提出路径级评价方法，以真实雨滴谱为参考，计算路径等效降雨强度、不确定性带和雨滴分布真实度得分，并结合激光雷达点云进行感知一致性校正。实验验证了空间非均匀性，识别出两条优选路径，支持测试条件描述和结果可信解释。",
+      "tags": "query:urban-flood",
+      "abstract_en": "Credible simulated-rainfall conditions are essential for identifying perception-system boundaries and supporting SOTIF-oriented risk assessment in automated driving. However, closed-field tests are often described only by nominal rainfall intensity or single-point measurements, making it difficult to align simulated rain fields with real rainfall and map test results to real-world scenarios. This paper proposes a path-based credibility evaluation method for simulated rainfall in autonomous-driving perception tests. Using the drop size and velocity joint distribution of real rainfall as the reference, each candidate path is represented by path-equivalent rainfall intensity, an uncertainty band, and a path-averaged Realism of Raindrop Distribution (RRD) score. Lidar target point-cloud count and mean reflectivity are further used for perception-consistency correction, quantifying the proxy capability of each simulated-rainfall path for real-rainfall perception effects. Experiments are conducted using about 10,000 real-rainfall raindrop-spectrum samples, 728 RainSense perception samples, and 45 spatial sampling points in a 2.4 m x 7.2 m simulated-rainfall area. Results show that spatial non-uniformity remains under the same nominal condition, confirming the need for path-based evaluation. The method identifies Path IV and Path VI as preferable candidates, with results of 11.54 +/- 0.31 mm/h, RRD = 0.43, and 8.28 +/- 0.34 mm/h, RRD = 0.46, respectively. These paths show more balanced performance in rainfall-intensity stability, raindrop-spectrum realism, and perception consistency. The proposed method supports path selection, condition description, and credible interpretation of autonomous-driving perception tests under rainfall.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/13/2606.08876v1-ro-lidar-geoquickview-a-web-platform-for-exploring-public-lidar-derived-elevation-data-in-romania",
+      "section": "quick",
+      "title_en": "RO-LiDAR GeoQuickView: A Web Platform for Exploring Public LiDAR-Derived Elevation Data in Romania",
+      "authors": "Alexandru Hegyi",
+      "date": "2026-06-07",
+      "pdf": "https://arxiv.org/pdf/2606.08876v1",
+      "score": "6.0",
+      "evidence": "提供LiDAR高程数据平台，可用于城市洪水风险测绘和地形分析",
+      "tldr": "公共高程数据因分散交付和专业处理要求而难以重用。本文提出RO-LiDAR GeoQuickView非商业Web-GIS平台，集成LiDAR DTM和多种高程模型，提供标准化山体阴影可视化及空间索引。已集成0.5米LAKI III Zone A数据覆盖四县，计划扩展Zone B。平台作为公共数据基础设施的易用层，支持快速探索但非官方替代品。",
+      "tags": "query:urban-flood",
+      "abstract_en": "Public elevation data can support landscape research, environmental interpretation, planning, education, and public engagement, but their practical reuse is often limited by fragmented delivery and specialist processing requirements. This paper presents RO-LiDAR GeoQuickView, an independent, voluntary, and non-commercial Web-GIS initiative for exploring and reusing publicly accessible elevation data in Romania. The platform integrates LiDAR-derived digital terrain models (DTMs) and complementary elevation models of different resolutions, publishes standardized hillshade visualizations for immediate browser access, supports participatory landscape documentation, and provides a spatial index for direct raster retrieval. Its most detailed currently integrated component is the 0.5 m LAKI III Zone A DTM coverage for Caras-Severin, Gorj, Mehedinti, and Dolj counties. LAKI III Zone B, comprising Suceava, Neamt, Bacau, and Vrancea counties, is the next scheduled high-resolution extension. It will be integrated after the public products become available and pass through the same harmonization and quality-control workflow. The platform also incorporates LAKI II and additional public altimetric sources through a source-aware processing workflow that accommodates different acquisition units, including one-kilometre cells and larger raster blocks. The paper documents the data architecture, harmonization steps, quality-control procedures, access modes, application range, and limitations. The platform is conceived as an accessibility layer over public data infrastructures: it supports rapid discovery and preliminary interpretation, but it does not replace official products, specialist modelling, expert review, or field verification.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/13/2606.11653v1-on-the-modelling-of-the-hydrodynamic-drag-of-mangroves",
+      "section": "quick",
+      "title_en": "On the Modelling of the Hydrodynamic Drag of Mangroves",
+      "authors": "Khang Ee Pang, Zhi Yung Tay",
+      "date": "2026-06-10",
+      "pdf": "https://arxiv.org/pdf/2606.11653v1",
+      "score": "6.0",
+      "evidence": "红树林建模作为海岸雨水管理的绿色基础设施",
+      "tldr": "许多现有模型忽略红树林生物量的垂向变化，导致根-流相互作用过于简化。本研究提出跨物种的通用植被剖面参数化，并基于此推导波浪衰减模型，同时设计简化表示用于CFD和实验。OpenFOAM模拟显示波浪衰减具有频率选择性和物种依赖性，与经典均匀植被模型不同。该工作揭示了红树林根部特征调控海岸防护的先前未被认识的机制，为基于自然的防护设计提供新视角。",
+      "tags": "query:urban-flood",
+      "abstract_en": "Mangroves are increasingly promoted as nature-based solutions for coastal protection, yet many existing models neglect the vertical variation of vegetation biomass, leading to oversimplified representations of root-flow interactions. In this study, we introduce a generalised parametrisation of the mangrove vegetation profile that is applicable across multiple mangrove species and derive a wave attenuation model that explicitly accounts for the mangrove root characteristics. Based on this parametrisation, we propose a simplified mangrove representation that reproduces a prescribed drag force profile and is suitable for both computational fluid dynamics simulations and experimental fabrication. The hydrodynamic performance of the proposed model is evaluated using OpenFOAM simulations. Our results show that the wave attenuation effectiveness of mangroves is frequency-selective and species dependent. This nonlinear behaviour contrasts with classical vegetation models and reveals a previously unrecognized mechanism by which mangrove root characteristics govern coastal protection.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

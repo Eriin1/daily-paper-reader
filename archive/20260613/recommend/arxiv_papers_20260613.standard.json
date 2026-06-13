@@ -1,0 +1,166 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-13T21:16:54.917041+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2606.11678v1",
+      "source": "arxiv",
+      "title": "Can AI Reason Like an Urban Planner? Benchmarking Large Language Models Against Professional Judgment",
+      "abstract": "Problem, Research Strategy, and Findings: The rise of large language models (LLMs) raises a key question for urban planning: which forms of professional planning knowledge can AI replicate, and which still require human judgment? Although AI tools are increasingly used in planning practice, there is still no systematic framework for testing whether they can reason with the contextual sensitivity, value awareness, and institutional literacy central to planning expertise. This paper introduces Urban Planning Bench (UPBench), a domain-specific evaluation framework that assesses LLM reasoning through a 4x5 matrix of four knowledge pillars and five cognitive levels adapted from Bloom's revised taxonomy. Evaluating 25 LLMs with automated scoring and expert review, we find a non-monotonic cognitive curve: models perform better on higher-order analytical tasks than on factual recall and integrative judgment. This suggests that planning knowledge often treated as lower-order is deeply shaped by institutional, jurisdictional, and temporal context, making it hard for LLMs to generalize. We summarize these limits as four epistemic diagnostics: regulatory hallucination, conceptual conflation, wickedness paralysis, and phronetic deficit.   Takeaway for Practice: The findings support differential delegation in planning. LLMs can assist with cross-disciplinary synthesis, literature review, scenario generation, and preliminary policy analysis. However, they remain unreliable for jurisdiction-specific regulation, normative conflict resolution, and context-sensitive procedure. Agencies should require verification for AI-assisted regulatory analysis, while planning education should emphasize institutional literacy, normative judgment, and contextual sensitivity.",
+      "authors": [
+        "Yijie Deng",
+        "He Zhu",
+        "Wen Wang",
+        "Junyou Su",
+        "Minxin Chen",
+        "Wenjia Zhang"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-06-10T05:42:36+00:00",
+      "link": "https://arxiv.org/pdf/2606.11678v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "evaluates LLM reasoning in urban planning, touching on transparency and accountability in AI decision-making",
+      "llm_evidence_cn": "评估LLM在城市规划中的推理，涉及AI决策透明度和问责制",
+      "llm_evidence": "评估LLM在城市规划中的推理，涉及AI决策透明度和问责制",
+      "canonical_evidence": "评估LLM在城市规划中的推理，涉及AI决策透明度和问责制",
+      "llm_tldr_en": "Introduces UPBench to test if LLMs can reason with contextual sensitivity and value awareness required in professional planning, with implications for algorithm governance.",
+      "llm_tldr_cn": "本文提出了UPBench，一个用于评估大型语言模型（LLM）是否具备城市规划专业知识、价值意识和制度理解的基准框架。通过对25个模型的系统测试，发现多数模型仅达到基础认知水平，难以进行专家级推理。该工作揭示了AI在复杂规划决策中的局限性，对算法治理中的透明度和问责性提出了挑战。",
+      "llm_tldr": "本文提出了UPBench，一个用于评估大型语言模型（LLM）是否具备城市规划专业知识、价值意识和制度理解的基准框架。通过对25个模型的系统测试，发现多数模型仅达到基础认知水平，难以进行专家级推理。该工作揭示了AI在复杂规划决策中的局限性，对算法治理中的透明度和问责性提出了挑战。",
+      "llm_tags": [
+        "query:algo-gov:composite"
+      ],
+      "matched_query_tag": "query:algo-gov:composite",
+      "matched_query_text": "Papers central to 请帮我查询关于算法治理的文章, especially work that connects or combines: algorithm governance principles and frameworks; fairness in algorithmic decision making; transparency of algorithms and models; accountability for algorithmic outcomes; ethical considerations in artificial intelligence; detecting bias in machine learning models; challenges and solutions in algorithm governance; impact of algorithm governance on society; best practices for implementing algorithm governance.",
+      "matched_requirement_id": "req-composite-algo-gov",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.11989v1",
+      "source": "arxiv",
+      "title": "From Nominal Intensity to Equivalent Rainfall: A Path-Based Credibility Evaluation Framework for Simulated Rainfall in Autonomous-Driving Perception Tests",
+      "abstract": "Credible simulated-rainfall conditions are essential for identifying perception-system boundaries and supporting SOTIF-oriented risk assessment in automated driving. However, closed-field tests are often described only by nominal rainfall intensity or single-point measurements, making it difficult to align simulated rain fields with real rainfall and map test results to real-world scenarios. This paper proposes a path-based credibility evaluation method for simulated rainfall in autonomous-driving perception tests. Using the drop size and velocity joint distribution of real rainfall as the reference, each candidate path is represented by path-equivalent rainfall intensity, an uncertainty band, and a path-averaged Realism of Raindrop Distribution (RRD) score. Lidar target point-cloud count and mean reflectivity are further used for perception-consistency correction, quantifying the proxy capability of each simulated-rainfall path for real-rainfall perception effects. Experiments are conducted using about 10,000 real-rainfall raindrop-spectrum samples, 728 RainSense perception samples, and 45 spatial sampling points in a 2.4 m x 7.2 m simulated-rainfall area. Results show that spatial non-uniformity remains under the same nominal condition, confirming the need for path-based evaluation. The method identifies Path IV and Path VI as preferable candidates, with results of 11.54 +/- 0.31 mm/h, RRD = 0.43, and 8.28 +/- 0.34 mm/h, RRD = 0.46, respectively. These paths show more balanced performance in rainfall-intensity stability, raindrop-spectrum realism, and perception consistency. The proposed method supports path selection, condition description, and credible interpretation of autonomous-driving perception tests under rainfall.",
+      "authors": [
+        "Tian Xia",
+        "Xin Zhao",
+        "Shaolingfeng Ye",
+        "Junyi Chen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-10T12:13:59+00:00",
+      "link": "https://arxiv.org/pdf/2606.11989v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "credibility evaluation of simulated rainfall for stormwater management",
+      "llm_evidence_cn": "模拟降雨可信度评估，对暴雨管理有直接价值",
+      "llm_evidence": "模拟降雨可信度评估，对暴雨管理有直接价值",
+      "canonical_evidence": "模拟降雨可信度评估，对暴雨管理有直接价值",
+      "llm_tldr_en": "Proposes a path-based credibility evaluation method for simulated rainfall, directly supporting stormwater runoff modeling in urban flood management.",
+      "llm_tldr_cn": "该论文提出基于路径的模拟降雨可信度评估方法，通过对比真实降雨的滴谱和速度分布，将模拟降雨等效为路径等效降雨强度。该方法可直接应用于城市暴雨径流管理的降雨模拟验证，提升洪水模型可靠性。",
+      "llm_tldr": "该论文提出基于路径的模拟降雨可信度评估方法，通过对比真实降雨的滴谱和速度分布，将模拟降雨等效为路径等效降雨强度。该方法可直接应用于城市暴雨径流管理的降雨模拟验证，提升洪水模型可靠性。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for managing urban stormwater runoff",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.08876v1",
+      "source": "arxiv",
+      "title": "RO-LiDAR GeoQuickView: A Web Platform for Exploring Public LiDAR-Derived Elevation Data in Romania",
+      "abstract": "Public elevation data can support landscape research, environmental interpretation, planning, education, and public engagement, but their practical reuse is often limited by fragmented delivery and specialist processing requirements. This paper presents RO-LiDAR GeoQuickView, an independent, voluntary, and non-commercial Web-GIS initiative for exploring and reusing publicly accessible elevation data in Romania. The platform integrates LiDAR-derived digital terrain models (DTMs) and complementary elevation models of different resolutions, publishes standardized hillshade visualizations for immediate browser access, supports participatory landscape documentation, and provides a spatial index for direct raster retrieval. Its most detailed currently integrated component is the 0.5 m LAKI III Zone A DTM coverage for Caras-Severin, Gorj, Mehedinti, and Dolj counties. LAKI III Zone B, comprising Suceava, Neamt, Bacau, and Vrancea counties, is the next scheduled high-resolution extension. It will be integrated after the public products become available and pass through the same harmonization and quality-control workflow. The platform also incorporates LAKI II and additional public altimetric sources through a source-aware processing workflow that accommodates different acquisition units, including one-kilometre cells and larger raster blocks. The paper documents the data architecture, harmonization steps, quality-control procedures, access modes, application range, and limitations. The platform is conceived as an accessibility layer over public data infrastructures: it supports rapid discovery and preliminary interpretation, but it does not replace official products, specialist modelling, expert review, or field verification.",
+      "authors": [
+        "Alexandru Hegyi"
+      ],
+      "primary_category": "physics.geo-ph",
+      "categories": [
+        "physics.geo-ph"
+      ],
+      "published": "2026-06-07T23:05:11+00:00",
+      "link": "https://arxiv.org/pdf/2606.08876v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "provides LiDAR elevation data platform useful for urban flood risk mapping and terrain analysis",
+      "llm_evidence_cn": "提供LiDAR高程数据平台，可用于城市洪水风险测绘和地形分析",
+      "llm_evidence": "提供LiDAR高程数据平台，可用于城市洪水风险测绘和地形分析",
+      "canonical_evidence": "提供LiDAR高程数据平台，可用于城市洪水风险测绘和地形分析",
+      "llm_tldr_en": "A web-GIS platform for accessing and visualizing LiDAR elevation data in Romania, supporting flood risk assessment and urban planning.",
+      "llm_tldr_cn": "本文介绍了RO-LiDAR GeoQuickView，一个基于Web-GIS的罗马尼亚公共LiDAR高程数据探索平台。它整合了数字地形模型和标准化山体阴影可视化，支持即时浏览和参与式景观记录。该平台降低了专业处理门槛，为城市洪水风险评估和规划提供了便捷的高程数据基础。",
+      "llm_tldr": "本文介绍了RO-LiDAR GeoQuickView，一个基于Web-GIS的罗马尼亚公共LiDAR高程数据探索平台。它整合了数字地形模型和标准化山体阴影可视化，支持即时浏览和参与式景观记录。该平台降低了专业处理门槛，为城市洪水风险评估和规划提供了便捷的高程数据基础。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.11653v1",
+      "source": "arxiv",
+      "title": "On the Modelling of the Hydrodynamic Drag of Mangroves",
+      "abstract": "Mangroves are increasingly promoted as nature-based solutions for coastal protection, yet many existing models neglect the vertical variation of vegetation biomass, leading to oversimplified representations of root-flow interactions. In this study, we introduce a generalised parametrisation of the mangrove vegetation profile that is applicable across multiple mangrove species and derive a wave attenuation model that explicitly accounts for the mangrove root characteristics. Based on this parametrisation, we propose a simplified mangrove representation that reproduces a prescribed drag force profile and is suitable for both computational fluid dynamics simulations and experimental fabrication. The hydrodynamic performance of the proposed model is evaluated using OpenFOAM simulations. Our results show that the wave attenuation effectiveness of mangroves is frequency-selective and species dependent. This nonlinear behaviour contrasts with classical vegetation models and reveals a previously unrecognized mechanism by which mangrove root characteristics govern coastal protection.",
+      "authors": [
+        "Khang Ee Pang",
+        "Zhi Yung Tay"
+      ],
+      "primary_category": "physics.flu-dyn",
+      "categories": [
+        "physics.flu-dyn"
+      ],
+      "published": "2026-06-10T04:34:29+00:00",
+      "link": "https://arxiv.org/pdf/2606.11653v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "mangrove modeling as green infrastructure for coastal stormwater management",
+      "llm_evidence_cn": "红树林建模作为海岸雨水管理的绿色基础设施",
+      "llm_evidence": "红树林建模作为海岸雨水管理的绿色基础设施",
+      "canonical_evidence": "红树林建模作为海岸雨水管理的绿色基础设施",
+      "llm_tldr_en": "Generalized parametrization of mangrove vegetation profile for wave attenuation models, applicable to green infrastructure design for coastal flood mitigation.",
+      "llm_tldr_cn": "红树林作为海岸保护的自然解决方案，现有模型忽略了植被垂直变化。该论文提出了适用于多种红树种的植被剖面通用参数化方案，并推导了考虑根部特征的波浪衰减模型。该简化模型可用于CFD模拟和实验制造。虽然面向海岸，其绿色基础设施设计思路对城市雨水管理中的绿色基础设施设计具有参考价值。",
+      "llm_tldr": "红树林作为海岸保护的自然解决方案，现有模型忽略了植被垂直变化。该论文提出了适用于多种红树种的植被剖面通用参数化方案，并推导了考虑根部特征的波浪衰减模型。该简化模型可用于CFD模拟和实验制造。虽然面向海岸，其绿色基础设施设计思路对城市雨水管理中的绿色基础设施设计具有参考价值。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "design of green infrastructure for stormwater management in cities",
+      "matched_requirement_id": "req-9",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
