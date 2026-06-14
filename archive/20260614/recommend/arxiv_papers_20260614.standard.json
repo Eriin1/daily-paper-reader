@@ -1,0 +1,87 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-14T20:42:34.051050+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2606.12800v1",
+      "source": "arxiv",
+      "title": "Massively parallel flow routing and drainage area determination",
+      "abstract": "Digital elevation models (DEMs) have reached resolutions and sizes that only parallel computaters can efficiently process. One important application of DEMs is predicting how much water flows where, the so-called ``flow routing problem'' (a variation of which is the problem of determining the drainage area upstream of a point in a DEM). The traditional algorithm for flow routing is sequential, and attempts to parallelize this method have so far only been moderately successful. Herein, we build on earlier work in Richardson et al. (2014) and propose an algorithm and several variations that can efficiently solve the flow routing problem on very large models with very large numbers of parallel processes. For the largest model we use, with 1.88 billion points, the best algorithm herein can route water in 4.0 seconds on 12,288 processes of a computer cluster.",
+      "authors": [
+        "Wolfgang Bangerth"
+      ],
+      "primary_category": "math.NA",
+      "categories": [
+        "math.NA"
+      ],
+      "published": "2026-06-11T01:49:03+00:00",
+      "link": "https://arxiv.org/pdf/2606.12800v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "massively parallel flow routing method for DEMs",
+      "llm_evidence_cn": "大规模并行DEM水流路径方法",
+      "llm_evidence": "大规模并行DEM水流路径方法",
+      "canonical_evidence": "大规模并行DEM水流路径方法",
+      "llm_tldr_en": "Proposes a parallel algorithm for flow routing on large DEMs, enabling efficient drainage area determination for urban flood modeling.",
+      "llm_tldr_cn": "针对大尺度数字高程模型（DEM）上的水流路径问题，现有串行算法难以并行化。本文提出了一种高效并行算法，能够处理18.8亿点的大模型，显著提升水流路径和汇水区计算的效率，为城市洪水管理提供了关键技术支持。",
+      "llm_tldr": "针对大尺度数字高程模型（DEM）上的水流路径问题，现有串行算法难以并行化。本文提出了一种高效并行算法，能够处理18.8亿点的大模型，显著提升水流路径和汇水区计算的效率，为城市洪水管理提供了关键技术支持。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.08876v1",
+      "source": "arxiv",
+      "title": "RO-LiDAR GeoQuickView: A Web Platform for Exploring Public LiDAR-Derived Elevation Data in Romania",
+      "abstract": "Public elevation data can support landscape research, environmental interpretation, planning, education, and public engagement, but their practical reuse is often limited by fragmented delivery and specialist processing requirements. This paper presents RO-LiDAR GeoQuickView, an independent, voluntary, and non-commercial Web-GIS initiative for exploring and reusing publicly accessible elevation data in Romania. The platform integrates LiDAR-derived digital terrain models (DTMs) and complementary elevation models of different resolutions, publishes standardized hillshade visualizations for immediate browser access, supports participatory landscape documentation, and provides a spatial index for direct raster retrieval. Its most detailed currently integrated component is the 0.5 m LAKI III Zone A DTM coverage for Caras-Severin, Gorj, Mehedinti, and Dolj counties. LAKI III Zone B, comprising Suceava, Neamt, Bacau, and Vrancea counties, is the next scheduled high-resolution extension. It will be integrated after the public products become available and pass through the same harmonization and quality-control workflow. The platform also incorporates LAKI II and additional public altimetric sources through a source-aware processing workflow that accommodates different acquisition units, including one-kilometre cells and larger raster blocks. The paper documents the data architecture, harmonization steps, quality-control procedures, access modes, application range, and limitations. The platform is conceived as an accessibility layer over public data infrastructures: it supports rapid discovery and preliminary interpretation, but it does not replace official products, specialist modelling, expert review, or field verification.",
+      "authors": [
+        "Alexandru Hegyi"
+      ],
+      "primary_category": "physics.geo-ph",
+      "categories": [
+        "physics.geo-ph"
+      ],
+      "published": "2026-06-07T23:05:11+00:00",
+      "link": "https://arxiv.org/pdf/2606.08876v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "provides LiDAR elevation data platform for flood risk assessment",
+      "llm_evidence_cn": "提供LiDAR高程数据平台，支持洪水风险评估",
+      "llm_evidence": "提供LiDAR高程数据平台，支持洪水风险评估",
+      "canonical_evidence": "提供LiDAR高程数据平台，支持洪水风险评估",
+      "llm_tldr_en": "Presents a web-GIS platform for exploring public LiDAR elevation data, enabling terrain analysis for urban flood risk modeling.",
+      "llm_tldr_cn": "针对公共高程数据难以获取和重用的问题，开发了RO-LiDAR GeoQuickView网络平台，集成LiDAR数字地形模型和可视化服务。该平台可直接支持城市洪水风险评估中的地形分析，降低数据获取门槛。",
+      "llm_tldr": "针对公共高程数据难以获取和重用的问题，开发了RO-LiDAR GeoQuickView网络平台，集成LiDAR数字地形模型和可视化服务。该平台可直接支持城市洪水风险评估中的地形分析，降低数据获取门槛。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

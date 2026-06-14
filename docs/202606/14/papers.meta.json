@@ -1,0 +1,39 @@
+{
+  "label": "2026-06-14",
+  "date": "2026-06-14",
+  "generated_at": "2026-06-14T20:44:32",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202606/14/2606.12800v1-massively-parallel-flow-routing-and-drainage-area-determination",
+      "section": "deep",
+      "title_en": "Massively parallel flow routing and drainage area determination",
+      "authors": "Wolfgang Bangerth",
+      "date": "2026-06-11",
+      "pdf": "https://arxiv.org/pdf/2606.12800v1",
+      "score": "9.0",
+      "evidence": "大规模并行DEM水流路径方法",
+      "tldr": "数字高程模型（DEM）规模巨大，传统顺序水流路径算法难以并行化。本文基于先前工作，设计了适用于大规模并行环境的算法及多种变体。在18.8亿点的DEM上，使用12288个进程仅需4.0秒即可完成水流路径计算。该工作显著提升了超大规模DEM水力模拟的效率。",
+      "tags": "query:urban-flood",
+      "abstract_en": "Digital elevation models (DEMs) have reached resolutions and sizes that only parallel computaters can efficiently process. One important application of DEMs is predicting how much water flows where, the so-called ``flow routing problem'' (a variation of which is the problem of determining the drainage area upstream of a point in a DEM). The traditional algorithm for flow routing is sequential, and attempts to parallelize this method have so far only been moderately successful. Herein, we build on earlier work in Richardson et al. (2014) and propose an algorithm and several variations that can efficiently solve the flow routing problem on very large models with very large numbers of parallel processes. For the largest model we use, with 1.88 billion points, the best algorithm herein can route water in 4.0 seconds on 12,288 processes of a computer cluster.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/14/2606.08876v1-ro-lidar-geoquickview-a-web-platform-for-exploring-public-lidar-derived-elevation-data-in-romania",
+      "section": "quick",
+      "title_en": "RO-LiDAR GeoQuickView: A Web Platform for Exploring Public LiDAR-Derived Elevation Data in Romania",
+      "authors": "Alexandru Hegyi",
+      "date": "2026-06-07",
+      "pdf": "https://arxiv.org/pdf/2606.08876v1",
+      "score": "7.0",
+      "evidence": "提供LiDAR高程数据平台，支持洪水风险评估",
+      "tldr": "公共高程数据因交付零散且需专业处理而难以复用。为破解此问题，本文构建RO-LiDAR GeoQuickView非商业Web-GIS平台，集成LiDAR DTM与多种高程模型，通过标准化山体可视化和空间索引实现浏览器直接访问。平台已集成0.5米LAKI III Zone A DTM覆盖四个县，即将扩展至Zone B等区域。该平台作为公共数据的访问层，促进快速发现与初步解释，但不替代官方产品与专家验证。",
+      "tags": "query:urban-flood",
+      "abstract_en": "Public elevation data can support landscape research, environmental interpretation, planning, education, and public engagement, but their practical reuse is often limited by fragmented delivery and specialist processing requirements. This paper presents RO-LiDAR GeoQuickView, an independent, voluntary, and non-commercial Web-GIS initiative for exploring and reusing publicly accessible elevation data in Romania. The platform integrates LiDAR-derived digital terrain models (DTMs) and complementary elevation models of different resolutions, publishes standardized hillshade visualizations for immediate browser access, supports participatory landscape documentation, and provides a spatial index for direct raster retrieval. Its most detailed currently integrated component is the 0.5 m LAKI III Zone A DTM coverage for Caras-Severin, Gorj, Mehedinti, and Dolj counties. LAKI III Zone B, comprising Suceava, Neamt, Bacau, and Vrancea counties, is the next scheduled high-resolution extension. It will be integrated after the public products become available and pass through the same harmonization and quality-control workflow. The platform also incorporates LAKI II and additional public altimetric sources through a source-aware processing workflow that accommodates different acquisition units, including one-kilometre cells and larger raster blocks. The paper documents the data architecture, harmonization steps, quality-control procedures, access modes, application range, and limitations. The platform is conceived as an accessibility layer over public data infrastructures: it supports rapid discovery and preliminary interpretation, but it does not replace official products, specialist modelling, expert review, or field verification.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
