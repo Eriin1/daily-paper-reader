@@ -1,0 +1,2338 @@
+Title: Kling-Gupta linear regression
+
+URL Source: https://arxiv.org/pdf/2606.09391v2
+
+Published Time: Mon, 15 Jun 2026 00:44:18 GMT
+
+Number of Pages: 64
+
+Markdown Content:
+# Kling-Gupta linear regression 
+
+Hristos Tyralis 1* , Georgia Papacharalampous 21Support Command, Hellenic Air Force, Elefsina Air Base, 19 200, Elefsina, Greece (montchrister@gmail.com , hristos@itia.ntua.gr , https://orcid.org/0000-000 2-8932-4997 )
+
+> 2
+
+Department of Land, Environment, Agriculture and Forestry, University of Padova, Viale dell’Universit` a 16, 35020, Legnaro, Italy (papacharalampous.georgia@gmail.com , georgia.papacharalampous@unipd.it ,
+
+https://orcid.org/0000-0001-5446-954X )
+
+> *
+
+Corresponding author 
+
+Abstract : Kling-Gupta efficiency (KGE) is a model performance evaluation metric widely used in hydrology, but its properties as a statistical estimator have remained unex-plored. We formalize the Kling-Gupta loss LKG = (1 − KGE) 2 in an extremum estimation framework (maximizing KGE) for multiple linear regression. We give explicit formulas showing that Kling-Gupta regression scales the ordinary least squares (OLS) coefficient vector by a variance-inflation factor depending on sample variances and covariances. Its predictions reproduce the training set response variance, unlike OLS’s variance reduction, while both maintain the response mean and achieve the same sample correlation. We prove that no estimator simultaneously maximizes Nash-Sutcliffe efficiency (NSE) and KGE: OLS maximizes NSE but not KGE, whereas Kling-Gupta regression maximizes KGE at the expense of NSE. We establish almost-sure convergence of the Kling-Gupta estimator to well-defined population limits. The training and test set performance met-rics for both estimators converge asymptotically to identical limits (different for OLS vs. Kling-Gupta). In a single-predictor model with fixed intercept, we identify conditions where a global minimum of LKG does not exist because of discontinuity at zero slope. This work establishes a mathematical foundation for KGE-based estimation and clarifies its effects on predictive performance in hydrologic modeling. 
+
+Keywords : calibration; extremum estimator; hydrologic modeling; Kling-Gupta effi-ciency; mean squared error; Nash-Sutcliffe efficiency 1
+
+> arXiv:2606.09391v2 [math.ST] 12 Jun 2026
+
+1. Introduction 
+
+Model estimation (calibration, training) and evaluation (validation, testing) lie at the heart of hydrologic research (Beven 2025; Klemeˇ s 1986; Moriasi et al. 2012; 2015b). For the purpose of estimation and evaluation, a critical step is the selection of a suitable loss function, often referred to as an objective function. The squared error loss is one such function that sees widespread application across hydrology (Bennett et al. 2013; Biondi et al. 2012; Jackson et al. 2019; Krause et al. 2005; Moriasi et al. 2007; 2015a): 
+
+LSE (z, y ) := ( z − y)2 (1.1) This loss penalizes the error of a prediction z for a random variable y when y realizes. In practice, the average empirical counterpart of the squared error loss, the mean squared error (MSE), is computed in the validation (test) set, to compare predictions: MSE( zn, yn) := (1 /n ) ∑ni=1 LSE (zi, y i) = (1 /n ) ∑ni=1 (zi − yi)2 (1.2) Here and in the following, yn = ( y1, . . . , y n)T represents the observations of the random variable y (with vector formulation defined in eq. (A.1)) and zn = ( z1, . . . , z n)T represents the model’s predictions. Minimizing the MSE also functions as a consistent estimator of semiparametric regression models that predict the conditional mean (Dimitriadis et al. 2024; Gneiting 2011). To compare model predictions across multiple catchments, research has favored homo-geneous performance metrics of degree zero (often called dimensionless) whose ranges facilitate straightforward interpretation. The Nash-Sutcliffe efficiency (NSE), introduced by (Nash and Sutcliffe 1970), is arguably the earliest metric in the field to exhibit these properties, mapping to the interval ( −∞ , 1]: NSE( zn, yn) := 1 − MSE( zn, yn)MSE( μ(yn)1n, yn) (1.3) where μ(yn) represents the sample mean of the vector yn, as defined in eq. (A.17) and 1n
+
+represents the all-ones vector, as defined in eq. (A.3). Interpreting NSE is straightforward; higher values correspond to better performance. An efficiency of unity indicates perfect performance, whereas an efficiency of zero suggests the model performs as well as the constant mean climatology, with respect to the MSE. Building upon the legacy of NSE (Melsen et al. 2025), research in the discipline strived to develop performance metrics that retain both homogeneity of degree zero and an upper bound of unity. To achieve this, one might select a loss function bounded below by zero, render its average empirical counterpart homogeneous of degree zero (representing this homogeneous form as L), for instance by dividing the function by a suitable transformation of the observations and subsequently subtract this quantity from unity, to formulate 1 −L.2In hydrology, such formulations are often referred to as efficiencies. Following NSE, the most prominent example is the Kling-Gupta efficiency (KGE), established by (Gupta et al. 2009): KGE( zn, yn) := 1 −
+
+> √√√√
+
+(1 − μ(zn)
+
+μ(yn))2 + (1 − σ(zn)
+
+σ(yn))2 + (1 − ρ(zn, yn)) 2,μ(yn), σ (yn), σ (zn) ∈ R\{ 0}
+
+(1.4) where σ(yn) and σ(zn) represent the sample standard deviations of the corresponding vectors, defined in eq. (A.19) and ρ(zn, yn) is the Pearson sample correlation between zn
+
+and yn, defined in eq. (A.33). Following the usual convention, which we adopt throughout the manuscript, we refer to (1 − μ(zn) 
+
+> μ(yn)
+
+)2 as the bias term, (1 − σ(zn) 
+
+> σ(yn)
+
+)2 as the variability term and (1 − ρ(zn, yn)) 2 as the correlation term (Kling et al. 2012). Regardless of the reasoning behind the development of the KGE from the NSE (detailed in the work by (Gupta et al. 2009)) and evaluating strictly its mathematical structure in eq. (1.4), the metric rewards predictions where μ(zn) converges to μ(yn), σ(zn) converges to σ(yn) and ρ(zn, yn) approaches unity. Expressed differently, KGE favors predictions that align closely with the observed data in terms of their sample mean and their sample variance (or spread) and that are perfectly linearly correlated with them. The original paper examined the KGE in the contexts of both model estimation and pre-diction evaluation. Although existing literature presents some theoretical discourse on its application as an evaluation metric, a theoretical assessment of its use in estimation remains absent. As a direct result, the wider literature frequently labels the KGE as an “informal” metric. This represents a knowledge gap, particularly given the established link between consistent M -estimators for a specific model (Huber 1964; 1967; Newey and McFadden 1994) and strictly consistent loss functions for a specified functional. By definition, a strictly consistent loss function for a functional achieves its expected mini-mum when a prediction matches that functional (Gneiting 2011); (Dimitriadis et al. 2024) demonstrate this equivalence between consistent M -estimation and strictly consistent loss functions; the latter in the context of prediction evaluation. In practice, when applied to fit a correctly specified and point-identified semiparametric regression model (e.g., minimizing the MSE), the M -estimator determines which functional of the dependent variable’s distribution (such as the mean) the model predicts, and vice versa (Dimitriadis et al. 2024). Here, we aim to establish some formal theoretical properties of the estimator that mini-mizes the Kling-Gupta loss for a linear model. Focusing on the linear model is the canon-ical starting point for any new estimation theory. Nearly every major statistical method, from OLS to ridge regression, was first fully understood in the linear setting before being extended to nonlinear systems. To this end, we consider the loss defined by (1 − KGE) 2,3the square of a negatively oriented version of the KGE. We refer to this formulation as the 
+
+Kling-Gupta loss , formally defining it in eq. (2.11). Therefore, we analyze the estimator that minimizes this loss as an extremum estimator. Literature on extremum estimators includes works by (Amemiya 1973; 1985) and (Newey and McFadden 1994). The class of M -estimators is a subset of the class of extremum estimators, which includes, among others, the minimizer of the MSE (i.e., the least squares estimator). The estimator that minimizes the Kling-Gupta loss is not an M -estimator, but it does belong to the wider class of extremum estimators. Analyzing hydrology-specific metrics as extremum estimators is not a new concept, though it remains rare. (Tyralis and Papacharalampous 2025) previously employed this frame-work to analyze the index of agreement (Willmott 1981). We restrict our attention to the case of estimation and prediction evaluation for a single time series (or catchment); even though practical applications frequently span multiple catchments. Applying the NSE or KGE to evaluate predictions for multiple time series simultaneously alters the interpretation of these metrics, as empirically demonstrated by (Williams 2025). For the NSE, (Tyralis and Papacharalampous 2026) contribute additional theoretical results within a decision-theoretic setting, illustrating property shifts during multi-series predic-tion evaluations; however, mirroring this analysis for the KGE falls outside the scope of this manuscript. Sections 2.6 and 3 detail the contributions of this paper, which are as follows: (i) We analyze the extremum estimator defined by minimizing the Kling-Gupta loss function, specifically for linear models (Section 3.1), a formulation which we refer to as 
+
+Kling-Gupta linear regression . We formulate explicit, closed-form parameter estimates and demonstrate that Kling-Gupta linear regression operates as a variance-inflation pro-cedure relative to OLS, ensuring the model predictions reproduce the marginal variance of the observations on the training set. We also prove that both estimators have the same sample mean (equal to that of the observations) and the same correlation between predictions and observations on the training set. (ii) We characterize the predictive performance of the estimator across multiple metrics, establishing the exact theoretical trade-offs between MSE, NSE, KGE, and the Kling-Gupta loss within the training set (Section 3.3). We extend these findings to asymptotic settings, addressing both the infinite training data limit (Section 3.4) and the associated infinite test set data performance (Section 3.5). (iii) We prove the uniqueness of the global minimizer for the Kling-Gupta loss (Sec-tion 2.6). Furthermore, we examine constrained estimation settings, estimating parame-ters in models with fixed regression coefficients (Section 3.6) and in single-predictor linear models with fixed intercepts (Section 3.7). In the latter case, we show that a global 4minimum may fail to exist for the slope parameter, a consequence of the loss function’s domain restrictions and its inherent discontinuity at a slope of zero. The remainder of the manuscript is structured as follows. Section 2 outlines the prerequi-site theoretical background. Section 3 details the primary statistical contributions, while Section 4 demonstrates practical hydrologic applications for these theoretical findings. Section 5 synthesizes the results, situating them within the context of extant literature in the discipline and discusses their implications. We conclude in Section 6. Appendix A establishes the notation, Appendix B details all mathematical proofs and Appendix C out-lines the statistical software used. All computations required to reproduce this manuscript are fully accessible as supplementary information. 
+
+2. Theoretical background 
+
+This section establishes the theoretical concepts required to analyze the Kling-Gupta loss as an extremum estimator. The exposition proceeds from strictly consistent loss functions (Section 2.1) through the framework of extremum and M -estimators (Section 2.2) to the equivalence between strictly consistent loss functions and consistent M -estimators (Sec-tion 2.3), a correspondence that underpins the analysis throughout. Hydrologic models are then situated within the semiparametric regression framework (Section 2.4), where model predictions are understood to represent specific statistical functionals of the condi-tional streamflow distribution. Common loss functions and performance metrics employed in hydrology, including the squared error loss and the NSE, are illustrated in Section 2.5. Subsequently, Section 2.6 introduces the Kling-Gupta loss, a negatively oriented transfor-mation of the KGE, and establishes its elementary properties. The section concludes with the mathematical formulation of the linear model (Section 2.7) and OLS linear regression (Section 2.8), both of which underpin the theoretical developments of Section 3. 
+
+2.1 Strictly consistent loss functions 
+
+A favorable property of any loss function is its (strict) consistency. To examine this concept, it is necessary to first establish the definition of a statistical functional. Let y
+
+be a random variable and let a realization of this variable be y. The notation y ∼ Fy
+
+indicates that the random variable y follows the cumulative distribution function (CDF) 
+
+Fy, which is defined as: 
+
+Fy(y) := P (y ≤ y) (2.1) A one-dimensional statistical functional T (often referred to simply as a functional) is a mapping (Gneiting 2011): 
+
+T : F → P (D), F y 7 → T (Fy) ⊆ D (2.2) 5Here, F represents a specified class of probability distributions. This mapping assigns every distribution Fy ∈ F to a corresponding subset T (Fy) within a set D ⊆ R, thereby constituting an element of the power set P(D). A given loss function L is said to be F-consistent for a specified functional T if its expectation satisfies the following inequality for all probability distributions in the class 
+
+F (Gneiting 2011; Murphy and Daan 1985): 
+
+EFy [L(t, y )] ≤ EFy [L(z, y )] ∀Fy ∈ F , t ∈ T (Fy), z ∈ D (2.3) Furthermore, L is characterized as strictly F-consistent if it satisfies F-consistency and equality in eq. (2.3) holds strictly when the prediction z ∈ T (Fy). To illustrate the practical significance of strict consistency, suppose a modeler is tasked with forecasting the expected value (mean) of the random variable y. The squared error loss is strictly consistent for the mean (Gneiting 2011). Therefore, a modeler who correctly predicts the true mean will, in expectation, achieve the minimum of this specific loss function. Because the expected loss expressed in eq. (2.3) is a population-level characteristic, prac-tical applications that assess and compare predictive performance must use its empirical counterpart. This is formulated as the sample average loss: 
+
+L(zn, yn) := (1 /n ) ∑ni=1 L(zi, y i) (2.4) where predictions with a lower value of L are ranked as better. 
+
+2.2 Extremum and M -estimators 
+
+The theoretical framework for extremum estimators was established by (Amemiya 1973; 1985) and (Newey and McFadden 1994). Let a loss function L(θ, yn) be designed to measure the discrepancy between a parameter vector θ and a realized vector yn generated from a random variable y that follows the CDF Fy. We assume that the true parameter value θ0 of Fy lies within the parameter space Θ and corresponds to a specific statistical functional of the distribution Fy (such as the expectation, EFy [y]). An extremum estimator ̂
+
+θ(yn) for the parameter θ0 is defined as the solution to the following optimization problem: ̂
+
+θ(yn) := arg min 
+
+> θ∈Θ
+
+L(θ, yn) (2.5) The statistical behavior and asymptotic properties of the estimator ̂ θ(yn) are inherently governed by the sample size n, which appears in the empirical observations yn, as well as by the specific form of the loss function L. The formulation in eq. (2.5) refers to models without predictors, e.g., parameter estimation for probability distributions. Semiparamet-ric regression models will be introduced later in Section 2.4, while extremum estimators for such models will be formulated in Section 2.6. 6While the loss function L can assume a wide variety of forms, settings characterized by additivity have been the subject of attention in the statistical literature. Estimators arising from such additive loss functions are classified as M -estimators, a conceptual class introduced by (Huber 1964; 1967). In the context of a scalar parameter θ0, an M -estimator takes the following form: ̂
+
+θ(yn) := arg min 
+
+> θ∈Θ
+
+(1 /n ) ∑ni=1 L(θ, y i) (2.6) An illustration of this class is the estimator arising from the squared error loss, which corresponds to the consistent M -estimator of the population expectation EFy [y]. This estimator is expressed as: ̂
+
+μ(yn) := arg min 
+
+> θ∈Θ
+
+(1 /n ) ∑ni=1 (θ − yi)2 = arg min 
+
+> θ∈Θ
+
+MSE( θ1n, yn), Θ ⊆ R (2.7) A favorable property for any statistical estimator is consistency. An estimator ̂ θ(yn) of true underlying parameter θ0 is consistent if, as the sample size increases, it converges in probability toward θ0, meaning ̂ θ(yn) P
+
+−→ θ0. As a practical example, ̂ μ(yn) is a consistent estimator for the expectation EFy [y] as demonstrated by (Dimitriadis et al. 2024) among others. 
+
+2.3 Estimation and evaluation: A unified framework 
+
+Although model estimation (training) and prediction evaluation (testing) are often treated as distinct procedural steps, they are unified within the framework of M -estimators. Specifically, (Dimitriadis et al. 2024) established a mathematical equivalence: an M -estimator of a true parameter θ0 is consistent if and only if the estimator’s generating loss function (as formulated in eq. (2.6)) is strictly consistent for the statistical functional T0
+
+corresponding to θ0.It is important to distinguish between the statistical consistency of an estimator and the strict consistency of a loss function, as they apply to separate procedures. Nevertheless, their equivalence implies that minimizing a strictly consistent loss function during the training of a semiparametric regression model incentivizes the model to predict the true underlying functional. This outcome arises because the expected loss EFy [L(z, y )] attains its global minimum when the prediction z aligns with the functional’s true value T0.Given that a single statistical functional can be associated with an infinite family of strictly consistent loss functions, the specific metric chosen for evaluation must be disclosed to the modeler a priori. As demonstrated by (Patton 2020), model rankings are highly sensitive to this selection in practical applications, particularly when the data-generating process is unknown. Moreover, different loss functions belonging to the same family (i.e., all strictly consistent for a given functional) can lead to entirely divergent hierarchies of model performance. 72.4 Hydrologic models as semiparametric regression models 
+
+Let the random variable y represent the streamflow process. We define a hydrologic model 
+
+HM , which is characterized by a parameter vector θ belonging to a specified parameter space Θ. The model processes a vector of predictor variables xp, such as precipitation, temperature or evapotranspiration, to issue a specific prediction z. Importantly, z is not a direct physical realization of streamflow; rather, it is a specific statistical functional computed from the streamflow conditional probability distribution of y|xp given the me-teorological forcing data. This predictive relationship is formalized as: 
+
+z = HM (xp; θ) (2.8) Such structural representations of hydrologic systems are well-documented in the litera-ture (e.g., (Montanari and Koutsoyiannis 2012) present a distributional regression equiv-alent of model (2.8)). (Vrugt 2024) specifically refers to such predictions z of hydrologic models as “hydrograph functionals”. In this context, the standard modeling workflow com-prises two distinct phases: model estimation (calibration) and model testing (validation), as detailed by (Klemeˇ s 1986) and (Beven 2025). For a hydrologic model that is correctly specified and point-identified, a unique true parameter vector θ0 ∈ Θ exists such that the model’s prediction perfectly matches the target functional: 
+
+T (Fy|xp ) = HM (xp; θ0) (2.9) While this theoretical framework was explicitly formalized by (Dimitriadis et al. 2024) for general semiparametric regression analysis, it applies directly to hydrologic modeling architectures. In practice, even if the structure of HM is assumed to represent the true data-generating process, the true parameter vector θ0 remains unknown and must be estimated from ob-servations. The standard estimation approach involves selecting a specific loss function 
+
+L, to construct an M -estimator for θ0. Given a sequence of predictor data Xn×p (the subscript n × p indicates the matrix dimensions, as defined in eq. (A.4)), where each row of Xn×p corresponds to a single observation of the predictor vector xp, and corre-sponding observed streamflow targets yn, the estimator is found by solving the following optimization problem: ̂
+
+θ(Xn×p, yn) := arg min 
+
+> θ∈Θ
+
+(1 /n ) ∑ni=1 L(HM (XT
+
+> i, •
+
+; θ), y i) (2.10) where Xi, • is the ith row of Xn×p (see eq. (A.5)). The choice of the loss function L deter-mines the specific statistical functional that the model is trained to predict (Dimitriadis et al. 2024), as explained in Section 2.3. For instance, minimizing the squared error loss incentivizes the model to predict the conditional expectation. 8Because the true underlying data-generating mechanism of a catchment is never known, modelers typically evaluate a range of candidate models. The testing phase involves ranking these alternative models against a test set to identify the best predictive structure (Klemeˇ s 1986). Loss functions are equally central to this evaluation phase; models are compared based on their average empirical loss, computed as in eq. (2.4). The candidate model that achieves the lowest average loss on the test set is then selected as the best model for predicting that specific functional (Gneiting 2011). 
+
+2.5 Squared error loss and Nash-Sutcliffe efficiency 
+
+The squared error loss, defined in eq. (1.1), is an important loss function and belongs to the broader family of Bregman loss functions (Banerjee et al. 2005; Gneiting 2011; Patton 2011; Reichelstein and Osband 1984; Saerens 2000; Savage 1971). As established in Section 2.1, this loss function is strictly consistent for the mean functional. Substitut-ing the squared error loss into eq. (2.4) gives the MSE, defined in eq. (1.2). Therefore, minimizing the MSE during model estimation functions as an M -estimator that incen-tivizes a correctly specified semiparametric regression model to predict the conditional expectation. To facilitate interpretable comparisons across models, the NSE, defined in eq. (1.3), is widely adopted as a skill score. The NSE normalizes the MSE of a model’s predictions by the MSE of the mean climatology μ(yn), thereby transforming the squared error loss into a homogeneous efficiency metric of degree zero that maps to the interval ( −∞ , 1]. Within this framework, an NSE of unity indicates perfect predictive performance, a value of zero signifies that the model performs equivalently to the mean climatology and negative val-ues indicate that the mean climatology outperforms the model. As a skill score, the NSE thus quantifies predictive skill relative to the mean climatology benchmark (Gneiting and Resin 2023; Murphy 1988). For evaluations involving a single time series, the NSE retains the model rankings established by the MSE but is often preferred for its interpretabil-ity (Tyralis and Papacharalampous 2026). MSE and NSE lead to identical parameter estimates when fitting a semiparametric regression model to a single time series. 
+
+2.6 Kling-Gupta loss 
+
+Unlike the NSE, the KGE is not a skill score, nor does it function as an M -estimator for single time series problems, because, unlike the MSE, it lacks an additive structure. As indicated in Section 1, we adopt a bijective transformation of the KGE, which we refer to as the Kling-Gupta loss, to facilitate our analysis. This loss function is defined as: 
+
+LKG (zn, yn) := (1 − μ(zn)
+
+μ(yn))2 + (1 − σ(zn)
+
+σ(yn))2 + (1 − ρ(zn, yn)) 2,μ(yn), σ (yn), σ (zn) ∈ R\{ 0}
+
+(2.11) 9For single time series problems, working with KGE or LKG is equivalent, as the two are related by the bijective transformation: 
+
+LKG (zn, yn) = (1 − KGE( zn, yn)) 2, KGE( zn, yn) = 1 −
+
+> √
+
+LKG (zn, yn) (2.12) Eliminating the square root from the KGE expression facilitates analytical computations (e.g., differentiation) without compromising interpretability. LKG possesses the structure of a loss function, meaning it is negatively oriented and bounded below by zero. A value of 
+
+LKG = 0 corresponds to KGE = 1. Unconditional forecasts from a probability distribution with expectation EFz [z] = μ(yn) and variance Var Fz [z] = σ2(yn) (defined in eq. (A.39)) give, in expectation, LKG = 1 and KGE = 0. As established in Proof B.1, LKG attains its unique minimum value of zero if and only if zn = yn. To the best of our knowledge, this result, specifically the demonstration of equivalence, has not previously appeared in the KGE-related literature. Moreover, LKG 
+
+exhibits homogeneity of degree zero, as expressed by: 
+
+LKG (czn, c yn) = LKG (zn, yn), c ̸ = 0 (2.13) The formulation in eq. (2.5), with L replaced by LKG , corresponds to extremum parameter estimation problems with KGE that lack predictors and involve a scalar parameter θ (e.g., estimating a parameter of a probability distribution). In such cases, the optimization would take the form of eq. (2.5), with zn = θ1n. However, the Kling-Gupta loss is undefined when zn = θ1n, because this implies σ(zn) = 0, which violates the domain restriction specified in eq. (2.11). Therefore, the estimation problem cannot be posed within this framework. Nevertheless, LKG can function as an extremum estimator, according to eq. (2.5), for semiparametric regression models. In this context, for a semiparametric model of the form introduced in Section 2.4, we refer to the extremum estimator as Kling-Gupta extremum estimator , which takes the following form: ̂
+
+θ(Xn×p, yn) := arg min 
+
+> θ∈Θ
+
+LKG (HM n(Xn×p; θ), yn) (2.14) where HM n represents the n predictions of the hydrologic model HM specified in eq. (2.8) and Xn×p is the predictor matrix, each row of which corresponds to a single observation of the predictor vector xp:
+
+HM n(Xn×p; θ) = ( HM (XT
+
+> 1,•
+
+; θ), . . . , HM (XT
+
+> n, •
+
+; θ)) T (2.15) 10 2.7 The linear model 
+
+This section introduces the general formulation of a linear model, which is independent of the specific estimator used for the model parameters. Sections 2.8 and 3 then show how these baseline expressions take distinct forms under different estimation methods. 
+
+2.7.1 Linear model with multiple predictors 
+
+Let y be a scalar response random variable and let xp represent a p-dimensional predictor vector. A linear model designed to predict a specific statistical functional of the response variable y is defined as follows: 
+
+z = aT 
+
+> p
+
+xp + bp (2.16) where ap ∈ Rp is the vector of regression coefficients (slopes) and bp ∈ R is the intercept. Let 
+
+θ1×(p+1) = ( a1, . . . , a p, b p) ∈ R1×(p+1) (2.17) be the parameter vector of the coefficients and the intercept. Given a sample of n obser-vations, let yn be the vector of realizations of the response variable and let Xn×p be the predictor matrix. Each row of Xn×p corresponds to a single observation of the predictor vector xp. We assume the sample size is sufficiently large such that n ≥ p. We further assume that Xn×p has full column rank and that the all-ones vector 1n does not lie in its column space. Because the linear model in eq. (2.16) issues scalar predictions, the complete vector of predictions for all n observations can be expressed compactly in matrix form as: 
+
+zn = ˜Xn×(p+1) θT 
+
+> 1×(p+1)
+
+= Xn×pap + bp1n (2.18) where zn is the n-dimensional vector of predictions and the augmented predictor matrix 
+
+> ˜
+
+Xn×(p+1) is constructed by appending a column of ones to Xn×p:
+
+> ˜
+
+Xn×(p+1) := 
+
+> [
+
+Xn×p 1n
+
+> ]
+
+(2.19) To facilitate variance and covariance computations, we define the centered (mean-subtracted) predictor matrix as (eq. (A.25)): 
+
+Xn×p, c = P n×nXn×p (2.20) where P n×n is the centering matrix defined in eq. (A.22). Applying this centering opera-tion to the predictions leads to the centered prediction vector znc (defined in eq. (A.21)): 
+
+znc = P n×nzn = P n×n(Xn×pap + bp1n) = Xn×p, cap (2.21) 11 The sample mean of the predictions μ(zn) is given by: 
+
+μ(zn) = ( μ(Xn×p)) Tap + bp (2.22) where μ(Xn×p) is the vector of component-wise sample means for the columns of Xn×p,defined as in eq. (A.18): 
+
+μ(Xn×p) = ( μ(X•,1), . . . , μ (X•,p )) T (2.23) By definition, the sample mean of the centered prediction vector znc is strictly zero (see eq. (A.26)): 
+
+μ(znc) = 0 (2.24) The sample standard deviation of the predictions follows from eqs. (2.21) and (A.19): 
+
+σ(zn) = 
+
+> √
+
+(zT
+
+> nc
+
+znc)/n =
+
+> √
+
+(aT 
+
+> p
+
+XT
+
+> n×p, c
+
+Xn×p, cap)/n = √
+
+aT 
+
+> p
+
+Sp×pap (2.25) where Sp×p represents the sample covariance matrix of the predictor variables: 
+
+Sp×p = ( XT
+
+> n×p, c
+
+Xn×p, c)/n (2.26) The sample covariance matrix Sp×p is symmetric and square. Given our prior assumption that Xn×p has full column rank and that the all-ones vector 1n does not lie in its column space, Property 4 in (Amrhein et al. 1996) ensures that the centered matrix Xn×p, c also maintains full column rank. Therefore, the cross-product matrix XT
+
+> n×p, c
+
+Xn×p, c is both full rank and positive definite (Gentle 2024, p. 138). This positive definiteness ensures the matrix Sp×p is nonsingular (Gentle 2024, p. 122) and therefore invertible (Gentle 2024, p. 129). Finally, the Pearson sample correlation between the model predictions and the realizations is calculated using eqs. (2.21) and (A.33). The vector inequality in eq. (2.27) follows the convention of eq. (A.8): 
+
+ρ(zn, yn) = zT
+
+> nc
+
+ync
+
+nσ (zn)σ(yn) = aT 
+
+> p
+
+XT
+
+> n×p, c
+
+ync
+
+nσ (zn)σ(yn) = aT 
+
+> p
+
+sp
+
+σ(zn)σ(yn)= aT 
+
+> p
+
+sp
+
+> √
+
+aT 
+
+> p
+
+Sp×papσ(yn), ap̸ = 0p
+
+(2.27) where sp represents the sample cross-covariance vector between the centered predictors and the centered response variable and 0p is the zero vector, defined in eq. (A.2): 
+
+sp = ( XT
+
+> n×p, c
+
+ync)/n = ( XT
+
+> n×p
+
+P n×nyn)/n (2.28) 12 2.7.2 Linear model with a single predictor 
+
+This section addresses the simplified special case involving only a single predictor variable, that arises from eq. (2.16) for p = 1. Let xn represent the vector of predictor values, corresponding directly to the single column of the predictor matrix Xn×1 discussed in Section 2.7.1. The linear model formulation simplifies to: 
+
+z = ax + b (2.29) where a ∈ R is the slope (regression) coefficient and b ∈ R is the intercept. Let 
+
+θ1×2 = ( a, b ) ∈ R1×2 (2.30) be the parameter vector of the slope and the intercept. Accordingly, the complete vector of predictions for the sample can be expressed concisely as: 
+
+zn = ˜Xn×2θT 
+
+> 1×2
+
+= axn + b1n (2.31) The sample statistics of these predictions scale with the chosen parameters: 
+
+μ(zn) = aμ (xn) + b (2.32) 
+
+σ(zn) = |a|σ(xn) (2.33) 
+
+ρ(zn, yn) = sign( a)ρ(xn, yn), a ̸ = 0 (2.34) where the sign function is defined in eq. (A.16). 
+
+2.8 Estimating the linear model with the squared error loss 
+
+We examine the consequences of training the linear model introduced in Section 2.7 using the squared error loss, because these linear models will underpin much of the subsequent theory development. This estimation procedure is referred to in the literature as OLS linear regression, and its properties are well established (Gentle 2024). As discussed in Section 2.3, assuming that the data-generating process follows a linear model, training the model with the squared error loss ensures that it predicts the conditional mean of the dependent variable. 
+
+2.8.1 Ordinary least squares linear regression 
+
+We define the OLS estimate of the linear model in eq. (2.16) as the parameter vector that minimizes the MSE: ̂
+
+θ1×(p+1) ,OLS (Xn×p, yn) := arg min 
+
+> θ1×(p+1) ∈Θ
+
+MSE( ˜Xn×(p+1) θT
+
+> 1×(p+1)
+
+, yn) (2.35) 13 where θ1×(p+1) refers to the parameters of the linear model as specified in eq. (2.17). The estimate of the regression coefficients ̂ ap, OLS is given by (Gentle 2024, p. 441): ̂
+
+ap, OLS = ( XT
+
+> n×p, c
+
+Xn×p, c)−1XT
+
+> n×p, c
+
+ync = S−1
+
+> p×p
+
+sp (2.36) and the corresponding estimate of the intercept parameter is (Gentle 2024, p. 441): ̂
+
+bp, OLS = μ(yn) − (μ(Xn×p)) T̂ ap, OLS (2.37) The predictions of the OLS linear regression model on the training set take the form: 
+
+zn, OLS = Xn×p̂ ap, OLS +̂ bp, OLS 1n (2.38) Given a test predictor matrix Xk×p, test , the predictions from the estimated OLS linear regression model on the test set are given by: 
+
+zk, OLS ,test = Xk×p, test ̂ ap, OLS +̂ bp, OLS 1k (2.39) From the intercept eq. (2.37) and the prediction eq. (2.38), it follows directly that the sample mean of the predictions on the training set is: 
+
+μOLS := μ(zn, OLS ) = μ(yn) (2.40) We write the standard deviation of the predictions as: 
+
+σOLS := σ(zn, OLS ) (2.41) Because the OLS predictions have the same mean as the observations (see eq. (2.40)), substituting the intercept estimate from eq. (2.37) into eq. (2.38) gives the centered pre-dictions: 
+
+znc,OLS = Xn×p, ĉ ap, OLS (2.42) Then, from eqs. (2.25) and (2.41), σOLS can be expanded as: 
+
+σOLS =
+
+√
+
+(zT
+
+> nc,OLS
+
+znc,OLS )/n =
+
+√
+
+(1 /n )̂aT
+
+> p, OLS
+
+XT
+
+> n×p, c
+
+Xn×p, ĉ ap, OLS 
+
+=
+
+√̂ 
+
+aT
+
+> p, OLS
+
+Sp×p̂ ap, OLS 
+
+(2.43) For the sample cross-covariance, eq. (2.28) implies: 
+
+sp = ( XT
+
+> n×p, c
+
+ync)/n = (1 /n )XT
+
+> n×p, c
+
+Xn×p, c(XT
+
+> n×p, c
+
+Xn×p, c)−1XT
+
+> n×p, c
+
+ync
+
+= Sp×p̂ ap, OLS 
+
+(2.44) We define the OLS correlation ρOLS as: 
+
+ρOLS := ρ(zn, OLS , yn), sp̸ = 0p (2.45) 14 From eq. (2.44) the condition sp = 0p is equivalent to ̂ ap, OLS = 0p. In this zero cross-covariance case, ̂ bp, OLS = μ(yn), the OLS model predictions reduce to the constant vector 
+
+zn, OLS = μ(yn)1n and ρOLS becomes undefined; thus the domain of ρOLS is restricted to 
+
+sp̸ = 0p. Using the centered vector expressions from eqs. (2.27), (2.42), (2.44) and (A.33), we establish the following relationship for the correlation: 
+
+ρOLS = zT
+
+> nc,OLS
+
+ync
+
+nσ (zn, OLS )σ(yn) =̂ aT
+
+> p, OLS
+
+XT
+
+> n×p, c
+
+ync
+
+nσ (zn, OLS )σ(yn) =̂ aT
+
+> p, OLS
+
+sp
+
+σOLS σ(yn)=̂ aT
+
+> p, OLS
+
+Sp×p̂ ap, OLS 
+
+σOLS σ(yn) = σ2OLS 
+
+σOLS σ(yn) = σOLS 
+
+σ(yn) > 0, sp̸ = 0p
+
+(2.46) The correlation is positive, within its domain, ̂ ap, OLS ̸ = 0p, and therefore σOLS > 0 by eq. (2.43). Eq. (2.46) immediately gives: 
+
+σOLS ≤ σ(yn) (2.47) In summary, the key statistical properties of the OLS predictions on the training set are: 
+
+μ(zn, OLS ) = μ(yn) (2.48) 
+
+σ(zn, OLS ) = σOLS =
+
+√
+
+1
+
+nyT 
+
+> n
+
+P n×nXn×p(XT
+
+> n×p
+
+P n×nXn×p)−1XT
+
+> n×p
+
+P n×nyn (2.49) 
+
+ρ(zn, OLS , yn) = ρOLS = σOLS 
+
+σ(yn), sp̸ = 0p (2.50) 
+
+2.8.2 Ordinary least squares linear regression with a single predictor 
+
+We define the OLS estimator of the linear model in eq. (2.29) as the parameter vector that minimizes the MSE: ̂
+
+θ1×2,OLS (xn, yn) := arg min 
+
+> (a,b )∈R1×2
+
+MSE( axn + b1n, yn) (2.51) This formulation is a special case of the model estimated in Section 2.8.1, corresponding to p = 1. Therefore, the equations that follow emerge directly from their counterparts in Section 2.8.1 with p = 1. The predictions of the OLS linear regression model on the training set take the form: 
+
+zn, OLS =̂ aOLS xn +̂ bOLS 1n (2.52) Given a test predictor vector xk, the predictions from the estimated OLS linear regression model on the test set are given by: 
+
+zk, OLS ,test =̂ aOLS xk +̂ bOLS 1k (2.53) The estimate of the slope parameter is: ̂
+
+aOLS = ρ(xn, yn) σ(yn)
+
+σ(xn) (2.54) 15 The estimate of the intercept parameter is: ̂
+
+bOLS = μ(yn) − μ(xn)̂aOLS (2.55) In summary, the key statistical properties of the OLS predictions on the training set simplify to: 
+
+μ(zn, OLS ) = μ(yn) (2.56) 
+
+σ(zn, OLS ) = σOLS = |ρ(xn, yn)|σ(yn) (2.57) 
+
+ρ(zn, OLS , yn) = ρOLS = |ρ(xn, yn)|, ρ (xn, yn)̸ = 0 (2.58) 
+
+3. Kling-Gupta regression 
+
+This section details the primary theoretical developments of the manuscript. Building on the Kling-Gupta loss established in eq. (2.11), we specify the extremum estimation framework for linear models (Section 2.7) and identify closed-form expressions for the as-sociated parameter estimates. We define this estimation procedure as Kling-Gupta linear regression (Section 3.1). The estimator functions as a variance-inflated variant of OLS, ensuring predictions replicate the sample variance of the observations while maintaining mean and correlation properties. Section 3.2 establishes the asymptotic limits of the es-timators, while Section 3.3 quantifies the trade-offs between MSE, NSE, LKG , and KGE within the training set. These findings extend to infinite-sample settings in Sections 3.4 and 3.5, demonstrating that identical performance relationships persist asymptotically on independent test sets. Finally, we investigate constrained estimation: Section 3.6 analyzes fixed coefficient vectors, whereas Section 3.7 investigates the single-predictor model with a fixed intercept, characterizing conditions under which a global minimum for the slope parameter does not exist. 
+
+3.1 Kling-Gupta linear regression 
+
+Section 2.6 established the Kling-Gupta loss as an extremum estimator; we now apply this framework to the linear models from Section 2.7. A comparison between these estimates and those from the OLS linear regression in Section 2.8 clarifies how minimizing the Kling-Gupta loss acts on the linear model during estimation. This approach defines the Kling-Gupta linear regression introduced in Section 1. 
+
+3.1.1 The Kling-Gupta linear regression with multiple predictors 
+
+The analytical results that follow are established in Proof B.2. We determine the param-eter estimates for the linear model z = aT 
+
+> p
+
+xp + bp specified in eq. (2.16) by minimizing the Kling-Gupta loss function LKG defined in eq. (2.11), given observations yn of the response 16 variable and Xn×p of the predictor variables, while following the notational conventions of Section 2.7.1. The sample size is assumed to be sufficiently large such that n ≥ p. We further assume that Xn×p has full column rank and that the all-ones vector 1n does not lie in its column space. Kling-Gupta linear regression minimizes LKG over the parameter vector θ1×(p+1) defined in eq. (2.17): ̂
+
+θ1×(p+1) ,KG (Xn×p, yn) := arg min 
+
+> θ1×(p+1) ∈Θ
+
+LKG (˜Xn×(p+1) θT
+
+> 1×(p+1)
+
+, yn) (3.1) Prior to analyzing the parameter estimates, we contextualize them relative to the OLS estimates discussed in Section 2.8.1. Recall that OLS identifies the unique linear model that minimizes the MSE, with the coefficient vector ̂ ap, OLS and intercept ̂ bp, OLS estimates given by eqs. (2.36) and (2.37), respectively. Importantly, as established in eq. (2.47), OLS predictions on the training set exhibit a sample standard deviation σOLS that is less than or equal to that of the observations, σ(yn), as a result of minimizing squared vertical distances. The OLS intercept, however, perfectly aligns the sample means, ensuring 
+
+μ(zn, OLS ) = μ(yn). In cases where the sample cross-covariance vector is non-zero ( sp̸ = 0p), the Kling-Gupta coefficient parameter estimate is an explicit scaling of the OLS coefficients: ̂
+
+ap, KG = σ(yn)
+
+σOLS ̂
+
+ap, OLS (3.2) Eq. (3.2) implies that the Kling-Gupta extremum estimator maintains the direction of the regression vector determined by OLS. It amplifies the magnitude of this vector by a factor  
+
+> σ(yn)
+> σOLS
+
+≥ 1, which is the specific multiplier that eliminates the variance reduction inherent to OLS (see eq. (2.47)). Accordingly, Kling-Gupta linear regression can be viewed as OLS linear regression followed by a subsequent variance-inflation correction. When the cross-covariance vanishes ( sp = 0p), the OLS estimator produces a constant prediction equal to μ(yn). The Kling-Gupta estimator, however, cannot admit a zero-variance prediction due to the domain restriction in eq. (2.11). The minimization problem therefore does not result in a unique point estimate; rather, the solution lies on the ellipsoid defined by the predictor covariance structure: ̂
+
+aT
+
+> p, KG
+
+Sp×p̂ ap, KG = σ2(yn) (3.3) Any coefficient vector satisfying eq. (3.3) forces the estimated Kling-Gupta linear model to issue predictions whose sample variance equals that of the observations, thereby setting the variance penalty term of LKG to zero. This behavior highlights a characteristic of op-timizing the Kling-Gupta loss when the correlation between predictions and observations is zero: the estimator favors a model that generates high-variance fluctuations over the constant mean climatology. 17 Despite the pronounced differences in slope estimation, the mechanism for enforcing mean-unbiasedness remains structurally identical to that of OLS. In all cases, the Kling-Gupta linear regression model determines its intercept estimate by aligning the sample means: ̂
+
+bp, KG = μ(yn) − (μ(Xn×p)) T̂ ap, KG (3.4) Similar to the OLS estimate (eq. (2.37)), the intercept functions as a centering term that eliminates any bias introduced by the slope coefficients. To facilitate a unified treatment of the correlation between Kling-Gupta predictions and observations independent of the value of sp, we establish the following convention: 
+
+ρOLS (0) =
+
+> 
+
+ρOLS , if sp̸ = 0p
+
+0, if sp = 0p
+
+(3.5) Within the training set, the predictions of the Kling-Gupta estimated model are expressed as: 
+
+zn, KG = Xn×p̂ ap, KG +̂ bp, KG 1n (3.6) Given a test predictor matrix Xk×p, test , the predictions from the estimated Kling-Gupta linear regression model on the test set are given by: 
+
+zk, KG ,test = Xk×p, test ̂ ap, KG +̂ bp, KG 1k (3.7) The statistical properties of the model’s predictions on the training set are characterized as follows: 
+
+μ(zn, KG ) = μ(yn) (3.8) 
+
+σ(zn, KG ) = σ(yn) (3.9) 
+
+ρ(zn, KG , yn) = ρOLS (0) (3.10) These equations formalize the trade-off of Kling-Gupta linear regression. The estimator matches the observed variance at the expense of the least-squares optimality of OLS, which involves predictive variance reduction. In both models, the predictive means and correlations remain identical, and the predictive mean equals the observed mean. 
+
+3.1.2 The Kling-Gupta linear regression with a single predictor 
+
+The Kling-Gupta extremum estimator for the linear model z = ax + b in eq. (2.29) is defined as the parameter vector that minimizes LKG :̂
+
+θ1×2,KG (xn, yn) := arg min 
+
+> (a,b )∈R1×2
+
+LKG (axn + b1n, yn) (3.11) 18 The single-predictor case follows immediately from the general multiple-predictor frame-work of Section 3.1.1 by setting p = 1. While the results are therefore special cases of those already established, examining the simpler model offers substantial interpretive value. In instances where ρ(xn, yn)̸ = 0, the coefficient parameter estimate is formulated as: ̂
+
+aKG = σ(yn)
+
+σOLS ̂
+
+aOLS = sign( ρ(xn, yn)) σ(yn)
+
+σ(xn) (3.12) Therefore, the Kling-Gupta slope inherits the sign of the OLS slope but amplifies its magnitude by the factor σ(yn) 
+
+> σOLS
+
+.When the predictor and response are uncorrelated ( ρ(xn, yn) = 0), the OLS estimator issues a constant prediction equal to μ(yn). The Kling-Gupta extremum estimator, how-ever, cannot issue a constant prediction without violating the domain condition σ(zn)̸ = 0. The optimization therefore determines two symmetric estimates: ̂
+
+aKG = ± σ(yn)
+
+σ(xn) (3.13) This sign ambiguity arises from the structure of the Kling-Gupta loss. The correlation term is determined by sign( a)ρ(xn, yn), while the variability term depends only on |a|.When ρ(xn, yn) = 0, the correlation term simplifies to unity regardless of the sign of a,and the loss function treats positive and negative slopes as equally acceptable, as long as they align with the observed variance. In all cases, the intercept parameter estimate is determined to align the sample means, consistent with the OLS estimate: ̂
+
+bKG = μ(yn) − μ(xn)̂aKG (3.14) Within the training set, the predictions of the Kling-Gupta estimated model are expressed as: 
+
+zn, KG =̂ aKG xn +̂ bKG 1n (3.15) Given a test predictor vector xk, the predictions from the estimated Kling-Gupta linear regression model on the test set are given by: 
+
+zk, KG ,test =̂ aKG xk +̂ bKG 1k (3.16) The statistical properties of the model’s predictions on the training set are characterized as follows: 
+
+μ(zn, KG ) = μ(yn) (3.17) 
+
+σ(zn, KG ) = σ(yn) (3.18) 
+
+ρ(zn, KG , yn) = |ρ(xn, yn)| (3.19) 19 The single-predictor case constitutes an intuitive framework for understanding the more general multiple-predictor estimator. Kling-Gupta linear regression acts on the OLS esti-mate by applying a scale correction that inflates the predictions until their variance equals that of the observations, while the correlation remains unchanged. 
+
+3.1.3 Numerical illustration 
+
+To numerically and visually illustrate the theoretical properties and performance trade-offs of the OLS and Kling-Gupta estimators, we perform a simulation experiment. We generate n = 10 6 training samples and k = 10 6 test samples, where the predictor variable 
+
+x ∼ N (1 , 1) (with probability density function defined in eq. (A.54)) and the error term 
+
+ϵ ∼ N (0 , 2). The response variable y is constructed via the linear relation y = a0x+b0 +ϵ,with true parameter values a0 = 0 .60 and b0 = 1 .00. Under this data-generating setup, the population characteristics of the response variable are EFy [y] = 1 .60, Var Fy [y] = 4 .36, and Corr Fx,y (x, y ) ≈ 0.2873. We fit the single-predictor linear model z = ax + b (defined in eq. (2.29)) to the training set. The parameters a and b are estimated from the training data using two methods: OLS linear regression (with estimates given by eqs. (2.54) and (2.55)) and Kling-Gupta linear regression (with estimates given by eqs. (3.12) and (3.14)). Figure 1 visually compares the predictions from both estimated models across subsets of the training set and the test set. OLS predictions are computed using eqs. (2.52) (training) and (2.53) (test), while Kling-Gupta predictions are computed using eqs. (3.15) (training) and (3.16) (test). For visual clarity, predictions on the complete dataset are not shown. Table 1 summarizes the numerical results of the simulation, including sample means, variances, and correlations evaluated on the training and test sets, together with their population counterparts. Table 1: Statistical properties of observations, OLS predictions, and Kling-Gupta predic-tions for the simulation example of Section 3.1.3. Values are reported for the population, the training set, and the test set. Statistic Population Training set Test set Mean of observations 1.6000 1.6028 1.6028 Mean of OLS predictions 1.6000 1.6028 1.6018 Mean of Kling-Gupta predictions 1.6000 1.6028 1.5993 Variance of observations 4.3600 4.3591 4.3682 Variance of OLS predictions 0.3600 0.3619 0.3608 Variance of Kling-Gupta predictions 4.3600 4.3591 4.3460 Correlation (OLS predictions, observations) 0.2873 0.2881 0.2874 Correlation (Kling-Gupta predictions, observations) 0.2873 0.2881 0.2874 Panels (a) and (b) in Figure 1 show scatterplots of the observations together with the estimated OLS and Kling-Gupta regression lines plotted against the predictor x for the 20 Figure 1: Visual comparison of OLS (in blue) and Kling-Gupta linear regression (in red) for the simulation data in Section 3.1.3: (a) scatterplot of observations and predictions against the predictor x for the first 10 5 training samples, (b) scatterplot of observations and predictions against x for the first 10 5 test samples, (c) time series of observations and predictions for the first 10 5 training samples, (d) time series of observations and predictions for the first 10 5 test samples. 21 training and test sets, respectively. These plots illustrate how the variance of the pre-dictions depends on the estimation method. The OLS regression exhibits a flatter slope, so the variability of the predictions is reduced, which is consistent with minimizing the MSE. In contrast, the Kling-Gupta regression line exhibits a much steeper slope. This demonstrates that the estimator explicitly inflates the regression coefficients by the scal-ing factor σ(yn)/σ OLS to ensure that the predictions reproduce the full marginal sample variance of the observations. Panels (c) and (d) of Figure 1 show the sequentially ordered observations together with the predictions from both models for the training and test periods, resembling a hydrograph comparison. These time series plots indicate that the sample means of the observations and the OLS predictions are approximately equal, whereas the variance of the OLS pre-dictions is substantially lower than that of the observations, as expected from eq. (2.46) for the training set, which implies σOLS ≤ σ(yn). In contrast, the Kling-Gupta predictions exhibit a mean that aligns with the observations, while their variance also matches that of the observations, as expected from eq. (3.9) for the training set. These visual findings are confirmed by the numerical values in Table 1 for both the training and test sets. As demonstrated in Sections 2.8.1 and 3.1, such results are expected for the training set. For the test set, the results agree with the asymptotic behavior as n → ∞ and k → ∞ ,as shown in subsequent sections. Furthermore, the correlations between predictions and observations are equal for the OLS and Kling-Gupta models, as expected from eqs. (2.58) and (3.19). 
+
+3.2 Asymptotic properties of parameter estimators 
+
+The estimators established in Section 3.1 give explicit expressions for the Kling-Gupta linear regression parameters. Although these formulas are analytic for any finite sample size n, they offer limited insight into the behavior of the estimator as the sample size increases. Characterizing the asymptotic properties, particularly the limits toward which the estimators converge as n → ∞ , is essential to identify the population functional targeted by Kling-Gupta regression, to assess its statistical consistency, and to facilitate large-sample comparisons with OLS. Therefore, we determine the probability limits of the OLS and Kling-Gupta coefficient estimators under standard regularity conditions, assuming the data consist of independent and identically distributed (i.i.d.) samples from a joint distribution Fxp,y . These developments leverage the convergence properties of general statistics established in eqs. (A.45), (A.46), (A.47), (A.48), (A.49), and (A.50). To separate realized estimates from estimators, which are random variables, we underline the notation for estimators to signify their nature as random variables. The sample quantity σOLS from eq. (2.43) converges almost surely to: 
+
+σOLS a.s.
+
+−→ σOLS ∗ := √
+
+Cov Fxp,y (xp, y )T(Var Fxp [xp]) −1Cov Fxp,y (xp, y ) (3.20) 22 In this expression, Cov Fxp,y (xp, y ) is specified in eq. (A.43), whereas Var Fxp [xp] is defined in eq. (A.40). For the Kling-Gupta linear regression estimator, we separate the case where the predictor-response covariance vector is non-zero (Cov Fxp,y (xp, y )̸ = 0p) from the zero cross-covariance scenario (Cov Fxp,y (xp, y ) = 0p). Under the i.i.d. assumption, the sample predictive correlation specified in eq. (2.46) converges as n → ∞ :
+
+ρOLS a.s.
+
+−→ ρOLS ∗ = σOLS ∗
+
+√
+
+Var Fy [y], Cov Fxp,y (xp, y )̸ = 0p (3.21) We generalize ρOLS to the case where Cov Fxp,y (xp, y ) = 0p:
+
+ρOLS (0) 
+
+> a.s.
+
+−→ ρOLS ∗ 
+
+> (0)
+
+=
+
+
+
+ρOLS ∗ , if Cov Fxp,y (xp, y )̸ = 0p
+
+0, if Cov Fxp,y (xp, y ) = 0p
+
+(3.22) along with the analogous single-predictor case, which follows from eq. (A.47): 
+
+ρ(xn, yn) a.s.
+
+−→ Corr Fx,y (x, y ) (3.23) 
+
+3.2.1 Linear models with multiple predictors 
+
+We first summarize the asymptotic limits for the OLS estimator, which are documented in the literature and function as a benchmark. Applying the continuous mapping theorem to eqs. (2.36) and (2.37) implies: ̂
+
+ap, OLS a.s.
+
+−→ ap, OLS ∗ := (Var Fxp [xp]) −1Cov Fxp,y (xp, y ) (3.24) ̂
+
+bp, OLS a.s.
+
+−→ bp, OLS ∗ := EFy [y] − (EFxp [xp]) Tap, OLS ∗ (3.25) where the component-wise expectation EFxp [xp] is defined in eq. (A.38). In the non-zero cross-covariance case, eq. (3.2) characterizes the Kling-Gupta estimator as a scaled version of the OLS coefficients. By applying the continuous mapping theorem, the asymptotic limit of the Kling-Gupta slope vector is therefore established as: ̂
+
+ap, KG a.s.
+
+−→ ap, KG ∗ := 
+
+√
+
+Var Fy [y]
+
+σOLS ∗
+
+ap, OLS ∗ (3.26) The intercept estimator established in eq. (3.4) converges analogously: ̂
+
+bp, KG a.s.
+
+−→ bp, KG ∗ := EFy [y] − (EFxp [xp]) Tap, KG ∗ (3.27) In the zero cross-covariance case (Cov Fxp,y (xp, y ) = 0p), the sample estimate ̂ ap, KG is not unique; any admissible estimator satisfies the ellipsoid condition of eq. (3.3). As n → ∞ ,any accumulation point ap, KG ∗ of a sequence {̂ap, KG } must lie on the asymptotic ellipsoid: 
+
+aT 
+
+> p, KG ∗
+
+Var Fxp [xp]ap, KG ∗ = Var Fy [y] (3.28) 23 Therefore, the corresponding intercept estimates accumulate according to: 
+
+bp, KG ∗ = EFy [y] − (EFxp [xp]) Tap, KG ∗ (3.29) 
+
+3.2.2 Linear models with a single predictor 
+
+In the single-predictor case ( p = 1), the limits for the OLS parameter estimators reduce to familiar expressions. According to eq. (2.54): ̂
+
+aOLS a.s.
+
+−→ aOLS ∗ := (Var Fx [x]) −1Cov Fx,y (x, y ) (3.30) in which Cov Fx,y (x, y ) is defined in eq. (A.41). Eq. (2.55) then implies: ̂
+
+bOLS a.s.
+
+−→ bOLS ∗ := EFy [y] − EFx [x]aOLS ∗ (3.31) The limits for the Kling-Gupta linear regression parameter estimators simplify, based on eq. (3.12), to: ̂
+
+aKG a.s.
+
+−→ aKG ∗ := sign(Cov Fx,y (x, y ))  
+
+> √√√√
+
+Var Fy [y]Var Fx [x] (3.32) Furthermore, eq. (3.14) implies: ̂
+
+bKG a.s.
+
+−→ bKG ∗ := EFy [y] − EFx [x]aKG ∗ (3.33) In the zero cross-covariance case (Cov Fx,y (x, y ) = 0), the estimator ̂ aKG is not unique; any admissible estimator satisfies |̂aKG | = σ(yn)/σ (xn). As n → ∞ , any accumulation point 
+
+aKG ∗ of a sequence {̂aKG } must satisfy: 
+
+aKG ∗ = ± 
+
+> √√√√
+
+Var Fy [y]Var Fx [x]. (3.34) The corresponding intercepts accumulate at: 
+
+bKG ∗ := EFy [y] − EFx [x]aKG ∗ (3.35) 
+
+3.3 Comparative performance on training data 
+
+The parameterizations established in Sections 3.1.1 and 3.1.2 characterize distinct training set performance properties. Table 2 compares the OLS and Kling-Gupta linear regressions with respect to MSE, NSE, LKG , and KGE; the corresponding proofs are detailed in Proof B.3. OLS regression minimizes MSE, which implies a quadratic relationship between skill and correlation (NSE = ρ2OLS (0) ). Conversely, Kling-Gupta regression enforces mean and variance matching ( μ(zn, KG ) = μ(yn) and σ(zn, KG ) = σ(yn)). Therefore, the KGE 24 Table 2: Performance of OLS and Kling-Gupta linear regression on the training set, reporting the MSE, NSE, LKG , and KGE. The upper panel addresses the general multiple-predictor linear model, whereas the lower panel treats the single-predictor special case. All entries are formulated using observable sample statistics: the response standard deviation 
+
+σ(yn), the OLS correlation ρOLS (0) (eq. (3.5)), and, for the single-predictor case, the predictor-response correlation ρ(xn, yn). For the OLS model, LKG and KGE are defined only when the cross-covariance vector is non-zero ( sp̸ = 0p). Multiple-predictor linear model Metric OLS linear regression (eq. (2.38)) Kling-Gupta linear regression (eq. (3.6)) MSE( zn, yn) σ2(yn)(1 − ρ2OLS (0) ) 2σ2(yn)(1 − ρOLS (0) )NSE( zn, yn) ρ2OLS (0) 2ρOLS (0) − 1                                                        
+
+> LKG (zn,yn)2(1 −ρOLS (0) )2,sp̸=0p(1 −ρOLS (0) )2
+> KGE( zn,yn)√2ρOLS (0) + 1 − √2,sp̸=0pρOLS (0)
+> Single-predictor linear model Metric OLS linear regression ( p= 1) (eq. (2.52)) Kling-Gupta linear regression ( p= 1) (eq. (3.15)) MSE( zn,yn)σ2(yn)(1 −ρ2(xn,yn)) 2σ2(yn)(1 − | ρ(xn,yn)|)NSE( zn,yn)ρ2(xn,yn)2|ρ(xn,yn)| − 1
+> LKG (zn,yn)2(1 − | ρ(xn,yn)|)2, ρ (xn,yn)̸= 0 (1 − | ρ(xn,yn)|)2
+> KGE( zn,yn)√2|ρ(xn,yn)|+ 1 − √2, ρ (xn,yn)̸= 0 |ρ(xn,yn)|
+
+of a Kling-Gupta model simplifies to ρOLS (0) , which relates predictive skill linearly to the predictor correlation. An evaluation of NSE values demonstrates a counterintuitive outcome. While OLS max-imizes NSE by construction, the Kling-Gupta estimator produces an NSE of 2 ρOLS (0) − 1, which remains lower than the OLS NSE of ρ2OLS (0) , because 0 ≤ ρOLS (0) ≤ 1 from eqs. (2.46) and (3.5). If ρOLS (0) falls below 0 .5, the Kling-Gupta regression produces a negative NSE. In such cases, the model performs worse than the mean climatology benchmark despite reproducing the observed mean and variance. Furthermore, LKG for the OLS model equals 2(1 − ρOLS (0) )2, but the Kling-Gupta model halves this penalty to (1 − ρOLS (0) )2 by eliminating variability errors. These results highlight a structural trade-off. Training a model with the Kling-Gupta loss leads to higher KGE values but markedly reduces NSE performance. Conversely, training with the squared error loss (OLS) optimizes MSE and NSE at the expense of the model’s KGE. This trade-off underscores the sensitivity of model rankings to the choice of evaluation metric, as discussed in Section 2.3. 
+
+3.4 Comparative performance on infinite training data 
+
+A relevant question is how the application of the limiting estimators defined in Section 3.2 influences model performance as the training sample size n → ∞ . Evaluating the met-rics originally presented in Table 2 under this asymptotic limit facilitates large-sample comparisons between OLS and Kling-Gupta regressions. Table 3 summarizes the values calculated for this infinite-data limit. 25 Table 3: Performance of OLS and Kling-Gupta linear regression on the training set, summarizing the MSE, NSE, LKG , and KGE from Table 2 as n → ∞ . The upper panel covers the general multiple-predictor linear model, whereas the lower panel addresses the single-predictor special case. All entries are formulated using population statistics. For the OLS model, LKG and KGE are defined only when the cross-covariance vector is non-zero (Cov Fxp,y (xp, y )̸ = 0p). Multiple-predictor linear model Metric OLS linear regression (eq. (2.38)) Kling-Gupta linear regression (eq. (3.6)) MSE( z∞, y∞) Var Fy [y](1 − ρ2OLS ∗                                                                       
+
+> (0)
+> )2Var Fy[y](1 −ρOLS ∗
+> (0) )NSE( z∞,y∞)ρ2OLS ∗
+> (0)
+> 2ρOLS ∗
+> (0) −1
+> LKG (z∞,y∞)2(1 −ρOLS ∗
+> (0) )2,Cov Fxp,y (xp, y )̸=0p(1 −ρOLS ∗
+> (0) )2
+> KGE( z∞,y∞)√2ρOLS ∗
+> (0) + 1 − √2,Cov Fxp,y (xp, y )̸=0pρOLS ∗
+> (0)
+> Single-predictor linear model Metric OLS linear regression ( p= 1) (eq. (2.52)) Kling-Gupta linear regression ( p= 1) (eq. (3.15)) MSE( z∞,y∞)Var Fy[y](1 −Corr 2
+> Fx,y (x, y )) 2Var Fy[y](1 − | Corr Fx,y (x, y )|)NSE( z∞,y∞)Corr 2
+> Fx,y (x, y )2|Corr Fx,y (x, y )| − 1
+> LKG (z∞,y∞)2(1 − | Corr Fx,y (x, y )|)2,Corr Fx,y (x, y )̸= 0 (1 − | Corr Fx,y (x, y )|)2
+> KGE( z∞,y∞)√2|Corr Fx,y (x, y )|+ 1 − √2,Corr Fx,y (x, y )̸= 0 |Corr Fx,y (x, y )|
+
+The structural correspondence between Table 2 and Table 3 follows from the almost sure convergence of sample statistics to their population counterparts as n → ∞ , via the con-tinuous mapping theorem. Specifically, the sample standard deviation σ(yn) converges to 
+
+√
+
+Var Fy [y] (eq. (A.46)), while the sample OLS correlation ρOLS (0) converges to its asymp-totic limit ρOLS ∗ 
+
+> (0)
+
+(eq. (3.22)). Therefore, the performance trade-offs observed on the training set persist in the asymptotic limit, where population properties replace their sample-based analogs. 
+
+3.4.1 Illustration of comparative performance on training data 
+
+We investigate the behavior of the estimators by evaluating their empirical performance on the training data across a range of sample sizes n, using the predictions of the fitted models. To construct panels (a) and (b) of Figure 2, we fit the single-predictor model to the generated observations from Section 3.1.3 sequentially for a sequence of selected sample sizes n. For each sample, we compute the NSE of the OLS predictions and the KGE of the Kling-Gupta predictions on the training set, using the expressions in Table 2. As panels (a) and (b) of Figure 2 show, small sample sizes produce large fluctuations in the empirical metrics. As the sample size n increases, these metrics stabilize and converge to their population values (Table 3), confirming the asymptotic results listed therein. 
+
+3.5 Asymptotic performance on independent test sets 
+
+Candidate models are evaluated on a test set to establish a performance ranking (Sec-tion 2.1). In finite samples, estimated model performance is in expectation worse on the 26 Figure 2: Asymptotic convergence of performance metrics as a function of sample size for the training and test sets: (a) NSE of the OLS linear regression model on the training set versus sample size n, (b) KGE of the Kling-Gupta linear regression model on the training set versus sample size n, (c) NSE of the OLS linear regression model on the test set versus sample size k, (d) KGE of the Kling-Gupta linear regression model on the test set versus sample size k. The horizontal dashed lines indicate the population limits: ρ2OLS ∗
+
+> (0)
+
+for the OLS NSE baseline and ρOLS ∗ 
+
+> (0)
+
+for the Kling-Gupta KGE baseline. 27 test set than on the training set. Asymptotically, however, models estimated via M -estimation achieve equivalent performance on both sets, a consequence of the empirical risk minimization principle (Vapnik 1998). We show that this property extends to Kling-Gupta linear regression, even though the estimator does not belong to the M -estimator class. This finding implies that when a model is estimated using either MSE or KGE, the expected performance determines model rankings, and those rankings depend on the loss functions chosen for both estimation and evaluation. Given a test set of k observations yk, test = ( y1,test , . . . , y k, test )T and the predictor matrix 
+
+Xk×p, test , let predictions of the estimated models from eqs. (2.39) and (3.7) be: 
+
+zk, OLS ,test = Xk×p, test ap, OLS ∗ + bp, OLS ∗ 1k (3.36) 
+
+zk, KG ,test = Xk×p, test ap, KG ∗ + bp, KG ∗ 1k (3.37) where the parameter estimates ̂ ap, OLS ,̂ bp, OLS ,̂ ap, KG , and ̂ bp, KG are replaced by their re-spective limits as n → ∞ . As k → ∞ , and assuming identical statistical properties for the training and test data, the test set loss function values (established in Proof B.4) are identical to those reported in Table 3. 
+
+3.5.1 Asymptotic trade-offs and metric sensitivity 
+
+Figure 3 illustrates the trade-offs that govern the OLS and Kling-Gupta estimators in large samples, ( n → ∞ ), by plotting the asymptotic NSE and KGE of both regressions on the training set, thus reproducing the results of Table 3. As established earlier in this section, the same pattern emerges when the estimated models are evaluated on test sets, as n → ∞ and k → ∞ .In the figure, blue curves represent the performance of OLS linear regression and red curves represent the performance of Kling-Gupta linear regression. Because every pair of response and predictor random variables maps to a unique value of ρOLS ∗ 
+
+> (0)
+
+, these curves describe the trade-offs between the two estimation objectives across the entire domain of the correlation. OLS regression maximizes NSE and outperforms Kling-Gupta regression in terms of NSE. Conversely, Kling-Gupta regression maximizes KGE and outperforms OLS regression in terms of KGE. For ρOLS ∗ 
+
+> (0)
+
+< 1/2, the NSE of Kling-Gupta regression becomes negative, whereas the NSE of OLS regression remains non-negative for all values of ρOLS ∗ 
+
+> (0)
+
+. Similarly, for ρOLS ∗ 
+
+> (0)
+
+< 1 − 1√2 , the KGE of OLS regression becomes negative, while the KGE of Kling-Gupta regression stays non-negative for all ρOLS ∗ 
+
+> (0)
+
+.
+
+3.5.2 Asymptotic performance on test sets 
+
+We evaluate the generalization capability of the models estimated in Section 3.1.3 by measuring their performance on a test set as a function of the test sample size k. To 28 Figure 3: Asymptotic performance metrics (NSE and KGE) from Table 3 for OLS and Kling-Gupta linear regressions, plotted as a function of the OLS correlation coefficient 
+
+ρOLS ∗ 
+
+> (0)
+
+. An open blue circle indicates the point where the KGE of the OLS model is undefined. construct panels (c) and (d) of Figure 2, we fix the parameter estimates from the full training sample and use them to generate predictions for a test dataset via eqs. (2.53) and (3.16). We then compute the test set NSE for the OLS model and the test set KGE for the Kling-Gupta model over an increasing sequence of test sample sizes k.The empirical patterns in panels (c) and (d) of Figure 2 show that for small k, the test metrics exhibit substantial variability and are lower than their population counterparts, but they increase as k increases. As k → ∞ , the performance scores converge to the same theoretical population limits observed in the training phase. This confirms that the performance identities and trade-offs established in Table 3 extend to test data as 
+
+n, k → ∞ , in agreement with the asymptotic results established in Sections 3.4 and 3.5. 
+
+3.6 Linear model with fixed (known) regression coefficient 
+
+Treating the vector of regression coefficients ap ∈ Rp for the linear model in eq. (2.16) as fixed a priori simplifies the estimation problem to determining the optimal intercept 
+
+bp ∈ R that minimizes the Kling-Gupta loss. Proof B.5 shows that the intercept appears exclusively in the bias term of LKG , while bp leaves the correlation and variability terms unaffected. Setting the bias term to zero leads to the intercept estimate: ̂
+
+bp, KG = μ(yn) − (μ(Xn×p)) Tap (3.38) 29 Minimizing the squared error loss under the same fixed coefficient constraint produces an identical intercept estimate: ̂
+
+bp, OLS = μ(yn) − (μ(Xn×p)) Tap (3.39) The equivalence of eqs. (3.38) and (3.39) indicates that both loss functions enforce pre-dictions such that μ(zn, OLS ) = μ(zn, KG ) = μ(yn) via the intercept. Therefore, for a fixed 
+
+ap, the selection of an estimator does not change the sample mean of the predictions. 
+
+3.7 Fixed intercept Kling-Gupta linear regression 
+
+Treating the intercept b as fixed and known a priori simplifies the estimation task for the single-predictor linear model in eq. (2.29) to identifying the slope a̸ = 0 that minimizes the Kling-Gupta loss. For brevity, we define: 
+
+u = μ(xn)
+
+μ(yn) , v = σ(xn)
+
+σ(yn) > 0, ρ = ρ(xn, yn) and w = 1 − bμ(yn) (3.40) The estimates of ̂ aKG from Proof B.6 are summarized as: ̂
+
+aKG =
+
+> 
+
+wu + vu2 + v2 , if (wu ≥v and (u−wv )2     
+
+> u2+v2≤4ρ+w2+1) or ( −v<wu<v and ρ> −wuv u2+v2)
+
+wu − vu2 + v2 , if (wu ≤− v and (u+wv )2     
+
+> u2+v2≤− 4ρ+w2+1) or ( −v<wu<v and ρ< −wuv u2+v2)
+
+wu ± vu2 + v2 , if − v < wu < v and ρ = − wuv u2+v2
+
+no global minimum exists , otherwise (3.41) The functional form of the estimate depends on the values of u, v, w, and ρ. A global minimum for the estimation problem does not necessarily exist, as the initial three condi-tions in eq. (3.41) do not exhaust all possible realizations of xn and yn. By comparison, the OLS estimate subject to the same fixed intercept is: ̂
+
+aOLS = ρ(xn, yn)σ(xn)σ(yn) + μ(xn)( μ(yn) − b)
+
+μ2(xn) + σ2(xn) (3.42) which is unique and finite. Analyzing the fixed-intercept case offers insight into how the Kling-Gupta loss operates independently of mean alignment, which the intercept selection in Section 3.1.2 enforces. In this setting, the fixed b cannot be optimized to eliminate bias; therefore, the loss function explicitly penalizes any deviation of the predictive mean from the observed mean through the bias term ( w − au )2. This establishes an interaction between the correlation term, which favors a positive sign for a when ρ > 0 and a negative sign when ρ < 0, and the bias term, which might incentivize slopes that shift the predictive mean toward 
+
+μ(yn). Simultaneously, the variability term penalizes values of |a| that deviate from 1 /v .30 The potential absence of a global minimum constitutes an inherent property of the Kling-Gupta loss under a fixed intercept, arising from the discontinuity at a = 0 (which is proved in Proof B.6) combined with the loss function’s geometry. If the loss decreases monotonically as a → 0 from a specific direction, the infimum is approached but not reached, as a = 0 lies outside the domain (since σ(zn) = 0 violates the Kling-Gupta loss definition). Comparing the Kling-Gupta and OLS estimates in this fixed-intercept setting highlights the differences in their optimization objectives. The OLS estimate is always defined and minimizes the MSE, balancing squared bias and variance without imposing explicit penal-ties on the correlation or the standard deviation ratio. The Kling-Gupta estimate, when it exists, prioritizes a high absolute correlation and a standard deviation ratio near unity, often at the cost of mean bias if the fixed intercept is suboptimally selected. The piece-wise conditions identifying the global minimizer, such as the comparison between ρ and 
+
+− wuv u2+v2 , signify trade-offs between correlation sign, magnitude, mean alignment, and scale correspondence. For instance, in the intermediate regime where wu + v > 0 and wu < v ,the two candidate slopes a+ and a− signify positive and negative transformations of the predictor, respectively. The loss favors the positive slope if the correlation is sufficiently high relative to a threshold constructed from the standardized means and standard devi-ations; otherwise, the negative slope becomes optimal, reversing the relationship sign to exploit the absolute correlation. This threshold explicitly quantifies the point at which the benefit of aligning with the sign of ρ outweighs the bias introduced by the selection of one slope over the other. 
+
+3.7.1 Numerical illustration 
+
+As an example of the fixed-intercept parameter setting, Figure 4 illustrates the Kling-Gupta loss, specifically its behavior as a function of the slope parameter a when the intercept b0 is fixed, using the model z = ax + b0 from eq. (2.29). In this example, we visualize LKG (axn + b01n, yn) as a function of a. The sample statistics for the predictor random variable x and the response random variable y are set as follows: μ(xn) = 2, 
+
+μ(yn) = 1, σ(xn) = 1, σ(yn) = 1, and ρ(xn, yn) = −1. We plot the loss for two fixed, known values of b0: panel (a) sets b0 = −0.8 and panel (b) sets b0 = 0 .5. The loss reduces to eq. (B.91) and is shown in Figure 4, which demonstrates its non-convex nature and the discontinuity at a = 0. The positive local optimizer a+ (from eq. (B.99)) is also shown, along with the limiting value of the loss as a → 0−.In Figure 4a, where b0 = −0.8, the loss function exhibits a well-defined global minimum at a+. Although a discontinuity exists at a = 0, the loss value at a+ lies below the limiting values approached from both the positive and negative sides of a = 0. 31 Figure 4: Kling-Gupta loss LKG (axn + b01n, yn) as a function of a for a single-predictor linear model with sample statistics μ(xn) = 2, μ(yn) = 1, σ(xn) = 1, σ(yn) = 1, and 
+
+ρ(xn, yn) = −1: (a) b0 = −0.8, and (b) b0 = 0 .5. The positive local optimizer a+ is given by eq. (B.99). Open black circles indicate the points where the Kling-Gupta loss is undefined. Conversely, Figure 4b illustrates the case b0 = 0 .5. Here, the loss function decreases monotonically as a approaches zero from the negative side, reaching an infimum lower than any value of the Kling-Gupta loss for a > 0. However, the Kling-Gupta metric is undefined at a = 0 and discontinuous. Therefore, the loss function cannot attain a global minimum within the permissible parameter space, because the true infimum lies on the boundary of an open set where the estimator breaks down. 
+
+4. Applications 
+
+This section verifies the theoretical properties established in Section 3 using observed daily streamflow time series from ten French catchments with complete records. We eval-uate the training and test performance of OLS and Kling-Gupta linear regressions using models with either a single lagged predictor or two lagged predictors. Section 4.1 details the dataset, Section 4.2 outlines the estimation procedure, and Section 4.3 reports the numerical results. Code and data required for replication accompany this manuscript as supplementary material. We performed all computations in the R programming language (version 4.6.0) within the RStudio environment (version 2026.05.0+218); Appendix C documents the specific packages used. 32 4.1 Data 
+
+We forecast daily mean discharge records ( Qt, mm/d) from ten French catchments over the 1999–2018 period, sourced from the airGRdatasets R package (Delaigue et al. 2025). For each catchment, we construct two lagged variables, Qt−1 and Qt−2. To estimate the linear models that forecast Qt conditional on these lagged variables, we omit the first two observations to remove missing values from the predictor matrix. The remaining series is then partitioned into a training sample spanning 1999–2008 ( n = 3651 days) and a test sample spanning 2009–2018 ( k = 3652 days). 
+
+4.2 Application 
+
+We estimate four linear models for each catchment’s training data, taking Qt as the response variable: (i) OLS linear regression with a single predictor Qt−1 (Section 2.8.2). (ii) OLS linear regression with two predictors Qt−1 and Qt−2 (Section 2.8.1). (iii) Kling-Gupta linear regression with a single predictor Qt−1 (Section 3.1.2). (iv) Kling-Gupta linear regression with two predictors Qt−1 and Qt−2 (Section 3.1.1). Following parameter estimation on the training sample, we generate both training and test set predictions. For each model and catchment, we evaluate NSE and KGE performances. We omit reporting the MSE and the Kling-Gupta loss ( LKG ) due to their monotonic relationships with NSE and KGE, respectively. Additionally, we compute the bias 1 −
+
+μ(zn)/μ (yn), variability 1 − σ(zn)/σ (yn), and correlation 1 − ρ(zn, yn) components of KGE. These are the non-squared counterparts of the terms that appear in KGE. 
+
+4.3 Results 
+
+Figures 5 and 6 illustrate the behavior of the four models for a randomly selected catch-ment (named as A273011002 in the dataset). In Figure 5, Kling-Gupta predictions spread more widely compared to OLS predictions. The time series plots in Figure 6 confirms that Kling-Gupta predictions have higher variance than OLS. Figure 7 summarizes the NSE and KGE values across all ten catchments. Panels (a) and (b) show that, for both training and test sets, the Kling-Gupta models consistently achieve higher KGE than their OLS counterparts, whereas the OLS models attain higher NSE. The NSE and KGE performance on the training set exhibits a linear relationship, as expected from the analytical expressions in Table 2. In the test set, the linear relationship is slightly disturbed, especially for OLS regression, due to the inherent error induced when testing trained models on finite samples. Panels (c) and (e) (single-predictor and two-predictor models, respectively) illustrate more clearly that Kling-Gupta regression 33 Figure 5: Scatterplot comparing observed and predicted streamflow for catchment A273011002 on the test set. Predictions are generated using the four linear regression models detailed in Section 4.2. The dashed black line represents the 1:1 line of perfect agreement ( z = y). 
+
+Figure 6: Time series plot of observed streamflow and predictions generated by the four linear regression models from Section 4.2 for catchment A273011002. The vertical dashed line marks the transition between the training period (1999–2008) and the test period (2009–2018). 34 outperforms OLS regression on the training set in terms of KGE, while OLS regression outperforms Kling-Gupta regression in terms of NSE. The ranking is maintained for every catchment, and the differences become less pronounced as NSE and KGE approach unity. The reason for the less pronounced differences is that the predictions begin to approach the observations. The corresponding panels (d) and (f) show a similar pattern for the test set, although the ranking may change slightly, again due to the randomness introduced by testing on a finite test sample. Figure 8 examines the three components of the Kling-Gupta loss: the bias component 1− μ(zn) 
+
+> μ(yn)
+
+, the variability component 1 − σ(zn) 
+
+> σ(yn)
+
+, and the correlation component 1 −ρ(zn, yn). On the training set, the bias component (panel a) is near zero for all methods, as expected from theory. On the test set, due to its finite size, the bias component may deviate slightly from zero, although the general pattern remains. The variability component is systematically positive for OLS, indicating variance reduction, and essentially zero for Kling-Gupta (variance preservation). This pattern is maintained on the training set and deviates only slightly on the test set, again because the test set is finite. The correlation component (panel c) is small and similar across methods that use the same information: methods with a single predictor have equal correlation components, methods with two predictors have equal correlation components among themselves, but when compared with methods that use less information, they exhibit smaller correlation components. These empirical findings align with the theoretical properties proved in Sections 3.1.1 and 3.3. In most cases, the NSE and KGE values on the test set appear higher than those on the training set. This finding is due to the specificities of the paper’s dataset and the randomness of results in finite samples; it is not a general rule, as the expected performance on a finite test set should be worse than that on the training set. 
+
+5. Discussion 
+
+5.1 Comparison with extant literature 
+
+Historically, hydrologic literature treated KGE as an “informal” goodness-of-fit metric or empirical diagnostic tool (Gupta et al. 2009; Vrugt and de Oliveira 2022). Prior stud-ies analyzed metric sensitivity and parameter uncertainty through synthetic simulations (Knoben et al. 2019), resampling architectures like the jackknife or bootstrap (Clark et al. 2021; Vrugt and de Oliveira 2022), or numerical algorithms. We departed from these computational approaches after developing a mathematical foundation that framed the negatively oriented Kling-Gupta loss LKG as a statistically consistent extremum esti-mator. Within this parametric setting, we established analytical, closed-form expressions for the regression parameters, eliminating the need for iterative search procedures. 35 Figure 7: Performance comparison of the OLS and Kling-Gupta linear regression models from Section 4.2 across ten French catchments evaluated on both training and test sets: (a, b) NSE versus KGE, (c, d) NSE and KGE for single-predictor models, and (e, f) NSE and KGE for two-predictor models by catchment. 36 Figure 8: Decomposition of the Kling-Gupta loss into its three components for the OLS and Kling-Gupta linear regression models from Section 4.2: (a) bias component 1 − μ(zn) 
+
+> μ(yn)
+
+,(b) variability component 1 − σ(zn) 
+
+> σ(yn)
+
+, and (c) correlation component 1 − ρ(zn, yn). Each panel displays both training and test set results across all ten catchments. 37 Kling-Gupta and OLS linear regressions represent distinct optimization problems within the extremum estimation framework. Both estimators enforce identical predictive sample means and identical sample correlations with the response variable. However, the Kling-Gupta coefficient vector scales the OLS vector by the variance-inflation factor σ(yn)/σ OLS .This scaling counteracts the systematic variance reduction inherent to OLS estimation, ensuring that the model predictions replicate the marginal sample variance of the obser-vations. This structural divergence introduces a trade-off in predictive performance: the Kling-Gupta estimator maximizes the KGE by eliminating variability errors, but at the cost of decreasing the NSE. We contextualize the empirical observations reported by (Gupta et al. 2009), based on hydrologic model calibrations using both NSE and KGE, through our linear model frame-work: (i) (Gupta et al. 2009) observed empirically that parameter estimates changed mini-mally when training with either NSE or KGE. Structurally, for a single-predictor linear model, the OLS parameter estimates converge to a common limit as ρ(xn, yn) → ± 1 (i.e., when the absolute predictor-response correlation approaches unity). We hypothesize that their findings reflect highly correlated variables in their experimental data. (ii) They reported that both OLS and Kling-Gupta estimators produced similar training-set correlations between predictions and observations, independent of the calibration objective. For linear models, we show that these sample correlations are identical. (iii) They observed that the predictive variance from Kling-Gupta calibration aligns with the observed variance, whereas OLS training reduces it. Within our linear framework, the Kling-Gupta predictive variance equals the sample variance of the observations identically, while the OLS predictive variance remains systematically lower. (iv) Their Figure 8d indicates that the predictive sample means for both estimators align with the observed mean, with closer alignment under KGE. We demonstrate that for any linear model with an unconstrained intercept, both estimation procedures achieve perfect mean alignment. (v) Their Figure 6 illustrates structural links between NSE and KGE across dif-ferent calibration schemes, reporting the training-set relationship NSE( zn, yn) =2KGE( zn, yn) − 1 under KGE training. For linear regressions, this expression follows immediately from Table 2 for finite samples and from Table 3 asymptotically. Analogous performance identities can be directly formulated from these tables for other metric and estimator configurations. 38 5.2 Thinking about the choice between NSE and KGE 
+
+We demonstrated that Kling-Gupta optimization induces a statistical estimator, distinct from OLS regression. Within a linear framework, the Kling-Gupta estimator maintains the direction of the OLS coefficient vector but scales it by a deterministic variance-inflation factor to enforce equality between the empirical variances of the predictions and obser-vations. Therefore, we interpret Kling-Gupta regression as a transformation of OLS that retains both the sample correlation and mean unbiasedness while counteracting the sys-tematic variance reduction inherent to squared-error minimization. This framework clar-ifies the statistical behavior of KGE-calibrated models and establishes a mathematical foundation explaining why KGE optimization generates higher variability and augmented peak magnitudes compared to calibration under the NSE. Although this variance-inflation property appears logical in hindsight, it is counterintu-itive a priori. As the KGE combines bias, variability, and correlation terms, we might expect a complex optimization trade-off that simultaneously alters all three properties. Unexpectedly, applying the KGE to a linear model leaves the predictive sample mean and correlation unaffected relative to OLS. We showed that the empirical divergences reported in the hydrologic literature between NSE- and KGE-optimized models are necessary structural consequences of their respective loss functions, rather than data- or model-specific artifacts. Therefore, we view systematic disagreements between the NSE and KGE values not as methodological issues, but as the logical outcome of estimators optimized toward distinct targets. While modelers often ask, “Which metric is better?”, we frame this question as: “What property does each metric optimize?” We do not advocate replacing the NSE with the KGE, or vice versa; instead, we characterize the statistical consequences of each choice. We demonstrate that selecting between the NSE and KGE is a choice between two distinct predictive objectives: variance reduction (NSE) versus variance replication (KGE). It is therefore important that the modeler is given the evaluation metric a priori. Ultimately, the choice of the metric depends on the forecast end-user, based on the specific operational properties required of the predictions. 
+
+5.3 Future work 
+
+We analyzed linear models to establish a baseline where the statistical mechanisms of Kling-Gupta optimization are analytically tractable. Because real-world hydrologic sys-tems are nonlinear, they are not fully represented by these simplified assumptions. We present these results as a focused exposition of how KGE objectives alter predictive behav-ior in a stylized environment. Nonetheless, the empirical behavior of nonlinear hydrologic models estimated with KGE frequently mirrors the variance-inflation and hydrograph ex-39 pansion of our linear framework. This consistency suggests that our relationships reflect general structural properties of variance-constrained loss functions. Formal extension of these results to nonlinear estimators remains an open problem and a natural direction for future research. Another key open question concerns the conditional statistical functional estimated by the Kling-Gupta loss. While OLS regression is known to target the conditional mean, the functional optimized by KGE is less transparent, although we have shown that Kling-Gupta linear regression identifies the marginal mean. Future work should investigate whether KGE optimization can be formally interpreted as targeting a specific functional of the conditional distribution. Answering this question would place KGE on firmer theoretical ground and better clarify its use in semiparametric prediction problems. 
+
+6. Conclusions 
+
+We formulated a theoretical framework for the Kling-Gupta efficiency (KGE), characteriz-ing it as an extremum estimator for linear models. By defining the negatively oriented loss 
+
+LKG = (1 − KGE) 2, we established closed-form parameter estimates showing that Kling-Gupta linear regression scales the OLS coefficient vector by the variance-inflation factor 
+
+σ(yn)/σ OLS . This variance-inflation mechanism ensures that predictions on the training set reproduce the marginal sample variance of the observations while maintaining the predictive mean and correlation properties of OLS. Therefore, the estimator introduces a trade-off, maximizing the KGE while decreasing the NSE. We proved that LKG attains a unique global minimum of zero if and only if zn = yn. We analytically computed the finite training set performance and showed that the asymptotic performances on the training and test sets are equal. These findings have practical value for hydrologic science. The closed-form parameter estimates eliminate the need for iterative numerical calibration searches for linear models, offering computational efficiency and interpretability. The trade-offs between the NSE and KGE explain empirical literature reports of metric disagreement, offering modelers a principled foundation for selecting loss functions tailored to their needs. Furthermore, our analysis of constrained estimation, specifically the fixed-intercept setting, indicates that a global minimum for the slope parameter does not always exist, highlighting a previously unaddressed limitation of KGE-based optimization when mean alignment is constrained. 
+
+Appendix A Vector, matrix and statistical notation 
+
+This appendix establishes the notation for vector and matrix operations, norms, and statistical functions employed throughout the manuscript. 
+
+Basic vector definitions 
+
+40 Vector notation: 
+
+xn := ( x1, . . . , x n)T (A.1) where the superscript T indicates the transpose. Zero vector (all elements zero): 
+
+0n := (0 , . . . , 0) T (A.2) All-ones vector (all elements unity): 
+
+1n := (1 , . . . , 1) T (A.3) 
+
+Basic matrix definitions 
+
+Matrix notation: 
+
+Xn×m := [ xij ], i = 1 , . . . , n, j = 1 , . . . , m (A.4) Matrix row: 
+
+Xi, • := ( xi1, . . . , x im ), i = 1 , . . . , n (A.5) Matrix column: 
+
+X•,j := ( x1j , . . . , x nj )T, j = 1 , . . . , m (A.6) Identity matrix ( δij is the Kronecker delta): 
+
+In := [ δij ], δ ij := 
+
+> 
+
+1, if 1 ≤ i = j ≤ n
+
+0 otherwise (A.7) 
+
+Element-wise operations on vectors 
+
+Element-wise inequality: 
+
+xn̸ = yn ⇔ ∃ i ∈ { 1, . . . , n } : xi̸ = yi (A.8) 
+
+Inner products and norms 
+
+Euclidean inner product: 
+
+⟨xn, yn⟩ := xT 
+
+> n
+
+yn = ∑ni=1 xiyi = ⟨yn, xn⟩ (A.9) 
+
+⟨axn, yn⟩ = a ⟨xn, yn⟩ (A.10) Euclidean norm: 
+
+∥xn∥2 := 
+
+> √
+
+(∑ni=1 x2 
+
+> i
+
+) (A.11) Squared Euclidean norm: 
+
+∥xn∥22 = ⟨xn, xn⟩ = xT 
+
+> n
+
+xn = ∑ni=1 x2 
+
+> i
+
+(A.12) 41 Homogeneity: 
+
+∥axn∥22 = a2 ∥xn∥22 (A.13) Norm equivalences: 
+
+∥| xn|∥ 2 = ∥xn∥2 (A.14) 
+
+⟨| xn|, |xn|⟩ = ⟨xn, xn⟩ = ∥xn∥22 (A.15) 
+
+Sign function 
+
+Scalar sign function: sign( x) := 
+
+
+
+1, if x > 0
+
+−1, if x < 0(A.16) 
+
+Statistical functions for vectors 
+
+Sample mean: 
+
+μ(xn) := (1 /n ) ∑ni=1 xi = (1 /n ) ⟨xn, 1n⟩ = (1 /n )1T 
+
+> n
+
+xn (A.17) Matrix sample mean: 
+
+μ(Xn×m) := ( μ(X•,1), . . . , μ (X•,m )) T (A.18) Sample standard deviation: 
+
+σ(xn) := 
+
+√
+
+(∥xn∥22 − nμ 2(xn)) /n = ( ∥1nμ(xn) − xn∥2)/√n =
+
+√
+
+(xT
+
+> nc
+
+xnc)/n 
+
+=
+
+√
+
+nxT 
+
+> n
+
+xn − (1T 
+
+> n
+
+xn)2/n =
+
+√
+
+(1 /n )xT 
+
+> n
+
+xn − μ2(xn)(A.19) Sample variance: 
+
+σ2(xn) := ( ∥xn∥22 − nμ 2(xn)) /n = ∥1nμ(xn) − xn∥22 /n = xT
+
+> nc
+
+xnc/n 
+
+= ( nxT 
+
+> n
+
+xn − (1T 
+
+> n
+
+xn)2)/n 2 = (1 /n )xT 
+
+> n
+
+(In − (1 /n )1n1T 
+
+> n
+
+)xn
+
+(A.20) 
+
+Centered vectors, matrices and key identities 
+
+Centered vector (mean-zero): 
+
+xnc := xn − 1nμ(xn) = ( In − (1 /n )1n1T 
+
+> n
+
+)xn = P n×nxn (A.21) where P n×n is symmetric and idempotent: 
+
+P n×n := In − (1 /n )1n1T 
+
+> n
+
+(A.22) 
+
+P T
+
+> n×n
+
+P n×n = P n×n (A.23) 42 P n×n1n = In1n − (1 /n )1n1T 
+
+> n
+
+1n = 0n (A.24) Centered matrix: 
+
+Xn×m, c := P n×nXn×m = ( In − (1 /n )1n1T 
+
+> n
+
+)Xn×m (A.25) Mean of centered vector: 
+
+μ(xnc) = 0 (A.26) Variance of centered vector: 
+
+σ2(xnc) = σ2(xn) = ∥xnc∥22 /n (A.27) Euclidean product of centered vectors: 
+
+⟨xnc, ync⟩ = ( nxT 
+
+> n
+
+yn − (1T 
+
+> n
+
+xn)( 1T 
+
+> n
+
+yn)) /n = xT 
+
+> n
+
+yn − nμ (xn)μ(yn) (A.28) Pythagorean decomposition: 
+
+∥xn∥22 = ∥1nμ(xn)∥22 + ∥xnc∥22 = n(μ2(xn) + σ2(xn)) (A.29) Sum of squared deviations: 
+
+∥xnc∥22 = ∑ni=1 (xi − μ(xn)) 2 = ( nxT 
+
+> n
+
+xn − (1T 
+
+> n
+
+xn)2)/n (A.30) Norm expansion: 
+
+∥xn + yn∥22 = ∥xn∥22 + ∥yn∥22 + 2 ⟨xn, yn⟩ (A.31) Orthogonality to the all-ones vector: 
+
+⟨xnc, 1n⟩ = 0 (A.32) Sample Pearson correlation ρ(xn, yn) ∈ [−1, 1]: 
+
+ρ(xn, yn) := ⟨xnc, ync⟩∥xnc∥2 ∥ync∥2
+
+= xT
+
+> nc
+
+ync
+
+√
+
+(xT
+
+> nc
+
+xnc)( yT
+
+> nc
+
+ync)= xT
+
+> nc
+
+ync
+
+nσ (xn)σ(yn) = nxT 
+
+> n
+
+yn − (1T 
+
+> n
+
+xn)( 1T 
+
+> n
+
+yn)
+
+√
+
+(nxT 
+
+> n
+
+xn − (1T 
+
+> n
+
+xn)2)( nyT 
+
+> n
+
+yn − (1T 
+
+> n
+
+yn)2)(A.33) 
+
+Mean Squared Error ( MSE )
+
+Using eq. (1.2), the MSE can be expressed in terms of Euclidean norms and sample statistics as: MSE( xn, yn) = 1
+
+n ∥xn − yn∥22 = 1
+
+n(∥xn∥22 + ∥yn∥22 − 2 ⟨xn, yn⟩)= μ2(xn) + μ2(yn) + σ2(xn) + σ2(yn) − 2
+
+n ⟨xn, yn⟩
+
+(A.34) 43 For σ(xn), σ (yn) ∈ R\{ 0}, the MSE can also be expressed as: MSE( xn, yn) = ( μ(xn) − μ(yn)) 2 + σ2(xn) + σ2(yn) − 2ρ(xn, yn)σ(xn)σ(yn) (A.35) For the special case where xn = μ(yn)1n, combining eqs. (A.27) and (A.30) gives: MSE( μ(yn)1n, yn) = σ2(yn) (A.36) 
+
+Functionals and sample statistics convergence 
+
+The expectation of a random variable x with distribution Fx is defined as 
+
+EFx [x] := 
+
+∫
+
+x dFx(x) (A.37) For a random vector xn, the component-wise expectation is: 
+
+EFxn [xn] := ( EFxn [x1], . . . , EFxn [xn]) T (A.38) For a random matrix, the expectation is defined component-wise and is itself a matrix of the same dimensions. The variance of a random variable x with distribution Fx is: Var Fx [x] := EFx [( x − EFx [x]) 2] (A.39) The variance-covariance matrix of a random vector xn is then defined as: Var Fxn [xn] := EFxn [( xn − EFxn [xn])( xn − EFxn [xn]) T] (A.40) The covariance between random variables x and y is: Cov Fx,y (x, y ) = EFx,y [( x − EFx [x])( y − EFy [y])] (A.41) The correlation between random variables x and y is: Corr Fx,y (x, y ) = Cov Fx,y (x, y )
+
+√
+
+Var Fx [x]Var Fy [y] (A.42) The vector of covariances between each component of xn and a scalar random variable y
+
+is Cov Fxn,y (xn, y ) := (Cov Fxn,y (x1, y ), . . . , Cov Fxn,y (xn, y )) T (A.43) Analogously, the vector of Pearson correlations is: Corr Fxn,y (xn, y ) := (Corr Fxn,y (x1, y ), . . . , Corr Fxn,y (xn, y )) T (A.44) 44 The sample statistics that appear in the estimators; specifically the sample means, vari-ances and covariances, converge almost surely to their population counterparts by the strong law of large numbers. Under the assumption of i.i.d. variables, the relevant sample statistics converge as n → ∞ as follows: The sample mean μ(xn), defined in eq. (A.17), converges almost surely to the expectation (by the strong law of large numbers): 
+
+μ(xn) a.s.
+
+−→ EFx [x] (A.45) The following convergence results follow immediately from the strong law of large numbers and the continuous mapping theorem. The sample standard deviation σ(xn) (eq. (A.19)) converges almost surely to the square root of the variance: 
+
+σ(xn) a.s.
+
+−→ √
+
+Var Fx [x] (A.46) The sample Pearson correlation ρ(xn, yn) (eq. (A.33)) converges almost surely to the correlation: 
+
+ρ(xn, yn) a.s.
+
+−→ Corr Fx,y (x, y ) (A.47) The vector of sample means of the predictor matrix, μ(Xn×p) (eq. (A.18)), converges almost surely to the element-wise expectations: 
+
+μ(Xn×p) a.s.
+
+−→ EFxp [xp] (A.48) The sample covariance matrix Sp×p (eq. (2.26)) converges almost surely to the variance-covariance matrix: 
+
+Sp×p
+
+> a.s.
+
+−→ Var Fxp [xp] (A.49) The sample cross-covariance vector sp (eq. (2.28)) converges almost surely to the cross-covariance vector: 
+
+sp
+
+> a.s.
+
+−→ Cov Fxp,y (xp, y ) (A.50) 
+
+Inequalities 
+
+Cauchy-Schwarz inequality (Gentle 2024, p. 36): 
+
+|⟨ xn, yn⟩| ≤ ∥ xn∥2 ∥yn∥2 (A.51) with equality (Gentle 2024, p. 34): 
+
+|⟨ xn, yn⟩| = ∥xn∥2 ∥yn∥2 , iff xn = 0n, or yn = 0n, or xn = ayn (A.52) Because ⟨ayn, yn⟩ = a ⟨yn, yn⟩ and ⟨ayn, yn⟩ ≤ |⟨ ayn, yn⟩| :
+
+⟨xn, yn⟩ = ∥xn∥2 ∥yn∥2 , iff xn = 0n, or yn = 0n, or xn = ayn, a > 0 (A.53) 45 The normal (Gaussian) distribution 
+
+Let y be a Gaussian random variable y ∼ N (μ, σ ). Its probability density function (PDF) is: 
+
+fN (y; μ, σ ) = 1
+
+σ√2π exp( −(y − μ)2
+
+2σ2 ), μ ∈ R, σ > 0 (A.54) 
+
+Appendix B Proofs 
+
+This appendix supplies the proofs for all theoretical results presented in the manuscript. Proof B.1 establishes that the Kling-Gupta loss attains its global minimum uniquely at 
+
+zn = yn (see Section 2.6). Proof B.2 gives the parameter estimates for the linear model with multiple predictors estimated by minimizing the Kling-Gupta loss (Section 3.1.1). Proof B.3 computes the training-set performance metrics appearing in Table 2 (Sec-tion 3.3). Proof B.4 gives the asymptotic limits of these metrics on an independent test set (Section 3.5). Proof B.5 treats the intercept estimate when the regression coefficients are fixed (Section 3.6), while Proof B.6 treats the complementary case where the intercept is fixed and the slope is estimated, restricted to the single-predictor model (Section 3.7). All proofs build on the sample statistics, vector and matrix relationships summarized in Appendix A. 
+
+Proof B.1 (Uniqueness of the global minimum of the Kling-Gupta loss, Section 2.6) We prove that the Kling-Gupta loss LKG (zn, yn) attains a unique global minimum at 
+
+zn = yn. Because LKG is a sum of three non-negative terms, it follows immediately that LKG (zn, yn) ≥ 0 and that the lower bound is attained when zn = yn. To establish uniqueness, we show that LKG (zn, yn) = 0 implies zn = yn.The loss equals zero if and only if each of its three component terms equals zero. We assume μ(yn), σ (yn), σ (zn) ∈ R\{ 0}, which in turn (from eq. (A.27)) ensures that the centered vectors satisfy ync̸ = 0n and znc̸ = 0n.First, setting the correlation term to zero and applying the Cauchy-Schwarz equality condition (eq. (A.53)) gives: 
+
+ρ(zn, yn) = 1 ⇔ ⟨ znc, ync⟩ = ∥znc∥2 ∥ync∥2 ⇔ znc = aync, a > 0 (B.1) Second, setting the variability term to zero and using eq. (A.27) implies: 
+
+σ(zn) = σ(yn) ⇔ ∥ znc∥2 = ∥ync∥2 ⇔ | a| ∥ ync∥2 = ∥ync∥2 ⇔ a = 1 (B.2) The final step in eq. (B.2) follows from a > 0, which was established in eq. (B.1); together with znc = aync from eq. (B.1), this gives znc = ync. Third, setting the bias term to zero together with eq. (A.21) leads to: 
+
+μ(zn) = μ(yn) ⇔ 1nμ(zn) = 1nμ(yn) ⇔ zn − znc = yn − ync ⇔ zn = yn (B.3) 46 Thus, LKG (zn, yn) = 0 if and only if zn = yn, which completes the proof. ■
+
+Proof B.2 (Parameter estimates for the multiple-predictor linear model estimated with the Kling-Gupta loss, Section 3.1.1) We determine the parameter estimates for the linear model z = aT 
+
+> p
+
+xp + bp specified in eq. (2.16) when it is trained by minimizing the Kling-Gupta loss function LKG defined in eq. (2.11), given observations yn of the response variable and Xn×p of the predictor variables, and following the notational conventions of Section 2.7.1. We prove that the model parameter estimates are given by eqs. (3.2), (3.3) and (3.4). The standard conditions required for the definition of LKG are assumed: μ(yn)̸ = 0, 
+
+σ(yn)̸ = 0 and σ(zn)̸ = 0 (eq. (2.11)). Furthermore, as indicated in Section 2.7.1, the sample size satisfies n ≥ p, the predictor matrix Xn×p has full column rank, and the all-ones vector 1n does not lie in its column space. These conditions ensure that the sample covariance matrix Sp×p (defined by eq. (2.26)) is positive definite (Section 2.7.1) and that the OLS regression parameter estimate ̂ ap, OLS (given by eq. (2.36)) is uniquely defined (Section 2.8.1). The restriction σ(zn)̸ = 0, together with eq. (2.25) and the positive definiteness of Sp×p, implies that any admissible estimate must satisfy ̂ ap, KG ̸ = 0p.The objective is to minimize LKG with respect to the parameter vector θ1×(p+1) =(a1, . . . , a p, b p), as formulated in eq. (3.1). Substituting the linear model predictions zn
+
+from eq. (2.18) into LKG , we observe that the intercept bp appears exclusively in the bias term, whereas the variability and correlation terms depend only on the slope vector ap
+
+(see eqs. (2.25) and (2.27)). Therefore, the bias term can be minimized independently of the other components. It attains its unique minimum of zero when the sample means of the predictions and the observations are equal, i.e., μ(zn) = μ(yn). Using the expression for the predictive mean of the linear model from eq. (2.22), we solve for the intercept, which gives: ̂
+
+bp, KG = μ(yn) − (μ(Xn×p)) Tap (B.4) With this choice of intercept, the bias term vanishes. For any ap̸ = 0p, LKG reduces to: 
+
+L(ap) = (1 − σ(zn)
+
+σ(yn))2 + (1 − ρ(zn, yn)) 2, ap̸ = 0p (B.5) The function L(ap) depends on ap through σ(zn) (eq. (2.25)) and ρ(zn, yn) (eq. (2.27)); substituting these expressions gives: 
+
+L(ap) = (1 −
+
+> √
+
+aT 
+
+> p
+
+Sp×pap
+
+σ(yn) )2 + (1 − aT 
+
+> p
+
+sp
+
+> √
+
+aT 
+
+> p
+
+Sp×papσ(yn))2, ap̸ = 0p (B.6) First, we demonstrate that: lim  
+
+> ∥ap∥2→∞
+
+L(ap) = ∞ (B.7) 47 This follows because (i) −1 ≤ ρ(zn, yn) ≤ 1 and (ii) as ∥ap∥2 → ∞ , the positive definite-ness of Sp×p together with eq. (2.25) implies σ(zn) = ( aT 
+
+> p
+
+Sp×pap)1/2 → ∞ .We proceed by distinguishing two mutually exclusive cases based on the sample cross-covariance vector sp defined in eq. (2.28): (i) Case #1 (sp̸ = 0p): We first determine a theoretical lower bound for L(ap). Eq. (B.7) shows that this lower bound is not attained as ∥ap∥2 → ∞ . We examine the correlation ρ(zn, yn), which, from eqs. (2.27) and (2.44), can be expressed as: 
+
+ρ(zn, yn) = aT 
+
+> p
+
+Sp×p̂ ap, OLS 
+
+√
+
+aT 
+
+> p
+
+Sp×papσ(yn), ap̸ = 0p (B.8) From sp̸ = 0p and eq. (2.44) it follows that ̂ ap, OLS ̸ = 0p; eq. (2.43) then implies σOLS =(̂aT
+
+> p, OLS
+
+Sp×p̂ ap, OLS )1/2 > 0, and together with eq. (2.46) this leads to ρOLS = σOLS  
+
+> σ(yn)
+
+> 0. The matrix Sp×p is symmetric positive definite and therefore invertible, so it possesses a unique symmetric positive definite square root S1/2 
+
+> p×p
+
+(Gentle 2024, p. 187, 244). Applying the Cauchy-Schwarz inequality (eq. (A.51)) to the inner product of S1/2
+
+> p×p
+
+ap and S1/2
+
+> p×p
+
+̂ ap, OLS 
+
+gives: 
+
+aT 
+
+> p
+
+Sp×p̂ ap, OLS = aT 
+
+> p
+
+S1/2
+
+> p×p
+
+S1/2
+
+> p×p
+
+̂ ap, OLS 
+
+= 〈
+
+S1/2
+
+> p×p
+
+ap, S1/2
+
+> p×p
+
+̂ ap, OLS 
+
+〉
+
+≤ ∣∣∣〈
+
+S1/2
+
+> p×p
+
+ap, S1/2
+
+> p×p
+
+̂ ap, OLS 
+
+〉∣ ∣∣
+
+≤
+
+∥∥∥S1/2
+
+> p×p
+
+ap
+
+∥∥∥2
+
+∥∥∥S1/2
+
+> p×p
+
+̂ ap, OLS 
+
+∥∥∥2
+
+= ( aT 
+
+> p
+
+Sp×pap)1/2(̂aT
+
+> p, OLS
+
+Sp×p̂ ap, OLS )1/2, ap̸ = 0p
+
+(B.9) Using this bound in eq. (B.8) together with the definitions of σOLS from eq. (2.43) and 
+
+ρOLS from eq. (2.46) gives: 
+
+ρ(zn, yn) ≤
+
+√̂ 
+
+aT
+
+> p, OLS
+
+Sp×p̂ ap, OLS 
+
+σ(yn) = σOLS 
+
+σ(yn) = ρOLS ≤ 1 (B.10) Thus: 1 − ρ(zn, yn) ≥ 1 − ρOLS ≥ 0 (B.11) It follows that L(ap) satisfies: 
+
+L(ap) = (1 − σ(zn)
+
+σ(yn))2 + (1 − ρ(zn, yn)) 2 ≥ (1 − ρ(zn, yn)) 2 ≥ (1 − ρOLS )2 ≥ 0 (B.12) Equality L(ap) = (1 − ρOLS )2 is attained if and only if (i) the Cauchy-Schwarz inequality in eq. (B.9) is an equality, and (ii) the variability term vanishes, i.e., σ(zn) = σ(yn). The Cauchy-Schwarz inequality in eq. (B.9) becomes an equality if and only if (see eq. (A.53) and (Seber 2007, p. 258), together with the condition ap̸ = 0p): 
+
+S1/2
+
+> p×p
+
+ap = cS1/2
+
+> p×p
+
+̂ ap, OLS , c > 0 (B.13) 48 The invertibility of S1/2 
+
+> p×p
+
+implies: 
+
+ap = ĉap, OLS , c > 0 (B.14) From eqs. (2.25) and (2.43) we have: 
+
+σ(zn) = 
+
+> √
+
+c2̂ aT
+
+> p, OLS
+
+Sp×p̂ ap, OLS = cσ OLS (B.15) The condition σ(zn) = σ(yn) then requires: 
+
+c = σ(yn)
+
+σOLS 
+
+(B.16) Therefore, the unique global minimizer is: ̂
+
+ap, KG = σ(yn)
+
+σOLS ̂
+
+ap, OLS (B.17) The corresponding intercept estimate, from eq. (B.4), is: ̂
+
+bp, KG = μ(yn) − (μ(Xn×p)) T̂ ap, KG (B.18) At this minimum the loss equals: 
+
+LKG (Xn×p̂ ap, KG +̂ bp, KG 1n, yn) = (1 − ρOLS )2 (B.19) To confirm that this point is a global minimum and is not excluded by the discontinuity at ap = 0p, we examine the behavior along sequences that converge to the origin. For any sequence a(k) 
+
+> p
+
+→ 0p, the prediction variance satisfies σ(z(k) 
+
+> n
+
+) = 
+
+> √
+
+(a(k) 
+
+> p
+
+)TSp×pa(k) 
+
+> p
+
+→ 0, so the variability term (1 − σ(z(k)  
+
+> n)
+> σ(yn)
+
+)2 → 1. Because the correlation term is non-negative, the loss satisfies L(ap) ≥ (1 − σ(zn) 
+
+> σ(yn)
+
+)2. Therefore, the limit inferior is at least unity, as the variability term converges to unity while the correlation term remains non-negative: lim inf 
+
+> ap→0p
+
+L(ap) ≥ 1 (B.20) From ρOLS > 0, we have LKG (Xn×p̂ ap, KG +̂ bp, KG 1n, yn) = (1 − ρOLS )2 < 1. Thus the value at the global minimum is strictly less than the infimum near the discontinuity, confirming that the minimum is indeed globally optimal. (ii) Case #2 (sp = 0p): From eqs. (2.43) and (2.44) we have σOLS = 0 and ̂ ap, OLS =
+
+0p. Eq. (2.27) shows that for every non-zero slope the correlation vanishes identically, 
+
+ρ(zn, yn) = 0 for all ap̸ = 0p. The loss function L(ap) in eq. (B.5) therefore simplifies to: 
+
+L(ap) = (1 − σ(zn)
+
+σ(yn))2 + 1 (B.21) 49 Because eq. (B.7) gives L(ap) → ∞ as ∥ap∥2 → ∞ , a finite global minimum exists. The minimum value 1 is attained when the variability term is zero, i.e., when σ(zn) = σ(yn). Using eq. (2.25) this condition becomes: ̂
+
+aT
+
+> p, KG
+
+Sp×p̂ ap, KG = σ2(yn) (B.22) Any vector ̂ ap, KG satisfying this ellipsoid constraint gives LKG = 1, which is the global minimum over the domain ap̸ = 0p.The intercept estimate continues to be given by eq. (B.4): ̂
+
+bp, KG = μ(yn) − (μ(Xn×p)) T̂ ap, KG (B.23) Because ̂ ap, KG ̸ = 0p (a consequence of eq. (B.22) and the positive definiteness of Sp×p), the value of the loss at any such global minimizer is: 
+
+LKG (Xn×p̂ ap, KG +̂ bp, KG 1n, yn) = 1 (B.24) Thus the lower bound 1 is a global minimum: for every ap̸ = 0p we have L(ap) > 1 unless 
+
+ap satisfies the ellipsoid condition (B.22). Finally, the limit inferior of L(ap) as ap → 0p equals 2, for the following reasons: (ii.1) The variability term converges to unity. (ii.2) The correlation term also converges to unity, because ρ(zn, yn) is discontinuous at ap = 0p, and, by eq. (2.27) its limit as ap → 0p is zero. This is established because 
+
+sp = 0p and the Euclidean norm of aT
+
+> p
+
+√aT 
+
+> pSp×pap
+
+(which appears in eq. (2.27)) is bounded. From the properties of the Rayleigh quotient aT 
+
+> pSp×pap
+> ∥ap∥22
+
+, there exists a constant λmin > 0such that aT 
+
+> pSp×pap
+> ∥ap∥22
+
+≥ λmin . Therefore, ∥ aT
+
+> p
+
+√aT 
+
+> pSp×pap
+
+∥2 ≤ 1√λmin . ■
+
+Proof B.3 (Training set performance, Section 3.3) We evaluate the training set performance metrics reported in Table 2. (i) OLS predictions : For the multiple-predictor OLS linear regression model, the training set predictions have the following properties: μ(zn, OLS ) = μ(yn) (eq. (2.40)), 
+
+σ(zn, OLS ) = σOLS (eq. (2.41)), and, for sp̸ = 0p, ρ(zn, OLS , yn) = ρOLS (eq. (2.45)). To treat the zero cross-covariance case sp = 0p uniformly, we use the extended correlation 
+
+ρOLS (0) defined in eq. (3.5), which equals ρOLS when sp̸ = 0p and is 0 when sp = 0p.For sp̸ = 0p, the MSE follows from eq. (A.35) and the properties above: MSE( zn, OLS , yn) = σ2OLS + σ2(yn) − 2σOLS σ(yn)ρOLS (B.25) Substituting the identity σOLS = ρOLS σ(yn) from eq. (2.46) gives: MSE( zn, OLS , yn) = σ2(yn)(1 − ρ2OLS ) (B.26) 50 For sp = 0p, Section 2.8.1 states zn, OLS = μ(yn)1n, and eq. (A.36) then gives MSE( μ(yn)1n, yn) = σ2(yn). Therefore, the result of eq. (B.26) can be unified for both cases of sp as: MSE( zn, OLS , yn) = σ2(yn)(1 − ρ2OLS (0) ) (B.27) From the definition of NSE (eq. (1.3)) together with eqs. (A.36) and (B.27), it follows that: NSE( zn, OLS , yn) = 1 − σ2(yn)(1 − ρ2OLS (0) )
+
+σ2(yn) = ρ2OLS (0) (B.28) For the Kling-Gupta loss of the OLS model we restrict attention to the case sp̸ = 0p
+
+(the loss is undefined when sp = 0p because eqs. (2.41), (2.43) and (2.44) together imply 
+
+σ(zn, OLS ) = 0). Substituting the properties of the OLS predictions into eq. (2.11) gives 
+
+LKG (zn, OLS , yn) = (1 − μ(zn, OLS )
+
+μ(yn) )2 + (1 − σOLS 
+
+σ(yn))2 + (1 − ρOLS )2 (B.29) Because μ(zn, OLS ) = μ(yn), the bias term vanishes. The relation σOLS /σ (yn) = ρOLS 
+
+taken from eq. (2.46) turns the variability term into the same form as the correlation term, giving: 
+
+LKG (zn, OLS , yn) = 0 + (1 − ρOLS )2 + (1 − ρOLS )2 = 2(1 − ρOLS )2 (B.30) To write the result with ρOLS (0) while retaining the restriction sp̸ = 0p, we write eq. (B.30) as: 
+
+LKG (zn, OLS , yn) = 2(1 − ρOLS (0) )2, sp̸ = 0p (B.31) The KGE follows directly from the relation between LKG and KGE (eq. (2.12)) together with eq. (B.31): KGE( zn, OLS , yn) = 1 − √
+
+2(1 − ρOLS (0) )2 = √2ρOLS (0) + 1 − √2, sp̸ = 0p (B.32) (ii) Kling-Gupta predictions : For the Kling-Gupta linear regression model, the predictions on the training set satisfy μ(zn, KG ) = μ(yn) (eq. (3.8)), σ(zn, KG ) = σ(yn)(eq. (3.9)), and ρ(zn, KG , yn) = ρOLS (0) (eq. (3.10)). The MSE then follows from eq. (A.35) together with these properties: MSE( zn, KG , yn) = σ2(yn) + σ2(yn) − 2ρOLS (0) σ2(yn) = 2 σ2(yn)(1 − ρOLS (0) ) (B.33) Therefore, from eqs. (1.3), (A.36) and (B.33), the NSE is NSE( zn, KG , yn) = 1 − 2σ2(yn)(1 − ρOLS (0) )
+
+σ2(yn) = 2 ρOLS (0) − 1 (B.34) Substituting the statistical properties of the predictions, eq. (2.11) simplifies to: 
+
+LKG (zn, KG , yn) = (1 − 1) 2 + (1 − 1) 2 + (1 − ρOLS (0) )2 = (1 − ρOLS (0) )2 (B.35) 51 From eqs. (2.12) and (B.35), the KGE follows immediately: KGE( zn, KG , yn) = 1 − √
+
+(1 − ρOLS (0) )2 = ρOLS (0) (B.36) (iii) Single-predictor case : For the single-predictor special case ( p = 1), the same steps apply. It suffices to substitute ρ(zn, KG , yn) = |ρ(xn, yn)| (see eq. (3.19)) and to replace sp = 0p by ρ(xn, yn) = 0. Thus, all entries in Table 2 are now verified. ■
+
+Proof B.4 (Asymptotic performance metrics on the test set, Section 3.5) Consider the asymptotic setting where the training sample size n → ∞ . In this limit, the OLS and Kling-Gupta parameter estimates for the linear model in eq. (2.16) converge almost surely to the population limits shown in Section 3.2. We now evaluate the per-formance of these limiting models on an independent test set with k i.i.d. observations (Xk×p, test , yk, test ) generated from the same joint distribution Fxp,y . The predictions for the two estimated models are (eqs. (B.37) and (B.38)): 
+
+zk, OLS ,test = Xk×p, test ap, OLS ∗ + bp, OLS ∗ 1k (B.37) 
+
+zk, KG ,test = Xk×p, test ap, KG ∗ + bp, KG ∗ 1k (B.38) In the analysis that follows, limits are taken as the test set size k → ∞ . Using the strong law of large numbers and the continuous mapping theorem, we determine the limiting values of the performance metrics. Specifically, we prove that as k → ∞ , each metric converges to the asymptotic training set values reported in Table 3. (i) Mean Squared Error 
+
+(i.1) OLS predictions : The test set MSE of the OLS predictions, from eq. (A.34), is: MSE (k)OLS = MSE( zk, OLS ,test , yk, test ) = 1
+
+k
+
+∥∥∥yk, test − Xk×p, test ap, OLS ∗ − bp, OLS ∗ 1k
+
+∥∥∥22 (B.39) Expanding the squared Euclidean norm in eq. (B.39) gives: MSE (k)OLS = 1
+
+k (yT
+
+> k, test
+
+yk, test − 2yT
+
+> k, test
+
+(Xk×p, test ap, OLS ∗ + bp, OLS ∗ 1k)+ ( Xk×p, test ap, OLS ∗ + bp, OLS ∗ 1k)T(Xk×p, test ap, OLS ∗ + bp, OLS ∗ 1k)) = yT
+
+> k, test
+
+yk, test 
+
+k − 2yT
+
+> k, test
+
+Xk×p, test 
+
+k ap, OLS ∗ − 2bp, OLS ∗
+
+yT
+
+> k, test
+
+1k
+
+k
+
++ aT
+
+> p, OLS ∗
+
+XT
+
+> k×p, test
+
+Xk×p, test 
+
+k ap, OLS ∗ + 2 bp, OLS ∗
+
+1T 
+
+> k
+
+Xk×p, test 
+
+k ap, OLS ∗ + b2
+
+> p, OLS ∗
+
+(B.40) By the continuous mapping theorem, each term converges almost surely as k → ∞ to the population counterpart in Appendix A. Thus: 
+
+yT
+
+> k, test
+
+yk, test 
+
+k
+
+> a.s.
+
+−→ EFy [y2] = Var Fy [y] + ( EFy [y]) 2 (B.41) 52 yT
+
+> k, test
+
+Xk×p, test 
+
+k
+
+> a.s.
+
+−→ EFxp,y [y xT 
+
+> p
+
+] = (Cov Fxp,y (xp, y )) T + EFy [y]( EFxp [xp]) T (B.42) 
+
+XT
+
+> k×p, test
+
+Xk×p, test 
+
+k
+
+> a.s.
+
+−→ EFxp [xpxT 
+
+> p
+
+] = Var Fxp [xp] + EFxp [xp]( EFxp [xp]) T (B.43) 
+
+yT
+
+> k, test
+
+1k
+
+k
+
+> a.s.
+
+−→ EFy [y] (B.44) 
+
+1T 
+
+> k
+
+Xk×p, test 
+
+k
+
+> a.s.
+
+−→ (EFxp [xp]) T (B.45) With eqs. (B.41), (B.42), (B.43), (B.44), and (B.45), eq. (B.40) becomes: MSE (k)OLS a.s.
+
+−→ (Var Fy [y] + ( EFy [y]) 2) − 2((Cov Fxp,y (xp, y )) T + EFy [y]( EFxp [xp]) T)ap, OLS ∗
+
+− 2bp, OLS ∗ EFy [y] + aT 
+
+> p, OLS ∗
+
+(Var Fxp [xp] + EFxp [xp]( EFxp [xp]) T)ap, OLS ∗
+
++ 2 bp, OLS ∗ (EFxp [xp]) Tap, OLS ∗ + b2
+
+> p, OLS ∗
+
+(B.46) The asymptotic OLS intercept estimate is bp, OLS ∗ = EFy [y] − (EFxp [xp]) Tap, OLS ∗
+
+(eq. (3.25)). With this expression, the terms with bp, OLS ∗ expand to: 
+
+b2 
+
+> p, OLS ∗
+
+= ( EFy [y]) 2 − 2EFy [y]( EFxp [xp]) Tap, OLS ∗ + (( EFxp [xp]) Tap, OLS ∗ )2 (B.47) 2bp, OLS ∗ (EFxp [xp]) Tap, OLS ∗ = 2 EFy [y]( EFxp [xp]) Tap, OLS ∗ − 2(( EFxp [xp]) Tap, OLS ∗ )2 (B.48) 
+
+−2bp, OLS ∗ EFy [y] = −2( EFy [y]) 2 + 2 EFy [y]( EFxp [xp]) Tap, OLS ∗ (B.49) In eq. (B.46), the quantities from eqs. (B.47), (B.48), and (B.49) with (EFy [y]) 2,
+
+EFy [y]( EFxp [xp]) Tap, OLS ∗ , and (( EFxp [xp]) Tap, OLS ∗ )2 sum to zero. The remaining variance and covariance terms give: MSE (k)OLS a.s.
+
+−→ Var Fy [y] − 2aT 
+
+> p, OLS ∗
+
+Cov Fxp,y (xp, y ) + aT 
+
+> p, OLS ∗
+
+Var Fxp [xp]ap, OLS ∗ (B.50) When Cov Fxp,y (xp, y )̸ = 0p, with the limits for ap, OLS ∗ and σ2OLS ∗ from eqs. (3.24) and (3.20), and eq. (3.21), eq. (B.50) becomes: MSE (k)OLS a.s.
+
+−→ Var Fy [y] − σ2OLS ∗ = Var Fy [y](1 − ρ2OLS ∗ ) (B.51) When Cov Fxp,y (xp, y ) = 0p, ap, OLS ∗ = 0p from eq. (3.24), and eq. (B.50) becomes: MSE (k)OLS a.s.
+
+−→ Var Fy [y] (B.52) Together, eqs. (B.51) and (B.52) become: MSE (k)OLS a.s.
+
+−→ Var Fy [y] − σ2OLS ∗ = Var Fy [y](1 − ρ2OLS ∗
+
+> (0)
+
+) (B.53) 53 (i.2) Kling-Gupta predictions : The test set MSE of the Kling-Gupta predictions, from eq. (A.34), is: MSE (k)KG = MSE( zk, KG ,test , yk, test ) = 1
+
+k
+
+∥∥∥yk, test − Xk×p, test ap, KG ∗ − bp, KG ∗ 1k
+
+∥∥∥22 (B.54) Expanding the squared Euclidean norm in eq. (B.54) gives: MSE (k)KG = 1
+
+k (yT
+
+> k, test
+
+yk, test − 2yT
+
+> k, test
+
+(Xk×p, test ap, KG ∗ + bp, KG ∗ 1k)+ ( Xk×p, test ap, KG ∗ + bp, KG ∗ 1k)T(Xk×p, test ap, KG ∗ + bp, KG ∗ 1k)) = yT
+
+> k, test
+
+yk, test 
+
+k − 2yT
+
+> k, test
+
+Xk×p, test 
+
+k ap, KG ∗ − 2bp, KG ∗
+
+yT
+
+> k, test
+
+1k
+
+k
+
++ aT
+
+> p, KG ∗
+
+XT
+
+> k×p, test
+
+Xk×p, test 
+
+k ap, KG ∗ + 2 bp, KG ∗
+
+1T 
+
+> k
+
+Xk×p, test 
+
+k ap, KG ∗ + b2
+
+> p, KG ∗
+
+(B.55) With eqs. (B.41), (B.42), (B.43), (B.44), and (B.45), eq. (B.55) becomes: MSE (k)KG a.s.
+
+−→ (Var Fy [y] + ( EFy [y]) 2) − 2((Cov Fxp,y (xp, y )) T + EFy [y]( EFxp [xp]) T)ap, KG ∗
+
+− 2bp, KG ∗ EFy [y] + aT 
+
+> p, KG ∗
+
+(Var Fxp [xp] + EFxp [xp]( EFxp [xp]) T)ap, KG ∗
+
++ 2 bp, KG ∗ (EFxp [xp]) Tap, KG ∗ + b2
+
+> p, KG ∗
+
+(B.56) The asymptotic Kling-Gupta intercept is bp, KG ∗ = EFy [y] − (EFxp [xp]) Tap, KG ∗ (eq. (3.27)). With this expression, the terms with bp, KG ∗ expand to: 
+
+b2 
+
+> p, KG ∗
+
+= ( EFy [y]) 2 − 2EFy [y]( EFxp [xp]) Tap, KG ∗ + (( EFxp [xp]) Tap, KG ∗ )2 (B.57) 2bp, KG ∗ (EFxp [xp]) Tap, KG ∗ = 2 EFy [y]( EFxp [xp]) Tap, KG ∗ − 2(( EFxp [xp]) Tap, KG ∗ )2 (B.58) 
+
+−2bp, KG ∗ EFy [y] = −2( EFy [y]) 2 + 2 EFy [y]( EFxp [xp]) Tap, KG ∗ (B.59) In eq. (B.56), the quantities from eqs. (B.57), (B.58), and (B.59) with (EFy [y]) 2,
+
+EFy [y]( EFxp [xp]) Tap, KG ∗ , and (( EFxp [xp]) Tap, KG ∗ )2 sum to zero. The remaining variance and covariance terms give the compact expression: MSE (k)KG a.s.
+
+−→ Var Fy [y] − 2aT 
+
+> p, KG ∗
+
+Cov Fxp,y (xp, y ) + aT 
+
+> p, KG ∗
+
+Var Fxp [xp]ap, KG ∗ (B.60) With the definition of ap, KG ∗ from Section 3.2, and eqs. (3.26), (3.24), and (3.20) for the non-zero cross-covariance case: 
+
+aT 
+
+> p, KG ∗
+
+Cov Fxp,y (xp, y ) = 
+
+√
+
+Var Fy [y]
+
+σOLS ∗
+
+σ2OLS ∗ = √
+
+Var Fy [y]σOLS ∗ (B.61) In the zero cross-covariance case, Cov Fxp,y (xp, y ) = 0p, so: 
+
+aT 
+
+> p, KG ∗
+
+Cov Fxp,y (xp, y ) = 0 (B.62) 54 In the non-zero cross-covariance case, eqs. (3.26), (3.24), and (3.20) give: 
+
+aT 
+
+> p, KG ∗
+
+Var Fxp [xp]ap, KG ∗ = Var Fy [y]
+
+σ2OLS ∗
+
+σ2OLS ∗ = Var Fy [y] (B.63) In the zero cross-covariance case, eq. (3.28) is the same equality: 
+
+aT 
+
+> p, KG ∗
+
+Var Fxp [xp]ap, KG ∗ = Var Fy [y] (B.64) With eqs. (B.61) and (B.63) for the non-zero cross-covariance case, eq. (B.60) becomes: MSE (k)KG a.s.
+
+−→ Var Fy [y] − 2√
+
+Var Fy [y]σOLS ∗ + Var Fy [y] = 2Var Fy [y](1 − ρOLS ∗ 
+
+> (0)
+
+) (B.65) In the zero cross-covariance case, ρOLS ∗ 
+
+> (0)
+
+= 0, and eq. (B.65) is similarly: MSE (k)KG a.s.
+
+−→ Var Fy [y] − 0 + Var Fy [y] = 2Var Fy [y] = 2Var Fy [y](1 − ρOLS ∗ 
+
+> (0)
+
+) (B.66) (ii) Kling-Gupta loss 
+
+The Kling-Gupta loss in eq. (2.11) is formulated through sample statistics. In the limit as the test set size k → ∞ , Appendix A demonstrates that the sample means, sample standard deviations, and the Pearson sample correlation between the predictions and the response variable converge almost surely to their population counterparts (functionals). (ii.1) OLS predictions : Under the condition Cov Fxp,y (xp, y )̸ = 0p, the functionals of the OLS predictions zOLS ,test = xT
+
+> p, test
+
+ap, OLS ∗ + bp, OLS ∗ are: 
+
+EFxp [zOLS ,test ] = EFxp [xp]Tap, OLS ∗ + bp, OLS ∗ = EFy [y] (B.67) Var Fxp [zOLS ,test ] = aT 
+
+> p, OLS ∗
+
+Var Fxp [xp]ap, OLS ∗ = σ2OLS ∗ (B.68) Cov Fxp,y (zOLS ,test , y ) = aT 
+
+> p, OLS ∗
+
+Cov Fxp,y (xp, y ) = σ2OLS ∗ (B.69) Thus the population correlation (using eq. (3.21)) is Corr Fxp,y (zOLS ,test , y ) = σ2OLS ∗
+
+σOLS ∗
+
+√
+
+Var Fy [y] = ρOLS ∗ (B.70) The three terms of the Kling-Gupta loss therefore converge as follows: (1 − μ(zk, OLS ,test )
+
+μ(yk, test ) )2 a.s.
+
+−→ (1 − EFxp [zOLS ,test ]
+
+EFy [y] )2 = 0 (B.71) (1 − σ(zk, OLS ,test )
+
+σ(yk, test ) )2 a.s.
+
+−→ (1 − σOLS ∗
+
+√
+
+Var Fy [y])2 = (1 − ρOLS ∗ )2 (B.72) (1 − ρ(zk, OLS ,test , yk, test )) 2 a.s.
+
+−→ (1 − Corr Fxp,y (zOLS ,test , y )) 2 = (1 − ρOLS ∗ )2 (B.73) 55 Combining these components and applying the definition of ρOLS ∗ 
+
+> (0)
+
+from eq. (3.22) under the assumption Cov Fxp,y (xp, y )̸ = 0p gives: 
+
+LKG (zk, OLS ,test , yk, test ) a.s.
+
+−→ 2(1 − ρOLS ∗ )2 = 2(1 − ρOLS ∗ 
+
+> (0)
+
+)2 (B.74) (ii.2) Kling-Gupta predictions : Analogously, the functionals for the Kling-Gupta predic-tions zKG ,test = xT
+
+> p, test
+
+ap, KG ∗ + bp, KG ∗ are: 
+
+EFxp [zKG ,test ] = EFxp [xp]Tap, KG ∗ + bp, KG ∗ = EFy [y] (B.75) Var Fxp [zKG ,test ] = aT 
+
+> p, KG ∗
+
+Var Fxp [xp]ap, KG ∗ = Var Fy [y] (B.76) In the non-zero cross-covariance case: Cov Fxp,y (zKG ,test , y ) = aT 
+
+> p, KG ∗
+
+Cov Fxp,y (xp, y ) = √
+
+Var Fy [y]σOLS ∗ (B.77) It follows that: Corr Fxp,y (zKG ,test , y ) = 
+
+√
+
+Var Fy [y]σOLS ∗
+
+√
+
+Var Fy [y]√
+
+Var Fy [y] = ρOLS ∗ (B.78) In the zero cross-covariance case, where Cov Fxp,y (xp, y ) = 0p:Cov Fxp,y (zKG ,test , y ) = aT 
+
+> p, KG ∗
+
+Cov Fxp,y (xp, y ) = 0 (B.79) and therefore: Corr Fxp,y (zKG ,test , y ) = 0 (B.80) The three component terms converge as eq. (B.83) combines both the non-zero cross-covariance and the zero cross-covariance case, see eq. (3.22): (1 − μ(zk, KG ,test )
+
+μ(yk, test ) )2 a.s.
+
+−→ 0 (B.81) (1 − σ(zk, KG ,test )
+
+σ(yk, test ) )2 a.s.
+
+−→ 0 (B.82) (1 − ρ(zk, KG ,test , yk, test )) 2 a.s.
+
+−→ (1 − ρOLS ∗ 
+
+> (0)
+
+)2 (B.83) Therefore 
+
+LKG (zk, KG ,test , yk, test ) a.s.
+
+−→ (1 − ρOLS ∗ 
+
+> (0)
+
+)2. (B.84) (iii) Nash-Sutcliffe efficiency and Kling-Gupta efficiency 
+
+The NSE limits follow directly from the MSE limits in eqs. (B.53) and (B.65). Given that eq. (A.36) implies MSE( μ(yk, test )1k, yk, test ) = σ2(yk, test ), which converges almost surely to Var Fy [y] as k → ∞ , eq. (1.3) gives: NSE( zk, OLS ,test , yk, test ) a.s.
+
+−→ 1 −
+
+Var Fy [y](1 − ρ2OLS ∗
+
+> (0)
+
+)Var Fy [y] = ρ2OLS ∗
+
+> (0)
+
+(B.85) 56 NSE( zk, KG ,test , yk, test ) a.s.
+
+−→ 1 − 2Var Fy [y](1 − ρOLS ∗ 
+
+> (0)
+
+)Var Fy [y] = 2 ρOLS ∗ 
+
+> (0)
+
+− 1 (B.86) By applying the relationship in eq. (2.12) to the results in eqs. (B.74) and (B.84), the continuous mapping theorem establishes the following KGE limits: KGE( zk, OLS ,test , yk, test ) a.s.
+
+−→ 1 − √
+
+2(1 − ρOLS ∗ 
+
+> (0)
+
+)2 = √2ρOLS ∗ 
+
+> (0)
+
++ 1 − √2 (B.87) KGE( zk, KG ,test , yk, test ) a.s.
+
+−→ 1 − √
+
+(1 − ρOLS ∗ 
+
+> (0)
+
+)2 = ρOLS ∗ 
+
+> (0)
+
+(B.88) These limits align with the corresponding expressions established for the training set in Table 3, assuming the training and test distributions are identical. ■
+
+Proof B.5 (Intercept parameter estimate for the multiple-predictor linear model with fixed regression coefficients estimated with the Kling-Gupta loss, Section 3.6) We determine the intercept estimate for the multiple-predictor linear model z = aT 
+
+> p
+
+xp +bp
+
+specified in eq. (2.16) when it is trained by minimizing the Kling-Gupta loss function defined in eq. (2.11) and the coefficient vector ap is taken as fixed. We prove that the estimate ̂ bp is given by eq. (3.38). Substituting the sample mean of the predictions from eq. (2.22) into the Kling-Gupta loss gives: 
+
+LKG (zn, yn) = (1 − (μ(Xn×p)) Tap + bp
+
+μ(yn) )2
+
++ (1 − σ(zn)
+
+σ(yn))2 + (1 − ρ(zn, yn)) 2, μ (yn), σ (yn), σ (zn) ∈ R\{ 0}
+
+(B.89) The parameter bp appears only in the bias term, which is a non-negative squared quantity, while σ(zn) and ρ(zn, yn) do not depend on bp (as established in eqs. (2.25) and (2.27)). Therefore, the loss function is minimized with respect to bp by forcing this term to zero. Solving for bp gives: ̂
+
+bp, KG = μ(yn) − (μ(Xn×p)) Tap (B.90) This completes the proof. ■
+
+Proof B.6 (Slope parameter estimate for the single-predictor linear model with fixed intercept estimated with the Kling-Gupta loss, Section 3.7) We determine the parameter estimate for the single-predictor linear model z = ax +
+
+b, as specified in eq. (2.29), when it is estimated by minimizing the Kling-Gupta loss function defined in eq. (2.11) while treating the intercept parameter b as fixed a priori. We demonstrate that the resulting estimate ̂ aKG is given by eq. (3.41). 57 For brevity, we adopt the auxiliary definitions for u, v, ρ, and w established in eq. (3.40). Substituting these quantities and the prediction vector zn = axn + b1n from eq. (2.31) into the loss definition in eq. (2.11) gives: 
+
+LKG (axn + b1n, yn) = ( w − au )2 + (1 − | a|v)2 + (1 − sign( a)ρ)2, a ̸ = 0 (B.91) The loss function exhibits a discontinuity at a = 0, with one-sided limits given by: lim  
+
+> a→0+
+
+LKG (axn + b1n, yn) = (1 − ρ)2 + w2 + 1 (B.92) lim  
+
+> a→0−
+
+LKG (axn + b1n, yn) = (1 + ρ)2 + w2 + 1 (B.93) Furthermore, the limits at infinity are: lim  
+
+> a→±∞
+
+LKG (axn + b1n, yn) = ∞ (B.94) By completing the square with respect to a, the loss function can be rearranged as: 
+
+LKG (axn + b1n, yn) = ( u2 + v2)( a − wu + sign( a)vu2 + v2 )2
+
++ (1 − sign( a)ρ)2 + (u − sign( a)wv )2
+
+u2 + v2 , a ̸ = 0 (B.95) The following inequalities are straightforward to verify and they are essential for the subsequent analysis: (u − wv )2
+
+u2 + v2 ≤ w2 + 1 , with equality if and only if wu = −v (B.96) (u + wv )2
+
+u2 + v2 ≤ w2 + 1 , with equality if and only if wu = v (B.97) Because the quadratic term involving a in eq. (B.95) is non-negative, the loss for a fixed sign of a attains its minimum when that term vanishes and the resulting value of a has the correct sign. (i) Region a > 0 (sign( a) = 1): Eq. (B.95) simplifies to: 
+
+L+(a) = ( u2 + v2)( a − wu + vu2 + v2 )2 + (1 − ρ)2 + (u − wv )2
+
+u2 + v2 (B.98) We define the candidate slope: 
+
+a+ = wu + vu2 + v2 (B.99) which makes the quadratic term vanish under the assumption wu + v > 0. The loss evaluated at a+ is: 
+
+LKG (a+xn + b1n, yn) = (1 − ρ)2 + (u − wv )2
+
+u2 + v2 (B.100) 58 (ii) Region a < 0 (sign( a) = −1): Eq. (B.95) simplifies to: 
+
+L−(a) = ( u2 + v2)( a − wu − vu2 + v2 )2 + (1 + ρ)2 + (u + wv )2
+
+u2 + v2 (B.101) We define the candidate slope: 
+
+a− = wu − vu2 + v2 (B.102) which makes the quadratic term vanish under the assumption wu − v < 0. The loss evaluated at a− is: 
+
+LKG (a−xn + b1n, yn) = (1 + ρ)2 + (u + wv )2
+
+u2 + v2 (B.103) We observe that the condition wu + v < 0 together with wu > v is impossible, because 
+
+v > 0. Therefore, we examine the following three mutually exclusive cases: (ii.1) Case #1 (wu + v > 0 and wu ≥ v): which simplifies to wu ≥ v. In the region 
+
+a > 0, inequality (B.96) together with wu ̸ = −v, implies: 
+
+LKG (a+xn + b1n, yn) < lim  
+
+> a→0+
+
+LKG (axn + b1n, yn) (B.104) 
+
+LKG (a+xn + b1n, yn) < L KG (axn + b1n, yn), a > 0 (B.105) Hence a+ is a global minimum on the interval a > 0. On the interval a < 0, LKG is a strictly decreasing function of a, thus its infimum is approached as a → 0−. We therefore evaluate the difference: 
+
+LKG (a+xn + b1n, yn) − lim  
+
+> a→0−
+
+LKG (axn + b1n, yn) = (u − wv )2
+
+u2 + v2 − (w2 + 1) − 4ρ (B.106) This difference is not guaranteed to be negative; therefore a+ is not automatically a global minimum over the real line. A global minimum is attained at a+, if and only if  
+
+> (u−wv )2
+> u2+v2
+
+≤ 4ρ+w2 +1. Because inequality (B.96) ensures (u−wv )2 
+
+> u2+v2
+
+≤ w2 +1, the condition is automatically satisfied when ρ ≥ 0. If ρ < 0, whether a+ is the global minimizer depends on the specific values of u, v, w and ρ.(ii.2) Case #2 (wu + v > 0, wu < v ): We treat the regions a > 0 and a < 0 separately: 
+
+Subcase #2a (a+ = wu +vu2+v2 > 0): On the interval a > 0, the function has a global minimum at a+ because: 
+
+LKG (a+xn + b1n, yn) < lim  
+
+> a→0+
+
+LKG (axn + b1n, yn) (B.107) 
+
+LKG (a+xn + b1n, yn) < L KG (axn + b1n, yn), a > 0 (B.108) 
+
+Subcase #2b (a− = wu −vu2+v2 < 0): On the interval a < 0, the function has a global minimum at a− because: 
+
+LKG (a−xn + b1n, yn) < lim  
+
+> a→0−
+
+LKG (axn + b1n, yn) (B.109) 59 LKG (a−xn + b1n, yn) < L KG (axn + b1n, yn), a < 0 (B.110) To determine which of these candidates is the overall global minimum, we compute the difference between their loss values: 
+
+LKG (a+xn + b1n, yn) − LKG (a−xn + b1n, yn) = −4( wuv u2 + v2 + ρ) (B.111) Thus: (a) If ρ > − wuv u2+v2 , the global minimum occurs at a+.(b) If ρ < − wuv u2+v2 , the global minimum occurs at a−.(c) If ρ = − wuv u2+v2 , then there are two global minima at a+ and a−.(ii.3) Case #3 (wu + v ≤ 0 and wu < v ): which simplifies to wu + v ≤ 0. On the region 
+
+a < 0, inequality (B.97) together with wu ̸ = v implies: 
+
+LKG (a−xn + b1n, yn) < lim  
+
+> a→0−
+
+LKG (axn + b1n, yn) (B.112) 
+
+LKG (a−xn + b1n, yn) < L KG (axn + b1n, yn), a < 0 (B.113) Hence a− is a global minimum on the interval a < 0. On the interval a > 0, LKG is a strictly increasing function of a, thus its infimum is approached as a → 0+. We therefore evaluate the difference: 
+
+LKG (a−xn + b1n, yn) − lim  
+
+> a→0+
+
+LKG (axn + b1n, yn) = (u + wv )2
+
+u2 + v2 − (w2 + 1) + 4 ρ (B.114) This difference is not guaranteed to be negative; therefore a− is not automatically a global minimum over the real line. A global minimum is attained at a−, if and only if  
+
+> (u+wv )2
+> u2+v2
+
+≤ w2 +1 −4ρ. Because inequality (B.97) ensures (u+wv )2 
+
+> u2+v2
+
+≤ w2 +1, the condition is automatically satisfied when ρ ≤ 0. If ρ > 0, whether a− is the global minimizer depends on the specific values of u, v, w and ρ.The three cases analyzed above are summarized by eq. (3.41). ■
+
+Appendix C Statistical software 
+
+All computations were performed in the R programming language (version 4.6.0) using 
+
+RStudio version 2026.05.0+218. We used the following R packages: airGRdatasets (De-laigue et al. 2025), data.table (Barrett et al. 2026), devtools (Wickham et al. 2026; Xie et al. 2018; 2020), knitr (Xie 2014; 2015; 2025), rmarkdown (Allaire et al. 2026), and 
+
+tidyverse (Wickham 2023; Wickham et al. 2019). 
+
+Supplementary information: The data and computations are available at https: //doi.org/10.5281/zenodo.20621675 .
+
+Conflicts of interest: The authors declare no conflict of interest. 60 Statement: During the preparation of this work, the authors used DeepSeek-V4 and 
+
+Gemini 3.1 Pro for L ATEX formatting, language polishing, and readability enhancement. After using these tools, the authors reviewed and edited the content as needed and accept full responsibility for the published article. 
+
+References 
+
+Allaire JJ, Xie Y, Dervieux C, McPherson J, Luraschi J, Ushey K, Atkins A, Wickham H, Cheng J, Chang W, Iannone R (2026) rmarkdown: Dynamic Documents for R. R package version 2.31. https://doi.org/10.32614/CRAN.package.rmarkdown .Amemiya T (1973) Regression analysis when the dependent variable is truncated normal. Econometrica 41(6):997–1016. https://doi.org/10.2307/1914031 .Amemiya T (1985) Advanced Econometrics. Cambridge, MA: Harvard University Press. ISBN: 9780674251991. Amrhein M, Srinivasan B, Bonvin D, Schumacher MM (1996) On the rank deficiency and rank augmentation of the spectral measurement matrix. Chemometrics and Intelligent Laboratory Systems 33(1):17–33. https://doi.org/10.1016/0169-743 9(95)00086-0 .Banerjee A, Guo X, Wang H (2005) On the optimality of conditional expectation as a Bregman predictor. IEEE Transactions on Information Theory 51(7):2664–2669. 
+
+https://doi.org/10.1109/TIT.2005.850145 .Barrett T, Dowle M, Srinivasan A, Gorecki J, Chirico M, Hocking T, Schwendinger B, Krylov I (2026) data.table: Extension of ’data.frame’. R package version 1.18.4. 
+
+https://doi.org/10.32614/CRAN.package.data.table .Bennett ND, Croke BFW, Guariso G, Guillaume JHA, Hamilton SH, Jakeman AJ, Marsili-Libelli S, Newham LTH, Norton JP, Perrin C, Pierce SA, Robson B, Seppelt R, Voinov AA, Fath BD, Andreassian V (2013) Characterising perfor-mance of environmental models. Environmental Modelling and Software 40:1–20. 
+
+https://doi.org/10.1016/j.envsoft.2012.09.011 .Beven KJ (2025) A short history of philosophies of hydrological model evaluation and hypothesis testing. Wiley Interdisciplinary Reviews: Water 12(1):e1761. https: //doi.org/10.1002/wat2.1761 .Biondi D, Freni G, Iacobellis V, Mascaro G, Montanari A (2012) Validation of hydrological models: Conceptual basis, methodological approaches and a proposal for a code of practice. Physics and Chemistry of the Earth 42–44:70–76. https://doi.org/10.1 016/j.pce.2011.07.037 .Clark MP, Vogel RM, Lamontagne JR, Mizukami N, Knoben WJM, Tang G, Gharari S, Freer JE, Whitfield PH, Shook KR, Papalexiou SM (2021) The abuse of popular performance metrics in hydrologic modeling. Water Resources Research 57(9):e2020WR029001. https://doi.org/10.1029/2020WR029001 .Delaigue O, Brigode P, Thirel G (2025) airGRdatasets: Hydro-Meteorological Catchments Datasets for the ’airGR’ Packages. R package version 0.2.3. https://doi.org/10 .32614/CRAN.package.airGRdatasets .Dimitriadis T, Fissler T, Ziegel J (2024) Characterizing M -estimators. Biometrika 111(1):339–346. https://doi.org/10.1093/biomet/asad026 .Gentle JE (2024) Matrix Algebra. Springer Cham. https://doi.org/10.1007/978-3-0 31-42144-0 .61 Gneiting T (2011) Making and evaluating point forecasts. Journal of the American Sta-tistical Association 106(494):746–762. https://doi.org/10.1198/jasa.2011.r1 0138 .Gneiting T, Resin J (2023) Regression diagnostics meets forecast evaluation: Conditional calibration, reliability diagrams, and coefficient of determination. Electronic Journal of Statistics 17(2):3226–3286. https://doi.org/10.1214/23-EJS2180 .Gupta HV, Kling H, Yilmaz KK, Martinez GF (2009) Decomposition of the mean squared error and NSE performance criteria: Implications for improving hydrological mod-elling. Journal of Hydrology 377(1–2):80–91. https://doi.org/10.1016/j.jhyd rol.2009.08.003 .Huber PJ (1964) Robust estimation of a location parameter. The Annals of Mathematical Statistics 35(1):73–101. https://doi.org/10.1214/aoms/1177703732 .Huber PJ (1967) The behavior of maximum likelihood estimates under nonstandard con-ditions. In: Le Cam LM, Neyman J (eds) Proceedings of the Fifth Berkeley Sympo-sium on Mathematical Statistics and Probability. Berkeley: University of California Press, Berkeley, pp 221–233. Jackson EK, Roberts W, Nelsen B, Williams GP, Nelson EJ, Ames DP (2019) Intro-ductory overview: Error metrics for hydrologic modelling - A review of common practices and an open source library to facilitate use and adoption. Environmental Modelling and Software 119:32–48. https://doi.org/10.1016/j.envsoft.2019 .05.001 .Klemeˇ s V (1986) Operational testing of hydrological simulation models. Hydrological Sciences Journal 31(1):13-24. https://doi.org/10.1080/02626668609491024 .Kling H, Fuchs M, Paulin M (2012) Runoff conditions in the upper Danube basin under an ensemble of climate change scenarios. Journal of Hydrology 424–425:264–277. 
+
+https://doi.org/10.1016/j.jhydrol.2012.01.011 .Knoben WJM, Freer JE, Woods RA (2019) Technical note: Inherent benchmark or not? Comparing Nash-Sutcliffe and Kling-Gupta efficiency scores. Hydrology and Earth System Sciences 23(10):4323–4331. https://doi.org/10.5194/hess-23-4323-2 019 .Krause P, Boyle DP, B¨ ase F (2005) Comparison of different efficiency criteria for hydro-logical model assessment. Advances in Geosciences 5:89–97. https://doi.org/10 .5194/adgeo-5-89-2005 .Melsen LA, Puy A, Torfs PJJF, Saltelli A (2025) The rise of the Nash-Sutcliffe efficiency in hydrology. Hydrological Sciences Journal 70(8):1248–1259. https://doi.org/10 .1080/02626667.2025.2475105 .Montanari A, Koutsoyiannis D (2012) A blueprint for process-based modeling of uncertain hydrological systems. Water Resources Research 48(9):W09555. https://doi.org/ 10.1029/2011WR011412 .Moriasi DN, Arnold JG, Van Liew MW, Bingner RL, Harmel RD, Veith TL (2007) Model evaluation guidelines for systematic quantification of accuracy in watershed simula-tions. Transactions of the ASABE 50(3):885–900. https://doi.org/10.13031/2 013.23153 .Moriasi DN, Wilson BN, Douglas-Mankin KR, Arnold JG, Gowda PH (2012) Hydrologic and water quality models: Use, calibration, and validation. Transactions of the ASABE 55(4):1241–1247. https://doi.org/10.13031/2013.42265 .62 Moriasi DN, Gitau MW, Pai N, Daggupati P (2015a) Hydrologic and water quality mod-els: Performance measures and evaluation criteria. Transactions of the ASABE 58(6):1763–1785. https://doi.org/10.13031/trans.58.10715 .Moriasi DN, Zeckoski RW, Arnold JG, Baffaut CB, Malone RW, Daggupati P, Guzman JA, Saraswat D, Yuan Y, Wilson BW, Shirmohammadi A, Douglas-Mankin KR (2015b) Hydrologic and water quality models: Key calibration and validation topics. Transactions of the ASABE 58(6):1609–1618. https://doi.org/10.13031/trans .58.11075 .Murphy AH (1988) Skill scores based on the mean square error and their relationships to the correlation coefficient. Monthly Weather Review 116(12):2417–2424. https: //doi.org/10.1175/1520-0493(1988)116<2417:SSBOTM>2.0.CO;2 .Murphy AH, Daan H (1985) Forecast evaluation. In: Murphy AH, Katz RW (eds) Prob-ability, Statistics and Decision Making in the Atmospheric Sciences. CRC Press, pp 379–437. Nash JE, Sutcliffe JV (1970) River flow forecasting through conceptual models part I - A discussion of principles. Journal of Hydrology 10(3):282–290. https://doi.org/10 .1016/0022-1694(70)90255-6 .Newey WK, McFadden D (1994) Large sample estimation and hypothesis testing. In: En-gle RF, McFadden D (eds) Handbook of Econometrics, vol. 4. Elsevier, Amsterdam, pp 2111–2245. https://doi.org/10.1016/S1573-4412(05)80005-4 .Patton AJ (2011) Volatility forecast comparison using imperfect volatility proxies. Journal of Econometrics 160(1):246–256. https://doi.org/10.1016/j.jeconom.2010.0 3.034 .Patton AJ (2020) Comparing possibly misspecified forecasts. Journal of Business and Economic Statistics 38(4):796–809. https://doi.org/10.1080/07350015.2019. 1585256 .Reichelstein S, Osband K (1984) Incentives in government contracts. Journal of Econo-metrics 24(2):257–270. https://doi.org/10.1016/0047-2727(84)90029-X .Saerens M (2000) Building cost functions minimizing to some summary statistics. IEEE Transactions on Neural Networks 11(6):1263–1271. https://doi.org/10.1109/72 .883416 .Savage LJ (1971) Elicitation of personal probabilities and expectations. Journal of the American Statistical Association 66(336):783–801. https://doi.org/10.1080/01 621459.1971.10482346 .Seber GAF (2007) A Matrix Handbook for Statisticians. John Wiley & Sons, Inc. https: //doi.org/10.1002/9780470226797 .Tyralis H, Papacharalampous G (2025) Loss functions arising from the index of agreement. 
+
+https://doi.org/10.48550/arXiv.2510.14714 .Tyralis H, Papacharalampous G (2026) Learning with the Nash-Sutcliffe loss. https: //doi.org/10.48550/arXiv.2603.00968 .Vapnik VN (1998) Statistical Learning Theory. New York: John Wiley & Sons. ISBN: 978-0-471-03003-4. Vrugt JA (2024) Distribution-based model evaluation and diagnostics: Elicitability, pro-priety, and scoring rules for hydrograph functionals. Water Resources Research, 60(6):e2023WR036710. https://doi.org/10.1029/2023WR036710 .Vrugt JA, de Oliveira DY (2022) Confidence intervals of the Kling-Gupta efficiency. Jour-nal of Hydrology 612(Part A):127968. https://doi.org/10.1016/j.jhydrol.20 
+
+63 22.127968 .Wickham H (2023) tidyverse: Easily Install and Load the ’Tidyverse’. R package version 2.0.0. https://doi.org/10.32614/CRAN.package.tidyverse .Wickham H, Averick M, Bryan J, Chang W, McGowan LD, Fran¸ cois R, Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller E, Bache SM, M¨ uller K, Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi K, Vaughan D, Wilke C, Woo K, Yutani H (2019) Welcome to the tidyverse. Journal of Open Source Software 4(43):1686. https://doi.org/10.21105/joss.01686 .Wickham H, Hester J, Chang W, Bryan J (2026) devtools: Tools to Make Developing R Packages Easier. R package version 2.5.2. https://doi.org/10.32614/CRAN.pack age.devtools .Williams GP (2025) Friends don’t let friends use Nash-Sutcliffe Efficiency (NSE) or KGE for hydrologic model accuracy evaluation: A rant with data and suggestions for better practice. Environmental Modelling and Software 194:106665. https://doi. org/10.1016/j.envsoft.2025.106665 .Willmott CJ (1981) On the validation of models. Physical Geography 2(2):184–194. http s://doi.org/10.1080/02723646.1981.10642213 .Xie Y (2014) knitr: A Comprehensive Tool for Reproducible Research in R. In: Stodden V, Leisch F, Peng RD (eds) Implementing Reproducible Computational Research. New York: Chapman and Hall/CRC. https://doi.org/10.1201/9781315373461-1 .Xie Y (2015) Dynamic Documents with R and knitr. 2nd edition. New York: Chapman and Hall/CRC. https://doi.org/10.1201/9781315382487 .Xie Y (2025) knitr: A General-Purpose Package for Dynamic Report Generation in R. R package version 1.51. https://doi.org/10.32614/CRAN.package.knitr .Xie Y, Allaire J, Grolemund G (2018) R Markdown: The Definitive Guide. Boca Raton, Florida: Chapman and Hall/CRC. ISBN: 9781138359338. Xie Y, Dervieux C, Riederer E (2020) R Markdown Cookbook. Boca Raton, Florida: Chapman and Hall/CRC. ISBN: 9780367563837. 64

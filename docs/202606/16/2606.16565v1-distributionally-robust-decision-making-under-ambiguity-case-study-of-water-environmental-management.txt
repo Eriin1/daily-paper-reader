@@ -1,0 +1,5577 @@
+Title: 2606.16565v1.pdf
+
+URL Source: https://arxiv.org/pdf/2606.16565v1
+
+Published Time: Tue, 16 Jun 2026 02:07:18 GMT
+
+Number of Pages: 48
+
+Markdown Content:
+1
+
+## Distributionally robust decision -making under ambiguity: case study of water 
+
+## environmental management 
+
+Hidekazu Yoshioka a, * , Motoh Tsujimura b, Yumi Yoshioka c, Ayumi Hashiguchi d 
+
+> a
+
+Graduate School of Advanced Science and Technology, Japan Advanced Institute of Science and 
+
+Technology, Japan  
+
+> b
+
+Graduate School of Commerce, Doshisha University, Japan  
+
+> c
+
+Faculty of Applied Biological Sciences, Gifu University, Japan  
+
+> d
+
+Faculty of Environmental, Life, Natural Science and Technology, Okayama University, Japan 
+
+* Corresponding author: Associate Professor, Graduate School of Advanced Science and Technology, 
+
+Japan Advanced Institute of Science and Technology, Asahidai 1 -1, Nomi, Japan. Tel: +81 -761 -51 -1745 , 
+
+E-mail: yoshih@jaist.ac.jp 
+
+Abstract 
+
+Decision -making under uncertainty is ubiquitous in environmental project planning. Environmental 
+
+processes such as a streamflow discharge often present a subexponential memory, where the autocorrelation 
+
+persists for a long time. In addition, optimization p roblems driven by environmental processes encounter 
+
+the issue of model ambiguity because of a lack of sufficient data for model identification. To facilitate 
+
+decision -making for the management of aquatic environments (e.g., flood mitigation, water abstract ion for 
+
+hydropower generation), we formulate a unified distributionally robust stochastic optimization problem 
+
+based on a mixed moving average (MMA) process. The MMA process is a superposition of infinite -
+
+dimensional affine stochastic processes that is see mingly complex, but the affine property helps with the 
+
+formulation and computation of the optimization. Our problem is based on a convex objective with a 
+
+nonsmooth conditional value -at -risk measure. We present a convergent regularization to obtain its smoo th 
+
+and strictly convex counterpart. The model ambiguity is represented as a distortion of the probability 
+
+density of the target dynamics, and it is penalized by a divergence with which the optimization problem 
+
+remains convex and becomes computable. As a ca se study, we apply the optimization problem to two cases 
+
+with identified parameter values. The performance of the optimized dynamics is evaluated through a 
+
+statistical simulation. This paper serves as a multidisciplinary work covering both the theory and a pplication 
+
+of distributionally robust optimization. 
+
+Keywords 
+
+Decision -making under uncertainty; Distributionally robust stochastic optimization; Streamflow discharge; 
+
+Mixed moving average process; Environmental management 
+
+Statements and declarations 2
+
+Acknowledgments 
+
+This work was supported by Japan Society for the Promotion of Science (22K14441, 22H02456), 
+
+Environmental Research Projects from the Sumitomo Foundation (203160), and Kurita Water and 
+
+Environment Foundation (21K018). 
+
+Availability of data and material 
+
+Data will be available upon a reasonable request to the corresponding author. 
+
+Competing interests 
+
+The authors have no competing interests. 
+
+Author contributions 
+
+Hidekazu Yoshioka: Conceptualization, Methodology, Software, Formal analysis, Data Curation, Writing 
+
+– original draft preparation, Writing  – review and editing, Supervision, Project administration, Funding 
+
+acquisition 
+
+Motoh Tsujimura: Formal analysis, Writing  – review and editing 
+
+Yumi Yoshioka: Investigation, Writing  – review and editing, Visualization 
+
+Ayumi Hashiguchi: Investigation, Writing  – review and editing 3
+
+1.  Introduction 
+
+1.1  Background 
+
+A crucial step for sustainable development is coexistence with the environment and ecosystem. Decision -
+
+making under uncertainty is ubiquitous in environmental project planning because of the need to optimize 
+
+inherently stochastic processes. State -space mod els have been developed to realize sustainable crop 
+
+production in  greenhouses  under uncertain weather conditions  (Chen and You, 2021; Hu and You, 2022) .
+
+Management of marine fisheries requires  the consideration of  diverse factors , such as economic and soci al 
+
+development, governance and policy, biology and  the  environment, and logistics  (Akbari et al., 2022) . Land 
+
+use management has been analyzed as a principal factor for species conservation and water pollution 
+
+(Aggarwal et al., 2022; Epanchin -Niell et al., 2022) . Rivers are the core of the water –energy –ecosystem 
+
+nexus, and they are  among  the most severely threatened environments  because of anthropogenic  activities 
+
+(Yin et al., 2022; Zhang et al., 2022a) . For example, water diversion improves water supply resources while 
+
+degrading regional water quality  (Zhang et al., 2022b) . Thus, river management has been a long -standing 
+
+engineering issue. 
+
+Stochastic optimization  provides a flexible and rigorous mathematical framework for decision -
+
+making under uncertainty  (Shapiro et al., 2021)  so that target dynamics can be managed. In a stochastic 
+
+optimization problem, the decision variables are optimized so that an objective based on some expectation 
+
+is minimized subject to the constraints of  the  dynamics and  the  variables themselves.  Zhang and Xi (2020) 
+
+proposed an interval two -stage optimization problem for water  resource  management.  Salgado et al. (2022) 
+
+discussed flood contro l through dam –reservoir systems for  large  hydropower generation schemes, such as 
+
+the Three Gorges Reservoir in China.  Lazzaro and Botter (2015)  developed a statistical model to  evaluate 
+
+the performance of smaller -scale run -of -river hydropower generation projects.  Huuki et al. (2022)  used 
+
+nonlinear programming to study  the  ecologically friendly operation of smaller hydropower projects. 
+
+In practice, optimization problems driven by environmental processes, which often include 
+
+hydrological variables such as streamflow discharge, are difficult to describe  completely  because of the 
+
+lack of sufficient data to  determine  target dynamics  (Bacci et al., 2022; Hah et al., 2022; Engman et al., 
+
+2021) . In such cases, the problem is considered ambiguous. Distributionally robust stochastic optimization 
+
+is an alternative to conventional  optimization  (Postek et al., 2016) , where the target dynamics can be 
+
+distorted in the sense of probability distribution. In this framework, the model ambiguity is represented as 
+
+the potential difference between the benchmark and distorted (worse) models, which is measured as a 
+
+divergence  (Lin et al., 2022)  or distance  (Gao and Kleywegt, 2022) . The distributionally robust nature leads 
+
+to a game problem instead of a minimization problem, which introduces ambiguity -induced nonlinearity 
+
+even if the problem is originally linear. Nevertheless, this approach is widely used in engi neering studies 
+
+owing to  its  high computational tractability and well -posedness under certain assumptions. Examples of its 
+
+application include risk -averse reservoir operation to reduce flood  risk  (Gauvin et al., 2017) , robust 
+
+optimization of hydro –wind –solar energy systems  (Jin et al., 2022) , Q -learning of the Markov decision 
+
+process  (Bäuerle and Glauner, 2021) , and optimization of the uncertain fractional partial differential 
+
+equation  (Anti et al., 2021) . Thus, distributionally robust optimization is a pivotal tool for decision -making 4
+
+in various research fields. 
+
+Another critical issue for optimization problems is mathematical modeling of system dynamics. 
+
+Actual environmental processes often exhibit long (subexponential) memory  that persists  significantly 
+
+longer than processes with exponential memory  do . Typical examples include streamflow discharge  (Dey 
+
+and Mujumdar, 2022; Yoshioka et al., 2022a) , water quality indices  (Rozental and Tambieva, 2021) , and 
+
+pollutant and greenhouse gas concentrations in the air  (Bukhari et al., 2022; Proietti and Maddanu, 2022) .
+
+Candi date models for describing system dynamics exhibiting subexponential memory include time -
+
+fractional stochastic processes and the superposition of processes possessing multiple timescales 
+
+(Barndorff -Nielsen et al., 2018) . However, the application of such models to stochastic optimization is still 
+
+rare despite their relevance to engineering problems. 
+
+1.2  Objective and contribution 
+
+The objective of this paper is to present a unified framework of distributionally robust optimization for 
+
+continuous -time  stochastic processes with subexponential memory . Our  focus is on its application to 
+
+environmental planning in river environments as a case study.  We consider that i t is also applicable to 
+
+planning problems in other research fields owing to its mathematical universality by suitably interpreting 
+
+the  meaning of stochastic processes. Our approach is based on previous studies  (Yoshioka et al., 2023b -c) 
+
+that discussed static optimization problems.  The differences  between the present  study  and previous studies 
+
+are  also explained below. 
+
+We target a mixed moving average (MMA) process, which is formally a superposition of 
+
+infinitely many mutually independent stochastic differential equations (SDEs) with different timescales 
+
+(Rajput and Rosinski, 1989) . MMA processes generate subexponential memory by spectrally mixing 
+
+exponential memories. This is fundamentally different from fractional models (e.g., Volterra) , in which an 
+
+algebraic memory kernel plays a vital role  (Hainaut, 2022; Shi et al., 2022) . The simplest MMA process is 
+
+the superposition of  the  Ornstein –Uhlenbeck (supOU) type, where Ornstein –Uhlenbeck (OU) processes 
+
+are integrated with respect to the reversion speed in a phase space through Lévy bases  (Barndorff -Nielsen, 
+
+2001) . Its time -discrete counterpart is the random -coefficient autoregressive model  (Pilipauskaitė et al., 
+
+2020) . The superposition of continuous -state branching processes (called  the  supCBI process) as an affine 
+
+generalization of the supOU process was previously proposed  (Yoshioka, 2022)  to describe clustered flood 
+
+events  (e.g., Fenicia and McDonnell, 2022) . MMA processes, especially those based on affine processes 
+
+such as OU and CBI processes, are attractive because they handle both exponential and subex ponential 
+
+memories relevant for many time series data in the problems of finance and economics in a unified manner. 
+
+In addition, MMA processes have statistical moments in the closed form. The stochastic process model 
+
+here is more general than the supOU pro cess used in the previous study  (Yoshioka et al., 2023c) . In this 
+
+paper, we use supCBI processes because of their flexibility and tractability. The characteristic functions of 
+
+these processes have computable forms. Owing to this useful property, their prob ability density functions 
+
+(PDFs) become accessible without losing the tractability of the model. 
+
+Figure 1  shows the flow of our optimization modeling. We formulate a unified mathematical 5
+
+model of an optimization problem to cover two cases: high and low flows. The risk of diverting too much 
+
+or too  little  streamflow is evaluated by a conditional value -at -risk (CVaR) measure that harmonizes with 
+
+the convex optimization because of the dual representation  (Ang et al., 2018) . We employ CVaR because 
+
+of its wide use in related studies such as smart energy management  (Zhai et al., 2022) , natural resource 
+
+management  (Mir et al., 2022) , and insurance risk management  (Ghossoub et al., 2022) . A CvaR ter m has 
+
+also been used in the optimization problem of  Yoshioka et al. (2023b) , while our problem uses a pair of 
+
+CVaRs and hence is slightly generalized. 
+
+Model  ambiguity is evaluated by using a Radon –Nikodým derivative between the benchmark 
+
+and distorted (worse) models  (Liu et al., 2022) . The ambiguity is then penalized by a divergence, which 
+
+keeps the optimization problem convex . The form of the optimization problem presented in this paper is a 
+
+variant of those in the previous studies; a study that investigated a problem without uncertainties and hence 
+
+without distributionally -robust nature  (Yoshioka et al., 2023b ), and a study that analyzed distributionall y-
+
+robust optimization computationally  (Yoshioka et al., 2023c ); this paper  presents  several theoretical results 
+
+along with applications. More specifically, this paper discusses conditions to well -pose the optimization 
+
+problem. 
+
+We present a convergent regularization  method  to smoothen the CVaR term, which yields a 
+
+smooth and strictly convex optimization problem.  The  strict  convexity suggests that our problem yields a 
+
+globally optimal decision variable under ambiguity that is computable by existing methods such as gradient 
+
+descent  (e.g., Iyengar and Ma, 2013) , the accelerated inertial method  (e.g., Wibisono et al., 2016),  or its 
+
+generalization  (Liang et al., 2020) . We use the inertial method because it is more efficient than gradient 
+
+descent  (Calder and Yezzi, 2019; Dambrine e t al., 2022; Duruisseaux and Leok, 2022; He et al., 2022; 
+
+Wang et al., 2022) . The convergence of the optimization problems is analyzed as well. 
+
+We apply the optimization problem to two case studies where the streamflow is diverted. 
+
+Parameter values of the supCBI process were identified from actual data, and the optimization problem was 
+
+discretized by using the Markovian lift  (Yoshioka et al., 2022a; Yoshioka et al., 2023a)  to reduce an MMA 
+
+process to a finite -dimensional system of SDEs. We found that a nonproportional diversion rule  such as 
+
+that in  Razurel et al. (2016)  and subsequently applied to several studies  (Razurel et al., 2018; Perona et a l., 
+
+2021)  emerges in our solution, especially for streamflow diversion to generate hydropower. Thus, our 
+
+contribution suggests the rationality of the existing parameterized scheme. The performance of the 
+
+optimization result is analyzed by a Monte Carlo simulation.  Consequently, this paper serves as a 
+
+multidisciplinary work covering both the theory and application of distributionally robust optimization in 
+
+environmental and operations research areas.  In particular , the modeling and computational methods  used 
+
+to  address  MMA processes  are  transferable to problems in research areas  other than  environmental 
+
+management , as  these methods  are based on versatile mathematical descriptions. 
+
+The rest of this paper is organized as  follows . Section 2  presents the MMA processes and their 
+
+basic results.  Section 3  formulates the optimization problem and analyzes its well -posedness and 
+
+convergence in different cases.  Section 4  presents applications of our optimization framework.  Section 5 
+
+summarizes our results and presents future perspectives. The  Appendices  present supplementary results ,6
+
+including proofs of propositions and supporting data. 
+
+Figure 1.  The flow of our optimization modeling. 
+
+2.  Mathematical model 
+
+This section introduces mathematical models for streamflow discharge and summarizes  their basic results. 
+
+2.1  Stationary MMA processes 
+
+The MMA process is formally a superposition, namely, an integration with respect to Lévy bases, of 
+
+mutually independent SDEs shearing a generic form. The convergence of superposition is justified in the 
+
+sense of distribution  (Yoshioka, 2022),  where the MMA process is approximated as a summation of a 
+
+finitely many mutually independent SDEs. This technique is called Markovian lift and has been used to 
+
+reformulate a non -Markovian process into a system of Markovian processes  with  larger dimensions but 
+
+easier to handle  (Abi Jaber, 2019; Siegle et al., 2010) ; moreover , the MMA process admits explicit moments 
+
+and autocorrelation  functions  that can be implemented efficiently in applied problems. The explanation of 
+
+the MMA processes below is based on  th e methods of  Barndorff -Nielsen (2001) , Barndorff -Nielsen et al. 
+
+(2011) , and  Yoshioka (2022) . We obtain several estimates to be used in  Section 3 .
+
+We assume a complete probability space as usual in conventional stochastic calculus. We 
+
+consider supOU and supCBI processes as tractable MMA processes, both of which generate paths with 
+
+successive jumps decaying subexponentially.  We use the supCBI process in the application but the 
+
+explanation in this section starts from the supOU process as a special case to better understand MMA 
+
+processes. 
+
+2.1.1  supOU process 
+
+The supOU process is an integration of infinitely many OU processes through Lévy bases as a model of 
+
+Lévy random fields ( Definition 1  below). Here, ( )
+
+# ( )
+
+0, +    is the Borel sigma algebra on the product 7
+
+space ( )
+
+0, +   ,i is  the imaginary unit ( 2
+
+i 1= −  ), and  is the expectation. 
+
+Definition 1  A family of real scalar random variables ( ) ( )
+
+# ( )
+
+#  
+
+: 0, B B =   +    satisfying the 
+
+conditions (a) -(e) below is called Lévy bases. 
+
+(a)  The distribution of ( )
+
+B is infinitely divisible for any ( )
+
+# ( )
+
+0, B  +    .
+
+(b)  For any n   and any mutually disjoint  sets ( )
+
+# ( ) 
+
+> 12
+
+, ,..., 0, nB B B  +    random variables ( ) ( ) ( ) 
+
+> 12
+
+, ,..., nB B B  
+
+are mutually independent. 
+
+(c)  For any arbitrary mutually disjoint sets   
+
+> 1,2,3,... ii
+
+B = satisfying ( )
+
+# ( )
+
+0, iB  +    (i   ) and ( )
+
+# ( )
+
+0, ii
+
+B
+
+> 
+
+ +  
+
+ ( )
+
+> 1
+> ii
+
+B
+
+> + =
+
+
+
+converges almost surely (a.s.) and ( ) 
+
+> 1
+> iiii
+
+B B
+
+> + =
+
+  =     .
+
+(d) ( )
+
+# ( )
+
+# ( ) ( )
+
+# ( )
+
+exp i exp u B u B
+
+  =   for any u   and ( )
+
+# ( )
+
+0, B  +    where  is the 
+
+product measure of a probability measure  and a Lebesgue measure and  is a characteristic 
+
+function of a non -decreasing pure -jump  Lévy process having bounded variations. 
+
+(e)  The probability measure  satisfies the inverse -moment boundedness ( ) 
+
+> 10
+
+d
+
+    
+
+> + −
+
+ +  .
+
+The conditions (a) -(c) are common in conventional Lévy bases. The condition (d) limits Lévy bases to time -
+
+homogenous ones like Lévy processes, where the assumption on the characteristic function turns out to be 
+
+satisfied in our applications. This condition  is necessary for the stationarity of MMA processes, physically 
+
+meaning that the distributed reversion parameter is not significantly accumulated near the origin 
+
+corresponding to the infinitely fast reversion. The condition (e) is included in this paper to  obtain a MMA 
+
+process with bounded statistical moments (e.g., Eq.  (7)). 
+
+We introduce the supOU process ( ) 
+
+> tt
+
+X X 
+
+=  as a stationary scalar process , which is  the 
+
+streamflow discharge ( the  volume of water passing through a river cross -section): ( )
+
+# ( )
+
+# ( ) 
+
+> 0
+
+exp d ,d 
+
+> tt
+
+X X t s s
+
+
+
+> + −
+
+= + − −  
+
+,t    (1)
+
+with a prescribed constant 0X  called the minimum discharge (because the second term in  (1) is 
+
+nonnegative) , where the outer integration is for  the  reversion parameter 0
+
+ , whereas the inner 
+
+integration is  for time s . The second term in  (1) represents jump -driven flood events in which each sudden 
+
+discharge  increase  is followed by gradual recession. The process  (1) is understood as a formal integration 
+
+of the measure -valued mutually  independent OU processes ( ) ( )
+
+# ( )
+
+# ( )
+
+d exp d ,d 
+
+> tt
+
+Y t s s
+
+
+
+> −
+
+= − − 
+
+,t    , (2)
+
+leading to 8( ) 
+
+> 0
+
+dt tX X Y
+
+
+
+> +
+
+= + 
+
+,t    . (3)
+
+It is an integration of mutually independent OU processes with different reversion parameter values. The 
+
+coexistence of different reversion speeds indicates the existence of multiple time scales in the physical 
+
+processes that generate streamflow discharge  and appear as subexponential memory  (Yoshioka et al., 
+
+2023a) .
+
+We can rewrite  (1) as follows: ( )
+
+# ( )
+
+# ( )  
+
+> 00
+
+exp d ,d ,d 
+
+> tt
+
+X X t s z z s
+
+  
+
+> + + −
+
+= + − −  
+
+,t    (4)
+
+using a Poisson random measure on ( ) ( )
+
+0, 0, +  +   with  the intensity ( ) ( )
+
+d d dAv z s
+
+  and  a
+
+constant 0A  . Here, v is a Lévy measure of a  nondecreasing  pure -jump Lévy process  with  bounded 
+
+variations , and the outset integration of  (4) is for the jump size 0z  .
+
+The advantage of the supOU process is its tractability in that the characteristic and moment -
+
+generating functions are found analytically, from which a variety of statistics can be obtained. The 
+
+probability density of a random variable is obtained through a  Fourier inversion of the corresponding 
+
+characteristic function  (e.g., Chapter 5 of Hainaut (2022)) . Hence, the  remarkable tractability of the supOU 
+
+process allows for  efficient computation of  its PDF.  Furthermore , the autocorrelation function  with a 
+
+subex ponential  decay of the process is available in a closed form (e.g.,  Appendix B ). 
+
+The characteristic function of a random variable X is denoted as ( )
+
+> X
+
+c
+
+ , i.e., ( ) 
+
+> iXX
+
+c e
+
+> 
+
+ =  
+
+,   , (5)
+
+which always exists  because i 1X
+
+e
+
+> 
+
+ , while the moment -generating function ( )
+
+> XX
+
+M e
+
+> 
+
+ =  
+
+,   (6)
+
+may not  occur  if  is large. The characteristic function of the supOU process at a stationary state is  as 
+
+follows  (e.g., Barndorff -Nielsen, 2001) :( ) ( )
+
+# ( )
+
+# ( )
+
+# ( )  
+
+> i000
+
+dexp exp i 1 d dt 
+
+> XtX
+
+c e A ze v z t
+
+> 
+
+    
+
+> + + + −
+
+ = −  
+
+#   
+
+,   , (7)
+
+while the moment -generating function, if it exists, is ( ) ( )
+
+# ( )
+
+# ( )
+
+# ( )  
+
+> 000
+
+dexp exp 1 d dt 
+
+> XtX
+
+M e A ze v z t
+
+> 
+
+    
+
+> + + + −
+
+ = −  
+
+#   
+
+,   . (8)
+
+The moment -generating function plays a key role in this paper because it enables us to prove the 
+
+existence of exponential moments of MMA processes. More specifically, the boundedness of exponential 
+
+moments  becomes  essential for the well -posedness and convergence of our optimization problem. We can 
+
+further proceed in the tempered stable case with ( ) ( )
+
+# ( )
+
+> 1
+
+d exp dv
+
+> v
+
+v z z z z
+
+> 
+
+ 
+
+> −+
+
+= − (1v
+
+  ,0v
+
+ ) (e.g., 
+
+Yoshioka, 2022)  used in our application: 9( ) ( )
+
+# ( )
+
+# ( )
+
+# ( )( ) ( )  
+
+> 10000
+
+d ln exp 1 d d1 1 1 d 
+
+> tvv
+> tXtvvvv
+
+A M ze v z te t
+
+> 
+
+     
+
+> −+ + + −−+
+
+  = −    −   = − −    
+
+#   
+
+,   . (9)
+
+The last integral is bounded if v
+
+  , and it diverges to +  otherwise. This implies that  must be 
+
+small to ensure the existence of ( )
+
+> tX
+
+M
+
+ . Consequently, we obtain  Proposition 1  below. 
+
+Proposition 1  For the supOU process with the tempered stable ( )
+
+dv z if v
+
+  then ( )
+
+> tX
+
+M
+
+ exists 
+
+and is given by  (8).
+
+We also obtain  Proposition 2  concerning other exponential moments. 
+
+Proposition 2  For the supOU process with the tempered stable ( )
+
+dv z if v
+
+  then ( )
+
+1 1 1 
+
+> vtt
+> XtXv
+
+X e A M 
+
+> 
+
+      = − −  +       
+
+
+
+(10 )
+
+and ( ) 
+
+> 2
+
+1 1 1 
+
+> vtt
+> XtXv
+
+X e A M
+
+> 
+
+        = − −  +          
+
+
+
+(11 )
+
+with ( ) ( ) ( )
+
+> 0
+
+d 1 vvvv
+
+A A
+
+> 
+
+     
+
+> +
+
+ − =  .
+
+2.1.2  supCBI process 
+
+The supCBI process is a self -exciting generalization of the supOU process recently discussed in  Yoshioka 
+
+(2023) . It is understood through a Markovian lift as an approximation that converges in the sense of 
+
+distribution. This process at a stationary state has the characteristic function ( ) ( ) ( ) 
+
+# ( )
+
+# ( )
+
+# ( )  
+
+> i000
+
+dexp exp i 1 d dt
+
+> XX
+
+c e A t z v z t
+
+> 
+
+   
+
+> + + +
+
+ = −  
+
+#   
+
+,   . (12 )
+
+Here, ( ) 
+
+t
+
+ is the unique smooth solution, if it exists, to the initial value problem ( ) ( ) ( ) ( )( ) ( )0
+
+di i exp i 1 dd
+
+t t B t z v zt
+
+  
+
+> +
+
+= − + −
+
+,0t  ,( ) 
+
+0
+
+ = . (13 )
+
+We interpret the supCBI process as a weak limit (i.e., in the sense of distribution) of the finite -dimensional 
+
+case ( )  
+
+> 1
+> nttii
+
+X X Y
+
+
+
+> =
+
+= + 
+
+,t   (14 )10 
+
+under n → +  with each ( ) 
+
+> ti
+
+Y
+
+ (1 i n  ) being the unique strong solution to ( ) ( ) ( )  
+
+> ()
+> 00
+
+d d d , d , d          
+
+> iitic A r BY tiitii
+
+Y Y t z z u s
+
+> 
+
+   
+
+> +
+
+= − +  
+
+,t   (15 )
+
+such that each ( ) 
+
+> ti
+
+Y
+
+ and ( ) 
+
+> tj
+
+Y
+
+ are independent  of  each other when i j . Here, 0B  is a positive 
+
+parameter,    
+
+> 1iin
+
+ 
+
+>  
+
+is a sequence of mutually  independent  Poisson random measures on ( ) ( )
+
+0, 0, +  +  
+
+with the compensated measure ( )
+
+d d d v z u s  ,   
+
+> 1iin
+
+ 
+
+>  
+
+is a positive and strictly 
+
+increasing sequence of reversion parameters , and the sequence    
+
+> 1iin
+
+c    is a discrete counterpart of the 
+
+probability density  and defines the discrete probability measure ( ) 
+
+> 1i
+> nii
+
+c 
+
+> 
+
+
+
+> ==
+
+#  , with ( ) 
+
+> i
+> 
+
+ 
+
+> =
+
+being the 
+
+Dirac  delta  at i
+
+ = . A sufficient condition  for  the convergence of  (14 ), the system corresponding to the 
+
+Markovian lift, has been obtained  (Yoshioka et al., 2023a) . The parameter B modulates the strength of 
+
+the self -excitedness such that  a larger B implies stronger self -excitation and  disappears  if 0B = at 
+
+which the supCBI process  is reduced  to a supOU process. The parameter B should satisfy 1 1BM 
+
+(( )  
+
+> 10
+
+dM zv z
+
+> +
+
+=  ) for stationarity  (Yoshioka, 2022) .
+
+Remark 1  Our Markovian lift differs from the existing ones for SDEs with distributed delay  (Abi Jaber, 
+
+2019; Siegle et al., 2010) . Our supCBI process discretizes the randomized reversion parameter in the Lévy 
+
+bases and gives a mutually independent system of SDEs. In contrast, those in the literature approximate a 
+
+memory kernel with a nonexponential delay by a mixture of exponential  kernels. As a result, the resulting 
+
+Markovian system has SDEs driven by common noise. 
+
+The existence of a moment -generating function of the supCBI process holds true for small  .
+
+The same applies to the moment of the form tXtX e 
+
+> 
+
+   as shown in  Proposition 3  below. 
+
+Proposition 3 For the supCBI process with the tempered stable ( )
+
+dv z if ( ) ( )
+
+> 111
+
+1 0, v  
+
+> cvv
+
+BM 
+
+> 
+
+  
+
+> −
+
+   −   
+
+and B is sufficiently small then ( ) ( ) 
+
+# ( )
+
+# ( )
+
+# ( )  
+
+> 000
+
+dexp exp 1 d dtX uX 
+
+e e A t z v z t
+
+> 
+
+   
+
+> + + +
+
+   = −    
+
+#   
+
+(16 )
+
+exists with ( ) 
+
+t
+
+ (0t  ) being a smooth curve uniquely determined from the initial value problem: ( ) ( ) ( ) 
+
+# ( )
+
+# ( )
+
+# ( )
+
+> 0
+
+d exp 1 dd
+
+t t B t z v zt
+
+ 
+
+> +
+
+= − + −( ) 0
+
+ =0t 
+
+. (17 )11 
+
+Remark 2  The quantity tXktX e 
+
+> 
+
+   (1, 2 k = ) also exists if c
+
+  and B issmall. 
+
+3.  Optimization problem 
+
+We formulate and analyze stochastic optimization problems of MMA processes under ambiguity. Although 
+
+our focus is on water resource management, the framework presented below can be applied to problems in 
+
+other research areas because the mathematical result s in this section do not strongly rely on the specific 
+
+problem background. 
+
+3.1  Benchmark case 
+
+Given a measurable, nonnegative, bounded, continuous PDF p of the target dynamics, we first formulate 
+
+an optimization problem without model ambiguity. The expectation of a function ( )
+
+f f X= of the 
+
+nonnegative scalar random variable X is denoted as ( ) ( ) ( )
+
+df X f x p x x=    , where the domain of 
+
+integration is indicated when necessary. The upper - and lower -CVaR measures for  the  generic  nonnegative 
+
+integrable random variable 0Z  are defined as  follows  (( )
+
+, 0,1 
+
+   are quantile levels ):( ) ( )( )
+
+CVaR Z Z ZZ Z Z
+
+> 
+
+  =   
+
+ 
+
+ 
+
+and ( )
+
+# ( )( )
+
+> 1
+
+CVaR Z Z ZZ Z Z
+
+> −
+
+  =   
+
+ 
+
+  . (18 )
+
+Here, Z 
+
+> 
+
+is the quantile value corresponding to the quantile level ( )
+
+0,1 
+
+ being  uniquely determined 
+
+by ( )
+
+Z Z
+
+> 
+
+ =    , and  is the indicator function (e.g., ( )
+
+1Z Z
+
+> 
+
+ = if Z Z
+
+> 
+
+ and ( )
+
+0Z Z
+
+> 
+
+ =
+
+otherwise) . The upper - and lower -CVaR measures are conditional expectations to evaluate 
+
+the lower - and upper -tail risks of the random variable. By the dual representation formula  (e.g., Section 3.4 
+
+in Ang et al., 2018) , we have the application -oriented forms ( )  
+
+> 0
+
+1CVaR inf max ,0 
+
+> u
+
+Z u u Z
+
+> 
+
+
+
+> 
+
+ = − − + −    
+
+
+
+(19 )
+
+and ( )  
+
+> 10
+
+1CVaR inf max , 0 1w
+
+Z w Z w
+
+> 
+
+
+
+> −
+
+ = + −   − 
+
+
+
+. (20 )
+
+We assume that p is positive (a PDF is possibly nonnegative) in ( )
+
+,X = +  . The decision 
+
+variable is the diversion ratio ( )
+
+c c x = as a bounded measurable function of x . Physically, the discharge x
+
+from the upstream channel is diverted or taken with the amount cx  and the remaining ( )
+
+1 c x − flows 
+
+down the main channel.  The admissible set of decision variables is chosen as  follows:   ( )
+
+#  
+
+> 2
+
+: 0,1 , pc c c L=  →  C
+
+, (21 )
+
+where ( )
+
+> 2
+> p
+
+L  is the space of functions  
+
+: 0,1 c  →  such that 12 ( ) ( ) ( )
+
+# ( ) 
+
+> 2
+
+d d 1c x p x x p x x =  +  
+
+, (22 )
+
+and is equipped with the natural norm ( ) ( ) 
+
+> 2
+
+dc c x p x x=  . The space ( )
+
+> 2
+> p
+
+L  is a Banach space  (e.g., 
+
+Theorem 1.3. of Kufner and Opic (1984))  and , further , a Hilbert space by square integrability.  The space C
+
+is a convex, closed, and bounded subspace of ( )
+
+> 2
+> p
+
+L  . Indeed, the convexity and boundedness are 
+
+trivial. For closedness, applying the dominated convergence theorem (e.g.,  Theorem 4.2 of Brezis (2011)) 
+
+to  an  arbitrary sequence nc C (1, 2,3,... n = ) (uniformly bounded by definition) converging pointwise to 
+
+some  
+
+: 0,1 c  →  almost everywhere in  yields c C because ( ) ( ) ( ) ( ) 
+
+> 22
+
+lim d d 1nn c x p x x c x p x x 
+
+> →+
+
+=   +  
+
+. (23 )
+
+The benchmark optimization problem aims at minimizing an objective to obtain a compromising 
+
+policy among the diversion effort and the risk of too much/less diverting the flow.  Set  the objective ( ) 
+
+# ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+> 1
+
+ˆ CVaR 1 CVaR 1J c g c c c X c X 
+
+> 
+
+
+
+> −
+
+ = − − − + − 
+
+, (24 )
+
+where   
+
+# )
+
+: 0,1 0, g → +  is twice  the  continuously differentiable, increasing, strictly convex, and 
+
+Lipschitz continuous function with the Lipschitz constant 0gL  ; the constant  
+
+ˆ 0,1 c  is the target 
+
+diversion ratio ; and the parameters , 0
+
+   are Lagrangian multipliers serving as weighting factors. In 
+
+Section 4 , we use ( )
+
+# ( )
+
+> 2
+
+1
+
+ˆ ˆ
+
+2
+
+g c c c c− = − .
+
+The first term of  (24 ) represents the diversion effort , where the deviation between the realized 
+
+and targeted efforts  is  represented by the difference ˆc c− and is measured through g . The second and 
+
+third terms of  (24 ) penalize too much and too  less  diversion of the flow, respectively. The target value ˆc
+
+should be close to 1 for the hydropower generation case, as the water should be taken as much as possible, 
+
+whereas it should be close to 0 for the flood diversion case because diverting too much water to the auxiliary 
+
+channel should be avoided. 
+
+The second term  of  (24 ) is relevant for hydropower generation because extracting too much 
+
+river water critically affects river aquatic ecosystems and  leads to  water rights  conflicts  among other 
+
+industries , such as agriculture and manufacturing  (Huuki et al., 2022; Basso et al., 2020; Widén et al., 2022) .
+
+In contrast, the third term of  (24 ) is relevant in the flood mitigation case , where high -flow events in a main 
+
+channel should be diverted into an auxiliary  channel  to reduce the flood risk of downstream areas  (Gopalan 
+
+et al., 2022; Serra‐Llobet et al., 2022) . We discuss these two cases separately later.  The theoretical  analysis 
+
+in this paper is based on the unified formulation  (24 ), as it describes these cases simultaneously. 
+
+Set the optimization problem without model ambiguity: ( ) ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+#  
+
+> 1
+
+ˆinf inf CVaR 1 CVaR 1 
+
+> cc
+
+V J c g c X c c X X c X X
+
+> 
+
+ 
+
+> −
+
+ = = − − − + − 
+
+ 
+
+> CC
+
+, (25 )
+
+which is rewritten  by  (19 )-(20 ) as follows: 13 ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+#  
+
+# ( )
+
+# ( )
+
+#  
+
+# ( ) 
+
+> ,0,
+
+ˆ max 1 , 0 inf dmax 1 , 0 1 
+
+> u w c
+
+g c x c u c x xV u w p x xc x x w
+
+   
+
+> 
+
+  − + − −    = − + +   + − −  −  
+
+# C
+
+. (26 )
+
+This is a convex optimization problem because the objective to be minimized is convex with respect to , 0, u w c  C
+
+, and their admissible set 
+
+# )
+
+> 2
+
+0, + C is  also convex . Therefore, V exists. 
+
+3.2  Distributionally robust case 
+
+The distributionally robust optimization problem is formulated on the basis of the assumption that the PDF p
+
+is not necessarily correct but  that  the true one (or the most reasonable one) is its transformation through 
+
+a Radon –Nikodým derivative  (Liu et al., 2022) . Consider a family of PDFs q 
+
+> 
+
+parameterized by a positive 
+
+measurable function ( )
+
+x
+
+ = satisfying q p
+
+> 
+
+=
+
+in  (27 )
+
+and ( ) ( ) ( )
+
+d d 1q x x x p x x
+
+> 
+
+ 
+
+> 
+
+= = 
+
+. (28 )
+
+The condition  (27 ) means that the PDFs p and q 
+
+> 
+
+are equivalent. The condition  (28 ) is a natural 
+
+requirement to ensure that q 
+
+> 
+
+is a PDF. Given p , the admissible set, which is the set of positive and 
+
+measurable mappings  satisfying the conditions  (27 )-(28 ), is denoted as  . Choosing the constant 
+
+function 1
+
+ recovers p q
+
+> 
+
+= . Hereafter, we only consider  belonging to  . The integration 
+
+range of integrands containing the PDFs ,p q  
+
+> 
+
+are  and will be omitted in the integral representation 
+
+for sake of simplicity. 
+
+Model ambiguity between the two PDFs p and q 
+
+> 
+
+is evaluated by a divergence ( )
+
+D p q 
+
+> 
+
+as certain convex functional of  . Several divergences exist  (Lin et al., 2022; Liu et al., 2022) . We employ 
+
+the relative entropy (Kullback –Leibler divergence) owing to its tractability: ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+dD p q x p x x
+
+> 
+
+  = 
+
+(29 )
+
+with ( )
+
+ln 1x x x x
+
+= − +
+
+for 0x  and ( )0 1
+
+ = . (30 )
+
+Here,  is non -negative and convex for 0x  and is globally minimized at 1x = . Therefore, ( )
+
+0D p q 
+
+> 
+
+
+
+and it vanishes if and only if the two PDFs p and q 
+
+> 
+
+are equivalent. The two PDFs p
+
+and q 
+
+> 
+
+are more different from each other for larger ( )
+
+D p q  
+
+> 
+
+. We demonstrate that  Kullback –Leibler 
+
+divergence  is able to mathematically handle the unbounded state (streamflow discharge) under uncertainties. 
+
+The distributionally robust formulation of the stochastic optimization problem is 14 ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+#  
+
+# ( )
+
+# ( )
+
+#  
+
+# ( )
+
+# ( ) 
+
+> ,0,
+
+ˆ max 1 , 0 inf sup dmax 1 , 0 1 
+
+> u w c
+
+u wg c x c u c x xW q x x D p q c x x w
+
+> 
+
+    
+
+> 
+
+− +    − + − −  =   + −  + − −  −   
+
+# C
+
+(31 )
+
+with a Lagrangian multiplier 0
+
+ . Now, the expectations are evaluated under the distorted PDF q 
+
+> 
+
+but 
+
+not with p . The last term  (31 ) works as a penalization of the model ambiguity. The decision  maker 
+
+becomes more ambiguity  averse for smaller  .
+
+Hereafter, we always employ  Assumption 1  below. 
+
+Assumption 1 ( )
+
+2 01
+
+> X
+
+C
+
+  − is sufficiently small such that XC Xk
+
+X e    +   (0,1, 2 k = ).
+
+This is possible both for supOU and supCBI cases because of  Propositions 1 -3 if B is sufficiently small. 
+
+Remark 3  One may evaluate the diversion effort by ( )
+
+ˆg c c x − , which evaluates the deviation between 
+
+the realized and targeted discharges but not  the  diversion ratios. This modification does not fit into our 
+
+theory because one may additionally need X
+
+e
+
+> 
+
+   +  
+
+ (0
+
+ ). 
+
+The right -hand side of  (31 ) can be rewritten in a more concise form that is not only useful in 
+
+applications but also  provides  better theoretical insights into the distributionally robust optimization 
+
+problem.  The  inner optimization problem for  is explicitly solved as follows. Given , 0, u w c  C ,
+
+write ( ) ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+#  
+
+# ( )
+
+# ( )
+
+#  
+
+ˆ, , , max 1 ,0 max 1 ,0 1
+
+F x u w c g c x c u c x x c x x w
+
+= − + − − + − −−
+
+. (32 )
+
+This F is nonnegative. We obtain ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+#  
+
+# ( )
+
+# ( )
+
+#  
+
+# ( )
+
+# ( )
+
+# ( ) ( ) ( )
+
+# ( )
+
+#  
+
+# ( )
+
+ˆ max 1 , 0 dmax 1 , 0 1, , , d
+
+g c X c u c x xq x x D p q c x x wF x u w c x x p x x
+
+> 
+
+     − + − −   − + − − − = −
+
+# 
+
+. (33 )
+
+Since 0p  , the quantity  on  the right -hand side subject to    is minimized by a constrained 
+
+optimization  (e.g., Hansen and Miao (2018)) :( )   
+
+> ()()
+
+# ( )       
+
+> ()
+> ,,,,,,*,,,
+
+1d
+
+> x u w c x u w c x u w c
+
+ex eKe p x x
+
+> 
+
+= 
+
+# 
+
+with ( ) ( ), , ,, , , F x u w c x u w c 
+
+= . (34 )
+
+Note that *
+
+   for each , 0, u w c  C . Therefore, the inner maximization of  (31 ) is solved as 15 
+
+follows: ( ) ( )
+
+# ( )
+
+#  
+
+# ( ) ( ) ( )
+
+# ( )
+
+#  
+
+# ( ) 
+
+> ()
+
+# ( )   
+
+> **,,,
+
+sup , , , d, , , d1ln 1 dx u w c 
+
+u w F x u w c q x x D p q u w F x u w c x x p x xu w K e p x xK 
+
+> 
+
+       
+
+> 
+
+− + + −= − + + − = − + + + −  
+
+# 
+
+. (35 )
+
+Furthermore, we have ( )
+
+# ( ) 
+
+> ()
+
+# ( )    
+
+> ,,,,,,
+
+1 1ln 1 d ln 1 ln d
+
+> F x u w c X u w c
+
+K e p x x K K e p x xK K
+
+> 
+
+    + − = + − =      
+
+#  
+
+. (36 )
+
+Consequently, we arrive at ( )
+
+# ( ) ( )
+
+#       
+
+> ,,,,0, ,0,
+
+inf ln d inf , ,   
+
+> F x u w c u w cu w c
+
+W u w e p x x u w H u w c 
+
+> 
+
+      
+
+> 
+
+    = − + +  − + +     
+
+# C C
+
+(37 )
+
+with ( ) 
+
+> ()
+
+# ( )  
+
+> ,,,
+
+, , ln d
+
+> F x u w c
+
+H u w c e p x x
+
+> 
+
+  =   
+
+#  , showing that  (31 ) is an optimization problem where the 
+
+certainty equivalent ( ) 
+
+ln exp 
+
+        
+
+
+
+ of  is employed. We have V W by the classical Jensen’s 
+
+inequality. In addition, we have 1 2
+
+W W   
+
+> ==
+
+ for 2 10
+
+   (Lemma A.1  of  Appendix A ), showing 
+
+that the smaller penalization against the ambiguity leads to a larger (i.e., worse) estimate of the objective. 
+
+The admissible range  )2
+
+0, +  of the two decision variables ,u w  is unbounded. However, we 
+
+can limit our interest to strictly bounded ones , as shown in  Proposition 4  below. In this way, the admissible 
+
+set of decision variables ,u w  can be assumed to be compact  a priori .
+
+Proposition 4  Any minimizing ,u w  of  (37 ) belong  to some compact set 
+
+# )
+
+> 2
+
+0, D  +  .
+
+Remark 4  Essentially , the same compactification argument applies to the regularized optimization problem 
+
+and its discretized counterpart in the next subsection. We can choose a sufficiently large compact set D
+
+to which the optimal decision variables of the three optimization problems (the distributionally robust one 
+
+and its regularization with/without discretization in the next subsection) belong. This compaction is 
+
+introduced for purely theoretical reasons. 
+
+By  Proposition 4 , we will often use a suitably wide and compact set D for  the decision 
+
+variables ,u w  without loss of generality. We have 16 ( ) ( ) ( )
+
+# ( )
+
+#  
+
+# ( )
+
+# ( )
+
+#  
+
+# ( ) ( )
+
+# ( )
+
+# ( ) 
+
+, , , 1 max 1 , 0 max 1 , 0 11 111 11
+
+F x u w c g u c x x c x x wug c x xUg xF x
+
+     + − − + − −− + + −− + + − + −
+
+,( )
+
+, ,u w D c  C (38 )
+
+with a constant 0U  , which exists by  Proposition 4 .
+
+To deeper investigate the optimization problem, we use the lower semi -continuity result. 
+
+Proposition5 ( )
+
+, ,H H u w c = is lower semi -continuous in 
+
+# )
+
+> 2
+
+0, + C .
+
+Because ( )
+
+, ,u w H u w c 
+
+> 
+
+ − + + is lower semi -continuous, the optimization problem  (37 )
+
+admits a solution if it is convex. Set ( ) ( )
+
+# ( )
+
+# ( )
+
+ln dx
+
+G e p x x
+
+> 
+
+= 
+
+(39 )
+
+for any function 
+
+# )
+
+: 0, 
+
+ → +  such that ( )
+
+# ( )
+
+dx
+
+e p x x
+
+> 
+
+ +  .
+
+Proposition 6  For 1 2,
+
+   = with ( )
+
+# ( )
+
+di x
+
+e p x x
+
+> 
+
+ +  (1, 2 i = ) and any real number  
+
+0,1 
+
+( )
+
+# ( )
+
+# ( ) ( ) ( )   
+
+> 1212
+
+1 1G G G
+
+      + −  + −
+
+. (40 )
+
+Furthermore  for , 0, i i iu w c C (1, 2 i = )( ) ( ) ( )
+
+# ( )
+
+# ( ) ( ) ( )           
+
+> 121212111222
+
+1 , 1 , 1 , , 1 , ,H u u w w c c H u w c H u w c
+
+   + − + − + −  + −
+
+. (41 )
+
+Consequently the optimization problem  (37 ) is convex. 
+
+The convexity ( Proposition 6)  and the lower semi -continuity ( Proposition 5 ) of H imply that it is 
+
+sequentially weakly lower semi -continuous  (Theorem 2.20 of Galewski (2021))  and that the problem has a 
+
+globally minimizing ( )
+
+, ,u w c  with which the infimum is attained .
+
+3.3  Regularization 
+
+Our distributionally robust optimization problem is non -smooth term as it has “max” functions in the 
+
+objective. This non -smoothness prevents us from applying a gradient descent type solution algorithm to the 
+
+optimization problem. This issue is resolved thr ough the replacement of the “max” function by a smoother 
+
+one  (e.g., Luna  et al. (2016)) . We use the strictly convex regularized “max” function as in  Yoshioka et al. 
+
+(2023c) :17 ( ) 
+
+> 22
+
+42
+
+x xm x
+
+> 
+
++ +=
+
+for x   (42 )
+
+with a regularization parameter 0
+
+ . We note a key estimate used in the sequel:   ( )  
+
+max ,0 max ,0 x m x x
+
+> 
+
+  +
+
+for x   , (43 )
+
+showing that ( ) 
+
+m
+
+> 
+
+ uniformly approximates  
+
+max ,0  .
+
+For 0
+
+ , the regularized distributionally robust optimization problem is formulated as  follows: ( )
+
+# ( ) ( )
+
+#       
+
+> ,,,,0, ,0,
+
+inf ln d inf , ,    
+
+> Fx u w c u w cu w c
+
+W u w e p x x u w H u w c 
+
+> 
+> 
+
+      
+
+> 
+
+    = − + +  − + +     
+
+# C C
+
+, (44 )
+
+where ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+ˆ, , , 1 11
+
+F x u w c g c c m u c x m c x w
+
+> 
+
+= − + − − + − −−
+
+. (45 )
+
+We have that ( )
+
+, ,u w H u w c 
+
+> 
+
+ − + + is strictly convex. 
+
+Proposition 7  For any ( )
+
+0,1 
+
+, 0, i i iu w c C (1, 2 i = ) with ( ) ( )     
+
+> 111222
+
+, , , ,u w c u w c( ) ( ) ( )
+
+# ( )
+
+# ( ) ( ) ( )           
+
+> 121212111222
+
+1 , 1 , 1 , , 1 , ,H u u w w c c H u w c H u w c
+
+> 
+
+   + − + − + −  + −
+
+. (46 )
+
+Thereby the optimization problem  (44 ) has a strictly convex objective and admits a unique minimizer in D C
+
+where 
+
+# )
+
+> 2
+
+0, D  +  is a compact set. 
+
+The optimal , i.e.,  worst -case ambiguity *
+
+ = is found as ( ) 
+
+> ()
+
+( ) 
+
+> ()
+
+( )
+
+# ( )        
+
+> ******
+> ,,,*,,,
+
+d        
+
+> Fx u wcxFx u wcx
+
+exe p x x
+
+> 
+> 
+
+=
+
+# 
+
+(47 )
+
+with ( )  
+
+> ***
+
+, ,u w c the unique minimizer of  (44 ).
+
+Finally, for consistency between the regularized and nonregularized optimization problems, we 
+
+propose the following. 
+
+Proposition 8  It follows that W W
+
+> 
+
+→ as 0
+
+→ +  . In addition the minimizer of W 
+
+> 
+
+accumulates to a 
+
+minimizer of W . Further more W W C
+
+> 
+
+−  with a constant 0C  independent from  .
+
+3.4  Discretization of the regularized problem 
+
+The discretized counterpart of  (44 ) is  defined  as  follows: ( )     
+
+> ,,,,,0, 1
+
+inf ln     
+
+> iN
+> Fu w c NNiu w ci
+
+W u w p e 
+
+> 
+> 
+
+    
+
+> =
+
+    = − + +     
+
+# C
+
+(48 )18 
+
+with a discrete probability measure ( ) ( )
+
+> 1
+
+d i   
+
+> NNiXXi
+
+P X p
+
+
+
+> ==
+
+=  (1
+
+1
+
+> Nii
+
+p
+
+> =
+
+= ,0ip  ,1 20 ... nX X X   
+
+for 1 i N  ) approximating p , the coefficients ( )
+
+# ( )
+
+# ( )
+
+#  
+
+# ( )
+
+#   
+
+> ,
+
+ˆ, , max 1 ,0 max 1 ,0 1     
+
+> iiiiii
+
+F u w c g c c u c X c X w
+
+> 
+
+= − + − − + − −−
+
+, (49 )
+
+and the admissible set of decision variables  
+
+#  
+
+#   
+
+> 1
+
+0,1 , 1 N i ii N
+
+c c c i N  
+
+= =   C
+
+. (50 )
+
+The discretized worst -case ambiguity N
+
+ is     
+
+> **1iiN
+
+ 
+
+>  
+
+=
+
+with ( )( )     
+
+> ,,
+> ,,*,,1
+> ij
+> Fu w c iFu w c Njj
+
+ep e 
+
+> 
+> 
+
+
+
+> =
+
+=
+
+#  . (51 )
+
+The strict convexity and hence the unique solvability of the discretized version of the regularized problem 
+
+follow in essentially the same way as the continuous one, which is therefore omitted. 
+
+We end this section by providing comments on the convergence from discretized to continuous 
+
+problems. We expect that a reasonable discretization should satisfy ,NW W
+
+> 
+
+→ under N → +  for each 
+
+fixed 0
+
+ . Usually, the discretization of probability densities relies on the continuous mapping theorem 
+
+(Theorem 2.12 of Jiang (2022) ): ( ) ( ) ( ) ( )
+
+lim d dNN f x P x f x P x 
+
+> →+
+
+= 
+
+for any ( )
+
+f C  , (52 )
+
+the assumption below  is assumed to be  satisfied by NP .
+
+Assumption 2 ( )
+
+dNP x weakly  converges to ( ) ( )
+
+d dP x p x x= .
+
+This assumption is satisfied for the discretization method of the probability density  (Yoshioka et al., 2023a) 
+
+employed in our application. To ensure that  Assumption 2  is satisfied, we need that ( )
+
+# ( )
+
+, , ,F x u w c x  
+
+> 
+
+is 
+
+continuous for 0x  under optimality, which is difficult to judge  a priori . Nevertheless,  the continuity 
+
+assumption of c will be experimentally checked in our numerical computation , as shown in the next 
+
+section. If ( )
+
+# ( )
+
+, , ,F x u w c x  
+
+> 
+
+is continuous for 0x  , then under a suitable Hilbert space,  we will have 
+
+convergence, up to  the  subsequence, ,NW W
+
+> 
+
+→ as N → +  if ( ) ( )
+
+, , , ,N NJ u w c J u w c O +
+
+(( )
+
+, ,u w c D C ,N   ) with some NO independent of ( )
+
+, ,u w c D C such that lim inf 0NN O 
+
+> →+
+
+= .
+
+3.5  Numerical algorithm 
+
+We present a numerical algorithm to solve the discretized version of the regularized distributionally robust 
+
+optimization problem  (48 ). Because this paper is not aiming at comparing optimization methods but rat her 19 
+
+addressing a case study, it suffices to develop a simple algorithm for its purpose. It should be noted that this 
+
+point represents a limitation of this paper as a case study.  Our algorithm is a gradient descent method with 
+
+an inertia, which has successfully been applied to a variety of problems  (Calder and Yezzi, 2019; 
+
+Duruisseaux and Leok, 2022; He et al., 2022; Wang et al., 2022) . Set ( )   
+
+> ()
+> ,,,1
+
+ˆ , , ln  
+
+> iFu w c Nii
+
+H u w c u w p e 
+
+> 
+> 
+
+  
+
+> =
+
+  = − + +   
+
+# 
+
+. (53 )
+
+In  Algorithm 1  below, the superscript represents  the  iteration count. Parameters ( )
+
+# ( )
+
+> 4
+
+10 t O −
+
+ = ,( )
+
+# ( )
+
+> 1
+
+10 O
+
+
+
+> −
+
+=
+
+, and ( )
+
+> 0
+
+10 O
+
+= control the convergence speed. The parameter ( )
+
+> 8
+
+10 
+
+
+
+> −
+
+= is an error 
+
+tolerance. 
+
+Algorithm 1 
+
+Step 0  Prepare model parameter values and set the initial guesses ( ) ( ) ( )
+
+# ( )
+
+#   
+
+# ( )  
+
+> 0001
+
+, , 0, 0, 0 i N
+
+u w c   
+
+= and ( ) ( ) ( )
+
+# ( )     
+
+> ()()()
+
+# ( )     
+
+> 111000
+
+, , , ,u w c u w c− − − =
+
+. Set 0n = .
+
+Step 1  Compute ( ) ( ) ( )
+
+# ( )  
+
+> 111
+
+, ,n n n
+
+u w c+ + + as follows: ( ) ( ) ( )       
+
+> ()()()()
+
+## ( )   
+
+> ()()
+
+# ( )    
+
+> 11,,,,
+
+ˆ , ,max , 0         
+
+> nnn
+> nnnnu w c uwc
+
+H u w c tu u u uu
+
+ 
+
+> +−=
+
+  = − + −   
+
+(54 )( ) ( ) ( )       
+
+> ()()()()
+
+## ( )   
+
+> ()()
+
+# ( )    
+
+> 11,,,,
+
+ˆ , ,max , 0         
+
+> nnn
+> nnnnu w c uwc
+
+H u w c tw v w ww
+
+ 
+
+> +−=
+
+  = − + −   
+
+(55 )( ) ( ) ( )       
+
+> ()()()()
+
+## ( )   
+
+> ()()
+
+# ( )    
+
+> 11,,,,
+
+ˆ , ,min max , 0 ,1              
+
+> nnn
+> nnnniiiiiiu w c uwc
+
+H u w c tc c c cp c
+
+ 
+
+> +−=
+
+     = − + −        
+
+(1 i N  ).  (56 )
+
+Step 2  Compute the update error as follows: ( ) ( ) ( ) ( ) ( ) ( ) ( )
+
+#  
+
+#    
+
+> 1111
+
+min , , min n n n n n n ni ii N
+
+e u u w w c c+ + +  
+
+= − − −
+
+(1 i N  ).  (57 )
+
+If ( )
+
+> n
+
+e
+
+ then output ( ) ( ) ( )
+
+# ( )  
+
+> 111
+
+, ,n n n
+
+u w c+ + + as the optimal decision variables ( )  
+
+> ***
+
+, ,u w c and compute 
+
+the worst -case ambiguity by  (51 ) based on ( )* * *
+
+, ,u w c . If ( )
+
+> n
+
+e
+
+ then update 1n n→ + and go to 
+
+Step 1 .
+
+Algorithm 1  is a gradient descent method with  an  inertia, where the inertial effect to accelerate the 
+
+convergence of the optimization problem is implemented with the terms multiplied by  . The strict 
+
+convexity of the objective ensures the convergence of the algorithm to the unique minimizer if t is small 20 
+
+and  and  are chosen properly. Some researchers  have  analyzed time -dependent (iteration count -
+
+dependent)  (Ushiyama et al., 2022) , but we consider a simpler one with a constant  . This simplest 
+
+setting significantly improves the pure gradient descent ( 0
+
+= ) ( Figures 11 -12  shown later). Projections 
+
+using “min” and “max” functions are employed in  (54 ), (55 ), and  (56 ) to guarantee that the computed 
+
+decision variables rigorously belong to their admissible sets. This projection is understood as a large -penalty 
+
+limit of the implicit penalization method  (Calder and Yezzi, 2019) . The parameter  appearing in  (54 )-
+
+(55 ) is a scaling parameter to accelerate the convergence that has been chosen manually. The division by ip
+
+in  (56 ) is to accelerate the computation for small probabilities. 
+
+4.  Applications 
+
+The study sites are in the Hii River system in the San -in area of Shimane Prefecture, Japan, where we have 
+
+been investigating the local hydrology and ecology since 2014.  Figure 2  shows the two study sites, which 
+
+have different hydrological characteristics and face different optimization issues. Throughout this section 
+
+“X ” stands for the discharge value but not a stochastic process.  We formulate the problem within the 
+
+context of our theoretical analysis for modeling simplicity, although there may include some nonconvexity 
+
+in the other engineering applications. Here,  Assumption 1  is satisfied in our MMA processes.  Assumption 
+
+2 is a technical mathematical assumption. The strict convexity is also a technical assumption to formulate 
+
+the optimization problem, which is the limitation of this paper. 
+
+4.1  Model identification and Markovian lift 
+
+The PDF p of the target process is computed as follows. We do not present a detailed explanation of the 
+
+Markovian lift and Fourier transform in this paper, but such information can be found in the literature 
+
+(Yoshioka et al., 2023a; Hainaut, 2022) . The degrees of freedom n of the Markovian lift is fixed to 1,024 
+
+according to the quantile discretization  (Yoshioka et al., 2023a) , which has preliminary been found to be 
+
+sufficient for the computation below. The degrees of freedom N for the discretization of the optimization 
+
+problem are set to 2,000 for  Case 1  (i.e., control of the low flow) and 8,000 for  Case 2  (i.e., control of the 
+
+high flow). The domains of the cases have lengths of 200 m/s and 1,000 m 3/s, respectively.  Appendix B 
+
+summarizes the statistics of the discharge time series at each study site and presents the identified model 
+
+parameter values of the supCBI process. 
+
+We set the regularization parameter 0.0001 
+
+= m3/s for  Case 1  and 0.01 
+
+ =  m3/s for  Case 
+
+2, which have been found to be sufficiently small as well as computationally stable. Larger  would be 
+
+necessary for problems with larger mean discharge and/or large increment t in  Algorithm 1 .
+
+4.2  Case 1: Control of the low flow 
+
+4.2.1  Study site 
+
+Water allocation for hydropower generation is a crucial issue for the main channel of the Hii River upstream 
+
+of Obara Dam, which is the largest dam in the river ( Figure 3 ). There is a hydropower plant with an intake 21 
+
+point upstream of the reservoir created by Obara Dam that has been idling from June 2020 to probably 
+
+summer or autumn 2023  (Yoshioka and Yoshioka, 2022a) . The hydropower plant is expected to provide a 
+
+source of clean electricity for the regional grid, but an intake of too much water will affect the downstream 
+
+dam –reservoir system. The study site is a habitat of the landlocked  Plecoglossus altivelis altivelis  (i.e., ayu 
+
+sweetfish) and thus serves as a major inland fishery resource. The spawning and migration of this fish are 
+
+negatively affected by extremely low -flow regimes  (Maeda, 2013) . In addition, the intake point may 
+
+generate a high -flow reach that can potentially entrain fish resulting in death or injury by impingement at 
+
+the screen  (Jarvis and Closs, 2019) . Therefore, balancing the water intake policy for future operation of the 
+
+hydropower plant is a crucial issue.  Appendix B  shows that the streamflow di scharge at this study site has 
+
+a long memory, and hence the application of the MMA process is relevant. 
+
+Figure 4  compares the observed and modeled PDFs of the streamflow discharge in ordinary and 
+
+logarithmic scales. The tails of the PDFs agree well with each other by  Figure 4(b),  but they are visibly 
+
+different near the modes because the modeled PDF is unimodal while the observed PDF is seemingly 
+
+bimodal. However, the observed PDF at the study site is unimodal before May 2020  (Yoshioka and 
+
+Yoshioka, 2022a) . The bimodality of a discharge PDF is often due to time -periodic fluctuations  (Ye et al., 
+
+2021) . We attributed the bimodality in this case to the hydropower generation by an upstream smaller dam 
+
+aimed at compensating for the lack of electricity supply from the idling plant. The deviation between the 
+
+observation and model implies that solving the opt imization problem under ambiguity is essential. 
+
+Figure 2 . Map of the study area , including the hydropower station (study site of  Case 1 ) and diversion 
+
+channel (study site of  Case 2 ). 22 
+
+Figure 3.  Photographs of the intaking point of the hydropower station (a) taken from the downstream and 
+
+(b) from the diversion channel. Photo taken by Yoshioka H. on October 19, 2022. 23 
+
+Figure 4 . Observed and modelled PDFs on  (a)  ordinary scale and  (b)  logarithmic scale. 
+
+4.2.2  Computation and sensitivity analysis 
+
+Figures 5 , 6, and  7 show the computed diversion ratio c , ambiguity  , and PDF q under the optimality ,
+
+respectively, as bivariate functions of the discharge X and weight  under the worst -case optimization. 
+
+The other parameters were 0.20 
+
+= and 1.0 
+
+= . The computational results are presented for a small 
+
+discharge because the objective of  Case 1  is the optimization of low -flow events.  Figure 5  shows that the 
+
+optimized diversion ratio depends nonmonotonically on both X and  , but the dependence seems to be 
+
+smooth except for 0X = where c is computed to be very close to 1 numerically. However, this is not 
+
+problematic because no water can be abstracted at a zero discharge 0X = . The river water should not be 
+
+abstracted for a small discharge, which is consistent with the intuition that a persistent river flow should be 
+
+kept for sustainable water resources management. Interestingly, the proposed model suggests that 
+
+expanding the a rea of no -intake with increasing ambiguity aversion is suboptimal.  Figures 6  and  7 show 
+
+that the impact of model ambiguity is limited to small discharges at both small and large  , which can be 
+
+attributed to the use of a lower CVaR for risk evaluation. 
+
+We also investigate the sensitivity against another weight  for ambiguity aversion.  Figures 
+
+8, 9, and  10  show the computed diversion ratio c , ambiguity  , and PDF q under the optimality ,
+
+respectively, as bivariate functions of the discharge X and weight  under the worst -case optimization. 
+
+The other parameters were 0.20 
+
+= and 1
+
+= . As shown in  Figure 8 , the proposed model finds that 24 
+
+expanding the area of no -intake was only optimal with increasing ambiguity aversion (i.e., decreasing  ). 
+
+Even abstracting very low flows close to 0X = are optimal for small  such that the ambiguity and 
+
+PDF were concentrated near 0X = . As shown in  Figures 9  and  10 , the dependence of the ambiguity and 
+
+PDF on ambiguity aversion was nonmonotonic, which suggests that the benchmark PDF should be distorted 
+
+gradually as  decreases to ( )
+
+> 1
+
+10 O − . A risk -averse decision -maker should consider a PDF significantly 
+
+concentrating on 0X = .
+
+Figure 5.  The diversion ratio under the worst -case optimization as a function of ( )
+
+,X
+
+ . The white color 
+
+is the area of 0c = in which the water should not be abstracted. 
+
+Figure 6.  The ambiguity under the worst -case optimization as a function of ( )
+
+,X
+
+ .25 
+
+Figure 7.  The PDF under the worst -case optimization as a function of ( )
+
+,X
+
+ .
+
+Figure 8.  The diversion ratio under the worst -case optimization as a function of ( )
+
+,X
+
+ . The white color 
+
+is the area of 0c = in which the water should not be abstracted. 
+
+Figure 9.  The ambiguity under the worst -case optimization as a function of ( )
+
+,X
+
+ .26 
+
+Figure 10.  The PDF under the worst -case optimization as a function of ( )
+
+,X
+
+ .
+
+We analyze the similarity between existing diversion ratios and those computed in this case. 
+
+Razurel et al. (2016)  and later studies  (Razurel et al., 2018; Perona et al., 2021)  utilized the Fermi –Dirac 
+
+curve to model the diversion ratio. Their parameterized model captures the convex, concave, and sigmoid 
+
+curves for the diversion ratio as a function of the discharge assuming that it is not large.  Figure 11  plots 
+
+several optimized diversion ratios for a small discharge with 0.20 
+
+= and 1.0 
+
+= . Our model generates 
+
+the optimal ( )c c X = as an almost concave (especially continuous for 0X  ) and increasing function. 
+
+This can be classified as a “Fermi standard” curve according to  Razurel et al. (2016) . We did not find 
+
+“Fermi inverse” curves or convex and sigmoid “Fermi standard” curves in the literature under the 
+
+computational conditions for this case. Our computational results imply that the parameterized model of 
+
+Razurel et al. (2016)  may potentially serve as a simple parameterized model for the diversion ratio. 
+
+Figure 11.  The diversion ratio under the worst -case optimization as a function of 0.2 X  (m 3/s)  (Red: 2.5 
+
+=
+
+, Magenta: 3.5 
+
+ =  , Blue: 4.5 
+
+= ). 27 
+
+Finally, we analyze the convergence of  Algorithm 1  for different values of  . Figure 12  shows 
+
+the convergence histories for Case 1 with parameter values for 0.0,0.1, 0.2,..., 0.9 
+
+= . The convergence 
+
+speed increased with the inertia (i.e.,  ). Hence, adding the inertia to gradient descent was effective at 
+
+numerically solving the optimization problem. Another key finding is that the convergence history became 
+
+more unstable as the inertia increases. Therefore,  should not be excessively large. Furthermore, 
+
+Algorithm 1  fail when 1
+
+ , which showed that increasing the inertia too much destroyed the algorithm. 
+
+Comparable results are obtained for larger  (Figure 13 ). 
+
+Figure 12.  Convergence histories of Case 1 for 0.0,0.1,0.2,...,0.9 
+
+= (1
+
+= ). 
+
+Figure 13.  Convergence histories of Case 1 for 0.0,0.1, 0.2,...,0.9 
+
+= (100 
+
+= ). 
+
+4.3  Case 2: Control of the high flow 
+
+4.3.1  Study site 
+
+The operation of flood diversion facilities is a pivotal issue for disaster mitigation of urban areas around a 
+
+river channel vulnerable to inundation. The Hii River diversion system has been operating since 2013, and 
+
+it is a huge infrastructure that divert s severe floods from the main channel of the Hii River to the nearby 
+
+Kando River to mitigate flood damage to downstream urban areas where the ground level is lower than the 28 
+
+riverbed  (Okada et al., 2013)  (Figure 14 ). The brackish Lake Shinji may also trigger prolonged inundation 
+
+of the surrounding urban area, which is on a plain. The diversion system is activated once or twice a year 
+
+when the main channel of the Hii River suffers from severe flooding. The discharge  data are available at 
+
+Kamishima station of MLIT, which is 7.7 km upstream of the diversion channel. A lodging weir is equipped 
+
+at the upstream -end of the diversion channel, which is designed to lodge if the discharge  of the main channel 
+
+exceeds 500 m 3/s and rolls at a discharge of 400 m 3/s during flood events.  Gotoh et al. (2017)  reported that 
+
+the system diverted almost half of the peak flow of a flood event in September 2015. An exactly solvable 
+
+model was previously proposed for operating the diversion channel under model ambiguity  (Yoshioka and 
+
+Yoshioka, 2022b) , but this model assumed that the diversion ratio c is a positive constant. Our proposed 
+
+model does not  a priori  limit the functional shape, so it is expected to generate more flexible diversion 
+
+policies that balance the inundation risk of urban areas and diversion efforts under model ambiguity. A 
+
+major concern for the diversion channel is excessive sediment transpo rt to the Kando River  (Gotoh et al., 
+
+2017) , which would increase with the diversion ratio.  Appendix B  shows that the streamflow discharge at 
+
+this study site has a long memory, again supporting the use of the MMA process. 
+
+Figure 15  compares the observed and modeled PDFs of the discharge in ordinary and 
+
+logarithmic scales. Both PDFs are unimodal, and their tails agree well. However, the modeled PDF slightly 
+
+overestimates the observed PDF near the mode and at large discharge values. Th e agreement between the 
+
+tails of the PDFs is important in this case because the focus is on flood diversion. The ambiguity in this 
+
+context would be introduced by climate change, which may affect the occurrence of extreme rainfall events 
+
+leading  to severe flooding of the main channel. 
+
+Figure 14.  The diversion channel taken from upstream. Photo taken by Hashiguchi A. on October 5, 2022. 29 
+
+Figure 15 . Observed and modelled PDFs on  (a)  ordinary scale and  (b)  logarithmic scale. 
+
+4.3.2  Computation and sensitivity analysis 
+
+We evaluated the impact of the parameter  , which controls the CVaR term to penalize the flood risk 
+
+downstream of the main channel.  Figures 16  and  17  show the computed diversion ratio c under the 
+
+optimality for the quantiles  of 0. 99  and 0. 999 , respectively. We set 10 
+
+= . The computational results 
+
+suggest that treating the flood risk more seriously by choosing a larger  would result in a more 
+
+conservative diversion policy with larger c . Interestingly, we found that the optimal ( )
+
+c c X = as a 
+
+function of the discharge X seems to be continuous, but it is not continuously differentiable at few points. 
+
+For a relatively small  with 0.99 
+
+= , it is piecewise -linear when it is positive and becomes smoother 
+
+as  increases. This qualitative transition is not observed for 0.999 
+
+= under the specified 
+
+computational conditions. In all cases, ( )
+
+c c X = seems nondifferentiable at the point where it 
+
+transitioned from zero to positive. This indicates that streamflow management should only activate flood 
+
+diversion when the discharge is greater than some threshold value determined from the hydrological 
+
+prope rties of the river flow and preferences of the decision -maker. 
+
+We analyzed the impact of the parameter  on the tail of the discharge PDF by setting 0.0001 
+
+=
+
+. Figure 18  shows the computed ambiguity under the worst -case optimization for different 
+
+values of  under 0.999 
+
+= . Figure 19  shows the corresponding computed PDF. Increasing the 30 
+
+ambiguity aversion by taking a smaller  results in a fatter tail of the PDF. Parts of the PDF far from the 
+
+tail are not affected by the model ambiguity because they did not critically affect the flood risk. Thus, the 
+
+unimodal shape of the PDF is not broken in the worst case. Finally, we analyze d the statistical performance 
+
+of the optimized diversion ratio by using a Monte Carlo simulation based on the Markovian lift. The 
+
+algorithm is presented in  Appendix C . We focus on the maximum diversion ratio and maximum diverted 
+
+discharge within 1 year, both of which can be used as design criteria for flood diversion facilities. We set 0.999 
+
+=
+
+and three cases for the weight  as examples: 0.000001, 0.0000008, and 0.000016. The 
+
+corresponding diversion ratios are shown in  Figure 19 . The Monte Carlo simulation was run for 1,000 
+
+years, and the maximum diverted discharge cX  was obtained for each year. 
+
+Figure 20  shows a sample path of the simulated discharge in the first year and the corresponding 
+
+paths of diverted discharges for different values of  . The floods are diverted accordingly to different 
+
+magnitudes in the different cases.  Figure 21  shows the histograms of the yearly maximum diverted 
+
+discharges for different values of  . Table 1  presents their statistics. The yearly maximum diverted 
+
+discharges follow highly non -Gaussian distributions with mild local maxima and large boundary peaks. 
+
+Their probability densities were trimodal for relatively small  , while the peak of the lower part of the 
+
+probability density disappears with increasing  . However, the peak of the lower part was affected by 
+
+small diversion ratios (<0.00001), which may be attributed to regularization. Thus, the computational 
+
+results suggest that designing and operating a flood diversion system is critically affected by the  ambiguity 
+
+aversion of the decision -maker. In particular, the ability of the system should be designed to accommodate 
+
+expected realizations of the maximum diverted discharge. 
+
+Figure 16 . Computed diversion ratio under the worst -case optimization with 0.99 
+
+= . The plots are based 
+
+on 0.000001 
+
+= to 0.000016 
+
+= with the increment 0.000001  from the bottom to the top. 31 
+
+Figure 17 . Computed diversion ratio under the worst -case optimization with 0.999 
+
+= . The plots are 
+
+based on 0.000001 
+
+= to 0.000016 
+
+= with the increment 0.000001  from the bottom to the top. 
+
+Figure 18 . Computed ambiguity under the worst -case optimization with 0.999 
+
+= . The plots are based 
+
+on 1 / 25 
+
+10 i
+
+
+
+> −
+
+= (0,1, 2,..., 40 i = ) from the bottom to the top. 
+
+Figure 19 . Computed PDF under the worst -case optimization with 0.999 
+
+= . The plots are based on 1 / 25 
+
+10 i
+
+
+
+> −
+
+=
+
+(0,1, 2,..., 40 i = ) from the bottom to the top. 32 
+
+Figure 20.  The streamflow discharge and the corresponding diverged discharges (Red: 0.000001 
+
+= ,
+
+Green: 0.000008 
+
+= , Blue: 0.000016 
+
+= ). 
+
+Figure 21 . Computed PDFs of the yearly maximum diverted discharges (Red: 0.000001 
+
+= , Green: 0.000008 
+
+=
+
+, Blue: 0.000016 
+
+= ). 
+
+Table 1 . Statistics of the computed yearly maximum diverted discharges. 0.000001 
+
+=0.000008 
+
+=0.000016 
+
+=
+
+Average (m 3/s)  3.83.E+02  5.98.E+02  6.52.E+02 
+
+Standard deviation (m 3/s)  1.79.E+02  1.84.E+02  1.84.E+02 
+
+Skewness ( -) 3.19.E+04  3.40.E+04  3.40.E+04 
+
+Kurtosis ( -) －7.71.E -01  －8.81.E -01  －8.81.E -01 33 
+
+5.  Conclusion 
+
+We presented a consistent modeling framework for distributionally robust optimization by covering the 
+
+underlying MMA process, the Markovian lift, the conversion of the characteristic function to a PDF, the 
+
+formulation of the optimization problem, and the a lgorithm to find the numerical solution. A key to the 
+
+modeling framework is the affine MMA process, which provides a flexible mathematical model  with  a
+
+closed -form characteristic function from which the PDF can be obtained. Another key is the strict convexity 
+
+of the regularized optimized problem, which obtains unique values for the optimal decision variables as 
+
+well as the worst -case model ambiguity. T he supCBI processes were successfully identified at two sites 
+
+with mutually different objectives, and the optimization problem was computed at each site to obtain the 
+
+optimal water diversion policies. In this paper, we  report  that the proposed method is ap plicable to problems 
+
+with models identified from data and  explicitly  quantify  how the optimal diversion ratios and controlled 
+
+streamflow discharge  depend  on the parameter values in the models. 
+
+The convexity of the optimization problem  is  preserved if the CVaR is replaced by a spectral 
+
+risk measure  (Rockafellar and Royset, 2018; Guo and Xu, 2022)  or adjusted entropic value -at -risk  (Zou et 
+
+al., 2022) . Model  ambiguity can be evaluated by a generalized  method,  such as the Tsallis divergence  (Fu 
+
+et al., 2022)  with a suitable modification, further highlighting the extendibility of our framework. The 
+
+modeling framework and optimization of affine processes can be extended to Markov -modulated cases 
+
+where the coefficients of SDEs depend exogenously on another SDE o f an affine or polynomial type  (Kurt 
+
+and Frey, 2022)  if the characteristic function is available in a closed form. Multistage problems  (Dowson 
+
+et al., 2022)  will be studied in the future  based  on the recursive use of the single -stage problem formulated 
+
+in  this paper. Our mathematical and computational methods would be applicable to  the  optimization of 
+
+other indices arising in different research areas, including finance and economics (e.g., time series of asset 
+
+prices) and civil engineering (e.g., time series of pollutant loads), where MMA and related stochastic 
+
+processes play a role. Pro perties of the proposed optimization model can be analyzed more in detail if the 
+
+notion of Orlicz space  (Part IV in Rubshtein et al. (2016))  is applied to each expectation in  the objective 
+
+function. Such an application with a different viewpoint from the proposed one is found in  Yoshioka and 
+
+Yoshioka (2024) .34 
+
+Appendices 
+
+Appendix A: Proofs of propositions and a lemma 
+
+Proof of Proposition 2 
+
+Firstly, the right -hand side of  (10 ) exists. Indeed, by  (9) we have ( )
+
+# ( )
+
+# ( )
+
+# ( )( )( )( )  
+
+> 0000010
+
+dexp exp 1 d d1 1 d1 d1 d   
+
+> vtvtvt
+> ttXvtXvttvXvv
+
+A ze v z teA M teA M te eA M t
+
+> 
+
+           
+
+> + + + −−+ −+ −−−+
+
+  −       = − −      = − −    = − −  
+
+#   
+
+. (58 )
+
+Here, we used the boundedness of the integrand between the second and third lines. The last integral of 
+
+(58 ) is found analytically, thereby ( ) ( )( )( )
+
+> 1000
+
+11 d 11 11 1 1          
+
+> vvttvtvt
+> tttvXvXvvvvtXvXv
+
+e e eA M t A M eA M A M 
+
+> 
+
+        
+
+> + −−−−+ + −
+
+       − − = −            = −       = − −    
+
+# 
+
+. (59 )
+
+We have 0
+
+1lim 1 1 0 
+
+> v
+> vvv
+> 
+
+
+
+> →+
+
+   − − =     
+
+(60 )
+
+by  the Taylor expansion ( )
+
+> 2
+
+1 1 
+
+> v
+> vvv
+
+O 
+
+> 
+
+    − − = +  
+
+for small 0
+
+ . (61 )
+
+Therefore, ( )
+
+> tX
+
+M
+
+ and hence the last line of  (59 ) is bounded if v
+
+  . Then, we can exchange the 
+
+partial differentiation and expectation: t t tX X Xte e X e 
+
+> 
+
+     = =      
+
+ 
+
+, (62 )
+
+yielding  (10 ). For  (11 ), it is sufficient to check 0
+
+d 1lim 1 1d
+
+> v
+> v
+> 
+
+  
+
+> →+
+
+   − −  +      . This follows from  (61 ).
+
+□
+
+Proof of Proposition 3 
+
+Firstly, we show the sign inequalities ( ) ( )
+
+# ( )
+
+# ( ) 
+
+> 0
+
+exp 1 d 0F B z v z
+
+ 
+
+> +
+
+ − + − 
+
+and ( )
+
+d 0d
+
+F
+
+ (63 )
+
+for c
+
+  . Indeed, 35 ( ) 
+
+> 1
+
+1 1 
+
+> v
+> vvv
+
+F BM 
+
+> 
+
+     = − + − −    
+
+and ( )
+
+> 11
+
+d 1 1d
+
+> v
+> v
+
+F BM 
+
+> 
+
+
+
+> −
+
+ = − + −   , (64 )
+
+showing that ( )
+
+d 0d
+
+F
+
+ for 0 c
+
+   , especially ( )
+
+d 0d
+
+F
+
+ for 0 c
+
+   . Further, ( )
+
+0 0F =
+
+and hence ( )
+
+0F
+
+ for c
+
+  . Due to the smoothness (Lipschitz continuity) and boundedness of ( )
+
+F
+
+
+
+for c
+
+  , the classical unique existence and comparison theorems show that the initial value 
+
+problem  (17 ) admits a unique global solution  strictly smaller than v
+
+ . Using this  , the moment 
+
+generating function, if it exists, is expressed as  (16 ).
+
+The existence of the right -hand side of  (16 ) holds true if ( ) 
+
+# ( )
+
+# ( )
+
+# ( )  
+
+> 00
+
+exp 1 d dt z v z t
+
+ 
+
+> + +
+
+−  +   .
+
+This follows if we can find the bound of the form ( ) ( )
+
+exp ct t
+
+   −
+
+,0t  (65 )
+
+for a suitable constant 0
+
+ . Such a  exists as proven below. Set ( ) ( ) ( )
+
+> 1
+
+1 1 1 
+
+> v
+> vvv
+
+G F BM 
+
+> 
+
+         − − = − − − −    
+
+,c
+
+  . (66 )
+
+We then obtain ( ) ( )
+
+> 11
+
+d 1 1d
+
+> v
+> v
+
+G BM 
+
+> 
+
+
+
+> −
+
+ = − − −  
+
+,c
+
+  , (67 )
+
+showing that ( )
+
+d 0d
+
+G
+
+ for c
+
+  if ( )
+
+d 0d
+
+> c
+
+G
+
+ , but the last condition is satisfied since ( ) ( )( )( ) 111111111 11111 1
+
+1d 1 1d1 1 110
+
+> vvvvvv
+> vcv
+
+BM G BM BM BM BM BM 
+
+> 
+
+ 
+
+> −−−−−−
+
+  −    = − − −     = − − − −     = − −   = − 
+
+. (68 )
+
+Therefore, we obtain ( )
+
+0G
+
+ for c
+
+  if ( )
+
+0cG
+
+ because G is non -increasing for c
+
+  ;
+
+namely, if 36 ( ) ( )( )( ) ( )( ) ( )( ) ( ) ( )      
+
+> 111111111111111111
+
+11 1 11 1 1 11 11 11   
+
+> vvvvvvvv
+> vvccvvvcvvcvvvvv
+
+BM G BM BM BM BM BM BM BM BM 
+
+> 
+
+         
+
+> −−−−−
+
+    −     = − − − −           = − − − − −       = − − −     = − − − −      = −
+
+# ( ) ( ) ( )    
+
+> 1111111
+
+110 
+
+> vv
+> v
+
+BM BM BM 
+
+> 
+
+ 
+
+> −−
+
+    − − −        
+
+. (69 )
+
+By  (69 ),( )
+
+0cG
+
+ if we choose  as ( )( ) 
+
+> 1111111
+
+10 11
+
+> vv
+> v
+
+BM BM BM 
+
+> 
+
+ 
+
+> −−
+
+−  −−
+
+, (70 )
+
+which is possible if B is small. Consequently, there exists a small 0
+
+ such that ( )
+
+0G
+
+ for c
+
+ 
+
+if B is sufficiently small. We obtain ( )
+
+F
+
+ −  for c
+
+  in this case, and hence the 
+
+comparison of solutions to the two differential equations with the right -hand sides ( )
+
+F
+
+ and  − ; the 
+
+solution to the latter is larger than that of the former  , yielding  (65 ). Under the same condition, we 
+
+obtain the desired estimate  (65 ). Then, the moment generating function exist, and further that the latter 
+
+equals tX
+
+e
+
+> 
+
+   .
+
+□
+
+Proof of Proposition 4 
+
+We follow the proof of  Theorem 6 of Liu et al. (2022) . Given , 0, u w c  C , by the classical Jensen’s 
+
+inequality and the non -negativity of g , we have ( ) 
+
+> ()
+
+# ( )( ) ( )( )
+
+# ( )
+
+#  
+
+# ( )
+
+# ( )
+
+#  
+
+# ( )( )  
+
+> ,,,
+
+, ,ln d, , , dmax 1 , 0 max 1 , 0 d1, ,
+
+> F x u w c
+
+u w H u w c u w e p x xu w F x u w c p x xu w u c x x c x x w p x xH u w c 
+
+> 
+
+       − + +  = − + +    − + +  − + + − − + − − − 
+
+# 
+
+. (71 )
+
+We then obtain 37 ( )( )
+
+# ( )
+
+#  
+
+# ( )( )
+
+# ( )
+
+#  
+
+# ( )( )
+
+# ( )
+
+#  
+
+# ( )
+
+lim inf , ,lim inf max 1 , 0 d1max 1 , 0 dlim inf max 1 , 0 d
+
+> www
+
+H u w c w c x x w p x xu u c x x p x xw u u c x x p x x
+
+    →+ →+ →+ 
+
+ = + − − −  + − + − −    + − + − −  = + 
+
+# 
+
+(72 )
+
+and ( )( )
+
+# ( )
+
+#  
+
+# ( )
+
+# ( )
+
+#  
+
+# ( )( )
+
+# ( )
+
+#  
+
+# ( )( )
+
+# ( )
+
+#  
+
+# ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+lim inf , ,lim inf max 1 , 0 max 1 , 0 d1lim inf max 1 , 0 dlim inf max 1 , 0 dlim inf 1 dlim inf 1
+
+> uuuuuu
+
+H u w c u w u c x x c x x w p x xu u c x x p x xu u c x x p x xu u c x x p x x
+
+     
+
+> →+ →+ →+ →+ →+ →+
+
+  = − + + − − + − −  −    − + − −  = − + − − − + − −= −
+
+# 
+
+# ( ) ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+1 du c x xp x x
+
+− −= + 
+
+# 
+
+. (73 )
+
+Therefore, both separately and simultaneously sending ,u v → +  result in W → +  . Further, we have ( )  
+
+> ()
+> ()
+
+# ( )  
+
+> ,0,0,1 1ˆ1
+
+ˆ0, 0, 1 ln ln 1   
+
+> FXgc
+
+W H c e e g c
+
+> 
+
+
+
+> −
+
+     = = = −  +         
+
+ 
+
+, (74 )
+
+showing that the optimal decision variables must be contained in a compact set. Consequently, we can 
+
+replace the admissible set of decision variables from , 0, u w c  C to ( )
+
+, ,u w D c  C with some 
+
+compact set 
+
+# )
+
+> 2
+
+0, D  +  without changing W .
+
+□
+
+Proof of Proposition 5 
+
+The lower semi -continuity of ( ), ,H H u w c = with respect to c C for each given ( )  )2
+
+, 0, u w  + 
+
+implies  (Section 2.6 of Galewski (2021)) ( ) ( )
+
+, , liminf , , nn
+
+H u w c H u w c 
+
+> →+
+
+
+
+(75 )
+
+for each sequence nc C (1, 2,3,... n = ) converging to c . We prove this inequality. We use the 
+
+elementary inequality 1 2 1 2ln ln x x x x−  −
+
+,1 2, 1x x  . (76 )
+
+Given c C and its converging sequence nc C (1, 2,3,... n = ), by 0F  we have 38 ( )
+
+( )
+
+# ( )
+
+( )
+
+# ( )
+
+( )
+
+# ( ) ( )
+
+( )
+
+# ( )
+
+( )
+
+# ( ) ( )
+
+( ) ( )
+
+# ( ) ( )              
+
+> ,,,,,,,,,,,,,,,,,,,,,
+
+, , ln dln d ln d , ,d d , ,d , ,
+
+> nnn
+> F x u w c F x u w c F x u w c nF x u w c F x u w c nF x u w c F x u w c n
+
+H u w c e p x xe p x x e p x x H u w c e p x x e p x x H u w c e e p x x H u w c 
+
+> 
+
+  =         − +       − + − +
+
+#   
+
+. (77 )
+
+Applying the Lipschitz continuity  (38 ) of F and a Cauchy –Schwarz inequality along with  Assumption 
+
+1 yields ( )
+
+( ) ( )
+
+# ( ) ( )
+
+( ) ( ) ( ) ( ) ( )
+
+( ) 
+
+# ( ) ( ) ( ) ( )( ) ( ) ( ) ( ) ( )( ) , , ,, , ,1 1 11 11 11122
+
+, , d , ,, , , , , , d , ,, , , , , , d , ,d , ,     
+
+> nF x u w c F x u w c nUgXnnUgXnnXnn
+
+H u w c e e p x x H u w c F x u w c F x u w c e p x x H u w c e e F x u w c F x u w c p x x H u w c L e x C c x c x p x x H u w c L x C e     
+
+> 
+
+        
+
+> ++−+−−
+
+ − + − += − +  + − +  +
+
+# 
+
+# ( ) ( ) ( ) ( ) ( )( ) ( ) ( )
+
+> 212
+
+d d , ,d , ,X   
+
+> xnnCXnn
+
+p x x c x c x p x x H u w c L x C e p x x c c H u w c  
+
+> −
+
+− + = + − +
+
+#  
+
+(78 )
+
+with constants , 0L C     independent from n . Here, to obtain the second line of  (78 ) we used ( ) ( ) ( ) ( )
+
+# ( ) ( )
+
+( ) ( ) ( )            
+
+> ,,,,,,,,,,,,max ,111
+
+, , , , , ,, , , , , ,   
+
+> nnF x u w c F x u w c F x u w c F x u w c nUgXn
+
+F x u w c F x u w c e e eF x u w c F x u w c e  
+
+> 
+
+         
+
+> ++−
+
+−  − −
+
+(79 )
+
+due to  (38 ). Consequently, we have ( ) ( )
+
+, , , ,n nH u w c C c c H u w c   − +
+
+(80 )
+
+with a constant 0C   independent from n . By virtue of nc , we have liminf 0nn c c 
+
+> →+
+
+− = and ( ) ( )
+
+#  
+
+# ( )
+
+, , liminf , , liminf , ,n n nn n
+
+H u w c C c c H u w c H u w c  
+
+> →+ →+
+
+  − + =
+
+, (81 )
+
+and hence the lower semi -continuity of H with respect to c C . The lower semi -continuity for ( )
+
+,u w 
+
+is proven in an analogous way. 
+
+□
+
+Proof of Proposition 6 
+
+The cases 0,1 
+
+= are trivial. If ( )
+
+0,1 
+
+ , then 39 ( )
+
+# ( )
+
+( ) ( ) ( )
+
+# ( )
+
+# ( )
+
+( )
+
+# ( )
+
+# ( )
+
+( )
+
+# ( )
+
+# ( )
+
+#  
+
+( )
+
+# ( )
+
+# ( )
+
+( )
+
+# ( )
+
+# ( )
+
+( )
+
+# ( )
+
+# ( )
+
+# ( ) ( )
+
+# ( )
+
+# ( )     
+
+> 12121212
+> 11211
+
+1 ln dln d dln d ln dln d 1 ln d    
+
+> xxxxxxxx
+
+G e p x xe p x x e p x xe p x x e p x xe p x x e p x x
+
+>    
+
+    
+
+> +−−−
+
++ − == += + −
+
+#    
+
+, (82 )
+
+where the first inequality comes from an application of the classical Hölder's inequality ( 1 1
+
+ 
+
+> −
+
+ and ( )
+
+> 1
+
+1 1
+
+
+
+> −
+
+− 
+
+, and ( )
+
+1 1
+
+ + − = ): ( ) ( ) ( )
+
+# ( ) ( )
+
+# ( )
+
+( )
+
+# ( )
+
+# ( )
+
+( )
+
+# ( )
+
+#  
+
+# ( ) ( )
+
+# ( )
+
+#  
+
+# ( )
+
+( )
+
+# ( )
+
+# ( )
+
+( )
+
+# ( )
+
+# ( )       
+
+> 12121212
+> 11111111
+
+d dd dd d     
+
+> xxxxxxxx
+
+e p x x e e p x xe p x x e p x xe p x x e p x x   
+
+>    −+−−−−−
+
+=             =
+
+#    
+
+. (83 )
+
+Notice that ( ) ( ) 
+
+> 12
+
+G G
+
+ 
+
+if 1 2
+
+  a.s. in  . (84 )
+
+Secondly, the mapping ( )
+
+, , ,F x u w c  of  (32 ) is convex with respect to , 0, u w c  C . Indeed, the three 
+
+terms are convex, and the sum of finitely many convex functions is again convex. The convexity of G is 
+
+therefore proven. 
+
+Due to the increasing and convex nature of G and the convexity of F , for any ( )
+
+0,1 
+
+ and , 0, i i iu w c C
+
+(1, 2 i = ), we obtain ( ) ( ) ( )
+
+# ( )
+
+( ) ( ) ( )
+
+( )
+
+( ) ( ) ( )( )
+
+# ( )
+
+( )
+
+# ( ) ( ) ( )                                         
+
+> 121212111222111222
+> 121212,1,1,1,,,1,,,,,,,,,111222
+
+1 , 1 , 1ln ln ln 1 ln , , 1 , ,                     
+
+> FXuuwwccFX u wcFX u wcFX u wcFX u wc
+
+H u u w w c ceee eH u w c H u w c      
+
+> 
+
+          
+
+> +−+−+−+−
+
++ − + − + −  =           = + −         = + −
+
+
+
+
+
+ 
+
+. (85 )
+
+The convexity of u w
+
+ − + is trivial since it is an affine function. Consequently, ( )
+
+, ,u w H u w c 
+
+ − + +
+
+of the problem  (37 ) is convex. 
+
+□
+
+Proof of Proposition 7 H
+
+> 
+
+is a sum of strictly convex functions and G is convex. Therefore, as for the discussion to obtain  (85 ),
+
+for any ( )
+
+0,1 
+
+ and , 0, i i iu w c C (1, 2 i = ) with ( ) ( )     
+
+> 111222
+
+, , , ,u w c u w c , we obtain 40 ( ) ( ) ( )
+
+# ( )     
+
+> ()()()
+
+( )      
+
+> ()()()()
+
+# ( ) 
+
+> ()
+
+# ( ) ( )                                      
+
+> 121212111222111222
+> 121212,1,1,1,,,1,,,,,,,,,111
+
+1 , 1 , 1ln ln ln 1 ln , , 1                     
+
+> FXuuwwccFX u wcFX u wcFX u wcFX u wc
+
+H u u w w c ceee eH u w c H       
+
+> 
+> 
+
+          
+
+> +−+−+−+−
+
++ − + − + −  =           = + −         = + −
+
+
+
+
+
+ 
+
+# ( )  
+
+> 222
+
+, ,u w c
+
+(86 )
+
+and thus  (46 ). Consequently, the problem  (44 ) is an optimization problem of a strictly convex objective, 
+
+it has a unique global minimizer  (Corollary 2 in Chapter 2 of Zeidler (1995)) . The compactness of optimal ,u w 
+
+follows as in  Proposition 4 .
+
+□
+
+Proof of Proposition 8 
+
+A solution to  (31 ) is denoted as *0Z D C with a sufficiently  large  compact set D . The unique solution 
+
+to the optimization problem  (44 ) is symbolically denoted as *
+
+Z D
+
+> 
+
+ C (0
+
+ ). The objectives 
+
+corresponding to  (31 ) and  (44 ) are denoted as ( ) 
+
+> 00
+
+J J Z= and ( )
+
+J J Z 
+
+> 
+
+= , respectively. 
+
+For the first statement, for each ( )
+
+, ,u w D c  C , we obtain ( ) ( ) 
+
+> ()
+
+# ( ) 
+
+> ()
+
+# ( )   
+
+> ()()
+
+# ( ) 
+
+> ( )
+
+# ( ) ( ) ( )
+
+> ( )
+
+# ( ) ( ) ( )              
+
+> ,,,,,,,,,,,,111111
+
+, , , , d dd, , , , , , d, , , , , , d      
+
+> F x u w c Fx u w c F x u w c Fx u w c UgxUgx
+
+H u w c H u w c e p x x e p x xe e p x xF x u w c F x u w c e p x xe F x u w c F x u w c p x x     
+
+> 
+> 
+
+        
+
+> ++−++−
+
+− = − − −= −
+
+#  
+
+. (87 )
+
+By  (43 ), we have the estimate ( ) ( )( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+#  
+
+# ( )
+
+# ( )
+
+#  
+
+# ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+, , , , , ,
+
+ˆ max 1 , 0 max 1 , 0 1
+
+ˆ 1 111
+
+F x u w c F x u w c g c x c u c x x c x x wg c x c m u c x x m c x x w
+
+> 
+
+   −− + − − + − −−=  − − + − − + − − −   + − 
+
+(88 )
+
+whose last line does not depend on , , ,x u w c  . Hence, by  Assumption  1 we obtain ( ) ( )
+
+# ( ) ( ) 
+
+# ( )  
+
+> 111
+
+, , , , d1 
+
+> Ugx
+
+u w H u w c u w H u w c e p x x C  
+
+> 
+
+        
+
+> ++−
+
+ − + + − − + +  +  −  
+
+. (89 )
+
+Therefore, we have the uniform convergence ( ) ( )
+
+# ( )
+
+> 0
+
+lim , , , , 0u w H u w c u w H u w c 
+
+> 
+
+   
+
+> →+
+
+− + + − − + + =
+
+. (90 )
+
+This implies ( ) ( )
+
+> 0
+
+C J Z J Z C
+
+> 
+
+−  − 
+
+,0
+
+ . (91 )41 
+
+From the left inequality, we obtain C W W
+
+> 
+
+− +  , and the from the right one we obtain W W C
+
+> 
+
+ − ,
+
+yielding W W C
+
+> 
+
+−  (this is the last statement of the proposition). Thereby, W W 
+
+> 
+
+→ as 0
+
+→ +  .
+
+For the second statement, because each *
+
+Z 
+
+> 
+
+is bounded for each N   , and hence has a weak 
+
+accumulation point in D  D , which is denoted as ** 0Z by choosing a weakly converging subsequence 
+
+that is still denoted as *
+
+Z 
+
+> 
+
+. Because of the optimality of *
+
+Z 
+
+> 
+
+and  (91 ), for each Z D C , we have ( ) ( ) ( ) ( )      
+
+> ****0000
+
+lim lim liminf J Z J Z J Z J Z    
+
+> →+ →+ →+
+
+=  
+
+(92 )
+
+and hence ( ) ( )  
+
+> **00
+
+liminf J Z J Z 
+
+> →+
+
+
+
+. (93 )
+
+Because of  (91 ), we further obtain ( ) ( ) ( ) ( )        
+
+> ** ***0000000
+
+liminf liminf liminf liminf J Z J Z J Z C J Z  
+
+> 
+
+   
+
+> →+ →+ →+ →+
+
+  + =
+
+. (94 )
+
+Combining  (93 ) and  (94 ) yields ( ) ( )    
+
+> *** 0000
+
+W J Z J Z= 
+
+, (95 )
+
+showing that ( ) 
+
+> ** 00
+
+W J Z= and * ** 0 0Z Z= by the optimality and strict convexity, proving the statement. 
+
+□
+
+In addition to these proofs, we prove the following used in the main text. 
+
+Lemma A.1 
+
+For a non -negative random variable X( )
+
+# ( )
+
+# ( )
+
+# ( )
+
+1 1ln exp ln exp aX bX a b
+
+       
+
+for 0 a b  (96 )
+
+if ( )
+
+exp bX  +    .
+
+Proof of Lemma A.1 
+
+By the classical Jensen’s inequality for a convex function ln x x (0x  ), we have      
+
+ln ln Y Y Y Y 
+
+(97 )
+
+for a positive random variable Y . Substituting ( )
+
+exp Y aX = into  (97 ) yields ( ) ( ) ( )
+
+exp exp ln exp aX aX aX aX            
+
+(98 )
+
+or equivalently ( ) ( )( )
+
+exp ln exp 0exp 
+
+X aX aX a aX 
+
+  − +      
+
+
+
+ 
+
+. (99 )
+
+Consider a function ( ) ( )
+
+1 ln exp f a aX a
+
+=   
+
+for 0a  (100 )
+
+if ( )
+
+exp aX  +    . By  (99 ), we obtain ( ) ( ) ( )( )( ) ( )( )
+
+> 22
+
+exp d 1 1ln exp d exp exp 1 ln exp exp 0
+
+X aX f a aX a aa aX X aX aX aa aX 
+
+  = − +        = − +       
+
+
+
+ 
+
+
+
+ 
+
+for 0a  . (101 )
+
+Then,  (96 ) follows from  (101 ).
+
+□
+
+Appendix B: Statistics and model identification 
+
+Statistics, which are average, variance, skewness, kurtosis are summarized in  Table B.1 , demonstrating that 42 
+
+the statistics are highly non -Gaussian and right -skewed. The streamflow in Case 2 has  a higher average and 
+
+variance than that in Case 1, while their skewness and kurtosis are comparable with each other. 
+
+For the model identification of the supCBI process, we used the method of  Yoshioka et al. 
+
+(2023a)  where ( )
+
+d
+
+  is identified using a least -square method between empirical and theoretical 
+
+autocorrelation functions. Another, least -square method is applied to the identification of ( )
+
+dv z so that 
+
+the sum of the squares of the relative errors of the four statistics in  Table B.1  is minimized.  In this paper, a 
+
+tempered stable case ( ) 
+
+> ()
+
+# ( )
+
+> 1
+
+d exp dv
+
+> v
+
+v z z z z
+
+> 
+
+ 
+
+> −+
+
+= − (1v
+
+ ,0v
+
+ ) and the Gamma case ( ) ( )
+
+> 1
+
+d exp / dz
+
+> 
+
+    
+
+> −
+
+−
+
+(1
+
+> 
+
+ ,0
+
+> 
+
+ ) were assumed. Advantages of these parameterizations 
+
+are that the mathematical justification discussed in the main text are applicable and the autocorrelation 
+
+function of a sub -exponential form is found as ( )
+
+# ( )
+
+# ( )
+
+> 11
+
+1/ 1 1 BM 
+
+> 
+
+
+
+> −
+
++ − with 0
+
+ being the time lag. 
+
+Table B.2  presents identified parameter values for Cases 1 and 2. The empirical and theoretical 
+
+autocorrelation functions agree well as demonstrated in  Figures B.1 -B.2  below, and the PDFs have also 
+
+been fitted well as demonstrated in the main text. Interestingly, the streamflow in Case 1 is of the long -
+
+memory type because the integral of the autocorrelation function diverges near 0
+
+= due to 2
+
+> 
+
+ ,
+
+while that in Case 2 does not due to 2
+
+> 
+
+ . Nevertheless, both cases exhibit  close to 2 as in the data 
+
+of the other river environment  (Yoshioka, 2022) , suggesting some physical universality that is beyond the 
+
+scope of this paper but would be of theoretical interest. 
+
+Table B.1.  Statistics at the study sites of Cases 1 and 2. 
+
+Statistics  Case 1  Case 2 
+
+Average (m 3/s)  12.47  37.17 
+
+Variance (m 6/s 2) 340.57  3547.31 
+
+Skewness ( -) 10.91  11.85 
+
+Kurtosis ( -) 209.23  218.0 
+
+Table B.2.  Statistics at the study sites of Cases 1 and 2. 
+
+Parameter  Case 1  Case 2 X
+
+(m 3/s)  0.00  5.86 
+
+(-) 1.82  2.09 
+
+(1/hour)  0.0686  0.0783 A
+
+(3
+
+hour s mv v
+
+> −
+
+  ) 0.0300  0.0937 B
+
+(( )
+
+> 3 1 1
+
+s m vv  
+
+> −−−
+
+ ) 0.0285  0.0236 v
+
+
+
+(-) 0.852  0.803 v
+
+
+
+(s/m 3) 0.00450  0.00144 
+
+Figures B.1.  Comparison of empirical and theoretical autocorrelation functions (ACFs) in Case 1. 43 
+
+Figures B.2.  Comparison of empirical and theoretical autocorrelation functions (ACFs) in Case 2. 
+
+Appendix C Monte -Carlo method 
+
+The algorithm of the Monte -Carlo method used for simulating sample paths of supCBI processes is 
+
+explained in this appendix. It is  Algorithm 2  based on the Markovian lift. We simulate sample paths 
+
+of mutually -independent CBI processes having specified reversion speed i
+
+ . This algorithm is a 
+
+straightforward extension of the algorithm for supOU processes  (Yoshioka et al., 2022b) . A fter 
+
+simulating sample paths of the supCBI processes, we sum up them with the weights ic . In  Step 2 , the 
+
+algorithm of  Algorithm 0 in Kawai and Masuda (2011)  with a common Euler -Maruyama discretization 
+
+is employed to generate tempered stable jump. The time step t in the simulation is 0.01/24 (day). 
+
+Algorithm 2 
+
+Step 0  Prepare sequences    
+
+> 1iin
+
+c    and    
+
+> 1iin
+
+ 
+
+>  
+
+the discrete time step 0t   . Set 1i = .
+
+Step 1  Simulate the discrete -time approximation of the CBI process with the parameters ( )
+
+,i ic
+
+ for 
+
+time steps 0,1, 2,... j = with an initial condition ( ) 
+
+> 0
+
+0iY
+
+ and obtain ( )
+
+#     
+
+> 0,1,2,... jtij
+
+Y
+
+  
+
+> =
+
+.
+
+Step 2  For each 0,1, 2,... j = compute ( )    
+
+> 10,1,2,...
+> njtiij
+
+X Y
+
+ 
+
+> ==
+
+ +  
+
+#  .44 
+
+References 
+
+Abi Jaber, E. (2019). Lifting the Heston model. Quantitative Finance, 19(12), 1995 –2013. 
+
+https://doi.org/10.1080/14697688.2019.1615113 
+
+Aggarwal, S., Magner, J., Srinivas, R., & Sajith, G. (2022). Managing nitrate -nitrogen in the intensively 
+
+drained upper Mississippi River Basin, USA under uncertainty: A perennial path forward. 
+
+Environmental Monitoring and Assessment, 194(10), 1 –17.  https://doi.org/10.1007/s10661 -022 -
+
+10401 -4
+
+Akbari, N., Bjørndal, T., Failler, P., Forse, A., Taylor, M. H., & Drakeford, B. (2022). A multi -criteria 
+
+framework for the sustainable management of fisheries: A case study of UK’s North Sea Scottish 
+
+fisheries. Environmental Management, 70, 79 –96.  https://doi.org/10.1007/s00267 -022 -01607 -w
+
+Ang, M., Sun, J., & Yao, Q. (2018). On the dual representation of coherent risk measures. Annals of 
+
+Operations Research, 262(1), 29 –46.  https://doi.org/10.1007/s10479 -017 -2441 -3
+
+Antil, H., Kouri, D. P., & Pfefferer, J. (2021). Risk -averse control of fractional diffusion with uncertain 
+
+exponent. SIAM Journal on Control and Optimization, 59(2), 1161 –1187. 
+
+https://doi.org/10.1137/20M1324958 
+
+Bacci, M., Dal Molin, M., Fenicia, F., Reichert, P., & Šukys, J. (2022). Application of stochastic time 
+
+dependent parameters to improve the characterization of uncertainty in conceptual hydrological 
+
+models. Journal of Hydrology, 612, 128057.  https://doi.org/10.1016/j.jhydrol.2022.128057 
+
+Barndorff -Nielsen, O. E. (2001). Superposition of Ornstein –Uhlenbeck type processes. Theory of 
+
+Probability & Its Applications, 45(2), 175 –194.  https://doi.org/10.1137/S0040585X97978166 
+
+Barndorff -Nielsen, O. E., Benth, F. E., & Veraart, A. E. (2011). Ambit processes and stochastic partial 
+
+differential equations. In Di Nunno, G., Øksendal, B. (Eds.), Advanced mathematical methods for 
+
+finance (pp. 35 –74). Springer, Berlin, Heidelberg.  https://doi.org/10.1007/978 -3-642 -18412 -3_2 
+
+Barndorff -Nielsen, O. E., Benth, F. E., & Veraart, A. E. (2018). Ambit stochastics. Springer, New York. 
+
+Basso, S., Lazzaro, G., Bovo, M., Soulsby, C., & Botter, G. (2020). Water -energy -ecosystem nexus in small 
+
+run -of -river hydropower: Optimal design and policy. Applied Energy, 280, 115936. 
+
+https://doi.org/10.1016/j.apenergy.2020.115936 
+
+Bäuerle, N., & Glauner, A. (2021). Q -learning for distributionally robust Markov decision processes. In 
+
+Piunovskiy, A., Zhang, Y. (Eds.), Modern trends in controlled stochastic processes (pp. 108 –128). 
+
+Springer, Cham.  https://doi.org/10.1007/978 -3-030 -76928 -4_6 
+
+Brezis, H. (2011). Functional analysis, Sobolev spaces and partial differential equations. Springer, New 
+
+York. 
+
+Bukhari, A. H., Raja, M. A. Z., Shoaib, M., & Kiani, A. K. (2022). Fractional order Lorenz based physics 
+
+informed SARFIMA -NARX model to monitor and mitigate megacities air pollution. Chaos, Solitons 
+
+& Fractals, 161, 112375.  https://doi.org/10.1016/j.chaos.2022.112375 
+
+Calder, J., & Yezzi, A. (2019). PDE acceleration: a convergence rate analysis and applications to obstacle 
+
+problems. Research in the Mathematical Sciences, 6(4), 1 –30.  https://doi.org/10.1007/s40687 -019 -
+
+0197 -x
+
+Chen, W. H., & You, F. (2021). Smart greenhouse control under harsh climate conditions based on data -
+
+driven robust model predictive control with principal component analysis and kernel density 
+
+estimation. Journal of Process Control, 107, 103 -113.  https://doi.org/10.1016/j.jprocont.2021.10.004 
+
+Dambrine, M., Khan, A. A., & Sama, M. (2022). A stochastic regularized second -order iterative scheme 
+
+for optimal control and inverse problems in stochastic partial differential equations. Philosophical 
+
+Transactions of the Royal Society A, 380(2236), 202103 52.  https://doi.org/10.1098/rsta.2021.0352 
+
+Dey, P., & Mujumdar, P. (2022). On the statistical complexity of streamflow. Hydrological Sciences 
+
+Journal, 67(1), 40 -53.  https://doi.org/10.1080/02626667.2021.2000991 
+
+Dowson, O., Morton, D.P. & Pagnoncelli, B.K. (2022). Incorporating convex risk measures into multistage 
+
+stochastic programming algorithms. Annals of Operations Research, online  publication. 
+
+https://doi.org/10.1007/s10479 -022 -04977 -w
+
+Duruisseaux, V., & Leok, M. (2022). Accelerated optimization on Riemannian manifolds via discrete 
+
+constrained variational integrators. Journal of Nonlinear Science, 32(4), 1–34. 
+
+https://doi.org/10.1007/s00332 -022 -09795 -9
+
+Engman, A. C., Kwak, T. J., & Fischer, J. R. (2021). Big runs of little fish: First estimates of run size and 
+
+exploitation in an amphidromous postlarvae fishery. Canadian Journal of Fisheries and Aquatic 
+
+Sciences, 78(7), 905 –912.  https://doi.org/10.1139/cjfas -2020 -0093 
+
+Epanchin -Niell, R. S., Jackson -Smith, D. B., Wilson, R. S., Ashenfarb, M., Dayer, A. A., Hillis, V., Iacona, 
+
+G. D., Markowitz, E. M., Marquart -Pyatt, S. T., & Treakle, T. (2022). Private land conservation 45 
+
+decision -making: An integrative social science model. Journal of Environmental Management, 302, 
+
+113961.  https://doi.org/10.1016/j.jenvman.2021.113961 
+
+Fenicia, F., & McDonnell, J. J. (2022). Modeling streamflow variability at the regional scale: (1) Perceptual 
+
+model development through signature analysis. Journal of Hydrology, 605, 127287. 
+
+https://doi.org/10.1016/j.jhydrol.2021.127287 
+
+Fu, C., Xu, P., Huo, Y., Li, S., & Cai, X. (2022). Tsallis Divergence as Strategy for Radioactive Sources 
+
+Search and Location. Nuclear Science and Engineering, 196(9), 1114 -1124. 
+
+https://doi.org/10.1080/00295639.2022.2052551 
+
+Galewski, M. (2021). Basic monotonicity methods with some applications. Birkhäuser, Cham. 
+
+Gao, R., & Kleywegt, A. (2022). Distributionally robust stochastic optimization with Wasserstein distance. 
+
+Mathematics of Operations Research.  https://doi.org/10.1287/moor.2022.1275 
+
+Gauvin, C., Delage, E., & Gendreau, M. (2017). Decision rule approximations for the risk averse reservoir 
+
+management problem. European Journal of Operational Research, 261(1), 317 –336. 
+
+https://doi.org/10.1016/j.ejor.2017.01.044 
+
+Ghossoub, M., Jiang, W., & Ren, J. (2022). Pareto -optimal reinsurance under individual risk constraints. 
+
+Insurance: Mathematics and Economics, 107, 307 –325. 
+
+https://doi.org/10.1016/j.insmatheco.2022.09.003 
+
+Gopalan, S. P., Champathong, A., Sukhapunnaphan, T., Nakamura, S., & Hanasaki, N. (2022). Potential 
+
+impact of diversion canals and retention areas as climate change adaptation measures on flood risk 
+
+reduction: A hydrological modelling case study from the C hao Phraya River Basin, Thailand. Science 
+
+of the Total Environment, 841, 156742.  https://doi.org/10.1016/j.scitotenv.2022.156742 
+
+Gotoh, T., Fukuoka, S., & Shibata, R. (2017). Diversion of flood flow associated with a large amount of 
+
+sediment transport into the Hii River floodway and measures reducing inflow sediment discharge. 
+
+Journal of Japan Society of Civil Engineers, Ser. B1 (Hy draulic Engineering), 61, I895 –I900 (in 
+
+Japanese with English abstract).  https://doi.org/10.2208/jscejhe.73.I_895 
+
+Guo, S., & Xu, H. (2022). Robust spectral risk optimization when the subjective risk aversion is ambiguous: 
+
+a moment -type approach. Mathematical Programming, 194(1), 305 –340. 
+
+https://doi.org/10.1007/s10107 -021 -01630 -5
+
+Hah, D., Quilty, J. M., & Sikorska -Senoner, A. E. (2022). Ensemble and stochastic conceptual data -driven 
+
+approaches for improving streamflow simulations: Exploring different hydrological and data -driven 
+
+models and a diagnostic tool. Environmental Modelling  & Software, 105474. 
+
+https://doi.org/10.1016/j.envsoft.2022.105474 
+
+Hainaut, D. (2022). Continuous time processes for finance. Springer, Cham. 
+
+Hansen, L. P., & Miao, J. (2018). Aversion to ambiguity and model misspecification in dynamic stochastic 
+
+environments. Proceedings of the National Academy of Sciences, 115(37), 9163 –9168. 
+
+https://doi.org/10.1073/pnas.1811243115 
+
+He, X., Hu, R., & Fang, Y. P. (2022). Fast primal –dual algorithm via dynamical system for a linearly 
+
+constrained convex optimization problem. Automatica, 146, 110547. 
+
+https://doi.org/10.1016/j.automatica.2022.110547 
+
+Hu, G., & You, F. (2022). Renewable energy -powered semi -closed greenhouse for sustainable crop 
+
+production using model predictive control and machine learning for energy management. Renewable 
+
+and Sustainable Energy Reviews, 168, 112790.  https://doi.org/10.1016/j.rser.2022.112790 
+
+Huuki, H., Karhinen, S., Ashraf, F. B., Haghighi, A. T., & Marttila, H. (2020). The economic cost of 
+
+hydropower environmental constraints under decreasing price volatility. River Research and 
+
+Applications. 38(10), 1815 –1828.  https://doi.org/10.1002/rra.4049 
+
+Iyengar, G., & Ma, A. K. C. (2013). Fast gradient descent method for mean -CVaR optimization. Annals of 
+
+Operations Research, 205(1), 203 –212.  https://doi.org/10.1007/s10479 -012 -1245 -8
+
+Jarvis, M. G., & Closs, G. P. (2019). Water infrastructure and the migrations of amphidromous species: 
+
+Impacts and research requirements. Journal of Ecohydraulics, 4(1), 4–13. 
+
+https://doi.org/10.1080/24705357.2019.1611390 
+
+Jiang, J. (2022). Large sample techniques for statistics. Springer, Cham. 
+
+Jin, X., Liu, B., Liao, S., Cheng, C., & Yan, Z. (2022). A Wasserstein metric -based distributionally robust 
+
+optimization approach for dependable -economic equilibrium operation of hydro -wind -solar energy 
+
+systems. Renewable Energy, 196, 204 –219.  https://doi.org/10.1016/j.renene.2022.06.118 
+
+Kawai, R., & Masuda, H. (2011). On simulation of tempered stable random variates. Journal of 
+
+Computational and Applied Mathematics, 235(8), 2873 –2887. 
+
+https://doi.org/10.1016/j.cam.2010.12.014 46 
+
+Kufner, A., & Opic, B. (1984). How to define reasonably weighted Sobolev spaces. Commentationes 
+
+Mathematicae Universitatis Carolinae, 25(3), 537 –554. 
+
+Kurt, K., & Frey, R. (2022). Markov -modulated affine processes. Stochastic Processes and Their 
+
+Applications, 153, 391 –422.  https://doi.org/10.1016/j.spa.2022.08.009 
+
+Lazzaro, G., & Botter, G. (2015). Run‐of‐river power plants in Alpine regions: Whither optimal capacity? 
+
+Water Resources Research, 51(7), 5658 –5676.  https://doi.org/10.1002/2014WR016642 
+
+Liang, S., Wang, L., & Yin, G. (2020). Fractional differential equation approach for convex optimization 
+
+with convergence rate analysis. Optimization Letters, 14(1), 145 –155. 
+
+https://doi.org/10.1007/s11590 -019 -01437 -6
+
+Lin, F., Fang, X., & Gao, Z. (2022). Distributionally robust optimization: A review on theory and 
+
+applications. Numerical Algebra, Control & Optimization, 12(1), 159 –212. 
+
+https://doi.org/10.3934/naco.2021057 
+
+Liu, W., Yang, L., & Yu, B. (2022). Kernel density estimation based distributionally robust mean -CVaR 
+
+portfolio optimization. Journal of Global Optimization,  84, 1053 –1077. 
+
+https://doi.org/10.1007/s10898 -022 -01177 -5
+
+Luna, J. P., Sagastizábal, C., & Solodov, M. (2016). An approximation scheme for a class of risk -averse 
+
+stochastic equilibrium problems. Mathematical Programming, 157(2), 451 –481. 
+
+https://doi.org/10.1007/s10107 -016 -0988 -4
+
+Maeda, S. (2013). A simulation -optimization method for ecohydraulic design of fish habitat in a canal. 
+
+Ecological engineering, 61, 182 –189.  https://doi.org/10.1016/j.ecoleng.2013.09.026 
+
+Mir, R., Azizyan, G., Bavani, A. M., & Gohari, A. (2022). A framework for drought adaption under deep 
+
+uncertainties: Application of portfolio theory (Markowitz 2.0). Journal of Cleaner Production, 369, 
+
+133386.  https://doi.org/10.1016/j.jclepro.2022.133386 
+
+Okada, Y., Fukuoka, S., & Tachi, K. (2013). On the flow resistance and bed variations during Hii River 
+
+flood. Advances in River Sediment Research, 379 –385, CRC Press, Boca Raton. 
+
+Perona, P., Niayifar, A., Schwemmle, R., Razurel, P., Flury, R., Winz, E., & Barry, D. A. (2021). Frontiers 
+
+of (Pareto) optimal and sustainable water management for hydropower and ecology. Frontiers in 
+
+Environmental Science, 9, 703433.  https://doi.org/10.3389/fenvs.2021.703433 
+
+Pilipauskaitė, V., Skorniakov, V., & Surgailis, D. (2020). Joint temporal and contemporaneous aggregation 
+
+of random -coefficient AR (1) processes with infinite variance. Advances in Applied Probability, 52(1), 
+
+237 –265.  https://doi.org/10.1017/apr.2019.59 
+
+Postek, K., den Hertog, D., & Melenberg, B. (2016). Computationally tractable counterparts of 
+
+distributionally robust constraints on risk measures. SIAM Review, 58(4), 603 –650. 
+
+https://doi.org/10.1137/151005221 
+
+Proietti, T., & Maddanu, F. (2022). Modelling cycles in climate series: the fractional sinusoidal waveform 
+
+process. Journal of Econometrics, online publication.  https://doi.org/10.1016/j.jeconom.2022.04.008 
+
+Rajput, B. S., & Rosinski, J. (1989). Spectral representations of infinitely divisible processes. Probability 
+
+Theory and Related Fields, 82(3), 451 –487.  https://doi.org/10.1007/BF00339998 
+
+Razurel, P., Gorla, L., Crouzy, B., & Perona, P. (2016). Non -proportional repartition rules optimize 
+
+environmental flows and energy production. Water Resources Management, 30(1), 207 –223. 
+
+https://doi.org/10.1007/s11269 -015 -1156 -y
+
+Razurel, P., Gorla, L., Tron, S., Niayifar, A., Crouzy, B., & Perona, P. (2018). Improving the 
+
+ecohydrological and economic efficiency of small hydropower plants with water diversion. Advances 
+
+in Water Resources, 113, 249 –259.  https://doi.org/10.1016/j.advwatres.2018.01.029 
+
+Rockafellar, R. T., & Royset, J. O. (2018). Superquantile/CVaR risk measures: Second -order theory. 
+
+Annals of Operations Research, 262(1), 3 –28.  https://doi.org/10.1007/s10479 -016 -2129 -0
+
+Rozental, O. M., & Tambieva, D. A. (2021). Cyclic variations of quality characteristics in river water in an 
+
+industrial region. Water Science and Technology, 83(4), 854 –862. 
+
+https://doi.org/10.2166/wst.2020.597 
+
+Rubshtein, B. Z. A., Grabarnik, G. Y., Muratov, M. A., & Pashkova, Y. S. (2016). Foundations of 
+
+symmetric spaces of measurable functions. Springer, Cham. 
+
+Salgado, J., Shurin, J. B., Vélez, M. I., Link, A., Lopera -Congote, L., González -Arango, C., Jaramillo, F., 
+
+Åhlén, I., & de Luna, G. (2022). Causes and consequences of recent degradation of the Magdalena 
+
+River basin, Colombia. Limnology and Oceanography Le tters, 7(6), 451 –465. 
+
+https://doi.org/10.1002/lol2.10272 
+
+Serra‐Llobet, A., Kondolf, G. M., Magdaleno, F., & Keenan‐Jones, D. (2022). Flood diversions and 
+
+bypasses: Benefits and challenges. Wiley Interdisciplinary Reviews: Water, 9(1), e1562. 47 
+
+https://doi.org/10.1002/wat2.1562 
+
+Shapiro, A., Dentcheva, D., & Ruszczynski, A. (2021). Lectures on stochastic programming: modeling and 
+
+theory. Society for Industrial and Applied Mathematics, Philadelphia. 
+
+Shi, Z., Lyu, P., & Ma, J. (2022). High -order methods for the option pricing under multivariate rough 
+
+volatility models. Computers & Mathematics with Applications. In press. 
+
+https://doi.org/10.1016/j.camwa.2022.05.039 
+
+Siegle, P., Goychuk, I., Talkner, P., & Hänggi, P. (2010). Markovian embedding of non -Markovian 
+
+superdiffusion. Physical Review E, 81(1), 011136.  https://doi.org/10.1103/PhysRevE.81.011136 
+
+Ushiyama, K., Sato, S., & Matsuo, T. (2022). Essential convergence rate of ordinary differential equations 
+
+appearing in optimization. JSIAM Letters, 14, 119 –122.  https://doi.org/10.14495/jsiaml.14.119 
+
+Wang, B., Xia, H., Nguyen, T., & Osher, S. (2022). How does momentum benefit deep neural networks 
+
+architecture design? A few case studies. Research in the Mathematical Sciences, 9(3), 1 –37. 
+
+https://doi.org/10.1007/s40687 -022 -00352 -0
+
+Wibisono, A., Wilson, A. C., & Jordan, M. I. (2016). A variational perspective on accelerated methods in 
+
+optimization. Proceedings of the National Academy of Sciences, 113(47), E7351 –E7358. 
+
+https://doi.org/10.1073/pnas.1614734113 
+
+Widén, Å., Malm Renöfält, B., Degerman, E., Wisaeus, D., & Jansson, R. (2022). Environmental flow 
+
+scenarios for a regulated river system: Projecting catchment‐wide ecosystem benefits and 
+
+consequences for hydroelectric production. Water Resources Research,  58(1), e2021WR030297. 
+
+https://doi.org/10.1029/2021WR030297 
+
+Ye, L., Gu, X., Wang, D., & Vogel, R. M. (2021). An unbiased estimator of coefficient of variation of 
+
+streamflow. Journal of Hydrology, 594, 125954.  https://doi.org/10.1016/j.jhydrol.2021.125954 
+
+Yin, D., Li, X., Wang, F., Liu, Y., Croke, B. F., & Jakeman, A. J. (2022). Water -energy -ecosystem nexus 
+
+modeling using multi -objective, non -linear programming in a regulated river: Exploring tradeoffs 
+
+among environmental flows, cascaded small hydropower, a nd inter -basin water diversion projects. 
+
+Journal of Environmental Management, 308, 114582.  https://doi.org/10.1016/j.jenvman.2022.114582 
+
+Yoshioka, H. (2022). A supCBI process with application to streamflow discharge and a model reduction. 
+
+arXiv preprint arXiv:2206.05923. 
+
+Yoshioka, H., & Yoshioka, Y. (2022a). Stochastic streamflow and dissolved silica dynamics with 
+
+application to the worst -case long -run evaluation of water environment. Optimization and Engineering, 
+
+online published.  https://doi.org/10.1007/s11081 -022 -09743 -2
+
+Yoshioka, H. & Yoshioka, Y. (2022b). Dynamic optimization with tempered stable subordinators for 
+
+modeling river hydraulics. In Zafeiris, K. N. et al. (Eds.), Data analysis and related applications, 
+
+Volume 2: Multivariate, health and demographic data analys is (Chapter 8, pp. 105 –117). Wiley -ISTE. 
+
+Yoshioka, H., Tsujimura, M., Tanaka, T., Yoshioka, Y., & Hashiguchi, A. (2022a). Modeling and 
+
+computation of linear -quadratic control for an infinite -dimensional stochastic differential equation 
+
+governing streamflow discharge. Computers & Mathematics with  Applications, 126, 115 –148. 
+
+https://doi.org/10.1016/j.camwa.2022.09.009 
+
+Yoshioka, H., Tanaka, T., Yoshioka, Y., & Hashiguchi A (2022b): Statistical computation of a 
+
+superposition of infinitely many Ornstein –Uhlenbeck processes, AIP Conf. Proc. 3094, 100001 
+
+(2024)  https://doi.org/10.1063/5.0210146 
+
+Yoshioka, H., Tanaka, T., Yoshioka, Y., & Hashiguchi A. (2023a) Stochastic optimization of a mixed 
+
+moving average process for controlling non -Markovian streamflow environments, Applied 
+
+Mathematical Modelling, 116, 490 -509.  https://doi.org/ 10.1016/j.apm.2022.11.009 
+
+Yoshioka, H., Tanaka, T., Yoshioka, Y., Hashiguchi, A., & Aranishi, F. (2023b). CVaR -based optimization 
+
+of environmental flow via the Markov lift of a mixed moving average process. Optimization and 
+
+Engineering, 24(4), 2935 -2972.  https://doi.org/10.1007/s11081 -023 -09800 -4
+
+Yoshioka, H., Tsujimura, M., & Yoshioka, Y. (2023c). Distributionally -Robust Optimization for 
+
+Sustainable Exploitation of the Infinite -Dimensional Superposition of Affine Processes with an 
+
+Application to Fish Migration. In International Conference on Compu tational Science (pp. 569 -582). 
+
+Springer, Cham. 
+
+Yoshioka, H., & Yoshioka Y. (2024). Generalized divergences for statistical evaluation of un -certainty in 
+
+long -memory processes, Chaos, Solitons & Fractals, 182, 114627. 
+
+https://doi.org/10.1016/j.chaos.2024.114627 
+
+Zeidler, E. (1995). Applied functional analysis: Main principles and their applications. Springer, New York. 
+
+Zhai, J., Wang, S., Guo, L., Jiang, Y., Kang, Z., & Jones, C. N. (2022). Data -driven distributionally robust 
+
+joint chance -constrained energy management for multi -energy microgrid. Applied Energy, 326, 48 
+
+119939.  https://doi.org/10.1016/j.apenergy.2022.119939 
+
+Zhang, M., & Xi, K. (2020). A new interval two -stage stochastic programming with CVaR for water 
+
+resources management. Water Resources Management, 34(12), 3795 –3807. 
+
+https://doi.org/10.1007/s11269 -020 -02633 -1
+
+Zhang, K., Feng, R., Han, J., Zhang, Z., Zhang, H., & Liu, K. (2022a). Temporal and spatial differentiation 
+
+characteristics of ecosystem service values based on the ecogeographical division of China: a case 
+
+study in the Yellow River Basin, China. Environme ntal Science and Pollution Research, 1 –21. 
+
+https://doi.org/10.1007/s11356 -022 -22748 -9
+
+Zhang, C., Nong, X., Zhong, H., Shao, D., Chen, L., & Liang, J. (2022b). A framework for exploring 
+
+environmental risk of the longest inter -basin water diversion project under the influence of multiple 
+
+factors: A case study in China. Journal of Environmenta l Management, 322, 116036. 
+
+https://doi.org/10.1016/j.jenvman.2022.116036 
+
+Zou, Z., Wu, Q., Xia, Z., & Hu, T. (2022). Adjusted Rényi entropic value -at -risk. European Journal of 
+
+Operational Research, In press.  https://doi.org/10.1016/j.ejor.2022.08.028

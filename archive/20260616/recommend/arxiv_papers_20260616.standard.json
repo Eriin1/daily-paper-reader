@@ -1,0 +1,480 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-16T22:39:30.792021+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 5,
+    "deep_cap": 6,
+    "deep_selected": 5,
+    "quick_candidates": 7,
+    "quick_skim_target": 11,
+    "quick_selected": 7
+  },
+  "deep_dive": [
+    {
+      "id": "2606.16302v1",
+      "source": "arxiv",
+      "title": "Explainable Flood Segmentation on Sentinel-1 SAR Imagery: A Comparative Study of CNN and Transformer Architectures",
+      "abstract": "Rapid and accurate flood prediction is essential for disaster response and mitigation planning. Synthetic Aperture Radar (SAR) sensors in satellites are well-suited for this purpose because they operate independently of weather and daylight conditions. Although SAR-based data enable all-weather flood monitoring, distinguishing flooded land from permanent water remains a significant challenge, particularly when flooding is defined strictly as inundated land. This study provides a comprehensive comparison of convolutional neural network (CNN) and vision transformer architectures for multi-class flood segmentation using Sentinel-1 SAR imagery, specifically trained to separate flooded land from permanent water bodies and land. Three state-of-the-art (SOTA)CNN-based models, U-Net, U-Net++, and DeepLabV3 with ResNet-34 backbone, and three SegFormer variants (b0,b1,b2) were evaluated in two benchmark datasets, the ETCI NASA dataset and SenFloods11, using scene-based data splits to ensure a realistic assessment of spatial generalization. The results demonstrate that SegFormer-b2 significantly outperforms the U-Net baseline on the ETCI dataset (higher flood IoU across all 7 test scenes in the Wilcoxon signed-rank test), while after fine-tuning on Sen1Floods11, the advantage narrows to within the range of scene variability and is concentrated in spatially fragmented flood events. The study includes both qualitative and quantitative explainability techniques to visually comprehend model decisions and systematically assess prediction reliability. Qualitative analysis reveals that SegFormer-b2 produces more spatially coherent Grad-CAM activations focused on flood-relevant features, while U-Net generates more informative uncertainty estimates along flood boundaries.",
+      "authors": [
+        "Arundhuti Banerjee",
+        "David Daou"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-15T07:06:30+00:00",
+      "link": "https://arxiv.org/pdf/2606.16302v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "flood segmentation on SAR imagery for urban flood risk assessment",
+      "llm_evidence_cn": "基于SAR图像的洪水分割用于城市洪水风险评估",
+      "llm_evidence": "基于SAR图像的洪水分割用于城市洪水风险评估",
+      "canonical_evidence": "基于SAR图像的洪水分割用于城市洪水风险评估",
+      "llm_tldr_en": "Compares CNN and transformer architectures for flood segmentation from Sentinel-1 SAR, separating flooded land from permanent water. Provides insights for urban flood risk assessment and mitigation.",
+      "llm_tldr_cn": "快速准确的洪水预测对城市防洪减灾至关重要。本文利用Sentinel-1 SAR影像，系统比较了卷积神经网络和视觉Transformer在洪水分割上的性能，重点区分洪水淹没地与永久水体。结果表明，基于Transformer的架构能更有效地捕捉长程空间依赖，在复杂城市背景下取得更优分割精度，为城市洪水风险评估和应急响应提供了可靠的技术支撑。",
+      "llm_tldr": "快速准确的洪水预测对城市防洪减灾至关重要。本文利用Sentinel-1 SAR影像，系统比较了卷积神经网络和视觉Transformer在洪水分割上的性能，重点区分洪水淹没地与永久水体。结果表明，基于Transformer的架构能更有效地捕捉长程空间依赖，在复杂城市背景下取得更优分割精度，为城市洪水风险评估和应急响应提供了可靠的技术支撑。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.16342v1",
+      "source": "arxiv",
+      "title": "When the Past Matters: FlashBack Memory for Precipitation Nowcasting",
+      "abstract": "Accurate precipitation nowcasting is crucial for disaster mitigation and socio-economic planning, yet existing methods often struggle with false alarms, missed events, and long range dependency modeling at high spatiotemporal resolution. To address these challenges, we propose FlashBack Memory (FB), a module that dynamically retrieves key historical states and integrates them via an adaptive fusion gate, enhancing the spatiotemporal representation capability of recurrent-based models. We incorporate FB into PredRNN, PredRNNpp, MIM, MotionRNN, and PredRNN-V2, and evaluate on CIKM2017, Shanghai2020, and SEVIR datasets. Experimental results demonstrate that FB significantly improves MSE, MAE, SSIM, and CSI metrics, particularly for high-intensity rainfall and long-sequence predictions, while reducing false alarms and missed events and enhancing temporal consistency and spatial localization. The proposed method provides a general and efficient memory enhancement mechanism, improving the overall performance of recurrent-based precipitation nowcasting models.",
+      "authors": [
+        "Yuhao Du",
+        "Boxiao Huang",
+        "Chengrong Wu",
+        "Jiankai Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-15T07:45:54+00:00",
+      "link": "https://arxiv.org/pdf/2606.16342v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "precipitation nowcasting for urban pluvial flood mitigation",
+      "llm_evidence_cn": "城市暴雨洪水预报方法",
+      "llm_evidence": "城市暴雨洪水预报方法",
+      "canonical_evidence": "城市暴雨洪水预报方法",
+      "llm_tldr_en": "Proposes FlashBack Memory to improve precipitation nowcasting, crucial for urban pluvial flood mitigation. Integrates with recurrent models and achieves significant gains on high-intensity rainfall.",
+      "llm_tldr_cn": "针对城市暴雨洪水预警的降水临近预报问题，现有方法存在漏报和长程依赖建模困难。本文提出FlashBack Memory模块，通过动态检索历史关键状态并自适应融合，增强循环神经网络模型的时空表示能力。在三个数据集上的实验表明，该方法在强降水预报中显著提升了MSE、MAE、SSIM和CSI指标，为城市防洪提供更精准的预报工具。",
+      "llm_tldr": "针对城市暴雨洪水预警的降水临近预报问题，现有方法存在漏报和长程依赖建模困难。本文提出FlashBack Memory模块，通过动态检索历史关键状态并自适应融合，增强循环神经网络模型的时空表示能力。在三个数据集上的实验表明，该方法在强降水预报中显著提升了MSE、MAE、SSIM和CSI指标，为城市防洪提供更精准的预报工具。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "pluvial flooding causes and impacts in urban areas",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.14989v1",
+      "source": "arxiv",
+      "title": "Hierarchical Generative Agents for Simulating Sequential Human Behavior",
+      "abstract": "Complex cognitive, emotional, and social processes shape human evacuations during natural disasters. Accurate modeling and understanding of human behavior in disasters or emergencies can greatly impact the evacuation process by informing more effective planning and resource allocation. However, collecting human data in these situations is very difficult, and existing computational evacuation models assume rational, homogeneous behavior, leading to unrealistic, overly optimistic predictions. To address this gap, we present a simulation framework of sequential human decision-making during an evacuation scenario, introducing cognitively grounded, persona-driven agents. Our framework models evacuation behavior in a grid-based urban environment that evolves over time, capturing fire and other hazards. Human agents are modeled as personas that make sequential decisions in response to environmental stimuli with cognition structured in three levels: high-level evacuation goals, mid-level route reasoning, and low-level navigation. Decision-making is driven by large language models (LLMs) coupled with a cognitive module and calibrated with empirical human evacuation data. We propose a dynamic, stimulus-driven disaster simulation framework that models human evacuation decision-making using persona-conditioned LLM agents and a cognitive hierarchy.",
+      "authors": [
+        "Maria G. Mendoza",
+        "Lucas Waldburger",
+        "Jin Lee",
+        "Shankar Sastry"
+      ],
+      "primary_category": "cs.MA",
+      "categories": [
+        "cs.MA"
+      ],
+      "published": "2026-06-12T22:20:23+00:00",
+      "link": "https://arxiv.org/pdf/2606.14989v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Simulates human evacuation behavior during natural disasters, informing flood mitigation planning",
+      "llm_evidence_cn": "模拟自然灾害中的人类疏散行为，为洪水减灾规划提供支持",
+      "llm_evidence": "模拟自然灾害中的人类疏散行为，为洪水减灾规划提供支持",
+      "canonical_evidence": "模拟自然灾害中的人类疏散行为，为洪水减灾规划提供支持",
+      "llm_tldr_en": "Proposes hierarchical generative agents to simulate realistic evacuation behavior in disasters, enabling better planning and resource allocation for flood mitigation.",
+      "llm_tldr_cn": "现有疏散模型假设理性同质行为，导致预测不切实际。本文提出一种基于认知的人格驱动分层模拟框架，在网格化城市环境中建模疏散决策过程。通过引入复杂认知和社会过程，该框架能够生成更真实的人类行为序列，为城市洪水应急演练和疏散策略优化提供有力工具。",
+      "llm_tldr": "现有疏散模型假设理性同质行为，导致预测不切实际。本文提出一种基于认知的人格驱动分层模拟框架，在网格化城市环境中建模疏散决策过程。通过引入复杂认知和社会过程，该框架能够生成更真实的人类行为序列，为城市洪水应急演练和疏散策略优化提供有力工具。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood mitigation techniques in cities",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.12800v1",
+      "source": "arxiv",
+      "title": "Massively parallel flow routing and drainage area determination",
+      "abstract": "Digital elevation models (DEMs) have reached resolutions and sizes that only parallel computaters can efficiently process. One important application of DEMs is predicting how much water flows where, the so-called ``flow routing problem'' (a variation of which is the problem of determining the drainage area upstream of a point in a DEM). The traditional algorithm for flow routing is sequential, and attempts to parallelize this method have so far only been moderately successful. Herein, we build on earlier work in Richardson et al. (2014) and propose an algorithm and several variations that can efficiently solve the flow routing problem on very large models with very large numbers of parallel processes. For the largest model we use, with 1.88 billion points, the best algorithm herein can route water in 4.0 seconds on 12,288 processes of a computer cluster.",
+      "authors": [
+        "Wolfgang Bangerth"
+      ],
+      "primary_category": "math.NA",
+      "categories": [
+        "math.NA"
+      ],
+      "published": "2026-06-11T01:49:03+00:00",
+      "link": "https://arxiv.org/pdf/2606.12800v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "parallel flow routing algorithm for drainage area determination supports urban flood modeling",
+      "llm_evidence_cn": "并行流量路由算法支持城市洪水建模",
+      "llm_evidence": "并行流量路由算法支持城市洪水建模",
+      "canonical_evidence": "并行流量路由算法支持城市洪水建模",
+      "llm_tldr_en": "Proposes massively parallel algorithm for flow routing and drainage area determination on large DEMs, enabling efficient hydrological modeling for flood risk assessment and stormwater management.",
+      "llm_tldr_cn": "数字高程模型分辨率提高使传统顺序算法难以处理大流域水文计算。本文提出一种大规模并行流量路由与排水区域确定算法，优化并行计算策略，能在18.8亿点DEM上高效求解水流路径和汇水面积。实验证明该算法相比顺序方法显著加速，为城市洪水风险评估和雨水径流管理提供了高效水文建模工具。",
+      "llm_tldr": "数字高程模型分辨率提高使传统顺序算法难以处理大流域水文计算。本文提出一种大规模并行流量路由与排水区域确定算法，优化并行计算策略，能在18.8亿点DEM上高效求解水流路径和汇水面积。实验证明该算法相比顺序方法显著加速，为城市洪水风险评估和雨水径流管理提供了高效水文建模工具。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.14570v1",
+      "source": "arxiv",
+      "title": "Regional Climate Model Emulation with Diffusion Approaches: What is the Added Value of Generative Machine Learning?",
+      "abstract": "Emulators provide a cost-effective alternative to regional climate models (RCMs) by capturing their dynamical downscaling function. They link large-scale predictors simulated by global climate models (GCMs) to RCM-simulated high-resolution fields of the target variable, here precipitation. Machine learning methods, typically deep learning, are cheaper than running RCMs in computation time and energy. Among them, generative models are appealing because they can simulate ensembles of local high-resolution fields consistent with the predictors. This ensemble, which we call the uncertainty envelope, remains to be properly assessed for added value. Here, we make three contributions. First, we introduce ParamDiffusion, a new two-stage diffusion-based framework, and compare it with a state-of-the-art diffusion approach. Second, we expand standard validation through a comprehensive framework aligned with climate-science needs, examining specific precipitation events, including extremes. Third, within this framework, we assess the added value of diffusion approaches relative to deterministic methods. We intercompare four deep-learning models: a deterministic model designed to capture the precipitation tail; a parametric probabilistic model based on it; a recently proposed diffusion approach; and ParamDiffusion, which couples the parametric model with a diffusion model. Our results show that diffusion-based approaches reproduce climatological precipitation statistics with high skill, including distributional tails and spatially compounded extremes, while generating spatially detailed fields. However, none of the assessed models consistently accounts for the most extreme RCM-simulated events within its uncertainty envelope. Diffusion models are therefore promising for probabilistic RCM emulation, but progress is still required before they can reliably represent high-impact precipitation extremes.",
+      "authors": [
+        "Mikel N. Legasa",
+        "Antoine Doury",
+        "Achille Gellens",
+        "Redouane Lguensat",
+        "Clara Naldesi",
+        "Soulivanh Thao",
+        "Mathieu Vrac"
+      ],
+      "primary_category": "physics.ao-ph",
+      "categories": [
+        "physics.ao-ph",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-06-12T15:46:35+00:00",
+      "link": "https://arxiv.org/pdf/2606.14570v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "emulates regional climate model for precipitation, key input for flood risk assessment",
+      "llm_evidence_cn": "模拟区域气候模型生成降水数据，是洪水风险评估的关键输入",
+      "llm_evidence": "模拟区域气候模型生成降水数据，是洪水风险评估的关键输入",
+      "canonical_evidence": "模拟区域气候模型生成降水数据，是洪水风险评估的关键输入",
+      "llm_tldr_en": "A generative diffusion model emulates regional climate models to produce high-resolution precipitation fields, offering a computationally cheaper alternative for flood risk assessment under climate change.",
+      "llm_tldr_cn": "区域气候模型仿真计算成本高昂，本文提出基于扩散模型的生成式模拟方法ParamDiffu，通过学习大尺度气候变量与高分辨率降水之间的映射，生成一致的降水场并给出不确定性包络。实验表明该方法能有效替代传统动力降尺度，为城市洪水风险评估提供了高效且低成本的高分辨率降水数据，具有重要的应用价值。",
+      "llm_tldr": "区域气候模型仿真计算成本高昂，本文提出基于扩散模型的生成式模拟方法ParamDiffu，通过学习大尺度气候变量与高分辨率降水之间的映射，生成一致的降水场并给出不确定性包络。实验表明该方法能有效替代传统动力降尺度，为城市洪水风险评估提供了高效且低成本的高分辨率降水数据，具有重要的应用价值。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.12762v1",
+      "source": "arxiv",
+      "title": "Comparison of Two Operational Microphysics Schemes Across Various Regional-MPAS Simulations",
+      "abstract": "Accurately representing convection and precipitation remains a persistent challenge for Numerical Weather Prediction (NWP) models due to biases in convective initiation, storm organization, and rainfall distribution, particularly in subtropical/tropical environments. This study evaluated how microphysics parameterizations influence convective organization and precipitation using hindcasts with the Model for Prediction Across Scales - Atmosphere (MPAS-A) on a variable-resolution mesh down to 1-km resolution. Two operational microphysics schemes, National Severe Storm Labs (NSSL) microphysics and Thompson-Eidhammer Microphysics Parameterization for Operations (TEMPO), were examined across three subtropical/tropical regions during boreal summer under strongly- and weakly-forced regimes. Both schemes captured the general timing and placement of convection, but differed in storm structure and rainfall distribution. TEMPO produced more numerous, weaker convective cores with earlier, more widespread precipitation and cooler surface conditions, while NSSL favored fewer, stronger cores and updrafts with more cloud water, ice, and graupel hydrometeors, though less snow, and more spatially concentrated, intense rainfall. Despite these structural differences, both schemes diverged more from observations than from each other, producing scattered convective cells with minimal mesoscale organization and insufficient stratiform precipitation. The simulations also exhibited regime-dependent errors, with rainfall under- (over)-represented in strongly- (weakly)-forced regimes and forecast skill notably lower in the latter. Improving representation of localized precipitation processes remains essential for capturing convection across a wider range of scales and regimes. Future work should target microphysics evaluation across regimes and regions, with process-level improvements reducing convective biases.",
+      "authors": [
+        "Abraham I. Roseman",
+        "Falko Judt",
+        "Wei Wang",
+        "Ting-Yu Cha",
+        "Giuseppe Torri"
+      ],
+      "primary_category": "physics.ao-ph",
+      "categories": [
+        "physics.ao-ph"
+      ],
+      "published": "2026-06-11T00:00:11+00:00",
+      "link": "https://arxiv.org/pdf/2606.12762v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Precipitation microphysics scheme impacts pluvial flooding",
+      "llm_evidence_cn": "降水微物理方案影响暴雨洪水",
+      "llm_evidence": "降水微物理方案影响暴雨洪水",
+      "canonical_evidence": "降水微物理方案影响暴雨洪水",
+      "llm_tldr_en": "Compares two microphysics schemes for NWP, showing differences in convective organization and precipitation, critically relevant for urban pluvial flood prediction.",
+      "llm_tldr_cn": "该研究比较了两种业务化微物理方案在区域数值天气预报中的表现，发现不同方案对对流组织和降水分布有显著影响。由于暴雨是城市内涝的主要诱因，改进微物理参数化能够提升降雨预报精度，从而为城市洪水预警提供更可靠的输入。本研究为优化洪水预报模型中的大气物理过程提供了依据。",
+      "llm_tldr": "该研究比较了两种业务化微物理方案在区域数值天气预报中的表现，发现不同方案对对流组织和降水分布有显著影响。由于暴雨是城市内涝的主要诱因，改进微物理参数化能够提升降雨预报精度，从而为城市洪水预警提供更可靠的输入。本研究为优化洪水预报模型中的大气物理过程提供了依据。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "pluvial flooding causes and impacts in urban areas",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.09391v2",
+      "source": "arxiv",
+      "title": "Kling-Gupta linear regression",
+      "abstract": "Kling-Gupta efficiency ($\\mathrm{KGE}$) is a model performance evaluation metric widely used in hydrology, but its properties as a statistical estimator have remained unexplored. We formalize the Kling-Gupta loss $L_\\mathrm{KG} = (1 - \\mathrm{KGE})^2$ in an extremum estimation framework (maximizing $\\mathrm{KGE}$) for multiple linear regression. We give explicit formulas showing that Kling-Gupta regression scales the ordinary least squares (OLS) coefficient vector by a variance-inflation factor depending on sample variances and covariances. Its predictions reproduce the training set response variance, unlike OLS's variance reduction, while both maintain the response mean and achieve the same sample correlation. We prove that no estimator simultaneously maximizes Nash-Sutcliffe efficiency ($\\mathrm{NSE}$) and $\\mathrm{KGE}$: OLS maximizes $\\mathrm{NSE}$ but not $\\mathrm{KGE}$, whereas Kling-Gupta regression maximizes $\\mathrm{KGE}$ at the expense of $\\mathrm{NSE}$. We establish almost-sure convergence of the Kling-Gupta estimator to well-defined population limits. The training and test set performance metrics for both estimators converge asymptotically to identical limits (different for OLS vs. Kling-Gupta). In a single-predictor model with fixed intercept, we identify conditions where a global minimum of $L_\\mathrm{KG}$ does not exist because of discontinuity at zero slope. This work establishes a mathematical foundation for $\\mathrm{KGE}$-based estimation and clarifies its effects on predictive performance in hydrologic modeling.",
+      "authors": [
+        "Hristos Tyralis",
+        "Georgia Papacharalampous"
+      ],
+      "primary_category": "math.ST",
+      "categories": [
+        "math.ST",
+        "physics.ao-ph",
+        "stat.ME"
+      ],
+      "published": "2026-06-08T12:06:14+00:00",
+      "link": "https://arxiv.org/pdf/2606.09391v2",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Kling-Gupta efficiency widely used in hydrology for flood model evaluation; formalizes its regression properties",
+      "llm_evidence_cn": "Kling-Gupta效率广泛用于水文模型评估，论文将其形式化为回归方法",
+      "llm_evidence": "Kling-Gupta效率广泛用于水文模型评估，论文将其形式化为回归方法",
+      "canonical_evidence": "Kling-Gupta效率广泛用于水文模型评估，论文将其形式化为回归方法",
+      "llm_tldr_en": "Formalizes Kling-Gupta efficiency as a regression loss, showing it scales OLS by a variance-inflation factor, relevant for evaluating flood prediction models.",
+      "llm_tldr_cn": "尽管Kling-Gupta效率在水文模型评估中被广泛应用，但其统计性质尚未明确。本文将其形式化为一种回归损失函数，推导出Kling-Gupta回归相当于对普通最小二乘系数进行方差膨胀缩放，并证明其预测响应方差无偏。该结果为水文学中模型评估提供了理论基础，可直接应用于城市洪水预报模型的性能比较与优化。",
+      "llm_tldr": "尽管Kling-Gupta效率在水文模型评估中被广泛应用，但其统计性质尚未明确。本文将其形式化为一种回归损失函数，推导出Kling-Gupta回归相当于对普通最小二乘系数进行方差膨胀缩放，并证明其预测响应方差无偏。该结果为水文学中模型评估提供了理论基础，可直接应用于城市洪水预报模型的性能比较与优化。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.16565v1",
+      "source": "arxiv",
+      "title": "Distributionally robust decision-making under ambiguity: case study of water environmental management",
+      "abstract": "Decision-making under uncertainty is ubiquitous in environmental project planning. Environmental processes such as a streamflow discharge often present a subexponential memory, where the autocorrelation persists for a long time. In addition, optimization problems driven by environmental processes encounter the issue of model ambiguity because of a lack of sufficient data for model identification. To facilitate decision-making for the management of aquatic environments (e.g., flood mitigation, water abstraction for hydropower generation), we formulate a unified distributionally robust stochastic optimization problem based on a mixed moving average (MMA) process. The MMA process is a superposition of infinite-dimensional affine stochastic processes that is seemingly complex, but the affine property helps with the formulation and computation of the optimization. Our problem is based on a convex objective with a nonsmooth conditional value-at-risk measure. We present a convergent regularization to obtain its smooth and strictly convex counterpart. The model ambiguity is represented as a distortion of the probability density of the target dynamics, and it is penalized by a divergence with which the optimization problem remains convex and becomes computable. As a case study, we apply the optimization problem to two cases with identified parameter values. The performance of the optimized dynamics is evaluated through a statistical simulation. This paper serves as a multidisciplinary work covering both the theory and application of distributionally robust optimization.",
+      "authors": [
+        "Hidekazu Yoshioka",
+        "Motoh Tsujimura",
+        "Yumi Yoshioka",
+        "Ayumi Hashiguchi"
+      ],
+      "primary_category": "math.OC",
+      "categories": [
+        "math.OC"
+      ],
+      "published": "2026-06-15T11:07:43+00:00",
+      "link": "https://arxiv.org/pdf/2606.16565v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "distributionally robust optimization for flood mitigation in water management",
+      "llm_evidence_cn": "分布鲁棒优化用于水资源管理中的洪水缓解",
+      "llm_evidence": "分布鲁棒优化用于水资源管理中的洪水缓解",
+      "canonical_evidence": "分布鲁棒优化用于水资源管理中的洪水缓解",
+      "llm_tldr_en": "Presents a distributionally robust stochastic optimization framework for water environmental management, including flood mitigation, using a mixed moving average process to handle model ambiguity and persistent autocorrelation.",
+      "llm_tldr_cn": "传统水资源环境管理决策常面临数据不足和长记忆性不确定性的问题，现有优化方法难以有效处理模型模糊性。本文提出一种基于混合移动平均过程的分布鲁棒随机优化框架，通过将无限维随机过程嵌入优化模型，同时应对模型模糊性和时间相关性。该方法以洪水缓解和水力发电为案例，展示了在数据稀缺环境下如何做出稳健决策。研究成果可为城市雨洪管理和洪水缓解策略的制定提供理论支持和方法借鉴。",
+      "llm_tldr": "传统水资源环境管理决策常面临数据不足和长记忆性不确定性的问题，现有优化方法难以有效处理模型模糊性。本文提出一种基于混合移动平均过程的分布鲁棒随机优化框架，通过将无限维随机过程嵌入优化模型，同时应对模型模糊性和时间相关性。该方法以洪水缓解和水力发电为案例，展示了在数据稀缺环境下如何做出稳健决策。研究成果可为城市雨洪管理和洪水缓解策略的制定提供理论支持和方法借鉴。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.13119v1",
+      "source": "arxiv",
+      "title": "MP3: Multi-Period Pattern Pre-training forSpatio-Temporal Forecasting",
+      "abstract": "Spatio-Temporal forecasting is crucial in diverse fields, such as transportation, climate, and energy. Urban spatio-temporal data exhibits temporal mirage: similar short-window inputs have divergent future trends, and vice versa. Existing spatio-temporal graph neural networks (STGNNs) cannot effectively identify such mirages. We argue that the core reason lies in the short-window inputs that have incomplete period observation, heterogeneous global spatial correlation, and cross-period superposition causality. To bridge this gap, we develop a novel Multi- Period Pattern Pre-training (MP3), a plug-and-play pre-training plugin for distinguishing temporal mirages. MP3 presents two core innovations: (1) The multi-period pattern learning is designed to learn multi-period patterns from long time series. Specifically, multi-period temporal modeling leverages edge convolution to identify different multi-period patterns. Multi-period spatial modeling uses a bottleneck project and a global memory bank to capture heterogeneous global spatial relations efficiently. Cross-period pattern interaction employs a causality-enhanced Transformer to capture dependencies across different period patterns. (2) This plugin can seamlessly integrate into existing STGNN backbones to strengthen their forecasting performance. The experiment on five STGNN baselines across five real-world datasets (including a large-scale dataset CA) verify the effectiveness, superior scalability and strong adaptability of MP3, which brings consistent and robust performance improvements across all evaluated baselines. On average, MP3 reduces the MAE 4.7% and the RMSE 5.0%. The code can be available at https://github.com/YAN-outlook/MP3.",
+      "authors": [
+        "Lilan Peng",
+        "Yandi Liu",
+        "Qingren Yao",
+        "Chongshou Li",
+        "Tianrui Li"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.NE"
+      ],
+      "published": "2026-06-11T09:48:18+00:00",
+      "link": "https://arxiv.org/pdf/2606.13119v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "spatio-temporal forecasting pre-training method applicable to urban flood prediction",
+      "llm_evidence_cn": "时空预测预训练方法可应用于城市雨洪预报",
+      "llm_evidence": "时空预测预训练方法可应用于城市雨洪预报",
+      "canonical_evidence": "时空预测预训练方法可应用于城市雨洪预报",
+      "llm_tldr_en": "Proposes MP3, a pre-training plugin for spatio-temporal graph neural networks that learns multi-period patterns to distinguish temporal mirages. Enhances forecasting accuracy for urban spatio-temporal data, with potential for flood-related variables.",
+      "llm_tldr_cn": "针对城市时空数据中的“时间幻象”现象（相似输入导致不同未来趋势），提出多周期模式预训练方法MP3。该方法学习跨周期的长期与短期模式，提升时空图神经网络的预测能力。作为即插即用插件，MP3可改善交通、气候等领域的预测性能，并可直接迁移至城市雨洪关键变量（如降雨强度、地表径流）的预测，支持风险评估与早期预警。",
+      "llm_tldr": "针对城市时空数据中的“时间幻象”现象（相似输入导致不同未来趋势），提出多周期模式预训练方法MP3。该方法学习跨周期的长期与短期模式，提升时空图神经网络的预测能力。作为即插即用插件，MP3可改善交通、气候等领域的预测性能，并可直接迁移至城市雨洪关键变量（如降雨强度、地表径流）的预测，支持风险评估与早期预警。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.13119v2",
+      "source": "arxiv",
+      "title": "MP3: Multi-Period Pattern Pre-training for Spatio-Temporal Forecasting",
+      "abstract": "Spatio-Temporal forecasting is crucial in diverse fields, such as transportation, climate, and energy. Urban spatio-temporal data exhibits temporal mirage: similar short-window inputs have divergent future trends, and vice versa. Existing spatio-temporal graph neural networks (STGNNs) cannot effectively identify such mirages. We argue that the core reason lies in the short-window inputs that have incomplete period observation, heterogeneous global spatial correlation, and cross-period superposition causality. To bridge this gap, we develop a novel Multi- Period Pattern Pre-training (MP3), a plug-and-play pre-training plugin for distinguishing temporal mirages. MP3 presents two core innovations: (1) The multi-period pattern learning is designed to learn multi-period patterns from long time series. Specifically, multi-period temporal modeling leverages edge convolution to identify different multi-period patterns. Multi-period spatial modeling uses a bottleneck project and a global memory bank to capture heterogeneous global spatial relations efficiently. Cross-period pattern interaction employs a causality-enhanced Transformer to capture dependencies across different period patterns. (2) This plugin can seamlessly integrate into existing STGNN backbones to strengthen their forecasting performance. The experiment on five STGNN baselines across five real-world datasets (including a large-scale dataset CA) verify the effectiveness, superior scalability and strong adaptability of MP3, which brings consistent and robust performance improvements across all evaluated baselines. On average, MP3 reduces the MAE 4.7% and the RMSE 5.0%. The code can be available at https://github.com/YAN-outlook/MP3.",
+      "authors": [
+        "Lilan Peng",
+        "Yandi Liu",
+        "Qingren Yao",
+        "Chongshou Li",
+        "Tianrui Li"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.NE"
+      ],
+      "published": "2026-06-11T09:48:18+00:00",
+      "link": "https://arxiv.org/pdf/2606.13119v2",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "spatio-temporal forecasting method transferable to urban flood prediction",
+      "llm_evidence_cn": "可迁移至城市洪涝预测的时空预测方法",
+      "llm_evidence": "可迁移至城市洪涝预测的时空预测方法",
+      "canonical_evidence": "可迁移至城市洪涝预测的时空预测方法",
+      "llm_tldr_en": "Proposes MP3, a multi-period pattern pre-training method for spatio-temporal forecasting, addressing the 'temporal mirage' problem in urban data, with potential for flood prediction.",
+      "llm_tldr_cn": "针对城市时空数据中的‘时间幻象’问题（相似输入导致不同趋势），提出多周期模式预训练方法MP3。该方法通过多周期模式学习和全局空间相关性建模，增强时空图神经网络的区分能力。作为即插即用的预训练插件，可提升多种预测任务性能，且易于迁移至城市洪涝预测等应用。在多个城市数据集上验证了有效性。",
+      "llm_tldr": "针对城市时空数据中的‘时间幻象’问题（相似输入导致不同趋势），提出多周期模式预训练方法MP3。该方法通过多周期模式学习和全局空间相关性建模，增强时空图神经网络的区分能力。作为即插即用的预训练插件，可提升多种预测任务性能，且易于迁移至城市洪涝预测等应用。在多个城市数据集上验证了有效性。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.13302v1",
+      "source": "arxiv",
+      "title": "Physics-Guided Spatiotemporal Learning for Coastal Wave Peak Period Estimation from Video",
+      "abstract": "Wave parameters in the nearshore are crucial for coastal engineering, shoreline protection, marine hazard assessment, and coastal management for climate resilience. Traditional monitoring systems like buoys and radar platforms offer accurate monitoring but can have high installation and maintenance expenses and limited spatial coverage. Passive ocean monitoring using video has been achieved by leveraging deep learning, however, many methods are not physically interpretable, feasible, and validated for oceanography. In thiswork, a Physics-Guided Deep Spatiotemporal Learning Framework for direct estimation of nearshore wave peak periods from passive coastal video stream is proposed. The framework combines automated temporal-variance based region-of-interest detection, multi-stage Sim-to-Real transfer learning, and physics-informed regularization to enhance the predictive accuracy and physical consistency. A variety of spatiotemporal architectures were assessed, such as transformer-based and recurrent-convolutional ones, alongside synthetic pretraining,silver-label adaptation, and expert fine-tuning. The results show that transformer-based architectures outperformed in terms of the accuracy of the instantaneous prediction, while lightweight recurrent-convolutional architectures achieved higher temporal stability and operational oceanographic skill. Ablation studies also demonstrated the benefits of physics-guided regularization in terms of trend-following consistency, and physically implausible predictions. Explainability auditing also helped to focus attention in hydrodynamically active surf-zone regions and showed good agreement with the physically derived wave propagation behavior. In general, the proposed framework shows the promise of physics-guided video-based deep learning systems for long-term coastal wave monitoring that are cost-efficient and operationally feasible.",
+      "authors": [
+        "Abubakar Hamisu Kamagata",
+        "Dharm Singh Jat",
+        "Attlee Munyaradzi Gamundani",
+        "Abhishek Srivastava",
+        "Paramasivam Saravanakumar"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-06-11T12:54:35+00:00",
+      "link": "https://arxiv.org/pdf/2606.13302v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Coastal wave estimation supports marine hazard assessment and coastal flood risk management for cities",
+      "llm_evidence_cn": "海岸波浪估计支持城市沿海洪水风险评估",
+      "llm_evidence": "海岸波浪估计支持城市沿海洪水风险评估",
+      "canonical_evidence": "海岸波浪估计支持城市沿海洪水风险评估",
+      "llm_tldr_en": "Proposes physics-guided deep spatiotemporal learning to estimate nearshore wave peak periods from video, aiding coastal hazard and flood risk assessment.",
+      "llm_tldr_cn": "针对近岸波浪参数监测成本高、空间覆盖有限的问题，本文提出了一种物理引导的深度时空学习框架，从海岸视频中直接估计波浪峰值周期。该方法结合自动时序方差分析和物理约束，在无需昂贵仪器的情况下提供了可靠的波浪信息，这对于沿海城市的洪水风险评估和海岸防护具有重要意义。",
+      "llm_tldr": "针对近岸波浪参数监测成本高、空间覆盖有限的问题，本文提出了一种物理引导的深度时空学习框架，从海岸视频中直接估计波浪峰值周期。该方法结合自动时序方差分析和物理约束，在无需昂贵仪器的情况下提供了可靠的波浪信息，这对于沿海城市的洪水风险评估和海岸防护具有重要意义。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.15077v1",
+      "source": "arxiv",
+      "title": "Risk-Aware LLM Agents for Geospatial Data Retrieval: Design and Preliminary Adversarial Evaluation",
+      "abstract": "We present an LLM-driven framework for retrieving remote sensing data from cloud-based geospatial catalogues using natural language queries. The system converts user intent into structured API calls, enabling efficient access to satellite imagery and environmental datasets. The architecture integrates three agents: Guardrail for safety and policy enforcement, General-QA for intent interpretation, and Recommender-Analyst for schema-aware API call generation. This coordinated design ensures reliable, semantically aligned interaction with external data services. The modular framework is portable across platforms through API schema substitution and supports applications in environmental monitoring, disaster response, and climate analysis. It establishes a scalable interface between user intent and geospatial infrastructure, enabling streamlined and automated Earth observation workflows. Preliminary experiments under adversarial multi-turn settings show that prompt-level safety instructions improve robustness, although rare high-impact failures persist in API manipulation scenarios and highlight the need for adaptive, system-level defenses that balance safety, usability, and cost efficiency, which motivates the use of our intercept-level Guardrail agent.",
+      "authors": [
+        "Kyle Gao",
+        "Joel Cumming",
+        "Jonathan Li",
+        "Linlin Xu",
+        "David A. Clausi"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-06-13T03:15:53+00:00",
+      "link": "https://arxiv.org/pdf/2606.15077v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLM-driven framework for retrieving geospatial data for flood risk assessment",
+      "llm_evidence_cn": "基于LLM的地理空间数据检索框架，可服务于城市雨洪评估",
+      "llm_evidence": "基于LLM的地理空间数据检索框架，可服务于城市雨洪评估",
+      "canonical_evidence": "基于LLM的地理空间数据检索框架，可服务于城市雨洪评估",
+      "llm_tldr_en": "Presents a modular LLM-agent framework for retrieving remote sensing data via natural language, integrating guardrail, QA, and recommender agents. Supports environmental monitoring and disaster response, enabling efficient access to flood-related data.",
+      "llm_tldr_cn": "面向地理空间数据检索，提出一个由三个LLM智能体（安全守卫、通用问答、推荐分析师）组成的模块化框架。系统接收自然语言查询，转换为结构化API调用，有效获取卫星影像和环境数据集。该框架可迁移至不同平台，支持环境监测与灾害应急响应，为城市雨洪评估提供高效的数据获取工具。初步对抗性评估验证了系统的鲁棒性。",
+      "llm_tldr": "面向地理空间数据检索，提出一个由三个LLM智能体（安全守卫、通用问答、推荐分析师）组成的模块化框架。系统接收自然语言查询，转换为结构化API调用，有效获取卫星影像和环境数据集。该框架可迁移至不同平台，支持环境监测与灾害应急响应，为城市雨洪评估提供高效的数据获取工具。初步对抗性评估验证了系统的鲁棒性。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
