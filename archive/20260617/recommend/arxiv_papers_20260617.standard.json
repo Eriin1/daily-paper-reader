@@ -1,0 +1,208 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-17T21:05:50.136758+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2606.12800v1",
+      "source": "arxiv",
+      "title": "Massively parallel flow routing and drainage area determination",
+      "abstract": "Digital elevation models (DEMs) have reached resolutions and sizes that only parallel computaters can efficiently process. One important application of DEMs is predicting how much water flows where, the so-called ``flow routing problem'' (a variation of which is the problem of determining the drainage area upstream of a point in a DEM). The traditional algorithm for flow routing is sequential, and attempts to parallelize this method have so far only been moderately successful. Herein, we build on earlier work in Richardson et al. (2014) and propose an algorithm and several variations that can efficiently solve the flow routing problem on very large models with very large numbers of parallel processes. For the largest model we use, with 1.88 billion points, the best algorithm herein can route water in 4.0 seconds on 12,288 processes of a computer cluster.",
+      "authors": [
+        "Wolfgang Bangerth"
+      ],
+      "primary_category": "math.NA",
+      "categories": [
+        "math.NA"
+      ],
+      "published": "2026-06-11T01:49:03+00:00",
+      "link": "https://arxiv.org/pdf/2606.12800v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "massively parallel flow routing and drainage area determination from DEMs",
+      "llm_evidence_cn": "基于DEM的大规模并行流路由与流域面积计算",
+      "llm_evidence": "基于DEM的大规模并行流路由与流域面积计算",
+      "canonical_evidence": "基于DEM的大规模并行流路由与流域面积计算",
+      "llm_tldr_en": "Proposes a parallel algorithm for flow routing on large DEMs, enabling efficient prediction of water flow paths and drainage areas critical for urban stormwater runoff management.",
+      "llm_tldr_cn": "数字高程模型分辨率提升后，传统流路由算法难以并行化。本文提出一种高效并行算法，可在数十亿点规模的DEM上求解水流路径与汇流面积问题。实验表明，该算法能显著加速计算，为城市雨洪径流模拟提供核心支撑，是管理城市暴雨径流的基础方法。",
+      "llm_tldr": "数字高程模型分辨率提升后，传统流路由算法难以并行化。本文提出一种高效并行算法，可在数十亿点规模的DEM上求解水流路径与汇流面积问题。实验表明，该算法能显著加速计算，为城市雨洪径流模拟提供核心支撑，是管理城市暴雨径流的基础方法。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for managing urban stormwater runoff",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.16565v1",
+      "source": "arxiv",
+      "title": "Distributionally robust decision-making under ambiguity: case study of water environmental management",
+      "abstract": "Decision-making under uncertainty is ubiquitous in environmental project planning. Environmental processes such as a streamflow discharge often present a subexponential memory, where the autocorrelation persists for a long time. In addition, optimization problems driven by environmental processes encounter the issue of model ambiguity because of a lack of sufficient data for model identification. To facilitate decision-making for the management of aquatic environments (e.g., flood mitigation, water abstraction for hydropower generation), we formulate a unified distributionally robust stochastic optimization problem based on a mixed moving average (MMA) process. The MMA process is a superposition of infinite-dimensional affine stochastic processes that is seemingly complex, but the affine property helps with the formulation and computation of the optimization. Our problem is based on a convex objective with a nonsmooth conditional value-at-risk measure. We present a convergent regularization to obtain its smooth and strictly convex counterpart. The model ambiguity is represented as a distortion of the probability density of the target dynamics, and it is penalized by a divergence with which the optimization problem remains convex and becomes computable. As a case study, we apply the optimization problem to two cases with identified parameter values. The performance of the optimized dynamics is evaluated through a statistical simulation. This paper serves as a multidisciplinary work covering both the theory and application of distributionally robust optimization.",
+      "authors": [
+        "Hidekazu Yoshioka",
+        "Motoh Tsujimura",
+        "Yumi Yoshioka",
+        "Ayumi Hashiguchi"
+      ],
+      "primary_category": "math.OC",
+      "categories": [
+        "math.OC"
+      ],
+      "published": "2026-06-15T11:07:43+00:00",
+      "link": "https://arxiv.org/pdf/2606.16565v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "distributionally robust optimization for flood mitigation",
+      "llm_evidence_cn": "分布鲁棒优化用于洪水缓解决策",
+      "llm_evidence": "分布鲁棒优化用于洪水缓解决策",
+      "canonical_evidence": "分布鲁棒优化用于洪水缓解决策",
+      "llm_tldr_en": "Formulates a distributionally robust stochastic optimization problem for water environmental management including flood mitigation, using mixed moving average processes to handle model ambiguity.",
+      "llm_tldr_cn": "该论文构建了基于混合移动平均过程的分布鲁棒随机优化框架，用于水环境管理决策，包括洪水缓解。该方法能处理环境过程中的长记忆性和模型不确定性，为城市洪水缓解策略设计提供了理论依据。案例研究展示了其在不确定性下的鲁棒决策能力。",
+      "llm_tldr": "该论文构建了基于混合移动平均过程的分布鲁棒随机优化框架，用于水环境管理决策，包括洪水缓解。该方法能处理环境过程中的长记忆性和模型不确定性，为城市洪水缓解策略设计提供了理论依据。案例研究展示了其在不确定性下的鲁棒决策能力。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood mitigation techniques in cities",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.14963v1",
+      "source": "arxiv",
+      "title": "Multi-Modal Attention for Automated Disaster Damage Assessment Using Remote Sensing Imagery and Deep Learning",
+      "abstract": "Timely and accurate disaster damage assessment is crucial for effective emergency response, resource allocation, and recovery. Traditional methods, which often rely on manual inspections or sparse data, are typically slow and error-prone. This paper introduces a novel framework leveraging remote sensing imagery and deep learning to automate building damage classification. Using pre- and post-disaster satellite imagery, our model categorizes buildings into four damage levels: no damage, minor damage, major damage, and destroyed. The core innovation is a multi-modal attention mechanism that fuses bi-temporal features to explicitly detect and assess structural changes. We employ a lightweight ConvNeXT-Tiny backbone to ensure efficient processing without compromising performance. Key contributions include: (1) a cross-attention module for multi-modal data fusion, (2) an optimized preprocessing pipeline for large-scale datasets, and (3) robust data augmentation techniques. Experiments on a large-scale disaster dataset demonstrate an overall classification accuracy of 94.90%. The model effectively discriminates between damage categories and remains resilient to incomplete data. This system significantly improves assessment speed and accuracy, aiding emergency responders in prioritizing interventions. This work advances automated disaster damage detection by integrating multi-temporal imagery with deep learning, offering a scalable solution for real-time response.",
+      "authors": [
+        "Tewodros Syum Gebre",
+        "Jagrati Talreja",
+        "Leila Hashemi-Beni"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-06-12T21:11:53+00:00",
+      "link": "https://arxiv.org/pdf/2606.14963v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "automated disaster damage assessment using remote sensing, applicable to floods",
+      "llm_evidence_cn": "利用遥感的自动化灾害损害评估，可应用于洪水",
+      "llm_evidence": "利用遥感的自动化灾害损害评估，可应用于洪水",
+      "canonical_evidence": "利用遥感的自动化灾害损害评估，可应用于洪水",
+      "llm_tldr_en": "Presents a deep learning framework with multi-modal attention for automated building damage classification from pre- and post-disaster satellite imagery, enabling rapid flood damage assessment.",
+      "llm_tldr_cn": "该论文针对传统灾害损害评估依赖人工、速度慢的问题，提出了一种基于遥感影像和深度学习的自动化建筑损坏分类框架。利用灾前灾后卫星图像，通过多模态注意力机制融合双时相特征，将建筑物分为四级损坏程度。采用轻量级ConvNeXT-Tiny骨干网络，在多个数据集上验证了有效性，为洪水等灾害的快速响应和资源分配提供了有力工具。",
+      "llm_tldr": "该论文针对传统灾害损害评估依赖人工、速度慢的问题，提出了一种基于遥感影像和深度学习的自动化建筑损坏分类框架。利用灾前灾后卫星图像，通过多模态注意力机制融合双时相特征，将建筑物分为四级损坏程度。采用轻量级ConvNeXT-Tiny骨干网络，在多个数据集上验证了有效性，为洪水等灾害的快速响应和资源分配提供了有力工具。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.17246v1",
+      "source": "arxiv",
+      "title": "GeoDisaster: Benchmarking Orchestrated Agents for Operational Disaster Geo-Intelligence",
+      "abstract": "Remote-sensing vision-language models (RS-VLMs) have advanced Earth-observation analysis toward visual interpretation and instruction-following, yet fall short of operational geo-intelligence, which demands tool-grounded spatial reasoning and structured, evidence-backed decisions. We introduce GeoDisaster, an operational geospatial disaster reasoning benchmark with 2,921 verified instances across 43 question types and five task families: deforestation monitoring, multi-hazard analysis, building-damage assessment, flood-safe routing, and Sentinel-1 SAR flood monitoring. Instances integrate heterogeneous EO/GIS evidence-optical and SAR imagery, raster masks, vector geometries, road networks, and exposure layers-spanning hazard detection, damage assessment, exposure estimation, and diagnostic report generation. Ground-truth answers are grounded in executable geospatial workflows and deterministic consistency checks, removing the need for language-model annotation. We further propose an orchestrated multi-agent framework with 18 disaster-oriented tools, where role-specialized agents coordinate through explicit execution contracts, aligned via Role-Contract Expectation Alignment (RCEA): failure-aware supervised fine-tuning combined with contract-grounded reinforcement learning over dense step-level signals. Experiments show that GeoDisaster challenges existing RS-VLMs and agentic systems, while RCEA improves tool use, evidence grounding, state consistency, and decision generation.",
+      "authors": [
+        "Maram Hasan",
+        "Aman Verma",
+        "Savitra Roy",
+        "Hariseetharam Gunduboina",
+        "Daksh Jain",
+        "Muhammad Haris Khan",
+        "Subhasis Chaudhuri",
+        "Biplab Banerjee"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.MA"
+      ],
+      "published": "2026-06-15T19:46:10+00:00",
+      "link": "https://arxiv.org/pdf/2606.17246v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "flood-safe routing and Sentinel-1 SAR flood monitoring tasks",
+      "llm_evidence_cn": "洪水安全路由与Sentinel-1 SAR洪水监测任务",
+      "llm_evidence": "洪水安全路由与Sentinel-1 SAR洪水监测任务",
+      "canonical_evidence": "洪水安全路由与Sentinel-1 SAR洪水监测任务",
+      "llm_tldr_en": "GeoDisaster benchmark for operational disaster geo-intelligence includes flood-safe routing and flood monitoring tasks, providing tool-grounded spatial reasoning for urban flood risk assessment.",
+      "llm_tldr_cn": "现有遥感视觉语言模型缺乏操作性地理智能。本文提出GeoDisaster基准，包含洪水安全路由和Sentinel-1 SAR洪水监测等任务，整合异构遥感与GIS证据，支持工具驱动的空间推理。实验证明该基准能评估智能体在灾害场景下的结构化决策能力，为城市洪水风险评估提供标准化测试平台。",
+      "llm_tldr": "现有遥感视觉语言模型缺乏操作性地理智能。本文提出GeoDisaster基准，包含洪水安全路由和Sentinel-1 SAR洪水监测等任务，整合异构遥感与GIS证据，支持工具驱动的空间推理。实验证明该基准能评估智能体在灾害场景下的结构化决策能力，为城市洪水风险评估提供标准化测试平台。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.17717v1",
+      "source": "arxiv",
+      "title": "Double zero-inflated spatio-temporal modeling of daily precipitation under detection thresholds",
+      "abstract": "Explaining precipitation behavior at daily scale is important for fine scale understanding of the mechanisms driving precipitation. However, this effort is challenging because of the frequent incidence of zeros. The challenge is amplified by the acknowledged incidence of two types of zeros -- absence of precipitation as a dry event and absence of measured precipitation due to detection limits. In this work, we propose a multilevel spatio-temporal model which allows us to distinguish and explain the two types of zeros, as well as to model positive precipitation above the detection limit. The methodology combines a point mass at zero with probability modeled through a probit regression, a Gamma regression for latent positive precipitation amounts, and an observation mechanism subject to threshold-induced censoring. To capture spatial dependencies, Gaussian processes are employed in each regression model. Working within a Bayesian framework, we can obtain a rich range of inference with exact uncertainty. In particular, we provide model-based inference tools to compare and quantify differences between the true precipitation process and its observed counterpart across relevant characteristics. We apply our model to the analysis of daily spring observations at 70 sites over 15 years from the Ebro River Basin in northeastern Spain. Our findings indicate that the threshold strongly affects the occurrence of observed precipitation, especially in humid regions. While its impact on total accumulated amounts is small, it can exert a relevant effect on upper quantiles.",
+      "authors": [
+        "Juan Marcen-Gutierrez",
+        "Jorge Castillo-Mateo",
+        "Alan E. Gelfand",
+        "Jesús Asín",
+        "Ana C. Cebrián"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME",
+        "stat.AP"
+      ],
+      "published": "2026-06-16T09:30:15+00:00",
+      "link": "https://arxiv.org/pdf/2606.17717v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "precipitation modeling for urban runoff analysis",
+      "llm_evidence_cn": "降水建模用于城市径流分析",
+      "llm_evidence": "降水建模用于城市径流分析",
+      "canonical_evidence": "降水建模用于城市径流分析",
+      "llm_tldr_en": "Proposes a double zero-inflated spatio-temporal model for daily precipitation, distinguishing dry events from detection limits, providing a statistical approach relevant to urban flood studies.",
+      "llm_tldr_cn": "该论文针对日降水数据中常见的零值问题，区分了干旱事件和检测限导致的两种零值，提出了一种多水平时空模型。模型结合点质量分布和Probit回归，以及Gamma回归处理正降水，能够更精确地描述降水行为。该工作为城市雨洪研究提供了重要的降水统计工具，有助于改善径流模拟和洪水预报。",
+      "llm_tldr": "该论文针对日降水数据中常见的零值问题，区分了干旱事件和检测限导致的两种零值，提出了一种多水平时空模型。模型结合点质量分布和Probit回归，以及Gamma回归处理正降水，能够更精确地描述降水行为。该工作为城市雨洪研究提供了重要的降水统计工具，有助于改善径流模拟和洪水预报。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
