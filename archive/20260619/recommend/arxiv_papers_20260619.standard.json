@@ -1,0 +1,373 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-19T20:33:38.912230+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 7,
+    "quick_skim_target": 11,
+    "quick_selected": 7
+  },
+  "deep_dive": [
+    {
+      "id": "2606.18436v2",
+      "source": "arxiv",
+      "title": "Pointwise is Pointless? A Multimodal Ablation Study for Precipitation Nowcasting with Graph Neural Networks",
+      "abstract": "Sparse point observations are increasingly available for precipitation nowcasting, but it is unclear how much they improve dense radar-field forecasts. We partially address this question with a multimodal graph neural network nowcasting system over the Nordic radar domain. The model predicts rain rate every five minutes up to two hours ahead and is trained with different combinations of radar history, MEPS numerical weather prediction, Netatmo surface observations, MSG satellite channels, stochastic noise, and CRPS-based ensemble losses. The study is designed as an ablation of operationally relevant information sources and training objectives. We compare radar-only, NWP-informed, station-informed, satellite-informed, noise-augmented, and CRPS-based configurations using complementary diagnostics on the radar grid, at station locations, for rain onset, and through oracle, displacement, and amplitude scores. The results show that each source improves a different part of the forecast problem. MEPS stabilises radar-only extrapolation, Netatmo observations improve local station and onset diagnostics, and satellite predictors reduce some station-level biases but may activate rain too early when used deterministically. CRPS-based configurations provide the most consistent radar-grid gains, while the combined satellite and CRPS setup gives the best overall oracle/DAS score. These results do not support the conclusion that point observations are uninformative for nowcasting, but they show that local observational skill and spatially coherent radar-field skill are distinct targets. The practical implication is that sparse observations can provide useful local constraints, but their benefit for radar-like fields depends on the training loss, uncertainty representation, and how observation support is encoded in the model.",
+      "authors": [
+        "Ophélia Miralles",
+        "Máté Mile",
+        "Christoffer Artturi",
+        "Thomas Nipen",
+        "Ivar Seierstad"
+      ],
+      "primary_category": "stat.ML",
+      "categories": [
+        "stat.ML",
+        "cs.LG"
+      ],
+      "published": "2026-06-16T19:35:49+00:00",
+      "link": "https://arxiv.org/pdf/2606.18436v2",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "multimodal precipitation nowcasting for urban flood forecasting",
+      "llm_evidence_cn": "多模态降水临近预报用于城市洪水预报",
+      "llm_evidence": "多模态降水临近预报用于城市洪水预报",
+      "canonical_evidence": "多模态降水临近预报用于城市洪水预报",
+      "llm_tldr_en": "Performs multimodal ablation study for precipitation nowcasting using graph neural networks, showing that radar-only models can be competitive when combined with appropriate losses.",
+      "llm_tldr_cn": "该论文通过多模态消融实验研究了降水临近预报中不同数据源和训练目标的贡献。使用图神经网络框架，在斯堪的纳维亚雷达领域评估了雷达历史、数值天气预报、地面观测、卫星通道等信息的价值。结果表明，结合适当的CRPS损失函数，仅依赖雷达的模型也能取得具有竞争力的性能，为城市洪水预报中的传感器融合策略提供了指导。",
+      "llm_tldr": "该论文通过多模态消融实验研究了降水临近预报中不同数据源和训练目标的贡献。使用图神经网络框架，在斯堪的纳维亚雷达领域评估了雷达历史、数值天气预报、地面观测、卫星通道等信息的价值。结果表明，结合适当的CRPS损失函数，仅依赖雷达的模型也能取得具有竞争力的性能，为城市洪水预报中的传感器融合策略提供了指导。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.17246v1",
+      "source": "arxiv",
+      "title": "GeoDisaster: Benchmarking Orchestrated Agents for Operational Disaster Geo-Intelligence",
+      "abstract": "Remote-sensing vision-language models (RS-VLMs) have advanced Earth-observation analysis toward visual interpretation and instruction-following, yet fall short of operational geo-intelligence, which demands tool-grounded spatial reasoning and structured, evidence-backed decisions. We introduce GeoDisaster, an operational geospatial disaster reasoning benchmark with 2,921 verified instances across 43 question types and five task families: deforestation monitoring, multi-hazard analysis, building-damage assessment, flood-safe routing, and Sentinel-1 SAR flood monitoring. Instances integrate heterogeneous EO/GIS evidence-optical and SAR imagery, raster masks, vector geometries, road networks, and exposure layers-spanning hazard detection, damage assessment, exposure estimation, and diagnostic report generation. Ground-truth answers are grounded in executable geospatial workflows and deterministic consistency checks, removing the need for language-model annotation. We further propose an orchestrated multi-agent framework with 18 disaster-oriented tools, where role-specialized agents coordinate through explicit execution contracts, aligned via Role-Contract Expectation Alignment (RCEA): failure-aware supervised fine-tuning combined with contract-grounded reinforcement learning over dense step-level signals. Experiments show that GeoDisaster challenges existing RS-VLMs and agentic systems, while RCEA improves tool use, evidence grounding, state consistency, and decision generation.",
+      "authors": [
+        "Maram Hasan",
+        "Aman Verma",
+        "Savitra Roy",
+        "Hariseetharam Gunduboina",
+        "Daksh Jain",
+        "Muhammad Haris Khan",
+        "Subhasis Chaudhuri",
+        "Biplab Banerjee"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.MA"
+      ],
+      "published": "2026-06-15T19:46:10+00:00",
+      "link": "https://arxiv.org/pdf/2606.17246v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Operational disaster geospatial benchmark including flood-safe routing and SAR flood monitoring directly addresses urban flood risk assessment and management",
+      "llm_evidence_cn": "包含洪水安全路由和SAR洪水监测的操作化灾害地理基准，直接涉及城市洪水风险评估与管理",
+      "llm_evidence": "包含洪水安全路由和SAR洪水监测的操作化灾害地理基准，直接涉及城市洪水风险评估与管理",
+      "canonical_evidence": "包含洪水安全路由和SAR洪水监测的操作化灾害地理基准，直接涉及城市洪水风险评估与管理",
+      "llm_tldr_en": "GeoDisaster is an operational geospatial disaster reasoning benchmark with 2,921 instances covering flood-safe routing and Sentinel-1 SAR flood monitoring, providing tool-grounded spatial reasoning for disaster geo-intelligence, directly supporting urban flood risk assessment.",
+      "llm_tldr_cn": "现有遥感视觉语言模型缺乏操作化地理智能所需的工具化空间推理能力。GeoDisaster基准包含2,921个验证实例，涵盖洪水安全路由和Sentinel-1 SAR洪水监测等五个任务族。通过整合光学和SAR影像、栅格掩膜、矢量几何和路网等多源数据，该基准为城市洪水风险评估与应急管理提供了结构化、证据支持的空间推理能力。",
+      "llm_tldr": "现有遥感视觉语言模型缺乏操作化地理智能所需的工具化空间推理能力。GeoDisaster基准包含2,921个验证实例，涵盖洪水安全路由和Sentinel-1 SAR洪水监测等五个任务族。通过整合光学和SAR影像、栅格掩膜、矢量几何和路网等多源数据，该基准为城市洪水风险评估与应急管理提供了结构化、证据支持的空间推理能力。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.13119v1",
+      "source": "arxiv",
+      "title": "MP3: Multi-Period Pattern Pre-training forSpatio-Temporal Forecasting",
+      "abstract": "Spatio-Temporal forecasting is crucial in diverse fields, such as transportation, climate, and energy. Urban spatio-temporal data exhibits temporal mirage: similar short-window inputs have divergent future trends, and vice versa. Existing spatio-temporal graph neural networks (STGNNs) cannot effectively identify such mirages. We argue that the core reason lies in the short-window inputs that have incomplete period observation, heterogeneous global spatial correlation, and cross-period superposition causality. To bridge this gap, we develop a novel Multi- Period Pattern Pre-training (MP3), a plug-and-play pre-training plugin for distinguishing temporal mirages. MP3 presents two core innovations: (1) The multi-period pattern learning is designed to learn multi-period patterns from long time series. Specifically, multi-period temporal modeling leverages edge convolution to identify different multi-period patterns. Multi-period spatial modeling uses a bottleneck project and a global memory bank to capture heterogeneous global spatial relations efficiently. Cross-period pattern interaction employs a causality-enhanced Transformer to capture dependencies across different period patterns. (2) This plugin can seamlessly integrate into existing STGNN backbones to strengthen their forecasting performance. The experiment on five STGNN baselines across five real-world datasets (including a large-scale dataset CA) verify the effectiveness, superior scalability and strong adaptability of MP3, which brings consistent and robust performance improvements across all evaluated baselines. On average, MP3 reduces the MAE 4.7% and the RMSE 5.0%. The code can be available at https://github.com/YAN-outlook/MP3.",
+      "authors": [
+        "Lilan Peng",
+        "Yandi Liu",
+        "Qingren Yao",
+        "Chongshou Li",
+        "Tianrui Li"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.NE"
+      ],
+      "published": "2026-06-11T09:48:18+00:00",
+      "link": "https://arxiv.org/pdf/2606.13119v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Spatio-temporal forecasting method for urban data, transferable to stormwater management and flood risk assessment",
+      "llm_evidence_cn": "时空预测方法适用于城市数据，可迁移至雨水管理和洪水风险评估",
+      "llm_evidence": "时空预测方法适用于城市数据，可迁移至雨水管理和洪水风险评估",
+      "canonical_evidence": "时空预测方法适用于城市数据，可迁移至雨水管理和洪水风险评估",
+      "llm_tldr_en": "Proposes MP3, a multi-period pattern pre-training plugin for spatio-temporal forecasting that distinguishes temporal mirages, applicable to urban flood risk tasks.",
+      "llm_tldr_cn": "针对城市时空数据中的时间幻象问题，现有STGNN模型难以准确识别。本文提出多周期模式预训练（MP3）方法，作为即插即用插件，通过学习周期模式和因果结构来区分时间幻象。在多个真实数据集上实验表明，MP3显著提升时空预测准确性。该方法可直接应用于城市洪水风险评估，为城市雨洪管理提供更可靠的预测工具。",
+      "llm_tldr": "针对城市时空数据中的时间幻象问题，现有STGNN模型难以准确识别。本文提出多周期模式预训练（MP3）方法，作为即插即用插件，通过学习周期模式和因果结构来区分时间幻象。在多个真实数据集上实验表明，MP3显著提升时空预测准确性。该方法可直接应用于城市洪水风险评估，为城市雨洪管理提供更可靠的预测工具。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.14963v1",
+      "source": "arxiv",
+      "title": "Multi-Modal Attention for Automated Disaster Damage Assessment Using Remote Sensing Imagery and Deep Learning",
+      "abstract": "Timely and accurate disaster damage assessment is crucial for effective emergency response, resource allocation, and recovery. Traditional methods, which often rely on manual inspections or sparse data, are typically slow and error-prone. This paper introduces a novel framework leveraging remote sensing imagery and deep learning to automate building damage classification. Using pre- and post-disaster satellite imagery, our model categorizes buildings into four damage levels: no damage, minor damage, major damage, and destroyed. The core innovation is a multi-modal attention mechanism that fuses bi-temporal features to explicitly detect and assess structural changes. We employ a lightweight ConvNeXT-Tiny backbone to ensure efficient processing without compromising performance. Key contributions include: (1) a cross-attention module for multi-modal data fusion, (2) an optimized preprocessing pipeline for large-scale datasets, and (3) robust data augmentation techniques. Experiments on a large-scale disaster dataset demonstrate an overall classification accuracy of 94.90%. The model effectively discriminates between damage categories and remains resilient to incomplete data. This system significantly improves assessment speed and accuracy, aiding emergency responders in prioritizing interventions. This work advances automated disaster damage detection by integrating multi-temporal imagery with deep learning, offering a scalable solution for real-time response.",
+      "authors": [
+        "Tewodros Syum Gebre",
+        "Jagrati Talreja",
+        "Leila Hashemi-Beni"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-06-12T21:11:53+00:00",
+      "link": "https://arxiv.org/pdf/2606.14963v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "automated damage assessment from satellite imagery for flood response",
+      "llm_evidence_cn": "卫星影像自动灾害评估用于洪水响应",
+      "llm_evidence": "卫星影像自动灾害评估用于洪水响应",
+      "canonical_evidence": "卫星影像自动灾害评估用于洪水响应",
+      "llm_tldr_en": "Proposes a multi-modal attention framework for automated building damage classification from pre/post-disaster satellite imagery, applicable to urban flood damage assessment.",
+      "llm_tldr_cn": "该论文提出了一种基于多模态注意力机制的自动建筑损伤分类框架，利用灾前和灾后的卫星影像，将建筑物分为无损伤、轻微、严重和毁坏四类。采用轻量级ConvNeXT-Tiny骨干网络，在多模态特征融合中显式检测结构变化。该方法可快速应用于城市洪水灾后评估，为应急响应和资源分配提供及时信息。实验表明，该方法在速度和精度之间取得了良好平衡。",
+      "llm_tldr": "该论文提出了一种基于多模态注意力机制的自动建筑损伤分类框架，利用灾前和灾后的卫星影像，将建筑物分为无损伤、轻微、严重和毁坏四类。采用轻量级ConvNeXT-Tiny骨干网络，在多模态特征融合中显式检测结构变化。该方法可快速应用于城市洪水灾后评估，为应急响应和资源分配提供及时信息。实验表明，该方法在速度和精度之间取得了良好平衡。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.13119v2",
+      "source": "arxiv",
+      "title": "MP3: Multi-Period Pattern Pre-training for Spatio-Temporal Forecasting",
+      "abstract": "Spatio-Temporal forecasting is crucial in diverse fields, such as transportation, climate, and energy. Urban spatio-temporal data exhibits temporal mirage: similar short-window inputs have divergent future trends, and vice versa. Existing spatio-temporal graph neural networks (STGNNs) cannot effectively identify such mirages. We argue that the core reason lies in the short-window inputs that have incomplete period observation, heterogeneous global spatial correlation, and cross-period superposition causality. To bridge this gap, we develop a novel Multi- Period Pattern Pre-training (MP3), a plug-and-play pre-training plugin for distinguishing temporal mirages. MP3 presents two core innovations: (1) The multi-period pattern learning is designed to learn multi-period patterns from long time series. Specifically, multi-period temporal modeling leverages edge convolution to identify different multi-period patterns. Multi-period spatial modeling uses a bottleneck project and a global memory bank to capture heterogeneous global spatial relations efficiently. Cross-period pattern interaction employs a causality-enhanced Transformer to capture dependencies across different period patterns. (2) This plugin can seamlessly integrate into existing STGNN backbones to strengthen their forecasting performance. The experiment on five STGNN baselines across five real-world datasets (including a large-scale dataset CA) verify the effectiveness, superior scalability and strong adaptability of MP3, which brings consistent and robust performance improvements across all evaluated baselines. On average, MP3 reduces the MAE 4.7% and the RMSE 5.0%. The code can be available at https://github.com/YAN-outlook/MP3.",
+      "authors": [
+        "Lilan Peng",
+        "Yandi Liu",
+        "Qingren Yao",
+        "Chongshou Li",
+        "Tianrui Li"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "cs.NE"
+      ],
+      "published": "2026-06-11T09:48:18+00:00",
+      "link": "https://arxiv.org/pdf/2606.13119v2",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Spatio-temporal forecasting method for urban data, transferable to stormwater management and flood risk assessment",
+      "llm_evidence_cn": "时空预测方法适用于城市数据，可迁移至雨水管理和洪水风险评估",
+      "llm_evidence": "时空预测方法适用于城市数据，可迁移至雨水管理和洪水风险评估",
+      "canonical_evidence": "时空预测方法适用于城市数据，可迁移至雨水管理和洪水风险评估",
+      "llm_tldr_en": "Proposes MP3, a multi-period pattern pre-training plugin for spatio-temporal forecasting that distinguishes temporal mirages, applicable to urban flood risk tasks.",
+      "llm_tldr_cn": "针对城市时空数据中的时间幻象问题，现有STGNN模型难以准确识别。本文提出多周期模式预训练（MP3）方法，作为即插即用插件，通过学习周期模式和因果结构来区分时间幻象。在多个真实数据集上实验表明，MP3显著提升时空预测准确性。该方法可直接应用于城市洪水风险评估，为城市雨洪管理提供更可靠的预测工具。",
+      "llm_tldr": "针对城市时空数据中的时间幻象问题，现有STGNN模型难以准确识别。本文提出多周期模式预训练（MP3）方法，作为即插即用插件，通过学习周期模式和因果结构来区分时间幻象。在多个真实数据集上实验表明，MP3显著提升时空预测准确性。该方法可直接应用于城市洪水风险评估，为城市雨洪管理提供更可靠的预测工具。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.17403v1",
+      "source": "arxiv",
+      "title": "Bridging Spatial And Frequency Views For Disaster Assessment: Benefits And Limitations",
+      "abstract": "Rapid assessment of building damage from satellite imagery is essential for effective disaster response and recovery. While most deep learning methods rely on spatial-domain features, frequency-domain representations can capture complementary structural cues such as debris patterns and collapse-induced textures. This study presents a controlled comparison of spatial-domain, frequency-domain, and dual-domain deep learning approaches for multi-class building damage classification using post-disaster imagery from the xView2 (xBD) dataset. To ensure fairness, all models are built on an EfficientNet-B0 backbone and trained under identical settings, differing only in their input representations and fusion strategies. Performance is evaluated using accuracy, macro F1-score, per-class metrics, and confusion matrices. Results show that dual-domain models provide measurable improvements over single-domain approaches. The dual spatial configuration achieves the highest test accuracy (0.4688) and lowest loss, while the spatial-only model attains the best macro F1-score (0.4254), indicating more balanced class performance. In contrast, frequency-only models perform worst and exhibit overfitting, suggesting limited generalization. Despite these gains, all models struggle to detect subtle damage levels, particularly the Minor class, due to class imbalance and fine-grained visual ambiguity. While dual-domain approaches improve detection of severe damage, challenges remain. These findings highlight the benefits and limitations of hybrid representations and motivate future work on data balancing, advanced fusion, and regularization.",
+      "authors": [
+        "Shikha V. Chandel",
+        "Yadav Raj Ghimire",
+        "Timothy Agboada",
+        "Leila Hashemi-Beni"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-06-16T01:35:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.17403v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Multi-domain deep learning for building damage classification from satellite imagery, applicable to flood damage assessment",
+      "llm_evidence_cn": "多领域深度学习用于卫星图像建筑损伤分类，可应用于洪水灾害评估",
+      "llm_evidence": "多领域深度学习用于卫星图像建筑损伤分类，可应用于洪水灾害评估",
+      "canonical_evidence": "多领域深度学习用于卫星图像建筑损伤分类，可应用于洪水灾害评估",
+      "llm_tldr_en": "Compares spatial, frequency, and dual-domain CNNs for building damage classification from satellite imagery; frequency cues help identify debris patterns, useful for flood response.",
+      "llm_tldr_cn": "针对灾害后卫星影像建筑损伤评估，现有方法多依赖空间特征。本文系统比较了空间域、频率域及双域深度学习方法，采用EfficientNet-B0骨干在xView2数据集上实验。结果显示，融合频率域特征能捕捉碎屑和倒塌纹理，提升分类精度。该方法可直接用于洪水后建筑损伤快速评估，支持城市防洪救灾决策。",
+      "llm_tldr": "针对灾害后卫星影像建筑损伤评估，现有方法多依赖空间特征。本文系统比较了空间域、频率域及双域深度学习方法，采用EfficientNet-B0骨干在xView2数据集上实验。结果显示，融合频率域特征能捕捉碎屑和倒塌纹理，提升分类精度。该方法可直接用于洪水后建筑损伤快速评估，支持城市防洪救灾决策。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.13854v1",
+      "source": "arxiv",
+      "title": "SpheriCity: Designing Trustworthy Conversational AI for Sustainability Decision Support",
+      "abstract": "We present SpheriCity, an expert-grounded conversational prototype designed to support trustworthy knowledge sensemaking from sustainability reports. City-level circularity assessment reports contain rich information about materials, infrastructure, and policy interventions, yet their length and heterogeneous structure make cross-document synthesis and comparison difficult for practitioners and researchers working on circular economy initiatives. While large language models (LLM) promise faster knowledge access and synthesis, their opaque reasoning, hallucinations, and lack of source transparency introduce risks for trust and interpretability, and require verification in high-stakes sustainability contexts. SpheriCity addresses these challenges through a provenance-first conversational agent that foregrounds evidence traceability, structured synthesis, and interaction scaffolds to support exploratory querying and cross-document synthesis across sustainability reports. We conducted a formative expert review with six sustainability experts using representative queries spanning cross-city comparison, policy summarization, and recommendation-oriented tasks. Experts evaluated responses across dimensions and provided qualitative reflections on the system's usefulness for sustainability knowledge work. Our results reveal that transparent sourcing, contextual explanation, interpretability, and alignment with expert workflow strongly shape expert trust and judgments of system usefulness. This work contributes (1) a conversational prototype for sustainability knowledge sensemaking, (2) an expert-grounded evaluation framework for assessing AI responses in high-stakes knowledge domains, and (3) design insights into how provenance, uncertainty communication, and integration in workflow influence expert users' trust in AI assistance for sustainability decision support.",
+      "authors": [
+        "Ahmed Qayyum",
+        "Madison Werner",
+        "Kathryn Youngblood",
+        "Jenna R. Jambeck",
+        "Tahiya Chowdhury"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC",
+        "cs.AI"
+      ],
+      "published": "2026-06-11T19:32:42+00:00",
+      "link": "https://arxiv.org/pdf/2606.13854v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "trustworthy conversational AI for sustainability decision support; addresses transparency and trust in LLMs",
+      "llm_evidence_cn": "为可持续发展决策支持设计可信对话AI; 解决LLM透明度和信任问题",
+      "llm_evidence": "为可持续发展决策支持设计可信对话AI; 解决LLM透明度和信任问题",
+      "canonical_evidence": "为可持续发展决策支持设计可信对话AI; 解决LLM透明度和信任问题",
+      "llm_tldr_en": "SpheriCity proposes a conversational AI system that enhances trust and interpretability for sustainability report analysis, addressing LLM opacity and hallucinations.",
+      "llm_tldr_cn": "本文提出SpheriCity，一个基于专家知识的对话式原型，用于支持从可持续发展报告中可信地理解知识。针对大型语言模型的不透明推理、幻觉和缺乏来源透明度等问题，SpheriCity通过提供透明和可解释的交互，帮助用户综合比较跨文档的循环经济信息，从而在关键可持续性背景下实现可信的AI决策支持。",
+      "llm_tldr": "本文提出SpheriCity，一个基于专家知识的对话式原型，用于支持从可持续发展报告中可信地理解知识。针对大型语言模型的不透明推理、幻觉和缺乏来源透明度等问题，SpheriCity通过提供透明和可解释的交互，帮助用户综合比较跨文档的循环经济信息，从而在关键可持续性背景下实现可信的AI决策支持。",
+      "llm_tags": [
+        "query:algo-gov:composite"
+      ],
+      "matched_query_tag": "query:algo-gov:composite",
+      "matched_query_text": "Papers central to 请帮我查询关于算法治理的文章, especially work that connects or combines: algorithm governance principles and frameworks; fairness in algorithmic decision making; transparency of algorithms and models; accountability for algorithmic outcomes; ethical considerations in artificial intelligence; detecting bias in machine learning models; challenges and solutions in algorithm governance; impact of algorithm governance on society; best practices for implementing algorithm governance.",
+      "matched_requirement_id": "req-composite-algo-gov",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.20034v1",
+      "source": "arxiv",
+      "title": "Exploring the potential of AlphaEarth and TESSERA embeddings for Fine-scale Local Climate Zone Mapping: A case study across five cities in Switzerland",
+      "abstract": "Understanding urban spatial morphology is critical for climate modeling, risk assessment, and sustainable urban design, and Local Climate Zone (LCZ) mapping provides the basic framework for this. However, many cities still use coarse ~100-m resolution LCZ records, which are unsuitable for fine-scale urban research. In this study, precomputed embeddings from TESSERA (Feng et al., 2025) and AlphaEarth (Brown et al., 2025) are compared to traditional Sentinel-1/2 (S1S2) composites in five Swiss cities to see if they can upscale coarse LCZ maps to 10-m resolution using an attention-based U-Net. Three experiments assess multi-city transferability, the impact of higher-resolution reference data, and temporal robustness to year-to-year phenology changes. We find that all datasets achieve strong performance with test data Intersection-over-Union (IoU) ranging from 0.59-0.69 and 0.77-0.82 in the first two experiments. TESSERA consistently outperforms both S1S2 and AlphaEarth across both settings As expected, we find that the transfer of embedding-based models from one year to another remains an open challenge. Overall, however, our results demonstrate the promising potential of embeddings derived from EO foundation models to reduce time consuming preprocessing, respectively, manual feature engineering tasks and to guide a universal deep learning-based LCZ mapping workflow. When combined with a simple location-aware attention U-Net architecture, the embeddings enhance regional transferability and scalability, supporting the development of comprehensive and reproducible fine-scale LCZ maps for global urban climate applications Improving reference data quality remains the strongest lever for further accuracy gains.",
+      "authors": [
+        "Htet Yamin Ko Ko",
+        "Clement Atzberger"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-18T10:06:42+00:00",
+      "link": "https://arxiv.org/pdf/2606.20034v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "maps Local Climate Zones at fine resolution using embeddings, providing spatial morphology data useful for urban flood risk assessment",
+      "llm_evidence_cn": "利用嵌入向量精细映射局部气候分区，为城市洪水风险评估提供空间形态数据",
+      "llm_evidence": "利用嵌入向量精细映射局部气候分区，为城市洪水风险评估提供空间形态数据",
+      "canonical_evidence": "利用嵌入向量精细映射局部气候分区，为城市洪水风险评估提供空间形态数据",
+      "llm_tldr_en": "Compares AlphaEarth and TESSERA embeddings to upscale coarse LCZ maps to 10m resolution in Swiss cities, enabling fine-scale urban climate and risk modeling.",
+      "llm_tldr_cn": "针对许多城市仅有粗分辨率局部气候分区（LCZ）数据、难以支撑精细城市研究的问题，比较了TESSERA和AlphaEarth嵌入向量与传统遥感数据的表现，使用注意力U-Net将LCZ地图升尺度至10米分辨率。在瑞士五个城市的实验证明了多城市可迁移性和分辨率提升效果。该方法可服务于城市洪水风险评估等应用。",
+      "llm_tldr": "针对许多城市仅有粗分辨率局部气候分区（LCZ）数据、难以支撑精细城市研究的问题，比较了TESSERA和AlphaEarth嵌入向量与传统遥感数据的表现，使用注意力U-Net将LCZ地图升尺度至10米分辨率。在瑞士五个城市的实验证明了多城市可迁移性和分辨率提升效果。该方法可服务于城市洪水风险评估等应用。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.17659v1",
+      "source": "arxiv",
+      "title": "Physics-Constrained Neural Networks for Improved Short-Term Weather Forecasting: A Case Study over the South Pacific",
+      "abstract": "This study introduces enhancements to physics-constrained neural networks (PCNNs) that improve the accuracy and stability of hybrid short-term weather forecasting models. Building on the WeatherGFT architecture, three innovations are proposed. First, an upgraded numerical solver, combining a fifth-order weighted essentially non-oscillatory scheme (WENO-5), a beta-plane approximation, and subgrid-scale viscosity, permits a fourfold increase in the integration time step to 1200 s while reducing the daily mean squared error by up to 26%. Second, a unified autoregressive hybrid block replaces the original chain of 24 specialised modules, eliminating overfitting to specific lead times. Third, the physical core is integrated with two state-of-the-art neural backbones, resulting in PI-PredFormer and PI-IAM4VP. Evaluation on the WeatherBench South Pacific subset from 2000 to 2004 shows that these hybrids reduce root mean squared error at 1-12 h lead times by 8-22% compared to purely neural counterparts, while better preserving physical consistency. These results demonstrate that incremental refinement of hybrid components offers a practical route toward more accurate and efficient short-range weather forecasting.",
+      "authors": [
+        "Egor Bugaev",
+        "Fedor Buzaev",
+        "Dmitry Efremenko",
+        "Denis Derkach",
+        "Fedor Ratnikov"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-16T08:18:48+00:00",
+      "link": "https://arxiv.org/pdf/2606.17659v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "improved short-term weather forecasting using physics-constrained neural networks; applicable to urban flood prediction",
+      "llm_evidence_cn": "利用物理约束神经网络改进短期天气预报; 可应用于城市洪水预测",
+      "llm_evidence": "利用物理约束神经网络改进短期天气预报; 可应用于城市洪水预测",
+      "canonical_evidence": "利用物理约束神经网络改进短期天气预报; 可应用于城市洪水预测",
+      "llm_tldr_en": "This paper enhances physics-constrained neural networks for short-term weather forecasting, achieving up to 26% reduction in daily MSE, which can support urban flood warning systems.",
+      "llm_tldr_cn": "本文对物理约束神经网络进行改进，用于短期天气预报。通过升级数值求解器、统一自回归混合块以及扩展物理核心，该方法在保持稳定性的同时将积分时间步长提高四倍，并将日平均平方误差降低26%。这些改进使模型能够更准确地预测降雨等气象变量，为城市洪水预警提供关键支撑。",
+      "llm_tldr": "本文对物理约束神经网络进行改进，用于短期天气预报。通过升级数值求解器、统一自回归混合块以及扩展物理核心，该方法在保持稳定性的同时将积分时间步长提高四倍，并将日平均平方误差降低26%。这些改进使模型能够更准确地预测降雨等气象变量，为城市洪水预警提供关键支撑。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+Title: Bridging Spatial And Frequency Views For Disaster Assessment: Benefits And Limitations
+
+URL Source: https://arxiv.org/pdf/2606.17403v1
+
+Published Time: Wed, 17 Jun 2026 00:26:08 GMT
+
+Number of Pages: 5
+
+Markdown Content:
+# BRIDGING SPATIAL AND FREQUENCY VIEWS FOR DISASTER ASSESSMENT: BENEFITS AND LIMITATIONS 
+
+Shikha V. Chandel 
+
+College of Science and Technology 
+
+North Carolina A&T State University Greensboro, NC svchandel@aggies.ncat.edu 
+
+Yadav Raj Ghimire 
+
+College of Science and Technology 
+
+North Carolina A&T State University Greensboro, NC yrghimire@aggies.ncat.edu 
+
+Timothy Agboada 
+
+Computational Data Science and Engineering 
+
+North Carolina A&T State University Greensboro, NC tagboada@aggies.ncat.edu 
+
+Leila Hashemi-Beni 
+
+College of Science and Technology 
+
+North Carolina A&T State University Greensboro, NC lhashemibeni@ncat.edu 
+
+Abstract —Rapid assessment of building damage from satellite imagery is essential for effective disaster response and recov-ery. While most deep learning methods rely on spatial-domain features, frequency-domain representations can capture comple-mentary structural cues such as debris patterns and collapse-induced textures. This study presents a controlled comparison of spatial-domain, frequency-domain, and dual-domain deep learning approaches for multi-class building damage classification using post-disaster imagery from the xView2 (xBD) dataset. To ensure fairness, all models are built on an EfficientNet-B0 backbone and trained under identical settings, differing only in their input representations and fusion strategies. Performance is evaluated using accuracy, macro F1-score, per-class metrics, and confusion matrices. Results show that dual-domain models provide measurable improvements over single-domain approaches. The dual spatial configuration achieves the highest test accuracy (0.4688) and lowest loss, while the spatial-only model attains the best macro F1-score (0.4254), indicating more balanced class performance. In contrast, frequency-only models perform worst and exhibit overfitting, suggesting limited generalization. Despite these gains, all models struggle to detect subtle damage levels, particularly the Minor class, due to class imbalance and fine-grained visual ambiguity. While dual-domain approaches improve detection of severe damage, challenges remain. These findings highlight the benefits and limitations of hybrid repre-sentations and motivate future work on data balancing, advanced fusion, and regularization. 
+
+Index Terms —EfficientNet - B0, Remote Sensing, Spatial Domain, Frequency Domain, Fourier Transform, Dual Domain, Building Damage Detection, xBD Dataset. 
+
+© 2026 IEEE. Published in the Proceedings of the 2026 IEEE International Geoscience and Remote Sensing Sympo-sium (IGARSS 2026), Washington, DC, USA, 9–14 August 2026. Personal use of this material is permitted. Permission from IEEE must be obtained for all other uses, including reprint-ing/republishing this material for advertising or promotional purposes, creating collective works for resale or redistribution to servers or lists, or reuse of any copyrighted component of this work in other works. For permission requests, contact: IEEE Copyrights and Permissions, IEEE Service Center, 445 Hoes Lane, P.O. Box 1331, Piscataway, NJ 08855-1331, USA; Tel: +1 908-562-3966. This manuscript is the accepted version submitted to arXiv. The final published version will appear in the Proceedings of IGARSS 2026 and will be available through IEEE Xplore. When citing this work, please refer to the published version. I. I NTRODUCTION 
+
+Recent advances in artificial intelligence (AI), remote sens-ing (RS), and generative AI (GenAI) have significantly ad-vanced disaster damage assessment by enabling faster, more accurate, and scalable analysis than traditional field-based inspections [1]. Large-scale benchmark datasets such as xBD have further accelerated progress in automated building dam-age detection [2, 3]. However, most existing approaches rely on spatial domain representations. Spatial-domain neural networks primarily learn shape and texture features derived from pixel intensities, which limits their ability to capture subtle structural deformations, debris distributions, and material disruptions caused by disasters [4]. In contrast, frequency-domain representations allow models to explicitly encode high-frequency information associated with edges, cracks, and texture irregularities, which are often strongly correlated with building damage [4]. This paper addresses the unexplored benefits and limitations of domain information in disaster damage assessment by conducting a controlled comparison of spatial-only, frequency-only, and dual-domain deep learning architectures for building 
+
+> arXiv:2606.17403v1 [cs.CV] 16 Jun 2026
+
+damage detection. By isolating architectural and representa-tional factors, this study provides systematic insight into the contribution of understanding domain feature extraction in post-disaster remote sensing analysis. II. R ELATED WORK 
+
+Rapid and accurate damage assessment is crucial for pri-oritizing rescue operations and minimizing further losses [5]. Automating damage assessment using a CNN (Convolutional Neural Network)-based model on satellite imagery can reduce assessment time compared to traditional methods [6]. There are a few publicly available collections of satellite datasets, such as the xBD datasets, which include bounding boxes and descriptions of environmental elements such as smoke, water, lava, and fire [7, 2, 3]. xBD provides pre- and post-event satellite imagery for a variety of disaster events, including building polygons through masks, ordinal damage level labels, and corresponding satellite metadata[2, 6, 3]. Majorly, prior studies use spatial-domain information, where Convolutional Neural Networks (CNNs) and Vision Transformers (ViTs) extract features from pixel intensities to capture shape, texture, and object geometry [8–10]. U-Net and EfficientNet variants remain popular backbones due to their ability to model both local and global spatial patterns [8, 11]. However, spatial-domain models can struggle to capture subtle structural deformations, debris patterns, or fine roof-level damages under complex post-disaster scenarios, which may lead to bias towards no-damage predictions [5, 2]. Frequency-domain representations, such as the Fourier and wavelet decompositions, explicitly highlight high-frequency components like edges and texture irregularities, which are often indicative of structural damage [12, 10]. Hybrid or dual-domain models that combine spatial and frequency features, such as DDFormer and JFSDNet, have been proposed to improve robustness and capture complementary damage cues. However, systematic evaluation in disaster assessment remains limited [12, 5, 13]. Several recent surveys and comparative studies provide comprehensive evaluations of various deep learning architec-tures across multiple remote-sensing disaster datasets [2, 6]. Furthermore, interdisciplinary methods integrating domain knowledge, crowdsourcing, and 3D machine learning have been shown to enhance both accuracy and interpretability in building damage assessment [14]. However, neither study discusses the limitations and benefits of the spatial, frequency, and dual-domain methods in a controlled environment. This leaves a gap in the literature. Hence, this work explicitly evaluates the contribution of frequency information in post-disaster imagery, complementing spatial-domain and hybrid approaches reported in recent literature [5, 12, 10]. III. M ETHODOLOGY 
+
+A. Dataset and Preprocessing 
+
+This study is conducted on the xView2 dataset, originally released as part of the DARPA xView2 challenge. The dataset consists of paired pre- and post-disaster satellite images accompanied by annotations describing disaster types and building damage levels [3]. The data set is organized into four subsets: Train, Tier-3, Hold, and Test.                
+
+> TABLE I LABEL DISTRIBUTION FOR DATA .
+> Label Train Validation Test
+> No Damage 4742 1186 873 Destroyed 1633 408 620 Minor 370 93 121 Major 589 147 252
+
+Table I presents the distribution of the dataset across four damage levels for the training, validation, and test sets. All images are resized to a fixed spatial resolution (256×256) and transformed, ensuring consistency across different network architectures. To isolate the contributions of spatial- and frequency-domain representations, all experiments use only post-disaster RGB imagery, excluding pre-disaster data and additional modalities. The models are trained and validated using the training set and Tier-3 subset, while evaluation is performed on the hold and test subsets. Class imbalance is addressed using Focal Loss with Smoothing. 
+
+B. Architectural Variants 
+
+In this study, three deep learning architectures are evaluated: 
+
+1) Spatial-domain model: This model processes post-disaster RGB images directly in the spatial domain using a convolutional neural network backbone. 
+
+2) Frequency-domain model: This model operates on frequency-domain representations obtained by applying an or-thogonally normalized two-dimensional discrete Fourier trans-form independently to each RGB channel of the post-disaster imagery. The magnitude extraction and optional logarithmic amplitude scaling are used as input to the network. 
+
+3) Dual-domain model: This model integrates frequency and spatial-domain information through parallel network branches, respectively. Spatial features extracted from RGB images and frequency features extracted from Fourier magni-tude spectra are fused at the feature level before classification. Two dual-domain models are experimented with concatena-tion, as follows: 1) Frequency Domain + Spatial Domain = Dual Frequency 2) Spatial Domain + Frequency Domain = Dual Spatial 
+
+C. Backbone Architecture and Training Protocol 
+
+All architectural variants use the same EfficientNet-B0 convolutional neural network backbone, initialized with no weights, to ensure consistency and a fair comparison. Models are trained using supervised classification with the Adam optimizer, and identical hyperparameters are applied across all experiments. As models are trained for 50 epochs each, the best model is saved based on the F1 macro score on the validation set at each epoch. D. Evaluation metrics and Analysis 
+
+Training is monitored using ”Loss vs. Epochs,” ”F1 Macro vs. Epochs,” and ”Accuracy vs. Epochs” graphs as illustrated in Fig. 1. Additionally, per-class accuracy during training is used to illustrate the model’s learning pattern. Model perfor-mance is evaluated using classification accuracy, macro F1-score, per-class accuracy, and confusion matrices to account for class imbalance in the dataset. IV. R ESULTS  
+
+> Fig. 1. Graphs for Loss, Accuracy, and F1 Macro for each model for 50 epochs for Training and Validation datasets
+
+A. Quantitative Performance Comparison 
+
+The results consistently demonstrate that dual-domain ap-proaches outperform single-domain models in classification performance. In terms of training performance, all models show a steady decrease in loss and a corresponding increase in accuracy and F1-score, indicating successful learning. Among them, the dual-spatial model achieves the highest training accuracy (80%) and F1-score (0.80), followed by the dual-frequency and frequency models. The spatial-only model ex-hibits comparatively lower training performance. However, validation performance provides a more reliable indicator of generalization. The dual-spatial model again achieves the best results, with a validation accuracy of ap-proximately 66%–68% and an F1 Score of approximately 0.45–0.47. The spatial-only model performs moderately well, while the dual-frequency model shows slightly lower but com-petitive performance. In contrast, the frequency-only model consistently underperforms, achieving the lowest validation accuracy (0.55–0.58) and F1-score (0.38–0.40). These results indicate that integrating spatial and frequency-domain representations enhances classification performance, supporting the hypothesis that dual-domain feature learning is more effective than relying on a single domain. 
+
+B. Overfitting and Generalization Analysis 
+
+Despite strong training performance, all models exhibit signs of overfitting, as evidenced by the divergence between training and validation loss after approximately 10–15 epochs. This effect is most pronounced in the frequency-only model, where validation loss increases sharply while training loss continues to decrease. The spatial-only model also shows moderate overfitting, whereas the dual-domain models demonstrate comparatively better generalization, with a slower increase in validation loss and a smaller gap between training and validation metrics. Nevertheless, even the best-performing dual-spatial model exhibits a noticeable gap between training and validation F1-scores (0.80 vs. 0.46), suggesting that additional regularization techniques may be necessary to improve generalization. 
+
+C. Impact of Domain Representation 
+
+The observed performance differences highlight the impor-tance of feature representation: 1. The spatial domain captures structural and contextual information such as shapes and textures, which are critical for identifying building damage. 2. The frequency domain captures high-frequency patterns, edges, and periodic structures but may lose spatial localization, leading to weaker standalone performance. 3. The dual-domain approach leverages complementary in-formation from both domains, enabling the model to learn richer and more discriminative features. 4. The superior performance of the dual-spatial model suggests that effective fusion of spatial and frequency features enhances its ability to capture complex damage patterns that may not be fully represented in a single domain. 
+
+D. Test Set Performance Analysis                                                          
+
+> TABLE II TEST CLASSIFICATION REPORT FOR SPATIAL MODEL
+> Spatial Precision Recall Macro-F1
+> No Damage 0.85 0.33 0.48
+> Minor 0.13 0.50 0.21
+> Major 0.43 0.60 0.50
+> Destroyed 0.45 0.59 0.51 TABLE III TEST CLASSIFICATION REPORT FOR FREQUENCY MODEL
+> frequency Precision Recall Macro-F1
+> No Damage 0.64 0.55 0.59
+> Minor 0.00 0.00 0.00
+> Major 0.23 0.30 0.26
+> Destroyed 0.33 0.41 0.37
+> TABLE IV TEST CLASSIFICATION REPORT FOR DUAL SPATIAL -F REQUENCY
+> DOMAIN MODEL
+> Precision Recall Macro-F1
+> No Damage 0.73 0.48 0.58
+> Minor 0.00 0.00 0.00
+> Major 0.18 0.20 0.19
+> Destroyed 0.40 0.71 0.51
+
+The performance of the evaluated models on the test dataset reveals notable differences in their ability to generalize across damage categories. As shown in Table VI, the Dual Spatial model achieves the highest overall accuracy (0.4688) and lowest loss (0.0351), indicating improved predictive capability compared to other models. However, the Spatial model attains the highest macro-F1 score (0.4254), suggesting better class-wise balance despite slightly lower accuracy. In contrast, the Frequency model exhibits the weakest performance, with the lowest macro-F1 score (0.3049), highlighting its limited effectiveness when used independently. A closer examination of class-wise metrics provides further insights. The Spatial model performs well on structurally prominent classes, achieving F1-scores of 0.50 and 0.51 for Major and Destroyed categories, respectively. However, it demonstrates poor recall (0.33) for the No Damage class despite high precision (0.85), indicating a tendency to miss                                        
+
+> TABLE V TEST CLASSIFICATION REPORT FOR DUAL FREQUENCY -S PATIAL DOMAIN
+> MODEL
+> Precision Recall Macro-F1
+> No Damage 0.65 0.52 0.58
+> Minor 0.17 0.25 0.20
+> Major 0.25 0.30 0.27
+> Destroyed 0.35 0.41 0.38
+> TABLE VI LOSS , A CCURACY AND MACRO -F1 ACROSS DOMAINS FOR TEST DATASET
+> Models Loss Accuracy Macro-F1
+> Spatial 0.0410 0.4531 0.4254
+> Frequency 0.0420 0.4375 0.3049
+> Dual Spatial 0.0351 0.4688 0.3207
+> Dual Frequency 0.0380 0.4375 0.3568
+
+many true negatives. Additionally, the model struggles with the Minor class (F1: 0.21), reflecting difficulty in identifying subtle damage patterns. The Frequency model shows consistently weak performance across all classes, including a complete failure to classify the Minor category (F1: 0.00). This suggests that frequency-domain features alone lack sufficient discriminative power for capturing complex structural variations in building damage. The Dual Spatial model improves detection of severe dam-age, achieving the highest recall (0.71) for the Destroyed class and maintaining a strong F1-score (0.51). It also performs moderately well for the No Damage class (F1: 0.58). How-ever, similar to the frequency model, it fails to capture the minor class and performs poorly on the Major category (F1: 0.19), indicating persistent challenges in intermediate damage classification. In comparison, the Dual Frequency model demonstrates more balanced performance across all classes, achieving mod-erate F1 scores for the Minor (0.20), Major (0.27), and Destroyed (0.38). Although it does not achieve the highest performance in any single category, its ability to handle all classes more consistently suggests improved generalization. Overall, the results indicate that while dual-domain ap-proaches enhance performance in specific categories, partic-ularly for severe damage, they do not fully address class imbalance, especially for the Minor class. The findings also re-inforce that spatial features are critical for capturing structural damage, while frequency features provide complementary in-formation but are insufficient when used in isolation. These results partially support the hypothesis, demonstrating that dual-domain models improve certain aspects of classification performance, but further refinement is required to achieve robust, balanced predictions across all damage levels. V. D ISCUSSION 
+
+The experimental results across training, validation, and test datasets collectively demonstrate that dual-domain learning provides measurable benefits over single-domain approaches, while also revealing important limitations. From the learning curves, dual-domain models, particularly the dual spatial con-figuration, consistently achieve higher training accuracy and F1-scores and exhibit better generalization than frequency-only models. This is further supported by the test set results, where the Dual Spatial model achieves the highest accu-racy (0.4688) and lowest loss (0.0351), indicating stronger predictive capability. However, the Spatial model attains the highest macro-F1 score (0.4254), suggesting that it maintains better balance across classes. In contrast, the frequency-only model performs the worst across all metrics and shows clear signs of overfitting and poor generalization, confirming that frequency-domain features alone are insufficient for robust damage classification. These findings support the hypothesis that combining spatial and frequency representations enhances performance, particularly in capturing complex and severe damage patterns. Despite these improvements, the results also highlight per-sistent challenges, most notably class imbalance and difficulty in detecting subtle damage levels. All models struggle sig-nificantly with the Minor class, with near-zero or very low F1-scores in several cases, indicating that neither spatial nor frequency features individually or combined are sufficient to capture fine-grained damage distinctions reliably. While the Dual Spatial model excels in identifying severe damage (e.g., high recall for the Destroyed class), it does so at the ex-pense of intermediate classes. In contrast, the Dual Frequency model offers more balanced but lower overall performance. Additionally, the gap between training and validation met-rics suggests that overfitting persists, even for dual-domain approaches. Therefore, although dual-domain models improve classification performance, further enhancements such as data balancing, advanced feature fusion strategies, and regulariza-tion techniques are necessary to achieve robust, real-world applicability in post-disaster damage assessment systems. VI. C ONCLUSION AND FUTURE WORK 
+
+This study presents a controlled empirical evaluation of spatial, frequency, and dual-domain representations for build-ing damage classification, using a consistent CNN backbone. It demonstrates that dual-domain learning improves overall predictive performance, with the dual spatial–frequency model achieving the highest test accuracy and highlighting the benefit of integrating complementary feature spaces. Nevertheless, the spatial-domain model remains highly competitive, achieving a higher macro-F1 score and more stable class-wise perfor-mance, indicating that spatial features alone provide robust and reliable representations for structural damage assessment. By contrast, the frequency-domain model consistently un-derperforms on unseen data due to limited generalization and susceptibility to overfitting. Although dual-domain fusion enhances performance in specific cases, particularly for severe damage, it does not uniformly improve results across all classes, suggesting that simple fusion strategies may not fully leverage the complementary nature of spatial and frequency information. A major challenge across all models is poor performance on minority and intermediate damage classes, especially the Minor and Destroyed categories, which signif-icantly affects macro-F1 scores. It underscores the need for class-sensitive evaluation metrics beyond accuracy. To address these limitations, future work should focus on improving class balance and representation learning through targeted data aug-mentation, adaptive or attention-based fusion mechanisms, and advanced architectures such as transformer-based or hybrid models, along with class-aware loss functions or reweighting strategies to enhance performance on imbalanced data, ulti-mately improving the robustness and real-world applicability of automated disaster damage assessment systems. VII. A CKNOWLEDGEMENT 
+
+This work is supported by NSF AWARD 2401942 and NASA AWARD 80NSSC23M0051. REFERENCES 
+
+[1] J. Blay and L. Hashemi-Beni, “Geospatial and deep learning approaches for modeling floodwater depth in urbanized areas,” 
+
+Remote Sensing , vol. 18, no. 1, p. 60, 2025. [2] L. Wang, J. Wu, Y. Yang, R. Tang, and R. Ya, “Deep learning models for hazard-damaged building detection using remote sensing datasets: A comprehensive review,” IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing , 2024. [3] R. Gupta, R. Hosfelt, S. Sajeev, N. Patel, B. Goodman, J. Doshi, E. Heim, H. Choset, and M. Gaston, “xbd: A dataset for as-sessing building damage from satellite imagery,” arXiv preprint arXiv:1911.09296 , 2019. [4] A. Yang, M. Li, Z. Wu, Y. He, X. Qiu, Y. Song, W. Du, and Y. Gou, “Cdf-net: A convolutional neural network fusing frequency domain and spatial domain features,” IET computer vision , vol. 17, no. 3, pp. 319–329, 2023. [5] E. Khankeshizadeh, A. Mohammadzadeh, and S. Jamali, “Edb-hsteu-net: Earthquake-damaged building detection using a novel hybrid swin transformer efficient u-net (hsteu-net) and transfer learning techniques from post-event vhr remote sensing data,” 
+
+Journal of Building Engineering , p. 112889, 2025. [6] R. Benedict, R. B. Winartio, M. F. Adinata, E. Irwansyah 
+
+et al. , “Comparison on difference deep learning models for building damage assessment using xbd dataset,” in 2024 Arab ICT Conference (AICTC) . IEEE, 2024, pp. 181–186. [7] Z. Liu, D. Zhao, B. Yuan, and Z. Jiang, “Rescueadi: adap-tive disaster interpretation in remote sensing images with autonomous agents,” IEEE Transactions on Geoscience and Remote Sensing , 2025. [8] M. Tan and Q. Le, “Efficientnet: Rethinking model scaling for convolutional neural networks,” in International conference on machine learning . PMLR, 2019, pp. 6105–6114. [9] M. Raghu, T. Unterthiner, S. Kornblith, C. Zhang, and A. Doso-vitskiy, “Do vision transformers see like convolutional neural networks?” Advances in neural information processing systems ,vol. 34, pp. 12 116–12 128, 2021. [10] F. Chen, Y. Sun, L. Wang, N. Wang, H. Zhao, and B. Yu, “Hrtbda: a network for post-disaster building damage assess-ment based on remote sensing images,” International Journal of Digital Earth , vol. 17, no. 1, p. 2418880, 2024. [11] C. Wu, F. Zhang, J. Xia, Y. Xu, G. Li, J. Xie, Z. Du, and R. Liu, “Building damage detection using u-net with attention mechanism from pre-and post-disaster remote sensing datasets,” 
+
+Remote Sensing , vol. 13, no. 5, p. 905, 2021. [12] T. Li, C. Wang, H. Zhang, F. Wu, and X. Zheng, “Ddformer: A dual-domain transformer for building damage detection using high-resolution sar imagery,” IEEE Geoscience and Remote Sensing Letters , vol. 20, pp. 1–5, 2023. [13] Y. Zhou, Y. Feng, S. Huo, and X. Li, “Joint frequency-spatial domain network for remote sensing optical image change detec-tion,” IEEE Transactions on Geoscience and Remote Sensing ,vol. 60, pp. 1–14, 2022. [14] J. Kohns, V. Zahs, C. Klonner, B. H¨ ofle, L. Stempniewski, and A. Stark, “Building damage assessment in natural disasters: A trans-and interdisciplinary approach combining domain knowl-edge, 3d machine learning, and crowdsourcing,” Progress in Disaster Science , p. 100427, 2025.
