@@ -6,49 +6,46 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-19
-- 运行时间：2026-06-19 20:38:18 UTC
+- 最新运行日期：2026-06-20
+- 运行时间：2026-06-20 21:25:54 UTC
 - 运行状态：成功
-- 本次总论文数：9
-- 精读区：2
+- 本次总论文数：8
+- 精读区：1
 - 速读区：7
 
 ### 今日简报（AI）
-今天聚焦降水临近预测模型评估与灾害地理情报智能体两大力作，精读评分分别高达9.0和8.0。  
-《Pointwise is Pointwise?》通过多模态消融实验挑战了点级评价的合理性，《GeoDisaster》则提出了针对操作性灾害地理情报的编排式智能体基准。  
-建议优先阅读这两篇精读论文，深入理解消融实验设计思路和智能体协作框架的实际价值。
-- 详情：[/202606/19/README](/202606/19/README)
+1) 今日精读《GeoDisaster》高分灾害地理智能论文，并速读3篇降水预报、结构建模及误差预测方向文章。
+2) 最值得关注的是利用编排式智能体实现灾害地理智能（9.0/10）；其次多模态图神经网络在降水临近预报中的消融实验（7.0）也具参考价值。
+3) 建议优先精读GeoDisaster论文，深入理解智能体协同在地理灾害中的应用；其余速读文章可作为技术补充。
+- 详情：[/202606/20/README](/202606/20/README)
 
 ### 精读区论文标签
-1. [Pointwise is Pointless? A Multimodal Ablation Study for Precipitation Nowcasting with Graph Neural Networks](/202606/19/2606.18436v2-pointwise-is-pointless-a-multimodal-ablation-study-for-precipitation-nowcasting-with-graph-neural-networks)  
+1. [GeoDisaster: Benchmarking Orchestrated Agents for Operational Disaster Geo-Intelligence](/202606/20/2606.17246v1-geodisaster-benchmarking-orchestrated-agents-for-operational-disaster-geo-intelligence)  
    标签：评分：9.0/10、query:urban-flood
-   evidence：多模态降水临近预报用于城市洪水预报
-2. [GeoDisaster: Benchmarking Orchestrated Agents for Operational Disaster Geo-Intelligence](/202606/19/2606.17246v1-geodisaster-benchmarking-orchestrated-agents-for-operational-disaster-geo-intelligence)  
-   标签：评分：8.0/10、query:urban-flood
-   evidence：包含洪水安全路由和SAR洪水监测的操作化灾害地理基准，直接涉及城市洪水风险评估与管理
+   evidence：包含洪水安全路径规划和Sentinel-1 SAR洪水监测任务
 
 ### 速读区论文标签
-1. [MP3: Multi-Period Pattern Pre-training forSpatio-Temporal Forecasting](/202606/19/2606.13119v1-mp3-multi-period-pattern-pre-training-forspatio-temporal-forecasting)  
+1. [Pointwise is Pointless? A Multimodal Ablation Study for Precipitation Nowcasting with Graph Neural Networks](/202606/20/2606.18436v1-pointwise-is-pointless-a-multimodal-ablation-study-for-precipitation-nowcasting-with-graph-neural-networks)  
    标签：评分：7.0/10、query:urban-flood
-   evidence：时空预测方法适用于城市数据，可迁移至雨水管理和洪水风险评估
-2. [MP3: Multi-Period Pattern Pre-training for Spatio-Temporal Forecasting](/202606/19/2606.13119v2-mp3-multi-period-pattern-pre-training-for-spatio-temporal-forecasting)  
+   evidence：用于城市洪水风险评估的降水临近预报方法
+2. [Bridging Data Gaps in Structural Fragility Modeling through Transfer Learning: Methodology and Case Studies](/202606/20/2606.18567v1-bridging-data-gaps-in-structural-fragility-modeling-through-transfer-learning-methodology-and-case-studies)  
    标签：评分：7.0/10、query:urban-flood
-   evidence：时空预测方法适用于城市数据，可迁移至雨水管理和洪水风险评估
-3. [SpheriCity: Designing Trustworthy Conversational AI for Sustainability Decision Support](/202606/19/2606.13854v1-sphericity-designing-trustworthy-conversational-ai-for-sustainability-decision-support)  
-   标签：评分：7.0/10、query:algo-gov
-   evidence：为可持续发展决策支持设计可信对话AI; 解决LLM透明度和信任问题
-4. [Physics-Constrained Neural Networks for Improved Short-Term Weather Forecasting: A Case Study over the South Pacific](/202606/19/2606.17659v1-physics-constrained-neural-networks-for-improved-short-term-weather-forecasting-a-case-study-over-the-south-pacific)  
+   evidence：迁移学习用于飓风下沿海桥梁脆弱性建模，与城市洪水风险评估相关
+3. [A Hybrid LSTM--Vision Transformer Architecture for Predicting HRRR Forecast Errors](/202606/20/2606.19026v1-a-hybrid-lstm--vision-transformer-architecture-for-predicting-hrrr-forecast-errors)  
    标签：评分：7.0/10、query:urban-flood
-   evidence：利用物理约束神经网络改进短期天气预报; 可应用于城市洪水预测
-5. [Multi-Modal Attention for Automated Disaster Damage Assessment Using Remote Sensing Imagery and Deep Learning](/202606/19/2606.14963v1-multi-modal-attention-for-automated-disaster-damage-assessment-using-remote-sensing-imagery-and-deep-learning)  
+   evidence：混合模型预测数值预报误差以改进降水估计
+4. [Exploring the potential of AlphaEarth and TESSERA embeddings for Fine-scale Local Climate Zone Mapping: A case study across five cities in Switzerland](/202606/20/2606.20034v1-exploring-the-potential-of-alphaearth-and-tessera-embeddings-for-fine-scale-local-climate-zone-mapping-a-case-study-across-five-cities-in-switzerland)  
+   标签：评分：7.0/10、query:urban-flood
+   evidence：用于风险评估的精细城市形态制图
+5. [PCFootprint: A Large-Scale Dataset and Benchmark for Vectorized Building Footprint Extraction from Aerial LiDAR Point Clouds](/202606/20/2606.20455v1-pcfootprint-a-large-scale-dataset-and-benchmark-for-vectorized-building-footprint-extraction-from-aerial-lidar-point-clouds)  
+   标签：评分：7.0/10、query:urban-flood
+   evidence：从LiDAR提取建筑足迹直接支持城市洪灾风险评估，提供精确的暴露数据
+6. [Physics-Constrained Neural Networks for Improved Short-Term Weather Forecasting: A Case Study over the South Pacific](/202606/20/2606.17659v1-physics-constrained-neural-networks-for-improved-short-term-weather-forecasting-a-case-study-over-the-south-pacific)  
    标签：评分：6.0/10、query:urban-flood
-   evidence：卫星影像自动灾害评估用于洪水响应
-6. [Bridging Spatial And Frequency Views For Disaster Assessment: Benefits And Limitations](/202606/19/2606.17403v1-bridging-spatial-and-frequency-views-for-disaster-assessment-benefits-and-limitations)  
+   evidence：天气预报方法可迁移至城市暴雨预测
+7. [Rigorous uncertainty quantification of probabilistic AI weather forecasts with conformal prediction](/202606/20/2606.19642v1-rigorous-uncertainty-quantification-of-probabilistic-ai-weather-forecasts-with-conformal-prediction)  
    标签：评分：6.0/10、query:urban-flood
-   evidence：多领域深度学习用于卫星图像建筑损伤分类，可应用于洪水灾害评估
-7. [Exploring the potential of AlphaEarth and TESSERA embeddings for Fine-scale Local Climate Zone Mapping: A case study across five cities in Switzerland](/202606/19/2606.20034v1-exploring-the-potential-of-alphaearth-and-tessera-embeddings-for-fine-scale-local-climate-zone-mapping-a-case-study-across-five-cities-in-switzerland)  
-   标签：评分：6.0/10、query:urban-flood
-   evidence：利用嵌入向量精细映射局部气候分区，为城市洪水风险评估提供空间形态数据
+   evidence：共形预测用于AI天气预报不确定性量化，对极端洪水事件关键
 
 
 <div class="dpr-home-promo-card">

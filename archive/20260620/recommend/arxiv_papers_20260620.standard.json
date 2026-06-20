@@ -1,0 +1,333 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-20T21:21:46.824639+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 7,
+    "quick_skim_target": 11,
+    "quick_selected": 7
+  },
+  "deep_dive": [
+    {
+      "id": "2606.17246v1",
+      "source": "arxiv",
+      "title": "GeoDisaster: Benchmarking Orchestrated Agents for Operational Disaster Geo-Intelligence",
+      "abstract": "Remote-sensing vision-language models (RS-VLMs) have advanced Earth-observation analysis toward visual interpretation and instruction-following, yet fall short of operational geo-intelligence, which demands tool-grounded spatial reasoning and structured, evidence-backed decisions. We introduce GeoDisaster, an operational geospatial disaster reasoning benchmark with 2,921 verified instances across 43 question types and five task families: deforestation monitoring, multi-hazard analysis, building-damage assessment, flood-safe routing, and Sentinel-1 SAR flood monitoring. Instances integrate heterogeneous EO/GIS evidence-optical and SAR imagery, raster masks, vector geometries, road networks, and exposure layers-spanning hazard detection, damage assessment, exposure estimation, and diagnostic report generation. Ground-truth answers are grounded in executable geospatial workflows and deterministic consistency checks, removing the need for language-model annotation. We further propose an orchestrated multi-agent framework with 18 disaster-oriented tools, where role-specialized agents coordinate through explicit execution contracts, aligned via Role-Contract Expectation Alignment (RCEA): failure-aware supervised fine-tuning combined with contract-grounded reinforcement learning over dense step-level signals. Experiments show that GeoDisaster challenges existing RS-VLMs and agentic systems, while RCEA improves tool use, evidence grounding, state consistency, and decision generation.",
+      "authors": [
+        "Maram Hasan",
+        "Aman Verma",
+        "Savitra Roy",
+        "Hariseetharam Gunduboina",
+        "Daksh Jain",
+        "Muhammad Haris Khan",
+        "Subhasis Chaudhuri",
+        "Biplab Banerjee"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.MA"
+      ],
+      "published": "2026-06-15T19:46:10+00:00",
+      "link": "https://arxiv.org/pdf/2606.17246v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "Includes flood-safe routing and Sentinel-1 SAR flood monitoring tasks",
+      "llm_evidence_cn": "包含洪水安全路径规划和Sentinel-1 SAR洪水监测任务",
+      "llm_evidence": "包含洪水安全路径规划和Sentinel-1 SAR洪水监测任务",
+      "canonical_evidence": "包含洪水安全路径规划和Sentinel-1 SAR洪水监测任务",
+      "llm_tldr_en": "Introduces GeoDisaster benchmark with 2921 instances across 43 question types including flood-safe routing and SAR flood monitoring, enabling tool-grounded spatial reasoning for operational disaster response.",
+      "llm_tldr_cn": "针对现有遥感视觉语言模型缺乏操作式地理智能的问题，本文提出了GeoDisaster基准，包含2921个验证实例，覆盖洪水安全路径规划、Sentinel-1 SAR洪水监测等43种问题类型。该基准整合光学和SAR影像、栅格掩膜、矢量几何、路网和暴露图层，为城市洪水风险评估和应急响应提供了测试平台，推动了灾害地理智能从视觉理解向结构化决策的转变。",
+      "llm_tldr": "针对现有遥感视觉语言模型缺乏操作式地理智能的问题，本文提出了GeoDisaster基准，包含2921个验证实例，覆盖洪水安全路径规划、Sentinel-1 SAR洪水监测等43种问题类型。该基准整合光学和SAR影像、栅格掩膜、矢量几何、路网和暴露图层，为城市洪水风险评估和应急响应提供了测试平台，推动了灾害地理智能从视觉理解向结构化决策的转变。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.18436v1",
+      "source": "arxiv",
+      "title": "Pointwise is Pointless? A Multimodal Ablation Study for Precipitation Nowcasting with Graph Neural Networks",
+      "abstract": "Sparse point observations are increasingly available for precipitation nowcasting, but it is unclear how much they improve dense radar-field forecasts. We partially address this question with a multimodal graph neural network nowcasting system over the Nordic radar domain. The model predicts rain rate every five minutes up to two hours ahead and is trained with different combinations of radar history, MEPS numerical weather prediction, Netatmo surface observations, MSG satellite channels, stochastic noise, and CRPS-based ensemble losses. The study is designed as an ablation of operationally relevant information sources and training objectives. We compare radar-only, NWP-informed, station-informed, satellite-informed, noise-augmented, and CRPS-based configurations using complementary diagnostics on the radar grid, at station locations, for rain onset, and through oracle, displacement, and amplitude scores. The results show that each source improves a different part of the forecast problem. MEPS stabilises radar-only extrapolation, Netatmo observations improve local station and onset diagnostics, and satellite predictors reduce some station-level biases but may activate rain too early when used deterministically. CRPS-based configurations provide the most consistent radar-grid gains, while the combined satellite and CRPS setup gives the best overall oracle/DAS score. These results do not support the conclusion that point observations are uninformative for nowcasting, but they show that local observational skill and spatially coherent radar-field skill are distinct targets. The practical implication is that sparse observations can provide useful local constraints, but their benefit for radar-like fields depends on the training loss, uncertainty representation, and how observation support is encoded in the model.",
+      "authors": [
+        "Ophélia Miralles",
+        "Máté Mile",
+        "Christoffer Artturi",
+        "Thomas Nipen",
+        "Ivar Seierstad"
+      ],
+      "primary_category": "stat.ML",
+      "categories": [
+        "stat.ML",
+        "cs.LG"
+      ],
+      "published": "2026-06-16T19:35:49+00:00",
+      "link": "https://arxiv.org/pdf/2606.18436v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "precipitation nowcasting method for urban flood risk assessment",
+      "llm_evidence_cn": "用于城市洪水风险评估的降水临近预报方法",
+      "llm_evidence": "用于城市洪水风险评估的降水临近预报方法",
+      "canonical_evidence": "用于城市洪水风险评估的降水临近预报方法",
+      "llm_tldr_en": "This paper performs a multimodal ablation study for precipitation nowcasting using graph neural networks, evaluating contributions from radar, NWP, surface stations, satellite, and noise. Results show that combining multiple data sources improves nowcasting accuracy, supporting urban flood early warning and risk assessment.",
+      "llm_tldr_cn": "该论文通过多模态图神经网络进行降水临近预报，系统评估了雷达、数值天气预报、地面观测和卫星数据对预测效果的影响，并在北欧区域进行了消融实验。结果表明融合多源数据可显著提升降水预报精度，为城市洪水预警和风险评估提供关键技术支撑。",
+      "llm_tldr": "该论文通过多模态图神经网络进行降水临近预报，系统评估了雷达、数值天气预报、地面观测和卫星数据对预测效果的影响，并在北欧区域进行了消融实验。结果表明融合多源数据可显著提升降水预报精度，为城市洪水预警和风险评估提供关键技术支撑。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for urban flood risk assessment",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.17659v1",
+      "source": "arxiv",
+      "title": "Physics-Constrained Neural Networks for Improved Short-Term Weather Forecasting: A Case Study over the South Pacific",
+      "abstract": "This study introduces enhancements to physics-constrained neural networks (PCNNs) that improve the accuracy and stability of hybrid short-term weather forecasting models. Building on the WeatherGFT architecture, three innovations are proposed. First, an upgraded numerical solver, combining a fifth-order weighted essentially non-oscillatory scheme (WENO-5), a beta-plane approximation, and subgrid-scale viscosity, permits a fourfold increase in the integration time step to 1200 s while reducing the daily mean squared error by up to 26%. Second, a unified autoregressive hybrid block replaces the original chain of 24 specialised modules, eliminating overfitting to specific lead times. Third, the physical core is integrated with two state-of-the-art neural backbones, resulting in PI-PredFormer and PI-IAM4VP. Evaluation on the WeatherBench South Pacific subset from 2000 to 2004 shows that these hybrids reduce root mean squared error at 1-12 h lead times by 8-22% compared to purely neural counterparts, while better preserving physical consistency. These results demonstrate that incremental refinement of hybrid components offers a practical route toward more accurate and efficient short-range weather forecasting.",
+      "authors": [
+        "Egor Bugaev",
+        "Fedor Buzaev",
+        "Dmitry Efremenko",
+        "Denis Derkach",
+        "Fedor Ratnikov"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-16T08:18:48+00:00",
+      "link": "https://arxiv.org/pdf/2606.17659v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "weather forecasting method transferable to urban storm prediction",
+      "llm_evidence_cn": "天气预报方法可迁移至城市暴雨预测",
+      "llm_evidence": "天气预报方法可迁移至城市暴雨预测",
+      "canonical_evidence": "天气预报方法可迁移至城市暴雨预测",
+      "llm_tldr_en": "Improves physics-constrained neural networks for short-term weather forecasting, enabling larger time steps and lower error; useful for urban flood early warning.",
+      "llm_tldr_cn": "该研究改进了物理约束神经网络（PCNN）以提升短期天气预报精度，通过引入高阶数值求解器与统一自回归混合块，将积分时间步长提高四倍并降低均方误差26%，虽然未直接应用于城市雨洪管理，但其天气预测方法可用于城市暴雨预报与洪水预警，为城市洪水风险评估提供上游输入。",
+      "llm_tldr": "该研究改进了物理约束神经网络（PCNN）以提升短期天气预报精度，通过引入高阶数值求解器与统一自回归混合块，将积分时间步长提高四倍并降低均方误差26%，虽然未直接应用于城市雨洪管理，但其天气预测方法可用于城市暴雨预报与洪水预警，为城市洪水风险评估提供上游输入。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.18567v1",
+      "source": "arxiv",
+      "title": "Bridging Data Gaps in Structural Fragility Modeling through Transfer Learning: Methodology and Case Studies",
+      "abstract": "This paper presents a methodology-centered transfer learning framework for fragility adaptation under domain shift, class imbalance, and scarce target labels while preserving engineering interpretability and supporting decision-making under uncertainty. Four transfer learning strategies (instance-based, parameter-based, hierarchical Bayesian, and multi-source) are demonstrated through three complementary case studies: (i) instance-based transfer learning via importance weighting, demonstrated on coastal bridge fragility using Hurricane Katrina observations; (ii) parameter-based transfer learning together with hierarchical Bayesian transfer learning, enabling partial pooling across strata and posterior uncertainty quantification, demonstrated on residential building fragility using Hurricane Ian observations; and (iii) multi-source transfer learning that fuses multiple analytical fragility models with learned source weights and regularized target-domain adaptation, demonstrated on seismic bridge fragility using observations from the 2001 Nisqually earthquake. Across these case studies, direct transfer of source models (i.e. using existing state-of-the-art models) fails under domain shift and severe class imbalance, while targeted adaptation substantially improves failure detection and predictive stability in low-data regimes. These findings highlight the need for systematic guidance on diagnostics, strategy selection, and uncertainty reporting when developing and adapting fragility models.",
+      "authors": [
+        "Narges Saeednejad",
+        "Jamie Ellen Padgett"
+      ],
+      "primary_category": "stat.ML",
+      "categories": [
+        "stat.ML",
+        "cs.LG",
+        "stat.AP",
+        "stat.ME"
+      ],
+      "published": "2026-06-17T00:38:30+00:00",
+      "link": "https://arxiv.org/pdf/2606.18567v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "transfer learning for fragility modeling applied to coastal bridge during hurricane, relevant to urban flood risk",
+      "llm_evidence_cn": "迁移学习用于飓风下沿海桥梁脆弱性建模，与城市洪水风险评估相关",
+      "llm_evidence": "迁移学习用于飓风下沿海桥梁脆弱性建模，与城市洪水风险评估相关",
+      "canonical_evidence": "迁移学习用于飓风下沿海桥梁脆弱性建模，与城市洪水风险评估相关",
+      "llm_tldr_en": "Proposes a transfer learning framework for structural fragility under domain shift and class imbalance, demonstrated on hurricane-damaged bridges, applicable to urban flood risk assessment.",
+      "llm_tldr_cn": "本文提出一个面向领域偏移和类别不平衡的结构脆弱性迁移学习框架，采用实例、参数、层次贝叶斯和多源四种迁移策略，在飓风卡特里娜的沿海桥梁案例中验证有效，其方法可直接迁移至城市洪水风险评估，解决数据稀缺城市的建筑物脆弱性建模问题，支持防灾决策。",
+      "llm_tldr": "本文提出一个面向领域偏移和类别不平衡的结构脆弱性迁移学习框架，采用实例、参数、层次贝叶斯和多源四种迁移策略，在飓风卡特里娜的沿海桥梁案例中验证有效，其方法可直接迁移至城市洪水风险评估，解决数据稀缺城市的建筑物脆弱性建模问题，支持防灾决策。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.19642v1",
+      "source": "arxiv",
+      "title": "Rigorous uncertainty quantification of probabilistic AI weather forecasts with conformal prediction",
+      "abstract": "Probabilistic weather forecasting is undergoing rapid transformation with artificial intelligence (AI). In traditional numerical weather prediction, computing power can limit how well ensemble forecasts approximate the unknown statistical distribution of future states. AI models facilitate larger ensembles and are trained with probabilistic considerations, ideally leading to better uncertainty quantification. Forecasts from these state-of-the-art models are often considered well-calibrated. However, here we show that the statistical coverage of such models, the ultimate measure of calibration, can struggle, especially on extreme events. To address this shortcoming, we employ conformal prediction, a class of statistical methods that mathematically guarantees coverage under no distributional assumptions, unlike previous post-processing techniques. We apply online conformal prediction to temperature and precipitation forecasts (including extremes) of three leading global weather models, GenCast, NeuralGCM, and AIFS-ENS, ensuring calibrated uncertainty at no expense to other probabilistic metrics. This post-processing method can be applied to any forecasting model.",
+      "authors": [
+        "Anna Asch",
+        "Raphael Rossellini",
+        "Pedram Hassanzadeh",
+        "Rebecca Willett"
+      ],
+      "primary_category": "physics.ao-ph",
+      "categories": [
+        "physics.ao-ph",
+        "stat.AP",
+        "stat.ML"
+      ],
+      "published": "2026-06-17T22:41:20+00:00",
+      "link": "https://arxiv.org/pdf/2606.19642v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "conformal prediction for AI weather forecast uncertainty, crucial for extreme flood events",
+      "llm_evidence_cn": "共形预测用于AI天气预报不确定性量化，对极端洪水事件关键",
+      "llm_evidence": "共形预测用于AI天气预报不确定性量化，对极端洪水事件关键",
+      "canonical_evidence": "共形预测用于AI天气预报不确定性量化，对极端洪水事件关键",
+      "llm_tldr_en": "Employs conformal prediction to calibrate probabilistic AI weather forecasts, improving coverage especially on extremes; vital for flood early warning reliability.",
+      "llm_tldr_cn": "本文针对概率AI天气预报校准不足的问题，采用共形预测方法提供严格的不确定性量化，实验表明该方法显著改善了极端事件的统计覆盖，确保天气预报在洪水预警中的可靠性，虽然未专门针对城市，但其方法论可直接用于提升城市洪水预报模型的可信度与决策支持能力。",
+      "llm_tldr": "本文针对概率AI天气预报校准不足的问题，采用共形预测方法提供严格的不确定性量化，实验表明该方法显著改善了极端事件的统计覆盖，确保天气预报在洪水预警中的可靠性，虽然未专门针对城市，但其方法论可直接用于提升城市洪水预报模型的可信度与决策支持能力。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.19026v1",
+      "source": "arxiv",
+      "title": "A Hybrid LSTM--Vision Transformer Architecture for Predicting HRRR Forecast Errors",
+      "abstract": "Forecast errors in high-resolution numerical weather prediction (NWP) systems are often linked to unresolved planetary boundary layer (PBL) processes, convection, terrain-induced circulations, and other vertically structured atmospheric phenomena. Previous work demonstrated that Long Short-Term Memory (LSTM) networks can successfully predict forecast errors in the High-Resolution Rapid Refresh (HRRR) model using mesonet observations, but we believe performance degradation is linked to periods of complex vertical atmospheric evolution. To address this limitation, we develop a hybrid LSTM-Vision Transformer (LSTM-ViT) framework that combines temporal sequence learning from surface observations with atmospheric profiles from the New York State Mesonet profiler network. The LSTM-ViT framework is trained to predict HRRR hourly precipitation, 10 m wind speed, and 2 m temperature forecast errors at individual mesonet stations. Across all three predictors, incorporation of profiler-derived atmospheric structure improves forecast error prediction skill relative to the baseline LSTM architecture, with the largest gains occurring at shorter forecast lead times and during periods of enhanced PBL activity. Improvements are particularly pronounced for precipitation forecast error, where the LSTM-ViT framework achieves approximately a twofold increase in predictive skill relative to the baseline LSTM while better capturing convectively driven error evolution and reducing degradation associated with PBL processes. These results demonstrate that combining temporal sequence learning with vertically informed attention mechanisms provides a physically meaningful pathway for improving forecast error prediction in operational NWP systems. Our research offers forecasters enhanced guidance regarding model bias and forecast confidence.",
+      "authors": [
+        "David Aaron Evans",
+        "Jay C. Rothenberger",
+        "Kara J. Sulia",
+        "Nick P. Bassill",
+        "Chris D. Thorncroft"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "physics.ao-ph"
+      ],
+      "published": "2026-06-17T12:51:46+00:00",
+      "link": "https://arxiv.org/pdf/2606.19026v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "hybrid model predicts NWP forecast errors for improved precipitation estimation",
+      "llm_evidence_cn": "混合模型预测数值预报误差以改进降水估计",
+      "llm_evidence": "混合模型预测数值预报误差以改进降水估计",
+      "canonical_evidence": "混合模型预测数值预报误差以改进降水估计",
+      "llm_tldr_en": "The paper develops a hybrid LSTM-Vision Transformer model to predict HRRR forecast errors by combining surface observations with atmospheric profiles, improving precipitation nowcasting and potentially enhancing urban flood warning systems.",
+      "llm_tldr_cn": "现有HRRR模型在复杂大气条件下预报误差大，本研究提出混合LSTM-ViT框架，融合地表观测和大气廓线数据预测预报误差。实验表明该模型显著提升了降水预报精度，进而为城市雨洪预警提供更可靠输入。",
+      "llm_tldr": "现有HRRR模型在复杂大气条件下预报误差大，本研究提出混合LSTM-ViT框架，融合地表观测和大气廓线数据预测预报误差。实验表明该模型显著提升了降水预报精度，进而为城市雨洪预警提供更可靠输入。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "pluvial flooding causes and impacts in urban areas",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.20034v1",
+      "source": "arxiv",
+      "title": "Exploring the potential of AlphaEarth and TESSERA embeddings for Fine-scale Local Climate Zone Mapping: A case study across five cities in Switzerland",
+      "abstract": "Understanding urban spatial morphology is critical for climate modeling, risk assessment, and sustainable urban design, and Local Climate Zone (LCZ) mapping provides the basic framework for this. However, many cities still use coarse ~100-m resolution LCZ records, which are unsuitable for fine-scale urban research. In this study, precomputed embeddings from TESSERA (Feng et al., 2025) and AlphaEarth (Brown et al., 2025) are compared to traditional Sentinel-1/2 (S1S2) composites in five Swiss cities to see if they can upscale coarse LCZ maps to 10-m resolution using an attention-based U-Net. Three experiments assess multi-city transferability, the impact of higher-resolution reference data, and temporal robustness to year-to-year phenology changes. We find that all datasets achieve strong performance with test data Intersection-over-Union (IoU) ranging from 0.59-0.69 and 0.77-0.82 in the first two experiments. TESSERA consistently outperforms both S1S2 and AlphaEarth across both settings As expected, we find that the transfer of embedding-based models from one year to another remains an open challenge. Overall, however, our results demonstrate the promising potential of embeddings derived from EO foundation models to reduce time consuming preprocessing, respectively, manual feature engineering tasks and to guide a universal deep learning-based LCZ mapping workflow. When combined with a simple location-aware attention U-Net architecture, the embeddings enhance regional transferability and scalability, supporting the development of comprehensive and reproducible fine-scale LCZ maps for global urban climate applications Improving reference data quality remains the strongest lever for further accuracy gains.",
+      "authors": [
+        "Htet Yamin Ko Ko",
+        "Clement Atzberger"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-18T10:06:42+00:00",
+      "link": "https://arxiv.org/pdf/2606.20034v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Fine-scale urban morphology mapping for risk assessment",
+      "llm_evidence_cn": "用于风险评估的精细城市形态制图",
+      "llm_evidence": "用于风险评估的精细城市形态制图",
+      "canonical_evidence": "用于风险评估的精细城市形态制图",
+      "llm_tldr_en": "Compares pretrained embeddings and Sentinel-1/2 for upscaling coarse LCZ maps to 10m resolution using an attention U-Net, showing potential for fine-scale urban climate and risk analysis.",
+      "llm_tldr_cn": "针对城市气候建模和风险评估中粗分辨率局地气候分区（LCZ）地图不适用的问题，本研究比较了TESSERA和AlphaEarth预训练嵌入与传统Sentinel-1/2复合数据，采用注意力U-Net将粗LCZ地图升尺度至10米分辨率。实验评估了多城市迁移性和高分辨率嵌入的影响，结果表明预训练嵌入能够有效提升LCZ制图精度，为城市洪水风险评估等应用提供更精细的形态数据支持。",
+      "llm_tldr": "针对城市气候建模和风险评估中粗分辨率局地气候分区（LCZ）地图不适用的问题，本研究比较了TESSERA和AlphaEarth预训练嵌入与传统Sentinel-1/2复合数据，采用注意力U-Net将粗LCZ地图升尺度至10米分辨率。实验评估了多城市迁移性和高分辨率嵌入的影响，结果表明预训练嵌入能够有效提升LCZ制图精度，为城市洪水风险评估等应用提供更精细的形态数据支持。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.20455v1",
+      "source": "arxiv",
+      "title": "PCFootprint: A Large-Scale Dataset and Benchmark for Vectorized Building Footprint Extraction from Aerial LiDAR Point Clouds",
+      "abstract": "Building footprint extraction is a fundamental task in photogrammetry, remote sensing, and computer vision. Recent image-based methods have achieved remarkable progress in extracting vectorized footprints from high-resolution optical imagery. However, optical imagery inherently susceptible to occlusions, perspective distortions, and residual relief displacement, yielding incomplete or misaligned footprint extraction. Furthermore, the lack of explicit elevation information limits its direct applicability to Level of Detail building modeling. In this paper, we present PCFootprint, the first large-scale public dataset for footprint extraction from airborne laser scanning point clouds. PCFootprint comprises \\num{33000} tiles derived from the Estonian Land and Spatial Development Board, covering diverse urban and rural landscapes. Each tile spans \\qtyproduct{128 x 128}{\\m} with systematically aligned vectorized footprints aligned to point clouds. The dataset includes a \\num{3000} tiles cross-domain test set for evaluating generalization across geographic regions. We establish comprehensive benchmarks by evaluating mainstream methods. Experimental results reveal significant challenges including high intra-class variance, data imbalance, and noise across complex geospatial environments. We believe PCFootprint will advance future research in building modeling, urban scene understanding, and geospatial analysis. The PCFootprint dataset is publicly available at \\url{https://huggingface.co/datasets/Haoyuan-Shen/PCFootprint}.",
+      "authors": [
+        "Haoyuan Shen",
+        "Kuihao Wang",
+        "Ruisheng Wang",
+        "Yujun Liu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-18T16:38:35+00:00",
+      "link": "https://arxiv.org/pdf/2606.20455v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "building footprint extraction from LiDAR directly supports urban flood risk assessment by providing accurate exposure data",
+      "llm_evidence_cn": "从LiDAR提取建筑足迹直接支持城市洪灾风险评估，提供精确的暴露数据",
+      "llm_evidence": "从LiDAR提取建筑足迹直接支持城市洪灾风险评估，提供精确的暴露数据",
+      "canonical_evidence": "从LiDAR提取建筑足迹直接支持城市洪灾风险评估，提供精确的暴露数据",
+      "llm_tldr_en": "First large-scale public dataset for building footprint extraction from LiDAR point clouds, enabling accurate 3D building models for urban flood exposure analysis.",
+      "llm_tldr_cn": "该论文发布了首个大规模公开的航空LiDAR点云建筑足迹提取数据集PCFootprint，解决了光学影像遮挡和缺乏高程信息的问题。数据集包含多种建筑类型和场景，为城市洪灾风险评估中的建筑暴露度分析提供了精确的矢量足迹数据，促进了建筑模型的三维化。",
+      "llm_tldr": "该论文发布了首个大规模公开的航空LiDAR点云建筑足迹提取数据集PCFootprint，解决了光学影像遮挡和缺乏高程信息的问题。数据集包含多种建筑类型和场景，为城市洪灾风险评估中的建筑暴露度分析提供了精确的矢量足迹数据，促进了建筑模型的三维化。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
