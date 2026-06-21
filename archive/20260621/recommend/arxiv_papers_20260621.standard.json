@@ -1,0 +1,212 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-21T21:16:44.138465+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.17246v1",
+      "source": "arxiv",
+      "title": "GeoDisaster: Benchmarking Orchestrated Agents for Operational Disaster Geo-Intelligence",
+      "abstract": "Remote-sensing vision-language models (RS-VLMs) have advanced Earth-observation analysis toward visual interpretation and instruction-following, yet fall short of operational geo-intelligence, which demands tool-grounded spatial reasoning and structured, evidence-backed decisions. We introduce GeoDisaster, an operational geospatial disaster reasoning benchmark with 2,921 verified instances across 43 question types and five task families: deforestation monitoring, multi-hazard analysis, building-damage assessment, flood-safe routing, and Sentinel-1 SAR flood monitoring. Instances integrate heterogeneous EO/GIS evidence-optical and SAR imagery, raster masks, vector geometries, road networks, and exposure layers-spanning hazard detection, damage assessment, exposure estimation, and diagnostic report generation. Ground-truth answers are grounded in executable geospatial workflows and deterministic consistency checks, removing the need for language-model annotation. We further propose an orchestrated multi-agent framework with 18 disaster-oriented tools, where role-specialized agents coordinate through explicit execution contracts, aligned via Role-Contract Expectation Alignment (RCEA): failure-aware supervised fine-tuning combined with contract-grounded reinforcement learning over dense step-level signals. Experiments show that GeoDisaster challenges existing RS-VLMs and agentic systems, while RCEA improves tool use, evidence grounding, state consistency, and decision generation.",
+      "authors": [
+        "Maram Hasan",
+        "Aman Verma",
+        "Savitra Roy",
+        "Hariseetharam Gunduboina",
+        "Daksh Jain",
+        "Muhammad Haris Khan",
+        "Subhasis Chaudhuri",
+        "Biplab Banerjee"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.MA"
+      ],
+      "published": "2026-06-15T19:46:10+00:00",
+      "link": "https://arxiv.org/pdf/2606.17246v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "benchmark includes flood-safe routing and SAR flood monitoring, directly supporting urban flood risk assessment and management",
+      "llm_evidence_cn": "基准测试包含洪水安全路径规划和SAR洪水监测，直接支持城市洪涝风险评估与管理",
+      "llm_evidence": "基准测试包含洪水安全路径规划和SAR洪水监测，直接支持城市洪涝风险评估与管理",
+      "canonical_evidence": "基准测试包含洪水安全路径规划和SAR洪水监测，直接支持城市洪涝风险评估与管理",
+      "llm_tldr_en": "Introduces GeoDisaster, an operational geospatial disaster reasoning benchmark with 2,921 instances across 43 question types, including flood-safe routing and Sentinel-1 SAR flood monitoring. Integrates heterogeneous EO/GIS data, enabling evaluation of disaster geo-intelligence systems.",
+      "llm_tldr_cn": "现有遥感视觉语言模型缺乏操作型地理智能能力，本文提出GeoDisaster基准，包含2921个实例和43种问题类型，涵盖森林砍伐监测、多灾害分析、建筑损伤评估、洪水安全路径规划和哨兵一号SAR洪水监测。该基准整合光学和SAR影像、栅格掩膜、矢量几何、路网和暴露图层，为评估智能体在灾害地理推理中的表现提供了标准化平台，对城市洪涝应急决策有重要支持。",
+      "llm_tldr": "现有遥感视觉语言模型缺乏操作型地理智能能力，本文提出GeoDisaster基准，包含2921个实例和43种问题类型，涵盖森林砍伐监测、多灾害分析、建筑损伤评估、洪水安全路径规划和哨兵一号SAR洪水监测。该基准整合光学和SAR影像、栅格掩膜、矢量几何、路网和暴露图层，为评估智能体在灾害地理推理中的表现提供了标准化平台，对城市洪涝应急决策有重要支持。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.15077v1",
+      "source": "arxiv",
+      "title": "Risk-Aware LLM Agents for Geospatial Data Retrieval: Design and Preliminary Adversarial Evaluation",
+      "abstract": "We present an LLM-driven framework for retrieving remote sensing data from cloud-based geospatial catalogues using natural language queries. The system converts user intent into structured API calls, enabling efficient access to satellite imagery and environmental datasets. The architecture integrates three agents: Guardrail for safety and policy enforcement, General-QA for intent interpretation, and Recommender-Analyst for schema-aware API call generation. This coordinated design ensures reliable, semantically aligned interaction with external data services. The modular framework is portable across platforms through API schema substitution and supports applications in environmental monitoring, disaster response, and climate analysis. It establishes a scalable interface between user intent and geospatial infrastructure, enabling streamlined and automated Earth observation workflows. Preliminary experiments under adversarial multi-turn settings show that prompt-level safety instructions improve robustness, although rare high-impact failures persist in API manipulation scenarios and highlight the need for adaptive, system-level defenses that balance safety, usability, and cost efficiency, which motivates the use of our intercept-level Guardrail agent.",
+      "authors": [
+        "Kyle Gao",
+        "Joel Cumming",
+        "Jonathan Li",
+        "Linlin Xu",
+        "David A. Clausi"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-06-13T03:15:53+00:00",
+      "link": "https://arxiv.org/pdf/2606.15077v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "LLM-based retrieval of geospatial data for disaster response, enabling flood data access",
+      "llm_evidence_cn": "基于LLM的地理空间数据检索，支持灾害响应，可获取洪水数据",
+      "llm_evidence": "基于LLM的地理空间数据检索，支持灾害响应，可获取洪水数据",
+      "canonical_evidence": "基于LLM的地理空间数据检索，支持灾害响应，可获取洪水数据",
+      "llm_tldr_en": "A risk-aware LLM agent framework for retrieving remote sensing data from cloud catalogs, supporting environmental monitoring and disaster response including urban flood management.",
+      "llm_tldr_cn": "本文提出一个由LLM驱动的风险感知代理框架，用于从云地理空间目录中检索遥感数据。系统通过自然语言查询转换，能够高效获取卫星影像和环境数据集。该框架可应用于环境监测和灾害响应，包括城市洪水风险评估。初步对抗性评估展示了系统的鲁棒性。该工作为城市洪水管理中的数据获取提供了便捷工具。",
+      "llm_tldr": "本文提出一个由LLM驱动的风险感知代理框架，用于从云地理空间目录中检索遥感数据。系统通过自然语言查询转换，能够高效获取卫星影像和环境数据集。该框架可应用于环境监测和灾害响应，包括城市洪水风险评估。初步对抗性评估展示了系统的鲁棒性。该工作为城市洪水管理中的数据获取提供了便捷工具。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.17553v1",
+      "source": "arxiv",
+      "title": "SpatioTemporal Causal Network Diagnostics for Geographic Tipping Point Early Warning",
+      "abstract": "Geographic tipping points in ecosystems, climate subsystems, or ice sheets pose severe challenges for localized early warning. Classical spatial indicators such as Moran's I summarize global spatial structure, but they struggle with three issues: spatial dilution, Euclidean assumptions, and correlated noise. This paper introduces SpatioTemporal Causal Network Diagnostics (ST-CND), a framework that addresses these three issues by representing the geographic field as a time-evolving directed causal network. The core workflow is as follows: (1) infer which spatial nodes help predict other nodes via transfer entropy, replacing fixed Euclidean neighborhoods with data-driven information-flow topology; (2) estimate local recovery rates within each candidate subnetwork via dynamic mode decomposition; and (3) identify the most vulnerable subnetwork by combining three signals, namely high internal fluctuation, high internal synchronization, and low external coupling, thereby suppressing false alarms from spatially correlated noise. Validated on synthetic bifurcations and two observational sea-surface temperature benchmarks, namely Indo-Pacific SST and North Atlantic AMOC, ST-CND delivers localized and interpretable warnings. On the AMOC task, it achieves an AUROC of 0.783 and a critical-subnetwork IoU of 0.378, outperforming recurrence-network and lambda-AR1 baselines. The framework provides an interpretable and scalable pipeline for spatial early warning in Earth system science.",
+      "authors": [
+        "Zhaoyuan Yu",
+        "Zhangyong Liang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-16T05:57:16+00:00",
+      "link": "https://arxiv.org/pdf/2606.17553v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Spatiotemporal causal network diagnostics for geographic tipping points, transferable to urban flood early warning",
+      "llm_evidence_cn": "时空因果网络诊断方法用于地理临界点预警，可迁移至城市洪水早期预警",
+      "llm_evidence": "时空因果网络诊断方法用于地理临界点预警，可迁移至城市洪水早期预警",
+      "canonical_evidence": "时空因果网络诊断方法用于地理临界点预警，可迁移至城市洪水早期预警",
+      "llm_tldr_en": "This framework uses transfer entropy to build causal networks for spatial field tipping point detection; it can be adapted for early warning of urban flash floods by identifying spatial precursors.",
+      "llm_tldr_cn": "本文提出ST-CND框架，利用传递熵推断空间节点间的因果网络，替代传统的欧几里得邻域假设，以检测地理临界点的早期信号。该方法可应用于城市暴雨洪涝预警，通过动态识别降雨和径流的空间因果模式，提供更早的预警时间和更精确的位置信息。实验在模拟数据上验证了其优于传统空间指标。",
+      "llm_tldr": "本文提出ST-CND框架，利用传递熵推断空间节点间的因果网络，替代传统的欧几里得邻域假设，以检测地理临界点的早期信号。该方法可应用于城市暴雨洪涝预警，通过动态识别降雨和径流的空间因果模式，提供更早的预警时间和更精确的位置信息。实验在模拟数据上验证了其优于传统空间指标。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.19642v1",
+      "source": "arxiv",
+      "title": "Rigorous uncertainty quantification of probabilistic AI weather forecasts with conformal prediction",
+      "abstract": "Probabilistic weather forecasting is undergoing rapid transformation with artificial intelligence (AI). In traditional numerical weather prediction, computing power can limit how well ensemble forecasts approximate the unknown statistical distribution of future states. AI models facilitate larger ensembles and are trained with probabilistic considerations, ideally leading to better uncertainty quantification. Forecasts from these state-of-the-art models are often considered well-calibrated. However, here we show that the statistical coverage of such models, the ultimate measure of calibration, can struggle, especially on extreme events. To address this shortcoming, we employ conformal prediction, a class of statistical methods that mathematically guarantees coverage under no distributional assumptions, unlike previous post-processing techniques. We apply online conformal prediction to temperature and precipitation forecasts (including extremes) of three leading global weather models, GenCast, NeuralGCM, and AIFS-ENS, ensuring calibrated uncertainty at no expense to other probabilistic metrics. This post-processing method can be applied to any forecasting model.",
+      "authors": [
+        "Anna Asch",
+        "Raphael Rossellini",
+        "Pedram Hassanzadeh",
+        "Rebecca Willett"
+      ],
+      "primary_category": "physics.ao-ph",
+      "categories": [
+        "physics.ao-ph",
+        "stat.AP",
+        "stat.ML"
+      ],
+      "published": "2026-06-17T22:41:20+00:00",
+      "link": "https://arxiv.org/pdf/2606.19642v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Uncertainty quantification for AI weather forecasts, applicable to flood risk assessment and early warning",
+      "llm_evidence_cn": "AI天气预报的不确定性量化方法，可应用于城市洪水风险评估与预警",
+      "llm_evidence": "AI天气预报的不确定性量化方法，可应用于城市洪水风险评估与预警",
+      "canonical_evidence": "AI天气预报的不确定性量化方法，可应用于城市洪水风险评估与预警",
+      "llm_tldr_en": "This paper shows that AI weather forecast calibration is unreliable for extremes; conformal prediction provides rigorous uncertainty bounds, enabling probabilistic flood warnings with coverage guarantees.",
+      "llm_tldr_cn": "该论文指出当前AI气象概率预报在极端事件上校准不足，并采用共形预测方法提供严格的统计覆盖保证。通过将共形预测应用于集合预报，研究者证明了该方法可以改进对极端降水事件的置信区间估计，从而为城市洪水风险评估与预警提供更可靠的不确定性量化工具。",
+      "llm_tldr": "该论文指出当前AI气象概率预报在极端事件上校准不足，并采用共形预测方法提供严格的统计覆盖保证。通过将共形预测应用于集合预报，研究者证明了该方法可以改进对极端降水事件的置信区间估计，从而为城市洪水风险评估与预警提供更可靠的不确定性量化工具。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.20034v1",
+      "source": "arxiv",
+      "title": "Exploring the potential of AlphaEarth and TESSERA embeddings for Fine-scale Local Climate Zone Mapping: A case study across five cities in Switzerland",
+      "abstract": "Understanding urban spatial morphology is critical for climate modeling, risk assessment, and sustainable urban design, and Local Climate Zone (LCZ) mapping provides the basic framework for this. However, many cities still use coarse ~100-m resolution LCZ records, which are unsuitable for fine-scale urban research. In this study, precomputed embeddings from TESSERA (Feng et al., 2025) and AlphaEarth (Brown et al., 2025) are compared to traditional Sentinel-1/2 (S1S2) composites in five Swiss cities to see if they can upscale coarse LCZ maps to 10-m resolution using an attention-based U-Net. Three experiments assess multi-city transferability, the impact of higher-resolution reference data, and temporal robustness to year-to-year phenology changes. We find that all datasets achieve strong performance with test data Intersection-over-Union (IoU) ranging from 0.59-0.69 and 0.77-0.82 in the first two experiments. TESSERA consistently outperforms both S1S2 and AlphaEarth across both settings As expected, we find that the transfer of embedding-based models from one year to another remains an open challenge. Overall, however, our results demonstrate the promising potential of embeddings derived from EO foundation models to reduce time consuming preprocessing, respectively, manual feature engineering tasks and to guide a universal deep learning-based LCZ mapping workflow. When combined with a simple location-aware attention U-Net architecture, the embeddings enhance regional transferability and scalability, supporting the development of comprehensive and reproducible fine-scale LCZ maps for global urban climate applications Improving reference data quality remains the strongest lever for further accuracy gains.",
+      "authors": [
+        "Htet Yamin Ko Ko",
+        "Clement Atzberger"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-18T10:06:42+00:00",
+      "link": "https://arxiv.org/pdf/2606.20034v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Fine-scale Local Climate Zone mapping using remote sensing embeddings, relevant for urban flood risk assessment",
+      "llm_evidence_cn": "利用遥感嵌入进行精细局部气候区制图，与城市洪水风险评估相关",
+      "llm_evidence": "利用遥感嵌入进行精细局部气候区制图，与城市洪水风险评估相关",
+      "canonical_evidence": "利用遥感嵌入进行精细局部气候区制图，与城市洪水风险评估相关",
+      "llm_tldr_en": "This paper compares various embeddings for mapping Local Climate Zones at 10m resolution, which can improve urban flood risk assessment by capturing high-resolution surface characteristics.",
+      "llm_tldr_cn": "本文比较了TESSERA和AlphaEarth嵌入与传统遥感图像对于局部气候区（LCZ）精细制图的效果，使用注意力U-Net实现从100米到10米的上采样。高分辨率LCZ地图可用于城市洪水风险评估，因为不同LCZ对应不同的径流和下渗特性。实验在瑞士五个城市进行，证明了嵌入方法在多城市迁移性上的优势。",
+      "llm_tldr": "本文比较了TESSERA和AlphaEarth嵌入与传统遥感图像对于局部气候区（LCZ）精细制图的效果，使用注意力U-Net实现从100米到10米的上采样。高分辨率LCZ地图可用于城市洪水风险评估，因为不同LCZ对应不同的径流和下渗特性。实验在瑞士五个城市进行，证明了嵌入方法在多城市迁移性上的优势。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
