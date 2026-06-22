@@ -1,0 +1,211 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-22T22:39:41.318334+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2606.17246v1",
+      "source": "arxiv",
+      "title": "GeoDisaster: Benchmarking Orchestrated Agents for Operational Disaster Geo-Intelligence",
+      "abstract": "Remote-sensing vision-language models (RS-VLMs) have advanced Earth-observation analysis toward visual interpretation and instruction-following, yet fall short of operational geo-intelligence, which demands tool-grounded spatial reasoning and structured, evidence-backed decisions. We introduce GeoDisaster, an operational geospatial disaster reasoning benchmark with 2,921 verified instances across 43 question types and five task families: deforestation monitoring, multi-hazard analysis, building-damage assessment, flood-safe routing, and Sentinel-1 SAR flood monitoring. Instances integrate heterogeneous EO/GIS evidence-optical and SAR imagery, raster masks, vector geometries, road networks, and exposure layers-spanning hazard detection, damage assessment, exposure estimation, and diagnostic report generation. Ground-truth answers are grounded in executable geospatial workflows and deterministic consistency checks, removing the need for language-model annotation. We further propose an orchestrated multi-agent framework with 18 disaster-oriented tools, where role-specialized agents coordinate through explicit execution contracts, aligned via Role-Contract Expectation Alignment (RCEA): failure-aware supervised fine-tuning combined with contract-grounded reinforcement learning over dense step-level signals. Experiments show that GeoDisaster challenges existing RS-VLMs and agentic systems, while RCEA improves tool use, evidence grounding, state consistency, and decision generation.",
+      "authors": [
+        "Maram Hasan",
+        "Aman Verma",
+        "Savitra Roy",
+        "Hariseetharam Gunduboina",
+        "Daksh Jain",
+        "Muhammad Haris Khan",
+        "Subhasis Chaudhuri",
+        "Biplab Banerjee"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.MA"
+      ],
+      "published": "2026-06-15T19:46:10+00:00",
+      "link": "https://arxiv.org/pdf/2606.17246v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "flood-safe routing and Sentinel-1 SAR flood monitoring in disaster benchmark",
+      "llm_evidence_cn": "灾难基准中包含洪水安全路径规划和Sentinel-1 SAR洪水监测",
+      "llm_evidence": "灾难基准中包含洪水安全路径规划和Sentinel-1 SAR洪水监测",
+      "canonical_evidence": "灾难基准中包含洪水安全路径规划和Sentinel-1 SAR洪水监测",
+      "llm_tldr_en": "Introduces GeoDisaster, a benchmark for disaster reasoning with tasks including flood-safe routing and SAR flood monitoring, integrating heterogeneous geospatial data for operational flood intelligence.",
+      "llm_tldr_cn": "该论文提出了GeoDisaster基准测试，涵盖43种问题类型和五大任务系列，包括洪水安全路径规划和Sentinel-1 SAR洪水监测。该基准整合了光学与SAR影像、栅格掩膜、矢量几何、路网和暴露图层等多种地理空间数据，用于评估编排智能体在操作级灾害地理智能中的表现。实验结果展示了当前模型在洪水路由和监测方面的能力与不足，为城市洪水应急响应和风险评估提供了标准化评测平台。该基准有助于推动自动化和智能化的洪水管理与减灾决策。",
+      "llm_tldr": "该论文提出了GeoDisaster基准测试，涵盖43种问题类型和五大任务系列，包括洪水安全路径规划和Sentinel-1 SAR洪水监测。该基准整合了光学与SAR影像、栅格掩膜、矢量几何、路网和暴露图层等多种地理空间数据，用于评估编排智能体在操作级灾害地理智能中的表现。实验结果展示了当前模型在洪水路由和监测方面的能力与不足，为城市洪水应急响应和风险评估提供了标准化评测平台。该基准有助于推动自动化和智能化的洪水管理与减灾决策。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.17403v1",
+      "source": "arxiv",
+      "title": "Bridging Spatial And Frequency Views For Disaster Assessment: Benefits And Limitations",
+      "abstract": "Rapid assessment of building damage from satellite imagery is essential for effective disaster response and recovery. While most deep learning methods rely on spatial-domain features, frequency-domain representations can capture complementary structural cues such as debris patterns and collapse-induced textures. This study presents a controlled comparison of spatial-domain, frequency-domain, and dual-domain deep learning approaches for multi-class building damage classification using post-disaster imagery from the xView2 (xBD) dataset. To ensure fairness, all models are built on an EfficientNet-B0 backbone and trained under identical settings, differing only in their input representations and fusion strategies. Performance is evaluated using accuracy, macro F1-score, per-class metrics, and confusion matrices. Results show that dual-domain models provide measurable improvements over single-domain approaches. The dual spatial configuration achieves the highest test accuracy (0.4688) and lowest loss, while the spatial-only model attains the best macro F1-score (0.4254), indicating more balanced class performance. In contrast, frequency-only models perform worst and exhibit overfitting, suggesting limited generalization. Despite these gains, all models struggle to detect subtle damage levels, particularly the Minor class, due to class imbalance and fine-grained visual ambiguity. While dual-domain approaches improve detection of severe damage, challenges remain. These findings highlight the benefits and limitations of hybrid representations and motivate future work on data balancing, advanced fusion, and regularization.",
+      "authors": [
+        "Shikha V. Chandel",
+        "Yadav Raj Ghimire",
+        "Timothy Agboada",
+        "Leila Hashemi-Beni"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-06-16T01:35:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.17403v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "deep learning comparison of spatial and frequency domain for building damage classification, applicable to urban flood damage assessment",
+      "llm_evidence_cn": "深度学习方法比较空间域和频率域的建筑损伤分类，适用于城市洪水损害评估",
+      "llm_evidence": "深度学习方法比较空间域和频率域的建筑损伤分类，适用于城市洪水损害评估",
+      "canonical_evidence": "深度学习方法比较空间域和频率域的建筑损伤分类，适用于城市洪水损害评估",
+      "llm_tldr_en": "Compares spatial-, frequency-, and dual-domain CNNs for building damage classification from post-disaster satellite imagery; dual-domain achieves best accuracy, suggesting potential for rapid flood damage mapping.",
+      "llm_tldr_cn": "该论文系统比较了空间域、频率域和双域深度学习方法在卫星图像建筑损伤分类上的性能。实验基于xView2数据集，所有模型使用EfficientNet-B0骨干。结果显示双域融合模型在分类精度上最优。该方法可直接用于洪水后建筑损坏快速制图，为城市洪水风险评估提供定量工具。",
+      "llm_tldr": "该论文系统比较了空间域、频率域和双域深度学习方法在卫星图像建筑损伤分类上的性能。实验基于xView2数据集，所有模型使用EfficientNet-B0骨干。结果显示双域融合模型在分类精度上最优。该方法可直接用于洪水后建筑损坏快速制图，为城市洪水风险评估提供定量工具。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for urban flood risk assessment",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.20069v1",
+      "source": "arxiv",
+      "title": "A minimum-risk and cost-efficient two-sample sequential testing framework for the shifted exponential models with application to precipitation data",
+      "abstract": "This paper investigates the problem of comparing the location parameters of two shifted exponential models through a novel double sequential sampling framework. The proposed hypothesis testing procedure is developed by controlling the type I error probability at a preassigned level while minimizing a loss function that incorporates both the type II error probability and the associated sampling cost. The corresponding optimal fixed-sample-size expressions are shown to depend on unknown scale parameters, rendering the desired testing accuracies unattainable in practice under fixed-sample designs. To overcome this difficulty, a double sequential sampling procedure is proposed to test the difference between location parameters when the scale parameters are unknown and unequal. The proposed methodology is shown to possess desirable asymptotic properties, including first-order efficiency, second-order efficiency, and second-order risk efficiency. Extensive simulation studies and a real-data application that involves heavy precipitation episodes at meteorological stations demonstrate the practical effectiveness and applicability of the proposed procedure.",
+      "authors": [
+        "Ashwani Rajput",
+        "Neeraj Joshi"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME"
+      ],
+      "published": "2026-06-18T10:42:25+00:00",
+      "link": "https://arxiv.org/pdf/2606.20069v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Precipitation data analysis for pluvial flood studies",
+      "llm_evidence_cn": "降水数据用于暴雨洪水研究的统计方法",
+      "llm_evidence": "降水数据用于暴雨洪水研究的统计方法",
+      "canonical_evidence": "降水数据用于暴雨洪水研究的统计方法",
+      "llm_tldr_en": "A two-sample sequential testing framework for shifted exponential models is applied to precipitation data, enabling cost-efficient hypothesis testing with controlled error rates, useful for flood frequency analysis.",
+      "llm_tldr_cn": "该论文针对移位指数模型提出了一种双样本顺序检验框架，通过控制第一类错误概率并最小化包含第二类错误和采样成本的损失函数，实现了高效统计推断。将该方法应用于降水数据，可有效比较不同时期或区域的降水分布差异，为评估暴雨洪水的变化趋势提供统计工具。该框架在保证检验精度的同时降低了采样成本，对城市洪水风险研究具有方法论价值。",
+      "llm_tldr": "该论文针对移位指数模型提出了一种双样本顺序检验框架，通过控制第一类错误概率并最小化包含第二类错误和采样成本的损失函数，实现了高效统计推断。将该方法应用于降水数据，可有效比较不同时期或区域的降水分布差异，为评估暴雨洪水的变化趋势提供统计工具。该框架在保证检验精度的同时降低了采样成本，对城市洪水风险研究具有方法论价值。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "pluvial flooding causes and impacts in urban areas",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.19642v1",
+      "source": "arxiv",
+      "title": "Rigorous uncertainty quantification of probabilistic AI weather forecasts with conformal prediction",
+      "abstract": "Probabilistic weather forecasting is undergoing rapid transformation with artificial intelligence (AI). In traditional numerical weather prediction, computing power can limit how well ensemble forecasts approximate the unknown statistical distribution of future states. AI models facilitate larger ensembles and are trained with probabilistic considerations, ideally leading to better uncertainty quantification. Forecasts from these state-of-the-art models are often considered well-calibrated. However, here we show that the statistical coverage of such models, the ultimate measure of calibration, can struggle, especially on extreme events. To address this shortcoming, we employ conformal prediction, a class of statistical methods that mathematically guarantees coverage under no distributional assumptions, unlike previous post-processing techniques. We apply online conformal prediction to temperature and precipitation forecasts (including extremes) of three leading global weather models, GenCast, NeuralGCM, and AIFS-ENS, ensuring calibrated uncertainty at no expense to other probabilistic metrics. This post-processing method can be applied to any forecasting model.",
+      "authors": [
+        "Anna Asch",
+        "Raphael Rossellini",
+        "Pedram Hassanzadeh",
+        "Rebecca Willett"
+      ],
+      "primary_category": "physics.ao-ph",
+      "categories": [
+        "physics.ao-ph",
+        "stat.AP",
+        "stat.ML"
+      ],
+      "published": "2026-06-17T22:41:20+00:00",
+      "link": "https://arxiv.org/pdf/2606.19642v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "uses conformal prediction to improve AI weather forecast calibration for extreme events, applicable to urban flood risk assessment",
+      "llm_evidence_cn": "采用共形预测改进AI天气预报极端事件校准，可应用于城市洪水风险评估",
+      "llm_evidence": "采用共形预测改进AI天气预报极端事件校准，可应用于城市洪水风险评估",
+      "canonical_evidence": "采用共形预测改进AI天气预报极端事件校准，可应用于城市洪水风险评估",
+      "llm_tldr_en": "Conformal prediction improves calibration of probabilistic AI weather forecasts, especially for extreme events, enabling better uncertainty quantification for flood risk.",
+      "llm_tldr_cn": "论文针对AI天气预报在极端事件上校准不足的问题，提出采用共形预测方法对AI模型输出进行后处理，显著提升了极端降水等事件的统计覆盖率和校准度。实验表明，该方法能有效改进洪水风险预测中的概率评估可靠性，为城市洪水预警提供更稳健的不确定性量化工具。",
+      "llm_tldr": "论文针对AI天气预报在极端事件上校准不足的问题，提出采用共形预测方法对AI模型输出进行后处理，显著提升了极端降水等事件的统计覆盖率和校准度。实验表明，该方法能有效改进洪水风险预测中的概率评估可靠性，为城市洪水预警提供更稳健的不确定性量化工具。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.20034v1",
+      "source": "arxiv",
+      "title": "Exploring the potential of AlphaEarth and TESSERA embeddings for Fine-scale Local Climate Zone Mapping: A case study across five cities in Switzerland",
+      "abstract": "Understanding urban spatial morphology is critical for climate modeling, risk assessment, and sustainable urban design, and Local Climate Zone (LCZ) mapping provides the basic framework for this. However, many cities still use coarse ~100-m resolution LCZ records, which are unsuitable for fine-scale urban research. In this study, precomputed embeddings from TESSERA (Feng et al., 2025) and AlphaEarth (Brown et al., 2025) are compared to traditional Sentinel-1/2 (S1S2) composites in five Swiss cities to see if they can upscale coarse LCZ maps to 10-m resolution using an attention-based U-Net. Three experiments assess multi-city transferability, the impact of higher-resolution reference data, and temporal robustness to year-to-year phenology changes. We find that all datasets achieve strong performance with test data Intersection-over-Union (IoU) ranging from 0.59-0.69 and 0.77-0.82 in the first two experiments. TESSERA consistently outperforms both S1S2 and AlphaEarth across both settings As expected, we find that the transfer of embedding-based models from one year to another remains an open challenge. Overall, however, our results demonstrate the promising potential of embeddings derived from EO foundation models to reduce time consuming preprocessing, respectively, manual feature engineering tasks and to guide a universal deep learning-based LCZ mapping workflow. When combined with a simple location-aware attention U-Net architecture, the embeddings enhance regional transferability and scalability, supporting the development of comprehensive and reproducible fine-scale LCZ maps for global urban climate applications Improving reference data quality remains the strongest lever for further accuracy gains.",
+      "authors": [
+        "Htet Yamin Ko Ko",
+        "Clement Atzberger"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-18T10:06:42+00:00",
+      "link": "https://arxiv.org/pdf/2606.20034v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "fine-scale LCZ mapping that supports urban flood risk modeling",
+      "llm_evidence_cn": "精细尺度局部气候分区映射，可支持城市洪水风险建模",
+      "llm_evidence": "精细尺度局部气候分区映射，可支持城市洪水风险建模",
+      "canonical_evidence": "精细尺度局部气候分区映射，可支持城市洪水风险建模",
+      "llm_tldr_en": "This paper explores using precomputed embeddings from AlphaEarth and TESSERA to upscale coarse LCZ maps to 10m resolution, which is beneficial for urban climate and flood risk assessment.",
+      "llm_tldr_cn": "该论文研究了利用AlphaEarth和TESSERA预训练嵌入将粗分辨率（~100米）局部气候分区图升尺度至10米分辨率，使用注意力U-Net实现。在瑞士五个城市的实验表明该方法具有多城市迁移能力。精细的LCZ图对于城市气候建模和洪水风险评估至关重要，该研究为缺少高分辨率LCZ的城市提供了解决方案。",
+      "llm_tldr": "该论文研究了利用AlphaEarth和TESSERA预训练嵌入将粗分辨率（~100米）局部气候分区图升尺度至10米分辨率，使用注意力U-Net实现。在瑞士五个城市的实验表明该方法具有多城市迁移能力。精细的LCZ图对于城市气候建模和洪水风险评估至关重要，该研究为缺少高分辨率LCZ的城市提供了解决方案。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

@@ -1,0 +1,2874 @@
+Title: A minimum-risk and cost-efficient two-sample sequential testing framework for the shifted exponential models with application to precipitation data
+
+URL Source: https://arxiv.org/pdf/2606.20069v1
+
+Published Time: Fri, 19 Jun 2026 00:53:47 GMT
+
+Number of Pages: 25
+
+Markdown Content:
+# A minimum-risk and cost-efficient two-sample sequential testing framework for the shifted exponential models with application to precipitation data 
+
+Ashwani Rajput ∗1 and Neeraj Joshi †‡ 11Department of Mathematics, Indian Institute of Technology Delhi, New Delhi, India June 19, 2026 
+
+Abstract: This paper investigates the problem of comparing the location parameters of two shifted exponential models through a novel double sequential sampling framework. The proposed hypothesis testing procedure is developed by controlling the type I error probability at a preassigned level while minimizing a loss function that incorporates both the type II error probability and the associated sampling cost. The corresponding optimal fixed-sample-size expressions are shown to depend on unknown scale parameters, rendering the desired testing accuracies unattainable in practice under fixed-sample designs. To overcome this difficulty, a double sequential sampling procedure is proposed to test the difference between location parameters when the scale parameters are unknown and unequal. The proposed methodology is shown to possess desirable asymptotic properties, including first-order efficiency, second-order efficiency, and second-order risk efficiency. Extensive simulation studies and a real-data application that involves heavy precipitation episodes at meteorological stations demonstrate the practical effectiveness and applicability of the proposed procedure. 
+
+Keywords: Cost, Exponential distribution, Hypothesis testing, Loss function, Minimum risk, Precipitation, Sequential sampling. 
+
+# 1 Introduction 
+
+Comparison of time-to-event characteristics in two treatment groups or populations is crucial in many applied domains including medicine, environmental sciences, reliability engineering, industrial quality control, etc. For example, in medical experiments, the clinician may be interested in determining whether a new drug is more effective in treating patients than an existing drug. In environmental studies, an experimenter may like to compare the inter-arrival patterns of natural phenomenon, such as precipitation episodes, across different geographical locations. Statistical inference with respect to such investigations requires the use of suitable stochastic models that can capture the minimum guaranteed durations or inter-arrival patterns of events across different populations. In practical scenarios, the exponential distribution is widely utilized to model inter-arrival times due to its analytical tractability and relevance in studies involving constant (or near constant) event occurrence rates. In certain experiments, the event of interest often exhibits a minimum duration before its next occurrence. For example, due to prevailing atmospheric circumstances, successive precipitation episodes in a location may be separated by a baseline minimum inter-arrival period. In such cases a two-parameter or shifted exponential distribution appears to be a more realistic model because it contains a location parameter representing a baseline inter-arrival shift or minimum guaranteed duration. Consequently, statistical techniques for comparing minimum guaranteed durations or location parameters in exponentially     
+
+> ∗ORCID: 0009-0006-8847-8325
+> †ORCID: 0000-0001-9017-4255
+> ‡Corresponding Author: Neeraj Joshi, Department of Mathematics, Indian Institute of Technology Delhi, Hauz Khas, New Delhi, 110016, India. Email: njoshi@maths.iitd.ac.in
+
+1
+
+> arXiv:2606.20069v1 [stat.ME] 18 Jun 2026
+
+distributed populations continue to be highly relevant in the literature. Readers may refer to Kumar and Patel (1971), Ranganathan and Kale (1979), Bayoud and Kittaneh (2016), and Krishnamoorthy and Xia (2017) for an overview of two-sample comparison problems involving shifted exponential models. Inferential techniques for the aforementioned comparison problems are often designed within fixed-sample frameworks, selected to meet the desired estimation and testing accuracies. However, sometimes these prescribed sample sizes are quite large and can result in significant experimental costs, longer observation periods, and inefficient utilization of available resources. In such scenarios, researchers are naturally motivated to adopt optimal alternative methods. This is where sequential sampling designs can help in an efficient manner. Sequential techniques allow data collection one-by-one or in stages, thereby reducing unnecessary observations while achieving desired inferential accuracies. Another difficulty in designing fixed-sample statistical techniques is that the associated optimal sample size under given inferential constraints depends on the unknown nuisance parameter(s), creating a barrier in matching the desired statistical inference. This major practical challenge motivates the use of adaptive sequential strategies that can fine-tune the necessary sample size while updating the estimates of nuisance parameter stepwise. When one-by-one sequential sampling seems difficult, practitioners may adopt the idea of collecting data sequentially in groups or stages for operational convenience. Motivated by these challenges, some researchers have developed sequential and multistage estimation and testing procedures for two-sample comparison problems under shifted exponential models. For a brief review, see Mukhopadhyay and Hamdy (1984), Mukhopadhyay and Darmanto (1988), Mukhopadhyay and Padmanabhan (1993), Isogai and Futschik (2010), Isogai and Uno (2018), Mukhopadhyay and Bapat (2016), and Mukhopadhyay and Aloufi (2024). Recently, Zhuang and Bapat (2022) considered the problem of testing the difference in locations of two shifted exponential models using sequential techniques. Specifically, the authors developed two-stage and purely sequential procedures to determine the appropriate sample sizes while controlling both type I and type II error probabilities at preassigned levels. Similar kind of testing frameworks can be found in Mukhopadhyay and Zhuang (2019) and Rajput and Joshi (2025), however the practical context is different in these papers. The methodologies proposed in the above-mentioned papers are quite useful in controlling error probabilities while preserving other statistical accuracies. Nevertheless, these papers do not explicitly focus on achieving both error control and cost optimization simultaneously within a unified decision-theoretic framework. This significant literature gap motivates us to re-look at the sequential two-sample exponential testing framework in the present paper. Our contributions in this research are summarized below. 1. To combine power performance and economical sampling, we propose a novel loss function which incorporates type II error probability together with the sampling cost. We fix the type I error probability at a predetermined low level while minimizing the expected value of this combined loss function. 2. Since the optimal sample size arising from minimizing the expected loss (or risk) depends on the unknown scale parameters, the required precision cannot be achieved with a fixed sample statistical technique. Hence, we develop a novel double sequential sampling approach to compare minimum inter-arrival durations arising from two independent shifted exponential populations. This technique helps us to reduce the sampling operations substantially while achieving the other optimality criteria. 3. We deduce several theoretical optimality criteria (such as first- and second-order efficiency and risk efficiency) for the proposed testing framework and achieve the same while working with simulated datasets. 4. As an illustration, we present an extensive case study related to precipitation episodes in two different locations. The proposed real-data illustration highlights the applied flavor of the proposed testing framework. The subsequent sections of the paper are structured as follows. In Section 2, we describe a real-data scenario related to precipitation episodes to motivate the proposed testing problem. The statistical model and formulation of the hypothesis 2testing problem are described in Section 3. We establish that this problem cannot be tackled with any fixed sample procedure, and a sequential technique is required to deal with it. A novel double sequential sampling strategy with the associated asymptotic properties is the essence of Section 4. In Section 5, we present an extensive simulation study to assess the precision of the proposed theoretical properties under various parameter configurations. We also present a brief power comparison and sensitivity analysis in Section 5. The precipitation data presented in Section 2 is studied in detail in Section 6 in the context of our proposed testing problem. Finally, we conclude the paper in Section 7 with a brief discussion and future scope of the present research. All theoretical proofs are provided in Appendix. 
+
+# 2 A Motivating Real Data Example on the Heavy Precipitation Episodes 
+
+To motivate the proposed methodology and illustrate its practical relevance, we consider a real-world data set involving the occurrence of heavy precipitation episodes. Data are obtained from the Global Historical Climatology Network-Daily (GHCN-Daily or GHCNd) archives maintained by the National Centers for Environmental Information (NCEI). The analysis is conducted for the following two meteorological stations located in the Pacific Northwest region of the United States: 
+
+• Seattle-Tacoma International Airport, Washington, USA (Station ID: USW00024233), 
+
+• Portland International Airport, Oregon, USA (Station ID: USW00024229). Figure 1 displays the geographical locations of the two stations, both of which are influenced by maritime climatic conditions and exhibit pronounced wet-season precipitation patterns. The study focuses on the wet season that spans October through April for the years 2000-2026. Daily precipitation measurements are recorded in the variable PRCP , expressed in tenths of millimeters. A day is classified as a heavy precipitation day whenever PRCP ≥ 200 , corresponding to a precipitation amount of at least 20 mm. Heavy precipitation associated with a single meteorological system may persist over several consecutive days. As a result, individual exceedances are grouped into clusters, with each cluster representing heavy precipitation episodes. To reduce short-range temporal dependence among exceedances, a de-clustering procedure is employed in which consecutive heavy precipitation days, or exceedances separated by at most two intervening non-exceedance days, are treated as belonging to the same episode. Thus, two episodes are regarded as independent only when they are separated by at least three non-heavy precipitation days. The primary quantity of interest is the inter-arrival time between successive independent heavy precipitation episodes. For each wet season, the inter-arrival time is defined as the number of days between the end of one episode and the beginning of the next episode. Restricting the analysis to individual wet seasons avoids artificially inflated waiting times arising from the relatively dry summer months. The corresponding station records are publicly available through the NCEI archive at the following link: 
+
+https://www.ncei.noaa.gov/data/global-historical-climatology-network-daily/access/ 
+
+These datasets provide a motivating real-world setting for studying the stochastic behavior of inter-arrival times associated with heavy precipitation episodes. In particular, an important practical question is whether the minimum inter-arrival times differ significantly between the two stations. This comparison is of considerable practical importance for understanding the patterns of extreme precipitation events in geographically similar regions. It is naturally desired to perform such a comparison using an optimal statistical hypothesis testing approach. A detailed analysis of this problem using the proposed sequential testing framework is presented in Section 6. 33 The Problem Formulation 
+
+Consider two independent two-parameter exponential random variables 𝑋 and 𝑌 with probability density functions (PDFs), 
+
+𝑓 (𝑥 ; 𝜇 1, 𝜎 1) and 𝑓 (𝑦 ; 𝜇 2, 𝜎 2), respectively, where 
+
+𝑓 (𝑡 ; 𝜇, 𝜎 ) = 1
+
+𝜎 exp 
+
+
+
+− 1
+
+𝜎 (𝑡 − 𝜇 )
+
+
+
+𝐼 (𝑡 ≥ 𝜇 ), 𝜎 > 0, 𝜇 > 0. (1) Here, 𝐼 (·) is the indicator function and the parameters 𝜇 and 𝜎 are the unknown location and scale parameters, respectively. Suppose that we take 𝑛 1 samples from population 𝑋 and 𝑛 2 samples from population 𝑌 , and let 𝒏 = (𝑛 1, 𝑛 2). Then, the maximum likelihood (ML) estimators for 𝜇 1 and 𝜇 2 are given by 
+
+𝑋 𝑛 1 (1) = min (𝑋 1, 𝑋 2, . . . , 𝑋 𝑛 1 ) and 𝑌 𝑛 2 (1) = min (𝑌 1, 𝑌 2, . . . , 𝑌 𝑛 2 ). (2) Also, for 𝑛 1 ≥ 2 and 𝑛 2 ≥ 2, uniformly minimum variance unbiased estimators (UMVUEs) of 𝜎 1 and 𝜎 2 can be obtained as 
+
+𝑈 (1) 
+
+> 𝑛 1
+
+= 1
+
+𝑛 1 − 1
+
+> 𝑛 1
+
+∑︁ 
+
+> 𝑖 =1
+
+ 𝑋 𝑖 − 𝑋 𝑛 1 (1)
+
+ and 𝑈 (2) 
+
+> 𝑛 2
+
+= 1
+
+𝑛 2 − 1
+
+> 𝑛 2
+
+∑︁ 
+
+> 𝑖 =1
+
+ 𝑌 𝑖 − 𝑌 𝑛 2 (1)
+
+ . (3) The PDF of 𝑅 𝒏 = 𝑋 𝑛 1 (1) − 𝑌 𝑛 2 (1) − ( 𝜇 1 − 𝜇 2) can be obtained as 
+
+𝑓 𝑅 𝒏 (𝑟 ) =
+
+ 𝜎 1 
+
+> 𝑛 1
+
++ 𝜎 2
+
+> 𝑛 2
+
+ −1
+
+exp 
+
+ 𝑛 2𝑟 𝜎 2
+
+
+
+, 𝑟 ≤ 0,
+
+ 𝜎 1 
+
+> 𝑛 1
+
++ 𝜎 2
+
+> 𝑛 2
+
+ −1
+
+exp 
+
+ −𝑛 1𝑟 𝜎 1
+
+
+
+, 𝑟 > 0.
+
+(4) We are interested in the following hypothesis testing setup: 
+
+𝐻 0 : 𝜇 1 − 𝜇 2 = Δ 0 vs 𝐻 1 : 𝜇 1 − 𝜇 2 = Δ 1 (> Δ0), (5) where Δ0 and Δ1 are prespecified. Let us denote the parameter vector as 𝜽 = (𝜇 1, 𝜇 2, 𝜎 1, 𝜎 2), 𝝁 = (𝜇 1, 𝜇 2) and 𝝈 = (𝜎 1, 𝜎 2).In order to test the hypothesis (5), a logical decision rule can be given as Reject 𝐻 0 if and only if 𝑋 𝑛 1 (1) − 𝑌 𝑛 2 (1) > 𝑏, (6) where 𝑏 represents a critical value defined later in (20), 𝑋 𝑛 (1) and 𝑌 𝑛 (1) are as described in (2). The probabilities of type I and type II errors associated with the decision rule (6) are given by 
+
+P𝜽 (Type I error ) = P𝜽 
+
+ 𝑋 𝑛 1 (1) − 𝑌 𝑛 2 (1) > 𝑏 | 𝐻 0
+
+ =
+
+ 𝜎 1
+
+𝑛 1
+
++ 𝜎 2
+
+𝑛 2
+
+ −1 𝜎 1
+
+𝑛 1
+
+exp 
+
+
+
+− 𝑛 1 (𝑏 − Δ0)
+
+𝜎 1
+
+
+
+, (7) 
+
+P𝜽 (Type II error ) = P𝜽 
+
+ 𝑋 𝑛 1 (1) − 𝑌 𝑛 2 (1) < 𝑏 | 𝐻 1
+
+ =
+
+ 𝜎 1
+
+𝑛 1
+
++ 𝜎 2
+
+𝑛 2
+
+ −1 𝜎 2
+
+𝑛 2
+
+exp 
+
+
+
+− 𝑛 2 (Δ1 − 𝑏 )
+
+𝜎 2
+
+
+
+. (8) The objective is to control the type I error probability at a prespecified level while simultaneously minimizing the type II error probability, taking into account the associated sampling cost. To achieve this, we introduce the following loss function: 
+
+𝐿 𝒏 ( 𝝁 , 𝒄 ) = 𝐴 [P𝜽 (Type II error )] + 𝐶 𝒏 (𝝈 ), (9) where, 𝐴 is a fixed known positive constant, 𝒄 = (𝑐 1, 𝑐 2) and 𝐶 𝒏 (𝝈 ) > 0 represents the total cost of collecting (𝑛 1 + 𝑛 2)
+
+observations, defined as 
+
+𝐶 𝒏 (𝝈 ) = 𝑐 1𝑛 1𝜎 −11 + 𝑐 2𝑛 2𝜎 −12 . (10) 4The form of this cost function depends on the specific problem and is determined by the experimenter. It is natural to assume that the cost per observation varies inversely with its uncertainty; consequently, the cost increases (decreases) as the variance or standard deviation decreases (increases). The choice of the weight parameter 𝐴 , including its units, should likewise be made by the experimenter in accordance with the context of the problem under consideration. The constant 𝐴 
+
+can be interpreted as the penalty associated with committing a type II error. Consequently, larger values of 𝐴 are appropriate in situations where erroneous decisions are costly, while smaller values of 𝐴 may be preferred when moderate inaccuracies are acceptable or when reducing the sampling cost is of greater importance. The associated fixed sample risk (or expected loss) function is defined as 
+
+𝑅 𝒏 ( 𝝁 , 𝒄 ) = 𝐸 𝜽 (𝐿 𝒏 ( 𝝁 , 𝒄 )) 
+
+= 𝐴 
+
+" 𝜎 1
+
+𝑛 1
+
++ 𝜎 2
+
+𝑛 2
+
+ −1 𝜎 2
+
+𝑛 2
+
+exp 
+
+
+
+− 𝑛 2 (Δ1 − 𝑏 )
+
+𝜎 2
+
+#
+
++ 𝑐 1𝑛 1𝜎 −11 + 𝑐 2𝑛 2𝜎 −12 . (11) Since the variability in the two populations is governed by their respective scale parameters, it is justified to allocate the sample sizes proportionally. To ensure that the two samples contribute equally to the inference regarding 𝜇 1 and 𝜇 2, we require that the Fisher information contained in the minimum order statistics 𝑋 𝑛 1 (1) and 𝑌 𝑛 2 (1) about the respective location parameters 𝜇 1 and 𝜇 2 be equal. This condition holds if and only if 
+
+𝑛 21
+
+𝜎 21
+
+= 𝑛 22
+
+𝜎 22
+
+or equivalently 𝑛 1
+
+𝑛 2
+
+= 𝜎 1
+
+𝜎 2
+
+= 𝑢, (12) where 𝑢 is an unknown positive constant. It may be noted that the same condition also ensures that 
+
+E  𝑋 𝑛 1 (1) − 𝑌 𝑛 2 (1)
+
+ = 𝜇 1 − 𝜇 2.
+
+We now derive the appropriate value of 𝑏 while ensuring that 
+
+Δ0 ≤ 𝑏 ≤ Δ1. (13) In view of (12), the probabilities of type I and type II errors can be expressed as 
+
+P𝜽 (Type I error ) = P𝜽 
+
+ 𝑋 𝑛 1 (1) − 𝑌 𝑛 2 (1) > 𝑏 | 𝐻 0
+
+ = 12 exp 
+
+
+
+− 𝑛 1 (𝑏 − Δ0)
+
+𝜎 1
+
+
+
+, (14) 
+
+P𝜽 (Type II error ) = P𝜽 
+
+ 𝑋 𝑛 1 (1) − 𝑌 𝑛 2 (1) < 𝑏 | 𝐻 1
+
+ = 12 exp 
+
+
+
+− 𝑛 1 (Δ1 − 𝑏 )
+
+𝜎 1
+
+
+
+. (15) Similarly, the cost function can be expressed as 
+
+𝐶 𝑛 1 (𝜎 1) = (𝑐 1 + 𝑐 2)𝑛 1𝜎 −11 . (16) We require that the type I error probability be controlled at a prespecified level 𝛼 , i.e., 12 exp 
+
+
+
+− 𝑛 1 (𝑏 − Δ0)
+
+𝜎 1
+
+
+
+= (≤) 𝛼, 
+
+which provides a reasonable choice for 𝑏 as 
+
+𝑏 = Δ 0 − 𝜎 1
+
+𝑛 1
+
+log (2𝛼 ). (17) Thus, the type II error probability can be written as 
+
+P𝜽 (Type II error ) = 12 exp 
+
+
+
+− 𝑛 1
+
+𝜎 1
+
+(Δ1 − Δ0) − log (2𝛼 )
+
+
+
+,
+
+5and the associated fixed sample risk function can be defined as 
+
+𝑅 𝑛 1 ( 𝝁 , 𝒄 ) = 𝐸 𝜽 (𝐿 𝑛 1 ( 𝝁 , 𝒄 )) 
+
+= 𝐴 
+
+ 12 exp 
+
+
+
+− 𝑛 1
+
+𝜎 1
+
+(Δ1 − Δ0) − log (2𝛼 )
+
+ 
+
++ ( 𝑐 1 + 𝑐 2)𝑛 1𝜎 −11 . (18) To simplify optimization, we treat 𝑛 1 as a continuous variable and differentiate the risk function in (11), which is convex in 𝑛 1, with respect to 𝑛 1. Setting the derivative equal to zero, we obtain 
+
+− 𝐴 
+
+2 exp 
+
+
+
+− 𝑛 1
+
+𝜎 1
+
+(Δ1 − Δ0) − log (2𝛼 )
+
+  Δ1 − Δ0
+
+𝜎 1
+
+
+
++ ( 𝑐 1 + 𝑐 2)𝜎 −11 = 0,
+
+which gives us the expression of optimal fixed sample size 𝑛 ∗ 
+
+> 1
+
+as follows. 
+
+𝑛 1 ≡ 𝑛 ∗ 
+
+> 1
+
+= 𝜎 1
+
+(Δ1 − Δ0) log 
+
+ 𝐴 (Δ1 − Δ0)
+
+4𝛼 (𝑐 1 + 𝑐 2)
+
+
+
+. (19) Putting this value of 𝑛 1 in (17), we get 
+
+𝑏 = Δ 0 − (Δ1 − Δ0) log (2𝛼 )
+
+log 
+
+n 𝐴 (Δ1 −Δ0 ) 
+
+> 4𝛼 (𝑐 1+𝑐 2)
+
+o . (20) Thus, under the optimal allocation rule given in (12), the optimal sample size 𝑛 ∗ 
+
+> 2
+
+can be obtained as 
+
+𝑛 2 ≡ 𝑛 ∗ 
+
+> 2
+
+= 𝜎 2
+
+(Δ1 − Δ0) log 
+
+ 𝐴 (Δ1 − Δ0)
+
+4𝛼 (𝑐 1 + 𝑐 2)
+
+
+
+, (21) and the corresponding minimum risk is 
+
+𝑅 𝒏 ∗ ( 𝝁 , 𝒄 ) =
+
+ 𝑐 1 + 𝑐 2
+
+Δ1 − Δ0
+
+  
+
+1 + log 
+
+ 𝐴 (Δ1 − Δ0)
+
+4𝛼 (𝑐 1 + 𝑐 2)
+
+ 
+
+, (22) where, 𝒏 ∗ = (𝑛 ∗
+
+> 1
+
+, 𝑛 ∗
+
+> 2
+
+).Based on (19) and (21), it follows that the optimal fixed sample sizes are given by 𝑛 ∗ 
+
+> 1
+
+and 𝑛 ∗ 
+
+> 2
+
+when 𝜎 1 and 𝜎 2 are known. However, in practice, both 𝜎 1 and 𝜎 2 are unknown, therefore optimal sample sizes 𝑛 ∗ 
+
+> 1
+
+and 𝑛 ∗ 
+
+> 2
+
+cannot be determined using any fixed sample procedure. Therefore, it becomes necessary to adopt an appropriate sequential or multistage sampling strategy to address this problem. Such procedures allow the sample sizes to be adjusted according to the observed variability, thereby ensuring uniform control over the estimation error. A wide range of sequential and multistage sampling procedures have been proposed in the literature, each characterized by distinct methodologies, along with their respective advantages and limitations. A comprehensive discussion of these procedures can be found in Mukhopadhyay and de Silva (2009). In the present study, we employ a double sequential sampling procedure to estimate the required sample sizes and achieve the desired statistical accuracy. 
+
+# 4 A Double Sequential Sampling Strategy 
+
+Following Hu (2020), we propose the following methodology to collect the data: we begin with initial samples of sizes 𝑚 (≥ 2),denoted by 𝑋 1, . . . , 𝑋 𝑚 and 𝑌 1, . . . , 𝑌 𝑚 , drawn from populations 𝑋 and 𝑌 , respectively, as defined in (1). Furthermore, we consider 
+
+𝑑 𝛼 = 1
+
+(Δ1 − Δ0) log 
+
+ 𝐴 (Δ1 − Δ0)
+
+4𝛼 (𝑐 1 + 𝑐 2)
+
+
+
+. (23) 6Then, for 𝑖 = 1, 2, we fix the constants 𝜌 𝑖 ∈ ( 0, 1) and integers 𝑘 𝑖 (≥ 2). The parameters 𝜌 1 and 𝜌 2, as well as 𝑘 1 and 𝑘 2
+
+can be taken to be equal if desired. Subsequently, 𝑘 𝑖 additional observations are collected at each stage sequentially until the following stopping criterion is met for the first time 
+
+𝐿 𝑖 ≡ 𝐿 𝑖 (𝑘 𝑖 , 𝜌 𝑖 ) = inf 
+
+n
+
+𝑛 ≥ 0 : 𝑚 + 𝑘 𝑖 𝑛 ≥ 𝜌 𝑖 𝑈 (𝑖 )  
+
+> 𝑚 +𝑘 𝑖 𝑛
+
+𝑑 𝛼 
+
+o
+
+. (24) The total sample size at the stopping point is 
+
+𝑇 𝑖 ≡ 𝑇 𝑖 (𝑘 𝑖 , 𝜌 𝑖 ) = 𝑚 + 𝑘 𝑖 𝐿 𝑖 .
+
+We then proceed by collecting observations sequentially, one at a time, until the following stopping rule (25) is satisfied for the first time 
+
+𝑁 𝑖 ≡ 𝑁 𝑖 (𝑘 𝑖 , 𝜌 𝑖 ) = inf 
+
+n
+
+𝑛 ≥ 𝑇 𝑖 : 𝑛 ≥ 𝑈 (𝑖 ) 
+
+> 𝑛
+
+𝑑 𝛼 
+
+o
+
+. (25) The sampling procedure presumes that the observations obtained from each of the two populations are collected independently of each other. Let 𝑵 = (𝑁 1, 𝑁 2) denote the vector of sample sizes. It follows that P(𝑁 𝑖 < ∞) = 1 as 𝑞 = log 
+
+ 1
+
+> 𝑐 1+𝑐 2
+
+
+
+→ ∞ 
+
+(see Chow and Robbins, 1965). Upon termination of the procedure, we obtain the final samples {𝑋 1, . . . , 𝑋 𝑁 1 ; 𝑌 1, . . . , 𝑌 𝑁 2 }.Based on these final samples, we implement the following decision rule for hypothesis testing, as defined in (6) Reject 𝐻 0 if and only if 𝑋 𝑁 1 (1) − 𝑌 𝑁 2 (1) > 𝑏, (26) where 𝑏 is specified in (20). Note that by taking 𝑘 𝑖 = 1 for 𝑖 = 1, 2 in the proposed procedure, we obtain the corresponding purely sequential sampling scheme, given by 
+
+𝑁 ′ 
+
+> 𝑖
+
+≡ 𝑁 𝑖 (1, 𝜌 𝑖 ) = inf 
+
+n
+
+𝑛 ≥ 𝑚 : 𝑛 ≥ 𝑈 (𝑖 ) 
+
+> 𝑛
+
+𝑑 𝛼 
+
+o
+
+. (27) Furthermore, we assume that the following conditions hold: 
+
+𝑚 = 𝑘 𝑖 𝑚 𝑖 0 + 1, where 𝑚 𝑖 0 > 2
+
+𝑘 𝑖 
+
+is an integer, and 𝑚 𝑛 ∗
+
+> 𝑖
+
+< 𝜌 𝑖 . (28) It may be noted that, in practice, although it is preferable to choose 𝑚 and 𝑘 𝑖 such that 𝑚 − 1 ≡ 0 (mod 𝑘 𝑖 ), this condition is not essential and may be relaxed. Therefore, minor deviations from this requirement are generally not a matter of concern. Before moving directly to the optimal asymptotic properties of the proposed sequential rule, we wish to highlight the need of such a double sequential sampling framework with a brief review of the literature in the following section. 
+
+4.1 Why Double Sequential Sampling? 
+
+Stein (1945) introduced a two-stage sampling procedure requiring only two sampling stages. However, in Stein’s procedure, the difference between the average sample number and the optimal fixed sample size is not asymptotically bounded, which may lead to substantial oversampling. To address this limitation, Anscombe (1953), Chow and Robbins (1965), and Starr (1966) (ACR) developed the theory of sequential estimation. In such procedures, observations are collected one at a time, which can be operationally demanding in practice, although these methods possess desirable asymptotic properties. Nevertheless, ACR-type designs typically involve a large number of sampling operations, making them potentially expensive to implement. In an effort to combine the advantages of two-stage and sequential methodologies, Hall (1983) proposed an accelerated sequential sampling procedure. This approach reduces the number of sampling stages by a predetermined factor while incurring only a finite increase in the total number of observations. Specifically, the procedure begins with a purely sequential phase to obtain a preliminary estimate, followed by a single-stage collection of the remaining observations in a batch. 7More recently, in a similar spirit of reducing the sampling effort, Mukhopadhyay and Wang (2020) introduced a group sequential sampling scheme in which observations are collected in batches of size 𝑘 , rather than individually. Although this approach reduces the number of sampling operations, it may result in oversampling since additional observations could be collected at the termination stage. To mitigate this issue, Hu (2020) proposed a double sequential sampling scheme. In this design, sampling is initially conducted in groups of size 𝑘 and subsequently observations are collected one-at-a-time. This hybrid approach achieves sample sizes equivalent to purely sequential procedures, while reducing the overall sampling operations. The effectiveness of the proposed double sequential sampling procedure for the comparison problem considered in this paper is demonstrated through Theorems 1-3, as well as the data analysis presented in Sections 5 and 6, respectively. In practical applications, the selection of 𝑘 and 𝜌 should be carried out carefully to maintain an appropriate balance between operational feasibility and sampling cost. When the cost per observation is high, it is generally preferable to choose a smaller value of 𝑘 to limit excessive oversampling, together with a moderate or relatively large value of 𝜌 , depending on the desired level of operational convenience. In contrast, when both time and operational considerations are of greater importance, larger values of 𝑘 and 𝜌 may be adopted, as they can substantially reduce the number of sampling operations and improve overall efficiency. 
+
+4.2 Asymptotic Properties 
+
+We begin by establishing a preliminary result (Lemma 1), which will be instrumental in deducing the first- and second-order asymptotic properties (Theorems 1–3) of the procedure described in (24)-(25). In particular, these properties include the criterion of efficiency and consistency for the proposed double sequential sampling rule. 
+
+Lemma 1. Let 𝑁 ′ 
+
+> 𝑖
+
+be the stopping rule corresponding to the purely sequential sampling scheme (27) , and let 𝑇 𝑖 be the stopping rule defined in (24) . Then, for 𝑠 > 0, we have 
+
+P𝜽 (𝑁 ′ 
+
+> 𝑖
+
+< 𝑇 𝑖 ) = 𝑂 (𝑛 ∗− 𝑠 /2 
+
+> 𝑖
+
+), provided that 𝑚 > 𝑠 
+
+2 + 1.
+
+Theorem 1. For the double sequential sampling scheme defined in (24) -(25) along with the decision rule defined in (6) for the hypothesis testing problem (5) with fixed Δ0, Δ1, 𝑘 𝑖 ≥ 2, 0 < 𝜌 𝑖 < 1, we have as 𝑞 = log 
+
+ 1
+
+> 𝑐 1+𝑐 2
+
+
+
+→ ∞ ,(i) E𝜽 (𝑁 /𝑛 ∗) −→ 1 [first-order efficiency ],
+
+(ii) E𝜽 (𝑁 𝑖 ) = 𝑛 ∗ 
+
+> 𝑖
+
++ 𝑎 2 + 𝑜 (1), if 𝑚 > 5/2 [second-order efficiency ],where 𝑎 2 ≈ − 1/4.
+
+Theorem 2. The asymptotic second-order expansion (as 𝑞 → ∞ ) of the type I error probability associated with the decision rule (6) for the hypothesis testing problem (5) , under the same parameter settings as in Theorem 1, is given by 
+
+P𝜽,𝑵 (Type I error ) = E𝜽 
+
+" 𝜎 1
+
+𝑁 1
+
++ 𝜎 2
+
+𝑁 2
+
+ −1 𝜎 1
+
+𝑁 1
+
+exp 
+
+
+
+− 𝑁 1 (𝑏 − Δ0)
+
+𝜎 1
+
+
+
+𝐻 0
+
+#
+
+= 𝛼 + 𝑏 1 + 𝑜 (𝑞 −1),
+
+provided that 𝑚 ≥ 8, where 𝑏 1 ≈ 𝛼 𝑑 𝛼 
+
+ 38𝜎 1 − 38𝜎 2 + 𝑙 21 
+
+> 2𝜎 1
+
++ 3𝑙 1 
+
+> 4𝜎 1
+
+− 𝑙 1  
+
+> 32 𝜎 1𝜎 2𝑑 𝛼
+
+
+
+and 𝑙 1 = 𝑑 𝛼 (𝑏 − Δ0) = − log (2𝛼 ).
+
+Theorem 3. Under the same assumptions as in Theorem 1, the risk efficiency and regret of the proposed double-sequential sampling procedure are as follows: (i) Risk Efficiency: 𝑅 𝑵 (𝝁 ,𝒄 )  
+
+> 𝑅 𝒏 ∗(𝝁 ,𝒄 )
+
+→ 1,(ii) Regret: 𝑅 𝑵 ( 𝝁 , 𝒄 ) − 𝑅 𝒏 ∗ ( 𝝁 , 𝒄 ) = 𝑏 2 − 14
+
+ 𝑐 1 
+
+> 𝜎 1
+
++ 𝑐 2
+
+> 𝜎 2
+
+
+
++ 𝑜 (𝑞 −1).
+
+8where 𝑚 ≥ 4, 𝑏 2 ≈ 𝐴 exp (− 𝑙 2 )
+
+> 4𝑑 𝛼
+
+h
+
+− 34𝜎 1 + 34𝜎 2 + 𝑙 22 
+
+> 𝜎 2
+
++ 3𝑙 2 
+
+> 2𝜎 2
+
+− 𝑙 2  
+
+> 16 𝜎 1𝜎 2𝑑 𝛼
+
+i
+
+and 𝑙 2 = 𝑑 𝛼 (Δ1 − 𝑏 ) = log 
+
+n 𝐴 (Δ1 −Δ0 ) 
+
+> 2(𝑐 1+𝑐 2)
+
+o
+
+.
+
+Remark 1. Note that the constants 𝑏 1 and 𝑏 2 in Theorems 2 and 3, respectively, tend to zero as 𝑞 → ∞ .
+
+Remark 2. The regret defined in part (ii) of Theorem 1 highlights the difference in risk functions of the proposed double sequential rule and the optimal fixed sample size procedure. Under the proposed testing framework, our aim is to achieve smaller or negative regret values. 
+
+# 5 Simulation Study 
+
+We proceed to validate the theoretical results by means of a comprehensive simulation study. All simulations are conducted using the R software environment. The simulation framework is developed separately under the null and alternative hypotheses. Initially, pseudorandom samples are generated from populations 𝑋 ∼ 𝑓 (𝑥 ; 𝜇 1, 𝜎 1) and 𝑌 ∼ 𝑓 (𝑦 ; 𝜇 2, 𝜎 2), where 𝑓 (·) denotes the PDF of the two-parameter exponential distribution, as specified in (1). The following parameter configurations are considered: (i) 𝜇 1 = 25, 𝜇 2 = 20, 𝜎 1 = 9, 𝜎 2 = 12, (ii) (𝜌 1, 𝜌 2) ∈ {( 0.3, 0.4), (0.5, 0.7)} and 𝑘 1 = 𝑘 2 ∈ { 1, 4, 6}, with 𝑘 = 1 representing the purely sequential benchmark, (iii) 𝐴 = 10 3, 𝛼 = 0.05 and 𝑚 = 13, satisfying 𝑚 − 1 ≡ 0 (mod 𝑘 𝑖 ) for 𝑖 = 1, 2, and the conditions of Theorems 1-3, (iv) Under 𝐻 0, (Δ0, Δ1) = (5, 6) and (𝑛 ∗
+
+> 1
+
+, 𝑛 ∗
+
+> 2
+
+) ∈ {( 45 , 60 ), (150 , 200 ), (240 , 320 ), (450 , 600 )} ,(v) Under 𝐻 1, (Δ0, Δ1) = (4, 5) and (𝑛 ∗
+
+> 1
+
+, 𝑛 ∗
+
+> 2
+
+) ∈ {( 45 , 60 ), (120 , 160 ), (270 , 360 ), (420 , 560 )} .Subsequently, an initial sample of size 𝑚 is generated from populations 𝑓 (𝑥 ; 25 , 9) and 𝑓 (𝑦 ; 20 , 12 ), respectively. At each stage, additional 𝑘 1 and 𝑘 2 observations are drawn independently from 𝑋 and 𝑌 , respectively in a sequential manner until the stopping criterion (24) is first satisfied. Thereafter, observations are collected one at a time until the stopping rule (25) is met. This yields the terminal sample {𝑋 1, . . . , 𝑋 𝑁 1 ; 𝑌 1, . . . , 𝑌 𝑁 2 }. The procedure is replicated 10 ,000 times to evaluate the performance of (24)–(25) and the decision rule (6) in terms of first- and second-order asymptotic properties. Although the optimal fixed sample sizes 𝑛 ∗ 
+
+> 1
+
+and 𝑛 ∗ 
+
+> 2
+
+are unknown, they are computed using (19)-(21) for comparison with their corresponding estimates 𝑁 1 and 𝑁 2, respectively. These values are used to assess the performance of first- and second-order approximations across small, moderate, and large sample sizes. The simulation results under the null and alternative hypotheses are presented in Tables 2-3, with the reported quantities described in Table 1. Based on these results, several key observations are summarized below. (i) The results for the proposed double sequential sampling scheme ( 𝑘 𝑖 ≥ 2, 0 < 𝜌 𝑖 < 1) are comparable to those obtained under the purely sequential procedure ( 𝑘 𝑖 = 1). (ii) The estimates ¯𝑁 1 and ¯𝑁 2 (Column 5) closely approximate 𝑛 ∗ 
+
+> 1
+
+and 𝑛 ∗
+
+> 2
+
+, respectively, with small standard errors (SEs) across all choices of 𝑘 𝑖 and 𝜌 𝑖 .(iii) The ratios ¯ 𝑁 𝑖 /𝑛 ∗ 
+
+> 𝑖
+
+(Column 6) approach unity as the optimal sample sizes increase, demonstrating first-order efficiency. (iv) The differences ( ¯𝑁 𝑖 − 𝑛 ∗ 
+
+> 𝑖
+
+) are consistently negative, indicating slight underestimation. However, the deviations are negligible relative to 𝑛 ∗ 
+
+> 𝑖
+
+, even for large values, in accordance with Theorem 1(ii), confirming second-order efficiency. (v) Under 𝐻 0, the estimated type I error probabilities (Column 8, Table 2) remain close to the nominal level 𝛼 = 0.05, with small SEs; minor inflation is observed for smaller sample sizes. 9(vi) The risk ratios ¯ 𝜔 (Column 8, Table 3) are close to unity with negligible SEs, indicating strong first-order risk efficiency. (vii) The average regret ¯ 𝜅 (Column 9, Table 3) is negligible, except for small sample sizes, consistent with Theorem 3(ii), confirming second-order risk efficiency. (viii) The number of sampling operations required (Column 9, Table 2; Column 10, Table 3) highlights the advantage of the proposed double sequential procedure over the purely sequential approach without loss of efficiency. 
+
+5.1 Power Comparisons and Sensitivity Analysis 
+
+This section presents a brief analysis on the power and sensitivity of the proposed double sequential sampling procedure (24)-(25). 1. Power analysis 
+
+• Parameter configuration: 𝜇 1 = 25, 𝜇 2 ∈ [ 18 .04 , 22 .00 ], 𝜎 1 = 9, 𝜎 2 = 12, Δ0 = 5, 𝐴 = 10 3, 𝑘 1 = 𝑘 2 = 4, 
+
+𝜌 1 = 0.5, 𝜌 2 = 0.7, 𝑚 = 13, 𝑐 1 + 𝑐 2 = 10 −5, 𝛼 = 0.05. 
+
+• Observations: Power curves for Δ1 = 6 and 7 (Figures 2(a) and 2(b)) exhibit high power when 𝜇 1 − 𝜇 2 is close to Δ1, and decrease monotonically to zero as 𝜇 2 increases. 2. Sensitivity with respect to (𝑐 1 + 𝑐 2)
+
+• Parameter configuration: 𝜇 1 = 25, 𝜇 2 = 20, Δ0 = 5, Δ1 = 6, and (𝑐 1 + 𝑐 2) ∈ [ 10 −19 .75 , 10 2.5], with all remaining parameters held fixed. 
+
+• Observations: As shown in Figure 3, (𝑁 1, 𝑁 2) decrease approximately linearly (on a logarithmic scale) as (𝑐 1 +𝑐 2)
+
+increases. The type I error 𝛼 remains stable near its nominal level of 0 .05. The statistical power (1 − 𝛽 ) is close to unity for small (𝑐 1 +𝑐 2) (corresponding to larger optimal sample sizes), while it exhibits a slight decrease for larger 
+
+(𝑐 1 + 𝑐 2) values. Moreover, substantial differences in total sampling operations across different combinations of 
+
+𝑘 𝑖 and 𝜌 𝑖 are observed for small (𝑐 1 + 𝑐 2), whereas these differences converge as (𝑐 1 + 𝑐 2) becomes large. 3. Sensitivity with respect to 𝑚 
+
+• Parameter configuration: (Δ0, Δ1) = (5, 6) for (𝑁 1, 𝑁 2) and 𝛼 , and (3, 5) for regret; all other parameters remain as in the previous setting. The pilot sample size varies over 𝑚 ∈ [ 9, 59 ].
+
+• Observations: Figure 4 indicates that (𝑁 1, 𝑁 2), 𝛼 , and regret exhibit negligible sensitivity to 𝑚 .
+
+# 6 Illustration Using Precipitation Data 
+
+After preprocessing and declustering, the resulting datasets defined in Section 2 contain 146 inter-arrival times for Seattle-Tacoma international airport and 110 inter-arrival times for Portland international airport. As a preliminary step, the suitability of the shifted exponential distribution for modeling the inter-arrival times of heavy precipitation episodes is examined using histograms, quantile-quantile (Q-Q) plots, and empirical cumulative distribution function (ECDF) plots for both stations, as presented in Figures 5-7. The histograms display a clear right-skewed pattern with exponentially decaying densities, consistent with the proposed model. In both cases, the fitted shifted exponential curves provide a reasonable approximation to the observed distributions, although a few large waiting times are visible in the upper tails. The Q-Q plots show strong agreement between the empirical and theoretical quantiles, with only minor deviations appearing in the extreme tail regions, particularly for the Portland dataset. Likewise, the ECDFs closely follow the corresponding fitted theoretical distribution functions over most of the support. Only mild discrepancies are observed in the tail regions, while the central portions of the distributions show strong agreement. These graphical findings are further supported by the two-sided Kolmogorov-Smirnov (KS) test, which yields 𝑝 -values of 0 .6359 and 0 .2631 for the Seattle-Tacoma international airport and Portland international 10 airport datasets, respectively. Since both 𝑝 -values exceed the conventional significance level of 0 .05, the shifted exponential distribution appears to provide an adequate model for the inter-arrival times of heavy precipitation episodes at both locations. Let 𝑋 and 𝑌 denote the inter-arrival time distributions corresponding to the Seattle–Tacoma international airport and Portland international airport datasets, respectively. To implement the proposed double sequential procedure, the design parameters are chosen as Δ0 = 0, 𝛼 = 0.05 , 𝐴 = 10 , with 𝑘 1 = 𝑘 2 = 3, 𝜌 1 = 𝜌 2 = 0.6. The null value Δ0 is examined against two alternatives, namely Δ1 = 4 and Δ1 = 6. For each choice of Δ1, two values of the total cost coefficient, 
+
+(𝑐 1 + 𝑐 2) = 10 −2 and 10 −3, are considered. The pilot sample size is fixed at 𝑚 = 8. Treating processed rainfall datasets as populations, the corresponding ML estimates of the model parameters are ˆ 𝜃 1 = ˆ𝜃 2 = 4 and ˆ 𝜎 1 = 18 .669 , ˆ𝜎 2 = 22 .486. Following the sampling schemes described in (24)–(25), observations are selected using simple random sampling without replacement (SRSWOR), and the final decision is determined according to the rule given in (26). To assess the sampling variability and stability of the estimator (𝑋 𝑁 1 (1) − 𝑌 𝑁 2 (1) ), a nonparametric bootstrap procedure is additionally employed. For each case, bootstrap resampling with replacement is performed from terminal samples of sizes 𝑁 1 and 𝑁 2, respectively. Based on 𝐵 ′ = 1000 bootstrap replications, bootstrap statistics Ψ∗( 1)( 𝑁 1 , 𝑁 2 ) , . . . , Ψ∗( 𝐵 ′ )( 𝑁 1 , 𝑁 2 ) are obtained, where 
+
+Ψ∗( 𝑗 )( 𝑁 1 , 𝑁 2 ) =
+
+
+
+𝑋 ∗( 𝑗 )  
+
+> 𝑁 1(1)
+
+− 𝑌 ∗( 𝑗 ) 
+
+> 𝑁 2(1)
+
+
+
+, 𝑗 = 1, . . . , 𝐵 ′,
+
+denotes the bootstrap replicate of 𝑋 𝑁 1 (1) − 𝑌 𝑁 2 (1) . The corresponding bootstrap mean and bootstrap SE are denoted by 
+
+Ψ∗( 𝑁 1 , 𝑁 2 ) and 𝑠 Ψ∗( 𝑁 1, 𝑁 2 ) respectively. The results are presented in Table 4. It should be noted that the reported terminal sample sizes and the corresponding values of 𝑋 𝑁 1 (1) − 𝑌 𝑁 2 (1) are based on a single realization of the proposed sequential sampling procedure. In all scenarios considered, the estimated sample sizes are reasonably close to the corresponding optimal fixed-sample sizes. Moreover, the observed statistic (𝑋 𝑁 1 (1) − 𝑌 𝑁 2 (1) ) is smaller than the critical value 𝑏 , leading to a failure to reject the null hypothesis in each case. It may further be noted that the repeated zero values of 𝑋 𝑁 1 (1) − 𝑌 𝑁 2 (1) arise from the discrete nature of the inter-arrival time data and the use of the minimum order statistic as the estimator of 𝜇 , due to which the terminal samples from both stations frequently attain the same minimum value. The bootstrap summaries indicate moderate variability in the estimator 𝑋 𝑁 1 (1) − 𝑌 𝑁 2 (1) , which is expected since the procedure is based on extreme order statistics. Nevertheless, the bootstrap mean estimates remain close to the observed statistic, suggesting reasonable stability of the estimated difference under repeated resampling. Consequently, the analysis does not provide sufficient statistical evidence to conclude that the minimum inter-arrival times of heavy precipitation episodes differ between the two stations. 
+
+# 7 Concluding Thoughts 
+
+In classical hypothesis testing, fixing the type I error probability generally leads to a reduction in the type II error probability as the sample size increases. A common approach is therefore to prescribe both error probabilities in advance and determine the required sample size accordingly. However, such a framework may create an unrealistic impression that observations can be collected without cost or that the available sampling budget is effectively unlimited. To address this limitation, the present work adopts a cost-efficient testing framework in which the type I error probability is controlled at a preassigned level while the type II error probability is minimized, equivalently maximizing the power of the test, subject to a given sampling cost constraint. Motivated by this objective, the paper develops double sequential sampling procedures for testing the difference between the location parameters of two shifted exponential distributions with unknown and unequal scale parameters. Since the optimal fixed sample size expressions involve nuisance parameters, the proposed sequential procedure provides a practically implementable alternative. The proposed methodology is computationally efficient and, through suitable choices of the design parameters (𝜌 𝑖 , 𝑘 𝑖 ), requires fewer sampling operations compared with existing other conventional sequential procedures. 11 Theoretical investigations establish desirable asymptotic properties of the proposed procedures, while simulation studies and real-data analysis demonstrate their practical effectiveness and applicability. Future research may focus on extending the proposed framework to more general distributional settings, multiple-comparison problems, and multi-sample situations under suitable sequential sampling schemes. 
+
+Conflict of Interest 
+
+The authors declare no conflict of interest. 
+
+Data Availability 
+
+The dataset used for the illustrative analysis in this research is publicly accessible via the link provided in Section 2. 
+
+Funding 
+
+Ashwani Rajput greatly acknowledges the financial support received from the Indian Institute of Technology Delhi to pursue this research as part of his doctoral thesis. 
+
+# References 
+
+Anscombe, F. (1953). Sequential estimation. Journal of the Royal Statistical Society Series B: Statistical Methodology , 15 ,1–29. Bayoud, H., & Kittaneh, O. (2016). Testing the equality of two exponential distributions. Communications in Statistics – Simulation and Computation , 45 , 2249–2256. Chow, Y., & Robbins, H. (1965). On the asymptotic theory of fixed width sequential confidence intervals for the mean. Annals of Mathematical Statistics , 36 , 457–462. Hall, P. (1983). Sequential estimation saving sampling operations. Journal of the Royal Statistical Society Series B: Statistical Methodology , 45 , 219–223. Hu, J. (2020). A double-sequential sampling scheme. Communications in Statistics - Theory and Methods , 51 , 6319–6333. Isogai, E., & Futschik, A. (2010). Sequential estimation of a linear function of location parameters of two negative exponential distributions. Journal of Statistical Planning and Inference , 140 (9), 2416–2424. Isogai, E., & Uno, C. (2018). Three-stage confidence intervals for a linear combination of locations of two negative exponential distributions. Metrika , 81 (1), 85–103. Krishnamoorthy, K., & Xia, Y. (2017). Confidence intervals for a two-parameter exponential distribution: One and two-sample problems. Communications in Statistics – Theory and Methods , 47 , 935–952. Kumar, S., & Patel, H. (1971). A test for the comparison of two exponential distributions. Technometrics , 13 , 183–189. Mukhopadhyay, N., & Aloufi, A. (2024). Second-order (s.o.) multi-stage fixed-width confidence interval (FWCI) estimation strategies for comparing location parameters from two negative exponential (NE) populations: Illustrations with cancer data. Metrika , 87 , 649–680. Mukhopadhyay, N., & Bapat, S. (2016). Multistage estimation of the difference of locations of two negative exponential populations under a modified linex loss function: Real data illustrations from cancer studies and reliability analysis. 
+
+Sequential Analysis , 35 (3), 387–412. Mukhopadhyay, N., & Darmanto, S. (1988). Sequential estimation of the difference of means of two negative exponential populations. Sequential Analysis , 7(2), 165–176. Mukhopadhyay, N., & de Silva, B. (2009). Sequential methods and their applications . Boca Raton, FL: CRC. Mukhopadhyay, N., & Hamdy, H. (1984). On estimating the difference of location parameters of two negative exponential distributions. Canadian Journal of Statistics , 12 (1), 67–76. Mukhopadhyay, N., & Padmanabhan, A. (1993). A note on three-stage confidence intervals for the difference of locations: The exponential case. Metrika , 40 (1), 121–128. 12 Mukhopadhyay, N., & Wang, Z. (2020). Purely sequential FWCI and MRPE problems for the mean of a normal population by sampling in groups with illustrations using breast cancer data. Sequential Analysis , 39 , 176–213. Mukhopadhyay, N., & Zhuang, Y. (2019). Two-sample two-stage and purely sequential methodologies for tests of hypotheses with applications: Comparing normal means when the two variances are unknown and unequal. Sequential Analysis ,
+
+38 , 69–114. Rajput, A., & Joshi, N. (2025). On testing the ratio of scale parameters of two Pareto distributions using a novel accelerated sequential sampling technique with applications. Sequential Analysis , 44 (4), 464–490. Ranganathan, J., & Kale, B. (1979). Tests of hypotheses for reliability functions in two-parameter exponential models. 
+
+Canadian Journal of Statistics , 7(2), 177–184. Starr, N. (1966). On the asymptotic efficiency of a sequential procedure for estimating the mean. Annals of Mathematical Statistics , 37 , 1173–1185. Stein, C. (1945). A two sample test for a linear hypothesis whose power is independent of the variance. Annals of Mathematical Statistics , 16 , 243–258. Woodroofe, M. (1977). Second-order approximations for sequential point and interval estimation. Annals of Statistics , 5,984–995. Zhuang, Y., & Bapat, S. (2022). On comparing locations of two-parameter exponential distributions using sequential sampling with applications in cancer research. Communications in Statistics - Simulation and Computation , 51 , 6114–6135. 13 Table 1: Set of Notations and Expressions (𝑖 = 1, 2)
+
+Notations Description 
+
+𝜌 𝑖 : Proportion, 𝜌 𝑖 ∈ ( 0, 1) defining the stopping boundary in the first stage. 
+
+𝑘 𝑖 : Number of observations per stage in the first phase. 
+
+𝑛 ∗ 
+
+> 𝑖
+
+: Optimal fixed sample size corresponding to the 𝑖 𝑡 ℎ population. 
+
+𝑐 𝑖 : Cost coefficient for 𝑖 𝑡 ℎ population. 
+
+𝐵 : Number of replications. 
+
+𝐵 ′ : Number of bootstrap replications. 
+
+𝑁 𝑖 𝑗 : Sample size for population 𝑖 in the 𝑗 𝑡 ℎ replication. ¯𝑁 𝑖 = 1
+
+𝐵 
+
+> 𝐵
+
+∑︁ 
+
+> 𝑗 =1
+
+𝑛 𝑖 𝑗 : Estimate of 𝑛 ∗ 
+
+> 𝑖
+
+.
+
+𝑠 ¯𝑁 𝑖 =
+
+vut 1
+
+𝐵 (𝐵 − 1)
+
+> 𝐵
+
+∑︁ 
+
+> 𝑗 =1
+
+(𝑁 𝑖 𝑗 − ¯𝑁 𝑖 )2 : Standard error of ¯ 𝑁 𝑖 .¯𝑁 𝑖 /𝑛 ∗ 
+
+> 𝑖
+
+: Ratio of estimated to optimal sample size for population 𝑖 .¯𝑁 𝑖 − 𝑛 ∗ 
+
+> 𝑖
+
+: Difference between estimated and optimal sample size for population 𝑖 .ˆ𝛼 𝑖 : ˆ 𝛼 𝑖 =
+
+(
+
+1, if 𝐻 0 is rejected in 𝑖 𝑡 ℎ run ,
+
+0, if 𝐻 0 is accepted in 𝑖 𝑡 ℎ run. ¯ˆ𝛼 = 1
+
+𝐵 
+
+> 𝐵
+
+∑︁ 
+
+> 𝑖 =1
+
+ˆ𝛼 𝑖 : Estimate of the type I error probability 𝛼 .
+
+𝑠 ¯ˆ𝛼 =√︃ ¯ˆ𝛼 (1− ¯ˆ𝛼 ) 
+
+> 𝐵
+
+: SE of ¯ ˆ𝛼 .
+
+𝑅 𝒏 ∗ ( 𝝁 , 𝒄 ) : Minimum fixed sample risk. 
+
+𝑟 𝑏 : Risk corresponding to the 𝑏 𝑡 ℎ replication. ¯𝑟 =  
+
+> Í𝐵 𝑏 =1𝑟 𝑏
+> 𝐵
+
+: Average risk efficiency. ¯𝜔 = ¯𝑟 𝑅 𝒏 ∗ (𝝁 ,𝒄 ) : Average risk ratio. 
+
+𝑠 ¯𝜔 : SE of ¯ 𝜔 .¯𝜅 = ¯𝑟 − 𝑅 𝒏 ∗ ( 𝝁 , 𝒄 ) : Average regret. 
+
+𝑠 ¯𝜅 : SE of ¯ 𝜅 .
+
+𝜉 𝑖 : Number of sampling operations for 𝑖 𝑡 ℎ population. 
+
+Ψ∗( 𝑗 )( 𝑁 1 , 𝑁 2 ) =
+
+
+
+𝑋 ∗( 𝑗 )  
+
+> 𝑁 1(1)
+
+− 𝑌 ∗( 𝑗 ) 
+
+> 𝑁 2(1)
+
+
+
+: Bootstrap replicate of  𝑋 𝑁 1 (1) − 𝑌 𝑁 2 (1)
+
+ from the 𝑗 𝑡 ℎ bootstrap sample. 
+
+Ψ∗( 𝑁 1 , 𝑁 2 ) = 1
+
+𝐵 ′
+
+> 𝐵 ′
+
+∑︁ 
+
+> 𝑗 =1
+
+Ψ∗( 𝑗 )( 𝑁 1 , 𝑁 2 ) : Bootstrap mean of the statistic  𝑋 𝑁 1 (1) − 𝑌 𝑁 2 (1)
+
+.
+
+𝑠 Ψ∗( 𝑁 1, 𝑁 2 ) =
+
+vut 1
+
+𝐵 ′ − 1
+
+> 𝐵 ′
+
+∑︁ 
+
+> 𝑗 =1
+
+
+
+Ψ∗( 𝑗 )( 𝑁 1 , 𝑁 2 ) − Ψ∗( 𝑁 1 , 𝑁 2 )
+
+2
+
+: Bootstrap SE of  𝑋 𝑁 1 (1) − 𝑌 𝑁 2 (1)
+
+.14 Table 2: Simulation results under 𝐻 0 for the testing problem (5) using double sequential strategy (24)-(25) with 𝐴 = 10 3, 𝛼 =
+
+0.05 , Δ0 = 5, Δ1 = 6
+
+(𝑘 1, 𝑘 2) (𝜌 1, 𝜌 2) (𝑛 ∗
+
+> 1
+
+, 𝑛 ∗
+
+> 2
+
+) (𝑐 1 + 𝑐 2) ¯𝑁 1 (𝑠 ¯𝑁 1 ) ¯𝑁 1/𝑛 ∗ 
+
+> 1
+
+¯𝑁 1 − 𝑛 ∗ 
+
+> 1
+
+¯ˆ𝛼 𝜉 1
+
+¯𝑁 2 (𝑠 ¯𝑁 2 ) ¯𝑁 2/𝑛 ∗ 
+
+> 2
+
+¯𝑁 2 − 𝑛 ∗ 
+
+> 2
+
+(𝑠 ¯ˆ𝛼 ) 𝜉 2
+
+(1,1) (45,60) 33.68973 44.56 (0.0711) 0.9903 -0.4352 0.0566 32.56 59.58 (0.0808) 0.9930 -0.4214 (0.0023) 47.58 (150,200) 0.00029 149.56 (0.1249) 0.9970 -0.4431 0.0521 137.56 199.81 (0.1435) 0.9990 -0.1918 (0.0022) 187.81 (240,320) 1.31 × 10 −8 239.55 (0.1568) 0.9981 -0.4536 0.0516 227.55 319.71 (0.1814) 0.9991 -0.2891 (0.0022) 307.71 (450,600) 9.64 × 10 −19 450.02 (0.2127) 1.0000 0.0200 0.0499 438.02 599.48 (0.2455) 0.9991 -0.5165 (0.0022) 587.48 (4,4) (0.3,0.4) (45,60) 33.68973 44.58 (0.0714) 0.9906 -0.4250 0.0562 30.61 59.64 (0.0813) 0.9940 -0.3607 (0.0023) 38.45 (150,200) 0.00029 149.76 (0.1237) 0.9984 -0.2438 0.0507 112.77 199.49 (0.1434) 0.9974 -0.5143 (0.0022) 136.27 (240,320) 1.31 × 10 −8 239.88 (0.1585) 0.9995 -0.1173 0.0524 182.65 320.12 (0.1780) 1.0004 0.1230 (0.0022) 220.79 (450,600) 9.64 × 10 −19 449.76 (0.2135) 0.9995 -0.2445 0.0491 345.15 599.42 (0.2468) 0.9990 -0.5789 (0.0022) 416.14 (0.5,0.7) (45,60) 33.68973 44.51 (0.0709) 0.9890 -0.4929 0.0592 24.44 59.52 (0.0807) 0.9920 -0.4804 (0.0024) 24.90 (150,200) 0.00029 149.69 (0.1235) 0.9979 -0.3143 0.0540 90.10 199.79 (0.1432) 0.9989 -0.2139 (0.0023) 91.54 (240,320) 1.31 × 10 −8 239.80 (0.1570) 0.9992 -0.1981 0.0518 146.45 320.06 (0.1794) 1.0002 0.0609 (0.0022) 148.67 (450,600) 9.64 × 10 −19 449.71 (0.2126) 0.9994 -0.2853 0.0473 277.70 599.57 (0.2471) 0.9993 -0.4329 (0.0021) 281.36 (6,6) (0.3,0.4) (45,60) 33.68973 44.62 (0.0708) 0.9916 -0.3787 0.0542 29.78 59.76 (0.0803) 0.9960 -0.2413 (0.0023) 36.61 (150,200) 0.00029 149.69 (0.1235) 0.9980 -0.3052 0.0487 109.06 199.48 (0.1430) 0.9974 -0.5155 (0.0022) 129.68 (240,320) 1.31 × 10 −8 239.70 (0.1558) 0.9988 -0.2964 0.0525 176.56 319.69 (0.1777) 0.9990 -0.3084 (0.0022) 209.81 (450,600) 9.64 × 10 −19 449.50 (0.2138) 0.9989 -0.4979 0.0532 333.93 600.11 (0.2466) 1.0002 0.1142 (0.0022) 396.75 (0.5,0.7) (45,60) 33.68973 44.51 (0.0718) 0.9892 -0.4879 0.0581 22.66 59.68 (0.0805) 0.9947 -0.3152 (0.0023) 21.51 (150,200) 0.00029 149.72 (0.1249) 0.9981 -0.2789 0.0529 84.13 199.62 (0.1429) 0.9981 -0.3838 (0.0022) 79.75 (240,320) 1.31 × 10 −8 239.66 (0.1570) 0.9986 -0.3373 0.0483 136.51 319.59 (0.1794) 0.9987 -0.4134 (0.0021) 129.86 (450,600) 9.64 × 10 −19 449.74 (0.2109) 0.9994 -0.2557 0.0526 259.19 599.46 (0.2453) 0.9991 -0.5395 (0.0022) 246.34 15 Table 3: Simulation results under 𝐻 1 for the testing problem (5) using double sequential strategy (24)-(25) with 𝐴 = 10 3, 𝛼 =
+
+0.05 , Δ0 = 4, Δ1 = 5
+
+(𝑘 1, 𝑘 2) (𝜌 1, 𝜌 2) (𝑛 ∗
+
+> 1
+
+, 𝑛 ∗
+
+> 2
+
+) (𝑐 1 + 𝑐 2) ¯𝑁 1 (𝑠 ¯𝑁 1 ) ¯𝑁 1/𝑛 ∗ 
+
+> 1
+
+¯𝑁 1 − 𝑛 ∗ 
+
+> 1
+
+¯𝜔 ¯𝜅 𝜉 1
+
+¯𝑁 2 (𝑠 ¯𝑁 2 ) ¯𝑁 2/𝑛 ∗ 
+
+> 2
+
+¯𝑁 2 − 𝑛 ∗ 
+
+> 2
+
+(𝑠 ¯𝜔 ) (𝑠 ¯𝜅 ) 𝜉 2
+
+(1,1) (45,60) 33.6897 44.72 (0.0712) 0.9937 -0.2848 1.0073 1.4676 32.72 59.71 (0.0801) 0.9951 -0.2918 (0.0092) (1.8648) 47.71 (120,160) 0.0081 119.90 (0.1117) 0.9991 -0.1036 0.9290 -0.0082 107.90 159.72 (0.1270) 0.9983 -0.2785 (0.0006) (6.63 × 10 −5) 147.72 (270,360) 4.68 × 10 −10 269.71 (0.1642) 0.9989 -0.2881 0.9669 −4.80 × 10 −10 257.71 359.78 (0.1921) 0.9994 -0.2233 (0.0004) (5.67 × 10 −12 ) 347.78 (420,560) 2.70 × 10 −17 419.59 (0.2056) 0.9990 -0.4135 0.9784 −2.78 × 10 −17 407.59 559.88 (0.2361) 0.9998 -0.1236 (0.0003 ) (4.08 × 10 −19 ) 547.88 (4,4) (0.3,0.4) (45,60) 33.6897 44.60 (0.0710) 0.9911 -0.4022 1.0176 3.5615 30.59 59.65 (0.0814) 0.9941 -0.3533 (0.0095) (1.9228) 38.42 (120,160) 0.0081 119.74 (0.1119) 0.9978 -0.2608 0.9281 -0.0083 89.52 159.63 (0.1299) 0.9977 -0.3740 (0.0006) (6.69 × 10 −5) 108.42 (270,360) 4.68 × 10 −10 269.65 (0.1655) 0.9987 -0.3526 0.9668 −4.81 × 10 −10 205.67 359.80 (0.1883) 0.9995 -0.1955 (0.0004) (5.64 × 10 −12 ) 248.46 (420,560) 2.70 × 10 −17 419.33 (0.2053) 0.9984 -0.6669 0.9785 −2.77 × 10 −17 321.65 560.29 (0.2364) 1.0005 0.2896 (0.0003 ) (4.06 × 10 −19 ) 388.76 (0.5,0.7) (45,60) 33.6897 44.57 (0.0707) 0.9905 -0.4284 0.9977 -0.4674 24.49 59.59 (0.0807) 0.9932 -0.4102 (0.0090) (1.8285) 24.86 (120,160) 0.0081 119.79 (0.1111) 0.9982 -0.2113 1.7904 0.0917 71.35 159.81 (0.1276) 0.9988 -0.1897 (0.8615) (0.0999) 72.44 (270,360) 4.68 × 10 −10 269.54 (0.1651) 0.9983 -0.4620 0.9669 −4.80 × 10 −10 165.11 359.97 (0.1915) 0.9999 -0.0269 (0.0004) (5.64 × 10 −12 ) 167.48 (420,560) 2.70 × 10 −17 419.87 (0.2070) 0.9997 -0.1349 0.9789 −2.72 × 10 −17 259.08 560.07 (0.2400) 1.0001 0.0741 (0.0003 ) (4.11 × 10 −19 ) 262.39 (6,6) (0.3,0.4) (45,60) 33.6897 44.61 (0.0708) 0.9912 -0.3944 1.0383 7.7336 29.79 59.62 (0.0796) 0.9936 -0.3836 (0.0100) (2.0210) 36.49 (120,160) 0.0081 119.56 (0.1110) 0.9963 -0.4420 0.9278 -0.0084 86.42 159.75 (0.1286) 0.9984 -0.2490 (0.0006) (6.67 × 10 −5) 103.43 (270,360) 4.68 × 10 −10 269.91 (0.1643) 0.9997 -0.0854 0.9673 −4.75 × 10 −10 199.10 359.76 (0.1926) 0.9993 -0.2393 (0.0004) (5.63 × 10 −12 ) 236.61 (420,560) 2.70 × 10 −17 419.90 (0.2054) 0.9998 -0.0970 0.9790 −2.71 × 10 −17 311.68 560.06 (0.2387) 1.0001 0.0563 (0.0003 ) (4.07 × 10 −19 ) 370.00 (0.5,0.7) (45,60) 33.6897 44.51 (0.0715) 0.9890 -0.4930 1.0159 3.2146 22.68 59.66 (0.0802) 0.9944 -0.3369 (0.0095) (1.9189) 21.53 (120,160) 0.0081 119.56 (0.1110) 0.9963 -0.4418 0.9276 -0.0084 66.48 159.68 (0.1293) 0.9980 -0.3210 (0.0006) (6.66 × 10 −5) 63.17 (270,360) 4.68 × 10 −10 269.83 (0.1660) 0.9994 -0.1675 0.9674 −4.73 × 10 −10 154.12 359.94 (0.1910) 0.9998 -0.0600 (0.0004) (5.74 × 10 −12 ) 146.64 (420,560) 2.70 × 10 −17 419.38 (0.2088) 0.9985 -0.6192 0.9779 −2.84 × 10 −17 241.18 559.60 (0.2392) 0.9993 -0.4022 (0.0003 ) (4.14 × 10 −19 ) 229.67 16 Table 4: Analysis of the the inter-arrival time data using double sequential procedure (24)-(25) 
+
+Δ1 𝑐 1 + 𝑐 2 (𝑛 ∗
+
+> 1
+
+, 𝑛 ∗
+
+> 2
+
+) 𝑏 𝑁 1 𝑁 1/𝑛 ∗ 
+
+> 1
+
+𝑋 𝑁 1 (1) − 𝑌 𝑁 2 (1) Ψ∗( 𝑁 1 , 𝑁 2 ) Decision 
+
+𝑁 2 𝑁 2/𝑛 ∗ 
+
+> 2
+
+𝑠 Ψ∗( 𝑁 1 , 𝑁 2 )
+
+4 0.01 (46.22, 55.67) 0.930 50 1.081 0 0.138 Fail to Reject 𝐻 0
+
+58 1.041 0.423 0.001 (56.97, 68.62) 0.755 59 1.036 0 0.049 Fail to Reject 𝐻 0
+
+76 1.108 0.249 6 0.01 (32.08, 38.63) 1.340 35 1.091 0 0.276 Fail to Reject 𝐻 0
+
+41 1.061 1.564 0.001 (39.24, 47.26) 1.095 40 1.019 0 0.670 Fail to Reject 𝐻 0
+
+46 0.973 1.102 
+
+Figure 1: Geographical locations of meteorological stations        
+
+> (a) Δ1=6(b) Δ1=7
+
+Figure 2: Power curve with respect to different values of 𝜇 2
+
+17 (a) (𝑁 1, 𝑁 2) versus (𝑐 1 + 𝑐 2) (b) 𝛼 versus (𝑐 1 + 𝑐 2)
+
+(c) (1 − 𝛽 ) versus (𝑐 1 + 𝑐 2) (d) (𝜉 1 + 𝜉 2) versus (𝑐 1 + 𝑐 2)
+
+Figure 3: Sensitivity of (𝑁 1, 𝑁 2), 𝛼 , (1 − 𝛽 ) and (𝜉 1 + 𝜉 2) for different values of (𝑐 1 + 𝑐 2)
+
+(a) (𝑁 1, 𝑁 2) vs 𝑚 (b) 𝛼 vs 𝑚 
+
+(c) Regret vs 𝑚 
+
+Figure 4: Sensitivity of (𝑁 1, 𝑁 2), 𝛼 and regret for different values of 𝑚 
+
+18 (a) Seattle-Tacoma (b) Portland 
+
+Figure 5: Histograms for the inter-arrival times  
+
+> (a) Seattle-Tacoma (b) Portland
+
+Figure 6: Q-Q plots for the inter-arrival times  
+
+> (a) Seattle-Tacoma (b) Portland
+
+Figure 7: ECDF plots of the inter-arrival times 19 Appendix: Proofs 
+
+To establish the first- and second-order asymptotic properties of the proposed double-sequential sampling scheme, it is instructive to first consider the corresponding purely sequential sampling scheme defined in (27) along with its associated results. Under assumption (28), for 𝑘 1 = 𝑘 2 = 1, we can write (27) as 
+
+𝑁 ′ 
+
+> 𝑖
+
+= inf 
+
+n
+
+𝑛 ≥ 𝑚 𝑖 0 + 1 : 𝑛 ≥ 𝑈 (𝑖 ) 
+
+> 𝑛
+
+𝑑 𝛼 
+
+o
+
+,𝑁 ′∗  
+
+> 𝑖
+
+= inf 
+
+n
+
+𝑛 ≥ 𝑚 𝑖 0 : (𝑛 + 1) ≥ 𝑈 (𝑖 )
+
+> 𝑛 +1
+
+𝑑 𝛼 
+
+o
+
+, where 𝑁 ′∗  
+
+> 𝑖
+
+= 𝑁 ′ 
+
+> 𝑖
+
+− 1
+
+= inf 
+
+(
+
+𝑛 ≥ 𝑚 𝑖 0 :
+
+> 𝑛
+
+∑︁ 
+
+> 𝑖 =1
+
+𝑊 𝑖 ≤
+
+ 1
+
+𝑛 ∗
+
+> 𝑖
+
+
+
+𝑛 2
+
+
+
+1 + 1
+
+𝑛 
+
+)
+
+. (29) where 𝑊 1, 𝑊 2, . . . , 𝑊 𝑛 are independent and identically distributed (i.i.d.) Exponential (1) random variables. In particular, 
+
+P(𝑊 𝑖 ≤ 𝑤 ) = 1 − 𝑒 −𝑤 ≤ 𝑤, ∀ 𝑤 > 0.
+
+By comparing (29) with Equation (1.1) of Woodroofe (1977), and using the notation therein, we obtain 
+
+𝑆 𝑛 =
+
+> 𝑛
+
+∑︁ 
+
+> 𝑖 =1
+
+𝑊 𝑖 , 𝑐 = 1
+
+𝑛 ∗
+
+> 𝑖
+
+, 𝛼 = 2, 𝛽 = 1, 𝜇 = 1, 𝜏 2 = 1, 𝜆 = 𝑛 ∗ 
+
+> 𝑖
+
+, 𝐿 (𝑛 ) =
+
+
+
+1 + 1
+
+𝑛 
+
+
+
+, 𝐿 (0) = 1, 𝑎 = 1, 𝑏 = 1.
+
+Since 𝑁 ′ 
+
+> 𝑖
+
+= 𝑁 ′∗  
+
+> 𝑖
+
++ 1 almost surely, it follows from Woodroofe (1977) that, as 𝑞 → ∞ with 𝑞 = log 
+
+ 1
+
+> 𝑐 1+𝑐 2
+
+
+
+,(i) E𝜽 (𝑁 ′ 
+
+> 𝑖
+
+) = 𝑛 ∗ 
+
+> 𝑖
+
++ 𝑎 2 + 𝑜 (1) where 𝑎 2 = 𝜈 𝛼 (1, 1) − 1 ≈ − 1/4,
+
+(ii) 𝑄 ′ 
+
+> 𝑖
+
+= 𝑁 ′ 
+
+> 𝑖
+
+− 𝑛 ∗
+
+> 𝑖
+
+√︁ 
+
+𝑛 ∗
+
+> 𝑖 𝑑
+
+−→ N ( 0, 1),
+
+(iii) P𝜽 (𝑁 ′ 
+
+> 𝑖
+
+≤ 𝜖𝑛 ∗ 
+
+> 𝑖
+
+) = 𝑂 (𝑛 ∗− ( 𝑚 −1) 
+
+> 𝑖
+
+) if 0 < 𝜖 < 1 fixed ,
+
+(iv) 𝑄 ′ 
+
+> 𝑖
+> 𝑠
+
+is uniformly integrable ∀𝑠 > 0 if 𝑚 > 𝑠 /2 + 1.
+
+(30) Next, we know that, for all fixed 𝑛 𝑖 ≥ 𝑚, 𝑖 = 1, 2, 𝑋 𝑛 1 (1) and 𝑌 𝑛 2 (1) are independent of (𝑈 (1) 
+
+> 𝑚
+
+, 𝑈 (1)
+
+> 𝑚 +1
+
+, . . . , 𝑈 (1) 
+
+> 𝑛 1
+
+) and 
+
+(𝑈 (2) 
+
+> 𝑚
+
+, 𝑈 (2)
+
+> 𝑚 +1
+
+, . . . , 𝑈 (2) 
+
+> 𝑛 2
+
+). Let 𝑵 ′ = (𝑁 ′
+
+> 1
+
+, 𝑁 ′
+
+> 2
+
+) then, under the purely sequential procedure defined in (27), for all 𝑛 𝑖 ≥ 𝑚, 𝑖 =
+
+1, 2, the event 𝐼 (𝑵 ′ = 𝒏 ) depends solely on (𝑈 (1) 
+
+> 𝑚
+
+, 𝑈 (1)
+
+> 𝑚 +1
+
+, . . . , 𝑈 (1) 
+
+> 𝑛 1
+
+) and (𝑈 (2) 
+
+> 𝑚
+
+, 𝑈 (2)
+
+> 𝑚 +1
+
+, . . . , 𝑈 (2) 
+
+> 𝑛 2
+
+). Therefore, we can conclude that 
+
+𝐼 (𝑵 ′ = 𝒏 ) is independent of  𝑋 𝑛 1 (1) , 𝑌 𝑛 2 (1)
+
+ . (31) Now, the probability of type I error can be expressed as 
+
+P𝜽,𝑵 ′ (Type I error ) = E𝜽 
+
+h
+
+P𝜽 
+
+
+
+𝑋 𝑁 ′  
+
+> 1(1)
+
+− 𝑌 𝑁 ′  
+
+> 2(1)
+
+> 𝑏 | 𝐻 0
+
+i 
+
+= E𝜽 
+
+" 𝜎 1
+
+𝑁 ′
+
+> 1
+
++ 𝜎 2
+
+𝑁 ′
+
+> 2
+
+ −1 𝜎 1
+
+𝑁 ′
+
+> 1
+
+exp 
+
+
+
+− 𝑁 ′ 
+
+> 1
+
+(𝑏 − Δ0)
+
+𝜎 1
+
+#
+
+,
+
+(32) Let 𝑈 = 𝑁 ′
+
+> 1
+> 𝑛 ∗
+> 1
+
+, 𝑉 = 𝑁 ′
+
+> 2
+> 𝑛 ∗
+> 2
+
+and 𝑙 1 = 𝑑 𝛼 (𝑏 − Δ0) > 0, then 
+
+P𝜽,𝑵 ′ (Type I error ) = E𝜽 
+
+"
+
+1 + 𝑈 𝑉 
+
+ −1
+
+exp (− 𝑙 1𝑈 )
+
+#
+
+= E𝜽 [𝑔 (𝑈, 𝑉 )] . (33) 20 Next, applying Taylor’s series expansion around (𝑈, 𝑉 ) = (1, 1), we get 
+
+P𝜽,𝑵 ′ (Type I error ) = E𝜽 
+
+"
+
+𝑔 (1, 1) + ( 𝑈 − 1) 𝜕𝑔 𝜕𝑈 (1,1)
+
++ ( 𝑉 − 1) 𝜕𝑔 𝜕𝑉 (1,1)
+
++ 12 (𝑈 − 1)2 𝜕 2𝑔 𝜕𝑈 2 (1,1)
+
++ ( 𝑈 − 1)( 𝑉 − 1) 𝜕 2𝑔 𝜕𝑈𝜕𝑉 (1,1)
+
++ 12 (𝑉 − 1)2 𝜕 2𝑔 𝜕𝑉 2 (1,1)
+
+#
+
++ 𝑅 1 (𝑞 −1)
+
+= 𝛼 + 𝛼 𝑑 𝛼 
+
+"
+
+− 𝑙 1𝑎 2
+
+𝜎 1
+
+− 𝑎 2
+
+2𝜎 1
+
++ 𝑎 2
+
+2𝜎 2
+
++ 𝑙 21
+
+2𝜎 1
+
++ 𝑙 1
+
+2𝜎 1
+
++ 14𝜎 1
+
+− 14𝜎 2
+
+− 𝑙 1𝑎 22
+
+2𝜎 1𝜎 2𝑑 𝛼 
+
+#
+
++ 𝑅 1 (𝑞 −1),
+
+(34) where, 
+
+𝑅 1 (𝑞 −1) = E𝜽 
+
+h
+
+𝑅 11 + 𝑅 12 + 𝑅 13 + 𝑅 14 
+
+i
+
+= E𝜽 
+
+"
+
+16 (𝑈 − 1)3 𝜕 3𝑔 𝜕𝑈 3 (𝑆 1 ,𝑆 2 )
+
++ 12 (𝑈 − 1)2 (𝑉 − 1) 𝜕 3𝑔 𝜕𝑈 2𝜕𝑉 (𝑆 1 ,𝑆 2 )
+
++ 12 (𝑈 − 1)( 𝑉 − 1)2 𝜕 3𝑔 𝜕𝑈𝜕𝑉 2 (𝑆 1 ,𝑆 2 )
+
++ 16 (𝑉 − 1)3 𝜕 3𝑔 𝜕𝑉 3 (𝑆 1 ,𝑆 2 )
+
+#
+
+,
+
+with 𝑆 1 and 𝑆 2 being intermediate random variables lying between 1 and 𝑈 , and 1 and 𝑉 , respectively. Let 𝐻 1 = (𝑆 −11 + 𝑆 −12 ), then 
+
+𝑅 11 = 𝜎 −3/21 𝑑 −3/2 
+
+> 𝛼
+
+exp (− 𝑙 1𝑆 1)
+
+h
+
+− 𝑆 −41 𝑆 −32 𝐻 −41 − 𝑆 −31 𝑆 −22 𝑙 1𝐻 −31 − 12 𝑆 −21 𝑆 −12 𝑙 21 𝐻 −21 − 16 𝑆 −11 𝑆 02𝑙 31 𝐻 −11
+
+i
+
+𝑄 ′31 ,𝑅 12 = 𝜎 −11 𝜎 −1/22 𝑑 −3/2 
+
+> 𝛼
+
+exp (− 𝑙 1𝑆 1)
+
+h
+
+− 2𝑆 −31 𝑆 −32 𝐻 −31 + 3𝑆 −31 𝑆 −42 𝐻 −41 − 𝑆 −21 𝑆 −22 𝑙 1𝐻 −21 + 2𝑆 −21 𝑆 −32 𝑙 1𝐻 −31
+
++ 12 𝑆 −11 𝑆 −22 𝑙 21 𝐻 −21
+
+i
+
+𝑄 ′21 𝑄 ′
+
+> 2
+
+,𝑅 13 = 𝜎 −1/21 𝜎 −12 𝑑 −3/2 
+
+> 𝛼
+
+exp (− 𝑙 1𝑆 1)
+
+h
+
+− 𝑆 −31 𝑆 −32 𝐻 −31 + 3𝑆 −31 𝑆 −42 𝐻 −41 + 𝑆 −21 𝑆 −32 𝑙 1𝐻 −31
+
+i
+
+𝑄 ′22 𝑄 ′
+
+> 1
+
+,𝑅 14 = 𝜎 −3/22 𝑑 −3/2 
+
+> 𝛼
+
+exp (− 𝑙 1𝑆 1)
+
+h
+
+𝑆 −31 𝑆 −42 𝐻 −41
+
+i
+
+𝑄 ′32 .
+
+We use the fact that, for 𝑎 > 0 and two random variables 𝑋, 𝑌 > 0 almost surely, one has 
+
+(𝑋 −1 + 𝑌 −1)− 𝑗 𝑒 −𝑎𝑌 ≤ 𝑖 !
+
+𝑎 𝑖 𝑌 (𝑖 − 𝑗 ) almost surely , (35) where 𝑖, 𝑗 ∈ N are arbitrary natural numbers with 𝑖 ≥ 𝑗 . Thus 
+
+|𝑅 11 | ≤ 𝜎 −3/21 𝑑 −3/2
+
+> 𝛼
+
+h
+
+24 𝑆 −41 𝑆 −32 𝑙 −41 + 6𝑆 −31 𝑆 −22 𝑙 −21 + 𝑆 −21 𝑆 −12 + 16 𝑆 −11 𝑆 02𝑙 21
+
+i
+
+𝑄 ′31 ,
+
+|𝑅 12 | ≤ 𝜎 −11 𝜎 −1/22 𝑑 −3/2
+
+> 𝛼
+
+h
+
+12 𝑆 −31 𝑆 −32 𝑙 −31 + 72 𝑆 −31 𝑆 −42 𝑙 −41 + 2𝑆 −21 𝑆 −22 𝑙 −11 + 12 𝑆 −21 𝑆 −32 𝑙 −21 + 𝑆 −11 𝑆 −22
+
+i
+
+𝑄 ′21 𝑄 ′ 
+
+> 2
+
+,
+
+|𝑅 13 | ≤ 𝜎 −1/21 𝜎 −12 𝑑 −3/2
+
+> 𝛼
+
+h
+
+6𝑆 −31 𝑆 −32 𝑙 −31 + 72 𝑆 −31 𝑆 −42 𝑙 −41 + 6𝑆 −21 𝑆 −32 𝑙 −21
+
+i
+
+𝑄 ′22 𝑄 ′ 
+
+> 1
+
+,
+
+|𝑅 14 | ≤ 𝜎 −3/22 𝑑 −3/2
+
+> 𝛼
+
+h
+
+24 𝑆 −31 𝑆 −42 𝑙 −41
+
+i
+
+𝑄 ′32 .
+
+Now, we decompose the sample space into events 𝐸 ′
+
+> 1
+
+, 𝐸 ′
+
+> 2
+
+, 𝐸 ′
+
+> 3
+
+, 𝐸 ′ 
+
+> 4
+
+based on whether 𝑁 𝑖 > 𝜀𝐶 𝑖 or 𝑁 𝑖 ≤ 𝜀𝐶 𝑖 , where 0 < 𝜖 < 1and 
+
+𝐸 ′ 
+
+> 1
+
+= [𝑁 ′ 
+
+> 1
+
+> 𝜖𝑛 ∗
+
+> 1
+
+] ∩ [ 𝑁 ′ 
+
+> 2
+
+> 𝜖𝑛 ∗
+
+> 2
+
+], 𝐸 ′ 
+
+> 2
+
+= [𝑁 ′ 
+
+> 1
+
+> 𝜖𝑛 ∗
+
+> 1
+
+] ∩ [ 𝑁 ′ 
+
+> 2
+
+≤ 𝜖𝑛 ∗
+
+> 2
+
+],𝐸 ′ 
+
+> 3
+
+= [𝑁 ′ 
+
+> 1
+
+≤ 𝜖𝑛 ∗
+
+> 1
+
+] ∩ [ 𝑁 ′ 
+
+> 2
+
+> 𝜖𝑛 ∗
+
+> 2
+
+], 𝐸 ′ 
+
+> 4
+
+= [𝑁 ′ 
+
+> 1
+
+≤ 𝜖𝑛 ∗
+
+> 1
+
+] ∩ [ 𝑁 ′ 
+
+> 2
+
+≤ 𝜖𝑛 ∗
+
+> 2
+
+]. (36) 21 Case I: ( 𝐸 ′
+
+> 1
+
+). Here, 𝑆 1 and 𝑆 2 are uniformly bounded away from zero, ensuring that their inverse powers remain bounded. Moreover, E𝜽 
+
+ |𝑄 ′ 
+
+> 1
+
+|3 = 𝑂 (1) (by 30) provided that 𝑚 > 5/2. Thus, for any fixed positive constant 𝐵 11 independent of 𝑞 , we have 
+
+E𝜽 [𝑅 11 𝐼 (𝐸 ′
+
+> 1
+
+)] ≤ 𝐵 11 𝑑 −3/2 
+
+> 𝛼
+
+E𝜽 
+
+|𝑄 ′ 
+
+> 1
+
+|3 = 𝑂 (𝑞 −3/2) = 𝑜 (𝑞 −1). (37) Similarly 
+
+E𝜽 [𝑅 1𝑖 𝐼 (𝐸 ′
+
+> 1
+
+)] = 𝑜 (𝑞 −1), 𝑖 = 2, 3, 4. (38) 
+
+Case II: ( 𝐸 ′
+
+> 2
+
+, 𝐸 ′
+
+> 3
+
+, 𝐸 ′
+
+> 4
+
+). In this case, 𝑆 1 and 𝑆 2 may approach zero; however, the probabilities of the corresponding events satisfy 
+
+P𝜽 (𝐸 ′
+
+> 2
+
+) = P𝜽 (𝐸 ′
+
+> 3
+
+) = 𝑂 
+
+
+
+𝑞 − ( 𝑚 −1) 
+
+and P𝜽 (𝐸 ′
+
+> 4
+
+) = 𝑂 
+
+
+
+𝑞 −2(𝑚 −1) 
+
+,
+
+which are asymptotically negligible. Therefore, under the condition 𝑚 ≥ 8, it follows that 
+
+E𝜽 [𝑅 1𝑖 𝐼 (𝐸 𝑗 )] = 𝑜 (𝑞 −1), 𝑖 = 1, 2, 3, 4, 𝑗 = 2, 3, 4. (39) Combining (37)-(39), we conclude that 
+
+𝑅 1 (𝑞 −1) ≤
+
+> 4
+
+∑︁ 
+
+> 𝑖 =1
+
+|E𝜽 (𝑅 1𝑖 )| = 𝑜 (𝑞 −1). (40) Finally, using (34) and 𝑎 2 ≈ − 14 , we obtain 
+
+P𝜽,𝑵 ′ (Type I error ) ≈ 𝛼 + 𝛼 𝑑 𝛼 
+
+"
+
+38𝜎 1
+
+− 38𝜎 2
+
++ 𝑙 21
+
+2𝜎 1
+
++ 3𝑙 1
+
+4𝜎 1
+
+− 𝑙 1
+
+32 𝜎 1𝜎 2𝑑 𝛼 
+
+#
+
++ 𝑜 (𝑞 −1). (41) Now, in a manner similar to that in (32)–(41), the risk function is given by 
+
+𝑅 𝑵 ′ ( 𝝁 , 𝒄 ) = E𝜽 
+
+"
+
+𝐴 
+
+ 𝜎 1
+
+𝑁 ′
+
+> 1
+
++ 𝜎 2
+
+𝑁 ′
+
+> 2
+
+ −1 𝜎 2
+
+𝑁 ′
+
+> 2
+
+exp 
+
+
+
+− 𝑁 ′ 
+
+> 2
+
+(Δ1 − 𝑏 )
+
+𝜎 2
+
+
+
++ 𝑐 1 𝑁 ′
+
+> 1
+
+𝜎 −11 + 𝑐 2 𝑁 ′
+
+> 2
+
+𝜎 −12
+
+#
+
+. (42) Let 𝑙 2 = 𝑑 𝛼 (Δ1 − 𝑏 ) = log 
+
+n 𝐴 (Δ1 −Δ0 ) 
+
+> 2(𝑐 1+𝑐 2)
+
+o
+
+> 0, then 
+
+𝑅 𝑵 ′ ( 𝝁 , 𝒄 ) = E𝜽 
+
+"
+
+𝐴 
+
+
+
+1 + 𝑉 𝑈 
+
+ −1
+
+exp (− 𝑙 2𝑉 ) + ( 𝑐 1𝑈 + 𝑐 2𝑉 ) 𝑑 𝛼 
+
+#
+
+= E𝜽 [ℎ(𝑈, 𝑉 )] .
+
+Next, applying Taylor’s series expansion around (𝑈, 𝑉 ) = (1, 1), we get 
+
+𝑅 𝑵 ′ ( 𝝁 , 𝒄 ) = 𝑅 𝒏 ∗ ( 𝝁 , 𝒄 ) + 𝐴 exp (− 𝑙 2)
+
+4𝑑 𝛼 
+
+"
+
+𝑎 2
+
+𝜎 1
+
+− 2𝑙 2𝑎 2
+
+𝜎 2
+
+− 𝑎 2
+
+𝜎 2
+
+− 12𝜎 1
+
++ 𝑙 22
+
+𝜎 2
+
++ 𝑙 2
+
+𝜎 2
+
++ 12𝜎 2
+
+− 𝑙 2𝑎 22
+
+𝜎 1𝜎 2𝑑 𝛼 
+
+#
+
++
+
+ 𝑐 1
+
+𝜎 1
+
++ 𝑐 2
+
+𝜎 2
+
+
+
+𝑎 2 + 𝑅 2 (𝑞 −1),
+
+(43) where 
+
+𝑅 2 (𝑞 −1) = E𝜽 
+
+h
+
+𝑅 21 + 𝑅 22 + 𝑅 23 + 𝑅 24 
+
+i
+
+= E𝜽 
+
+"
+
+16 (𝑈 − 1)3 𝜕 3 ℎ𝜕𝑈 3 ( 𝑀 1 ,𝑀 2 )
+
++ 12 (𝑈 − 1)2 (𝑉 − 1) 𝜕 3 ℎ𝜕𝑈 2𝜕𝑉 ( 𝑀 1 ,𝑀 2 )
+
++ 12 (𝑈 − 1)( 𝑉 − 1)2 𝜕 3 ℎ𝜕𝑈𝜕𝑉 2 ( 𝑀 1 ,𝑀 2 )
+
++ 16 (𝑉 − 1)3 𝜕 3 ℎ𝜕𝑉 3 ( 𝑀 1 ,𝑀 2 )
+
+#
+
+,
+
+22 where 𝑀 1 and 𝑀 2 are intermediate random variables lying between 1 and 𝑈 , and 1 and 𝑉 , respectively. Define 𝐻 2 = 𝑀 −11 + 𝑀 −12 , then 
+
+𝑅 21 = 𝐴𝜎 −3/21 𝑑 −3/2 
+
+> 𝛼
+
+exp (− 𝑙 2 𝑀 2)
+
+h
+
+𝑀 −41 𝑀 −32 𝐻 −42
+
+i
+
+𝑄 ′31 ,𝑅 22 = 𝐴𝜎 −11 𝜎 −1/22 𝑑 −3/2 
+
+> 𝛼
+
+exp (− 𝑙 2 𝑀 2)
+
+h
+
+− 𝑀 −31 𝑀 −32 𝐻 −32 + 3𝑀 −41 𝑀 −32 𝐻 −42 + 𝑀 −31 𝑀 −22 𝑙 2𝐻 −32
+
+i
+
+𝑄 ′21 𝑄 ′
+
+> 2
+
+,𝑅 23 = 𝐴𝜎 −1/21 𝜎 −12 𝑑 −3/2 
+
+> 𝛼
+
+exp (− 𝑙 2 𝑀 2)
+
+h
+
+− 2𝑀 −31 𝑀 −32 𝐻 −32 + 3𝑀 −41 𝑀 −32 𝐻 −42 − 𝑀 −21 𝑀 −22 𝑙 2𝐻 −22 + 2𝑀 −31 𝑀 −22 𝑙 2𝐻 −32
+
++ 12 𝑀 −21 𝑀 −12 𝑙 22 𝐻 −22
+
+i
+
+𝑄 ′22 𝑄 ′
+
+> 1
+
+,𝑅 24 = 𝐴𝜎 −3/22 𝑑 −3/2 
+
+> 𝛼
+
+exp (− 𝑙 2 𝑀 2)
+
+h
+
+− 𝑀 −31 𝑀 −42 𝐻 −42 − 𝑀 −21 𝑀 −32 𝑙 2𝐻 −32 − 12 𝑀 −11 𝑀 −22 𝑙 22 𝐻 −22 − 16 𝑀 01 𝑀 −12 𝑙 32 𝐻 −12
+
+i
+
+𝑄 ′32 .
+
+Using the fact (35), we have 
+
+|𝑅 21 | ≤ 𝐴𝜎 −3/21 𝑑 −3/2
+
+> 𝛼
+
+h
+
+24 𝑀 −41 𝑀 −32 𝑙 −42
+
+i
+
+𝑄 ′31 ,
+
+|𝑅 22 | ≤ 𝐴𝜎 −11 𝜎 −1/22 𝑑 −3/2
+
+> 𝛼
+
+h
+
+6𝑀 −31 𝑀 −32 𝑙 −32 + 72 𝑀 −41 𝑀 −32 𝑙 −42 + 6𝑀 −31 𝑀 −22 𝑙 −22
+
+i
+
+𝑄 ′21 𝑄 ′ 
+
+> 2
+
+,
+
+|𝑅 23 | ≤ 𝐴𝜎 −1/21 𝜎 −12 𝑑 −3/2
+
+> 𝛼
+
+h
+
+12 𝑀 −31 𝑀 −32 𝑙 −32 + 72 𝑀 −41 𝑀 −32 𝑙 −42 + 2𝑀 −21 𝑀 −22 𝑙 −12 + 12 𝑀 −31 𝑀 −22 𝑙 −22 + 𝑀 −21 𝑀 −12 𝑙 02
+
+i
+
+𝑄 ′22 𝑄 ′ 
+
+> 1
+
+,
+
+|𝑅 24 | ≤ 𝐴𝜎 −3/22 𝑑 −3/2
+
+> 𝛼
+
+h
+
+24 𝑀 −31 𝑀 −42 𝑙 −42 + 6𝑀 −21 𝑀 −32 𝑙 −22 + 𝑀 −11 𝑀 −22 𝑙 02 + 𝑀 01 𝑀 −32 𝑙 02
+
+i
+
+𝑄 ′32 .
+
+Considering the same decomposition of events (36), for any fixed positive constant 𝐵 21 independent of 𝑞 , we have 
+
+E𝜽 [𝑅 21 𝐼 (𝐸 ′
+
+> 1
+
+)] ≤ 𝐵 21 𝑑 −3/2 
+
+> 𝛼
+
+𝑙 −42 E𝜽 
+
+|𝑄 ′ 
+
+> 1
+
+|3 = 𝑜 (𝑞 −1). (44) Similarly 
+
+E𝜽 [𝑅 2𝑖 𝐼 (𝐸 ′
+
+> 1
+
+)] = 𝑜 (𝑞 −1), 𝑖 = 2, 3, 4, (45) and for 𝑚 ≥ 4, we have 
+
+E𝜽 [𝑅 2𝑖 𝐼 (𝐸 𝑗 )] = 𝑜 (𝑞 −1), 𝑖 = 1, 2, 3, 4, 𝑗 = 2, 3, 4. (46) On combining (44)-(46), we can conclude that 
+
+|E𝜽 (𝑅 2)| ≤ 
+
+> 4
+
+∑︁ 
+
+> 𝑖 =1
+
+|E𝜽 (𝑅 2𝑖 )| = 𝑜 (𝑞 −1). (47) Thus, using (43) and 𝑎 2 ≈ − 14 , the regret can be expressed as (Regret) 𝑵 ′ = 𝑅 𝑵 ′ ( 𝝁 , 𝒄 ) − 𝑅 𝒏 ∗ ( 𝝁 , 𝒄 )≈ 𝐴 exp (− 𝑙 2)
+
+4𝑑 𝛼 
+
+"
+
+− 34𝜎 1
+
++ 34𝜎 2
+
++ 𝑙 22
+
+𝜎 2
+
++ 3𝑙 2
+
+2𝜎 2
+
+− 𝑙 2
+
+16 𝜎 1𝜎 2𝑑 𝛼 
+
+#
+
+− 14
+
+ 𝑐 1
+
+𝜎 1
+
++ 𝑐 2
+
+𝜎 2
+
+
+
++ 𝑜 (𝑞 −1). (48) 
+
+Proof of Lemma 1 . For a given 0 < 𝜖 < 𝜌 −1 − 1, consider 
+
+P𝜽 {𝑁 ′ 
+
+> 𝑖
+
+< 𝑇 𝑖 } ≤ P𝜽 {𝑁 ′ 
+
+> 𝑖
+
+≤ ( 1 + 𝜖 )𝜌𝑛 ∗ 
+
+> 𝑖
+
+} + P𝜽 {𝑇 𝑖 > (1 + 𝜖 )𝜌𝑛 ∗ 
+
+> 𝑖
+
+}.
+
+From (30), we have 
+
+P𝜽 {𝑁 ′ 
+
+> 𝑖
+
+≤ ( 1 + 𝜖 )𝜌𝑛 ∗ 
+
+> 𝑖
+
+} ≤ 𝑂 (𝑛 ∗− ( 𝑚 −1) 
+
+> 𝑖
+
+). (49) 23 Under assumption (28), rewrite the stopping rule (24) as 
+
+𝐿 ∗ 
+
+> 𝑖
+
+= inf 
+
+(
+
+𝑛 ≥ 𝑚 𝑖 0 :
+
+> 𝑛
+
+∑︁ 
+
+> 𝑖 =1
+
+𝐷 𝑖 ≤
+
+ 2𝑘 2
+
+𝜌𝑛 ∗
+
+> 𝑖
+
+
+
+𝑛 2
+
+
+
+1 + 1
+
+𝑘𝑛 
+
+)
+
+,
+
+where, 𝐿 ∗ 
+
+> 𝑖
+
+= 𝐿 𝑖 + 𝑚 𝑖 0 and 𝐷 1, 𝐷 2, . . . , 𝐷 𝑛 i.i.d. 
+
+∼ 𝜒 2 
+
+> (2𝑘 )
+
+. As 𝑇 𝑖 = 𝑘 𝐿 ∗ 
+
+> 𝑖
+
++ 1 with probability 1, it follows from Woodroofe (1977) that, as 𝑞 → ∞ 
+
+(i) (𝜌𝑛 ∗ 
+
+> 𝑖
+
+)−1/2 (𝑇 𝑖 − 𝜌𝑛 ∗ 
+
+> 𝑖
+
+) 𝑑 
+
+−→ N ( 0, 1),
+
+(ii) (𝜌𝑛 ∗ 
+
+> 𝑖
+
+)−1/2 (𝑇 𝑖 − 𝜌𝑛 ∗ 
+
+> 𝑖
+
+) 𝑠 is uniformly integrable ∀𝑠 > 0 if 𝑚 > 𝑠 
+
+2 + 1. (50) Therefore by Markov’s inequality 
+
+P𝜽 {𝑇 𝑖 > (1 + 𝜖 )𝜌𝑛 ∗ 
+
+> 𝑖
+
+} = P𝜽 
+
+(𝜌𝑛 ∗ 
+
+> 𝑖
+
+)−1/2 (𝑇 𝑖 − 𝜌𝑛 ∗ 
+
+> 𝑖
+
+) > 𝜖 (𝜌𝑛 ∗ 
+
+> 𝑖
+
+)1/2
+
+≤
+
+E𝜽 
+
+
+
+(𝜌𝑛 ∗ 
+
+> 𝑖
+
+)−1/2 (𝑇 𝑖 − 𝜌𝑛 ∗ 
+
+> 𝑖
+
+) 𝑠 
+
+𝜖 𝑠 (𝜌𝑛 ∗ 
+
+> 𝑖
+
+)𝑠 /2 = 𝑂 (𝑛 ∗− 𝑠 /2 
+
+> 𝑖
+
+), if 𝑚 > 𝑠 /2 + 1, 𝑠 > 0.
+
+(51) Combining (49) and (51) yields the desired result. □
+
+Proof of Theorem 1 . Since 𝑁 𝑖 ≥ 𝑁 ′ 
+
+> 𝑖
+
+on {𝑁 ′ 
+
+> 𝑖
+
+< 𝑇 𝑖 } and 𝑁 𝑖 = 𝑁 ′ 
+
+> 𝑖
+
+otherwise, it follows that 𝑁 𝑖 ≥ 𝑁 ′ 
+
+> 𝑖
+
+almost surely. Let 𝐼 𝐴 
+
+denote the indicator function of an event 𝐴 . Then, 
+
+E𝜽 (𝑁 𝑖 ) − E𝜽 (𝑁 ′ 
+
+> 𝑖
+
+) = E𝜽 
+
+h
+
+(𝑁 𝑖 − 𝑁 ′ 
+
+> 𝑖
+
+)𝐼 { 𝑁 ′  
+
+> 𝑖 <𝑇 𝑖 }
+
+i
+
+≤ E𝜽 
+
+h
+
+𝑇 𝑖 𝐼 { 𝑁 ′  
+
+> 𝑖 <𝑇 𝑖 }
+
+i
+
+≤ E𝜽 (𝑇 3 
+
+> 𝑖
+
+)1/3 P𝜽 (𝑁 ′ 
+
+> 𝑖
+
+< 𝑇 𝑖 )2/3 (by H¨ older’s inequality) .
+
+Consequently, from (50) and Lemma 1 we have 
+
+E𝜽 (𝑁 𝑖 ) − E𝜽 (𝑁 ′ 
+
+> 𝑖
+
+) = 𝑂 (𝑛 ∗ 
+
+> 𝑖
+
+) 𝑂 (𝑛 ∗− 𝑠 /3)
+
+= 𝑜 (1), if 𝑚 > 5/2.
+
+The result in part (ii) now follows from the expression for E𝜽 (𝑁 ′ 
+
+> 𝑖
+
+) given in part (i) of (30), and part (i) follows immediately as a corollary. □
+
+Proof of Theorem 2 . Using the same reasoning as in (31), we conclude that 
+
+𝐼 (𝑵 = 𝒏 ) is independent of  𝑋 𝑛 1 (1) , 𝑌 𝑛 2 (1)
+
+ .
+
+Hence, the type I error probability can be written as 
+
+P𝜽 ,𝑵 (Type I error ) = E𝜽 
+
+" 𝜎 1
+
+𝑁 1
+
++ 𝜎 2
+
+𝑁 2
+
+ −1 𝜎 1
+
+𝑁 1
+
+exp 
+
+
+
+− 𝑁 1 (𝑏 − Δ0)
+
+𝜎 1
+
+#
+
+= E𝜽 
+
+" 𝑛 ∗
+
+> 1
+
+𝑁 1
+
++ 𝑛 ∗
+
+> 2
+
+𝑁 2
+
+ −1 𝑛 ∗
+
+> 1
+
+𝑁 1
+
+exp 
+
+
+
+−𝑙 1
+
+𝑁 1
+
+𝑛 ∗
+
+> 1
+
+#
+
+, where 𝑙 1 = 𝑑 𝛼 (𝑏 − Δ0)
+
+24 Let 𝐸 denote the event 
+
+𝐸 = (𝑁 ′ 
+
+> 1
+
+≥ 𝑇 1) ∩ ( 𝑁 ′ 
+
+> 2
+
+< 𝑇 2) ∪ (𝑁 ′ 
+
+> 1
+
+< 𝑇 1) ∩ ( 𝑁 ′ 
+
+> 2
+
+≥ 𝑇 2) ∪ (𝑁 ′ 
+
+> 1
+
+< 𝑇 1) ∩ ( 𝑁 ′ 
+
+> 2
+
+< 𝑇 2),
+
+for which P𝜽 (𝐸 ) = 𝑂 (𝑞 −𝑠 /2) if 𝑚 > 𝑠 /2 + 1. Now consider 
+
+P𝜽 ,𝑵 (Type I error ) − P𝜽 ,𝑵 ′ (Type I error )
+
+≤ E𝜽 
+
+"  𝑛 ∗
+
+> 1
+
+𝑁 1
+
++ 𝑛 ∗
+
+> 2
+
+𝑁 2
+
+ −1 𝑛 ∗
+
+> 1
+
+𝑁 1
+
+exp 
+
+
+
+−𝑙 1
+
+𝑁 1
+
+𝑛 ∗
+
+> 1
+
+
+
+−
+
+ 𝑛 ∗
+
+> 1
+
+𝑁 ′
+
+> 1
+
++ 𝑛 ∗
+
+> 2
+
+𝑁 ′
+
+> 2
+
+ −1 𝑛 ∗
+
+> 1
+
+𝑁 ′
+
+> 1
+
+exp 
+
+
+
+−𝑙 1
+
+𝑁 ′
+
+> 1
+
+𝑛 ∗
+
+> 1
+
+
+
+𝐼 𝐸 
+
+#
+
+≤ E𝜽 
+
+ 𝑛 ∗
+
+> 1
+
+𝑙 1
+
+ 1
+
+𝑁 1
+
++ 1
+
+𝑁 ′
+
+> 1
+
+
+
+𝐼 𝐸 
+
+
+
+(by (35)) 
+
+≤ 𝑂 (𝑛 ∗
+
+> 1
+
+) P𝜽 (𝐸 ) = 𝑂 (𝑞 )𝑂 (𝑞 ∗− 𝑠 /2)
+
+= 𝑜 (1), if 𝑚 > 2.
+
+(52) Combining (52) with (41) yields the desired result. □
+
+Proof of Theorem 3 . Proceeding in a similar fashion as in the proof of Theorem 2, the risk function can be expressed as 
+
+𝑅 𝑵 ( 𝝁 , 𝒄 ) = E𝜽 
+
+"
+
+𝐴 
+
+ 𝜎 1
+
+𝑁 1
+
++ 𝜎 2
+
+𝑁 2
+
+ −1 𝜎 2
+
+𝑁 2
+
+exp 
+
+
+
+− 𝑁 2 (Δ1 − 𝑏 )
+
+𝜎 2
+
+
+
++ 𝑐 1 𝑁 1𝜎 −11 + 𝑐 2 𝑁 2𝜎 −12
+
+#
+
+= E𝜽 
+
+"
+
+𝐴 
+
+ 𝑛 ∗
+
+> 1
+
+𝑁 1
+
++ 𝑛 ∗
+
+> 2
+
+𝑁 2
+
+ −1 𝑛 ∗
+
+> 2
+
+𝑁 2
+
+exp 
+
+
+
+−𝑙 2
+
+𝑁 2
+
+𝑛 ∗
+
+> 2
+
+
+
++ 𝑐 1 𝑁 1𝜎 −11 + 𝑐 2 𝑁 2𝜎 −12
+
+#
+
+, where 𝑙 2 = 𝑑 𝛼 (Δ1 − 𝑏 ).
+
+Consider the difference 
+
+(Regret) 𝑵 − (Regret) 𝑵 ′ = 𝑅 𝑵 ( 𝝁 , 𝒄 ) − 𝑅 𝑵 ′ ( 𝝁 , 𝒄 )
+
+≤ E𝜽 
+
+"
+
+𝐴 
+
+ 𝑛 ∗
+
+> 1
+
+𝑁 1
+
++ 𝑛 ∗
+
+> 2
+
+𝑁 2
+
+ −1 𝑛 ∗
+
+> 2
+
+𝑁 2
+
+exp 
+
+
+
+−𝑙 2
+
+𝑁 2
+
+𝑛 ∗
+
+> 2
+
+
+
+− 𝐴 
+
+ 𝑛 ∗
+
+> 1
+
+𝑁 ′
+
+> 1
+
++ 𝑛 ∗
+
+> 2
+
+𝑁 ′
+
+> 2
+
+ −1 𝑛 ∗
+
+> 2
+
+𝑁 ′
+
+> 2
+
+exp 
+
+
+
+−𝑙 2
+
+𝑁 ′
+
+> 2
+
+𝑛 ∗
+
+> 2
+
+
+
++ 𝑐 1
+
+𝜎 1
+
+𝑁 1 + 𝑐 2
+
+𝜎 2
+
+𝑁 2 − 𝑐 1
+
+𝜎 1
+
+𝑁 ′ 
+
+> 1
+
+− 𝑐 2
+
+𝜎 2
+
+𝑁 ′ 
+
+> 2
+
+𝐼 𝐸 
+
+#
+
+≤ E𝜽 
+
+ 𝑛 ∗
+
+> 2
+
+𝑙 2
+
+ 1
+
+𝑁 2
+
++ 1
+
+𝑁 ′
+
+> 2
+
+
+
++ 𝑐 1
+
+𝜎 1
+
+(𝑁 1 + 𝑁 ′
+
+> 1
+
+) + 𝑐 2
+
+𝜎 2
+
+(𝑁 2 + 𝑁 ′
+
+> 2
+
+)
+
+
+
+𝐼 𝐸 
+
+
+
+≤ 𝑂 (𝑞 ) P𝜽 (𝐸 ) = 𝑜 (1), if 𝑚 > 2.
+
+(53) Thus, part (ii) follows from (48), and part (i) is a direct consequence. □
+
+25
