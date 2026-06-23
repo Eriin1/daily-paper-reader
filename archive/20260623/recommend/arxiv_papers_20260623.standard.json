@@ -1,0 +1,219 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-23T21:28:08.434996+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2606.17246v1",
+      "source": "arxiv",
+      "title": "GeoDisaster: Benchmarking Orchestrated Agents for Operational Disaster Geo-Intelligence",
+      "abstract": "Remote-sensing vision-language models (RS-VLMs) have advanced Earth-observation analysis toward visual interpretation and instruction-following, yet fall short of operational geo-intelligence, which demands tool-grounded spatial reasoning and structured, evidence-backed decisions. We introduce GeoDisaster, an operational geospatial disaster reasoning benchmark with 2,921 verified instances across 43 question types and five task families: deforestation monitoring, multi-hazard analysis, building-damage assessment, flood-safe routing, and Sentinel-1 SAR flood monitoring. Instances integrate heterogeneous EO/GIS evidence-optical and SAR imagery, raster masks, vector geometries, road networks, and exposure layers-spanning hazard detection, damage assessment, exposure estimation, and diagnostic report generation. Ground-truth answers are grounded in executable geospatial workflows and deterministic consistency checks, removing the need for language-model annotation. We further propose an orchestrated multi-agent framework with 18 disaster-oriented tools, where role-specialized agents coordinate through explicit execution contracts, aligned via Role-Contract Expectation Alignment (RCEA): failure-aware supervised fine-tuning combined with contract-grounded reinforcement learning over dense step-level signals. Experiments show that GeoDisaster challenges existing RS-VLMs and agentic systems, while RCEA improves tool use, evidence grounding, state consistency, and decision generation.",
+      "authors": [
+        "Maram Hasan",
+        "Aman Verma",
+        "Savitra Roy",
+        "Hariseetharam Gunduboina",
+        "Daksh Jain",
+        "Muhammad Haris Khan",
+        "Subhasis Chaudhuri",
+        "Biplab Banerjee"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.MA"
+      ],
+      "published": "2026-06-15T19:46:10+00:00",
+      "link": "https://arxiv.org/pdf/2606.17246v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "flood monitoring and building-damage assessment for urban flood risk",
+      "llm_evidence_cn": "涵盖洪水监测与建筑物损毁评估，支持城市洪水风险",
+      "llm_evidence": "涵盖洪水监测与建筑物损毁评估，支持城市洪水风险",
+      "canonical_evidence": "涵盖洪水监测与建筑物损毁评估，支持城市洪水风险",
+      "llm_tldr_en": "Introduces GeoDisaster, a benchmark for operational disaster geo-intelligence with five task families including flood-safe routing and SAR flood monitoring, integrating diverse EO/GIS data for structured decisions.",
+      "llm_tldr_cn": "现有遥感视觉语言模型缺乏工具驱动的空间推理能力，无法支撑业务化地理智能。为此，本文提出GeoDisaster基准，包含2921个实例、43种问题类型和五项任务族：森林砍伐监测、多灾种分析、建筑物损毁评估、洪水安全路径规划及Sentinel-1 SAR洪水监测。实例融合光学/SAR影像、栅格掩膜、矢量几何、路网和暴露图层。该基准为城市洪水风险评估与应急管理提供了全面的工具与评估框架，推动更可靠的灾害地理智能发展。",
+      "llm_tldr": "现有遥感视觉语言模型缺乏工具驱动的空间推理能力，无法支撑业务化地理智能。为此，本文提出GeoDisaster基准，包含2921个实例、43种问题类型和五项任务族：森林砍伐监测、多灾种分析、建筑物损毁评估、洪水安全路径规划及Sentinel-1 SAR洪水监测。实例融合光学/SAR影像、栅格掩膜、矢量几何、路网和暴露图层。该基准为城市洪水风险评估与应急管理提供了全面的工具与评估框架，推动更可靠的灾害地理智能发展。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.21819v1",
+      "source": "arxiv",
+      "title": "RAPID: A Reproducible Multi-Agent Pipeline for Interpretable Disaster Damage Assessment from Satellite and Street-View Imagery",
+      "abstract": "Due to the increasing frequency and intensity of extreme climate events, there is a clear demand for intelligent, scalable, and autonomous approaches to disaster damage assessment. Existing methods, largely based on supervised learning and task-specific fine-tuning, struggle to generalize under domain shifts, long-tailed data distributions, and heterogeneous geospatial data sources, especially in disaster scenarios. They also often lack the ability to integrate and reason across multimodal geospatial information, such as satellite images and street-view images. In this paper, we introduce RAPID, a reproducible multi-agent pipeline for interpretable disaster damage assessment, including damage-level assessment, damage-type interpretation, and actionable suggestions for response, remediation, and recovery. RAPID coordinates specialized agents to perform cross-view understanding, image restoration, structured damage recognition, and geographical reasoning across heterogeneous data modalities. Without task-specific fine-tuning, RAPID supports zero-shot damage assessment by jointly using complementary information from remote sensing and ground-level perspectives. The system produces fine-grained, interpretable assessments and automatically generates location-specific, decision-relevant disaster reports to support early-stage emergency response. We evaluate RAPID across hurricanes, floods, wildfires, and earthquakes using multiple cross-view imagery inputs, including pre- and post-disaster street-view images, post-disaster remote sensing imagery, and street-view image pairs. Experiments show that RAPID achieves 0.92 overall accuracy for multi-disaster type classification and up to 0.627 for cross-view damage severity prediction, highlighting its potential as a foundational framework for autonomous disaster intelligence.",
+      "authors": [
+        "Yifan Yang",
+        "Wenjing Gong",
+        "Kaili Zhang",
+        "Lei Zou",
+        "Zhengzhong Tu",
+        "Hao Li",
+        "Zongrong Li",
+        "Xinyue Ye"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-20T01:05:44+00:00",
+      "link": "https://arxiv.org/pdf/2606.21819v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multi-agent pipeline for disaster damage assessment from satellite and street-view imagery",
+      "llm_evidence_cn": "从卫星和街景图像进行灾害损害评估的多智能体管道",
+      "llm_evidence": "从卫星和街景图像进行灾害损害评估的多智能体管道",
+      "canonical_evidence": "从卫星和街景图像进行灾害损害评估的多智能体管道",
+      "llm_tldr_en": "Interpretable multi-agent pipeline that integrates satellite and street-view imagery for disaster damage assessment, handling domain shifts and multimodal data.",
+      "llm_tldr_cn": "现有灾害损害评估方法难以泛化到域迁移和异构数据。本文提出RAPID，一个可复现的多智能体管道，能融合卫星和街景图像进行可解释的损害评估。该方法通过多代理协作解决数据异质性问题，在域迁移下表现鲁棒，可直接用于洪水等灾害的损害评估。",
+      "llm_tldr": "现有灾害损害评估方法难以泛化到域迁移和异构数据。本文提出RAPID，一个可复现的多智能体管道，能融合卫星和街景图像进行可解释的损害评估。该方法通过多代理协作解决数据异质性问题，在域迁移下表现鲁棒，可直接用于洪水等灾害的损害评估。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.20455v1",
+      "source": "arxiv",
+      "title": "PCFootprint: A Large-Scale Dataset and Benchmark for Vectorized Building Footprint Extraction from Aerial LiDAR Point Clouds",
+      "abstract": "Building footprint extraction is a fundamental task in photogrammetry, remote sensing, and computer vision. Recent image-based methods have achieved remarkable progress in extracting vectorized footprints from high-resolution optical imagery. However, optical imagery inherently susceptible to occlusions, perspective distortions, and residual relief displacement, yielding incomplete or misaligned footprint extraction. Furthermore, the lack of explicit elevation information limits its direct applicability to Level of Detail building modeling. In this paper, we present PCFootprint, the first large-scale public dataset for footprint extraction from airborne laser scanning point clouds. PCFootprint comprises \\num{33000} tiles derived from the Estonian Land and Spatial Development Board, covering diverse urban and rural landscapes. Each tile spans \\qtyproduct{128 x 128}{\\m} with systematically aligned vectorized footprints aligned to point clouds. The dataset includes a \\num{3000} tiles cross-domain test set for evaluating generalization across geographic regions. We establish comprehensive benchmarks by evaluating mainstream methods. Experimental results reveal significant challenges including high intra-class variance, data imbalance, and noise across complex geospatial environments. We believe PCFootprint will advance future research in building modeling, urban scene understanding, and geospatial analysis. The PCFootprint dataset is publicly available at \\url{https://huggingface.co/datasets/Haoyuan-Shen/PCFootprint}.",
+      "authors": [
+        "Haoyuan Shen",
+        "Kuihao Wang",
+        "Ruisheng Wang",
+        "Yujun Liu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-18T16:38:35+00:00",
+      "link": "https://arxiv.org/pdf/2606.20455v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "building footprints are essential input for urban stormwater runoff models",
+      "llm_evidence_cn": "建筑足迹是城市雨水径流模型的关键输入",
+      "llm_evidence": "建筑足迹是城市雨水径流模型的关键输入",
+      "canonical_evidence": "建筑足迹是城市雨水径流模型的关键输入",
+      "llm_tldr_en": "Presents PCFootprint, the first large-scale public dataset for building footprint extraction from LiDAR point clouds, enabling detailed urban modeling for flood assessment.",
+      "llm_tldr_cn": "从光学影像提取建筑足迹受遮挡和投影变形影响，且缺乏高程信息。本文构建了首个大规模航空LiDAR点云建筑足迹数据集PCFootprint，包含多种场景标注和评估基准。该数据集可支持更精确的建筑三维建模，为城市洪水淹没模拟和雨水管理提供可靠的基础数据。",
+      "llm_tldr": "从光学影像提取建筑足迹受遮挡和投影变形影响，且缺乏高程信息。本文构建了首个大规模航空LiDAR点云建筑足迹数据集PCFootprint，包含多种场景标注和评估基准。该数据集可支持更精确的建筑三维建模，为城市洪水淹没模拟和雨水管理提供可靠的基础数据。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.20697v1",
+      "source": "arxiv",
+      "title": "AEF-Econ: Toward Plug-and-Play Socioeconomic Foundation Embeddings from AlphaEarth for Urban Remote Sensing",
+      "abstract": "AlphaEarth Foundations (AEF) unify global remote sensing foundation embeddings through multimodal self-supervised learning, but their pretraining focuses on physical land-surface signals, limiting plug-and-play use in socioeconomic tasks. We integrate seven heterogeneous data streams across 36 Chinese cities over eight years - AEF embeddings, population, nighttime lights, remote sensing indices, points of interest (POIs), urban morphology, and cross-lingual text - and construct CHN-Econ, a socioeconomic benchmark with 16 labels in three categories. We conduct 31 controlled experiments along five axes: fusion architecture, self-supervised objective, text integration, embedding dimensionality, and normalization. Used alone as a linear probe, AEF achieves R2 values of only 0.301 for cross-region and 0.160 for cross-tier evaluation. The five-axis ablated backbone improves these scores to 0.832 and 0.671, respectively, but reveals that low-dimensional semantic streams are consistently suppressed by high-dimensional streams under shared reconstruction. To address this bottleneck, we propose Capacity-Adaptive Reconstruction (CAR), replacing shared reconstruction with per-stream decoders and stream-level losses to mitigate inter-stream capacity competition. CAR further raises cross-region and cross-tier R2 to 0.848 and 0.693, and restores collapsed labels from negative R2 to a stable range. Using CAR, we infer 14.4 million pixels across 36 cities and eight years and release AEF-Econ, including 128d and 64d compressed versions. Self-diagnostics and case studies show that AEF-Econ captures cross-city hierarchies and intra-urban spatial organization under unsupervised settings, providing a socioeconomic remote sensing foundation embedding complementary to AEF physical embeddings.",
+      "authors": [
+        "Shuyang Hou",
+        "Ziqi Liu",
+        "Haoyue Jiao",
+        "Lutong Xie",
+        "Yaxian Qing",
+        "Xiaopu Zhang",
+        "Qingyang Xu",
+        "Zhangyan Xu",
+        "Xuefeng Guan",
+        "Huayi Wu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-15T08:43:25+00:00",
+      "link": "https://arxiv.org/pdf/2606.20697v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "socioeconomic embeddings from urban remote sensing for flood vulnerability",
+      "llm_evidence_cn": "来自城市遥感的社会经济嵌入用于洪水脆弱性分析",
+      "llm_evidence": "来自城市遥感的社会经济嵌入用于洪水脆弱性分析",
+      "canonical_evidence": "来自城市遥感的社会经济嵌入用于洪水脆弱性分析",
+      "llm_tldr_en": "AEF-Econ integrates multi-modal urban data to create socioeconomic embeddings, applicable for flood vulnerability mapping.",
+      "llm_tldr_cn": "AlphaEarth基础模型专注于物理地表信号，在社会经济任务中表现有限。本文整合36个中国城市8年的异质数据流（包括AEF嵌入、人口、夜间灯光等），构建CHN-Econ基准。通过31个控制实验，探索特征融合对遥感社会经济任务的影响。该方法可用于城市洪水脆弱性制图。",
+      "llm_tldr": "AlphaEarth基础模型专注于物理地表信号，在社会经济任务中表现有限。本文整合36个中国城市8年的异质数据流（包括AEF嵌入、人口、夜间灯光等），构建CHN-Econ基准。通过31个控制实验，探索特征融合对遥感社会经济任务的影响。该方法可用于城市洪水脆弱性制图。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.21932v1",
+      "source": "arxiv",
+      "title": "CoSA: Correlation-Guided Change Attention with Learnable Residual Gating for Remote Sensing Change Detection",
+      "abstract": "Remote sensing change detection (CD) from bi-temporal imagery is critical for applications such as urban monitoring, disaster assessment, and environmental management, yet robust localization remains challenging under sparse changes, noisy labels, and appearance variations. In this paper, we propose Context Sampling Attention (CoSA), a lightweight decoder-side refinement module that explicitly leverages bi-temporal feature correlation as a control signal for adaptive change-aware feature enhancement. This differs from conventional attention mechanisms that rely on implicit feature weighting without explicit temporal control. In the implemented FC-Siam setting, CoSA computes normalized same-location cross-correlation between paired decoder features, converts low correlation into a change gate, and injects the resulting gated residual at native 1/8 and 1/16 feature scales through learnable residual scaling. This design enables effective discrimination between stable and ambiguous regions without relying on computationally expensive global attention. Extensive experiments on four benchmark datasets (LEVIR-CD, S2Looking, DSIFN, and CLCD) demonstrate consistent improvements over strong baselines, achieving 1.5-2.6% gains in changed-class F1 while introducing negligible parameter overhead. Ablation studies confirm that multiscale placement and learnable residual gating are both important for peak performance. These results indicate that CoSA establishes a practical and effective refinement paradigm for enhancing temporal discriminability in Siamese change detection frameworks.",
+      "authors": [
+        "Abdirashid Omar",
+        "Jonghyuk Park"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-20T07:56:09+00:00",
+      "link": "https://arxiv.org/pdf/2606.21932v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "remote sensing change detection for urban monitoring and disaster assessment",
+      "llm_evidence_cn": "遥感变化检测用于城市监测和灾害评估",
+      "llm_evidence": "遥感变化检测用于城市监测和灾害评估",
+      "canonical_evidence": "遥感变化检测用于城市监测和灾害评估",
+      "llm_tldr_en": "Proposes a correlation-guided change attention module for remote sensing change detection, with applications in urban monitoring and disaster assessment including flood impact analysis.",
+      "llm_tldr_cn": "本文提出了基于相关引导的变化注意力模块CoSA，用于遥感图像变化检测。该方法能更准确地定位城市变化，在城市监测和灾害评估（如洪水影响范围识别）中具有重要应用价值。实验证明其能改善对稀疏变化和噪声的鲁棒性，为城市洪水快速评估提供技术支撑。",
+      "llm_tldr": "本文提出了基于相关引导的变化注意力模块CoSA，用于遥感图像变化检测。该方法能更准确地定位城市变化，在城市监测和灾害评估（如洪水影响范围识别）中具有重要应用价值。实验证明其能改善对稀疏变化和噪声的鲁棒性，为城市洪水快速评估提供技术支撑。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "pluvial flooding causes and impacts in urban areas",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
