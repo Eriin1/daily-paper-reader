@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-24T21:05:01.705123+00:00",
-  "updated_date": "20260624",
+  "generated_at": "2026-06-25T21:48:46.834066+00:00",
+  "updated_date": "20260625",
   "carryover_days": 9,
   "tag_states": {
     "algo-gov": {
@@ -9,7 +9,7 @@
       "items": []
     },
     "urban-flood": {
-      "updated_date": "20260624",
+      "updated_date": "20260625",
       "carryover_days": 9,
       "items": []
     }
