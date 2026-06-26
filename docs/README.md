@@ -6,44 +6,42 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-25
-- 运行时间：2026-06-25 21:53:11 UTC
+- 最新运行日期：2026-06-26
+- 运行时间：2026-06-26 21:43:58 UTC
 - 运行状态：成功
-- 本次总论文数：8
-- 精读区：4
-- 速读区：4
+- 本次总论文数：7
+- 精读区：0
+- 速读区：7
 
 ### 今日简报（AI）
-今日精读4篇、速读4篇，共处理8篇论文。最值得关注精读中的多智能体控制社会福祉设计（8.0/10）和基于张量分解的稀疏传感数据重建（8.0/10）。建议优先从这两篇高分论文入手，逐步扩展到速读的城市建筑提取和时空预测研究。
-- 详情：[/202606/25/README](/202606/25/README)
+今日速读7篇论文，重点涵盖灾害评估多智能体管道与对流降水雷电预测两个方向。建议优先阅读《RAPID》和《Event-Aware Loss Design》这两篇，前者展示可复现的卫星/街景联合评估技术，后者提出天气事件预测的新型损失函数。后续可关注多智能体系统在社会治理中的应用拓展。
+- 详情：[/202606/26/README](/202606/26/README)
 
 ### 精读区论文标签
-1. [Welfarist Control Design -- How to fulfill the societal mandate in multi-agent control?](/202606/25/2606.23931v1-welfarist-control-design----how-to-fulfill-the-societal-mandate-in-multi-agent-control)  
-   标签：评分：8.0/10、query:algo-gov
-   evidence：多智能体控制中的伦理设计与社会使命
-2. [Low-Cost High-Order Singular Value Decomposition for Tensor-Based Reconstruction from Sparse Sensor Measurements: Urban Flow and Air-Quality Applications](/202606/25/2606.24989v1-low-cost-high-order-singular-value-decomposition-for-tensor-based-reconstruction-from-sparse-sensor-measurements-urban-flow-and-air-quality-applications)  
-   标签：评分：8.0/10、query:urban-flood
-   evidence：基于稀疏传感器的城市流动重建方法可迁移至雨水径流监测
-3. [Adaptive Joint Compression and Synchronisation in Federated Split Learning for IoT Rainfall Prediction](/202606/25/2606.25003v1-adaptive-joint-compression-and-synchronisation-in-federated-split-learning-for-iot-rainfall-prediction)  
-   标签：评分：8.0/10、query:urban-flood
-   evidence：降雨预测直接支持城市暴雨洪涝成因与影响分析
-4. [Event-Aware Loss Design for Forecasting of Convective Precipitation and Lightning](/202606/25/2606.25937v1-event-aware-loss-design-for-forecasting-of-convective-precipitation-and-lightning)  
-   标签：评分：8.0/10、query:urban-flood
-   evidence：改进极端降水预测以支持城市洪水管理
+- 本次无精读推荐。
 
 ### 速读区论文标签
-1. [PCFootprint: A Large-Scale Dataset and Benchmark for Vectorized Building Footprint Extraction from Aerial LiDAR Point Clouds](/202606/25/2606.20455v1-pcfootprint-a-large-scale-dataset-and-benchmark-for-vectorized-building-footprint-extraction-from-aerial-lidar-point-clouds)  
+1. [RAPID: A Reproducible Multi-Agent Pipeline for Interpretable Disaster Damage Assessment from Satellite and Street-View Imagery](/202606/26/2606.21819v1-rapid-a-reproducible-multi-agent-pipeline-for-interpretable-disaster-damage-assessment-from-satellite-and-street-view-imagery)  
    标签：评分：7.0/10、query:urban-flood
-   evidence：从LiDAR提取建筑足迹用于城市不透水面映射，支撑洪水模型
-2. [FDN: Interpretable Spatiotemporal Forecasting with Future Decomposition Networks](/202606/25/2606.25201v1-fdn-interpretable-spatiotemporal-forecasting-with-future-decomposition-networks)  
+   evidence：利用卫星和街景图像进行灾害损毁评估
+2. [Welfarist Control Design -- How to fulfill the societal mandate in multi-agent control?](/202606/26/2606.23931v1-welfarist-control-design----how-to-fulfill-the-societal-mandate-in-multi-agent-control)  
+   标签：评分：7.0/10、query:algo-gov
+   evidence：讨论多智能体控制系统中的伦理设计与社会使命，契合算法治理原则
+3. [Event-Aware Loss Design for Forecasting of Convective Precipitation and Lightning](/202606/26/2606.25937v1-event-aware-loss-design-for-forecasting-of-convective-precipitation-and-lightning)  
    标签：评分：7.0/10、query:urban-flood
-   evidence：可解释预测方法，在水文数据集上测试，可应用于雨水径流管理
-3. [Exploring the potential of AlphaEarth and TESSERA embeddings for Fine-scale Local Climate Zone Mapping: A case study across five cities in Switzerland](/202606/25/2606.20034v1-exploring-the-potential-of-alphaearth-and-tessera-embeddings-for-fine-scale-local-climate-zone-mapping-a-case-study-across-five-cities-in-switzerland)  
+   evidence：极端降水预报直接服务城市雨洪成因与影响分析
+4. [Topology-Informed Neural Networks for Flood Detection in Optical and Synthetic Aperture Radar Imagery](/202606/26/2606.26204v1-topology-informed-neural-networks-for-flood-detection-in-optical-and-synthetic-aperture-radar-imagery)  
+   标签：评分：7.0/10、query:urban-flood
+   evidence：使用神经网络进行城市洪水检测
+5. [BELDE: Building a Large-scale Earth-observation Land-cover Dataset for Europe](/202606/26/2606.20909v1-belde-building-a-large-scale-earth-observation-land-cover-dataset-for-europe)  
    标签：评分：6.0/10、query:urban-flood
-   evidence：精细尺度局地气候区制图支持城市洪水风险评估
-4. [Sat2City v2: Native 3D City Asset Generation from a Single Satellite Image](/202606/25/2606.24138v1-sat2city-v2-native-3d-city-asset-generation-from-a-single-satellite-image)  
+   evidence：欧洲大规模土地覆盖数据集，通过土地覆盖制图支持城市洪水风险评估
+6. [Low-Cost High-Order Singular Value Decomposition for Tensor-Based Reconstruction from Sparse Sensor Measurements: Urban Flow and Air-Quality Applications](/202606/26/2606.24989v1-low-cost-high-order-singular-value-decomposition-for-tensor-based-reconstruction-from-sparse-sensor-measurements-urban-flow-and-air-quality-applications)  
    标签：评分：6.0/10、query:urban-flood
-   evidence：生成3D城市资产用于数字孪生，支撑城市洪水模拟
+   evidence：基于稀疏传感器的低成本张量重建方法，适用于城市流场重建，支持洪水监测与风险评估。
+7. [On-board Remote-Sensing Foundation Models for Unsupervised Change Detection of Disaster Events](/202606/26/2606.27018v1-on-board-remote-sensing-foundation-models-for-unsupervised-change-detection-of-disaster-events)  
+   标签：评分：6.0/10、query:urban-flood
+   evidence：无监督变化检测用于灾害监测，包括洪水
 
 
 <div class="dpr-home-promo-card">

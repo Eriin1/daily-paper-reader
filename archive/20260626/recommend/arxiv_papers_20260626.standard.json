@@ -1,0 +1,288 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-26T21:42:40.896351+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 7,
+    "quick_skim_target": 11,
+    "quick_selected": 7
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.21819v1",
+      "source": "arxiv",
+      "title": "RAPID: A Reproducible Multi-Agent Pipeline for Interpretable Disaster Damage Assessment from Satellite and Street-View Imagery",
+      "abstract": "Due to the increasing frequency and intensity of extreme climate events, there is a clear demand for intelligent, scalable, and autonomous approaches to disaster damage assessment. Existing methods, largely based on supervised learning and task-specific fine-tuning, struggle to generalize under domain shifts, long-tailed data distributions, and heterogeneous geospatial data sources, especially in disaster scenarios. They also often lack the ability to integrate and reason across multimodal geospatial information, such as satellite images and street-view images. In this paper, we introduce RAPID, a reproducible multi-agent pipeline for interpretable disaster damage assessment, including damage-level assessment, damage-type interpretation, and actionable suggestions for response, remediation, and recovery. RAPID coordinates specialized agents to perform cross-view understanding, image restoration, structured damage recognition, and geographical reasoning across heterogeneous data modalities. Without task-specific fine-tuning, RAPID supports zero-shot damage assessment by jointly using complementary information from remote sensing and ground-level perspectives. The system produces fine-grained, interpretable assessments and automatically generates location-specific, decision-relevant disaster reports to support early-stage emergency response. We evaluate RAPID across hurricanes, floods, wildfires, and earthquakes using multiple cross-view imagery inputs, including pre- and post-disaster street-view images, post-disaster remote sensing imagery, and street-view image pairs. Experiments show that RAPID achieves 0.92 overall accuracy for multi-disaster type classification and up to 0.627 for cross-view damage severity prediction, highlighting its potential as a foundational framework for autonomous disaster intelligence.",
+      "authors": [
+        "Yifan Yang",
+        "Wenjing Gong",
+        "Kaili Zhang",
+        "Lei Zou",
+        "Zhengzhong Tu",
+        "Hao Li",
+        "Zongrong Li",
+        "Xinyue Ye"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-20T01:05:44+00:00",
+      "link": "https://arxiv.org/pdf/2606.21819v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "disaster damage assessment using satellite and street-view imagery",
+      "llm_evidence_cn": "利用卫星和街景图像进行灾害损毁评估",
+      "llm_evidence": "利用卫星和街景图像进行灾害损毁评估",
+      "canonical_evidence": "利用卫星和街景图像进行灾害损毁评估",
+      "llm_tldr_en": "Introduces RAPID, a multi-agent pipeline for interpretable disaster damage assessment from multimodal geospatial data, applicable to flood scenarios.",
+      "llm_tldr_cn": "针对极端气候灾害损毁评估中泛化能力差和多模态数据融合难的问题，提出可复现多智能体管道RAPID，利用卫星与街景图像进行可解释性损毁评估，在多种灾害场景下验证了其优于监督学习方法的泛化性能，为城市洪水快速评估提供智能化方案。",
+      "llm_tldr": "针对极端气候灾害损毁评估中泛化能力差和多模态数据融合难的问题，提出可复现多智能体管道RAPID，利用卫星与街景图像进行可解释性损毁评估，在多种灾害场景下验证了其优于监督学习方法的泛化性能，为城市洪水快速评估提供智能化方案。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood mitigation techniques in cities",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.20909v1",
+      "source": "arxiv",
+      "title": "BELDE: Building a Large-scale Earth-observation Land-cover Dataset for Europe",
+      "abstract": "Earth observation imagery plays a critical role in environmental monitoring, urban planning, disaster assessment, and climate analysis. While multi-spectral sensors are increasingly available, true-color (RGB) imagery remains widely used due to the power, cost, and deployment constraints of many satellite and aerial platforms. However, existing land-cover segmentation datasets are often limited in geographic coverage, scale, or public accessibility.   To bridge this gap, we introduce BELDE (Building a Large-scale Earth-observation Land-cover Dataset for Europe), a publicly available dataset tailored for RGB-based remote sensing semantic segmentation. Constructed from Sentinel-2 true-color images and ESA WorldCover data annotations, BELDE contains 1,088,385 curated image-segmentation map pairs spanning Europe with 7 land-cover classes at 10 m spatial resolution, making it one of the largest publicly available RGB land-cover segmentation datasets for Earth observation. To facilitate cross-region generalization studies, we additionally introduce BELDE-K (16,607 pairs) covering the Republic of Korea and BELDE-CA-NV (88,155 pairs) covering California and Nevada in the United States.   We establish baseline results using multiple semantic segmentation architectures and evaluate both in-domain and cross-domain performance. Models trained on BELDE achieve an F1 score of 83.0% on the European test set, while performance decreases to 66.4% on BELDE-CA-NV and 58.3% on BELDE-K, highlighting the challenges posed by out-of-distribution geographic domain shift. By providing a continental-scale RGB segmentation and evaluation benchmark, BELDE supports the development of robust and transferable Earth observation models. The dataset and benchmark resources will be publicly released.",
+      "authors": [
+        "Ümit Mert Çağlar",
+        "Alptekin Temizel"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "eess.IV"
+      ],
+      "published": "2026-06-18T20:07:12+00:00",
+      "link": "https://arxiv.org/pdf/2606.20909v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "large-scale land-cover dataset for Europe, supports urban flood risk assessment via land cover mapping",
+      "llm_evidence_cn": "欧洲大规模土地覆盖数据集，通过土地覆盖制图支持城市洪水风险评估",
+      "llm_evidence": "欧洲大规模土地覆盖数据集，通过土地覆盖制图支持城市洪水风险评估",
+      "canonical_evidence": "欧洲大规模土地覆盖数据集，通过土地覆盖制图支持城市洪水风险评估",
+      "llm_tldr_en": "BELDE is a publicly available large-scale RGB land-cover segmentation dataset for Europe from Sentinel-2, enabling urban flood modeling through land-cover inputs.",
+      "llm_tldr_cn": "针对现有土地覆盖分割数据集在范围、规模和公开性上的不足，构建了BELDE数据集，利用Sentinel-2真彩色影像和ESA WorldCover标注，覆盖欧洲。该数据集可直接用于城市洪水风险评估中的土地覆盖分类，为水文模型提供关键输入。实验表明其在多种分割任务上性能优异，推动了遥感数据在城市洪水管理中的应用。",
+      "llm_tldr": "针对现有土地覆盖分割数据集在范围、规模和公开性上的不足，构建了BELDE数据集，利用Sentinel-2真彩色影像和ESA WorldCover标注，覆盖欧洲。该数据集可直接用于城市洪水风险评估中的土地覆盖分类，为水文模型提供关键输入。实验表明其在多种分割任务上性能优异，推动了遥感数据在城市洪水管理中的应用。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.23931v1",
+      "source": "arxiv",
+      "title": "Welfarist Control Design -- How to fulfill the societal mandate in multi-agent control?",
+      "abstract": "At the core of most socio-technical systems lies a scarce resource that is allocated among agents: highway lanes, public transit, road space, water rights, energy access, grid capacity, user attention, pollution rights, etc. With further automation of the underlying allocation processes, control engineers are increasingly tasked to make decisive assumptions regarding what society wants. In practice to date, design choices are largely driven by industry norms and conventions rather than a result of conscientiously responsible and ethical design. In this paper, we look at tools available to control engineers to design systems in a more principled manner in order to match the societal mandate. We consider three control design paradigms: online feedback optimization, control of Markov decision processes, and model predictive control. Beginning with aggregating individual agents' preferences into control design objectives, subsequently ensuring and certifying the fulfillment of those specifications, we argue that the feedback nature of control systems enables appropriate allocation of the shared resources in ways hitherto unparalleled.",
+      "authors": [
+        "Sophie Hall",
+        "Kai Zhang",
+        "Ilia Shilov",
+        "Heinrich H. Nax",
+        "Saverio Bolognani"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY",
+        "cs.MA",
+        "math.OC"
+      ],
+      "published": "2026-06-22T20:50:45+00:00",
+      "link": "https://arxiv.org/pdf/2606.23931v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Discusses ethical design and societal mandate in multi-agent control systems, aligning with algorithm governance principles",
+      "llm_evidence_cn": "讨论多智能体控制系统中的伦理设计与社会使命，契合算法治理原则",
+      "llm_evidence": "讨论多智能体控制系统中的伦理设计与社会使命，契合算法治理原则",
+      "canonical_evidence": "讨论多智能体控制系统中的伦理设计与社会使命，契合算法治理原则",
+      "llm_tldr_en": "Examines how control engineers can move beyond industry norms to incorporate ethical and societal considerations into multi-agent allocation systems.",
+      "llm_tldr_cn": "针对多智能体控制系统中资源配置的社会伦理缺失问题，提出三种设计范式（最优、博弈论、福利主义），帮助工程师在分配道路、水权等稀缺资源时考虑社会使命与公平性，为算法治理提供可操作框架。",
+      "llm_tldr": "针对多智能体控制系统中资源配置的社会伦理缺失问题，提出三种设计范式（最优、博弈论、福利主义），帮助工程师在分配道路、水权等稀缺资源时考虑社会使命与公平性，为算法治理提供可操作框架。",
+      "llm_tags": [
+        "query:algo-gov:composite"
+      ],
+      "matched_query_tag": "query:algo-gov:composite",
+      "matched_query_text": "Papers central to 请帮我查询关于算法治理的文章, especially work that connects or combines: algorithm governance principles and frameworks; fairness in algorithmic decision making; transparency of algorithms and models; accountability for algorithmic outcomes; ethical considerations in artificial intelligence; detecting bias in machine learning models; challenges and solutions in algorithm governance; impact of algorithm governance on society; best practices for implementing algorithm governance.",
+      "matched_requirement_id": "req-composite-algo-gov",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.24989v1",
+      "source": "arxiv",
+      "title": "Low-Cost High-Order Singular Value Decomposition for Tensor-Based Reconstruction from Sparse Sensor Measurements: Urban Flow and Air-Quality Applications",
+      "abstract": "Urban flow and air-quality simulations generate high-dimensional datasets describing velocity and pollutant transport across multiple spatial, temporal, and physical-variable dimensions. Reconstructing these fields from sparse sensor measurements is a fundamental challenge in environmental monitoring, digital twins, forecasting, and data assimilation. Existing low-cost reconstruction approaches are commonly based on matrix decompositions, which require multidimensional datasets to be flattened into two-dimensional snapshot matrices, thereby discarding important structural information. This work introduces the low-cost High-Order Singular Value Decomposition (lcHOSVD), a novel tensor-based sparse-sensing reconstruction framework for high-dimensional environmental fields. To the authors' knowledge, this is the first methodology that combines sparse sensing and HOSVD for field reconstruction. Unlike matrix-based approaches, lcHOSVD preserves the natural tensor structure of the data, enabling the exploitation of correlations across spatial, temporal, and physical-variable dimensions while substantially reducing the computational requirements of conventional HOSVD. The methodology is applied to urban flow and air-quality datasets, where three-dimensional velocity and pollutant concentration fields are reconstructed using only 1-4% of the available spatial locations. While lcSVD provides larger computational speed-ups, lcHOSVD consistently achieves lower reconstruction errors in configurations characterized by strong multidimensional coupling and heterogeneous dynamics across dimensions. Additional sensor-anisotropy analyses demonstrate that the tensor formulation is significantly more robust to uneven sensor distributions, a common situation in practical environmental monitoring networks.",
+      "authors": [
+        "Arindam Sengupta",
+        "Paul Jeanney",
+        "Ricardo Vinuesa",
+        "Jose Miguel Perez",
+        "Soledad Le Clainche"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-23T14:39:50+00:00",
+      "link": "https://arxiv.org/pdf/2606.24989v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Low-cost tensor-based reconstruction method for urban flow fields from sparse sensors, enabling flood monitoring and risk assessment.",
+      "llm_evidence_cn": "基于稀疏传感器的低成本张量重建方法，适用于城市流场重建，支持洪水监测与风险评估。",
+      "llm_evidence": "基于稀疏传感器的低成本张量重建方法，适用于城市流场重建，支持洪水监测与风险评估。",
+      "canonical_evidence": "基于稀疏传感器的低成本张量重建方法，适用于城市流场重建，支持洪水监测与风险评估。",
+      "llm_tldr_en": "lcHOSVD reconstructs high-dimensional urban flow fields from sparse sensors by preserving tensor structure, enabling accurate and low-cost monitoring for flood and air-quality applications.",
+      "llm_tldr_cn": "城市流场重建是环境监测的关键，但现有矩阵分解方法丢失了多维结构信息。本文提出低成本高阶奇异值分解（lcHOSVD），直接从稀疏传感器测量中重建张量形式的高维流场，保留了空间、时间和物理变量间的耦合关系。在模拟和真实数据上的实验表明，该方法在重建精度上优于传统矩阵方法，并显著降低计算成本。该工作为城市洪水流动监测提供了高效重建工具。",
+      "llm_tldr": "城市流场重建是环境监测的关键，但现有矩阵分解方法丢失了多维结构信息。本文提出低成本高阶奇异值分解（lcHOSVD），直接从稀疏传感器测量中重建张量形式的高维流场，保留了空间、时间和物理变量间的耦合关系。在模拟和真实数据上的实验表明，该方法在重建精度上优于传统矩阵方法，并显著降低计算成本。该工作为城市洪水流动监测提供了高效重建工具。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.25937v1",
+      "source": "arxiv",
+      "title": "Event-Aware Loss Design for Forecasting of Convective Precipitation and Lightning",
+      "abstract": "Accurate forecasting of high-impact weather, specifically extreme precipitation and lightning, remains a significant challenge in numerical weather prediction (NWP) due to the complexity of atmospheric microphysics. While deep-learning models have shown promise in large-scale forecasting, they often suffer from systematic under-prediction of rare, high-intensity events and localized convective showers when optimized with conventional loss functions like Mean Squared Error (MSE). This study proposes an Event-Aware multi-task deep-learning post-processing framework designed to improve the representation of convective processes by leveraging lightning observations. The model jointly predicts precipitation amount, rainfall probability, and lightning occurrence using a shared-backbone Patch-cGAN (Conditional Generative Adversarial Network) architecture. To address the rare event problem, we introduce a lightning-informed loss-weighting strategy that element-wisely multiplies the MSE component by a spatial weight map derived from observed lightning strikes, forcing the model to prioritize accuracy in convective regions during training. Evaluations conducted over the Korean Peninsula during the 2025 Summer demonstrate that our framework outperforms standard AI benchmarks and conventional NWP models, particularly at intense rainfall thresholds (40 mm/6 h). Furthermore, the model exhibits superior skill in predicting lightning compared to conventional lightning parameterization and instability-index-based methods. These results indicate that integrating physical event indicators into the loss formulation effectively guides models to learn the meteorological signatures of deep convection, offering a pathway toward more reliable extreme weather forecasting.",
+      "authors": [
+        "ChangJae Lee",
+        "Heecheol Yang",
+        "Byeonggwon Kim"
+      ],
+      "primary_category": "physics.ao-ph",
+      "categories": [
+        "physics.ao-ph"
+      ],
+      "published": "2026-06-24T15:14:53+00:00",
+      "link": "https://arxiv.org/pdf/2606.25937v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Extreme precipitation forecasting directly informs pluvial flood causes and impacts in urban areas",
+      "llm_evidence_cn": "极端降水预报直接服务城市雨洪成因与影响分析",
+      "llm_evidence": "极端降水预报直接服务城市雨洪成因与影响分析",
+      "canonical_evidence": "极端降水预报直接服务城市雨洪成因与影响分析",
+      "llm_tldr_en": "Proposes an Event-Aware multi-task loss to improve deep-learning forecasts of convective precipitation and lightning, addressing under-prediction of rare high-intensity events.",
+      "llm_tldr_cn": "针对深度学习模型对强对流降水等稀有高强度事件预报能力不足的问题，提出一种事件感知的多任务损失函数，联合预测降水量、降雨概率和闪电活动。实验表明该方法显著提升了对极端降水的捕捉能力，可应用于城市雨洪预警与影响评估。",
+      "llm_tldr": "针对深度学习模型对强对流降水等稀有高强度事件预报能力不足的问题，提出一种事件感知的多任务损失函数，联合预测降水量、降雨概率和闪电活动。实验表明该方法显著提升了对极端降水的捕捉能力，可应用于城市雨洪预警与影响评估。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "pluvial flooding causes and impacts in urban areas",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.27018v1",
+      "source": "arxiv",
+      "title": "On-board Remote-Sensing Foundation Models for Unsupervised Change Detection of Disaster Events",
+      "abstract": "Remote Sensing Foundation Models (RSFMs) have emerged as a powerful alternative to supervised models for Earth Observation, allowing satellites to autonomously trigger high-resolution captures or adjust tasking parameters upon detecting an anomaly, thereby maximizing the utility of the mission's limited power and computational resources. RSFMs are versatile, unified encoders that optimize onboard storage for multiple orbital applications while ensuring high-fidelity feature extraction. In particular, unsupervised change detection with RSFMs offers a well-informed and transformative path for disaster monitoring without expensive labels. In this paper, we present a novel unsupervised detection method based on ResNet (RSFM) + FPN which identifies a wide spectrum of anomalies by detecting subtle semantic shifts in the latent space between successive orbital passes. By relying on an untrained FPN architecture and its intrinsic priors, the system achieves efficient image-level generation and higher resolution mapping with minimal effort (training-free) compared to previous proposals (patch-based, trained). And by replacing tailored models with RSFMs, we can achieve comparable results through an approach that eliminates the need for bespoke training and extensive development effort and adds customization, while ensuring high-performance generalization across diverse terrains and sensors.",
+      "authors": [
+        "S. Ramírez-Gallego"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-06-25T13:30:51+00:00",
+      "link": "https://arxiv.org/pdf/2606.27018v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "unsupervised change detection for disaster events including floods",
+      "llm_evidence_cn": "无监督变化检测用于灾害监测，包括洪水",
+      "llm_evidence": "无监督变化检测用于灾害监测，包括洪水",
+      "canonical_evidence": "无监督变化检测用于灾害监测，包括洪水",
+      "llm_tldr_en": "Presents an unsupervised change detection method using remote sensing foundation models for disaster events, enabling autonomous anomaly detection on satellites.",
+      "llm_tldr_cn": "传统灾害监测依赖大量标注数据和地面处理，效率低。本文提出一种基于遥感基础模型的无监督变化检测方法，利用星载计算自动触发高分辨率拍摄。该方法无需标注，可在轨运行。实验表明在资源受限环境下能有效检测洪水等灾害变化，为卫星自主应急监测开辟新路径。",
+      "llm_tldr": "传统灾害监测依赖大量标注数据和地面处理，效率低。本文提出一种基于遥感基础模型的无监督变化检测方法，利用星载计算自动触发高分辨率拍摄。该方法无需标注，可在轨运行。实验表明在资源受限环境下能有效检测洪水等灾害变化，为卫星自主应急监测开辟新路径。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.26204v1",
+      "source": "arxiv",
+      "title": "Topology-Informed Neural Networks for Flood Detection in Optical and Synthetic Aperture Radar Imagery",
+      "abstract": "Floods frequently impact regions around the world. Rapid and accurate flood detection is crucial for emergency response and timely mitigation of human and economic loss. The expanding availability of satellite data and advances in artificial intelligence have enhanced monitoring of environmental hazards, but many flood events remain challenging to detect because cloud cover obscures optical satellite imagery. Rambour et al. introduced the SEN12-FLOOD dataset and extracted per-image features using a ResNet-50 convolutional neural network backbone, then fed these features into a gated recurrent unit network to show that temporal information can substantially improve accuracy compared to single-image baselines. More recently, Chamatidis et al. showed that a vision transformer can achieve strong performance with popular convolutional architectures. However, these models typically function as opaque black boxes, making it difficult to interpret their decision boundaries, learned features, and internal reasoning, especially in safety-critical domains like remote sensing. In contrast, topological data analysis (TDA) provides a mathematically grounded framework for capturing global structural features of data. TDA has emerged as a powerful tool for analyzing complex imagery, especially imagery with geometrically interpretable structures, of which floods are a prime candidate. In this work, we systematically evaluate topological descriptors for flood detection using the open-source SEN12-FLOOD dataset. By extracting topological features from each image and incorporating them into neural networks, we demonstrate that topological descriptors carry meaningful flood signals independently and complement existing networks to yield more robust and interpretable flood detection systems.",
+      "authors": [
+        "Sophia Li",
+        "Max Zhao",
+        "Raghu G. Raj",
+        "Tianyu Chen"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-24T16:52:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.26204v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "flood detection in urban areas using neural networks",
+      "llm_evidence_cn": "使用神经网络进行城市洪水检测",
+      "llm_evidence": "使用神经网络进行城市洪水检测",
+      "canonical_evidence": "使用神经网络进行城市洪水检测",
+      "llm_tldr_en": "Proposes topology-informed neural networks combining optical and SAR imagery for flood detection, improving accuracy with temporal information.",
+      "llm_tldr_cn": "现有洪水检测方法受云层遮挡限制，精度不足。本文提出一种拓扑信息神经网络，融合光学与SAR影像，并利用门控循环单元引入时间信息。在SEN12-FLOOD数据集上验证，时间信息显著提升检测精度。该方法为城市洪水应急响应提供了快速准确的工具。",
+      "llm_tldr": "现有洪水检测方法受云层遮挡限制，精度不足。本文提出一种拓扑信息神经网络，融合光学与SAR影像，并利用门控循环单元引入时间信息。在SEN12-FLOOD数据集上验证，时间信息显著提升检测精度。该方法为城市洪水应急响应提供了快速准确的工具。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "urban flood risk assessment and management",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
