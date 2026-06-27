@@ -6,42 +6,37 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-26
-- 运行时间：2026-06-26 21:43:58 UTC
+- 最新运行日期：2026-06-27
+- 运行时间：2026-06-27 21:21:52 UTC
 - 运行状态：成功
-- 本次总论文数：7
-- 精读区：0
-- 速读区：7
+- 本次总论文数：5
+- 精读区：2
+- 速读区：3
 
 ### 今日简报（AI）
-今日速读7篇论文，重点涵盖灾害评估多智能体管道与对流降水雷电预测两个方向。建议优先阅读《RAPID》和《Event-Aware Loss Design》这两篇，前者展示可复现的卫星/街景联合评估技术，后者提出天气事件预测的新型损失函数。后续可关注多智能体系统在社会治理中的应用拓展。
-- 详情：[/202606/26/README](/202606/26/README)
+今天共5篇论文，精读2篇高分论文聚焦多智能体控制的社会福利设计和遥感基础模型灾害检测。  
+最值得关注的是《Welfarist Control Design》探讨如何在社会使命下设计多智能体控制，以及《On-board Remote-Sensing Foundation Models》实现无监督卫星变化检测。  
+下步可重点阅读这两篇精读论文，速读中天气预报与数据同化不确定性量化也有实用价值。
+- 详情：[/202606/27/README](/202606/27/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [Welfarist Control Design -- How to fulfill the societal mandate in multi-agent control?](/202606/27/2606.23931v1-welfarist-control-design----how-to-fulfill-the-societal-mandate-in-multi-agent-control)  
+   标签：评分：8.0/10、query:algo-gov
+   evidence：探讨多智能体控制中的伦理AI、公平性和社会使命，与算法治理相关
+2. [On-board Remote-Sensing Foundation Models for Unsupervised Change Detection of Disaster Events](/202606/27/2606.27018v1-on-board-remote-sensing-foundation-models-for-unsupervised-change-detection-of-disaster-events)  
+   标签：评分：8.0/10、query:urban-flood
+   evidence：机载遥感基础模型用于灾害事件的无监督变化检测，可直接用于洪水监测和风险评估
 
 ### 速读区论文标签
-1. [RAPID: A Reproducible Multi-Agent Pipeline for Interpretable Disaster Damage Assessment from Satellite and Street-View Imagery](/202606/26/2606.21819v1-rapid-a-reproducible-multi-agent-pipeline-for-interpretable-disaster-damage-assessment-from-satellite-and-street-view-imagery)  
+1. [Otter Weather: Skillful and Computationally Efficient Medium-Range Weather Forecasting](/202606/27/2606.26421v1-otter-weather-skillful-and-computationally-efficient-medium-range-weather-forecasting)  
    标签：评分：7.0/10、query:urban-flood
-   evidence：利用卫星和街景图像进行灾害损毁评估
-2. [Welfarist Control Design -- How to fulfill the societal mandate in multi-agent control?](/202606/26/2606.23931v1-welfarist-control-design----how-to-fulfill-the-societal-mandate-in-multi-agent-control)  
-   标签：评分：7.0/10、query:algo-gov
-   evidence：讨论多智能体控制系统中的伦理设计与社会使命，契合算法治理原则
-3. [Event-Aware Loss Design for Forecasting of Convective Precipitation and Lightning](/202606/26/2606.25937v1-event-aware-loss-design-for-forecasting-of-convective-precipitation-and-lightning)  
+   evidence：高效中期天气预报模型Otter Weather，可用于洪水风险评估
+2. [Uncertainty quantification via conformal prediction in data assimilation](/202606/27/2606.27001v1-uncertainty-quantification-via-conformal-prediction-in-data-assimilation)  
    标签：评分：7.0/10、query:urban-flood
-   evidence：极端降水预报直接服务城市雨洪成因与影响分析
-4. [Topology-Informed Neural Networks for Flood Detection in Optical and Synthetic Aperture Radar Imagery](/202606/26/2606.26204v1-topology-informed-neural-networks-for-flood-detection-in-optical-and-synthetic-aperture-radar-imagery)  
-   标签：评分：7.0/10、query:urban-flood
-   evidence：使用神经网络进行城市洪水检测
-5. [BELDE: Building a Large-scale Earth-observation Land-cover Dataset for Europe](/202606/26/2606.20909v1-belde-building-a-large-scale-earth-observation-land-cover-dataset-for-europe)  
-   标签：评分：6.0/10、query:urban-flood
-   evidence：欧洲大规模土地覆盖数据集，通过土地覆盖制图支持城市洪水风险评估
-6. [Low-Cost High-Order Singular Value Decomposition for Tensor-Based Reconstruction from Sparse Sensor Measurements: Urban Flow and Air-Quality Applications](/202606/26/2606.24989v1-low-cost-high-order-singular-value-decomposition-for-tensor-based-reconstruction-from-sparse-sensor-measurements-urban-flow-and-air-quality-applications)  
-   标签：评分：6.0/10、query:urban-flood
-   evidence：基于稀疏传感器的低成本张量重建方法，适用于城市流场重建，支持洪水监测与风险评估。
-7. [On-board Remote-Sensing Foundation Models for Unsupervised Change Detection of Disaster Events](/202606/26/2606.27018v1-on-board-remote-sensing-foundation-models-for-unsupervised-change-detection-of-disaster-events)  
-   标签：评分：6.0/10、query:urban-flood
-   evidence：无监督变化检测用于灾害监测，包括洪水
+   evidence：通过保形预测进行数据同化的不确定性量化，可转移至城市洪水风险评估
+3. [What's in an Earth Embedding? An Explainability Analysis of Location Encoders](/202606/27/2606.24997v1-whats-in-an-earth-embedding-an-explainability-analysis-of-location-encoders)  
+   标签：评分：6.0/10、query:algo-gov
+   evidence：位置编码器的可解释性分析，支持算法透明度
 
 
 <div class="dpr-home-promo-card">
