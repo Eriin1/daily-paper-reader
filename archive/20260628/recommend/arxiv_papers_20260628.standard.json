@@ -1,0 +1,142 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-28T21:08:41.078756+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2606.23931v1",
+      "source": "arxiv",
+      "title": "Welfarist Control Design -- How to fulfill the societal mandate in multi-agent control?",
+      "abstract": "At the core of most socio-technical systems lies a scarce resource that is allocated among agents: highway lanes, public transit, road space, water rights, energy access, grid capacity, user attention, pollution rights, etc. With further automation of the underlying allocation processes, control engineers are increasingly tasked to make decisive assumptions regarding what society wants. In practice to date, design choices are largely driven by industry norms and conventions rather than a result of conscientiously responsible and ethical design. In this paper, we look at tools available to control engineers to design systems in a more principled manner in order to match the societal mandate. We consider three control design paradigms: online feedback optimization, control of Markov decision processes, and model predictive control. Beginning with aggregating individual agents' preferences into control design objectives, subsequently ensuring and certifying the fulfillment of those specifications, we argue that the feedback nature of control systems enables appropriate allocation of the shared resources in ways hitherto unparalleled.",
+      "authors": [
+        "Sophie Hall",
+        "Kai Zhang",
+        "Ilia Shilov",
+        "Heinrich H. Nax",
+        "Saverio Bolognani"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY",
+        "cs.MA",
+        "math.OC"
+      ],
+      "published": "2026-06-22T20:50:45+00:00",
+      "link": "https://arxiv.org/pdf/2606.23931v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "ethical and responsible design for societal mandate in control systems",
+      "llm_evidence_cn": "控制系统中的伦理和负责任设计以符合社会使命",
+      "llm_evidence": "控制系统中的伦理和负责任设计以符合社会使命",
+      "canonical_evidence": "控制系统中的伦理和负责任设计以符合社会使命",
+      "llm_tldr_en": "Proposes welfarist control design paradigms that incorporate societal preferences, fairness, and ethics into multi-agent control systems.",
+      "llm_tldr_cn": "该论文探讨了在自动化控制系统中如何有原则地融入社会价值和伦理考量。作者提出了三种控制设计范式，旨在帮助工程师在设计多智能体系统时更好地匹配社会期望，避免仅由行业惯例驱动。该工作强调了将公平、责任等算法治理原则嵌入到控制工程中的必要性。",
+      "llm_tldr": "该论文探讨了在自动化控制系统中如何有原则地融入社会价值和伦理考量。作者提出了三种控制设计范式，旨在帮助工程师在设计多智能体系统时更好地匹配社会期望，避免仅由行业惯例驱动。该工作强调了将公平、责任等算法治理原则嵌入到控制工程中的必要性。",
+      "llm_tags": [
+        "query:algo-gov:composite"
+      ],
+      "matched_query_tag": "query:algo-gov:composite",
+      "matched_query_text": "Papers central to 请帮我查询关于算法治理的文章, especially work that connects or combines: algorithm governance principles and frameworks; fairness in algorithmic decision making; transparency of algorithms and models; accountability for algorithmic outcomes; ethical considerations in artificial intelligence; detecting bias in machine learning models; challenges and solutions in algorithm governance; impact of algorithm governance on society; best practices for implementing algorithm governance.",
+      "matched_requirement_id": "req-composite-algo-gov",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.27277v1",
+      "source": "arxiv",
+      "title": "EO-WM: A Physically Informed World Model for Probabilistic Earth Observation Forecasting",
+      "abstract": "Earth Observation (EO) forecasting aims to predict future Earth surface dynamics from satellite observations under changing meteorological conditions. In this paper, we view this task as a partially observed, weather-driven world modeling problem, in which weather acts as a conditioning signal, while forecasting remains uncertain due to sparse observations and unobserved land-surface states. However, existing methods do not fully capture this setting: deterministic models collapse uncertainty into a single future prediction, while diffusion-based methods typically treat weather variables as undifferentiated conditioning signals, and existing benchmarks focus mainly on reconstruction accuracy rather than whether forecasts respond correctly to changed weather forcing.We introduce EO-WM, a video diffusion transformer for multispectral EO forecasting. EO-WM incorporates a physically informed conditioning framework that represents meteorological forcing through a climatological baseline, weather anomalies, and cumulative physical stress signals. Specifically, it separates baseline and anomaly through distinct conditioning pathways, and accumulates anomalous forcing over time to capture sustained heat and drought stress. To evaluate weather-response behavior beyond standard metrics, we introduce two diagnostic benchmarks: an Extreme Summer Benchmark for severity-aware prediction of vegetation degradation under extreme weather, and a Seasonal Matched-Pair Benchmark for testing response fidelity under changed weather forcing. Experiments show that EO-WM reduces the error in predicted Normalized Difference Vegetation Index (NDVI) decline amplitude by a relative 5.63% and improves directional hit rate by a relative 7.80%, while remaining competitive on standard pixel-level metrics. The benchmarks and model will be made open-source at https://github.com/Luo-Z13/EO-WM.",
+      "authors": [
+        "Junwei Luo",
+        "Shuai Yuan",
+        "Zhenya Yang",
+        "Yansheng Li",
+        "Zhe Liu",
+        "Hengshuang Zhao"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CV"
+      ],
+      "published": "2026-06-25T16:53:30+00:00",
+      "link": "https://arxiv.org/pdf/2606.27277v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "physically informed world model for probabilistic Earth observation forecasting under weather conditions",
+      "llm_evidence_cn": "物理信息引导的世界模型用于天气条件下的概率性地球观测预测",
+      "llm_evidence": "物理信息引导的世界模型用于天气条件下的概率性地球观测预测",
+      "canonical_evidence": "物理信息引导的世界模型用于天气条件下的概率性地球观测预测",
+      "llm_tldr_en": "Frames EO forecasting as a partially observed, weather-driven world modeling problem; proposes a physically informed world model (EO-WM) for probabilistic forecasting.",
+      "llm_tldr_cn": "现有地球观测预测方法要么忽略不确定性，要么将天气变量同等对待。本文将预测视为部分观测、天气驱动的世界建模问题，提出物理信息引导的世界模型（EO-WM），生成概率性未来地表动态预测。该模型能利用天气条件进行条件预测，应对稀疏观测和未观测状态带来的不确定性，为城市洪灾等应用提供更可靠的地表状态预报。",
+      "llm_tldr": "现有地球观测预测方法要么忽略不确定性，要么将天气变量同等对待。本文将预测视为部分观测、天气驱动的世界建模问题，提出物理信息引导的世界模型（EO-WM），生成概率性未来地表动态预测。该模型能利用天气条件进行条件预测，应对稀疏观测和未观测状态带来的不确定性，为城市洪灾等应用提供更可靠的地表状态预报。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.21857v1",
+      "source": "arxiv",
+      "title": "Physics-Constrained Synthetic Training for Sub-Terahertz Channel Rainfall Sensing",
+      "abstract": "Terahertz channels can serve as opportunistic rainfall sensors because rain-induced extinction couples received power to rainfall intensity. Unlike satellite, radar, and commercial microwave link retrieval, THz channel rainfall estimation lacks large operational datasets that supervised learning requires. This article uses an outdoor campaign over a 41.5 m THz channel at 140 GHz and 229 GHz to calibrate the channel statistical properties, then synthesizing physics constrained training data that combine the ITU-R P.838-3 and Mie-theory rain attenuation across four raindrop-size-distribution priors with controlled stochastic fluctuations. RainFormer, a hybrid attention-convolution network, maps a short received-power sequence to rainfall rate by fusing local fluctuation structure, long-range temporal dependencies, and explicit physical-statistical descriptors. Ablation shows that the explicit descriptors and temporal-order information carry most of the predictive information, with convolution and attention acting as complementary refinements. Applied zero-shot to measured rainfall, the synthetic-trained models produce rank-consistent, physically interpretable estimates whose inter-prior spread bounds the uncertainty arising from the unobservable path DSD (raindrop size distribution), establishing DSD-bracketed synthetic training as a viable foundation for THz rainfall sensing under severe data scarcity.",
+      "authors": [
+        "Wanzhu Chang",
+        "Yuheng Song",
+        "Jiabiao Zhao",
+        "Mingxia Zhang",
+        "Jie Yang",
+        "Kefeng Huang",
+        "Kaixin Sun",
+        "Hong Ling",
+        "Jianjun Ma"
+      ],
+      "primary_category": "physics.app-ph",
+      "categories": [
+        "physics.app-ph"
+      ],
+      "published": "2026-06-20T03:29:48+00:00",
+      "link": "https://arxiv.org/pdf/2606.21857v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "rainfall sensing method using THz channels can support urban pluvial flood monitoring",
+      "llm_evidence_cn": "利用太赫兹信道的降雨感知方法可支持城市暴雨洪水监测",
+      "llm_evidence": "利用太赫兹信道的降雨感知方法可支持城市暴雨洪水监测",
+      "canonical_evidence": "利用太赫兹信道的降雨感知方法可支持城市暴雨洪水监测",
+      "llm_tldr_en": "Proposes a physics-constrained synthetic training method for sub-THz rainfall sensing, using RainFormer network to estimate rainfall rate, which can enhance urban pluvial flood monitoring.",
+      "llm_tldr_cn": "该论文针对太赫兹信道降雨估计缺乏真实数据集的问题，提出了一种物理约束的合成训练方法，结合ITU-R和Mie理论生成训练数据，并设计了RainFormer混合注意力卷积网络。该方法能够从短时接收功率序列中估计降雨率，为城市暴雨洪水监测提供了一种新的低成本感知手段。",
+      "llm_tldr": "该论文针对太赫兹信道降雨估计缺乏真实数据集的问题，提出了一种物理约束的合成训练方法，结合ITU-R和Mie理论生成训练数据，并设计了RainFormer混合注意力卷积网络。该方法能够从短时接收功率序列中估计降雨率，为城市暴雨洪水监测提供了一种新的低成本感知手段。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

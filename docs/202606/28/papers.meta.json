@@ -1,0 +1,54 @@
+{
+  "label": "2026-06-28",
+  "date": "2026-06-28",
+  "generated_at": "2026-06-28T21:11:47",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202606/28/2606.23931v1-welfarist-control-design----how-to-fulfill-the-societal-mandate-in-multi-agent-control",
+      "section": "deep",
+      "title_en": "Welfarist Control Design -- How to fulfill the societal mandate in multi-agent control?",
+      "authors": "Sophie Hall, Kai Zhang, Ilia Shilov, Heinrich H. Nax, Saverio Bolognani",
+      "date": "2026-06-22",
+      "pdf": "https://arxiv.org/pdf/2606.23931v1",
+      "score": "8.0",
+      "evidence": "控制系统中的伦理和负责任设计以符合社会使命",
+      "tldr": "多智能体系统面临稀缺资源分配的社会使命，控制工程师缺乏原则性设计方法。本文提出福利主义控制设计，利用在线反馈优化、马尔可夫决策过程控制、模型预测控制三种范式，从聚合个体偏好到规范满足。反馈机制使得共享资源分配更贴合社会期望，为实现有伦理责任的自动化控制提供了系统框架。",
+      "tags": "query:algo-gov",
+      "abstract_en": "At the core of most socio-technical systems lies a scarce resource that is allocated among agents: highway lanes, public transit, road space, water rights, energy access, grid capacity, user attention, pollution rights, etc. With further automation of the underlying allocation processes, control engineers are increasingly tasked to make decisive assumptions regarding what society wants. In practice to date, design choices are largely driven by industry norms and conventions rather than a result of conscientiously responsible and ethical design. In this paper, we look at tools available to control engineers to design systems in a more principled manner in order to match the societal mandate. We consider three control design paradigms: online feedback optimization, control of Markov decision processes, and model predictive control. Beginning with aggregating individual agents' preferences into control design objectives, subsequently ensuring and certifying the fulfillment of those specifications, we argue that the feedback nature of control systems enables appropriate allocation of the shared resources in ways hitherto unparalleled.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/28/2606.27277v1-eo-wm-a-physically-informed-world-model-for-probabilistic-earth-observation-forecasting",
+      "section": "quick",
+      "title_en": "EO-WM: A Physically Informed World Model for Probabilistic Earth Observation Forecasting",
+      "authors": "Junwei Luo, Shuai Yuan, Zhenya Yang, Yansheng Li, Zhe Liu, Hengshuang Zhao",
+      "date": "2026-06-25",
+      "pdf": "https://arxiv.org/pdf/2606.27277v1",
+      "score": "7.0",
+      "evidence": "物理信息引导的世界模型用于天气条件下的概率性地球观测预测",
+      "tldr": "地球观测预测旨在从卫星观测预测地表动态，但存在观测稀疏、状态部分未知以及天气驱动的不确定性，现有方法未能有效建模。本文提出EO-WM，一种物理信息引导的视频扩散Transformer，通过分离气候基线、天气异常和累积应力来改进条件建模。在极端夏季和季节匹配对诊断基准上，NDVI下降幅度误差相对降低5.63%，方向命中率提升7.80%，标准指标保持竞争力。该工作为天气响应EO预测提供了物理引导的条件建模框架和诊断基准，具有重要应用价值。",
+      "tags": "query:urban-flood",
+      "abstract_en": "Earth Observation (EO) forecasting aims to predict future Earth surface dynamics from satellite observations under changing meteorological conditions. In this paper, we view this task as a partially observed, weather-driven world modeling problem, in which weather acts as a conditioning signal, while forecasting remains uncertain due to sparse observations and unobserved land-surface states. However, existing methods do not fully capture this setting: deterministic models collapse uncertainty into a single future prediction, while diffusion-based methods typically treat weather variables as undifferentiated conditioning signals, and existing benchmarks focus mainly on reconstruction accuracy rather than whether forecasts respond correctly to changed weather forcing.We introduce EO-WM, a video diffusion transformer for multispectral EO forecasting. EO-WM incorporates a physically informed conditioning framework that represents meteorological forcing through a climatological baseline, weather anomalies, and cumulative physical stress signals. Specifically, it separates baseline and anomaly through distinct conditioning pathways, and accumulates anomalous forcing over time to capture sustained heat and drought stress. To evaluate weather-response behavior beyond standard metrics, we introduce two diagnostic benchmarks: an Extreme Summer Benchmark for severity-aware prediction of vegetation degradation under extreme weather, and a Seasonal Matched-Pair Benchmark for testing response fidelity under changed weather forcing. Experiments show that EO-WM reduces the error in predicted Normalized Difference Vegetation Index (NDVI) decline amplitude by a relative 5.63% and improves directional hit rate by a relative 7.80%, while remaining competitive on standard pixel-level metrics. The benchmarks and model will be made open-source at https://github.com/Luo-Z13/EO-WM.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/28/2606.21857v1-physics-constrained-synthetic-training-for-sub-terahertz-channel-rainfall-sensing",
+      "section": "quick",
+      "title_en": "Physics-Constrained Synthetic Training for Sub-Terahertz Channel Rainfall Sensing",
+      "authors": "Wanzhu Chang, Yuheng Song, Jiabiao Zhao, Mingxia Zhang, Jie Yang, Kefeng Huang, Kaixin Sun, Hong Ling, Jianjun Ma",
+      "date": "2026-06-20",
+      "pdf": "https://arxiv.org/pdf/2606.21857v1",
+      "score": "6.0",
+      "evidence": "利用太赫兹信道的降雨感知方法可支持城市暴雨洪水监测",
+      "tldr": "太赫兹信道可作降雨传感器但缺少训练数据。本文通过41.5米户外实验校准太赫兹信道统计特性，结合ITU-R和Mie衰减模型及四种雨滴谱先验合成物理约束数据。RainFormer网络融合局部波动与长程依赖，零样本测试获得排名一致的降雨率估计，DSD先验区间界定了不确定性，为数据稀缺下的太赫兹降雨感知提供了可行方案。",
+      "tags": "query:urban-flood",
+      "abstract_en": "Terahertz channels can serve as opportunistic rainfall sensors because rain-induced extinction couples received power to rainfall intensity. Unlike satellite, radar, and commercial microwave link retrieval, THz channel rainfall estimation lacks large operational datasets that supervised learning requires. This article uses an outdoor campaign over a 41.5 m THz channel at 140 GHz and 229 GHz to calibrate the channel statistical properties, then synthesizing physics constrained training data that combine the ITU-R P.838-3 and Mie-theory rain attenuation across four raindrop-size-distribution priors with controlled stochastic fluctuations. RainFormer, a hybrid attention-convolution network, maps a short received-power sequence to rainfall rate by fusing local fluctuation structure, long-range temporal dependencies, and explicit physical-statistical descriptors. Ablation shows that the explicit descriptors and temporal-order information carry most of the predictive information, with convolution and attention acting as complementary refinements. Applied zero-shot to measured rainfall, the synthetic-trained models produce rank-consistent, physically interpretable estimates whose inter-prior spread bounds the uncertainty arising from the unobservable path DSD (raindrop size distribution), establishing DSD-bracketed synthetic training as a viable foundation for THz rainfall sensing under severe data scarcity.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

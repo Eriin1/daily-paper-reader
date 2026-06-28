@@ -1,0 +1,1381 @@
+Title: 2606.21857v1.pdf
+
+URL Source: https://arxiv.org/pdf/2606.21857v1
+
+Published Time: Tue, 23 Jun 2026 01:27:40 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# Physics-Constrained Synthetic Training for Sub-Terahertz 
+
+# Channel Rainfall Sensing 
+
+Wanzhu Chang , Yuheng Song , Jiabiao Zhao, Mingxia Zhang, Jie Yang, Kefeng Huang, Kaixin Sun, Hong Ling , Jianjun Ma 
+
+Abstract —Terahertz (THz) channels can serve as opportunistic rainfall sensors because rain-induced extinction couples received power to 
+
+rainfall intensity. Unlike satellite, radar, and commercial microwave link retrieval, THz channel rainfall estimation lacks large operational 
+
+datasets that supervised learning requires. This article uses an outdoor campaign over a 41.5 m THz channel at 140 GHz and 229 GHz to calibrate 
+
+the channel ’s statistical properties, then synthesizing physics constrained training data that combine the ITU-R P.838-3 and Mie-theory rain 
+
+attenuation across four raindrop-size-distribution priors with controlled stochastic fluctuations. RainFormer, a hybrid attention-convolution 
+
+network, maps a short received-power sequence to rainfall rate by fusing local fluctuation structure, long-range temporal dependencies, and 
+
+explicit physical-statistical descriptors. Ablation shows that the explicit descriptors and temporal-order information carry most of the predictive 
+
+information, with convolution and attention acting as complementary refinements. Applied zero-shot to measured rainfall, the synthetic-trained 
+
+models produce rank-consistent, physically interpretable estimates whose inter-prior spread bounds the uncertainty arising from the unobservable 
+
+path DSD (raindrop size distribution), establishing DSD-bracketed synthetic training as a viable foundation for THz rainfall sensing under severe 
+
+data scarcity. 
+
+Index Terms —Terahertz channel, rainfall rate estimation, rain-induced attenuation, physics-constrained synthetic training 
+
+I. INTRODUCTION 
+
+Wireless networks are expected to integrate high-capacity 
+
+communication with native environmental sensing, making 
+
+integrated sensing and communication (ISAC) an important 
+
+paradigm for 6G and beyond [1 ],[2]. The terahertz (THz) band 
+
+has attracted increasing attention because its ultra-wide 
+
+bandwidth, short wavelength, and highly directional beams can 
+
+support both high-throughput links and fine-resolution sensing 
+
+[3 ],[4]. However, the THz channel is strongly affected by 
+
+atmospheric conditions, particularly molecular absorption and 
+
+weather-induced extinction . Rain and snow cause pronounced 
+
+attenuation at THz frequencies [5 ]-[8], reaching about 20 
+
+dB/km at 50 mm/h rainfall rate [9]. This loss depends on carrier 
+
+This work was supported in part by the National Natural Science Foundation of 
+
+China under Grant 62471033, the Natural Science Foundation of Hebei 
+
+Province under Grant F2026105021) , and the Special Program Project for 
+
+Original Basic Interdisciplinary Innovation under the Science and Technology 
+
+Innovation Plan of Beijing Institute of Technology under Grant 2025CX11010. 
+
+(Corresponding: Jianjun Ma )
+
+Wanzhu Chang; Jianjun Ma are with Beijing Institute of Technology, Beijing, 
+
+100081 China , and Tangshan Research Institute, BIT, Tangshan, Hebei ,
+
+063099 China. 
+
+Yuheng Song ; Jiabiao Zhao ; Mingxia Zhang ; Jie Yang ; Kefeng Huang ; Kaixin 
+
+Sun are with Beijing Institute of Technology, Beijing, 100081 China. 
+
+Hong Liang is with Meteorological Observation Center of China 
+
+Meteorological Administration, Beijing, 100081 China .
+
+frequency, path length, temperature, polarization, and raindrop 
+
+size distribution (DSD) [10], with DSD variability and 
+
+propagation geometry strongly influencing modeling accuracy 
+
+[11]. These perturbations are both a reliability challenge and a
+
+physically interpretable source of meteorological information .
+
+Received-power variations can map to rainfall intensity, letting 
+
+a THz channel act as an opportunistic rainfall sensor while 
+
+retaining its communication function [3]. 
+
+Mature operational rainfall products rely on dedicated 
+
+meteorological sensors, long-term calibration, and large-scale 
+
+data fusion. The Global Precipitation Measurement (GPM) 
+
+mission [12] retrieves precipitation structure and microphysics 
+
+by combining dual-frequency precipitation radar with a
+
+13-channel microwave imager spanning 10.65-183.31 GHz .
+
+Derived products such as IMERG [13], CMORPH [14], and 
+
+GSMaP [15] further merge multi-satellite passive-microwave 
+
+retrievals (~10-190 GHz) with infrared information to produce 
+
+gridded global precipitation fields. Notably, these systems 
+
+exploit channels extending above 100 GHz, where the 
+
+scattering and emission signatures of small hydrometeors 
+
+become strong enough to detect. 
+
+Beyond these products, deep learning has been widely 
+
+applied to satellite- and radar-based rainfall estimation and 
+
+nowcasting, including convolutional [16],[17] ,
+
+generative-adversarial [18] , and U-Net/ConvLSTM architectures [19] -[ 21] that map multisource microwave and 
+
+infrared observations or radar composites to precipitation 
+
+intensity and extend nowcast lead times . In parallel, 
+
+opportunistic sensing with commercial microwave links 
+
+(CMLs) has been studied extensively in the microwave and 
+
+millimeter-wave bands . Received-signal levels from cellular 
+
+networks were shown convertible to surface rainfall and 
+
+validated against radar and gauges [22],[23], and 
+
+learning-based processing followed, including CNN-based 
+
+rain-event detection on large operational link sets [24], 
+
+alongside reviews covering the standard wet-dry classification, 
+
+baseline, wet-antenna, and attenuation-to-rain-rate processing 
+
+chain in the 5-40 GHz range [25 ],[26]. All of these depend on 
+
+large-scale satellite, radar, or dense operational microwave-link 
+
+datasets already available for supervised learning. By contrast, 
+
+THz-channel-based rainfall estimation lacks comparable 
+
+operational datasets, with existing THz rain-channel studies 
+
+limited to controlled artificial-rain experiments or short-term 
+
+outdoor campaigns [7]-[11]. 
+
+To address this scarcity for THz channels, this work uses 
+
+limited outdoor measurements to calibrate key channel 
+
+statistical properties and builds synthetic rainfall datasets from 
+
+different DSD priors, combining rain-attenuation physics with 
+
+statistically controlled channel fluctuations. RainFormer, a
+
+hybrid attention-based convolutional regression network, is 
+
+then built to estimate rainfall rate from short-time THz 
+
+received-power sequences by jointly exploiting local power 
+
+fluctuations, long-range temporal dependencies, and explicit 
+
+physical statistical descriptors. 
+
+II. CHANNEL MEASUREMENT AND CHARACTERIZATION 
+
+The measurement data used in this work were acquired during 
+
+an outdoor rainfall experiment conducted at Beijing Institute of 
+
+Technology (Liangxiang campus), in August 2025. The 
+
+experimental setup used a fixed point-to-point THz channel, as 
+
+illustrated in Fig. 1(a). At the transmitter, a Ceyear 1465D 
+
+signal generator provided the source signal over 100 kHz-20 
+
+GHz. For the 110-170 GHz band, a Ceyear 82406B frequency 
+
+multiplier with a multiplication factor of ×12 was used. For the 
+
+220-325 GHz band, a Ceyear 82406D frequency multiplier 
+
+with a multiplication factor of ×18 was used. The resulting 
+
+continuous-wave THz signal was radiated by a Ceyear 89901S 
+
+horn antenna and collimated by a high-density polyethylene 
+
+lens with a focal length of 30 cm. At the receiver, the same 
+
+horn-lens configuration collected the signal, which was directly 
+
+detected by a Ceyear 71718 power sensor. Both the transmitter 
+
+and the receiver were mounted 122 cm above the ground. This 
+
+height provided sufficient clearance relative to the first 
+
+Fresnel-zone radius, which was approximately 14.9 cm at 140 
+
+GHz and 11.7 cm at 229 GHz. The rain-exposed channel length 
+
+was 41.5 m. We recorded the channel response under both clear 
+
+and rainy conditions, with their difference used to extract the 
+
+rain-induced attenuation. 
+
+Both transmitter and receiver only use vertical linear 
+
+polarization throughout the measurement campaign , due to the 
+
+fixed orientation of the horn-lens optics and the limited 
+
+duration of the available rainfall event. Signal generation and 
+
+power acquisition were coordinated by a host computer over a
+
+LAN/RS-485 instrument-control network (LAN-SCPI 
+
+commands), continuously recording the temporal power 
+
+variations introduced by rainfall. 
+
+We repeated single-frequency acquisitions as the rainfall 
+
+intensity evolved, each limited to under 1 min to reduce 
+
+rain-rate nonstationarity within a window and the temporal 
+
+mismatch between the received-power record and the 
+
+rain-gauge observation [27]. Ground truth was provided by a
+
+point rain gauge near the center of the rain-exposed channel. 
+
+Records were segmented into non-overlapping 20 s windows. 
+
+Windows with fewer than 30 valid points were discarded, and 
+
+each retained window was resampled to 400 points by 
+
+piecewise cubic Hermite interpolation to match the 
+
+synthetic-sample format used in the following section. After 
+
+quality control, the final rainy dataset, denoted BIT-25 , contains 
+
+29 samples at 140 GHz and 6 samples at 229 GHz. The 
+
+400-point interpolation preserves the temporal fluctuation 
+
+structure of each sequence rather than collapsing it to a scalar. 
+
+The window-level mean attenuation is used only for the 
+
+attenuation-rainfall comparison in Fig. 1(b), while the full 
+
+normalized sequence serves as network input during the 
+
+measured-data consistency check, identical in format to the 
+
+synthetic training samples .
+
+Fig . 1(b) compares the measured attenuation with DSD-prior 
+
+-based attenuation curves at 140 GHz and 229 GHz, computed 
+
+using the ITU-R P.838-3 model [28] and Mie theory with 
+
+several empirical DSD models, as Marshall-Palmer (M-P) [29], 
+
+Joss-Widespread (J-W) [30], and Joss-Drizzle (J-D) [31]. More 
+
+details about the theoretical models can be found in reference 
+
+[6]. At 140 GHz all samples lie in the weak-rain regime near the 
+
+J-D, M-P, and J-W curves. At 229 GHz the samples correspond 
+
+to higher rain rates and larger attenuation, lying closer to the 
+
+upper J-D curves. The Joss-Thunderstorm prior [31] was 
+
+excluded because, at both frequencies, it produced an 
+
+attenuation-rainfall relationship well below the measured 
+
+envelope and the other four priors, adding configuration count 
+
+without additional bracketing. The four retained priors (ITU-R 
+
+P.838-3, M-P, J-W, J-D) span the physically relevant range of 
+
+microphysical assumptions. Because the channel representative 
+
+DSD cannot be directly observed with conventional point 
+
+disdrometers - a recognized open problem in operational radar 
+
+meteorology [32 ], [33] - we bracket the unknown DSD across 
+
+these canonical priors rather than asserting a single model, and 
+
+report the resulting spread as a quantified uncertainty bound. 
+
+Ambient conditions were stable throughout the operational 
+
+window (T = 27 oC, RH = 71.5%), with clear-sky and rainy 
+
+measurements acquired in a single continuous instrument-on 
+
+period on August 4, 2025. A worst-case ITU-R P.676-13 bound, 
+
+ΔAatm ≤ L·(| ∂γ/∂ρw| Δρw + |∂γ /∂T| ΔT), with credible bounds of 
+
+Δρw ≤ 0.5 g/m 3 and ΔT ≤ 0.5 oC over the 41.5 m path, gives a
+
+baseline atmospheric drift below 0.005 dB at 140 GHz and 
+
+0.008 dB at 229 GHz. They are under the ±0.043 dB (±1.0%) 
+
+power-meter uncertainty and far below the ITU-R P.838-3 rain 
+
+attenuation expected over the same path. The rain-induced 
+
+attenuation is therefore dominated by rain extinction rather than 
+
+atmospheric or instrumental baseline drift. 
+
+To characterize the small-scale fading statistics under 
+
+rainfall, we relate the Rician K-factor to the rainfall rate R. Prior 
+
+work shows that in rain-attenuation scenarios the K-factor 
+
+decreases approximately linearly with R [34], as 
+
+> 0
+
+( , ) ( ) ( )dB K f R K f a f R  (1) where K0(f) is the extrapolated zero-rain intercept (baseline 
+
+K-level near the weak-rain limit) and a(f) is the rainfall 
+
+sensitivity coefficient. To avoid information leakage into the 
+
+measured-data transfer evaluation, the K-factor fitting uses an 
+
+independent dataset, BIT-24 , acquired at Beijing Institute of 
+
+Technology in August 2024 and reported in reference [6], 
+
+rather than the BIT-25 in this work. Ordinary least-squares 
+
+fitting yielded slopes a(f) of 0.2150 and 0.2765 and intercepts 
+
+K0(f) of 50.483 and 50.311 dB at 140 GHz and 229 GHz, 
+
+respectively. 5000 bootstrap resampling trials [35] gave 5th -95 th 
+
+percentile intervals of (48.677, 52.073) at 140 GHz and (48.436, 
+
+51.913) at 229 GHz. The K-factor decreases with rising rainfall 
+
+rate at both frequencies, with 229 GHz more sensitive. The 
+
+intercepts correspond to linear-scale K-factors of order 10 5,
+
+indicating a strongly line-of-sight channel - consistent with the 
+
+directive horn-and-lens geometry and the short, unobstructed 
+
+41.5 m path where conventional multipath is negligible. The 
+
+Rician term (in Section III ) is therefore not a multipath model 
+
+but a bounded, rainfall-dependent stochastic perturbation 
+
+calibrated to the observed channel variability, with the linear 
+
+K-R trend serving as an empirical parameterization rather than a
+
+claim of rain-induced diffuse scattering. 
+
+III. SYNTHETIC DATA GENERATION 
+
+Using the K-R relation, we construct a physics-constrained 
+
+synthetic dataset for continuous rainfall-rate regression that 
+
+jointly models large-scale rain attenuation, small-scale Rician 
+
+fading, and slow background channel drift. For a given 
+
+frequency f and rainfall rate R, the specific rain attenuation 
+
+γrain (R, f ,T) is obtained from the vertical-polarization DSD 
+
+priors of Section II , multiplied by the channel length to give the 
+
+total path attenuation, which sets the mean received-power 
+
+level of the generated sequence. All channel parameters match 
+
+the measured configuration - length L = 41.5 m, temperature T
+
+= 27 oC, and vertical polarization. 
+
+Small-scale fluctuations follow a time-varying Rician model 
+
+in which the fitted K-R relation supplies the rainfall-dependent 
+
+baseline K-factor, and a bounded first-order autoregressive 
+
+perturbation emulates slow channel-statistical drift within the 
+
+20 s window. This drift is motivated by measured nonstationary 
+
+channels with a time- and frequency-varying K-factor [36], and 
+
+by THz rainfall measurements showing rain-induced loss and 
+
+DSD statistics varying dynamically even at similar rain rates [6, 
+
+11]. After converting the K-factor to linear scale, the complex 
+
+channel coefficient can be generated as 
+
+> 0
+
+[ ] 1
+
+[ ] [ ] 
+
+[ ] 1 [ ] 1
+
+> j
+
+K k 
+
+h k e g k 
+
+K k K k 
+
+> 
+
+ 
+
+  (2) 
+
+where ϕ0 is the fixed direct-path phase within the window and 
+
+g[k] is the scattered component with unit average power, 
+
+following the standard Rician formulation in which K is the 
+
+deterministic-to-diffuse power ratio [37]. 
+
+The resulting fading sequence is applied around the 
+
+window-level mean power to produce a 400-point 
+
+received-power sequence at a 0.05 s sampling interval, so each 
+
+sample is a 20 s sequence paired with one constant rainfall-rate 
+
+label. Because rain events ar e long-tailed, with light rain far 
+
+outnumbering heavy rain [38], labels are drawn from a
+
+two-component uniform mixture - R∈[1,10] mm/h with 
+
+probability 0.7 and R∈[10,50] mm/h with probability 0.3. For 
+
+each frequency and DSD prior, 20 thousands samples are 
+
+generated. The resulting dataset, denoted BIT-24-Gen , built 
+
+from the leakage-free BIT-24 K-R parameters of Section II ,
+
+forms the training basis for rainfall-rate regression, while the 
+
+measured BIT-25 set is reserved for the transfer evaluation. 
+
+IV. HYBRID ATTENTION -CONVOLUTION REGRESSION 
+
+> NETWOR K
+
+RainFormer maps a short-time THz received-power sequence 
+
+to a scalar rainfall rate. The input is a normalized 
+
+single-channel sequence of length 400 (a 20 s window at 0.05 s
+
+sampling, as defined in Section III ), and the output is the 
+
+rainfall-rate estimate for that window. The design is governed 
+
+by a single observation about the signal - under rainfall, the 
+
+received power superimposes a slow attenuation trend on fast 
+
+small-scale fluctuations, so an effective estimator must model 
+
+both long-range temporal structure and local variation. As 
+
+shown in Fig . 2, RainFormer realizes this through a
+
+one-dimensional convolutional embedding, four stacked hybrid 
+
+attention-convolution blocks operating in a 128-dimensional                                    
+
+> Fig. 1. Outdoor THz rainfall measurement setup and measured attenuation sample distribution. (a) Fixed point-to-point THz channel with a41.5 m
+> rain-exposed path. (b) Measured rain-induced attenuation samples and DSD-prior-based attenuation curves at 140 and 229 GHz.
+
+latent space, attentive temporal pooling, and a regression head 
+
+with explicit physical-statistical fusion. 
+
+The convolutional embedding applies a depthwise temporal 
+
+convolution for local preprocessing and projects the sequence 
+
+into the latent space. A sinusoidal positional encoding then 
+
+preserves temporal order before the backbone. Each hybrid 
+
+block couples global and local modeling. A multi-head 
+
+self-attention sublayer captures correlations across the full 
+
+window, and depthwise-convolutional gated feed-forward 
+
+sublayer refines local nonlinear fluctuation patterns. For the l-th 
+
+block with input Z(l-1) ,  
+
+> ( ) 11
+
+Drop(MHA(LN( ))) l l l
+
+Z Z Z 
+
+  (3)   
+
+> ( ) ( ) ( )
+
+Drop( [GLU( (DWConv(LN( ))))]) l l l
+
+Z Z Z  2 1W W  (4) 
+
+where LN( ·) is layer normalization [39], MHA( ·) is multi-head 
+
+self-attention for long-range temporal dependencies [40], W1
+
+and W2 are learnable projections, GLU( ·) is a gated linear unit 
+
+[41], and Drop( ·) is dropout [42]. Each block thus jointly 
+
+represents the long-range dependencies and local fluctuation 
+
+structure that characterize rainfall-modulated received power. 
+
+The backbone is complemented by an explicit physical 
+
+statistical pathway. The mean and standard deviation of the 
+
+original normalized input (first- and second-order descriptors 
+
+of the window ’s attenuation level and fluctuation magnitude) 
+
+are concatenated with the attentively pooled latent 
+
+representation and passed to a multilayer regression head. Such 
+
+fusion ensures that the dominant attenuation and fluctuation 
+
+statistics, which carry direct physical information about rain 
+
+intensity, are retained explicitly rather than relying on the 
+
+backbone to recover them from the sequence alone [43]. 
+
+RainFormer is trained independently for each 
+
+frequency -DSD-prior configuration on the corresponding 
+
+BIT-24-Gen subset. The 20 thousand samples per configuration 
+
+are randomly partitioned into training, validation, and test sets 
+
+in a 70/15/15 ratio, with a fixed random seed ensuring 
+
+reproducible partitioning and initialization. The network is 
+
+optimized as a supervised regressor by minimizing the mean 
+
+squared error between predicted and reference rainfall rates, 
+
+using Adam with an initial learning rate of 1×10 -3 and batc h
+
+size 64. The learning rate is halved after three consecutive 
+
+epochs without validation improvement. Training runs for at 
+
+most 30 epochs with early stopping (patience 8), and the 
+
+checkpoint with the lowest validation loss is retained for testing. 
+
+The hyperparameters are summarized in Table I.                         
+
+> TABLE I
+> KEY TRAINING HYPERPARAMETERS OF RAIN FORMER
+> Hyperparameter Value
+> Optimizer Adam
+> Loss function MSE
+> Initial learning rate 1×10 -3
+> Batch size 64
+> Maximum training epochs 30
+> LR scheduler patience (epochs) 3
+> LR decay factor 0.5
+
+V. RESULTS AND DISCUSSION 
+
+A. In-distribution performance on synthetic data 
+
+We first assess RainFormer under matched conditions, 
+
+training and testing on BIT-24-Gen to verify that the network 
+
+learns the intended mapping from received-power sequences to 
+
+rainfall rate. Table II reports in-distribution RMSE and MAE at 
+
+140 and 229 GHz across the four DSD priors. The optimal prior 
+
+is frequency-dependent. At 140 GHz the ITU prior gives the 
+
+lowest error (RMSE 0.1782, MAE 0.1107 mm/h), with the 
+
+empirical priors moderately higher. At 229 GHz the M-P prior 
+
+is best (RMSE 0.2925, MAE 0.1916 mm/h) and ITU-R no 
+
+longer leads. That the best prior changes with frequency shows 
+
+no single DSD assumption is uniformly optimal - regression 
+
+difficulty is set jointly by the frequency dependence of rain 
+
+attenuation and the DSD-dependent statistical structure of the 
+
+generated fluctuations. 
+
+Fig . 3 examines these differences through error distributions 
+
+as Fig. 3 (a) and (d), and conditional-density plots as Fig. 3 (b), 
+
+(c), (e) and (f). At 140 GHz the ITU-R prior yields a tighter 
+
+zero-centered error distribution than M-P, consistent with 
+
+Table II . At 229 GHz this reverses, M-P producing the 
+
+narrower distribution. In all conditional-density panels the 
+
+high-density ridge tracks the 1:1 reference and the conditional                                 
+
+> Fig. 2.Architecture of the proposed RainFormer network for THz received-power sequence regression. The left portion illustrates the main network
+> backbone, whereas the right portion details the internal structure of the hybrid attention-convolution block.
+
+mean ˆ( | )E R R follows the diagonal, indicating that under 
+
+matched conditions RainFormer learns a stable, 
+
+near-monotonic mapping. This confirms the internal 
+
+consistency and learnability of the physics-constrained datasets 
+
+- the in-distribution validation step that sim-to-real pipelines 
+
+require before transfer can be meaningfully assessed [44 ], [45]. 
+
+Whether the learned mapping survives the 
+
+synthetic-to-measured domain gap is evaluated in Section V-D.                                     
+
+> TABLE II
+> PERFORMANCE BENCHMARK ON BIT-24-G EN UNDER VARIOUS THEORETICAL
+> DSD ASSUMPTIONS ,RMSE AND MAE ARE REPORTED IN MM /H.
+> RMSE MAE
+> DSD model 140GHz 229GHz 140GHz 229GHz
+> ITU 0.1782 0.3735 0.1107 0.2784
+> JD 0.2447 0.3587 0.1570 0.2318
+> MP 0.2938 0.2925 0.1859 0.1916
+> JW 0.2864 0.3522 0.1853 0.2188
+
+B. Ablation study                                                              
+
+> TABLE III
+> ABLATION STUDY OF RAIN FORMER COMPONENTS UNDER THE BEST DSD-PRIOR
+> CONFIGURATION AT EACH FREQUENCY .
+> RMSE MAE
+> Model 140GHz 229GHz 140GHz 229GHz
+> RainFormer 0.1782 0.2924 0.1107 0.1915
+> w/o Physical Statistics 0.7841 1.6515 0.4196 0.8994
+> Mean Pooling 0.6665 0.3018 0.4857 0.1844
+> w/o Positional Encoding 1.1770 1.5891 0.9302 0.9269
+> w/o Attention 0.2080 0.3206 0.1372 0.2057
+> w/o Depthwise Conv. 0.7080 0.4985 0.4570 0.3833
+> w/o Gated FFN 0.3578 0.3854 0.2813 0.2399
+> Plain Patch Embedding 0.2475 0.3545 0.2026 0.2654
+
+To quantify each component ’s contribution, we ablated 
+
+RainFormer under the best prior at each frequency (ITU at 140 
+
+GHz, M-P at 229 GHz), removing or replacing one component 
+
+at a time - physical-statistical fusion, attentive pooling, 
+
+positional encoding, self-attention, depthwise convolution, 
+
+gated feed-forward, and the convolutional embedding - while 
+
+holding the BIT-24-Gen split and optimization protocol fixed. 
+
+Table III reports the results. 
+
+Two components dominate. Removing positional encoding 
+
+causes the largest degradation, raising RMSE from 0.1782 to 
+
+1.1770 mm/h at 140 GHz and from 0.2924 to 1.5891 mm/h at 
+
+229 GHz, and removing the physical-statistical descriptors is 
+
+nearly as damaging, with RMSE reaching 1.6515 mm/h at 229 
+
+GHz. Temporal-order information and the explicit mean and 
+
+standard-deviation descriptors thus serve as the primary 
+
+regression anchors, directly validating the fusion design. 
+
+Depthwise convolution is next in importance (RMSE 0.7080 
+
+mm/h at 140 GHz when removed), while the gated 
+
+feed-forward and convolutional embedding give moderate, 
+
+consistent gains. Self-attention removal causes only limited 
+
+degradation (RMSE 0.2080 and 0.3206 mm/h). These two 
+
+ablations are coupled rather than independent: without 
+
+positional encoding, self-attention is permutation-invariant and 
+
+carries no temporal-order information [40], so the catastrophic 
+
+positional-encoding result partly reflects the collapse of the 
+
+attention pathway itself, while the mild attention result shows 
+
+that under matched conditions the convolutional and statistical 
+
+pathways recover most of the same information. Replacing 
+
+attentive pooling with mean pooling degrades 140 GHz 
+
+strongly but 229 GHz only slightly; at the higher frequency, 
+
+global attenuation-level statistics already capture much of the 
+
+signal. The ablation therefore establishes a clear importance 
+
+hierarchy - physical and temporal structure first, local 
+
+convolution second, global attention as secondary refinement -
+
+consistent with evidence that self-attention without strong 
+
+temporal inductive bias contributes limited predictive value in 
+
+time-series tasks [46]. Whether this hierarchy persists under the                                                                                          
+
+> Fig. 3.Error-distribution and conditional-density analysis of RainFormer on matched synthetic datasets. Panels (a) and (d) compare the estimation
+> -error distributions, kernel-density curves, and rug marks of the best-and worst-performing DSD priors at 140 and 229 GHz, respectively. Panels (b)
+> and (c) correspond to the two 140 GHz cases in panel (a), namely the ITU and M-P priors, while panels (e) and (f) correspond to the two 229 GHz
+> cases in panel (d), namely the M-P and ITU priors. In the conditional-density plots, the gray dashed line denotes the ideal 1:1 relationship.
+
+synthetic-to-measured domain shift is examined in Section D.C. Comparison with baseline models 
+
+We compare RainFormer against two baselines spanning the 
+
+dominant sequence-modeling paradigms - a 1D-CNN (local 
+
+convolutional extraction) and a vanilla Transformer (global 
+
+attention). The 1D-CNN is a compact, strong end-to-end 
+
+baseline using shared local filters on the raw sequence. 
+
+1D-CNNs have been used to detect rain-induced attenuation in 
+
+commercial microwave-link signals and to build radar-based 
+
+QPE [24 ], [47], and convolutional models have been applied to 
+
+communication-link precipitation sensing [48]. The vanilla 
+
+Transformer models pairwise interactions via self-attention, the 
+
+standard backbone for sequence representation [49 ], [50], and 
+
+has been adopted for precipitation modeling [21]. All three use 
+
+the same split and protocol. Table IV reports the comparison. 
+
+At 140 GHz RainFormer achieves the lowest RMSE and 
+
+MAE (0.1782 and 0.1107 mm/h), reducing RMSE by 
+
+approximately 13.0% and MAE by 15.3% relative to the 
+
+1D-CNN, and by 40.3% and 47.1% relative to the vanilla 
+
+Transformer. At 229 GHz RainFormer gives the lowest MAE 
+
+(0.1916 mm/h versus 0.2393 and 0.2066 mm/h), while its 
+
+RMSE (0.2925 mm/h) is below the 1D-CNN and numerically 
+
+indistinguishable from the vanilla Transformer (0.2929 mm/h). 
+
+The joint behavior of the two metrics is informative. 
+
+Near-e qual RMSE with lower MAE implies that RainFormer ’s
+
+accuracy gain is concentrated in typical samples while extreme 
+
+errors remain comparable, since RMSE weights large 
+
+deviations quadratically and MAE weights all deviations 
+
+uniformly [51]. The frequency dependence of the margin is 
+
+consistent with the ablation in Section B. At 140 GHz, where 
+
+rain attenuation is weaker and the informative signal resides 
+
+partly in local fluctuation structure, the convolutional pathway 
+
+and explicit statistical descriptors yield a decisive advantage 
+
+over pure attention; at 229 GHz, where the attenuation level 
+
+itself dominates the mapping, global sequence models recover 
+
+most of the available information and the architectural margin 
+
+narrows. The hybrid design thus does not uniformly outperform 
+
+its constituents but degrades gracefully toward the stronger 
+
+paradigm at each frequency - the principal benefit of 
+
+convolution-augmented attention architectures [52] - making it 
+
+the only model among the three that is never the weakest under 
+
+any metric –frequency combination.                              
+
+> TABLE IV
+> BASELINE COMPARISON ON BIT-24-G EN UNDER THE BEST DSD-PRIOR
+> CONFIGURATION AT EACH FREQUENCY .
+> RMSE MAE
+> Model 140GHz 229GHz 140GHz 229GHz
+> RainFormer 0.1782 0.2925 0.1107 0.1916
+> CNN1D 0.2049 0.3505 0.1307 0.2393
+> Vanilla Transformer 0.2985 0.2929 0.2092 0.2066
+
+D. Bounded-scope consistency check 
+
+We apply the synthetic-trained models directly to the 
+
+measured BIT-25 set, which is never used for training and 
+
+contributes no calibration to the pipeline. The evaluation is 
+
+therefore a zero-shot transfer test in the strict sense [44]. It asks 
+
+whether physics-constrained synthetic training yields 
+
+physically meaningful estimates on real data, not whether it 
+
+attains operational accuracy. 
+
+Fig . 4 summarizes the error statistics and estimation behavior. 
+
+Transfer error depends systematically on the DSD prior at both 
+
+frequencies - direct evidence that the estimates are governed by 
+
+the attenuation-rainfall physics embedded in training rather 
+
+than by incidental dataset structure. Under every prior, the 
+
+estimates preserve a monotonic relationship with gauge 
+
+observations and cleanly separate weak from heavier rain, 
+
+while the four priors jointly bracket the measured response, 
+
+converting the unobservable path DSD from an unquantified 
+
+bias into a bounded uncertainty envelope. The residual 
+
+deviation from the 1:1 line reflects the expected domain gap:                                                           
+
+> Fig. 4.Measured-data consistency evaluation of RainFormer trained under different DSD priors. Panels (a) and (d) show the RMSE and MAE under
+> different DSD priors at 140 and 229 GHz, respectively. Panels (b), (c), (e), and (f) show the corresponding estimated-versus-measured rainfall-rate
+> scatter plots for the ITU, J-D, M-P, and J-W priors, respectively. The dashed line denotes the ideal 1:1 relationship.
+
+path-nonuniform rainfall, the mismatch between point-gauge 
+
+labels and path-integrated attenuation - a known 
+
+representativeness limit of opportunistic-link sensing [23] -
+
+background fluctuations, instrumental uncertainty, and the 
+
+difference between true and assumed DSD. 
+
+The prior dependence differs across frequencies. At 140 GHz 
+
+the empirical priors yield lower or more balanced errors than 
+
+ITU-R, indicating the measured event is better represented by 
+
+empirical microphysics under the present calibration. At 229 
+
+GHz the inter-prior spread narrows, though the small sample 
+
+count there limits this to a qualitative observation. Consistent 
+
+with the synthetic regression of Section V.A, no prior is 
+
+universally preferred, reinforcing the bracketing strategy. The 
+
+central result stands . Models trained purely on physics 
+
+constrained synthetic data, without any measured-rainfall 
+
+calibration, produce rank-consistent and physically 
+
+interpretable estimates on an independent measured set. 
+
+VI. CONCLUSION 
+
+This work investigated rainfall-rate estimation from 
+
+sub-terahertz channels under realistic data scarcity. It combined 
+
+140 GHz and 229 GHz outdoor measurements over a 41.5 m
+
+channel with a physics-constrained synthetic-data pipeline and 
+
+a hybrid attention-convolution network, RainFormer. The 
+
+rain-attenuation relation and rainfall dependent Rician K-factor 
+
+were calibrated on an independent dataset and used to generate 
+
+synthetic training sequences across four DSD priors, with the 
+
+measured set held out entirely. Under matched synthetic 
+
+conditions RainFormer reached an RMSE of 0.1782 mm/h at 
+
+140 GHz and 0.2925 mm/h at 229 GHz, reducing RMSE by 
+
+about 13% over a 1D-CNN baseline at 140 GHz. Ablation 
+
+showed that explicit physical-statistical descriptors and 
+
+temporal-order information carry most of the predictive 
+
+information, local convolution ranks second, and global 
+
+attention acts only as a secondary refinement. 
+
+Applied zero-shot to measured rainfall, the models gave 
+
+rank-consistent estimates that separated weak from heavier rain, 
+
+and the four-prior spread bounded the uncertainty from the 
+
+unobservable path DSD. Physics-constrained, DSD-bracketed 
+
+synthetic training is therefore a viable foundation for 
+
+opportunistic THz rainfall sensing where operational datasets 
+
+are unavailable. It is relevant to integrated sensing and 
+
+communication in 6G links and may help cross-calibrate 
+
+meteorological radar rainfall retrievals. Future work should 
+
+pursue multi-event campaigns, measured-data-calibrated 
+
+training, and extension to longer channel s. 
+
+REFERENCES 
+
+[1] B. Rong, "6G: The Next Horizon: From Connected People and Things to 
+
+Connected Intelligence," IEEE Wireless Communications, vol. 28, no. 5, 
+
+pp. 8-8, 2021. 
+
+[2] F. Liu et al., "Integrated Sensing and Communications: Toward 
+
+Dual-Functional Wireless Networks for 6G and Beyond," IEEE Journal on 
+
+Selected Areas in Communications, vol. 40, no. 6, pp. 1728-1767, 2022. 
+
+[3] W. Jiang et al., "Terahertz Communications and Sensing for 6G and 
+
+Beyond: A Comprehensive Review," IEEE Communications Surveys &
+
+Tutorials, vol. 26, no. 4, pp. 2326-2381, 2024. 
+
+[4] A. M. Elbir, K. V. Mishra, S. Chatzinotas, and M. Bennis, 
+
+"Terahertz-Band Integrated Sensing and Communications: Challenges 
+
+and Opportunities," IEEE Aerospace and Electronic Systems Magazine, 
+
+vol. 39, no. 12, pp. 38-49, 2024. 
+
+[5] F. Norouzian et al., "Rain Attenuation at Millimeter Wave and Low-THz 
+
+Frequencies," IEEE Transactions on Antennas and Propagation, vol. 68, 
+
+no. 1, pp. 421-431, 2020. 
+
+[6] Y. Song et al., "Terahertz channel power and BER performance in rain," 
+
+Opt Express, vol. 33, no. 5, pp. 11336-11349, Mar 10 2025. 
+
+[7] A. Hirata et al., "Effect of Rain Attenuation for a 10-Gb/s 120-GHz-Band 
+
+Millimeter-Wave Wireless Link," IEEE Transactions on Microwave 
+
+Theory and Techniques, vol. 57, no. 12, pp. 3099-3105, 2009. 
+
+[8] J. Nemarich, R. J. Wellman, and J. Lacombe, "Backscatter and attenuation 
+
+by falling snow and rain at 96, 140, and 225 GHz," IEEE Transactions on 
+
+Geoscience and Remote Sensing, vol. 26, no. 3, pp. 319-329, 1988. 
+
+[9] S. Ishii, M. Kinugawa, S. Wakiyama, S. Sayama, and T. Kamei, "Rain 
+
+Attenuation in the Microwave-to-Terahertz Waveband," Wireless 
+
+Engineering and Technology, vol. 07, no. 02, pp. 59-66, 2016. 
+
+[10] J. F. Federici, J. Ma, and L. Moeller, "Review of weather impact on 
+
+outdoor terahertz wireless communication links," Nano Communication 
+
+Networks , 10, pp. 12-26, 2016 .
+
+[11] P. Li et al., "Measurement and Modeling on Terahertz Channels in Rain," 
+
+Journal of Infrared, Millimeter, and Terahertz Waves, vol. 46, no. 1, 2024. 
+
+[12] G. Skofronick-Jackson et al., "The Global Precipitation Measurement 
+
+(Gpm) Mission for Science and Society," Bull Am Meteorol Soc, vol. 98, 
+
+no. 8, pp. 1679-1695, Aug 2017. 
+
+[13] G. J. Huffman et al., "Integrated Multi-satellite Retrievals for the Global 
+
+Precipitation Measurement (GPM) Mission (IMERG)," in Satellite 
+
+Precipitation Measurement, (Advances in Global Change Research, 2020, 
+
+ch. Chapter 19, pp. 343-353. 
+
+[14] R. J. Joyce, J. E. Janowiak, P. A. Arkin, and P. Xie, "CMORPH: A Method 
+
+that Produces Global Precipitation Estimates from Passive Microwave and 
+
+Infrared Data at High Spatial and Temporal Resolution," Journal of 
+
+Hydrometeorology, vol. 5, no. 3, pp. 487-503, 2004. 
+
+[15] T. Kubota et al., "Global Satellite Mapping of Precipitation (GSMaP) 
+
+Products in the GPM Era," in Satellite Precipitation Measurement, 
+
+(Advances in Global Change Research, 2020, ch. Chapter 20, pp. 355-373. 
+
+[16] D. K. Braithwaite et al., "PERSIANN-CDR: Daily Precipitation Climate 
+
+Data Record from Multisatellite Observations for Hydrological and 
+
+Climate Studies," Bulletin of the American Meteorological Society, vol. 
+
+96, no. 1, pp. 69-83, 2015. 
+
+[17] V. A. Gorooh, A. A. Asanjan, P. Nguyen, K. Hsu, and S. Sorooshian, 
+
+"Deep Neural Network High Spatiotemporal Resolution Precipitation 
+
+Estimation (Deep-STEP) Using Passive Microwave and Infrared Data," 
+
+Journal of Hydrometeorology, vol. 23, no. 4, pp. 597-617, 2022. 
+
+[18] C. Wang, G. Tang, and P. Gentine, "PrecipGAN: Merging Microwave and 
+
+Infrared Data for Satellite Precipitation Estimation Using Generative 
+
+Adversarial Network," Geophysical Research Letters, vol. 48, no. 5, 2021. 
+
+[19] R. Rahimi, P. Ravirathinam, A. Ebtehaj, A. Behrangi, J. Tan, and V. 
+
+Kumar, "Global Precipitation Nowcasting of Integrated Multi-satellitE 
+
+Retrievals for GPM: A U-Net Convolutional LSTM Architecture," Journal 
+
+of Hydrometeorology, vol. 25, no. 6, pp. 947-963, 2024. 
+
+[20] G. Ayzel, T. Scheffer, and M. Heistermann, "RainNet v1.0: a
+
+convolutional neural network for radar-based precipitation nowcasting," 
+
+Geoscientific Model Development, vol. 13, no. 6, pp. 2631-2644, 2020. 
+
+[21] M. J. Piran, X. Wang, H. J. Kim, and H. H. Kwon, "Precipitation 
+
+nowcasting using transformer-based generative models and transfer 
+
+learning for improved disaster preparedness," International Journal of 
+
+Applied Earth Observation and Geoinformation, vol. 132, 2024. 
+
+[22] H. Messer, A. Zinevich, and P. Alpert, "Environmental monitoring by 
+
+wireless communication networks," Science, vol. 312, no. 5774, p. 713, 
+
+2006. 
+
+[23] H. Leijnse, R. Uijlenhoet, and J. N. M. Stricker, "Rainfall measurement 
+
+using radio links from cellular communication networks," Water 
+
+Resources Research, vol. 43, no. 3, 2007. 
+
+[24] J. Polz, C. Chwala, M. Graf, and H. Kunstmann, "Rain event detection in 
+
+commercial microwave link attenuation data using convolutional neural 
+
+networks," Atmospheric Measurement Techniques, vol. 13, no. 7, pp. 
+
+3835-3853, 2020. 
+
+[25] C. Chwala and H. Kunstmann, "Commercial microwave link networks for 
+
+rainfall observation: Assessment of the current status and future 
+
+challenges," WIREs Water, vol. 6, no. 2, 2019. 
+
+[26] B. Lian, Z. Wei, X. Sun, Z. Li, and J. Zhao, "A Review on Rainfall 
+
+Measurement Based on Commercial Microwave Links in Wireless 
+
+Cellular Networks," Sensors (Basel), vol. 22, no. 12, Jun 10 2022. 
+
+[27] A. Hirata, H. Takahashi, T. Kosugi, K. Murata, K. Naoya, and Y. Kado, 
+
+"Rain Attenuation Statistics for a 120-GHz-Band Wireless Link," Ieee Mtt 
+
+S Int Micr, pp. 933, 2009. 
+
+[28] ITU-R, "Specific attenuation model for rain for use in prediction 
+
+methods," Geneva, Switzerland, Recommendation ITU-R P.838-3, 2005. [29] L. Yangang, "Statistical theory of the Marshall-Palmer distribution of 
+
+raindrops," Atmospheric Environment. Part A. General Topics, vol. 27, no. 
+
+1, pp. 15-19, 1993. 
+
+[30] E. Feloni, K. Kotsifakis, N. Dervos, G. Giavis, and E. Baltas, Analysis of 
+
+Joss-Waldvogel disdrometer measurements in rainfall events (Fifth 
+
+International Conference on Remote Sensing and Geoinformation of the 
+
+Environment (RSCy2017)). SPIE, 2017. 
+
+[31] C. Mätzler, "Drop-Size Distributions and Mie Computations for Rain," 
+
+Institut für Angewandte Physik, Universit ät Bern, Bern, Switzerland, 
+
+November 2002 2002. 
+
+[32] R. F. Rincon and R. H. Lang, "Microwave link dual-wavelength 
+
+measurements of path-average attenuation for the estimation of drop size 
+
+distributions and rainfall," IEEE Transactions on Geoscience and Remote 
+
+Sensing, vol. 40, no. 4, pp. 760-770, 2002. 
+
+[33] T. C. van Leth, H. Leijnse, A. Overeem, and R. Uijlenhoet, "Estimating 
+
+raindrop size distributions using microwave link measurements: potential 
+
+and limitations," Atmospheric Measurement Techniques, vol. 13, no. 4, pp. 
+
+1797-1815, 2020. 
+
+[34] X. Hao, T. S. Rappaport, R. J. Boyle, and J. H. Schaffner, "Measurements 
+
+and models for 38-GHz point-to-multipoint radiowave propagation," 
+
+IEEE Journal on Selected Areas in Communications, vol. 18, no. 3, pp. 
+
+310-321, 2000. 
+
+[35] B. Efron, "Bootstrap Methods: Another Look at the Jackknife," The 
+
+Annals of Statistics, vol. 7, no. 1, 1979. 
+
+[36] L. Bernado, T. Zemen, F. Tufvesson, A. F. Molisch, and C. F. 
+
+Mecklenbrauker, "Time- and Frequency-Varying K-Factor of 
+
+Non-Stationary Vehicular Channels for Safety-Relevant Scenarios," IEEE 
+
+Transactions on Intelligent Transportation Systems, vol. 16, no. 2, pp. 
+
+1007-1017, 2015. 
+
+[37] A. Abdi, C. Tepedelenlioglu, M. Kaveh, and G. Giannakis, "On the 
+
+estimation of the K parameter for the Rice fading distribution," IEEE 
+
+Communications Letters, vol. 5, no. 3, pp. 92-94, 2001. 
+
+[38] O. Peters and K. Christensen, "Rain: relaxations in the sky," Phys Rev E
+
+Stat Nonlin Soft Matter Phys, vol. 66, no. 3 Pt 2A, p. 036120, Sep 2002. 
+
+[39] J. Xu, et al. "Understanding and improving layer normalization." 
+
+presented at the Advances in neural information processing systems 32 ,
+
+2019. 
+
+[40] A. Vaswani et al., "Attention is All you Need," presented at the Advances 
+
+in Neural Information Processing Systems 30, 2017. 
+
+[41] Y. N. Dauphin, A. Fan, M. Auli, and D. Grangier, "Language Modeling 
+
+with Gated Convolutional Networks," presented at the Proceedings of the 
+
+34th International Conference on Machine Learning, 2017. 
+
+[42] N. Srivastava, G. Hinton, A. Krizhevsky, I. Sutskever, and R. 
+
+Salakhutdinov, "Dropout: A Simple Way to Prevent Neural Networks 
+
+from Overfitting," (in English), J Mach Learn Res, vol. 15, pp. 1929-1958, 
+
+Jun 2014. 
+
+[43] H. Deng, G. Runger, E. Tuv, and M. Vladimir, "A time series forest for 
+
+classification and feature extraction," Information Sciences, vol. 239, pp. 
+
+142-153, 2013. 
+
+[44] J. Tobin, R. Fong, A. Ray, J. Schneider, W. Zaremba, and P. Abbeel, 
+
+"Domain randomization for transferring deep neural networks from 
+
+simulation to the real world," presented at the 2017 IEEE/RSJ 
+
+International Conference on Intelligent Robots and Systems (IROS), 2017. 
+
+[45] G. E. Karniadakis, I. G. Kevrekidis, L. Lu, P. Perdikaris, S. Wang, and L. 
+
+Yang, "Physics-informed machine learning," Nature Reviews Physics, vol. 
+
+3, no. 6, pp. 422-440, 2021. 
+
+[46] A. Zeng, M. Chen, L. Zhang, and Q. Xu, "Are Transformers Effective for 
+
+Time Series Forecasting?," Proceedings of the AAAI Conference on 
+
+Artificial Intelligence, vol. 37, no. 9, pp. 11121-11128, 2023. 
+
+[47] Y. Zhang, S. Chen, W. Tian, and S. Chen, "Radar Reflectivity and 
+
+Meteorological Factors Merging ‐Based Precipitation Estimation Neural 
+
+Network," Earth and Space Science, vol. 8, no. 10, 2021. 
+
+[48] J. Pudashine, et al., "Deep learning for an improved prediction of rainfall 
+
+retrievals from commercial microwave links." Water Resources Research 
+
+56, no. 7, pp. e2019WR026255, 2020. 
+
+[49] Q. Wen et al., "Transformers in Time Series: A Survey," presented at the 
+
+Proceedings of the Thirty-Second International Joint Conference on 
+
+Artificial Intelligence, 2023. 
+
+[50] Y. Nie, N. H. Nguyen, P. Sinthong, and J. Kalagnanam, "A Time Series Is 
+
+Worth 64 Words: Long-term Forecasting with Transformers," presented at 
+
+the International Conference on Learning Representations, 2023. 
+
+[51] T. Chai and R. R. Draxler, "Root mean square error (RMSE) or mean 
+
+absolute error (MAE)? – Arguments against avoiding RMSE in the 
+
+literature," Geoscientific Model Development, vol. 7, no. 3, pp. 
+
+1247-1250, 2014. 
+
+[52] A. Gulati et al., "Conformer: Convolution-augmented Transformer for 
+
+Speech Recognition," presented at the Interspeech 2020, 2020.
