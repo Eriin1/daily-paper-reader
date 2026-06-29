@@ -1,0 +1,388 @@
+Title: Two-Dimensional Locally Adaptive Non-Hydrostatic Extension of Shallow Water Equations
+
+URL Source: https://arxiv.org/pdf/2606.27562v1
+
+Published Time: Mon, 29 Jun 2026 00:11:02 GMT
+
+Number of Pages: 16
+
+Markdown Content:
+> Received <day> <Month>, <year>; Revised <day> <Month>, <year>; Accepted <day> <Month>, <year> DOI: xxx/xxxx
+
+ARTICLE TYPE 
+
+# Two-Dimensional Locally Adaptive Non-Hydrostatic Extension of Shallow Water Equations 
+
+## Kemal Firdaus* 1,2 | Jörn Behrens 1,2 
+
+> 1
+
+Department of Mathematics, Universität Hamburg, Bundesstrasse 53-55, 20146 Hamburg, Germany 
+
+> 2
+
+Center for Earth System Research and Sustainability (CEN), Universität Hamburg, Bundesstrasse 53-55, 20146 Hamburg, Germany 
+
+Correspondence 
+
+*Kemal Firdaus, Department of Mathematics, Universität Hamburg, Bundesstrasse 53-55, 20146 Hamburg, Germany. Email: kemal.firdaus@uni-hamburg.de 
+
+Abstract 
+
+We introduce a two-dimensional non-hydrostatic model for shallow water wave dis-persion. The model is based on a locally adapted application of a non-hydrostatic correction to the hydrostatic shallow water equations (SWE) in a predictor-corrector scheme. Applying the non-hydrostatic correction uniformly to the entire domain demands a high computational cost, since an elliptic system of equations needs to be solved for the correction terms. We demonstrate that by determining the area where the non-hydrostatic effects are significant, and applying the correction only locally, the computational effort can be reduced by approximately 40% without sacrificing accuracy in tsunami-like scenarios. As indicators for the non-hydrostatic effect, we use the ratio between total water depth and surface elevation, as well as horizontal velocity norms. Results are shown for several well-known test cases, including wave trains over a semi-circular shoal, static, and moving bottom tsunami-like wave prop-agation. 
+
+KEYWORDS: 
+
+adaptive, non-hydrostatic, dispersive, shallow water equations, moving bottom 
+
+## 1 INTRODUCTION 
+
+In some geophysical flow phenomena, such as landslides and slow earthquake-generated tsunamis, non-hydrostatic pressure is necessary to represent the physics of the phenomenon 1,2 . This is due to a so-called dispersive effect, which is driven by the hor-izontal gradient of the non-hydrostatic pressure. To cover such an effect in moving bottom-generated waves, three-dimensional models, such as Navier-Stokes equations, have been successfully employed 3,4,5 . However, due to their three-dimensional nature, it is impractical to adopt them for large-scale ocean modelling. Preferably, depth-averaged models have been proposed, which involve higher derivatives or solving elliptic problems to represent the non-hydrostatic effects. Solving for the dispersive non-hydrostatic terms over the whole domain at each time step is still computationally intensive. In this study we develop a model that allows to solve the elliptic problems only locally, adapted to areas where non-hydrostatic effects might be crucial, thereby reducing the computational cost while preserving the accuracy. Among the depth-integrated non-hydrostatic models are the Boussinesq-type equations, which have been widely used to simu-late dispersive waves. Various Boussinesq-type equations are derived based on the asymptotic expansion of the velocity potential with different expansion orders 6,7,8 . Such a model has been widely used in simulating geophysical flow, especially tsunami wave propagation 9,10,11 . However, this approach involves higher-order mixed time-space derivatives, making it numerically and computationally challenging.  
+
+> arXiv:2606.27562v1 [physics.flu-dyn] 25 Jun 2026 2FIRDAUS and BEHRENS
+
+Alternatively, the shallow water equations (SWE) have been widely used in the tsunami modelling community, and they form a purely hyperbolic, robust, and widely applicable model. However, it is limited by the hydrostatic assumption, rendering it unsuitable for dispersive wave propagation. Some studies have extended SWE by including the non-hydrostatic pressure terms. To achieve a purely depth-averaged model, a vertical relation of the non-hydrostatic pressure and vertical velocity needs to be defined. Some studies assume a linear profile 12,13,14 , while others employ a quadratic relation 15,16,17 , where the vertical velocity is assumed to be linear. The latter pressure relation is proven to be equivalent to the Green-Naghdi equations 18 , which are suitable for weakly dispersive waves. Such an extension can be solved with a projection method, frequently implemented as a predictor-corrector method, where the non-hydrostatic correction is applied to the hydrostatic SWE being the predictor. The projection method is one of the key ingredients of the locally adaptive model, as it allows for computing the correction terms locally. Another ingredient is a proper criterion to define the corrected region. One possible way is to define the criterion based on the hydrostatic solution. In one-dimensional settings, a locally adaptive model was proposed by simply taking the norm of the hydrostatic solution as the criterion 19 . This approach has shown comparable results with the global model, while saving more than half the computational time. This work extends the applicability of such a locally adaptive model to two-dimensional settings. We introduce the two-dimensional modified quadratic pressure relation that is solvable with a projection method without requiring to neglect terms. This is an extension of the one-dimensional form 20 . The adaptivity criterion is defined based on the magnitude of the surface elevation-fluid depth ratio, along with the horizontal velocity. Both quantities can be extracted from the purely hydrostatic predictor step. We apply our model to various test cases based on experimental measurements. First, we simulate periodic waves over a semi-circular shoal. Then, we apply it to two tsunami-based experiments, involving a static and a moving bottom. 
+
+## 2 MATHEMATICAL MODEL 
+
+This study employs a two-dimensional depth-averaged non-hydrostatic extension of the SWE. To derive this model, we begin with the three-dimensional Euler equations of motion 
+
+𝛁 3 ⋅ 𝑽 = 0 , (1) 
+
+𝜕 𝑡 𝑽 + 𝛁 3 ⋅ (𝑽 𝑽 𝑇 ) = − 1
+
+𝜌 𝛁 3𝑃 − 𝑔 𝑬 𝑧 , (2) where 𝛁 3 = ( 𝜕 𝑥 , 𝜕 𝑦 , 𝜕 𝑧 )𝑇 is the three-dimensional spatial gradient operator, 𝑽 = ( 𝑈 , 𝑉 , 𝑊 )𝑇 = ( 𝑼 , 𝑊 ) is the velocity in 𝑥, 𝑦, 𝑧 -direction respectively, and 𝑬 𝑧 denotes the unit vector in 𝑧 -direction. Moreover, 𝜌 denotes the fluid density, 𝑃 is the pressure, and 𝑔 is the gravitational acceleration. Kinematic boundary conditions at the fluid surface ( 𝑧 = 𝜂 ) and bottom ( 𝑧 = − 𝑑 ), along with the pressure value at the surface, 
+
+𝑊 |𝑧 =𝜂 ∶= 𝑊 (𝑥, 𝑦, 𝜂, 𝑡 ) = 𝜕 𝑡 𝜂 +
+
+(𝑈 |𝑧 =𝜂 
+
+𝑉 |𝑧 =𝜂 
+
+)
+
+⋅ 𝛁 𝜂, (3) 
+
+𝑊 |𝑧 =− 𝑑 ∶= 𝑊 (𝑥, 𝑦, −𝑑, 𝑡 ) = − 𝜕 𝑡 𝑑 −
+
+(𝑈 |𝑧 =− 𝑑 
+
+𝑉 |𝑧 =− 𝑑 
+
+)
+
+⋅ 𝛁 𝑑, (4) 
+
+𝑃 |𝑧 =𝜂 = 0 , (5) complete this set of equations. The key to obtaining a non-hydrostatic extension of the SWE is to consider the non-hydrostatic pressure, which can be achieved by splitting the pressure terms into hydrostatic and non-hydrostatic parts, such that 𝑃 = 𝑃 ℎ𝑦 +
+
+𝑃 𝑛ℎ .Integrating Equations (1) and (2) over the fluid depth ℎ = 𝜂 +𝑑 with the boundary conditions (Equations (3)-(5)) and applying Leibniz integration rule, we obtain 
+
+ℎ𝑡 + ∇ ⋅ (ℎ𝒖 ) = 0 , (6) 
+
+(ℎ𝒖 )𝑡 + ∇ ⋅ (ℎ𝒖 ⊗ 𝒖 + 𝑔 
+
+2 ℎ2𝑰 2) = 𝑔ℎ ∇𝑑 + 1
+
+𝜌 (𝑃 𝑛ℎ |𝑧 =− 𝑑 ∇𝑑 − ∇( ℎ𝑝 𝑛ℎ )) , (7) 
+
+(ℎ𝑤 )𝑡 + ∇ ⋅ (ℎ𝒖 𝑤 ) = 1
+
+𝜌 𝑃 𝑛ℎ |𝑧 =− 𝑑 , (8) with the lower-case letters denote the depth-averaged values. We call Equation (6) the mass conservation equation and Equations (7) and (8) the horizontal and vertical momentum balance equations, respectively. To achieve a purely averaged system, a FIRDAUS and BEHRENS 3
+
+divergent constraint is derived by assuming a linear vertical velocity relation and approximating the horizontal velocities 𝑼 with their depth-averaged value 𝒖 , which leads us to 
+
+2ℎ𝑤 + ℎ𝒖 ⋅ ∇(2 𝑑 − ℎ) + 2 ℎ𝜕 𝑡 𝑑 = − ℎ∇ ⋅ (ℎ𝒖 ). (9) Note that we still need to define the relation between the non-hydrostatic pressure at the fluid bottom 𝑃 𝑛ℎ |𝑧 =− 𝑑 with the averaged value 𝑝 𝑛ℎ . We consider two types of relations: linear and quadratic. The former relation is popular among studies on SWE non-hydrostatic extension, including those with a multilayer approach 21,22,23 . This relation is based on a linear pressure profile along the vertical axis direction, yielding 
+
+𝑃 𝑛ℎ |𝑧 =− 𝑑 = 2 𝑝 𝑛ℎ . (10) The quadratic relation, on the other hand, was initially introduced by 15 , where it was also proven to be equivalent to Boussinesq-type equations, specifically the Green-Naghdi equations. This model has also been developed to model bottom-generated waves while avoiding the previously required simplification in one-dimensional form 20 . With a similar approach, an alternative form of the two-dimensional pressure relation can be achieved by making use of the non-conservative form of the horizontal momentum 
+
+𝒖 𝑡 + ∇ ⋅ (𝒖 ⊗ 𝒖 + 𝑔 
+
+2 ℎ𝑰 2) = 𝑔 ∇𝑑 + 1
+
+𝜌ℎ (𝑃 𝑛ℎ |𝑧 =− 𝑑 ∇𝑑 − ∇( ℎ𝑝 𝑛ℎ )) , (11) yielding 
+
+𝑃 𝑛ℎ |𝑧 =− 𝑑 = 64 + ∇ 𝑑 ⋅ ∇𝑑 𝑝 𝑛ℎ + ∇𝑑 
+
+4 + ∇ 𝑑 ⋅ ∇𝑑 ⋅ ∇( ̃ ℎ𝑝 𝑛ℎ ) + 𝜙, (12) where 𝜙 = 𝜌ℎ  
+
+> 4+∇ 𝑑 ⋅∇𝑑
+
+(𝑔 ∇𝑑 ⋅∇𝜂 −𝒖 ⋅∇(∇ 𝑑 )⋅𝒖 −𝑑 𝑡𝑡 −2 𝒖 ⋅∇𝑑 𝑡 ). This proposed relation can be directly solved with the projection method without any simplification, conserving its equivalence with the Green-Naghdi equations. Both the linear (10) and quadratic (12) relations complete the set of equations (6)-(9). 
+
+## 3 NUMERICAL METHOD 
+
+We solve the previously described model with a projection method, which exploits the solution of the hydrostatic SWE as a predictor, followed by a correction by solving the remaining terms implicitly. We apply the correction for each Runge-Kutta step, instead of just for each timestep integration, to preserve the second-order in time accuracy. To handle test cases that involve wet-dry interface, we apply a nondestructive limiter for the fluid depth, and a velocity-based limiter for the momentum, which enables wetting and drying treatment as proposed by Vater et al. 24 .To elaborate on each step of the prediction and correction steps, this section is divided into the respective steps. Having the projection method, we can build a locally adaptive model by defining the adaptivity criterion, which we will also discuss briefly in this section. 
+
+## 3.1 Predictor Step 
+
+We solve our predictor, which is the hydrostatic SWE, with a second-order RK-DG scheme, with a nondestructive limiter for the fluid depth and a velocity-based limiter for the momentum as proposed by Vater et al. 24 . In the compact form, the hydrostatic part can be written as ̃
+
+𝑸 𝑡 + ∇ ⋅ 𝑭 (̃𝑸 ) = 𝑺 (̃𝑸 ), (13) with ̃ 𝑸 = ( ℎ, ℎ 𝒖 , ℎ𝑤 )𝑇 is the unknowns and 𝑭 (̃𝑸 ) = 
+
+(
+
+ℎ𝒖 , ℎ 𝒖 ⊗ 𝒖 + 𝑔  
+
+> 2
+
+ℎ2𝑰 2, ℎ 𝒖 𝑤 
+
+)𝑇 
+
+and 𝑺 (̃ 𝑸 ) = (0 , 𝑔ℎ ∇𝑑, 0) 𝑇 are the flux and the source terms respectively. We discretize our spatial domain Ω ∈ ℝ2, with triangular elements 𝐾 𝑖 . For the weak DG formulation, we multiply equation (13) by a test function 𝜑 , integrate it over an element, and apply integration by parts to obtain 
+
+∫
+
+> 𝐾 𝑖
+
+𝜑 ̃𝑸 𝑡 𝑑 𝒙 − ∫
+
+> 𝐾 𝑖
+
+∇𝜑 ⋅ 𝑭 (̃ 𝑸 )𝑑 𝒙 + ∫
+
+> 𝜕𝐾 𝑖
+
+𝜑 𝒏 ⋅ 𝑭 ∗(̃ 𝑸 )𝑑 𝒙 = ∫
+
+> 𝐾 𝑖
+
+𝜑 𝑺 (̃𝑸 )𝑑 𝒙 , (14) where 𝒏 represents the outward pointing normal vector on the edges of 𝐾 𝑖 . The communications between adjacent ele-ments are controlled through the interface flux 𝑭 ∗, which in this case is defined by a Riemann solver, namely the Rusanov solver 25 . We approximate the solution and test function with a linear function built with nodal Lagrange basis functions 26,27 as 
+
+𝑸 |𝐾 𝑖 ≈ 𝑸 ℎ|𝐾 𝑖 (𝒙 , 𝑡 ) = ∑𝑗 (̃𝑸 ℎ|𝐾 𝑖 (𝑡 )) 𝑗 𝜑 𝑗 (𝒙 ), with ̃ 𝑸 ℎ|𝐾 𝑖 (𝑡 ) is the degree of freedom vector. Moreover, the flux and source terms 4 FIRDAUS and BEHRENS 
+
+are approximated similarly. This spatial discretization leads us to the remaining semi-discrete system of ordinary differential equations 
+
+𝑑̃ 𝑸 ℎ
+
+𝑑𝑡 = (̃𝑸 ℎ), (15) where  represents the discretized flux and source terms. For the time stepping, we discretize (15) with an explicit second-order Runge-Kutta time integration, also known as Heun’s method. This leads to the following scheme: ̃
+
+𝑸 𝑛 +1  
+
+> ℎ
+
+=̃ 𝑸 𝑛 ℎ + Δ𝑡 
+
+2
+
+(
+
+(̃ 𝑸 𝑛 ℎ) + (̃ 𝑸 ⋆ℎ )
+
+)
+
+, (16) with ̃
+
+𝑸 ⋆ℎ =̃ 𝑸 𝑛 ℎ + Δ 𝑡 ((̃ 𝑸 𝑛 ℎ)) . (17) We call (17) and (16) the first and second RK stages. However, solving our corrector with the implicit Euler method, which is only first-order accurate, will cost us an order of accuracy if we apply the correction at each time step, as observed by Schlottke-Lakemper et al. 28 . Instead, we correct once every RK stage to preserve the order of accuracy, formulated with ̃
+
+𝑸 𝑛 +1  
+
+> ℎ
+
+=̃ 𝑸 𝑛 ℎ + Δ𝑡 
+
+2
+
+((̃ 𝑸 𝑛 ℎ) + (𝑸 ⋆ℎ )) , (18) where 𝑸 ⋆ℎ is a corrected predictor (17). 
+
+## 3.2 Corrector Step 
+
+Following the predictor step, we solve the remaining terms based on the computed predictor solution with the implicit Euler’s method. Note that there are no non-hydrostatic terms involved in the mass conservation equation (6). Hence, we can adapt the predictor as our final solution, i.e., ℎ𝑛 +1 =̃ ℎ𝑛 +1 . The unknown momentum, on the other hand, can be obtained by solving (7) and (8) with 
+
+(ℎ𝒖 ) − ( ̃ ℎ𝒖 )Δ𝑡 = − 1
+
+𝜌 ∇( ̃ℎ𝑝 𝑛ℎ ) + 1
+
+𝜌 
+
+(𝑃 𝑛ℎ |𝑧 =− 𝑑 (𝑝 𝑛ℎ ,̃ Q)) ∇𝑑, (19) 
+
+(ℎ𝑤 ) − ( ̃ ℎ𝑤 )Δ𝑡 = 1
+
+𝜌 
+
+(𝑃 𝑛ℎ |𝑧 =− 𝑑 (𝑝 𝑛ℎ ,̃ Q)) . (20) For clarity, we neglect the time-step superscript and the discrete-approximation subscript. To solve the last two equations, we need to involve the divergence constraint (9) to close the system. Substituting ℎ𝒖 and ℎ𝑤 from (19) and (20) to (9), yields an elliptic equation for the unkown 𝑝 𝑛ℎ . We solve this elliptic problem with the local discontinuous Galerkin (LDG) method, which decomposes the second-order operator into a series of two first-order operators 29 . We may think of ℎ𝒖 and ℎ𝑤 as the auxiliary variables constructed through (19) and (20). Discretizing (19) and (20) spatially with the discontinuous Galerkin method, where we approximate ℎ𝒖 , ℎ𝑤, and 𝑝 𝑛ℎ with a piecewise linear function, we can write 
+
+𝑞 = 𝐿 (𝑞 ) 
+
+> 𝑝 𝑛ℎ
+
+𝑝 𝑛ℎ + 𝑆 (𝑞 ), (21) with 𝑞 being either horizontal ( 𝑞 = ℎ𝑢 or ℎ𝑣 ) or vertical ( 𝑞 = ℎ𝑤 ) momentum. The discretized coefficients of 𝑝 𝑛ℎ and constants are represented by 𝐿 (𝑞 ) 
+
+> 𝑝 𝑛ℎ
+
+and 𝑆 (𝑞 ) respectively. Similarly, the divergence constraint (9) is discretized as 
+
+𝐿 (ℎ𝑢 )(ℎ𝑢 ) + 𝐿 (ℎ𝑣 )(ℎ𝑣 ) + 𝐿 (ℎ𝑤 )(ℎ𝑤 ) = 𝑆, (22) with 𝐿 and 𝑆 being discretized coefficients and constants, respectively. To solve the elliptic problem, we first evaluate (21), which is then used to construct (22). This leads to a system of linear equations for 𝑝 𝑛ℎ , which can be solved with an iterative method, such as the Biconjugate Gradients Stabilized method. For terms that involve the unknown gradient, we need to define the numerical flux. We simply take a central flux, defined as 
+
+(𝒒 )∗ = ( 𝒒 + + 𝒒 −)∕2 , (23) 
+
+(𝑝 𝑛ℎ )∗ = (( 𝑝 𝑛ℎ )+ + ( 𝑝 𝑛ℎ )−)∕2 , (24) where the superscript " +" and " −" denotes the value on two adjacent elements 𝐾 + and 𝐾 − respectively. FIRDAUS and BEHRENS 5
+
+## 3.3 Locally Adaptive Model 
+
+By solving our model with a projection method, we may adapt the correction locally in regions where non-hydrostatic pressure might be crucial. In one-dimensional settings, it has been shown that the locally adaptive model works well with various test cases, ranging from a solitary wave to moving bottom-generated waves 19 . Such a model requires a proper criterion, which relies on the calculated predictor values, namely the hydrostatic SWE solution. To give a brief illustration, Figure 1 shows the simulated solitary wave with a locally adaptive model, where the corrected domain is marked with the red area. This corrected domain is based on the magnitude of the elevation and depth ratio |̃𝜂 ∕𝑑 | >
+
+0.001 . At the end of the simulation ( 𝑡 = 40 𝑠 ), both the global and local models produce a similar absolute error (see Figure 2 ), with the latter approach saving almost 75% of the computational time. In this study, we use the combination of the magnitude of the elevation-depth ratio ( |̃𝜂 ∕𝑑 | > 0.001 ) with the horizontal-velocity norm ( ‖̃ 𝒖 ‖2 > 0.001 ). 
+
+FIGURE 1 Locally adaptive simulation of propagating solitary wave, where the corrections are adapted when |̃𝜂 ∕𝑑 | > 0.001 ,at time stamps 𝑡 = 0 , 20 , and 40 𝑠 .
+
+FIGURE 2 Absolute error produced by locally adaptive (left) and global (right) models of the surface elevation of the solitary wave simulation. 
+
+## 4 RESULTS AND DISCUSSION 
+
+To assess the validity of our model, we apply it to three laboratory-based test cases. We begin with a test case that involves wave shoaling over a sloping bottom, while the two following cases imitate tsunami wave propagation, involving both a static and a moving bottom. In each case, we examine two objectives. First, we want to know how suitable the model is for each case, more precisely, how the results obtained from each linear and quadratic pressure assumption are. This is reflected through the comparison of 6 FIRDAUS and BEHRENS 
+
+the global model with the measured data. Moreover, we aim to determine how close the results obtained from the local model align with those from the global model and how much computation time can be reduced. Hence, we compare the results from the global and local models for each linear and quadratic pressure relation, as well as the corrected elements and computational time ratio. 
+
+## 4.1 Periodic waves propagation over a semi-circular shoal 
+
+Our first benchmark is based on an experiment by Whalin 30 that assessed the limits of applicability of linear wave refraction theory in a convergence zone. The experiment was performed in a 25 .6 𝑚 × 6 .096 𝑚 basin, where a semi-circular shoal was installed in its center portion, yielding an initial condition of decreasing undisturbed water with a depth of 0.4572 𝑚 to 0.1524 𝑚 
+
+(see Figure 3 ). This bathymetry can be expressed as 
+
+𝑑 (𝑥, 𝑦, 𝑡 ) = 
+
+⎧⎪⎨⎪⎩
+
+0.4572 , 𝑥 ≤ 10 .67 − Γ( 𝑦 ),
+
+0.4572 + 10 .67−Γ( 𝑦 )− 𝑥  
+
+> 25
+
+, 10 .67 − Γ( 𝑦 ) ≤ 𝑥 ≤ 18 .29 − Γ( 𝑦 ),
+
+0.1524 , 𝑥 > 18 .29 − Γ( 𝑦 ),
+
+(25) with Γ( 𝑦 ) = √𝑦 (6 .096 − 𝑦 ). Wave trains are generated from the left-hand side of the domain ( 𝑥 = 0 ). 
+
+FIGURE 3 Three-dimensional view of the semi-circular shoal rescaled by a factor of ten in the vertical direction. Our computational domain is extended by (0 , 30) × (0 , 6.096) 𝑚 2 to define a zone of linearly-increasing quadratic bottom friction for 𝑥 > 25 .6 𝑚 , avoiding any reflected waves. We discretize it by 196 × 32 uniform rectangular cells, which are then divided into four triangles, yielding 24576 triangular cells. The wave trains are generated from the left side of the boundary, which is then absorbed downstream, while wall boundary conditions are imposed on the lateral boundaries. We consider two test cases involving wave periods of 𝑇 = 2 and 3 𝑠 corresponding to an amplitude of 𝑎 = 0 .0075 and 0.0068 𝑚 . The simulations run for 100 𝑠 , with a time step of Δ𝑡 = 0 .01 𝑠 .We analyze the surface elevation along the centerline ( 𝑦 = 3 .048 ) for the last 25 𝑠 of simulation time. A harmonic analysis is conducted to obtain the first, second, and third harmonic amplitudes. Figure 4 and 5 compare the harmonic amplitudes with the measured data for 𝑇 = 2 and 3 𝑠 respectively. For the case with 𝑇 = 2 𝑠 , the simulation produced with the quadratic pressure gives more accurate results for the second and third harmonics. In contrast, the linear pressure tends to overestimate the amplitude of the second and third harmonics after passing the shoal. In case 𝑇 = 3 𝑠 , notable disagreement can be observed for both pressure relations, where our results overshoot the first harmonic and undershoot the second and third harmonics. These discrepancies are also observed in previous studies involving various Boussinesq-type equations, e.g. 31,32,33 .The local model generally yields results close to those of the global model, as shown by the absolute difference at the end of the simulation in Figure 6 . The absolute difference is bounded by less than two orders of magnitude smaller than the fluid depth. Figure 7 depicts the ratio of the number of corrected elements to the total number of elements, along with the computational time over time steps. Since this case involves generated wave trains, we can observe that the number of corrected elements ratio increases over time until it approaches one and remains steady. This is due to the fact that non-hydrostatic wave dispersion eventually covers the whole domain. The same applies to the computational time, yet there is overhead when the correction is applied to most of the domain, because of the cost for computing the criterion and the dynamic adaptation of the system matrix size as the number of corrections varies. Nevertheless, the local model still requires less computational time, accounting for 
+
+93 .40% and 92 .78% of the total time for the 𝑇 = 2 𝑠 case, and 90 .63% and 94 .22% for the 𝑇 = 3 𝑠 case, when using linear and FIRDAUS and BEHRENS 7
+
+FIGURE 4 Comparison of the measured data (black solid line) with the global (colored solid line) and the locally adaptive (colored dashed line) simulations for the first, second, and third harmonics for the case 𝑇 = 2 𝑠 . Simulations are done using linear (red) and quadratic (blue) pressure relations. 
+
+FIGURE 5 Comparison of the measured data (black solid line) with the global (colored solid line) and the locally adaptive (colored dashed line) simulations for the first, second, and third harmonics for the case 𝑇 = 3 𝑠 . Simulations are done using linear (red) and quadratic (blue) pressure relations. quadratic relations, respectively. This situation occurs in the present wave train simulation, where the scattered waves propagate throughout the entire computational domain, causing the correction to be activated over a large region and thereby reducing the potential computational benefits of the local approach. The proposed local model remains particularly advantageous for scenarios involving a limited region of wave activity, which is encountered in tsunami waves. 
+
+## 4.2 Flow over a conical island 
+
+This test is based on an experiment conducted by the U.S. Army Engineer Waterways Experiment Station, which was motivated by the tsunami runup on Babi Island in 1992 34,35 . The basin dimension was 25 𝑚 × 28 .2 𝑚 , where a conical island was located in the center to simplify the island shape. This basin was filled with water to a height of 0.32 𝑚 . A solitary wave was generated 8 FIRDAUS and BEHRENS 
+
+FIGURE 6 Absolute difference of the simulated elevation by locally adaptive and global models at the end of the simulation time from linear (left) and quadratic (right) pressure relations, for 𝑇 = 2 (top) and 3 𝑠 (bottom), respectively. 
+
+FIGURE 7 Ratio of corrected elements (left) and computational time (right) across time steps for the locally adaptive model versus the global model, for 𝑇 = 2 (top) and 3 𝑠 (bottom). from one side of the domain. Several solitary wave setups were considered, from which we use the steepest one, denoted as case C, involving an amplitude of 𝜂 0 = 0 .057 𝑚 .We adjust our domain to [0 𝑚, 25 .92 𝑚 ] × [0 𝑚, 27 .60 𝑚 ], and discretize it by 131072 triangular elements, consisting of 
+
+256 × 256 squares divided into two triangles. Transparent boundary conditions are employed on the left and right sides of the domain, while hard wall boundary conditions are imposed on the lateral boundaries. Instead of generating the wave from the FIRDAUS and BEHRENS 9
+
+boundary, we define the solitary wave as an initial condition defined as 
+
+ℎ(𝑥, 𝑦, 0) = max 
+
+{
+
+0, 𝑑 0 + 𝜂 0
+
+cosh 2 (𝐾 (𝑥 − 𝑥 0)) 
+
+}
+
+, (26) which represents a solitary wave along 𝑥 -axis with an amplitude of 𝜂 0 centered along 𝑥 0 with a scaling factor 𝐾 =
+
+√
+
+0.75 𝜂 0∕𝑑 30 ,where 𝑑 0 = 0 .32 𝑚 represents the water depth at rest (see Fig. 8 for illustration). We chose 𝑥 0 = 7 .56 𝑚 such that the solitary wave height drops to 5% at the toe of the island. Physically, it represents propagating solitary waves with the maximum amplitude located along 𝑥 = 𝑥 0, yielding a time shift of 7.77 𝑠 in our simulation. Due to the model time shift, we run our simulation until 
+
+𝑡 = 12 .23 𝑠 , with a time step of Δ𝑡 = 0 .01 .
+
+FIGURE 8 Three-dimensional view of the conical island rescaled by a factor of twenty in the vertical direction. Figure 9 shows the comparison of our model with both linear and quadratic pressure profiles, along with the locally adaptive model against the laboratory-measured data, which is shifted for 20 𝑠 . We compare the elevation at four stations: 6, 9, 16 and 
+
+22 , which correspond to (𝑥, 𝑦 ) = (9 .36 , 13 .8) , (10 .36 , 13 .8) , (12 .96 , 11 .22) , and (15 .56 , 13 .8) respectively. These stations cover the front, side, and back sides of the island. In general, both results from linear and quadratic pressure relations agree well with the data. Both relations behave similarly in this case, especially at the front side (gauges 6 and 9). A slightly higher estimate is observed for the linear relation as the wave moves downward along the sides (gauge 16 ) and the rear of the island (gauge 22 ). The local model, on the other hand, gives a very close result to the global model. Figure 10 illustrates the difference between the global and local surface elevations at the end of the simulation time. Some relatively small deviation can be observed, with the maximum pointwise error being limited to two orders of magnitude smaller than the fluid depth. The ratio of the number of corrected elements and the computational time evolution can be seen in Figure 11 . Over the time steps, the corrected elements grow as the wave scatters over the whole domain, reflected by the island. At the end, it takes 61 .44% and 61 .7% of the global computational time to compute the local model. This result emphasizes that such phenomena, which imitate a tsunami propagation, could benefit from the proposed locally adaptive model in terms of computational time without losing significant accuracy. 
+
+## 4.3 Submarine landslide over a sloping bottom 
+
+Motivated by the importance of non-hydrostatic pressure in landslide-generated tsunamis, we apply our model to a moving bottom-generated wave case. This test case is based on a rigid submarine landslide experiment proposed by Enet and Grilli 36 .The experiment was conducted in a water tank measuring 30 𝑚 in length, 3.7 𝑚 in width, and 1.8 𝑚 in depth, filled with 𝑑 0 = 1 .5
+
+meters of water. The wave was generated by a rigid landslide with a Gaussian hump form with thickness 𝑇 = 0 .082 𝑚 , length 
+
+𝑏 = 0 .395 𝑚 , and width 𝑤 = 0 .680 𝑚 that slides down an incline of 𝜃 = 15 ◦ (see Figure 12 ). Following Fuhrman and Madsen 9,10 FIRDAUS and BEHRENS 
+
+FIGURE 9 Comparison of the measured data (black solid line) with the global (colored solid line) and the locally adaptive (colored dashed line) simulations for the surface elevation recorded at wave gauges 6, 9, 16 , 22 (top left to bottom right). Simu-lations are done using linear (red) and quadratic (blue) pressure relations. 
+
+FIGURE 10 Absolute difference of the simulated elevation by locally adaptive and global models at the end of the simulation time. Simulations are done with linear (left) and quadratic (right) pressure relations. the time-dependent floor variation can be expressed as 
+
+𝑑 (𝑥, 𝑦, 𝑡 ) = min{ 𝑑 0, − max{ 𝑧 𝑏 , −𝑥 tan 𝜃 }} , (27) FIRDAUS and BEHRENS 11 
+
+FIGURE 11 Ratio of corrected elements (left) and computational time (right) of the locally adaptive model compared to the global model over time steps. where 𝑧 𝑏 is obtained by solving 
+
+(𝜖 − 1)( 𝑧 𝑏 cos 𝜃 + 𝑥 sin 𝜃 ) = 𝑇 
+
+[
+
+𝜖 − cosh −1 (𝑘 𝑤 𝑦 ) cosh −1 
+
+( 𝑘 𝑏 
+
+2 sec 𝜃 (𝑥 − 2 𝑥 0 + 𝑥 cos(2 𝜃 ) − 2 𝑆 (𝑡 ) cos 𝜃 − 𝑧 𝑏 sin(2 𝜃 )) 
+
+)] 
+
+. (28) Initially, the mass center base is located at 𝑥 0 = 𝑥 𝑔 − 𝑇 sin 𝜃 , with 𝑥 𝑔 being the minimum submergence initial location. The time-dependent function 𝑆 (𝑡 ) = 𝑆 0 ln 
+
+(
+
+cosh 𝑡 𝑡 0
+
+)
+
+controls the slide movement, with 𝑆 0 = 𝑢 2 
+
+> 𝑡
+
+∕𝑎 0 and 𝑡 0 = 𝑢 𝑡 ∕𝑎 0. We consider a case involving an initial minimum submergence depth 𝑑 𝑔 = 0 .061 𝑚 , corresponding to 𝑥 𝑔 = 0 .551 𝑚 , with an initial landslide acceleration 𝑎 0 = 1 .2 𝑚 ∕𝑠 2 and terminal landslide velocity 𝑢 𝑡 = 1 .7 𝑚 ∕𝑠 .
+
+FIGURE 12 Three-dimensional view of the initial landslide topography. It is worth noting that previous studies that successfully simulated this benchmark used either three-dimensional 4, multilayer with linear pressure relation 37,38 , or higher-order Boussinesq models 9. We focus on a one-layer non-hydrostatic SWE extension to assess the performance of our locally adaptive model compared to the global model and to investigate the different behavior of linear versus quadratic pressure relations under a more challenging setup. Our computational domain is [−2 𝑚, 12 𝑚 ] × [−1 .85 𝑚, 1.85 𝑚 ], which is discretized with 32 × 224 uniform squares that are divided into four triangles, yielding a total of 28672 triangular elements. We apply an absorbing boundary at the downstream side and hard wall boundary conditions on the rest. The time step is Δ𝑡 = 0 .0035 , which runs until 1000 time steps. From our comparisons in Figure 13 , it is clear that one-layer non-hydrostatic extension of SWE, either with a linear or quadratic pressure relation, is unable to simulate the accurate amplitude or wave period. Different pressure relations give sig-nificantly different results. The linear pressure relation tends to overestimate the amplitude, which is also observed by Macías et al. 37 at gauge 4 for the case 𝑑 = 189 𝑚𝑚 , while the quadratic relation shows a slower wave period. As suggested by Kirby et al. 39 , most landslide tsunamis are often adequately described using three vertical layers. Despite the limited agreement with experimental data, our locally adaptive approach still manages to give a close result to the global model for such a complex case. The corrected element ratio and the computational time over time steps can be seen in 12 FIRDAUS and BEHRENS 
+
+FIGURE 13 Comparison of the measured data (black solid line) with the global (colored solid line) and the locally adaptive (colored dashed line) simulations for the surface elevation recorded at wave gauges 1, 2, 3, 4 (top left to bottom right). Simulations are done with linear (red) and quadratic (blue) pressure relations. Figure 15 . The locally adaptive model takes 65 .17% and 61 .80% of the computational time for the linear and quadratic pressure, respectively. This case reaffirms that tsunami-type waves can benefit from locally adaptive models. 
+
+FIGURE 14 Absolute difference of the simulated surface elevation between locally adaptive and global model with linear (left) and quadratic (right) pressure relation at the end of simulation time. Theoretically, a locally adaptive model can be adapted fairly straightforwardly, provided we have a model that can be solved using a projection method. In fact, some of the previously more advanced models that have successfully simulated this case were solved using a projection method, e.g., Ai et al. 4 with Navier-Stokes equations and Macías et al., Tarwidi et al. 37,38 with a multilayer model. Hence, further investigation into adapting the locally adaptive approach to more advanced models is of interest. 
+
+## 5 CONCLUSIONS 
+
+This work introduces a two-dimensional locally adaptive non-hydrostatic model based on an extension of the SWE. Simply combining the ratio of surface elevation to the fluid depth with the norm of the horizontal velocity as the adaptivity criterion FIRDAUS and BEHRENS 13 
+
+FIGURE 15 Ratio of corrected elements (left) and computational time (right) of the locally adaptive model compared to the global model with linear (red) and quadratic (right) pressure relations. allows us to obtain similar results with the global model for all the test cases, saving up to nearly 40% of the computational time, especially for cases that imitate tsunami waves. We plan to further investigate a more rigorous adaptivity criterion. In the case of moving bottom-generated waves, our proposed model with both linear and quadratic pressure relations is not sufficient. This has already been observed in previous studies of linear profiles, suggesting that a multilayer model is more appropriate. Adapting the locally adaptive model to multilayer models should be relatively straightforward when it is solved with a projection method, which is the case in some previous studies. Hence, investigating a multilayer model with a quadratic relation is of interest for further development. However, the ability to achieve results close to the global model in less computational time remains the main advantage of this work. 
+
+## ACKNOWLEDGEMENTS 
+
+The authors acknowledge the support of the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) within the Research Training Group GRK 2583 “Modeling, Simulation and Optimization of Fluid Dynamic Applications”. J.B. additionally acknowledges funding by the DFG under Germany‘s Excellence Strategy – EXC 2037 “CLICCS - Climate, Climatic Change, and Society” – Project Number 390683824; as well as through the Collaborative Research Center TRR 181 “Energy Transfers in Atmosphere and Ocean” funded by the DFG - Project Number 274762653. Moreover, K.F. would like to thank Prof. F.X. Giraldo for providing the MATLAB code for the 2D elliptic PDEs accompanying his book and for many helpful discussions regarding the implementation and numerical aspects of the method. Additional thanks go to Dr. M. Bänsch for guidance on Amatos and for sharing experience with LDG. 
+
+## CONFLICTS OF INTEREST 
+
+The authors declare no conflicts of interest. 
+
+## DATA AVAILABILITY STATEMENT 
+
+The data that support the findings of this study are available from the corresponding author upon reasonable request. 
+
+## References 
+
+1. Kirby JT, Grilli ST, Horrillo J, et al. Validation and inter-comparison of models for landslide tsunami generation. Ocean Modelling 2022; 170: 101943. doi: https://doi.org/10.1016/j.ocemod.2021.101943 14 FIRDAUS and BEHRENS 
+
+2. Glimsdal S, Pedersen GK, Harbitz CB, Løvholt F. Dispersion of tsunamis: does it really matter?. Natural Hazards and Earth System Sciences 2013; 13(6): 1507–1526. doi: 10.5194/nhess-13-1507-2013 3. Abadie S, Morichon D, Grilli S, Glockner S. Numerical simulation of waves generated by landslides using a multiple-fluid Navier–Stokes model. Coastal Engineering 2010; 57(9): 779-794. doi: https://doi.org/10.1016/j.coastaleng.2010.03.003 4. Ai C, Ma Y, Yuan C, Xie Z, Dong G. A three-dimensional non-hydrostatic model for tsunami waves generated by submarine landslides. Applied Mathematical Modelling 2021; 96: 1-19. doi: https://doi.org/10.1016/j.apm.2021.02.014 5. Yuk D, Yim S, Liu PF. Numerical modeling of submarine mass-movement generated waves using RANS model. Com-puters & Geosciences 2006; 32(7): 927-935. Computer Simulation of natural phenomena for Hazard Assessmentdoi: https://doi.org/10.1016/j.cageo.2005.10.028 6. Madsen PA, Schäffer HA. Higher–order Boussinesq–type equations for surface gravity waves: derivation and analysis. 
+
+Philosophical Transactions of the Royal Society of London. Series A: Mathematical, Physical and Engineering Sciences 
+
+1998; 356(1749): 3123-3181. doi: 10.1098/rsta.1998.0309 7. Madsen PA, Bingham HB, Schäffer HA. Boussinesq-type formulations for fully nonlinear and extremely dispersive water waves: derivation and analysis. Proceedings of the Royal Society of London. Series A: Mathematical, Physical and Engineering Sciences 2003; 459(2033): 1075-1104. doi: 10.1098/rspa.2002.1067 8. Madsen PA, Fuhrman DR, Wang B. A Boussinesq-type method for fully nonlinear waves interacting with a rapidly varying bathymetry. Coastal Engineering 2006; 53(5): 487-504. doi: https://doi.org/10.1016/j.coastaleng.2005.11.002 9. Fuhrman DR, Madsen PA. Tsunami generation, propagation, and run-up with a high-order Boussinesq model. Coastal Engineering 2009; 56(7): 747-758. doi: 10.1016/j.coastaleng.2009.02.004 10. Fang K, Liu Z, Sun J, Xie Z, Zheng Z. Development and validation of a two-layer Boussinesq model for simulating free surface waves generated by bottom motion. Applied Ocean Research 2020; 94: 101977. doi: https://doi.org/10.1016/j.apor.2019.101977 11. Dutykh D, Kalisch H. Boussinesq modeling of surface waves due to underwater landslides. Nonlinear Processes in Geophysics 2013; 20(3): 267–285. doi: 10.5194/npg-20-267-2013 12. Stelling G, Zijlema M. An accurate and efficient finite-difference algorithm for non-hydrostatic free-surface flow with application to wave propagation. International Journal for Numerical Methods in Fluids 2003; 43(1): 1-23. doi: 10.1002/fld.595 13. Walters RA. A semi-implicit finite element model for non-hydrostatic (dispersive) surface waves. International Journal for Numerical Methods in Fluids 2005; 49(7): 721-737. doi: https://doi.org/10.1002/fld.1019 14. Yamazaki Y, Kowalik Z, Cheung KF. Depth-integrated, non-hydrostatic model for wave breaking and run-up. International Journal for Numerical Methods in Fluids 2009; 61(5): 473-497. doi: 10.1002/fld.1952 15. Jeschke A, Pedersen GK, Vater S, Behrens J. Depth-averaged non-hydrostatic extension for shallow water equations with quadratic vertical pressure profile: equivalence to Boussinesq-type equations. International Journal for Numerical Methods in Fluids 2017; 84(10): 569-583. doi: 10.1002/fld.4361 16. Wang W, Martin T, Kamath A, Bihs H. An improved depth-averaged nonhydrostatic shallow water model with quadratic pressure approximation. International Journal for Numerical Methods in Fluids 2020; 92(8): 803-824. doi: 10.1002/fld.4807 17. Dempwolff LC, Windt C, Bihs H, Melling G, Holzwarth I, Goseberg N. Hydrodynamic coupling of multi-fidelity solvers in REEF3D with application to ship-induced wave modelling. Coastal Engineering 2024; 188: 104452. doi: 10.1016/j.coastaleng.2023.104452 18. Green AE, Naghdi PM. A derivation of equations for wave propagation in water of variable depth. Journal of Fluid Mechanics 1976; 78(2): 237–246. doi: 10.1017/S0022112076002425 FIRDAUS and BEHRENS 15 
+
+19. Firdaus K, Behrens J. Locally Adaptive Non-Hydrostatic Shallow Water Extension for Moving Bottom-Generated Waves. 
+
+International Journal for Numerical Methods in Fluids 2026; 98(2): 159-173. doi: https://doi.org/10.1002/fld.70021 20. Firdaus K, Behrens J. Non-Hydrostatic Model for Simulating Moving Bottom-Generated Waves: A Shallow Water Exten-sion With Quadratic Vertical Pressure Profile. International Journal for Numerical Methods in Fluids 2025; 97(8): 1093-1103. doi: https://doi.org/10.1002/fld.5393 21. Cui H, Pietrzak J, Stelling G. Optimal dispersion with minimized Poisson equations for non-hydrostatic free surface flows. 
+
+Ocean Modelling 2014; 81: 1-12. doi: https://doi.org/10.1016/j.ocemod.2014.06.004 22. Popinet S. A vertically-Lagrangian, non-hydrostatic, multilayer model for multiscale free-surface flows. Journal of Computational Physics 2020; 418: 109609. doi: https://doi.org/10.1016/j.jcp.2020.109609 23. Magdalena I, Erwina N. An Efficient Two-Layer Non-Hydrostatic Model for Investigating Wave Run-Up Phenomena. 
+
+Computation 2020; 8(1). doi: 10.3390/computation8010001 24. Vater S, Beisiegel N, Behrens J. A limiter-based well-balanced discontinuous Galerkin method for shallow-water flows with wetting and drying: Triangular grids. International Journal for Numerical Methods in Fluids 2019; 91(8): 395-418. doi: https://doi.org/10.1002/fld.4762 25. Rusanov V. The calculation of the interaction of non-stationary shock waves and obstacles. USSR Computational Mathematics and Mathematical Physics 1962; 1(2): 304-320. doi: https://doi.org/10.1016/0041-5553(62)90062-9 26. Giraldo FX, Warburton T. A high-order triangular discontinuous Galerkin oceanic shallow water model. International Journal for Numerical Methods in Fluids 2008; 56(7): 899-925. doi: 10.1002/fld.1562 27. Hesthaven JS, Warburton T. Nodal Discontinuous Galerkin Methods: Algorithms, Analysis, and Applications . Texts in Applied MathematicsSpringer New York, NY. 1 ed. 2008 28. Schlottke-Lakemper M, Winters AR, Ranocha H, Gassner GJ. A purely hyperbolic discontinuous Galerkin approach for self-gravitating gas dynamics. Journal of Computational Physics 2021; 442: 110467. doi: https://doi.org/10.1016/j.jcp.2021.110467 29. Giraldo FX. An Introduction to Element-Based Galerkin Methods on Tensor-Product Bases: Analysis, Algorithms, and Applications . Texts in Computational Science and Engineering (TCSE, Volume 24)Springer Cham . 2020 30. Whalin RW. The Limit of Applicability of Linear Wave Refraction Theory in a Convergence Zone. research report h-71-3, U.S. Army Corps of Engineers, Waterways Experiment Station; Vicksburg, MS, USA: 1971. Hydraulics Laboratory. 31. Madsen PA, Sørensen OR. A new form of the Boussinesq equations with improved linear dispersion characteristics. Part 2. A slowly-varying bathymetry. Coastal Engineering 1992; 18(3): 183-204. doi: https://doi.org/10.1016/0378-3839(92)90019-Q32. Kazolea M, Delis A, Nikolos I, Synolakis C. An unstructured finite volume numerical scheme for extended 2D Boussinesq-type equations. Coastal Engineering 2012; 69: 42-66. doi: https://doi.org/10.1016/j.coastaleng.2012.05.008 33. Lannes D, Marche F. A new class of fully nonlinear and weakly dispersive Green–Naghdi models for efficient 2D simulations. Journal of Computational Physics 2015; 282: 238-268. doi: https://doi.org/10.1016/j.jcp.2014.11.016 34. Briggs MJ, Synolakis CE, Harkins GS, Green DR. Laboratory experiments of tsunami runup on a circular island. Pure and Applied Geophysics 1995; 144(3): 569–593. doi: 10.1007/BF00874384 35. Liu PLF, Cho YS, Briggs MJ, Kanoglu U, Synolakis CE. Runup of solitary waves on a circular Island. Journal of Fluid Mechanics 1995; 302: 259–285. doi: 10.1017/S0022112095004095 36. Enet F, Grilli ST. Experimental Study of Tsunami Generation by Three-Dimensional Rigid Underwater Landslides. 
+
+Journal of Waterway, Port, Coastal, and Ocean Engineering 2007; 133(6): 442-454. doi: 10.1061/(ASCE)0733-950X(2007)133:6(442) 16 FIRDAUS and BEHRENS 
+
+37. Macías J, Escalante C, Castro MJ. Multilayer-HySEA model validation for landslide-generated tsunamis – Part 1: Rigid slides. Natural Hazards and Earth System Sciences 2021; 21(2): 775–789. doi: 10.5194/nhess-21-775-2021 38. Tarwidi D, Pudjaprasetya SR, Adytia D, Subasita N. An efficient two-dimensional non-hydrostatic model for simulating submarine landslide-generated tsunamis. Ocean Engineering 2024; 310: 118750. doi: https://doi.org/10.1016/j.oceaneng.2024.118750 39. Kirby J, Grilli S, Zhang C, Horrillo J, Nicolsky D, Liu PLF. The NTHMP Landslide Tsunami Benchmark Workshop, Galveston, Texas, USA, 9–11 January 2017. tech. rep., Research Report CACR-18-01; Newark, Delaware, USA: 2018. Tech. Rep.

@@ -1,0 +1,3262 @@
+Title: 2606.27804v1.pdf
+
+URL Source: https://arxiv.org/pdf/2606.27804v1
+
+Published Time: Mon, 29 Jun 2026 00:31:32 GMT
+
+Number of Pages: 41
+
+Markdown Content:
+Methods for Uncertainty Representation in Risk Management: 
+
+A Comparative Review and Decision -Oriented Framework 
+
+Albert Kutej a , Stefan Rass b       
+
+> aUniversity of Klagenfurt, Universitätsstraße 65 -67, 9020 Klagenfurt am Wörthersee, Austria,
+> e-mail: akutej@edu.aau.at, ORCID: https://orcid.org/0009 -0001 -5952 -3338
+> bLIT Secure and Correct Systems Lab, Johannes Kepler University Linz, Altenberger Straße 69,
+> 4040 Linz, Austria, e-mail: stefan.rass@jku.at ,ORCID: https://orcid.org/0000 -0003 -2821 -2489
+
+Abstract 
+
+The  consideration of uncertainty is a central but frequently inadequately addressed component of 
+
+risk management. A systematic treatment of uncertainty is essential for ensuring the quality and 
+
+traceability of decision -making processes, particularly in complex  and safety -critical environments. 
+
+This review systematically analyzes how established risk management approaches conceptualize 
+
+and represent uncertainty in both their theoretical foundations and practical applications. Based on 
+
+a systematic literature rev iew of 370 publications, the identified approaches are classified into five 
+
+methodological families. These include probabilistic methods, evidence -based and fuzzy -logic 
+
+approaches, qualitative elicitation techniques, graphical and visual representations an d hybrid 
+
+frameworks. The analysis shows that probabilistic methods remain predominant due to their 
+
+quantitative rigor, whereas fuzzy and evidence -based approaches are particularly suited to 
+
+addressing vagueness and epistemic uncertainty. Qualitative and gr aphical approaches are found 
+
+to enhance interpretive understanding and support the transparent communication of uncertainty. 
+
+Despite these developments, the analysis indicates that the practical integration of these 
+
+approaches into operational risk managem ent remains limited in many domains. The findings 
+
+highlight the need for more structured guidance in method selection and suggest that future 
+
+research would benefit from further development of hybrid approaches and visualization 
+
+techniques. 
+
+Keywords : uncertainty  representation, aleatory uncertainty, epistemic uncertainty, risk assessment 
+
+methods, expert elicitation 1.  Introduction 
+
+Uncertainty is a fundamental component of risk and influences how risks are identified, 
+
+assessed and communicated across disciplinary contexts  [1] . Although uncertainty is an essential 
+
+element of risk assessment, it is frequently addressed only implicitly or reduced to simplified 
+
+probability estimates that fail to capture the full range of underlying knowledge gaps  [2,3] . Recent 
+
+research emphasizes the need to conceptualize and treat uncertainty systematically in order to 
+
+strengthen the transparency, interpretability and robustness of risk analyses  [4] . This review 
+
+examines how different approaches  [5 –15]  conceptualize, capture, model and communicate 
+
+uncertainty within current risk assessment practice. It synthesizes central theoretical foundations 
+
+and relevant methodological developments and compares probabilistic, evidential, fuzzy, 
+
+qualitative, graphica l and hybrid approaches based on representative contributions from the 
+
+literature. The analysis illustrates the different forms of uncertainty in complex systems and 
+
+provides a structured overview of options that address different forms of epistemic and al eatory 
+
+uncertainty. The following sections outline the problem statement, define the review objectives 
+
+and analytical scope and summarize the methodology for identifying and selecting relevant 
+
+literature. 
+
+1.1.  Background and Problem Statement 
+
+In risk assessment, the consideration of uncertainty plays a significant role because it 
+
+influences how risks are identified, interpreted and managed across a wide range of application 
+
+domains. Risk assessments increasingly confront complex system behavior s, heterogeneous data 
+
+sources and dynamic environments in which uncertainty affects both the estimation of likelihoods 
+
+and the evaluation of potential consequences  [16] . As system interconnectivity grows and 
+
+decisions must be made under conditions of incomplete or unreliable information, the explicit 
+
+treatment of uncertainty becomes a fundamental prerequisite for analytical transparency and 
+
+decision quality  [17,18] . In this context, uncertainty is not a marginal aspect of risk assessment but 
+
+a central dimension that determines the validity and interpretability of any risk judgment. Despite 
+
+this relevance, uncertainty is treated only implicitly in many established as sessment methods or is 
+
+reduced to single probability estimates that neither reflect possible ranges nor make underlying 
+
+assumptions visible and therefore fail to capture existing knowledge limitations adequately  [2] .
+
+Conceptual ambiguities concerning the meaning and scope of uncertainty persist and distinctions 
+
+between variability, ambiguity, epistemic uncertainty and aleatory uncertainty are addressed in 
+
+divergent ways across frameworks and disciplines. Such concept ual inconsistency has direct 
+
+practical implications. It can lead to methodological misalignment, underestimation of knowledge 
+
+gaps and insufficient reflection on assumptions that influence the outcomes of risk assessments 
+
+[19] . As a result, uncertainty remains insufficiently and inconsistently addressed in many risk 
+
+analysis practices, even though it substantially affects the robustness, transparency and traceability 
+
+of assessment outcomes. The central research problem addresse d in this review is that uncertainty, 
+
+despite being a defining characteristic of risk  [1] , is not systematically or consistently treated 
+
+across existing assessment approaches. Current methods differ substantially in how uncertainty is 
+
+conceptualized, represented, and operationalized, resulting in a fragmented landscape of 
+
+possibilities. At the  same time, structured and practically applicable guidance for selecting 
+
+appropriate uncertainty representation methods in applied risk management contexts remains 
+
+limited. As a result, the choice for a method is often made implicitly or without transparen t
+
+justification, which can affect the interpretability and robustness of risk assessments. Motivated by this, we examine how different frameworks define uncertainty, how they integrate it into 
+
+assessment procedures, and which conceptual and theoretical advancements have been proposed 
+
+for a systematic treatment of uncertainty for risk management. Several r eview studies have already 
+
+addressed uncertainty in risk analysis and risk management, including the work of Zio and Pedroni 
+
+[1]  and Aven and Zio  [20] , which provide important conceptual foundations for understanding 
+
+uncertainty and its role in risk -related decision -making. However, these contributions primarily 
+
+focus on conceptual distinctions and general frameworks, with less emphasis on systematic 
+
+co mparisons of approaches for uncertainty representation in applied risk assessment. Given these 
+
+challenges, the present review contributes to the literature in three main ways. First, it provides a 
+
+structured classification of uncertainty representation met hods into five methodological families, 
+
+enabling a systematic comparison across approaches that are often treated separately. Second, it 
+
+emphasizes practical applicability by proposing a decision -oriented pathway that supports method 
+
+selection in practical  risk management settings. Third, it explicitly addresses different forms of 
+
+uncertainty, including ambiguity and ignorance, and discusses their implications for method 
+
+selection. 
+
+1.2.  Objective of the Review 
+
+The objective of this review is to provide a structured and comparative overview of 
+
+methods for addressing uncertainty in risk assessment, with a particular focus on the classification 
+
+of major method families, the identification of their underlying assump tions, and the analysis of 
+
+their capacities to represent different forms of uncertainty. The review further aims to support 
+
+method selection in applied contexts by linking conceptual distinctions of uncertainty to practical 
+
+decision requirements. By integr ating and comparing existing contributions, the review seeks to 
+
+strengthen conceptual clarity and highlight developments that can improve the treatment of 
+
+uncertainty in risk analysis. 
+
+1.3.  Analytical Focus of the Review 
+
+The analytical focus of this review is structured around four thematic areas that guide the 
+
+examination of uncertainty across the methodological categories considered. The analysis first 
+
+examines how uncertainty is conceptually defined within existing fram eworks and how 
+
+distinctions such as epistemic and aleatory uncertainty shape assumptions. It then reviews the 
+
+spectrum of methods that have been developed to capture or represent uncertainty, including 
+
+qualitative, quantitative and hybrid techniques. Build ing on this, the review analyses how these 
+
+approaches differ in their capacity to represent various dimensions of uncertainty and evaluates 
+
+their respective strengths and limitations in practical application. Finally, it explores how different 
+
+representati ons of uncertainty influence risk interpretation, decision making and the 
+
+communication of risk -related information. Together, these thematic areas provide the analytical 
+
+structure for the comparative assessment presented in the subsequent sections. 
+
+1.4.  Scope and Delimitation 
+
+The scope of this review encompasses frameworks and methods for identifying, 
+
+representing and analyzing uncertainty in risk assessment. Rather than centering on individual 
+
+tools or application specific techniques, the review examines broader groups of meth ods and their 
+
+underlying principles. It includes contributions from risk analysis that address contexts in which uncertainty plays a central analytical role. The literature base consists of foundational works as 
+
+well as recent contributions in order to reflect both established concepts and current theoretical 
+
+developments. The review excludes purely normative discuss ions on risk ethics and technical 
+
+safety standards unless they explicitly address the treatment of uncertainty. These delimitations 
+
+ensure that the analysis remains focused on methodological aspects that directly support the 
+
+conceptualization and operation alization of uncertainty within risk assessment. 
+
+1.5.  Systematic Literature Review 
+
+The literature considered in this review was identified through structured searches in 
+
+Scopus and Web of Science, covering major publishers and conference venues (e.g., IEEE, ACM, 
+
+Springer, Wiley, Elsevier). The search strategy combined terms such as “unce rtainty”, “risk 
+
+management”, “assessment”, and “methods” using varying logical connectives, including both 
+
+keyword and phrase searches, to systematically capture contributions. Exploratory searches in 
+
+Google Scholar, including direct and keyword -variant qu eries, were conducted to complement the 
+
+database search and to include potentially non -indexed sources. Across all retrieval channels, 
+
+approximately 370 candidate publications were collected and managed in a dedicated Zotero 
+
+library. Following deduplicatio n and screening, only studies meeting the inclusion criteria were 
+
+retained for final analysis. Inclusion required (i) explicit relevance to uncertainty representation in 
+
+risk assessment or risk management, (ii) independent verification of bibliographic det ails through 
+
+established databases or publisher libraries, and (iii) full -text access to enable content validation. 
+
+Studies lacking topical relevance or sufficient verifiability were excluded. Foundational theoretical 
+
+works were considered alongside recent  contributions to reflect both established concepts and 
+
+current developments. The selection followed an interdisciplinary orientation and incorporated 
+
+relevant work from risk analysis, decision science, systems engineering, and related fields. This 
+
+strateg y provides a reproducible and interdisciplinary basis for comparative analysis. The study 
+
+selection followed a structured multi -stage procedure. First, relevant publications were identified 
+
+through database searches and complementary exploratory searches.  Second, duplicate records 
+
+were removed and titles and abstracts were screened to assess their relevance to uncertainty 
+
+representation in risk assessment. Third, full -text screening was conducted based on predefined 
+
+inclusion and exclusion criteria. The fin al set of included studies comprises those contributions 
+
+that met all criteria regarding relevance, verifiability, and accessibility. While the review does not 
+
+follow a formal PRISMA protocol, the described procedure ensures transparency and supports the 
+
+reproducibility of the study selection process. In addition, the classification of methods into 
+
+methodological families was based on their underlying representation logic, including 
+
+probabilistic, evidential, fuzzy, qualitative, graphical, and hybrid approa ches, enabling a consistent 
+
+comparative framework. 
+
+2.  Theoretical Foundations 
+
+This section outlines the conceptual foundations of risk and uncertainty that underpin the 
+
+subsequent analysis. 
+
+2.1.  Conceptual  Foundations of Risk and Uncertainty 
+
+A clear conceptual understanding of risk and uncertainty is essential for analyzing how 
+
+different approaches represent uncertainty in risk management. In established definitions, risk is commonly understood as a function of consequences and their associated likelihoods (often 
+
+operationalized via probability estimates), reflecting both the severity of potential outcomes and 
+
+the anticipated chance that these outcomes occur  [21,22] . In this review, probability refers to a 
+
+formal quantitative representation of uncertainty, typically derived from empirical observations or 
+
+statistical modeling, whereas likelihood is used more broadly to express plausibility when evidence 
+
+is limited or indirectly available. Uncertainty, in cont rast, is interpreted in different ways within 
+
+the literature. In some approaches, uncertainty is treated as an integral component of risk itself, 
+
+while in others it is conceptualized as a descriptor of the analyst’ s knowledge about the system, 
+
+the available evidence and the adequacy of the underlying mod els  [23,24] . In this review, we adopt 
+
+the latter perspective, following contributions that distinguish between risk as a function of 
+
+consequences and likelihoods and uncertainty as a qualifier of the confidence in these estimates. 
+
+From this perspective, uncertainty aff ects the credibility and interpretability of any risk estimate. 
+
+Several distinctions are important for ensuring clarity. Variability refers to real -world fluctuations 
+
+in system behavior that arise from inherent randomness. In risk assessment, this type o f uncertainty 
+
+is commonly referred to as aleatory uncertainty, and it persists even  under complete information 
+
+[25,26] . Ambiguity, in the context of this review, reflects uncertainty that arises from vagueness, 
+
+multiple possible interpretations or inconsistent definitions of central concepts and is therefore 
+
+treated as a specific expression of epistemic uncertain ty  [16,23] . However, epistemic uncertainty 
+
+goes beyond ambiguity and includes forms of incomplete, unreliable or conflicting knowledge, 
+
+such as uncertainty due to data limitations, model misspecifications, parameter variability and 
+
+uncertainty about causal mechanism s or interactions within the syst em  [27,28] . A third category 
+
+that is frequently discussed in the literature is ignorance, which refers to situations in which 
+
+relevant outcomes (e.g., ranges), mechanisms or dependencies are not known or cannot be 
+
+meaningfully  characterized  [16,22,29] . While ignorance is sometimes treated as an extreme form 
+
+of epistemic uncertainty, several authors distinguish it as a qualitatively different condition, since 
+
+it involves not only incomplete knowledge but also unrecognized or unknowable aspects of the 
+
+sy stem. In such situations, neither probability distributions nor plausible ranges can be specified 
+
+in a meaningful way. In this review, ignorance is treated as a distinct analytical category in order 
+
+to highlight situations where uncertainty extends beyond  incomplete knowledge and includes 
+
+fundamental limits of model specification and system understanding. This distinction is 
+
+particularly relevant for method selection, as many uncertainty representation techniques 
+
+implicitly assume that at least partial know ledge can be formalized. These conceptual distinctions, 
+
+including the differentiation between epistemic uncertainty and ignorance, provide an important 
+
+foundation for the analysis that follows. 
+
+2.2.  Aleatory and Epistemic Uncertainty 
+
+Distinguishing aleatory from epistemic uncertainty is central to the selection and 
+
+interpretation of methods in risk assessment. The distinction clarifies whether uncertainty arises 
+
+from inherent randomness or from limitations in knowledge and therefore de termines which 
+
+methods and modeling techniques are appropriate and what the results of risk assessments can 
+
+legitimately be expected to represent  [21,25] . The following subsections provide definitions, 
+
+causes, illustrative examples, modeling techniques and typical domains of application for each 
+
+type of uncertainty. 2.2.1.  Aleatory Uncertainty 
+
+Aleatory uncertainty reflects variability inherent in the  system, for example fluctuations 
+
+that occur even under fully known conditions  [30] . It reflects the fact that even under perfect 
+
+knowledge, outcomes cannot be predicted with certainty because they are governed by intrinsic 
+
+randomness  [11,26] . Typical sources include biological variations, environmental fluctuations and 
+
+stochastic behavior in physical or technical systems. Examples include variations in component 
+
+lifetimes, fluctuations in patient inflow or random deviations in production proc esses  despite 
+
+controlled conditions  [31] . Aleatory uncertainty is irreducible; additional data may improve the 
+
+estimation of probability distributions, but the variability itself  remains  [32] . Probabilistic 
+
+modeling, through methods such as probability distributions, Monte Carlo simulation, stochastic 
+
+processes and Bayesian parameter estimation, is the predominant approach  to representing aleatory 
+
+uncertainty  [1,13] . These methods form the foundation of reliability  engineering, probabilistic risk 
+
+assessment and quantitative modeling in epidemiology and finance, where the focus lies on 
+
+quantifying randomness and calculating associated risk metrics. 
+
+2.2.2.  Epistemic Uncertainty 
+
+Epistemic uncertainty arises from incomplete knowledge, limited data, measurement errors 
+
+or insufficient understanding of system structures and mechanisms  [23,26] . It reflects the analyst’s 
+
+degree of knowledge rather than intrinsic randomness. Typical sources include missing or sparse 
+
+evidence, uncertain parameter estimates, ambiguous causal mechanisms or expert disagreement in 
+
+new or rapidly changing contexts  [27] . Unlike aleatory uncertainty, epistemic uncertainty is 
+
+reducible through improved data collection, model refinement, expert elicitation or validation 
+
+efforts. Modeling approaches include fuzzy logic, evidence theory, interval analysis, scenario 
+
+analysis a nd qualitative elicitation techniques, all of which aim to capture ambiguity, partial belief 
+
+or incomplete information  [33] . Epistemic uncertainty plays a particularly important role in 
+
+strategic risk analysis, early phases of technological development, crisis management and clinical 
+
+decision making where empirical evidence is limited or just evolving  [34] . A structured 
+
+comparison of both uncertainty types is presented in  Fehler! Ungültiger Eigenverweis auf 
+
+Textmarke. 1. As shown in the table, the distinction is not purely conceptual but has practical 
+
+implications, since methods suited for capturing randomness may inadequately represent 
+
+incomplete knowledge, while techniques designed to capture epistemic uncertainty may  not 
+
+address stochastic variability  [1,21] . Recognizing the interplay between aleatory and epistemic 
+
+components is particularly important in interconnected domains such as healthcare and critical 
+
+infrastructures, where uncertainty arises simultaneously from intrinsic system behavior and from 
+
+infor mational or conceptual limitations  [23,27] . The conceptual distinctions outlined in this 
+
+chapter provide the analytical foundation for the review that follows. Understanding whether 
+
+uncertainty arises from inherent variability or from limitations in knowledge is essential for 
+
+assessing the suitabili ty, strengths and limitations of different approaches  [1,16,21,23] . Beyond 
+
+the approaches covered in this review, several additional frameworks address uncertainty in risk 
+
+and decision -making. These include imprecise probability theory  [35,36] , probability bounds 
+
+analysis (p -boxes), Info -Gap theory  [37] , and decision -making under deep uncertainty  [38] 
+
+(DMDU), including approaches such as Robust Decision Making. These frameworks provide 
+
+important perspectives, particularly for situations characterized by severe epistemic uncertainty, 
+
+limited data, or deeply uncertain system behavior. However, they are o nly partially aligned with 
+
+the primary focus of this review, which is on methods commonly applied in operational risk assessment and risk management contexts. Therefore, these frameworks are considered 
+
+complementary and are not included in the core methodological classification presented in this 
+
+paper. Building on these conceptual foundations, the next section examines ho w established 
+
+families capture, model and represent uncertainty in risk management. 
+
+Table 1 
+
+Conceptual distinction between aleatory and epistemic uncertainty 
+
+Aspect  Aleatory Uncertainty  Epistemic Uncertainty 
+
+Definition 
+
+Inherent randomness or natural variability in system 
+
+behavior that persists even under complete 
+
+information 
+
+Lack of knowledge, lack of precision or incomplete 
+
+information about parameters, models or mechanisms 
+
+Nature 
+
+Objective 
+
+(independent of the analyst’s knowledge) 
+
+Subjective 
+
+(depends on the  quality and completeness of available 
+
+information) 
+
+Reducibility 
+
+Irreducible 
+
+(additional data do not eliminate variability) 
+
+Reducible through improved data, research, model 
+
+refinement or expert elicitation 
+
+Typical Representation  Probability distributions, stochastic models, Monte 
+
+Carlo simulation, Bayesian inference 
+
+Fuzzy sets, evidence theory, interval analysis, expert 
+
+elicitation, scenario analysis 
+
+Sources  Natural variability, random failures, environmental 
+
+fluctuations 
+
+Missing data,  measurement errors, uncertain parameters, 
+
+model misspecifications, conflicting expert judgments 
+
+Domains of Application  Reliability engineering, quantitative risk 
+
+assessment, probabilistic safety analysis 
+
+Early risk identification, strategic risk assessment, 
+
+expert assessment in data -limited environments 
+
+Examples  Differences in component lifetime, variability in 
+
+patient inflow 
+
+Unknown failure rate of new technology, divergence in 
+
+expert estimates 
+
+Reduction Strategy  Managed through robustness, redundancy or design 
+
+margins 
+
+Reduced through data collection, model validation and 
+
+knowledge improvement 
+
+Interrelation  Provides baseline stochastic variability  Adds cognitive and informational uncertainty on top of 
+
+aleatory variation 
+
+3.  Methods  to Capture Uncertainty  in Risk Management 
+
+To ensure analytical consistency across methodological categories, each approach is 
+
+examined following a standardized structure. For every identified method, the general principle 
+
+and theoretical foundation are introduced, representative models and applica tions are outlined, 
+
+strengths and weaknesses in representing uncertainty are discussed, limitations are addressed and 
+
+exemplary studies or domains of application are highlighted. The comparative position of these 
+
+methods is further summarized in Table  2 an d Table  3, which provide an overview of their core 
+
+characteristics and their capacities to capture, quantify and visualize uncertainty. Table  2
+
+Overview of methodological approaches for capturing and representing uncertainty in risk management 
+
+Category  Focus of the Method  Typical Techniques / Models  Type of Uncertainty 
+
+Addressed  Strengths  Limitations 
+
+Probabilistic 
+
+Approaches 
+
+Quantitative modeling of 
+
+randomness, variability 
+
+and stochastic 
+
+dependence between risk 
+
+factors 
+
+Probabilistic Risk Assessment 
+
+(PRA), Bayesian Networks, 
+
+Monte Carlo Simulation, Fault 
+
+Tree, 
+
+Event Tree Analysis 
+
+Primarily aleatory 
+
+uncertainty (stochastic 
+
+variability), limited 
+
+handling of epistemic 
+
+uncertainty through 
+
+Bayesian updating and 
+
+robust (minmax) 
+
+decisions 
+
+Mathematically rigorous and 
+
+transparent, allows quantitative 
+
+comparison and sensitivity 
+
+analysis, broadly standardized 
+
+and accepted in engineering 
+
+and safety -critical sectors 
+
+Requires extensive and 
+
+reliable data, complex to 
+
+use for  ambiguous, 
+
+incomplete or subjective 
+
+information, assumes 
+
+measurable probabilities 
+
+even when knowledge is 
+
+limited 
+
+Evidence - and 
+
+Fuzzy -Logic 
+
+Models 
+
+Representation of 
+
+vagueness, imprecision 
+
+and incomplete 
+
+knowledge using 
+
+linguistic variables or 
+
+belief structures 
+
+Fuzzy Logic, 
+
+Dempster -Shafer Theory, 
+
+Possibility Theory 
+
+Primarily epistemic 
+
+uncertainty, captures 
+
+imprecise and subjective 
+
+expert knowledge 
+
+Capable of representing 
+
+uncertainty without precise 
+
+probability distributions, 
+
+flexible under incomplete 
+
+information, useful for 
+
+integrating expert judgment 
+
+High subjectivity in 
+
+parameterization, lacks 
+
+universal calibration 
+
+standards, validation and 
+
+interpretation can be 
+
+challenging 
+
+Qualitative 
+
+Elicitation 
+
+Methods 
+
+Structured elicitation and 
+
+synthesis of  expert 
+
+judgments under 
+
+uncertainty, focuses on 
+
+interpretation and 
+
+consensus building rather 
+
+than quantification 
+
+Delphi Method, 
+
+Expert Judgment, 
+
+Scenario Analysis, 
+
+Risk Workshops 
+
+Primarily epistemic 
+
+uncertainty, often 
+
+combined with contextual 
+
+and cognitive uncertainty 
+
+Enables assessment in data -
+
+scarce contexts, encourages 
+
+interdisciplinary reflection, 
+
+supports transparent reasoning 
+
+and decision legitimacy 
+
+Strongly dependent on 
+
+expert selection and 
+
+framing, low 
+
+reproducibility, results 
+
+may be influenced by 
+
+group dynamics and bias 
+
+Graphical and 
+
+Visual 
+
+Methods 
+
+Visual representation and 
+
+communication of 
+
+uncertain relationships, 
+
+causal pathways or risk 
+
+magnitudes, supports 
+
+shared understanding 
+
+Bow -Tie Diagram, Influence 
+
+Diagram, 
+
+Risk Matrix, 
+
+Uncertainty Map 
+
+Primarily epistemic 
+
+uncertainty, with 
+
+qualitative 
+
+representations of 
+
+aleatory aspects, typically 
+
+without explicit 
+
+distinction or formal 
+
+modeling 
+
+Facilitates intuitive 
+
+understanding and risk 
+
+dialogue, enhances 
+
+transparency and 
+
+communication between 
+
+disciplines, suitable for 
+
+decision support in practice 
+
+Limited analytical depth, 
+
+often qualitative, may 
+
+oversimplify uncertainty, 
+
+lacks formal 
+
+quantification or 
+
+integration with 
+
+probabilistic data 
+
+Hybrid and 
+
+Integrated 
+
+Approaches 
+
+Combination of 
+
+probabilistic, fuzzy and 
+
+qualitative paradigms to 
+
+achieve a more holistic 
+
+treatment of uncertainty 
+
+Bayesian -Fuzzy Hybrid Models, 
+
+Multi -Criteria Decision Analysis 
+
+with Uncertainty Analysis, 
+
+Integrated Risk Frameworks, 
+
+Game -theoretic decision models 
+
+as hybrid extensions that 
+
+integrate strategic behavior with 
+
+probabilistic or fuzzy 
+
+representations 
+
+Aleatory and epistemic 
+
+uncertainty and in some 
+
+frameworks strategic or 
+
+behavioral uncertainty, 
+
+integrated across layers 
+
+Offers a comprehensive and 
+
+system -oriented view, balances 
+
+analytical rigor and 
+
+interpretability, suitable for 
+
+complex, multi -criteria 
+
+decisions 
+
+Conceptually and 
+
+computationally complex, 
+
+resource -intensive, may 
+
+be difficult to implement 
+
+and communicate in 
+
+operational settings 
+
+3.1.  Probabilistic Approaches 
+
+Probabilistic methods represent the most established group of techniques for capturing 
+
+uncertainty in risk management  [39 –42] . They are based on the premise that uncertainty can be 
+
+represented through probability distributions that describe the range of possible outcomes. This 
+
+approach enables the derivation of statistical measures such as expected values, confidence 
+
+intervals a nd quantitative risk indicators, including failure probabilities and value at risk. In this 
+
+context, the Monte Carlo simulation is frequently used to analyze how uncertainty affects complex 
+
+systems. This is achieved by repeatedly drawing samples from speci fied probability distributions for the input variables and evaluating the resulting variability in system outputs  [43] . Bayesian 
+
+networks integrate expert knowledge with observed data and update probabilities as soon as new 
+
+information becomes available  [44,45] . Classical techniques such as fault tree and event tree 
+
+analysis additionally support the systematic representation of causal pathways that may lead to 
+
+undesirable events  [46] . These methods are comprehensively documented in key works on 
+
+probabilistic risk assessment and reliability analysis and are firmly established in technical 
+
+standards and safety regulations  [47 –49] . The application of probabilistic methods is particularly 
+
+appropriate when uncertainty is largely driven by random variability and thus reflects aleatory 
+
+uncertainty  [42,50] . In situations where sufficient empirical data are available, stochastic behavior 
+
+can be reliably characterized and probabilistic models provide robust and reproducible estimates. 
+
+One reason probabilistic approaches are widely used is that their mathemati cal structure is explicit 
+
+and can be systematically verified. Assumptions and model structures can be presented 
+
+transparently and the resulting analyses are understandable and verifiable for independent experts. 
+
+This has led to the widespread use of probab ilistic risk assessment in safety critical sectors such 
+
+as nuclear energy, transportation and clinical infrastructure, where formal quantitative indicators 
+
+are required both for regulatory purposes and for technical verification  [51,52] . The ability of 
+
+probabilistic methods to represent uncertainty reaches its limits when uncertainty arises mainly 
+
+from incomplete knowledge rather than randomness. In situations characterized by epistemic 
+
+uncertainty, including limited data availability, s parse evidence, model ambiguity or divergent 
+
+expert assessments, assigning precise probability distributions can create a misleading impression 
+
+of objectivity  [53,54] . In such cases, probabilities may inadequately capture the actual extent of 
+
+uncertainty and suggest a level of accuracy that is not warranted given an incomplete or contested 
+
+knowledge base. Another limitation concerns the structural assumptions of probab ilistic models. 
+
+Independence assumptions may conceal existing dependencies and assumptions regarding 
+
+stationary or fixed distributional forms often fail to reflect the behavior of real -world systems. 
+
+Such simplifications risk obscuring model uncertainty an d may lead analysts to overestimate the 
+
+reliability of numerical results. The apparent precision of probabilistic estimates may then be 
+
+misinterpreted as accuracy and epistemic uncertainty may be underestimated or conflated with 
+
+variability. These challeng es have motivated a range of extensions to classical probabilistic risk 
+
+analysis. Bayesian approaches have been refined to combine empirical data systematically with 
+
+expert judgment and to represent parameter uncertainty through hierarchical structures and 
+
+posterior distributions  [44,45] . Robust optimization and risk -adaptive stochastic optimization 
+
+address distributional uncertainty by evaluating not a single model but a range of plausible 
+
+distributional assumptions  [7] . In reliability engineering and system safety, probabilistic 
+
+frameworks are increasingly combined with uncertainty quantification techniques to analyze how 
+
+sensitive model outcomes are to assumptions about parameters, model structures and data quality. 
+
+Re cent review articles on decision making under uncertainty and stochastic optimization  [7,55 –
+
+58]  emphasize that probabilistic approaches are evolving toward more flexible and integrative 
+
+modeling strategies. They increasingly address high dimensional systems, context -dependent 
+
+information and dynamic decision processes that have become highly relevan t in areas such as 
+
+critical infrastructures and healthcare  [59 –61] . Overall, probabilistic approaches remain central to 
+
+quantitative risk assessment. They enable the quantitative treatment of aleatory uncertainty, 
+
+support systematic sensitivity analyses and integrate well with formal decision -making tools. At 
+
+the same ti me, their application requires careful reflection on data availability, data quality  [62] ,
+
+modeling assumptions and the distinction between aleatory and epistemic uncertainty. In contexts 
+
+with limited or contested knowledge, probabilistic models benefit from being combined with approaches that represent vagueness, ambiguity and ignorance more explicitly. Recent research 
+
+has increasingly expanded and refined probabilistic methods in risk assessment. Classical 
+
+modeling structures are being extended and adapted to increasingly compl ex, data -rich and 
+
+dynamic environments. Important developments include modular and scenario -adaptive 
+
+architectures within probabilistic risk assessment, refined Bayesian networks for high -dimensional 
+
+systems and the growing integration of probabilistic rea soning with machine learning methods, 
+
+which improves both predictive performance and uncertainty quantification  [59,63] . A consistent 
+
+trend in recent research is the enhanced treatment of structured epistemic uncertainty, for example 
+
+through hierarchical Bayesian models, robust distributional assumptions or advanced uncertainty 
+
+quantification techniques  [64,65] . These developments illustrate the central role of probabilistic 
+
+approaches and their ongoing theoretical evolution, driven by increasing system complexity, 
+
+technological innovation and the availability of heterogeneous data sources. However, these 
+
+approa ches typically rely on assumptions regarding data availability and model structure, which 
+
+may not hold under conditions of severe epistemic uncertainty. 
+
+3.2.  Evidence and Fuzzy Methods 
+
+Evidence -based and fuzzy methods are useful when uncertainty is not adequately 
+
+expressible through precise probabilities  [66,67] . These approaches address the restrictive 
+
+assumptions of probabilistic models and enable vague, incomplete or conflicting information to be 
+
+represented in a structured and mathematically consistent way  [68 –70] . The underlying principle 
+
+of these methods is to capture imprecision and partial belief rather than to model stochastic 
+
+randomness. Rather than assigning exact probabilities, these methods represent uncertainty using 
+
+membership functions, belief and plaus ibility measures or possibility distributions  [71,72] , which 
+
+reflect the quality and completeness of the underlying knowledge. Fuzzy logic, originally 
+
+introduced by Zadeh  [66] , models uncertainty through the use of fuzzy sets that represent linguistic 
+
+categories such as “approximately high” or “moderately likely”. This concept allows gradual 
+
+transitions between states rather than binary classifications and facilitates reasoning  in situations 
+
+characterized by vague or qualitative information. The Dempster -Shafer theory  [68] , also known 
+
+as evidence theory, extends classical probability by distinguishing between belief, plausibility and 
+
+ignorance, thereby providing an explicit representation of incomplete or conflicting information. 
+
+Possibility theory, which is closely related  to fuzzy logic, quantifies the plausibility of outcomes 
+
+under partial knowledge and uses possibility and necessity measures as complements to traditional 
+
+probability  [71,72] . A key strength of these methods lies in their ability to represent expert 
+
+judgments and subjective assessments in a structured and mathematically consistent way  [73,74] .
+
+These methods are particularly useful in contexts characterized by epistemic uncertainty, such as 
+
+early risk identification, medical diagnostics or multicriteria decision analysis, where empirical 
+
+data are scarce, ambiguous or unreliable  [20,75] . By avoiding the need for precise probability 
+
+assignments, these methods enable forms of uncertainty representation that correspond more 
+
+closely to the ways in which experts reason qualitatively about ambiguity, conflict or incomplete 
+
+knowledge  [72,76] . Despite these advantages, evidence -based and fuzzy methods also have 
+
+limitations, as their parametrization often depends heavily on expert judgments, which can reduce 
+
+reproducibility and introduce bias  [73,74] . Membership degrees, belief functions and possibility 
+
+measures may be less intuitive for practitioners to empirically substantiate than probabilistic 
+
+metrics and the aggregation of evidential or fuzzy information across sources or models can lead 
+
+to addit ional ambiguity or increased computational complexity  [20] . These limitations have 
+
+constrained the use of such methods in regulated, data -driven domains of risk management that require standardized quantitative outputs  [75] . Overall, evidence -based and fuzzy methods offer a 
+
+valuable means of representing uncertainty in contexts dominated not by random variability but 
+
+by epistemic uncertainty  [77] . They complement probabilistic approaches by explicitly capturing 
+
+vagueness, partial belief and ignorance, thereby strengthening the theoretical basis for representing 
+
+uncertainty in risk analysis. Foundational work on fuzzy sets, evidence theory and poss ibility 
+
+theory provides the conceptual basis for their use in risk assessment and decision support 
+
+[66,68,72,76] . Current research continues to refine and expand the application of evidence -based 
+
+and fuzzy methods in risk analysis. Ongoing developments focus on improving the aggregation of 
+
+conflicting evidence  [78 –81] , enhancing the interpretability of belief and membership functions 
+
+through new uncertainty measures  [82 –84]  and integrating evidential or fuzzy approaches with 
+
+probabilistic or data -driven methods  [6,85,86] . These advances reflect a growing interest in hybrid 
+
+formulations that combine fuzzy sets, belief structures or possibility measures with machine 
+
+learning, Bayesian updating or multicriteria decision models. Across recent studies, the shared 
+
+objective is  to strengthen the representation of epistemic uncertainty in complex systems and to 
+
+address challenges arising from limited data, ambiguous information and expert disagreement  [87 –
+
+89] . This evolving field reflects the growing importance and development of evidence -based and 
+
+fuzzy approaches in risk assessment. While these methods provide greater flexibility in 
+
+representing incomplete or imprecise information, they often face challenges  related to 
+
+parameterization, interpretability, and standardization across applications. 
+
+3.3.  Qualitative Elicitation Techniques 
+
+Qualitative elicitation techniques aim to systematically capture expert knowledge, 
+
+interpretative reasoning and context -specific insights when empirical data are insufficient, 
+
+uncertain or unavailable  [90 –92] . Instead of expressing uncertainty through numerical measures, 
+
+these approaches analyse how professionals interpret uncertain information and assess it in relation 
+
+to their disciplinary and situational knowledge  [74,93,94] . The central assumption underlying 
+
+qualitative elicitation techniques is that human judgment and collective expertise represent a key 
+
+source of evidence, particularly in situations of epistemic uncertainty where system behavior 
+
+cannot be reliably determin ed exclusively on the basis of quantitative data  [90,95,96] . Qualitative 
+
+approaches structure expert knowledge in risk assessment across a wide range of techniques. These 
+
+approaches include structured interviews, Delphi methods, focus groups, cognitive mapping 
+
+procedures, scenario analyses and facilitated risk wor kshops  [97 –101] . Such techniques support 
+
+experts in making assumptions explicit, identifying interdependencies and examining the 
+
+implications of uncertainties in complex socio technical systems. Cognitive maps and scenario -
+
+based approaches make it possible to reveal caus al mechanisms, emerging risks and context 
+
+specific dependencies that are often underrepresented in quantitative models  [102 –104] . Delphi 
+
+methods and iterative consensus -building processes reduce the influence of individual biases and 
+
+enable collective expert judgments to evolve through controlled feedback  [98,105 –107] . The main 
+
+advantage of qualitative elicitation is its ability to make implicit knowledge, divergent 
+
+interpretations and context specific factors visible, which can only be captured to a limited extent 
+
+by probabilistic or formal mathematical approaches  [92,108,109] . These techniques increase the 
+
+transparency of risk assessments because they systematically make the reasoning behind expert 
+
+judgments, along with the underlying assumptions, value considerations and confidence levels, 
+
+explicit  [110,111] . This is particularly important in complex projects characterized by distributed 
+
+and sometimes conflicting knowledge, high levels of uncertainty, multidisciplinary decision 
+
+making and systemic interactions that are only partially quantifiable  [112,113] . Qualitative elicitation is therefore especially relevant for early risk identification, strategic decision making 
+
+and the assessment of emerging risks, including those arising from new technologies where robust 
+
+empirical evidence is not yet available. The participator y nature of qualitative elicitation supports 
+
+organizational learning and strengthens the acceptance of risk management outcomes. Despite 
+
+these advantages, qualitative elicitation techniques exhibit important limitations, because their 
+
+results depend heavil y on expert selection, elicitation design and the quality of facilitation  [91,108] .
+
+Group dynamics, anchoring, framing effects and other cognitive biases may influence judgments 
+
+and differences in expertise or dominance can shape discussions and conclusions  [95,114] . In 
+
+addition, the resulting assessments are often difficult to verify or compare systematically and the 
+
+lack of formal metrics reduces their reproducibility relative to quantitative approaches  [115] . To 
+
+mitigate these limitations, elicitation procedures are increasingly combined with semi - quantitative 
+
+rating schemes, structured decision analysis or probabilistic models  [116,117] . In summary, 
+
+qualitative elicitation methods are essential in situations where empirical evidence is limited and 
+
+expert judgment constitutes a key source of information. They complement quantitative and formal 
+
+approaches by capturing interpretative and co ntext -related dimensions of uncertainty and by 
+
+providing a more comprehensive basis for risk related decision making  [74,94,118] . Their 
+
+theoretical foundations build on research in expert judgment, decision making and interpretive risk 
+
+analysis, which provides a basis for their use in risk management  [109] . Current research 
+
+increasingly focuses on enhancing procedural transparency, reducing cognitive biases and 
+
+integrating interactive or digital environments that support group -based reasoning  [99,101,119] .
+
+Hybrid approaches that integrate qualitative elicitation with Bayesian updating, machine assisted 
+
+interpretation, multicriteria decision frameworks or other integrative methods are attracting 
+
+increasing attention  [106,116,120,121] . These developments indicate an increasing effort to 
+
+integrate expert -derived insights systematically into uncertainty analysis and to improve the 
+
+traceability of qualitative assessments in complex systems. Recent contributions demonstrate that 
+
+qualitativ e elicitation remains a central component in the representation of uncertainty  [122] .
+
+3.4.  Graphical and Visual Representations 
+
+Graphical and visual methods shift the emphasis from numerical quantification toward the 
+
+representation and communication of uncertainty through visual means  [123 –125] . Their 
+
+underlying assumption is that complex relationships, dependencies and uncertainties can often be 
+
+interpreted more intuitively using graphical structures than numerical tables or analytical 
+
+expressions  [126 –128] . Such approaches make it easier to identify the location, magnitude and 
+
+structural characteristics of uncertainty, including its distribution across system elements and its 
+
+interdependencies  [129 –131] . Typical graphical representations of uncertainty include influence 
+
+diagrams, causal diagrams, bow -tie diagrams, risk maps and network -based visualizations  [132 –
+
+140] . Quantitative representations of uncertainty are often illustrated using probability density 
+
+functions, fuzzy membership curves or uncertainty bands  [124,127,141] . More advanced 
+
+visualization approaches  [129,142 –145]  rely on multidimensional visualization tools, interactive 
+
+dashboards and scenario -based exploration environments that visually overlay uncertainty in terms 
+
+of both magnitude and the reliability of underlying estimates, thereby enabling dynamic 
+
+exploration . Graphical and visual representations support decision making by rendering abstract 
+
+or complex uncertainty structures accessible and by revealing critical dependencies, systemic 
+
+vulnerabilities, emerging risks and existing knowledge gaps that are not read ily captured by purely 
+
+analytical models  [127,128,146] . Their intuitive nature facilitates communication between experts 
+
+and non -experts, supports the development of shared mental models, understood as a common understanding of key system structures and relationships and enhances interdisciplinary discussion 
+
+[128,130] . These characteristics highlight the potential role of graphical methods as 
+
+complementary tools in safety -critical contexts and high -risk environments, where clear 
+
+communication of uncertainty is essential. Despite their strengths, graphical methods exhib it 
+
+important limitations: They are primarily descriptive and do not provide an independent 
+
+quantification of uncertainty (with a few exceptions  [147,148] ). Such representations indicate 
+
+where uncertainty arises within a system and how it is structured, but do not generate numerical 
+
+probabilities or calculated risk indicators. Their interpretative nature may introduce subjectivity 
+
+and visual elements can be  misinterpreted if they are not designed or standardized with sufficient 
+
+care  [123,126,149] . The interpretation of visual representations of uncertainty is subject to 
+
+cognitive biases, which may cause the same visualization to be interpreted differently by users 
+
+with varying levels of experience and expertise  [131,150] . Graphical approaches typically do not 
+
+explicitly distinguish between aleatory and epistemic uncertainty unless combined with 
+
+complementary modeling frameworks, such as probabilistic models including Bayesian 
+
+formulations or evidential approaches, which a llow a formal separation of different uncertainty 
+
+types  [137,138] . Visual representations of complex systems may result in oversimplification when 
+
+the complexity of the underlying information cannot be adequately conveyed through graphical 
+
+representation  [123,126,151] . In this context, oversimplification refers to situations in which 
+
+complex or multilayered uncertainty structures are reduced to an extent that essential details, 
+
+dependencies or different forms of uncertainty are no longer adequately represented. In summ ary, 
+
+graphical and visual methods provide an essential complement to analytical and probabilistic 
+
+approaches by translating uncertainty into a form that supports interpretation, communication and 
+
+joint decision making. They can enrich risk assessments by r evealing structural relationships, 
+
+highlighting knowledge gaps and supporting participatory evaluation processes. Research in 
+
+visualization, decision support and cognitive psychology suggests that graphical representations 
+
+can facilitate the understanding,  transparency and interpretability of uncertainty in risk analysis 
+
+[124,130,146] . Recent studies  [129,136,142,143] , [152]  build upon the foundations of graphical 
+
+uncertainty representations, with an increasing focus on interactive and dynamic visualization, 
+
+integration with computational and probabilistic models and improved interpretability and 
+
+standardization in participa tory decision contexts. These developments underscore the increasing 
+
+relevance of graphical and visual approaches to uncertainty communication in modern risk 
+
+analysis. Although these approaches enhance transparency and stakeholder communication, they 
+
+may l ack the formal rigor required for quantitative decision -making or regulatory contexts. 
+
+3.5.  Hybrid Approaches 
+
+Hybrid and integrated approaches are designed to combine the strengths of probabilistic, 
+
+evidential, fuzzy, qualitative and graphical methods within unified frameworks for uncertainty 
+
+assessment  [73,153 –155] . Hybrid approaches combine different paradigms, whereas integrated 
+
+approaches embed these paradigms within a coherent analytical framework in which different 
+
+forms of uncertainty can be represented simultaneously  [156 –158] . Their underlying premise is 
+
+that no single method can fully capture the multifaceted nature of uncertainty. This includes 
+
+aleatory variability, epistemic incompleteness and in certain contexts, strategic or behavioral 
+
+uncertainty  [25,159,160] . By integrating different forms of uncertainty representation, hybrid 
+
+approaches aim to support a more comprehensive and coherent understanding of risks and their 
+
+interdependencies in complex systems  [155,161] . Hybrid models can take a variety of forms. They 
+
+integrate probabilistic reasoning with approaches designed to address vague or incomplete information, aiming to capture both randomness and ambiguity within a single framework  [162 –
+
+166] . Other approaches link Monte Carlo simulations with evidence theory or combine Bayesian 
+
+updating with qualitative elicitation to embed expert judgment in computational models  [167,168] .
+
+Multi criteria decision frameworks frequently integrate quantitative performance indicators with 
+
+linguistic assessments, thereby enabling the evaluation of alternatives when data quality varies or 
+
+subjective interpretation is required  [169 –171] . Another category of hybrid approaches includes 
+
+graphical procedures for specifying uncertainty, where experts visually delineate uncertainty 
+
+regions by drawing rectangles that separately represent possible ranges of values for likelihood 
+
+and impact  [129,147,172,173] . These procedures combine visual representation with qualitative 
+
+elicitation and allow experts to express ambiguity, confidence intervals and knowledge gaps 
+
+without specifying precise numerical probabilities  [174] . Such graphical elicitation formats 
+
+support a structured interpretation of epistemic uncertainty and provide a cognitively accessible 
+
+interface for interdisciplinary assessment teams, particularly in complex risk assessments in which 
+
+uncertainties arise a cross different system levels, such as the technical level (for example sensor 
+
+or equipment data), the process level (workflows and routines), the organizational level (structures 
+
+and responsibilities), the human level (behavior and expertise) and the envi ronmental or contextual 
+
+level (regulatory or infrastructural conditions)  [175] . Hybrid extensions increasingly incorporate 
+
+advanced statistical and decision analytic components to capture complex dependencies and 
+
+behavior related sources of uncertainty  [120,159] . Hybrid Bayesian and evidential models are 
+
+particularly suited to representing uncertainty arising from interactions between actors or 
+
+subsystems that extend beyond purely aleatory or epistemic formulations  [176,177] . When 
+
+combined with probabilistic, fuzzy based or qualitative inputs, these models support decision 
+
+making in domains such as security, resource allocation or the protection of critical infrastructures, 
+
+where risk outcomes depend on the configuration and  responses of multiple interacting agents or 
+
+system components  [178,179] . Hybrid models aim to link different forms of uncertainty in a 
+
+consistent manner and to represent quantitative and interpretative elements as required for the 
+
+respective application  [153,154] . A central strength of hybrid frameworks is their flexibility, which 
+
+enables heterogeneous uncertainties to be integrated within a single analytical framework. By 
+
+capturing both variability and knowledge gaps, this integration reduces the risk of systemat ic 
+
+epistemic limitations associated with single method approaches and increases robustness 
+
+[155,180] . Beyond epistemic uncertainty, hybrid formats also address interpretative uncertainty 
+
+arising from meaning, framing, stakeholder values or incomplete conceptual alignment  [170,181] .
+
+As a result, such frameworks are particularly valuable for interdisciplinary risk assessments and 
+
+for sociotechnical systems that integrate diverse information sources including quantitative data, 
+
+model -based outputs and qualitative expert judgments  [171,182] . At the same time, hybrid 
+
+approaches introduce important theoretical and practical challenges. Integrating heterogeneous 
+
+forms of uncertainty requires careful calibration, harmonization of scales and explicit assumptions 
+
+about how different uncertainty ty pes should be combined  [157,159] . Increasing model complexity 
+
+can reduce interpretability, while computational demands may rise substantially, especially in high 
+
+dimensional or dynamic systems  [120,161] . Validation also becomes more demanding, as multiple 
+
+model components must be assessed jointly to ensure internal consistency and reliability  [168,183] .
+
+In summary, hybrid and integrated approaches represent a significant development in uncertainty 
+
+modeling because they enable different uncertainty forms to be combined within a shared 
+
+analytical architecture  [25,73,153] . This allows for a more comprehensive representation of 
+
+aleatory and epistemic uncertainty and, where relevant, strategic uncertainty. Foundational work 
+
+on hybrid modeling, integrated risk frameworks and multi -criteria decision analysis provides theoretical justification for their application in risk analysis  [156,184] . Current research continues 
+
+to expand the theoretical basis of hybrid approaches by combining probabilistic models with fuzzy 
+
+or evidential reasoning, embedding expert elicitation within computational frameworks and 
+
+linking hybrid structures to Bayesian networks or uncertainty quantification techniques 
+
+[162,163,185] . Recent research also addresses coupled probabilistic and deterministic analyses, as 
+
+well as the integration of machine learning with fuzzy -based or evidential representations to 
+
+support explainability  [186,187] . Against this background, hybrid approaches are increasingly 
+
+viewed as an integrative component of modern risk analysis, particularly in complex environments 
+
+where multiple types of uncertainty must be considered simultaneously  [180,187] . Rather than 
+
+replacing established methodologies, hybrid approaches provide a unifying perspective that 
+
+emphasizes coherence across methods. Table  3
+
+Comparison of methodological approaches by their ability to capture, quantify and visualize uncertainty 
+
+Method Category  Capture  Quantify  Visualize 
+
+Probabilistic 
+
+Approaches 
+
+••
+
+(through stochastic modeling of 
+
+random variables) 
+
+• • •
+
+(fully quantitative based on 
+
+probabilistic modeling) 
+
+•
+
+(not primarily visual) 
+
+Evidence - and Fuzzy -
+
+Logic Models 
+
+••
+
+(represent vague or incomplete 
+
+knowledge) 
+
+•
+
+(semi -quantitative) 
+
+•
+
+(limited graphical representation 
+
+possible) 
+
+Qualitative  Elicitation 
+
+Methods 
+
+•••
+
+(strong in eliciting and structuring 
+
+expert knowledge) 
+
+X
+
+(non -quantitative) 
+
+•
+
+(scenario or workshop -based 
+
+visualization) 
+
+Graphical and Visual 
+
+Methods 
+
+•
+
+(implicitly capture structure) 
+
+X
+
+(non -numerical) 
+
+• • •
+
+(primary  focus) 
+
+Hybrid and Integrated 
+
+Approaches 
+
+••
+
+(combine multiple methods to capture 
+
+different uncertainty aspects) 
+
+••
+
+(partial quantification depending on 
+
+included quantitative components) 
+
+•
+
+(depends on integration of 
+
+complementary methods and may 
+
+support visualization through 
+
+combined graphical and analytical 
+
+components) 
+
+Note : X not applicable,  • low relevance or coverage (limited or indirect support for the criterion),  •• moderate relevance or coverage (partial or 
+
+context -dependent support),  ••• high relevance or coverage (explicit and systematic support as a core feature of the methods) 
+
+4.  Comparative  Analysis  and  Discussion 
+
+We found no single approach to sufficiently address all dimensions of uncertainty, which 
+
+suggests the need for context -dependent method selection. Across the methodological families, 
+
+each approach addresses only specific facets of uncertainty. Probabilisti c methods are most 
+
+appropriate when uncertainty is predominantly aleatory and when sufficient data are available to 
+
+support the specification of probability distributions and the calibration of quantitative models. 
+
+Evidence and fuzzy logic approaches are p articularly suited to contexts in which knowledge is 
+
+incomplete, information is vague or expert judgment plays a central role. Qualitative elicitation 
+
+techniques and graphical representations are especially useful in settings with complex problem 
+
+structure s, heterogeneous stakeholders or decision processes that require explicit documentation 
+
+of assumptions and reasoning. From a comparative perspective, the choice of method largely depends on three factors. The first is the dominant type of uncertainty, in particular the balance 
+
+between aleatory and epistemic components. The second is the availability, quality and stability 
+
+of data, which constrains the extent to which quantitative c alibration is feasible. The third is the 
+
+decision context, including regulatory requirements, time constraints and the need for 
+
+interdisciplinary or participatory processes. Hybrid and integrated approaches respond to these 
+
+conditions by combining methods  to capture different uncertainty dimensions within a single 
+
+analytical architecture. However, their advantages in terms of coverage and flexibility must be 
+
+weighed against increased complexity and higher demands regarding transparency, validation and 
+
+commu nication. 
+
+5.  Operationalizing  the Findings  in Practice 
+
+This section  operationalizes the comparative findings by outlining a structured decision 
+
+pathway for selecting uncertainty representation methods in risk management. The pathway is 
+
+structured around three primary selection drivers: (i) dominant uncertainty type, (ii) d ata 
+
+availability and quality, and (iii) decision context and required outputs. Based on these drivers and 
+
+the reviewed literature, five advisory steps are proposed to support transparent and context -
+
+appropriate method selection in research and practice. To  facilitate justification of the selected 
+
+method, a checklist -based documentation approach is outlined in the Appendix. The proposed 
+
+pathway is intended as an evidence -informed synthesis and documentation aid rather than an 
+
+empirically validated decision m odel. While presented sequentially, the steps should be understood 
+
+as an iterative decision guidance. In practice, data constraints and decision requirements may 
+
+require revisiting earlier steps. Figure 1 presents the proposed decision pathway for selectin g
+
+uncertainty representation methods in applied risk management. Figure 1. Structured decision pathway for selecting uncertainty representation methods in applied risk management. 
+
+The proposed pathway is conceptual and synthesizes findings from the reviewed literature. 
+
+It is intended as structured guidance rather than as an empirically validated predictive model and 
+
+therefore requires further testing in domain -specific applications.  From an epistemological 
+
+perspective, uncertainty may be interpreted either as inherent variability or as a limitation of 
+
+knowledge. In practice, however, this distinction is not always clear -cut, since uncertainty types 
+
+may overlap or be interpreted diffe rently depending on context and available information. In 
+
+particular, ambiguity and incomplete information may make it difficult to assign uncertainty 
+
+unambiguously to a single category. Therefore, the selection of methods should not be understood 
+
+as a str ictly deterministic process but as a context -dependent decision that requires informed and 
+
+context -sensitive judgment. The pathway offers a systematic orientation for method selection, but 
+
+it does not replace the need for critical assessment of the underly ing assumptions about uncertainty 
+
+and its representation. 
+
+5.1.  Characterize the dominant uncertainty 
+
+Method selection should begin with an explicit characterization of the dominant 
+
+uncertainty type. Distinguishing between aleatory and epistemic components is essential because 
+
+the suitability of probabilistic, evidential, qualitative, graphical, or hybrid  methods depends on the 
+
+underlying uncertainty profile. • If uncertainty is predominantly aleatory (Section  2.2.1), meaning it reflects stochastic 
+
+variability in stable and repeatable mechanisms, probabilistic approaches (e.g., PRA, 
+
+Bayesian networks, Monte Carlo simulation) are most appropriate for quantitative 
+
+estimation and sensitivity analysis. 
+
+• If uncertainty is predominantly epistemic (Section  2.2.2), meaning it arises from 
+
+incomplete, imprecise, or contested knowledge, evidence -based and fuzzy -logic 
+
+models (belief functions, possibility theory, linguistic variables) provide a suitable 
+
+representation without requiring precise probability assignment s. 
+
+• If uncertainty is mixed or layered, combining aleatory and epistemic components or 
+
+including strategic and behavioral aspects across multiple system levels, hybrid or 
+
+integrated approaches (Section  3.5) are suitable to represent multiple uncertainty 
+
+forms coherently within a single analytical framework. 
+
+5.2.  Assess data availability and quality 
+
+The second step involves assessing the availability and quality of the data used for 
+
+uncertainty representation. Importantly, numerical precision should not be conflated with accuracy, 
+
+since highly precise numerical outputs may still reflect substantial ep istemic uncertainty. To avoid 
+
+spurious precision, assumptions and confidence levels should be documented explicitly. Prior 
+
+work highlights that an “illusion of accuracy” can arise when  numerical results appear overly 
+
+precise without adequate evidential sup port  [188] .
+
+• If data are sufficient and reliable to support the estimation of statistical distributions, 
+
+probabilistic models (Section  3.1) are applicable. However, sensitivity analyses and 
+
+robustness checks should be included, and key modeling assumptions (e.g., 
+
+independence, stationarity, distributional form) should be made explicit. 
+
+• If data are  sparse, heterogeneous, or of limited reliability, and uncertainty relies 
+
+substantially on expert judgment, qualitative elicitation techniques (Section  3.3) are 
+
+appropriate to structure assumptions and reasoning. In such contexts, evidence -based 
+
+and fuzzy -logic models (Section  3.2) can complement elicitation by formally 
+
+encoding imprecision and partial belief without requiring precise probability 
+
+assignments. 
+
+• If interpretability and traceability are prioritized over numerical precision, graphical 
+
+and visual methods (Section  3.4) are suitable for communicating uncertainty 
+
+structure, dependencies, and knowledge gaps. Since visual representations are 
+
+typically descriptive, they should be linked to analytical models when quantification 
+
+or  comparability is required. 
+
+5.3.  Specify decision context and required outputs 
+
+The third step is to specify the decision context and the outputs required from the 
+
+assessment. Method selection should align with the type of decision to be supported, the intended 
+
+audience, and the required form of evidence. This includes whether the dec ision process requires quantitative indicators, comparative rankings, or interpretative and communicative outputs. In 
+
+practice, the chosen uncertainty representation should match both the informational needs of 
+
+stakeholders and potential requirements for traceability, transparen cy, and auditability. 
+
+• If the decision context requires quantified risk indicators, comparative metrics, or 
+
+formal trade -off analyses, probabilistic models (Section  3.1) are suitable when 
+
+uncertainties are largely aleatory and data permit statistical calibration. If epistemic 
+
+components are substantial, hybrid approaches (Section  3.5) should be preferred to 
+
+prevent spurious precision and to represent knowledge limitations explicitly. 
+
+• If the primary requirement is transparent reasoning, interpretability, and clear 
+
+documentation of assumptions, qualitative elicitation techniques (Section  3.3) and 
+
+graphical representations (Section  3.4) provide strong support. These methods make 
+
+underlying assumptions and rationales explicit, facilitate interdisciplinary discussion, 
+
+and enable communication of uncertainty in a form accessible to both experts and 
+
+non -experts. 
+
+5.4.  Consider constraints and governance requirements 
+
+The fourth step is to consider institutional constraints and governance requirements that 
+
+shape method feasibility and acceptability. In many domains, risk assessment is conducted under 
+
+regulatory expectations, organizational standards, or practical limita tions regarding time, resources, 
+
+and available expertise. These constraints influence not only the selection of methods but also the 
+
+extent to which uncertainty representations can be justified and defended in formal decision 
+
+processes. Explicit documentat ion of assumptions and uncertainty sources is therefore essential, 
+
+particularly when decisions have safety -critical implications. 
+
+• In regulatory or engineering contexts where formal quantification and auditability 
+
+are required, probabilistic approaches are often expected due to their established 
+
+standards and formal structure. However, where epistemic uncertainty is material, 
+
+result s should be complemented by explicit uncertainty characterization, robustness 
+
+analyses, and clear documentation of assumptions to reduce the risk of spurious 
+
+precision. 
+
+• In multi -criteria decision contexts, uncertainty representation must account for 
+
+ambiguity that arises from weighting, aggregation, and preference structures. If 
+
+decision goals can be weighted meaningfully, scalarization approaches (i.e., 
+
+aggregating mul tiple objectives into a weighted sum) are commonly applied and 
+
+allow mathematically grounded trade -offs between competing goals  [189] . If goals 
+
+are strictly prioritized, lexicographic decision rules may be more appropriate, 
+
+selecting solutions that optimize the most important objective first and using lower -
+
+priority objectives to break ties  [190] . In both cases, uncertainty regarding weights, 
+
+preferences, and stakeholder values should be treated explicitly, as it can 
+
+substantially influence risk prioritization and decision outcomes. 5.5.  Plan integration and communication 
+
+The fifth step is to plan how uncertainty representations will be integrated into decision 
+
+processes and communicated to stakeholders. In applied contexts, method selection is not only a 
+
+technical issue but also a communication and implementation challenge . Effective uncertainty 
+
+treatment requires that results remain interpretable, that assumptions are traceable, and that 
+
+uncertainty information can be conveyed in a form that supports decision -making. In particular, 
+
+visualization can support understanding o f where uncertainty arises, how large it is, and how 
+
+reliable the underlying evidence is. 
+
+• If uncertainty representations are intended to support interdisciplinary decision 
+
+processes, visual and graphical formats should be selected to communicate structure, 
+
+dependencies, and evidence quality. Since visual outputs are typically descriptive, 
+
+the y should be linked to analytical models where quantitative defensibility or 
+
+comparability is required. 
+
+• If expert judgment is a central information source, structured elicitation procedures 
+
+should be applied to enhance transparency, mitigate cognitive biases, and document 
+
+confidence levels. Where feasible, elicited knowledge should be connected to 
+
+analytic al models, for example through Bayesian updating or evidential formalisms, 
+
+to support traceability and iterative revision as new information becomes available. 
+
+• If uncertainties are distributed across multiple system levels or involve mixed 
+
+uncertainty types, a hybrid or integrated architecture should be specified. This 
+
+includes explicit interfaces between model components, clear rules for combining 
+
+uncertainty  information, and documentation of assumptions to ensure internal 
+
+coherence and interpretability. 
+
+5.6.  Application Example 
+
+To illustrate the application of the proposed decision pathway, the following example 
+
+demonstrates method selection in a practical risk assessment context. For example, consider a risk 
+
+assessment in a healthcare setting within the context of critical infra structure, such as the failure 
+
+of a hospital power supply system resulting from a loss of external power supply as well as 
+
+potential disturbances in internal backup, switching, and distribution systems, including possible 
+
+delays or malfunctions in the acti vation of backup systems. In this scenario, uncertainty arises both 
+
+from stochastic variability in system loads and component failure rates and from incomplete 
+
+knowledge regarding functional dependencies and disturbance propagation mechanisms within the 
+
+sy stem. This includes interactions between the primary power supply, backup generators, fuel 
+
+supply systems, as well as the dynamic load demands of critical and energy -intensive medical 
+
+systems, technical building systems, and information technology infrastr ucture. Accordingly, the 
+
+uncertainty can be characterized as mixed, comprising both aleatory and epistemic components. 
+
+Data availability is limited to moderate. While historical data on component reliability and load 
+
+profiles are available, significant unc ertainties remain regarding functional system interactions, 
+
+the performance of emergency measures, and the effectiveness of redundancy and backup 
+
+configurations. These uncertainties are further exacerbated by the fact that hospital infrastructures 
+
+are typi cally site -specific and differ substantially in terms of grid connection concepts, including potential high -voltage connections, as well as switching and transfer behavior. As a result, 
+
+standardized data -driven assessment is only partially feasible, making the incorporation of expert 
+
+judgment necessary. The decision context requires both quantitat ive indicators for operational 
+
+planning and transparent communication of assumptions and uncertainties to interdisciplinary 
+
+stakeholders, including technical personnel and hospital management. Following the proposed 
+
+decision pathway, this combination of un certainty characteristics, data conditions, and decision 
+
+requirements suggests the use of a hybrid approach. In particular, the simultaneous consideration 
+
+of stochastic variability and epistemic uncertainty necessitates the integration of different 
+
+modelin g approaches. Such an approach may combine probabilistic methods for modeling 
+
+component failures and load variability with expert -based or evidence -based methods for assessing 
+
+system interactions, switching processes, and emergency behavior. This enables t he derivation of 
+
+quantitative risk indicators while explicitly representing uncertainties related to system behavior 
+
+and underlying assumptions. In addition, graphical representations can be employed to 
+
+communicate the structure, dependencies, and implicat ions of uncertainty in a transparent and 
+
+comprehensible manner, particularly in interdisciplinary decision -making processes. 
+
+Overall, combining methods can be advantageous when a single paradigm cannot credibly 
+
+capture the uncertainty profile (e.g., Bayesian updating of expert inputs or evidential layers for 
+
+ambiguous parameters on top of probabilistic cores). Where data are lim ited or contested, 
+
+transparency of reasoning and sensitivity analysis should be prioritized, and hybrid approaches 
+
+may offer advantages over single -paradigm formulations. The next section discusses remaining 
+
+research gaps, including the need for empirical  evaluation of decision pathways and integration 
+
+frameworks. 
+
+6.  Research Gaps  and Future Directions 
+
+The review  identifies several gaps that warrant further research. Comparative empirical 
+
+evaluations of methods remain rare, particularly studies that apply different approaches to the same 
+
+risk problems and systematically analyze differences in outcomes and decision  implications. The 
+
+decision pathway and checklist proposed in Section  5 are conceptual contributions and future 
+
+empirical evaluation in applied risk management contexts therefore remains an important direction 
+
+for future research. Beyond these gaps, there  is a noticeable lack of domain -specific applications 
+
+in critical infrastructures and health care, where uncertainty is pronounced and choices of methods 
+
+have direct implications for safety and service continuity. 
+
+Further challenges concern the operational integration of uncertainty methods into decision 
+
+support systems, organizational procedures and digital tools. This includes questions regarding 
+
+how uncertainty representations influence decision quality, stakehol der trust and the prioritization 
+
+of risk control measures. Finally, several open questions remain regarding hybrid and 
+
+visualization -based approaches, including the calibration and validation of combined models, the 
+
+standardization and evaluation of uncert ainty visualizations and the design of elicitation protocols 
+
+that link qualitative insights with formal analytical structures. Addressing these gaps would 
+
+support a more systematic and context -sensitive treatment of uncertainty in applied risk 
+
+management. 7.  Conclusion s
+
+This work examined how different methods represent uncertainty in risk management. The 
+
+analysis demonstrates that uncertainty is conceptually multifaceted and that its treatment varies 
+
+substantially across the literature. Probabilistic models provide a rig orous framework for 
+
+quantifying aleatory uncertainty and continue to serve as the primary analytical basis of 
+
+quantitative risk assessment. Evidence -based and fuzzy approaches build on this foundation by 
+
+addressing vagueness, partial belief and incomplete  knowledge and therefore offer a more explicit 
+
+representation of epistemic uncertainty. Qualitative elicitation techniques, graphical 
+
+representations and hybrid frameworks contribute interpretative and participatory dimensions that 
+
+become essential when dat a are limited, information is inconsistent or incomplete and decisions 
+
+involve multiple stakeholders. Across the reviewed literature, no single approach appears 
+
+sufficient to cover the full range of uncertainty found in complex systems. These findings are 
+
+consistent with prior work in risk analysis literature. Probabilistic techniques offer strong 
+
+analytical capabilities but can produce misleading impressions of precision when applied to 
+
+insufficiently constrained epistemic uncertainty. Qualitative and grap hical approaches support 
+
+interpretative depth and communication yet often lack the formal structure required for regulatory 
+
+or design -oriented applications. Evidence -based and fuzzy methods provide greater flexibility in 
+
+representing incomplete knowledge.  However, they introduce challenges related to 
+
+parameterization, interpretability and validation. Hybrid and integrated frameworks mitigate some 
+
+of these limitations by combining quantitative and qualitative elements, although they also increase 
+
+the practic al complexity and require careful calibration and explicit assumptions to ensure 
+
+coherence. The review points to two areas where additional theoretical progress would be 
+
+beneficial. The first concerns conceptual clarification, in particular a more consiste nt distinction 
+
+between aleatory and epistemic components and a clearer conceptual treatment of epistemic 
+
+subcomponents, including ambiguity, model uncertainty and residual ignorance. The second 
+
+concerns operational integration, namely the embedding of unce rtainty methods into decision 
+
+support processes, organizational practices and domain -specific applications such as critical 
+
+infrastructures. Future research would benefit from comparative empirical evaluations of methods, 
+
+systematic analyses of how uncerta inty representations affect decision quality and further 
+
+development of hybrid and visualization -based approaches that make uncertainty both analytically 
+
+tractable and communicable to decision makers. Overall, the review suggests that representing 
+
+uncertai nty systematically is not a supplement to risk assessment but a central requirement for 
+
+transparent, robust and defensible risk management. By synthesizing fragmented methodological 
+
+traditions into a unified comparative framework, this review provides a fo undation for more 
+
+transparent and context -appropriate uncertainty handling in complex risk environments. Appendix  A
+
+To complement the selection guidance in Section  4, this Appendix proposes a checklist -
+
+based documentation format to support transparent justification of the selected uncertainty 
+
+representation method. Table  4 provides documentation prompts to record key assumptions and 
+
+decision criteria prior to committing to a specific approach. 
+
+Table  4
+
+Checklist for documenting method  selection prior to commitment 
+
+Dimension  Key checks  Documentation prompts 
+
+Uncertainty profiling 
+
+Classification and localization of 
+
+uncertainty sources 
+
+Have key uncertainties been classified as aleatory, epistemic, 
+
+or mixed, and have their sources  within the system been 
+
+identified? 
+
+Epistemic subcomponents relevant for 
+
+method choice 
+
+Are epistemic subcomponents (e.g., parameter uncertainty, 
+
+model uncertainty, ambiguity) material for representation or 
+
+communication? Can the chosen method  distinguish these 
+
+components? In many cases, this requires hybrid approaches. 
+
+Data fitness and assumptions 
+
+Data adequacy for calibration 
+
+Do available data support statistical calibration (e.g., 
+
+distributional estimation)? If not, have  non -probabilistic 
+
+complements (e.g., evidential, fuzzy, qualitative) been 
+
+considered to avoid spurious precision? 
+
+Model assumptions recorded 
+
+Have critical assumptions been documented (e.g., 
+
+independence, stationarity, model form, boundary 
+
+conditions)? 
+
+Robustness of conclusions  Is a sensitivity or robustness analysis planned to test the 
+
+influence of assumptions and modeling choices? 
+
+Decision context and outputs  Output requirements aligned with 
+
+method choice 
+
+Which outputs are  required (e.g., numerical indicators, 
+
+ranges/confidence bands, narratives, visuals), for whom, and 
+
+for which decisions? Is the selected method family aligned 
+
+with these requirements (e.g., quantitative outputs: 
+
+probabilistic/hybrid approaches; interpretive  or participatory 
+
+outputs: qualitative/visual methods)? 
+
+Governance constraints and 
+
+auditability 
+
+Regulatory and documentation 
+
+requirements 
+
+Are regulatory or audit requirements present that mandate 
+
+traceability, defensibility, or formal  quantification? If yes, 
+
+does the chosen approach support reviewable documentation? 
+
+Communication and 
+
+integration 
+
+Stakeholder -oriented communication  Are uncertainty representations and visualizations selected to 
+
+match stakeholder needs and  interpretive capabilities? 
+
+Link between visuals and analytics 
+
+Where quantification is required, are visual outputs linked to 
+
+underlying analytical models to support interpretability and 
+
+defensibility? Expert judgment traceability             
+
+> If expert judgment is used, are elicitation procedures structured
+> and transparent, and are uncertainty statements linked to
+> documented assumptions and confidence levels?
+> Hybrid architecture specified
+> If uncertainty is layered across system levels or perspectives,
+> is ahybrid/integrated architecture specified including
+> interfaces and rules for combining uncertainty
+> representations?
+> Updating and iteration planned
+> Is an updating strategy defined for incorporating new evidence
+> and communicating how uncertainty assessments evolve over
+> time?
+
+Acknowledge 
+
+This work was supported by the LIT Secure and Correct Systems Lab funded by the State of Upper 
+
+Austria and the Linz Institute of Technology (LIT -2019 -7-INC -316). 
+
+Reference s
+
+[1]  Zio E, Pedroni N. Literature review of methods for representing uncertainty. Toulouse, 
+
+France: Cahiers de la  Sécurité Industrielle, Foundation for an Industrial Safety Culture; 
+
+2013. 
+
+[2]  Aven T, Zio E. Some considerations on the treatment of uncertainties in risk assessment for 
+
+practical decision making. Reliability Engineering & System Safety 2011;96:64 –74. 
+
+https://doi.org/10.1016/j.ress.2010.06.001. 
+
+[3]  Environmental Decisions in the Face of Uncertainty. Washington, D.C.: National 
+
+Academies Press; 2013. https://doi.org/10.17226/12568. 
+
+[4]  Srikrishnan V, Lafferty DC, Wong TE, Lamontagne JR, Quinn JD, Sharma S, et al. 
+
+Uncertainty Analysis in Multi -Sector Systems: Considerations for Risk Analysis, 
+
+Projection, and Planning for Complex Systems. Earth’s Future 2022;10:e2021EF002644. 
+
+https://d oi.org/10.1029/2021EF002644. 
+
+[5]  Li Y, Chen J, Feng L. Dealing with Uncertainty: A Survey of Theories and Practices. IEEE 
+
+Transactions on Knowledge and Data Engineering 2013;25:2463 –82. 
+
+https://doi.org/10.1109/TKDE.2012.179. 
+
+[6]  Guo Z, Wan Z, Zhang Q, Zhao X, Chen F, Cho J -H, et al. A Survey on Uncertainty 
+
+Reasoning and Quantification for Decision Making: Belief Theory Meets Deep Learning 
+
+2022. https://doi.org/10.48550/arXiv.2206.05675. 
+
+[7]  Royset JO. Risk -Adaptive Approaches to Stochastic Optimization: A Survey. SIAM Rev 
+
+2025;67:3 –70. https://doi.org/10.1137/22M1538946. [8]  Sadana U, Chenreddy A, Delage E, Forel A, Frejinger E, Vidal T. A survey of contextual 
+
+optimization methods for decision -making under uncertainty. European Journal of 
+
+Operational Research 2025;320:271 –89. https://doi.org/10.1016/j.ejor.2024.03.020. 
+
+[9]  Helton JC. Quantification of margins and uncertainties: Conceptual and computational 
+
+basis. Reliability Engineering & System Safety 2011;96:976 –1013. 
+
+https://doi.org/10.1016/j.ress.2011.03.017. 
+
+[10]  Marino S, Hogue IB, Ray CJ, Kirschner DE. A Methodology For Performing Global 
+
+Uncertainty And Sensitivity Analysis In Systems Biology.  J Theor Biol 2008;254:178 –96. 
+
+https://doi.org/10.1016/j.jtbi.2008.04.011. 
+
+[11] Li P -P, Valdebenito MA, Dang C, Beer M, Faes MGR.  Aleatory and epistemic uncertainty 
+
+in reliability analysis: An engineering perspective. Structural Safety 2026;119:102666. 
+
+https://doi.org/10.1016/j.strusafe.2025.102666. 
+
+[12]  Barghi B, Shadrokh sikari S. Qualitative and quantitative project risk assessment using a 
+
+hybrid PMBOK model developed under uncertainty conditions. Heliyon 2020;6:e03097. 
+
+https://doi.org/10.1016/j.heliyon.2019.e03097. 
+
+[13]  Arunraj NS, Mandal S, Maiti J. Modeling uncertainty in risk assessment: An integrated 
+
+approach with fuzzy set theory and Monte Carlo simulation. Accident Analysis & 
+
+Prevention 2013;55:242 –55. https://doi.org/10.1016/j.aap.2013.03.007. 
+
+[14]  Khodabakhshian A, Re Cecconi F, Lopez Droguett E. Probabilistic risk identification and 
+
+assessment model for construction projects using elicitation based bayesian network. ITcon 
+
+2025;30:185 –212. https://doi.org/10.36680/j.itcon.2025.009. 
+
+[15]  James S, Renjith VR. A COMPREHENSIVE REVIEW ON THE APPLICATION OF 
+
+FUZZY LOGIC IN RISK ANALYSIS. International Journal of Computer Applications 
+
+2024;186:16 –38. https://doi.org/10.5120/ijca2024924254. 
+
+[16]  Renn O, Klinke A, van Asselt M. Coping with Complexity, Uncertainty and Ambiguity in 
+
+Risk Governance: A Synthesis.  Ambio 2011;40:231 –46. https://doi.org/10.1007/s13280 -
+
+010 -0134 -0. 
+
+[17] Committee ES, Benford D, Halldorsson T, Jeger MJ, Knutsen HK, More S, et al.  Guidance 
+
+on Uncertainty Analysis in Scientific Assessments. EFSA Journal 2018;16:e05123. 
+
+https://doi.org/10.2903/j.efsa.2018.5123. 
+
+[18]  Committee ES, Benford D, Halldorsson T, Jeger MJ, Knutsen HK, More S, et al. The 
+
+principles and methods behind EFSA’s Guidance on Uncertainty Analysis in Scientific 
+
+Assessment. EFSA Journal 2018;16:e05122. https://doi.org/10.2903/j.efsa.2018.5122. 
+
+[19]  Grimm SE, Pouwels X, Ramaekers BLT, Wijnen B, Knies S, Grutters J, et al. Development 
+
+and Validation of the TRansparent Uncertainty ASsessmenT (TRUST) Tool for Assessing 
+
+Uncertainties in Health Economic Decision Models. Pharmacoeconomics 2020;38:205 –16. 
+
+https://doi.org/10.1007/s40273 -019 -00855 -9. [20]  Aven T, Zio E. Foundational Issues in Risk Assessment and Risk Management. Risk 
+
+Analysis 2014;34:1164 –72. https://doi.org/10.1111/risa.12132. 
+
+[21]  Aven T. The Science of Risk Analysis: Foundation and Practice. 1st ed. Routledge; 2019. 
+
+https://doi.org/10.4324/9780429029189. 
+
+[22]  Renn O. Risk Governance: Coping With Uncertainty in a Complex World. 2008. 
+
+https://doi.org/10.1007/978 -1-4020 -6799 -0. 
+
+[23]  Bevan LD. The ambiguities of uncertainty: A review of uncertainty frameworks relevant to 
+
+the assessment of environmental change. Futures 2022;137:102919. 
+
+https://doi.org/10.1016/j.futures.2022.102919. 
+
+[24]  Fox CR, Ülkümen G. Distinguishing Two Dimensions of Uncertainty 2011. 
+
+https://doi.org/10.2139/ssrn.3695311. 
+
+[25] Der Kiureghian A, Ditlevsen OD.  Aleatoric or epistemic? Does it matter? Structural Safety 
+
+2009;31:105 –12. https://doi.org/10.1016/j.strusafe.2008.06.020. 
+
+[26]  Indrayan A. Aleatory and epistemic uncertainties can completely derail medical research 
+
+results. J Postgrad Med 2020;66:94 –8. https://doi.org/10.4103/jpgm.JPGM_585_19. 
+
+[27]  Oehmen J, Locatelli G, Wied M,  Willumsen P. Risk, uncertainty, ignorance and myopia: 
+
+Their managerial implications for B2B firms. Industrial Marketing Management 
+
+2020;88:330 –8. https://doi.org/10.1016/j.indmarman.2020.05.018. 
+
+[28]  Li Y, Taeihagh A, de Jong M, Klinke A. Toward a Commonly Shared Public Policy 
+
+Perspective for Analyzing Risk Coping Strategies. Risk Anal 2021;41:519 –32. 
+
+https://doi.org/10.1111/risa.13505. 
+
+[29]  Stirling A. Risk, precaution and science: towards a more constructive policy debate: 
+
+Talking point on the precautionary principle.  EMBO Reports 2007;8:309 –15. 
+
+https://doi.org/10.1038/sj.embor.7400953. 
+
+[30] Walters DJ, Ülkümen G, Tannenbaum D, Erner C, Fox CR.  Investor Behavior Under 
+
+Epistemic vs. Aleatory Uncertainty. Management Science 2023;69:2761 –77. 
+
+https://doi.org/10.1287/mnsc.2022.4489. 
+
+[31]  Zio E. Computational Methods For Reliability And Risk Analysis. World Scientific 
+
+Publishing Company; 2009. 
+
+[32]  Packard MD, Clark BB. Mitigating versus Managing Epistemic and Aleatory Uncertainty. 
+
+AMR 2020;45:872 –6. https://doi.org/10.5465/amr.2020.0266. 
+
+[33]  Zio E, Pedroni N. Uncertainty characterization in risk analysis for decision -making 
+
+practice. 2012. [34]  Döll P, Romero‐Lankao P. How to embrace uncertainty in participatory climate change risk 
+
+management —A roadmap. Earth’s Future 2017;5:18 –36. 
+
+https://doi.org/10.1002/2016EF000411. 
+
+[35]  Hand DJ. Review of Statistical Reasoning with Imprecise Probabilities. Journal of the 
+
+Royal Statistical Society Series C (Applied Statistics) 1993;42:237 –8. 
+
+https://doi.org/10.2307/2347427. 
+
+[36]  Augustin T, Coolen FPA, de Cooman G, Troffaes MCM. Introduction to Imprecise 
+
+Probabilities. Chichester, U.K.: Wiley; 2014. https://doi.org/10.1002/9781118763117. 
+
+[37]  Ben -Haim Y. Info -Gap Decision Theory (IG). In: Marchau VAWJ, Walker WE, Bloemen 
+
+PJTM, Popper SW, editors. Decision Making under Deep Uncertainty: From Theory to 
+
+Practice, Cham: Springer International Publishing; 2019, p. 93 –115. 
+
+https://doi.org/10.100 7/978 -3-030 -05252 -2_5. 
+
+[38]  Lempert RJ, Popper SW, Bankes SC. Shaping the Next One Hundred Years: New Methods 
+
+for Quantitative, Long -Term Policy Analysis. 2003. 
+
+[39]  What is risk? Risk Analysis, John Wiley & Sons, Ltd; 2015, p. 13 –27. 
+
+https://doi.org/10.1002/9781119057819.ch2. 
+
+[40]  What is a risk analysis? Risk Analysis, John Wiley & Sons, Ltd; 2015, p. 1 –12. 
+
+https://doi.org/10.1002/9781119057819.ch1. 
+
+[41]  Bedford T, Cooke R. Probabilistic risk analysis: foundations and methods. 3. printing. 
+
+Cambridge: Cambridge University Press; 2004. 
+
+[42]  Kaplan S, Garrick BJ. On The Quantitative Definition of Risk. Risk Analysis 1981;1:11 –
+
+27. https://doi.org/10.1111/j.1539 -6924.1981.tb01350.x. 
+
+[43]  Rubinstein RY, Kroese DP. Simulation and the Monte Carlo Method. 1st ed. Wiley; 2016. 
+
+https://doi.org/10.1002/9781118631980. 
+
+[44]  Li Z, Zhu X, Liao S, Yin J, Gao K, Liu X. Integrating Bayesian Network and Cloud Model 
+
+to Probabilistic Risk Assessment of Maritime Collision Accidents in China’s Coastal Port 
+
+Waters. Journal of Marine Science and Engineering 2024;12:2113. 
+
+https://doi .org/10.3390/jmse12122113. 
+
+[45]  Zwirglmaier K, Chan J, Papaioannou I, Song J, Straub D. Hybrid Bayesian Networks for 
+
+Reliability Assessment of Infrastructure Systems. ASCE -ASME Journal of Risk and 
+
+Uncertainty in Engineering Systems, Part A: Civil Engineering 2024;10:04024019. 
+
+https: //doi.org/10.1061/AJRUA6.RUENG -1005. 
+
+[46]  Vesely WE, Goldberg FF, Roberts NH, Haasl DF. Fault Tree Handbook 1981. 
+
+[47]  The risk analysis process: risk assessment. Risk Analysis, John Wiley & Sons, Ltd; 2015, p. 
+
+38 –48. https://doi.org/10.1002/9781119057819.ch4. [48]  The risk analysis process: risk treatment. Risk Analysis, John Wiley & Sons, Ltd; 2015, p. 
+
+49 –54. https://doi.org/10.1002/9781119057819.ch5. 
+
+[49]  The risk analysis process: planning. Risk Analysis, John Wiley & Sons, Ltd; 2015, p. 28 –
+
+37. https://doi.org/10.1002/9781119057819.ch3. 
+
+[50]  Hofman P, Sale Y, Hüllermeier E. Quantifying Aleatoric and Epistemic Uncertainty with 
+
+Proper Scoring Rules 2024. https://doi.org/10.48550/arXiv.2404.12215. 
+
+[51]  Apostolakis G. How Useful Is Quantitative Risk Assessment? Risk Analysis : An Official 
+
+Publication of the Society for Risk Analysis 2004;24:515 –20. 
+
+https://doi.org/10.1111/j.0272 -4332.2004.00455.x. 
+
+[52]  Olivier -Maget N, De Barnier T, Bourgeois F, Gabas N. Uncertainty Quantification in 
+
+Industrial Risk Assessment for Practical Decision -making. Chemical Engineering 
+
+Transactions 2025;116:469 –74. https://doi.org/10.3303/CET25116079. 
+
+[53]  Zanetti L. Confidence in Probabilistic Risk Assessment. Philosophy of Science 
+
+2024;91:702 –20. https://doi.org/10.1017/psa.2023.158. 
+
+[54]  Xu Y, Reniers G, Yang M, Yuan S, Chen C. Uncertainties and their treatment in the 
+
+quantitative risk assessment of domino effects: Classification and review. Process Safety 
+
+and Environmental Protection 2023;172:971 –85. 
+
+https://doi.org/10.1016/j.psep.20 23.02.082. 
+
+[55]  Meng Z, Zhao J, Chen G, Yang D. Hybrid uncertainty propagation and reliability analysis 
+
+using direct probability integral method and exponential convex model. Reliability 
+
+Engineering & System Safety 2022;228:108803. 
+
+https://doi.org/10.1016/j.ress.2022.108803. 
+
+[56]  Farcaş I -G, Merlo G, Jenko F. A general framework for quantifying uncertainty at scale. 
+
+Commun Eng 2022;1:43. https://doi.org/10.1038/s44172 -022 -00045 -0. 
+
+[57]  Bakker H, Dunke F, Nickel S. A structuring review on multi -stage optimization under 
+
+uncertainty: Aligning concepts from theory and practice. Omega 2020;96:102080. 
+
+https://doi.org/10.1016/j.omega.2019.06.006. 
+
+[58]  Li C, Grossmann IE. A Review of Stochastic Programming Methods for Optimization of 
+
+Process Systems Under Uncertainty. Front Chem Eng 2021;2. 
+
+https://doi.org/10.3389/fceng.2020.622241. 
+
+[59]  Diao X, Zhao Y, Li R, Chakhchoukh Y, Johnson B, Le Blanc K, et al. A Modular Dynamic 
+
+Probabilistic Risk Assessment Framework for Electric Grid Cybersecurity. Engineering 
+
+Reports 2025;7:e70377. https://doi.org/10.1002/eng2.70377. 
+
+[60]  Lane K, Nilvarna A, Abbey GWS, Kezirian MT. PROBABILISTIC RISK ASSESSMENT 
+
+(PRA) FOR ARTEMIS AND FUTURE SPACE EXPLORATION PROGRAMS. Acta 
+
+Astronautica 2025. https://doi.org/10.1016/j.actaastro.2025.06.045. [61]  Farag AS, Chandran P, Afzali A, Smith C. Developing a Probabilistic Risk Assessment 
+
+Framework for Sodium -Cooled Thermal Reactors: Addressing Unique Challenges and 
+
+Uncertainties: 19th International Conference on Probabilistic Safety Assessment and 
+
+Anal ysis, 2025. https://doi.org/10.13182/PSA2025 -47493. 
+
+[62]  Cichy C, Rass S. An Overview of Data Quality Frameworks. IEEE Access 2019;7:24634 –
+
+48. https://doi.org/10.1109/ACCESS.2019.2899751. 
+
+[63]  Jahid M. AI -DRIVEN OPTIMIZATION AND RISK MODELING IN STRATEGIC 
+
+ECONOMIC ZONE DEVELOPMENT FOR MID -SIZED ECONOMIES: A REVIEW 
+
+APPROACH. International Journal of Scientific Interdisciplinary Research 2025;6:185 –
+
+218. https://doi.org/10.63125/31wna449. 
+
+[64]  Sahlin U, Helle I, Perepolkin D. “This Is What We Don’t Know”: Treating Epistemic 
+
+Uncertainty in Bayesian Networks for Risk Assessment. Integrated Environmental 
+
+Assessment and Management 2021;17:221 –32. https://doi.org/10.1002/ieam.4367. 
+
+[65]  Jia X, Hou W, Papadimitriou C. Hierarchical Bayesian Modeling for Uncertainty 
+
+Quantification and Reliability Updating using Data 2024. 
+
+https://doi.org/10.48550/arXiv.2412.20416. 
+
+[66]  Zadeh LA. Fuzzy sets. Information and Control 1965;8:338 –53. 
+
+https://doi.org/10.1016/S0019 -9958(65)90241 -X. 
+
+[67]  Shafer G. A Mathematical Theory of Evidence. Princeton University Press; 1976. 
+
+https://doi.org/10.2307/j.ctv10vm1qb. 
+
+[68]  Dempster AP. Upper and Lower Probabilities Induced by a Multivalued Mapping. The 
+
+Annals of Mathematical Statistics 1967;38:325 –39. 
+
+https://doi.org/10.1214/aoms/1177698950. 
+
+[69]  Rass S, Kurowski S. On Bayesian Trust and Risk Forecasting for Compound Systems, 
+
+IEEE Computer Society; 2013, p. 69 –82. https://doi.org/10.1109/IMF.2013.13. 
+
+[70]  Ross TJ, Booker JM, Parkinson WJ. Fuzzy Logic and Probability Applications: Bridging 
+
+the gap. ASA SIAM; 2002. 
+
+[71]  Zadeh LA. Fuzzy sets as a basis for a theory of possibility. Fuzzy Sets and Systems 
+
+1978;1:3 –28. https://doi.org/10.1016/0165 -0114(78)90029 -5. 
+
+[72]  Dubois D, Prade H. Possibility Theory: An Approach to Computerized Processing of 
+
+Uncertainty. Plenum Press; 1988. 
+
+[73]  Morgan MG, Henrion M. Uncertainty: A Guide to Dealing with Uncertainty in Quantitative 
+
+Risk and Policy Analysis. 1st ed., Cambridge University Press; 1990. 
+
+https://doi.org/10.1017/CBO9780511840609. [74]  Cooke RM. Experts in uncertainty: Opinion and subjective probability in science. New 
+
+York, NY, US: Oxford University Press; 1991. 
+
+[75]  The Elicitation of Probabilities. Uncertain Judgements: Eliciting Experts’ Probabilities, 
+
+John Wiley & Sons, Ltd; 2006, p. 61 –96. https://doi.org/10.1002/0470033312.ch4. 
+
+[76]  A Mathematical Theory of Evidence | Princeton University Press 1976. 
+
+https://press.princeton.edu/books/paperback/9780691100425/a -mathematical -theory -of -
+
+evidence (accessed November 29, 2025). 
+
+[77]  Aven T. On the meaning of a black swan in a risk context. Safety Science 2013;57:44 –51. 
+
+https://doi.org/10.1016/j.ssci.2013.01.016. 
+
+[78]  Liu Z. An effective conflict management method based on belief similarity measure and 
+
+entropy for multi -sensor data fusion. Artif Intell Rev 2023;56:15495 –522. 
+
+https://doi.org/10.1007/s10462 -023 -10533 -0. 
+
+[79]  Hamda NEI, Hadjali A, Lagha M. Multisensor Data Fusion in IoT Environments in 
+
+Dempster –Shafer Theory Setting: An Improved Evidence Distance -Based Approach. 
+
+Sensors 2023;23:5141. https://doi.org/10.3390/s23115141. 
+
+[80]  Tang Y, Wu S, Zhou Y, Huang Y, Zhou D. A New Reliability Coefficient Using Betting 
+
+Commitment Evidence Distance in Dempster –Shafer Evidence Theory for Uncertain 
+
+Information Fusion. Entropy 2023;25:462. https://doi.org/10.3390/e25030462. 
+
+[81]  Yang J, Huang H -Z, Miao Q, Sun R. A novel information fusion method based on 
+
+Dempster -Shafer evidence theory for conflict resolution. Intelligent Data Analysis 
+
+2011;15:399 –411. https://doi.org/10.3233/IDA -2010 -0474. 
+
+[82]  Su X, Zhong J, Hong Z, Qian H, Pelusi D. A novel belief entropy and its application in 
+
+cooperative situational awareness. Expert Systems with Applications 2025;286:128027. 
+
+https://doi.org/10.1016/j.eswa.2025.128027. 
+
+[83]  Denœux T. Uncertainty measures in a generalized theory of evidence. Fuzzy Sets and 
+
+Systems 2025;520:109546. https://doi.org/10.1016/j.fss.2025.109546. 
+
+[84]  Liu Z, Cao Y, Yang X, Liu L. A new uncertainty measure via belief Rényi entropy in 
+
+Dempster -Shafer theory and its  application to decision making. Communications in 
+
+Statistics  - Theory and Methods 2024;53:6852 –68. 
+
+https://doi.org/10.1080/03610926.2023.2253342. 
+
+[85]  Fidon L, Aertsen M, Kofler F, Bink A, David AL, Deprest T, et al. A Dempster -Shafer 
+
+Approach to Trustworthy AI With Application to Fetal Brain MRI Segmentation. IEEE 
+
+Trans Pattern Anal Mach Intell 2024;46:3784 –95. 
+
+https://doi.org/10.1109/TPAMI.2023.33 46330. 
+
+[86]  Khot A, Wang X, Roy A, Kindratenko V, Neubauer M. Evidential deep learning for 
+
+uncertainty quantification and out -of -distribution detection in jet identification using deep neural networks. Machine Learning: Science and Technology 2025;6. 
+
+https://doi.org/10.1088/2632 -2153/ade51b. 
+
+[87]  Wang N, Yuen KF, Yuan J, Li D. Ship collision risk assessment: A multi -criteria decision -
+
+making framework based on Dempster –Shafer evidence theory. Applied Soft Computing 
+
+2024;162:111823. https://doi.org/10.1016/j.asoc.2024.111823. 
+
+[88]  Fei L, Li T, Ding W. Dempster –Shafer theory -based information fusion for natural disaster 
+
+emergency management: A systematic literature review. Information Fusion 
+
+2024;112:102585. https://doi.org/10.1016/j.inffus.2024.102585. 
+
+[89]  Shams G, Hatefi SM, Nemati S. A Dempster -Shafer evidence theory for environmental risk 
+
+assessment in failure modes and effects analysis of Oil and Gas Exploitation Plant. Scientia 
+
+Iranica 2022;0:0 –0. https://doi.org/10.24200/sci.2022.56162.4580. 
+
+[90]  Wright G, Ayton P. Eliciting and modelling expert knowledge. Decision Support Systems 
+
+1987;3:13 –26. https://doi.org/10.1016/0167 -9236(87)90032 -7. 
+
+[91]  Aspinall W. A route to more tractable expert advice.  Nature 2010;463:294 –5. 
+
+https://doi.org/10.1038/463294a. 
+
+[92] Burgman MA.  Trusting Judgements: How to Get the Best out of Experts. Cambridge: 
+
+Cambridge University Press; 2015. https://doi.org/10.1017/CBO9781316282472. 
+
+[93]  Hora SC. Eliciting Probabilities from Experts. In: von Winterfeldt D, Miles Jr. RF, Edwards 
+
+W, editors. Advances in Decision Analysis: From Foundations to Applications, Cambridge: 
+
+Cambridge University Press; 2007, p. 129 –53. 
+
+https://doi.org/10.1017/CB O9780511611308.009. 
+
+[94]  Aven T, Krohn BS. A new perspective on how to understand, assess and manage risk and 
+
+the unforeseen. Reliability Engineering & System Safety 2014;121:1 –10. 
+
+https://doi.org/10.1016/j.ress.2013.07.005. 
+
+[95]  Tversky A, Kahneman D. Judgment under Uncertainty: Heuristics and Biases. Science 
+
+1974;185:1124 –31. 
+
+[96]  Zadeh LA. The concept of a linguistic variable and its application to approximate 
+
+reasoning —I. Information Sciences 1975;8:199 –249. https://doi.org/10.1016/0020 -
+
+0255(75)90036 -5. 
+
+[97]  Rowe G, Wright G. The Delphi technique as a forecasting tool: issues and analysis. 
+
+International Journal of Forecasting 1999;15:353 –75. https://doi.org/10.1016/S0169 -
+
+2070(99)00018 -7. 
+
+[98]  Bolger F, Wright G. Improving the Delphi process: Lessons from social psychological 
+
+research. Technological Forecasting and Social Change 2011;78:1500 –13. 
+
+https://doi.org/10.1016/j.techfore.2011.07.007. [99]  Nasa P, Jain R, Juneja D. Delphi methodology in healthcare research: How to decide its 
+
+appropriateness. World J Methodol 2021;11:116 –29. 
+
+https://doi.org/10.5662/wjm.v11.i4.116. 
+
+[100]  Niederberger M, Schifano J, Deckert S, Hirt J, Homberg A, Köberich S, et al. Delphi 
+
+studies in social and health sciences —Recommendations for an interdisciplinary 
+
+standardized reporting (DELPHISTAR). Results of a Delphi study. PLOS ONE 
+
+2024;19:e03046 51. https://doi.org/10.1371/journal.pone.0304651. 
+
+[101]  Hanea AM, Hemming V, Nane GF. Uncertainty Quantification with Experts: Present 
+
+Status and Research Needs. Risk Analysis 2022;42:254 –63. 
+
+https://doi.org/10.1111/risa.13718. 
+
+[102]  Georgiou I. Cognitive Mapping and Strategic Options Development and Analysis 
+
+(SODA). Wiley Encyclopedia of Operations Research and Management Science, John 
+
+Wiley & Sons, Ltd; 2011. https://doi.org/10.1002/9780470400531.eorms0974. 
+
+[103]  Clewley N, Dodd L, Smy V, Witheridge A, Louvieris P. Eliciting Expert Knowledge to 
+
+Inform Training Design. Proceedings of the 31st European Conference on Cognitive 
+
+Ergonomics, New York, NY, USA: Association for Computing Machinery; 2019, p. 138 –
+
+43. h ttps://doi.org/10.1145/3335082.3335091. 
+
+[104] Renn O, Laubichler M, Lucas K, Kröger W, Schanze J, Scholz RW, et al.  Systemic Risks 
+
+from Different Perspectives. Risk Analysis 2022;42:1902 –20. 
+
+https://doi.org/10.1111/risa.13657. 
+
+[105]  Hobden G, Tang EYH, Demeyere N. A modified Delphi survey to build expert consensus 
+
+on the structure and content of an enhanced care pathway for cognitive changes after stroke 
+
+in the UK. BMC Health Serv Res 2024;24:1162. https://doi.org/10.1186/s12913 -024 -
+
+11551 -6. 
+
+[106]  Di Zio S, Bolzan M, Marozzi M, Scioni M. Delphi -based scenarios and risk management: 
+
+A parallelism between paths destined to meet. Socio -Economic Planning Sciences 
+
+2024;92:101832. https://doi.org/10.1016/j.seps.2024.101832. 
+
+[107]  Dong L, Wang Q, Zhang W, Zhang Y, Li X, Liu F. Risk assessment of tunnel water 
+
+inrush based on Delphi method and machine learning. Front Earth Sci 2025;13. 
+
+https://doi.org/10.3389/feart.2025.1555493. 
+
+[108]  Colson AR, Cooke RM. Expert Elicitation: Using the Classical Model to Validate 
+
+Experts’ Judgments. Review of Environmental Economics and Policy 2018;12:113 –32. 
+
+[109]  Using Expert Judgment for Risk Assessment. Assessing Nanoparticle Risks to Human 
+
+Health, William Andrew Publishing; 2016, p. 91 –119. https://doi.org/10.1016/B978 -0-323 -
+
+35323 -6.00005 -0. [110] Authority EFS, Hart A, Maxim L, Siegrist M, Von Goetz N, da Cruz C, et al.  Guidance 
+
+on Communication of Uncertainty in Scientific Assessments. EFSA Journal 
+
+2019;17:e05520. https://doi.org/10.2903/j.efsa.2019.5520. 
+
+[111] van der Bles AM, van der Linden S, Freeman ALJ, Mitchell J, Galvao AB, Zaval L, et al. 
+
+Communicating uncertainty about facts, numbers and science. R Soc Open Sci 
+
+2019;6:181870. https://doi.org/10.1098/rsos.181870. 
+
+[112]  Verdolini E, Anadón LD, Baker E, Bosetti V, Aleluia Reis L. Future Prospects for 
+
+Energy Technologies: Insights from Expert Elicitations. Review of 
+
+Environmental Economics and Policy 2018;12:133 –53. 
+
+https://doi.org/10.1093/reep /rex028. 
+
+[113]  Hadjigeorgiou E, Clark B, Simpson E, Coles D, Comber R, Fischer ARH, et al. A 
+
+systematic review into expert knowledge elicitation methods for emerging food and feed 
+
+risk identification. Food Control 2022;136:108848. 
+
+https://doi.org/10.1016/j.foodcont.2022.108848. 
+
+[114]  Bystranowski P, Janik B, Próchnicki M, Skórska P. Anchoring effect in legal decision -
+
+making: A meta -analysis. Law and Human Behavior 2021;45:1 –23. 
+
+https://doi.org/10.1037/lhb0000438. 
+
+[115]  Morgan MG. Reflections on Obtaining Probabilistic Judgments from Experts for Use in 
+
+Risk and other Policy Analysis. Int J Disaster Risk Sci 2025;16:704 –7. 
+
+https://doi.org/10.1007/s13753 -025 -00659 -w. 
+
+[116]  Murray M, Papadatos H, Quarks O, Gimenez P -F, Campos S. Mapping AI Benchmark 
+
+Data to Quantitative Risk Estimates Through Expert Elicitation 2025. 
+
+https://doi.org/10.48550/arXiv.2503.04299. 
+
+[117]  Soares M, Colson A, Bojke L, Ghabri S, Garay OU, Felli JK, et al. Recommendations on 
+
+the Use of Structured Expert Elicitation Protocols for Healthcare Decision Making: A Good 
+
+Practices Report of an ISPOR Task Force. Value in Health 2024;27:1469 –78. 
+
+https://doi.org/10.1016/j.jval.2024.07.027. 
+
+[118]  Hogarth RM. Judgement and choice: The psychology of decision, 2nd ed. Oxford, 
+
+England: John Wiley & Sons; 1987. 
+
+[119]  Selva J, Argyroudis S, Cotton F, Esposito S, Iqbal SM, Lorito S, et al. A novel multiple -
+
+expert protocol to manage uncertainty and subjective choices in probabilistic single and 
+
+multi -hazard risk analyses. International Journal of Disaster Risk Reduc tion 
+
+2024;110:104641. https://doi.org/10.1016/j.ijdrr.2024.104641. 
+
+[120]  Wei X, Dong Y. A hybrid approach combining Bayesian networks and logistic regression 
+
+for enhancing risk assessment. Sci Rep 2025;15:26802. https://doi.org/10.1038/s41598 -
+
+025 -10291 -9. [121]  De Persis C, Bosque JL, Huertas I, Sillero -Denamiel MR, Wilson SP. Quantitative 
+
+System Risk Assessment From Incomplete Data With Belief Networks and Pairwise 
+
+Comparison Elicitation. Risk Analysis 2025;45:4014 –38. 
+
+https://doi.org/10.1111/risa.70114. 
+
+[122]  Mahmood Y, Chen J, Yodo N, Huang Y. Optimizing natural gas pipeline risk assessment 
+
+using hybrid fuzzy bayesian networks and expert elicitation for effective decision -making 
+
+strategies. Gas Science and Engineering 2024;125:205283. 
+
+https://doi.org/10. 1016/j.jgsce.2024.205283. 
+
+[123]  Hullman J. Why Authors Don’t Visualize Uncertainty 2019. 
+
+https://doi.org/10.48550/arXiv.1908.01697. 
+
+[124]  Weiskopf D. Uncertainty Visualization: Concepts, Methods, and Applications in 
+
+Biological Data Visualization. Front Bioinform 2022;2:793819. 
+
+https://doi.org/10.3389/fbinf.2022.793819. 
+
+[125]  A General Approach to Visualizing Uncertainty in Statistical Graphics n.d. 
+
+https://arxiv.org/html/2508.00937v1 (accessed December 3, 2025). 
+
+[126]  Kinkeldey C, MacEachren AM, Schiewe J. How to Assess Visual Communication of 
+
+Uncertainty? A Systematic Review of Geospatial Uncertainty Visualisation User Studies. 
+
+The Cartographic Journal 2014;51:372 –86. 
+
+https://doi.org/10.1179/1743277414Y.000000009 9. 
+
+[127]  Padilla L, Kay M, Hullman J. Uncertainty Visualization. Wiley StatsRef: Statistics 
+
+Reference Online, John Wiley & Sons, Ltd; 2021, p. 1 –18. 
+
+https://doi.org/10.1002/9781118445112.stat08296. 
+
+[128]  Joslyn S, Savelli S. Visualizing Uncertainty for Non -Expert End Users: The Challenge of 
+
+the Deterministic Construal Error.  Front Comput Sci 2021;2. 
+
+https://doi.org/10.3389/fcomp.2020.590232. 
+
+[129] Tominski C, Behrisch M, Bleisch S, Fabrikant SI, Mayr E, Miksch S, et al.  Visualizing 
+
+Uncertainty in Sets. IEEE Comput Grap Appl 2023;43:49 –61. 
+
+https://doi.org/10.1109/MCG.2023.3300441. 
+
+[130] Frans N, Hummelen B, Albers CJ, Paap MCS.  Visualizing Uncertainty to Promote 
+
+Clinicians’ Understanding of Measurement Error. Assessment 2023;30:2449 –60. 
+
+https://doi.org/10.1177/10731911221147042. 
+
+[131]  Chakraborty S, Kiefer P, Raubal M. The influence of uncertainty visualization on 
+
+cognitive load in a safety - and time -critical decision -making task. International Journal of 
+
+Geographical Information Science 2024;38:1583 –610. 
+
+https://doi.org/10.1080/1 3658816.2024.2348747. [132]  Brown KR, VanBerkel P, Khan FI, Amyotte PR. Application of bow tie analysis and 
+
+inherently safer design to the novel coronavirus hazard. Process Saf Environ Prot 
+
+2021;152:701 –18. https://doi.org/10.1016/j.psep.2021.06.046. 
+
+[133]  Cockshott J. Probability Bow -Ties: A Transparent Risk Management Tool. Process 
+
+Safety and Environmental Protection 2005;83:307 –16. https://doi.org/10.1205/psep.04380. 
+
+[134]  Goerlandt F, Reniers G. On the assessment of uncertainty in risk diagrams. Safety 
+
+Science 2016;84:67 –77. https://doi.org/10.1016/j.ssci.2015.12.001. 
+
+[135]  Svedung I, Rasmussen J. Graphic representation of accident scenarios: mapping system 
+
+structure and the causation of accidents. Safety Science 2002;40:397 –417. 
+
+https://doi.org/10.1016/S0925 -7535(00)00036 -9. 
+
+[136]  Silva VAO, Santana R, Tsukada RI, Vianna SSV, Silva FV. Footprint of uncertainty in 
+
+the context of Bow -tie risk tool using fuzzy logic. Engineering Applications of Artificial 
+
+Intelligence 2025;148:110335. https://doi.org/10.1016/j.engappai.2025.11033 5. 
+
+[137]  Herrala O, Ekholm T, Oliveira F. Solving decision problems with endogenous 
+
+uncertainty and conditional information revelation using influence diagrams. Comput 
+
+Manag Sci 2025;22:17. https://doi.org/10.1007/s10287 -025 -00543 -4. 
+
+[138]  Herrala O, Terho T, Oliveira F. Risk -averse decision strategies for influence diagrams 
+
+using rooted junction trees. Operations Research Letters 2025;61:107308. 
+
+https://doi.org/10.1016/j.orl.2025.107308. 
+
+[139]  Hughes AJ, Barthorpe RJ, Dervilis N, Farrar CR, Worden K. A probabilistic risk -based 
+
+decision framework for structural health monitoring. Mechanical Systems and Signal 
+
+Processing 2021;150:107339. https://doi.org/10.1016/j.ymssp.2020.107339. 
+
+[140]  Khan SU, Zhao Q, Wisal M, Shah KA, Shah SS. A Data -Driven Bayesian Belief 
+
+Network Influence Diagram Approach for Socio -Environmental Risk Assessment and 
+
+Mitigation in Major Ecosystem - and Landscape -Modifier Projects. Sustainability 
+
+2025;17:3537. http s://doi.org/10.3390/su17083537. 
+
+[141]  Kwon K, Kang M, Shin YJ, Ahn B, Choi H. An interpretable framework for risk 
+
+management in TBM excavation using expert elicitation integrated with fuzzy set theory. 
+
+Sci Rep 2025;15:23030. https://doi.org/10.1038/s41598 -025 -07514 -4. 
+
+[142]  Ehlers H, Pahr D, Di  Bartolomeo S, Filipov V, Wu H -Y, Raidou RG. Wiggle! Wiggle! 
+
+Wiggle! Visualizing uncertainty in node attributes in straight -line node -link diagrams using 
+
+animated wiggliness. Computers & Graphics 2025;131:104290. 
+
+https://doi.org/10.1016/j.cag.2025.104290. 
+
+[143]  Leffrang D, Müller O. Visualizing Uncertainty in Time Series Forecasts: The Impact of 
+
+Uncertainty Visualization on Users’ Confidence, Algorithmic Advice Utilization, and 
+
+Forecasting Performance. Journal of Forecasting 2025;44:1235 –46. 
+
+https://doi.org /10.1002/for.3222. [144]  Reyes J, Batmaz AU, Kersten -Oertel M. Trusting AI: does uncertainty visualization 
+
+affect decision -making? Front Comput Sci 2025;7. 
+
+https://doi.org/10.3389/fcomp.2025.1464348. 
+
+[145]  Newendorp AK. Impact of Uncertainty Visualizations on Multi -Criteria Decision -
+
+Making. Master of Science. Iowa State University, 2024. https://doi.org/10.31274/td -
+
+20240617 -199. 
+
+[146]  Spiegelhalter D. Risk and Uncertainty Communication. Annu Rev Stat Appl 2017;4:31 –
+
+60. https://doi.org/10.1146/annurev -statistics -010814 -020148. 
+
+[147]  Kutej A, Rass S, Alexandrowicz RW. Comparing Traditional and Graphical Risk 
+
+Matrices: A Case Study in Healthcare. Risk Analysis 2025;45:3758 –80. 
+
+https://doi.org/10.1111/risa.70104. 
+
+[148]  Wachter J, Grafenauer T, Rass S. Visual Risk Specification and Aggregation. In: IARIA, 
+
+editor. SECURWARE 2017: The Eleventh International Conference on Emerging Security 
+
+Information, Systems and Technologies, 2017, p. 93 –8. 
+
+[149]  A review of uncertainty visualization errors: Working memory as an explanatory theory. 
+
+Psychology of Learning and Motivation, vol. 74, Academic Press; 2021, p. 275 –315. 
+
+https://doi.org/10.1016/bs.plm.2021.03.001. 
+
+[150]  Bancilhon M, Wright AJ, Ha S, Crouser J, Ottley A. Why Combining Text and 
+
+Visualization Could Improve Bayesian Reasoning: A Cognitive Load Perspective. 
+
+Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems, 2023, 
+
+p. 1 –15. https ://doi.org/10.1145/3544548.3581218. 
+
+[151]  Mehta K. Maybe, Maybe Not: A Survey on Uncertainty in Visualization n.d. 
+
+[152] Dikmen I, Karakocak E, Birgonul MT.  Communication of project risk assessment 
+
+information through visuals. Project Leadership and Society 2024;5:100141. 
+
+https://doi.org/10.1016/j.plas.2024.100141. 
+
+[153]  Dubois D, Prade H. Fuzzy sets, probability and measurement. European Journal of 
+
+Operational Research 1989;40:135 –54. https://doi.org/10.1016/0377 -2217(89)90326 -3. 
+
+[154]  Denoeux T. Belief functions induced by random fuzzy sets: A general framework for 
+
+representing uncertain and fuzzy evidence. Fuzzy Sets and Systems 2021;424:63 –91. 
+
+https://doi.org/10.1016/j.fss.2020.12.004. 
+
+[155]  Helton JC, Johnson JD, Oberkampf WL, Sallaberry CJ. Representation of analysis results 
+
+involving aleatory and epistemic uncertainty. International Journal of General Systems 
+
+2010;39:605 –46. https://doi.org/10.1080/03081079.2010.486664. 
+
+[156]  Alexandra L. HYBRID APPROACHES TO RISK ASSESSMENT: MERGING 
+
+QUANTITATIVE AND QUALITATIVE METHODS FOR COMPREHENSIVE 
+
+CONSTRUCTION RISK MANAGEMENT 2025:20. [157]  Zavadskas EK, Govindan K, Antucheviciene J, Turskis Z. Hybrid multiple criteria 
+
+decision -making methods: a review of applications for sustainability issues. Economic 
+
+Research -Ekonomska Istraživanja 2016;29:857 –87. 
+
+https://doi.org/10.1080/1331677X.201 6.1237302. 
+
+[158]  Sun J, Wang F, Li Z, Ren D, Yu M. A new hybrid copula -based nonparametric Bayesian 
+
+model for risk assessments of water inrush. Quality and Reliability Engineering 
+
+International 2022;38:1957 –76. https://doi.org/10.1002/qre.3053. 
+
+[159]  Dubois D, Guillaume R, Rico A. Eliciting hybrid probability -possibility functions and 
+
+their decision evaluation models. In: Miranda E, Montes I, Quaeghebeur E, Vantaggi B, 
+
+editors. Proceedings of the Thirteenth International Symposium on Imprecise Pr obability: 
+
+Theories and Applications, vol. 215, PMLR; 2023, p. 200 –9. 
+
+[160] Wang T, Wang Y, Zhou J, Peng B, Song X, Zhang C, et al.  From Aleatoric to Epistemic: 
+
+Exploring Uncertainty Quantification Techniques in Artificial Intelligence 2025. 
+
+https://doi.org/10.48550/ARXIV.2501.03282. 
+
+[161]  Groen FJ, Wang C, Mosleh A, Parhizkar T. The hybrid causal logic methodology for risk 
+
+assessment: Quantification algorithm. Reliability Engineering & System Safety 
+
+2026;265:111519. https://doi.org/10.1016/j.ress.2025.111519. 
+
+[162]  Hong Y, Pasman HJ, Sachdeva S, Markowski AS, Mannan MS. A fuzzy logic and 
+
+probabilistic hybrid approach to quantify the uncertainty in layer of protection analysis. 
+
+Journal of Loss Prevention in the Process Industries 2016;43:10 –7. 
+
+https://doi.org/10 .1016/j.jlp.2016.04.006. 
+
+[163]  Afzal F, Afzal F, Junaid D, Shah IA, Yunfei S. Complexity -based risk decision 
+
+framework for cost overrun using fuzzy Bayesian network. Soft Comput 2023;27:6187 –
+
+203. https://doi.org/10.1007/s00500 -023 -07983 -7. 
+
+[164]  Dolgiy A, Kovalev S, Sukhanov A, Styskala V. Hybrid Fuzzy Neural Model Based 
+
+Dempster -Shafer System for Processing of Diagnostic Information, 2020, p. 24 –33. 
+
+https://doi.org/10.1007/978 -3-030 -14907 -9_3. 
+
+[165]  Lodwick W. Fuzzy Possibility Probability and Generalized Uncertainty Theory in 
+
+Mathematical Analysis. J Mahani Math Res Cent 2021;10. 
+
+https://doi.org/10.22103/jmmrc.2021.18055.1160. 
+
+[166]  Gaweł B, Rębiasz B, Paliński A. Integrating Probability and Possibility Theory: A Novel 
+
+Approach to Valuing Real Options in Uncertain Environments. Applied Sciences 
+
+2025;15:7143. https://doi.org/10.3390/app15137143. 
+
+[167]  Hester P. Epistemic Uncertainty Analysis: An Approach Using Expert Judgment and 
+
+Evidential Credibility. Journal of Quality and Reliability Engineering 2012;2012:617481. 
+
+https://doi.org/10.1155/2012/617481. [168]  Secchettin E, Paiella S, Azzolina D, Casciani F, Salvia R, Malleo G, et al. Expert 
+
+Judgment Supporting a Bayesian Network to Model the Survival of Pancreatic Cancer 
+
+Patients. Cancers (Basel) 2025;17:301. https://doi.org/10.3390/cancers17020301. 
+
+[169]  Albogami SM, Ariffin MKABM, Supeni EEB, Ahmad KA. A New Hybrid AHP and 
+
+Dempster —Shafer Theory of Evidence Method for Project Risk Assessment Problem. 
+
+Mathematics 2021;9:3225. https://doi.org/10.3390/math9243225. 
+
+[170]  Thokala P, Devlin N, Marsh K, Baltussen R, Boysen M, Kalo Z, et al. Multiple Criteria 
+
+Decision Analysis for Health Care Decision Making —An Introduction: Report 1 of the 
+
+ISPOR MCDA Emerging Good Practices Task Force. Value in Health 2016;19:1 –13. 
+
+http s://doi.org/10.1016/j.jval.2015.12.003. 
+
+[171]  Chakhrit A, Bougofa M, Guetarni IHM, Bouafia A, Kharzi R, Nehal N, et al. A hybrid 
+
+integrated multi -criteria decision -making approach for risk assessment: a study of 
+
+automotive parts industry. International Journal of Quality & Reliability Management 
+
+2023;41:1020 –43. https://doi.org/10.1108/IJQRM -01 -2023 -0010. 
+
+[172] Rass S, Wachter J, Schauer S, König S. Subjektive Risikobewertung – über 
+
+Datenerhebung und Opinion Pooling.  In P Schartner · A Baumann 2017;D•A•CH Security 
+
+2017 · syssec:(pp.225 -237). 
+
+[173]  Duijm NJ. Recommendations on the use and design of risk matrices. Safety Science 
+
+2015;76:21 –31. https://doi.org/10.1016/j.ssci.2015.02.014. 
+
+[174]  Robledo J, Sulá AIP, Jaworski LG, Mouafo -Tchinda RA, Andersen Onofre KF, Thomas -
+
+Sharma S, et al. Expert Knowledge Elicitation: Accessing the Big Data in Experts’ Brains. 
+
+Phytopathology® 2025;115:1245 –59. https://doi.org/10.1094/PHYTO -06 -25 -0220 -FI. 
+
+[175]  Chou J -S, Ongkowijoyo C. Hybrid decision -making method for assessing 
+
+interdependency and priority of critical infrastructure. International Journal of Disaster Risk 
+
+Reduction 2019;39:101134. https://doi.org/10.1016/j.ijdrr.2019.101134. 
+
+[176]  Simon C, Weber P, Evsukoff A. Bayesian networks inference algorithm to implement 
+
+Dempster Shafer theory in reliability analysis. Reliability Engineering & System Safety 
+
+2008;93:950 –63. https://doi.org/10.1016/j.ress.2007.03.012. 
+
+[177]  Tekeli MM, Gulen MF, Akyuz E, Teixeira ÂP. Improved hybrid Z -number Bayesian 
+
+network approach to predict mooring line failure during cargo operations in ships. Journal 
+
+of Ocean Engineering and Science 2025. https://doi.org/10.1016/j.joes.2025.10.007. 
+
+[178]  Aguessy F -X, Bettan O, Blanc G, Conan V, Debar H. Hybrid Risk Assessment Model 
+
+Based on Bayesian Networks. In: Ogawa K, Yoshioka K, editors. Advances in Information 
+
+and Computer Security, Cham: Springer International Publishing; 2016, p. 21 –40. 
+
+https ://doi.org/10.1007/978 -3-319 -44524 -3_2. [179]  Mahmood Y, Yasir N, Yodo N, Huang Y, Wu D, McCann RA. Comprehensive Risk 
+
+Assessment of Power Grids Using Fuzzy Bayesian Networks Through Expert Elicitation: A 
+
+Technical Analysis. Algorithms 2025;18:321. https://doi.org/10.3390/a18060321. 
+
+[180]  Roy CJ, Oberkampf WL. A comprehensive framework for verification, validation, and 
+
+uncertainty quantification in scientific computing. Computer Methods in Applied 
+
+Mechanics and Engineering 2011;200:2131 –44. https://doi.org/10.1016/j.cma.2011.03.016. 
+
+[181]  Pongsathornwiwat N, Huynh V -N, Theeramunkong T. A hybrid approach for linguistic 
+
+information integration to multi -experts multi -attribute decision -making problem. 2015 
+
+Asian Conference on Defence Technology (ACDT), 2015, p. 109 –14. 
+
+https://doi.org/10 .1109/ACDT.2015.7111594. 
+
+[182]  Popa C, Stefanov O, Goia I, Nistor F. A Hybrid Fault Tree –Fuzzy Logic Model for Risk 
+
+Analysis in Multimodal Freight Transport. Systems 2025;13:429. 
+
+https://doi.org/10.3390/systems13060429. 
+
+[183]  Huang L, Cai G, Yuan H, Chen J. A hybrid approach for identifying the structure of a 
+
+Bayesian network model. Expert Systems with Applications 2019;131:308 –20. 
+
+https://doi.org/10.1016/j.eswa.2019.04.060. 
+
+[184]  Pham BT, Luu C, Phong TV, Nguyen HD, Le HV, Tran TQ, et al. Flood risk assessment 
+
+using hybrid artificial intelligence models integrated with multi -criteria decision analysis in 
+
+Quang Nam Province, Vietnam. Journal of Hydrology 2021;592:125815. 
+
+https ://doi.org/10.1016/j.jhydrol.2020.125815. 
+
+[185]  Liu Q, Hu W, Yang K, Yang J. Risk assessment of urban underground logistics system 
+
+operations in built -up areas: A hybrid fuzzy Bayesian network and machine learning 
+
+approach. Computers & Industrial Engineering 2025;207:111295. 
+
+https://doi.org/10.101 6/j.cie.2025.111295. 
+
+[186]  Sobhanifard F. Optimization of Bayesian Neural Networks using hybrid PSO and fuzzy 
+
+logic approach for time series forecasting. Discov Artif Intell 2025;5:132. 
+
+https://doi.org/10.1007/s44163 -025 -00322 -9. 
+
+[187]  Zhou Y, Fan J, Dai B, Wu S, Wang R, Yin X, et al. Risk analysis of urban low -pressure 
+
+natural gas networks based on hybrid dynamic Bayesian networks. Journal of Loss 
+
+Prevention in the Process Industries 2025;96:105649. 
+
+https://doi.org/10.1016/j.jlp.2 025.105649. 
+
+[188] Münch I. Wege zur Risikobewertung.  In: Schartner P, Taeger J, editors., syssec; 2012, p. 
+
+326 –37. 
+
+[189]  Ehrgott M. Multicriteria Optimization.  2nd ed. Berlin: Springer; 2005. 
+
+https://doi.org/10.1007/3 -540 -27659 -9. [190]  Lai L, Fiaschi L, Cococcioni M, Deb K. Pure and mixed lexicographic -paretian many -
+
+objective optimization: state of the art. Nat Comput 2023;22:227 –42. 
+
+https://doi.org/10.1007/s11047 -022 -09911 -4.

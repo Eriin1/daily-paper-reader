@@ -1,0 +1,294 @@
+Title: Spatio-Temporal Disaggregation with Changing Areal Boundaries
+
+URL Source: https://arxiv.org/pdf/2606.25074v1
+
+Published Time: Thu, 25 Jun 2026 00:07:51 GMT
+
+Number of Pages: 18
+
+Markdown Content:
+# Spatio-Temporal Disaggregation with Changing Areal Boundaries 
+
+## Noah Ripstein 1, Patrick Brown 1 and Jamie Stafford 11Department of Statistical Sciences, University of Toronto 
+
+Abstract 
+
+Small area estimation and disease mapping increasingly rely on areal data where reporting boundaries change over time. We develop a computationally efficient spatio-temporal disaggregation method to recover high-resolution risk surfaces from observed counts under chang-ing boundaries. Our approach extends the spatially aggregated log-Gaussian Cox process and uses the Extended Latent Gaussian Model framework for fast approximate posterior inference. We replace stan-dard lognormal polygon-specific effects with gamma-distributed overdis-persion which yields a marginal negative binomial likelihood, and re-moves one latent variable per polygon-time pair. We illustrate the ap-proach by mapping mortality risk across shifting NUTS-3 boundaries in Belgium and the Netherlands. For the purpose of dissemination we use Codex to leverage the methodology presented in this paper for the analysis of a separate data set concerning the city of Manchester. The methodology is implemented in the open-source R package DAST .
+
+# 1 Introduction 
+
+In many epidemiological studies incidence of disease is reported over a com-mon geographic region, or map, at distinct time intervals determined by, for example, a periodic census. Incidence counts are often reported within predefined observational regions, such as counties or public health adminis-trative areas, where the boundaries of these regions can change over time. An example of this includes county borders in the United States that are redrawn every 10 years. We refer to this as the multiple map problem, where 1
+
+> arXiv:2606.25074v1 [stat.ME] 23 Jun 2026
+
+spatial disaggregation, the process of estimating the underlying intensity at a higher resolution than the available data, is often of interest. Spatial dis-aggregation has been applied in disease mapping (Li et al., 2012; Utazi et al., 2019; Brown and Stafford, 2021), ecology (Keil et al., 2013; Murphy et al., 2023), economics (Vidoli and Auteri, 2022; Fujii, 2024), and numerous other fields (Fendrich et al., 2022). The Besag-York-Molli´ e (BYM) model (Besag et al., 1991) is a widely used framework for areal data, particularly popular in epidemiology and pub-lic health for smoothing localized disease rates. Li et al. (2012) showed through simulation that a spatially-aggregated log Gaussian Cox process (LGCP) consistently outperforms BYM, however, they are often fit using bespoke Markov Chain Monte Carlo (MCMC) algorithms (Li et al., 2012; Taylor et al., 2015; Johnson et al., 2019), which are slow to run. Integrated Nested Laplace Approximations (Rue et al., 2009) offer a faster alternative to MCMC for a class of latent Gaussian models but aggregated LGCPs have a more complex dependence structure and do not fall into the LGM class. To address this, Stringer et al. (2023) introduce a class of Extended La-tent Gaussian Models (ELGMs) which allow complex dependence structures including spatially-aggregated LGCPs. Simultaneously, Nandi et al. (2023) implemented a spatially aggregated LGCP in the Disaggregation R pack-age. Both reduced computation from days with MCMC to minutes. However, neither considered the use of spatially aggregated LGCPs over time where data are reported through multiple maps of the same geographic region. This is the focus of the current manuscript. In §2 we develop the modelling framework for an aggregated LGCP suited to multiple maps where we use a single, shared latent field across maps with varying areal boundaries. We give some attention to the treatment of overdis-perion in incidence counts. Rather than attaching a Gaussian effect to each observation region to account for overdispersion (as in Nandi et al. (2023) and Stringer et al. (2023)), we model extra-Poisson variation via gamma mixing. This formulation yields a negative binomial likelihood and preserves the LGCP-based disaggregation structure while avoiding map-indexed latent variables. Computational aspects for the implementation of the model are consid-ered in §3. Here sparsity is sacrificed for dimension reduction to ease compu-tation where gamma mixing plays a role as does the use of basis functions to model the common latent field. In §4 we present a case study that concens mapping early childhood mortality in Belgium and the Netherlands. For the 2purpose of dissemination, we demonstrate in §5 how modern AI tools can allow the reader to use the methods of this paper in the analysis of a sepa-rate data set concerning the city of Manchester. Finally, §6 concludes with limitations, extensions, and practical recommendations. 
+
+# 2 An Extended Latent Gaussian Model 
+
+Denoting a spatial region of interest by M, consider a sequence of inho-mogeneous Poisson processes {P i, i ∈ [I]} over time. Event locations are unknown and we instead observe counts Yij = P i(Sij ) for disjoint observation regions Sij where ∪j Sij = M, ∀i with j ∈ [Ji]. The regions Sij are typically predefined as counties, or by postal codes, where the boundaries may change over time. This setting is similar to that of Stringer et al. (2023), however, we allow for an arbitrary number of processes rather than just one. This affects both the methodological and computational developments in what follows. Consider an aggregated log-Gaussian Cox process for the observed counts where we have 
+
+Yij |λi(·), ν i(·) ind 
+
+∼ Poisson 
+
+"
+
+νi(s)
+
+Z
+
+> Sij
+
+Oi(s)λi(s)ds
+
+#
+
+,
+
+log λi(s) = xi(s)T β + u(s)
+
+u(s) ∼ GP { 0, M υ(·; σ, ρ )}
+
+Cov {u(s + h), u(s)} = Mυ(|| h|| ; σ, ρ ), s ∈ M , s + h ∈ M 
+
+νi(s) = νij , s ∈ Sij with νij iid 
+
+∼ fτ (·)Here Oi(s) ≥ 0 is a known population offset, xi(s) are observed covariates with random effects β ∼ N (0, Σβ), and both Oi(s), xi(s) can change over time. We assume a common latent spatial process u(s) and model it as a Gaussian Process with a Mat´ ern covariance function Mυ(·; σ, ρ ) with υ
+
+known. Finally, νij are region specific random effects that address potential overdispersion in the counts. 
+
+## 2.1 Discretization of the model 
+
+To render the model computationally tractable we consider a discretization of each λi(·) over a finer grid of cells Qℓ, each with center qℓ, where ∪Lℓ Qℓ = M
+
+3and Qℓ ∩ Q t = ∅ for ℓ̸ = t. We then approximate the risk surface over this grid by λi(s) ≈ λi(qℓ) when s ∈ Q ℓ. This induces similar approximations for xi(s) ≈ xi(qℓ) and u(s) ≈ u(qℓ), respectively, again when s ∈ Q ℓ. Note covariates may be known at a much finer resolution than the observed counts, critical to disaggregation (Nandi et al., 2023), and the above discretization accommodates that. Defining U = {u(qℓ), ℓ ∈ [L]}, an index set Lij = {ℓ :
+
+Sij ∩ Q ℓ̸ = ∅} that captures the intersection of an observation region with all grid cells, and expected counts as Oijℓ = R 
+
+> Qℓ∩Sij
+
+Oi(s)ds the above model becomes 
+
+Yij |λLij , ν ij ind 
+
+∼ Poisson 
+
+νij 
+
+X
+
+> ℓ∈L ij
+
+Oijℓ λi(qℓ)
+
+ ,
+
+log λi(qℓ) = xi(qℓ)T β + u(qℓ)
+
+U |θ ∼ N [0, Σσρ ]
+
+νij iid 
+
+∼ fτ (·)where the entries of Σσρ are determined by the Mat´ ern covariance function above. As noted in Stringer et al. (2023) it is now evident from the index set Lij why the above model belongs to the ELGM class given |L ij | > 1reflecting a more complex dependence structure than the simpler LGM class where |L ij | = 1. 
+
+## 2.2 Treatment of overdispersion 
+
+In what follows, it’s convenient to denote the collection of latent variables, or parameters, in the model as ω = {β, U , ν} where ν = {νij , i ∈ [I], j ∈
+
+[Ji]}. Here we note that the dimension of ω depends on the sample size due to the presence of overdispersion for each observation region Sij . A key insight of Stringer et al. (2023) was noting this leads to both theoretical and computational concerns. For aggregated log-Gaussian Cox processes, it is common to model overdispersion with a log-normal distribution - an approach popularized by the highly influential BYM model of Besag et al. (1991) and adopted widely. (See, for example, Liu and Sharma (2018); Michal et al. (2021) or Nandi et al. (2023)). This also includes Stringer et al. (2023) surprisingly given the dimension of ω remains a concern in that work. To address this, we alternatively model overdispersion with a gamma distribution, νij ∼ Gamma( τ −2, τ −2) where for either formulation of fτ (·)4we have Var( νij ) = τ ∀i, j . The resulting Poisson-gamma mixture can be simplified via analytical integration so the observed counts follow a nega-tive binomial distribution. In this reformulation the latent variable becomes 
+
+ω = {β, U } with reduced dimension as we have removed the need to com-pute a latent overdispersion variable ν. The likelihood above can now be conveniently replaced with 
+
+Yij | λi(·), τ ind 
+
+∼ NegBin 
+
+ X
+
+> ℓ∈L ij
+
+Oijℓ λi(qℓ), τ 2
+
+ . (1) 
+
+## 2.3 A Basis Function Representation 
+
+The dimension of ω can be reduced further if we consider a basis expansion for the common latent surface u. Following a finite element representation advocated by Lindgren et al. (2011), we approximate u as 
+
+u(qℓ) ≈
+
+> d
+
+X
+
+> m=1
+
+ϕm(qℓ) γm
+
+where {ϕj (·)} are known, piecewise-linear basis functions defined on a trian-gular mesh that covers M. Commonly referred to as tent functions due to their shape, each basis function, ϕj is defined to be 1 at the jth vertex, 0 at every other vertex, and linear interpolation among adjacent vertices de-termines the value of the function otherwise. By design, the mesh weights 
+
+γ = {γm, m ∈ [d]} then give the value of the approximation for the set of vertices in the mesh and have a Gaussian distribution with variance matrix 
+
+Σγ determined by the Mat´ ern covariance function. We now have ω = {β, γ}
+
+and dimension reduction results from dim( γ) = d < L . Further details about this approach can be found in Lindgren et al. (2011). 
+
+## 2.4 Specification of the prior 
+
+We adopt the Penalized Complexity (PC) framework (Simpson et al., 2017) to assign principled priors to the model hyperparameters, denoted collectively as θ = {σ, ρ, τ }. For example, for the spatial Mat´ ern field, we use the PC priors developed by Fuglstad et al. (2019), which penalize deviation from a flat, constant base model by favoring small values of the marginal standard deviation σ and large values of the spatial range ρ.5For the extra-Poisson variation, we are motivated by the PC prior frame-work in constructing a prior that shrinks the negative binomial model toward a base Poisson model. As shown in the Appendix, this results in an exponen-tial prior on the dispersion parameter τ . This is analogous to the exponential prior on the Gaussian random effect used by Nandi et al. (2023) and Stringer et al. (2023) in their model. By specifying a flatter prior for τ relative to σ, the model is encouraged to attribute residual variance to independent overdispersion before introducing spatial complexity. In what follows, we continue to use the notation θ =
+
+{σ, ρ, τ } for the collection of covariance parameters. 
+
+# 3 Approximate Bayesian inference 
+
+The above model specifications identify the joint distribution π(ω, y, θ) where 
+
+y simply denotes the collection of all observed counts. For inference purposes the posterior π(ω|y) is of interest and, within the ELGM class, its approx-imation involves several elements. These include a Gaussian approximation for the posterior distribution π(ω|y, θ)
+
+eπG(ω | y, θ) ≡ N   ˆωθ, H ˆwθ (θ)−1,
+
+where ˆ ωθ is the mode of π(ω, y, θ) and H ˆωθ (θ) the Hessian, and a Laplace approximation eπL(θ|y) for the posterior of θ. Numerical integration over θ
+
+gives an approximation for π(ω|y)
+
+eπ(ω | y) = X
+
+> z∈Q
+
+eπG(ω | y, eθz ) eπL(eθz |y) ωz
+
+where quadrature points z and weights wz are determined by an adaptive Gauss-Hermite rule known for sound theoretic properties. The approxima-tion eπL(θ|y) itself depends on the same quadrature points and weights. Full details are given in Stringer et al. (2023) and we compute these approxima-tions using several components: 
+
+• Automatic Differentiation(AD): Template Model Builder is used for coding the joint density function π(ω, y, θ) including various design matrices. The use of automatic differentiation (AD) tracks derivatives of the individual components of the log density and produces first and second derivatives using the chain rule. This, for example, determines the Hessian Hω(θ). 6• Inner Optimization: Using the gradients and Hessians computed by AD, an “inner” optimization step is carried out with Trust Region op-timization (Nocedal and Wright, 2006) to produce the mode ˆ ωθ. Eval-uating the Hessian at ths mode then gives the Gaussian approximation 
+
+eπG(ω | y, θ). 
+
+• Outer Optimization: Approximating the joint distribution π(y, θ) as 
+
+eπ(y, θ) = π( ˆ ωθ, y, θ)
+
+eπG( ˆ ωθ | y, θ)and again using derivatives produced by AD and Trust Region opti-mization, an “outer” optimization step determines the mode of eπ(y, θ), denoted as ˆθ.
+
+• Adaptive Gaussian Hermite Quadrature: A set of representative points around the mode ˆθ, namely {eθz , z ∈ Q} , and weights {wz , z ∈ Q} are determined by adaptive Gaussian Hermite Quadrature. These are then used to to compute the Laplace approximation eπL(eθz |y) as 
+
+eπL(θ|y) = eπ(y, θ)
+
+P 
+
+> z∈Q
+
+eπ(y, eθz ) ωz
+
+and finally eπ(ω | y). Our implementation builds on the excellent disaggregation R package (Nandi et al., 2023). We use its mesh construction and SPDE infrastructure (via fmesher ) without modification. To support multiple maps across time, we extend the functions for constructing design matrices to handle a com-mon latent field with time-varying areal boundaries. We likewise adapt their 
+
+TMB template (Kristensen et al., 2016) to aggregate over multiple maps and use the marginal negative binomial likelihood. Unlike the disaggregation 
+
+package which fits the model specified by the TMB template through Empiri-cal Bayes with a single Laplace approximation, we fit using the ELGM fitting algorithm via the AGHQ package (Stringer, 2021). The ELGM algorithm with a single quadrature point reduces to a Laplace approximation, and increas-ing the number of quadrature points yields a fully Bayesian algorithm which is more accurate than the Emperical Bayes approach when compared with MCMC (Stringer et al., 2023). A full set of code and reproducible examples are contained in the GitHub repository at github.com/nripstein/DAST . An open-source R package, DAST (DisAggregation in Space and Time), pro-vides a user-friendly interface similar to the Disaggregation package. 74 Mortality in Belgium and Netherlands 
+
+To demonstrate the practical utility and computational efficiency of the DAST framework, we apply the model to a high-resolution mortality study across international borders. Figure 1 shows the results from applying the methodology to data on deaths in Belgium and the Netherlands from 2018 to 2023. The data modelled are death counts for Females under the age of 5 at the NUTS 3 level, from the Eurostat dataset demo_r_magec3 . Yearly population data on a 1km grid are from the Worldpop product R2025A. A full set of code, including specific web URL’s for data sources, are available in the Github repository 
+
+github.com/nripstein/DAST-ppr-code .The NUTS 3 administrative boundaries underwent revisions in both 2020 and 2023. By using the shared latent field u(s) within our framework, we are able to integrate data across these three distinct map configurations into a single, spatially-consistent posterior risk surface. Figure 1b shows the popu-lation density in 2018 along with vertices of the spatial basis functions and Figure 1c shows the observed number of deaths in 2018. Figure 1d shows the vertices of the basis functions used to approximate the Gaussian random field. The Negative Binomial model was fit using 2 quadrature points and expo-nential priors on the overdispersion standard deviation τ , the spatial standard deviation σ and the scale parameter 1 /ϕ . Parameter priors and posteriors are shown in Figure 2. These exponential priors encourages small values, with prior modes at zero, which encourage a smooth spatial surface with low variance and strong spatial dependence. The posterior median of relative risk appears in Figure 1e. The posterior exceedance probabilities, pr( λ(s) > 1|Y )is in Figure 1f. There is a high risk region at the border between the coun-tries, near the Belgian city of Antwerp, where risk is predicted to be 30% above average and there is 95% confidence that risk is above what is typical. 
+
+# 5 AI-Assisted Practitioner Workflow 
+
+To demonstrate the accessibility of the DAST package for applied researchers, we present an analysis scaffolded via modern artificial intelligence tools. This example highlights a workflow enabling practitioners straightforwardly adopt our methodology for novel, real-world analyses when dealing with shifting 8(a) Boundaries (b) Population 2018 (c) Deaths 2018   
+
+> (d) Basis function vertices (e) Relative risk (f) Exceedance
+
+Figure 1: Boundaries of NUTS 3 regions, posterior median of relative risk exp[ U (s)] and posterior exceedance probabilities pr[ U (s) > 0|Y ]. 90.0 0.1 0.2 0.3 0.4 0 2 4 6 8 10 
+
+> par_plot_split2$NB$x dens
+
+(a) Observation SD τ0.0 0.5 1.0 1.5 2.0 2.5 0.0  0.5  1.0  1.5  2.0  2.5  
+
+> par_plot_split2$Spatial$x dens
+
+(b) Spatial SD σ0 10 30 50 70 0.00  0.02  0.04  0.06  
+
+> par_plot_split2$Range$x/1000 dens
+
+(c) Range (km) ϕ/ 1000 
+
+Figure 2: Prior distributions ( - - - ) and posteriors ( ) for model parameters. administrative boundaries. Figure 3 shows the log relative risk and exceedance probabilities for under-five mortality in Manchester, UK, from 2008 to 2012. Death counts are available for Lower Layer Super Output Areas (LSOAs), the boundaries of which changed in 2010. Code for the analysis was generated by the Codex AI tool from the following prompt, which references the disagg.Rmd file used for the Belgium and Netherlands example: I would like to replicate the analysis in the file ‘disagg.Rmd‘ to estimate the risk of under-5 mortality in Manchester, UK for 2008 to 2012 using death counts from the ONS at the LSOA level and population from worldpop. I know the 2008 and 2009 data are on one set of boundaries and 2010 onwards are on a different set. Please write an RMD file to download and assemble the data in the correct form. Also include code similar to disagg.Rmd to run the model. While the resulting code required a moderate amount of debugging and modification, it successfully established the data pipeline and model fitting procedure. The final source document producing an extended set of results is available on this paper’s GitHub repository ( github.com/nripstein/DAST-ppr-code )10 (a) Log relative risk (b) Exceedance probability 
+
+Figure 3: Result maps for Manchester : posterior median of log relative risk E[ u(s)|y] and exceedance probability pr[ u(s)|y]. 
+
+# 6 Discussion 
+
+We have introduced a scalable spatio-temporal disaggregation framework for areal data where regional boundaries change over time. By replacing Gaussian polygon-specific effects with gamma-distributed overdispersion, we marginalize the Poisson-gamma hierarchy to a negative binomial likelihood, eliminating one latent variable per polygon-timepoint pair. This structural change keeps the dimension of the inner Hessian in approximate posterior inference fixed with respect to the number of polygons and enables efficient fitting for datasets with thousands of polygon-time pairs. Relative to existing approaches, our method extends the work of Stringer et al. (2023) and Nandi et al. (2023) by combining three capabilities: (i) the accuracy of LGCP-based disaggregation, (ii) the ability to handle changing boundaries across time, and (iii) the dimensionality reduction achieved by modeling extra-Poisson variation though gamma-mixing, and the computa-tional efficiency of our approximate inference approach. There are several limitations to note. First, we assume that polygon-level overdispersion is adequately modeled by gamma mixing; in settings with heavier-tailed or asymmetric extra-Poisson variation, alternative mix-ing distributions may be preferable. Second, the current formulation shares a single latent spatial field u(s) across time, without explicit temporal dy-namics; this may be restrictive when spatial correlation structures evolve 11 over time. Third, as with all SPDE-based methods, performance depends on mesh resolution and discretization: coarse meshes reduce computational cost but may undersmooth fine-scale features, while fine meshes increase accuracy at the expense of computation. Several extensions follow naturally. Incorporating temporal correlation in u(s, t ), such as separable or nonseparable spatio-temporal Mat´ ern models, could further improve efficiency in multi-timepoint settings. Allowing time-varying spatial range or variance parameters would accommodate evolving spatial dependence. Extensions to other likelihoods, such as zero-inflated models would broaden applicability to data with excess zeros. By aligning the model structure with the strengths of modern determinis-tic approximation methods, our approach narrows the gap between fine-scale spatial inference and computational feasibility in complex, real-world appli-cations. We hope that the accompanying open-source R package DAST will facilitate adoption of these methods in applied domains where large, irregu-lar, and evolving areal datasets are the norm. 
+
+Acknowledgments: We are grateful to our colleague, Rohan Alexander, for encouraging us to consider the use of modern AI tools for the dissemination of these methods. We also acknowledge the support of CANSSI Ontario and the Natural Sciences and Engineering Research Council of Canada (NSERC). 12 Appendix: Negative Binomial Penalized Com-plexity prior 
+
+We construct a penalized complexity (PC) prior that shrinks a negative bi-nomial model toward a Poisson base model. We parameterize 
+
+Y | μ, α ∼ NegBin( μ, α ), E[Y ] = μ, Var( Y ) = μ + α μ 2, α = τ 2.
+
+The Poisson base model corresponds to τ = 0. We represent the negative binomial model as a Poisson–Gamma mixture: 
+
+Y | v ∼ Poisson( v μ ), v ∼ gamma  τ −2, τ −2 ,
+
+so that E[v] = 1 and sd( v) = τ . The Poisson base model corresponds to 
+
+τ = 0, in which case v ≡ 1. Let ( Y, v ) denote the data Y and the mixing variable v. Under our model with overdispersion parameter τ , the joint density is 
+
+pτ (y, v ) = Poisson( y | v μ ) gamma  v τ −2, τ −2 ,
+
+and under the Poisson base model ( τ = 0) we have 
+
+pb(y, v ) = Poisson( y | μ) gamma  v 1 
+
+> b2
+
+, 1
+
+> b2
+
+ ,
+
+where b ↓ 0 makes the gamma distribution concentrate at v = 1. The chain rule for KL divergence gives KL( pτ ∥ pb) = Ev∼gamma( τ −2, τ −2) KL  Poisson( vμ ) ∥ Poisson( μ)| {z }
+
+> (A)
+
++ KL 
+
+
+
+gamma  τ −2, τ −2 gamma  b−2, b −2| {z }
+
+> (B)
+
+.
+
+Term (A) depends on μ and reflects how the data model changes with v,while term (B) measures how the mixing distribution deviates from its base. Following the PC prior construction, we focus on term (B) since it measures the complexity of the overdispersion component independent of the mean. 13 We now evaluate term (B) in the limit b ↓ 0, which corresponds to the base model v ≡ 1. The KL divergence between gamma( τ −2, τ −2) and gamma( b−2, b −2) is KL( τ −2 ∥ b−2) = ( τ −2 − b−2) ψ(τ −2) − log Γ( τ −2) + log Γ( b−2)+ b−2log τ −2 − log b−2 + b−2 − τ −2, (2) where ψ(·) is the digamma function and Γ( ·) is the gamma function. To take the limit b ↓ 0 (i.e., b−2 → ∞ ), we use Stirling’s approximation for log Γ( b−2), log Γ( b−2) =  b−2 − 12
+
+ log b−2 − b−2 + 12 log(2 π) + O b2 . (3) Substituting (3) into (2) and simplifying yields KL( τ −2 ∥ b−2) = b−2log τ −2 − ψ(τ −2) − 12 log b−2 + O(1) + O(b2). (4) The leading term grows linearly in b−2. Thus, as b ↓ 0, the leading term of the KL divergence is dominated by KL dom (τ ) = C  log( τ −2) − ψ(τ −2),
+
+up to a constant factor C from the b−2 term in (4). Following Simpson et al. (2017), the constant is dropped, and the PC prior distance measure is defined as 
+
+d(τ ) = 
+
+q
+
+2  log( τ −2) − ψ(τ −2). (5) For small τ , using the first-order expansion of the digamma function, ψ(τ −2) = log( τ −2) − τ 2 
+
+> 2
+
++ O(τ 4), we obtain d(τ ) = τ + O(τ 3), so d(τ ) is asymptoti-cally equal to the standard deviation of the gamma mixing distribution. We therefore use 
+
+d(τ ) = τ
+
+Placing an exponential prior with rate λ on d(τ ) gives 
+
+π(τ ) = λ exp( −λτ ).
+
+This exponential prior on the standard deviation of the gamma mixing dis-tribution is analogous to the exponential prior on the standard deviation for Gaussian random effects (Simpson et al., 2017). 14 The hyperparameter λ can be selected via a user-defined probability statement on the tail of the prior. We specify an upper bound U for the overdispersion standard deviation τ and a small tail probability p such that Pr( τ > U ) = p. Given the exponential prior on τ , this yields 
+
+λ = −log( p)
+
+U .
+
+This translates directly to the variance parameterization α = τ 2, allowing a practitioner to intuitively constrain the prior based on the maximum plausi-ble amount of overdispersion expected in the data apriori. 15 References 
+
+Besag, J., York, J., and Molli, A. (1991). Bayesian image restoration, with two applications in spatial statistics. Annals of the Institute of Statistical Mathematics , 43(1):1–20. Brown, P. E. and Stafford, J. (2021). The root-Gaussian Cox process and a generalized EMS algorithm. Spatial Statistics , 43:100509. Fendrich, A. N., Neto, E. S. H., Moreira, L. E. M. e., and Neto, D. D. (2022). A scalable method for the estimation of spatial disaggregation models. Computers & Geosciences , 166:105161. Fuglstad, G.-A., Simpson, D., Lindgren, F., and Rue, H. (2019). Construct-ing Priors that Penalize the Complexity of Gaussian Random Fields. Jour-nal of the American Statistical Association , 114(525):445–452. Publisher: Informa UK Limited. Fujii, T. (2024). Spatial disaggregation of poverty and disability: application to tanzania. Empirical economics , 66(2):705–734. Johnson, O., Diggle, P., and Giorgi, E. (2019). A spatially discrete ap-proximation to log-gaussian cox processes for modelling aggregated disease count data. Statistics in Medicine , 38(24):4871–4887. Keil, P., Belmaker, J., Wilson, A. M., Unitt, P., Jetz, W., and Freckleton, R. (2013). Downscaling of species distribution models: a hierarchical ap-proach. Methods in Ecology and Evolution , 4(1):82–94. Kristensen, K., Nielsen, A., Berg, C. W., Skaug, H., and Bell, B. M. (2016). Tmb: Automatic differentiation and laplace approximation. Journal of Statistical Software , 70(5):1–21. Li, Y., Brown, P., Gesink, D. C., and Rue, H. (2012). Log gaussian cox pro-cesses and spatially aggregated disease incidence data. Statistical methods in medical research , 21(5):479–507. Lindgren, F., Rue, H., and Lindstr¨ om, J. (2011). An explicit link between Gaussian fields and Gaussian Markov random fields: the stochastic partial differential equation approach. Journal of the 
+
+16 Royal Statistical Society: Series B (Statistical Methodology) , 73(4):423– 498. eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1467-9868.2011.00777.x. Liu, C. and Sharma, A. (2018). Using the multivariate spatio-temporal bayesian model to analyze traffic crashes by severity. Analytic Methods in Accident Research , 17:14–31. Michal, V., Freitas, L. P., Schmidt, A. M., and Cruz, O. G. (2021). Abayesian hierarchical model for disease mapping that accounts for scaling and heavy-tailed latent effects. arXiv preprint arXiv:2109.10330 .Murphy, K. J., Ciuti, S., Burkitt, T., and Morera-Pujol, V. (2023). Bayesian areal disaggregation regression to predict wildlife distribution and relative density with low-resolution data. Ecological applications , 33(8):e2924–n/a. Nandi, A. K., Lucas, T. C. D., Arambepola, R., Gething, P., and Weiss, D. J. (2023). disaggregation : An r package for bayesian spatial disaggregation modeling. Journal of statistical software , 106(11). Nocedal, J. and Wright, S. J. (2006). Numerical Optimization . Springer Series in Operations Research and Financial Engineering. Springer, New York, 2nd edition. Rue, H., Martino, S., and Chopin, N. (2009). Approximate bayesian in-ference for latent gaussian models by using integrated nested laplace ap-proximations. Journal of the Royal Statistical Society. Series B, Statistical methodology , 71(2):319–392. Simpson, D., Rue, H., Riebler, A., Martins, T. G., and Sørbye, S. H. (2017). Penalising Model Component Complexity: A Principled, Practical Ap-proach to Constructing Priors. Statistical Science , 32(1). Publisher: Insti-tute of Mathematical Statistics. Stringer, A. (2021). Implementing approximate bayesian inference using adaptive quadrature: the aghq package. Stringer, A., Brown, P., and Stafford, J. (2023). Fast, scalable approxima-tions to posterior distributions in extended latent gaussian models. Journal of computational and graphical statistics , 32(1):84–98. 17 Taylor, B. M., Davies, T. M., Rowlingson, B. S., and Diggle, P. J. (2015). Bayesian Inference and Data Augmentation Schemes for Spatial, Spa-tiotemporal and Multivariate Log-Gaussian Cox Processes in R. Journal of Statistical Software , 63:1–48. Utazi, C., Thorley, J., Alegana, V., Ferrari, M., Nilsen, K., Takahashi, S., Metcalf, C., Lessler, J., and Tatem, A. (2019). A spatial regression model for the disaggregation of areal unit based data to high-resolution grids with application to vaccination coverage mapping. Statistical Methods in Medical Research , 28(10–11):3226–3241. Vidoli, F. and Auteri, M. (2022). Health-care demand and supply at munic-ipal level: A spatial disaggregation approach. Socio-Economic Planning Sciences , 84:101229. 18

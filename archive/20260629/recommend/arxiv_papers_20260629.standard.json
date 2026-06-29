@@ -1,0 +1,279 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-29T20:41:13.618395+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2606.23931v1",
+      "source": "arxiv",
+      "title": "Welfarist Control Design -- How to fulfill the societal mandate in multi-agent control?",
+      "abstract": "At the core of most socio-technical systems lies a scarce resource that is allocated among agents: highway lanes, public transit, road space, water rights, energy access, grid capacity, user attention, pollution rights, etc. With further automation of the underlying allocation processes, control engineers are increasingly tasked to make decisive assumptions regarding what society wants. In practice to date, design choices are largely driven by industry norms and conventions rather than a result of conscientiously responsible and ethical design. In this paper, we look at tools available to control engineers to design systems in a more principled manner in order to match the societal mandate. We consider three control design paradigms: online feedback optimization, control of Markov decision processes, and model predictive control. Beginning with aggregating individual agents' preferences into control design objectives, subsequently ensuring and certifying the fulfillment of those specifications, we argue that the feedback nature of control systems enables appropriate allocation of the shared resources in ways hitherto unparalleled.",
+      "authors": [
+        "Sophie Hall",
+        "Kai Zhang",
+        "Ilia Shilov",
+        "Heinrich H. Nax",
+        "Saverio Bolognani"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY",
+        "cs.MA",
+        "math.OC"
+      ],
+      "published": "2026-06-22T20:50:45+00:00",
+      "link": "https://arxiv.org/pdf/2606.23931v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "examines ethical design and societal mandate in multi-agent control, aligning with algorithm governance principles",
+      "llm_evidence_cn": "探讨多智能体控制中的伦理设计和社会使命，与算法治理原则一致",
+      "llm_evidence": "探讨多智能体控制中的伦理设计和社会使命，与算法治理原则一致",
+      "canonical_evidence": "探讨多智能体控制中的伦理设计和社会使命，与算法治理原则一致",
+      "llm_tldr_en": "Proposes three welfarist control design paradigms (utilitarian, egalitarian, prioritarian) to embed fairness, transparency, and accountability into multi-agent systems, directly contributing to algorithm governance.",
+      "llm_tldr_cn": "该论文指出当前多智能体控制设计多依赖行业惯例，缺乏对社会使命的明确考量。作者提出三种福利主义设计范式：效用主义、平等主义和优先主义，帮助工程师在资源分配中融入伦理和社会责任。该工作为算法治理中的公平性、透明度和问责性提供了可操作的理论框架，对于推进负责任的AI系统设计具有重要意义。",
+      "llm_tldr": "该论文指出当前多智能体控制设计多依赖行业惯例，缺乏对社会使命的明确考量。作者提出三种福利主义设计范式：效用主义、平等主义和优先主义，帮助工程师在资源分配中融入伦理和社会责任。该工作为算法治理中的公平性、透明度和问责性提供了可操作的理论框架，对于推进负责任的AI系统设计具有重要意义。",
+      "llm_tags": [
+        "query:algo-gov:composite"
+      ],
+      "matched_query_tag": "query:algo-gov:composite",
+      "matched_query_text": "Papers central to 请帮我查询关于算法治理的文章, especially work that connects or combines: algorithm governance principles and frameworks; fairness in algorithmic decision making; transparency of algorithms and models; accountability for algorithmic outcomes; ethical considerations in artificial intelligence; detecting bias in machine learning models; challenges and solutions in algorithm governance; impact of algorithm governance on society; best practices for implementing algorithm governance.",
+      "matched_requirement_id": "req-composite-algo-gov",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.25074v1",
+      "source": "arxiv",
+      "title": "Spatio-Temporal Disaggregation with Changing Areal Boundaries",
+      "abstract": "Small area estimation and disease mapping increasingly rely on areal data where reporting boundaries change over time. We develop a computationally efficient spatio-temporal disaggregation method to recover high-resolution risk surfaces from observed counts under changing boundaries. Our approach extends the spatially aggregated log-Gaussian Cox process and uses the Extended Latent Gaussian Model framework for fast approximate posterior inference. We replace standard lognormal polygon-specific effects with gamma-distributed overdispersion which yields a marginal negative binomial likelihood, and removes one latent variable per polygon-time pair. We illustrate the approach by mapping mortality risk across shifting NUTS-3 boundaries in Belgium and the Netherlands. For the purpose of dissemination we use Codex to leverage the methodology presented in this paper for the analysis of a separate data set concerning the city of Manchester. The methodology is implemented in the open-source R package DAST.",
+      "authors": [
+        "Noah Ripstein",
+        "Patrick Brown",
+        "Jamie Stafford"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME",
+        "stat.AP"
+      ],
+      "published": "2026-06-23T18:31:41+00:00",
+      "link": "https://arxiv.org/pdf/2606.25074v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "spatio-temporal disaggregation for high-resolution risk surfaces",
+      "llm_evidence_cn": "时空分解生成高分辨率风险表面",
+      "llm_evidence": "时空分解生成高分辨率风险表面",
+      "canonical_evidence": "时空分解生成高分辨率风险表面",
+      "llm_tldr_en": "Develops a computationally efficient spatio-temporal disaggregation method to recover high-resolution risk surfaces from aggregated counts under changing areal boundaries, demonstrated on mortality risk mapping.",
+      "llm_tldr_cn": "针对区域边界变化导致聚合数据难以恢复高分辨率风险的问题，本文提出高效时空分解方法，扩展对数高斯Cox过程，用伽马分布替代对数正态效应，实现快速推理。在比利时和荷兰死亡率制图中验证，可迁移至城市洪水风险制图。",
+      "llm_tldr": "针对区域边界变化导致聚合数据难以恢复高分辨率风险的问题，本文提出高效时空分解方法，扩展对数高斯Cox过程，用伽马分布替代对数正态效应，实现快速推理。在比利时和荷兰死亡率制图中验证，可迁移至城市洪水风险制图。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.26204v2",
+      "source": "arxiv",
+      "title": "Topology-Informed Neural Networks for Flood Detection in Optical and Synthetic Aperture Radar Imagery",
+      "abstract": "Floods frequently impact regions around the world. Rapid and accurate flood detection is crucial for emergency response and timely mitigation of human and economic loss. The expanding availability of satellite data and advances in artificial intelligence have enhanced monitoring of environmental hazards, but many flood events remain challenging to detect because cloud cover obscures optical satellite imagery. Rambour et al. introduced the SEN12-FLOOD dataset and extracted per-image features using a ResNet-50 convolutional neural network backbone, then fed these features into a gated recurrent unit network to show that temporal information can substantially improve accuracy compared to single-image baselines. More recently, Chamatidis et al. showed that a vision transformer can achieve strong performance with popular convolutional architectures. However, these models typically function as opaque black boxes, making it difficult to interpret their decision boundaries, learned features, and internal reasoning, especially in safety-critical domains like remote sensing. In contrast, topological data analysis (TDA) provides a mathematically grounded framework for capturing global structural features of data. TDA has emerged as a powerful tool for analyzing complex imagery, especially imagery with geometrically interpretable structures, of which floods are a prime candidate. In this work, we systematically evaluate topological descriptors for flood detection using the open-source SEN12-FLOOD dataset. By extracting topological features from each image and incorporating them into neural networks, we demonstrate that topological descriptors carry meaningful flood signals independently and complement existing networks to yield more robust and interpretable flood detection systems.",
+      "authors": [
+        "Sophia Li",
+        "Max Zhao",
+        "Raghu G. Raj",
+        "Tianyu Chen"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-24T16:52:28+00:00",
+      "link": "https://arxiv.org/pdf/2606.26204v2",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "flood detection using optical and SAR imagery for urban flood risk assessment",
+      "llm_evidence_cn": "利用光学和SAR影像进行洪水检测，支持城市洪水风险评估",
+      "llm_evidence": "利用光学和SAR影像进行洪水检测，支持城市洪水风险评估",
+      "canonical_evidence": "利用光学和SAR影像进行洪水检测，支持城市洪水风险评估",
+      "llm_tldr_en": "Proposes topology-informed neural networks that fuse optical and SAR temporal features for accurate flood detection, crucial for urban emergency response.",
+      "llm_tldr_cn": "该论文针对城市区域云层遮挡导致光学卫星难以有效检测洪水的问题，提出一种拓扑信息神经网络，融合光学和SAR影像的时相特征。在SEN12-FLOOD数据集上，该方法相比单图像基线显著提升检测准确率，尤其适用于城市密集区域。该技术为城市洪水快速应急响应提供了可靠的技术支持，有助于及时减少人民生命财产损失。",
+      "llm_tldr": "该论文针对城市区域云层遮挡导致光学卫星难以有效检测洪水的问题，提出一种拓扑信息神经网络，融合光学和SAR影像的时相特征。在SEN12-FLOOD数据集上，该方法相比单图像基线显著提升检测准确率，尤其适用于城市密集区域。该技术为城市洪水快速应急响应提供了可靠的技术支持，有助于及时减少人民生命财产损失。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.27562v1",
+      "source": "arxiv",
+      "title": "Two-Dimensional Locally Adaptive Non-Hydrostatic Extension of Shallow Water Equations",
+      "abstract": "We introduce a two-dimensional non-hydrostatic model for shallow water wave dispersion. The model is based on a locally adapted application of a non-hydrostatic correction to the hydrostatic shallow water equations (SWE) in a predictor-corrector scheme. Applying the non-hydrostatic correction uniformly to the entire domain demands a high computational cost, since an elliptic system of equations needs to be solved for the correction terms. We demonstrate that by determining the area where the non-hydrostatic effects are significant, and applying the correction only locally, the computational effort can be reduced by approximately 40\\% without sacrificing accuracy in tsunami-like scenarios. As indicators for the non-hydrostatic effect, we use the ratio between total water depth and surface elevation, as well as horizontal velocity norms. Results are shown for several well-known test cases, including wave trains over a semi-circular shoal, static, and moving bottom tsunami-like wave propagation.",
+      "authors": [
+        "Kemal Firdaus",
+        "Jörn Behrens"
+      ],
+      "primary_category": "physics.flu-dyn",
+      "categories": [
+        "physics.flu-dyn",
+        "math.NA"
+      ],
+      "published": "2026-06-25T21:34:45+00:00",
+      "link": "https://arxiv.org/pdf/2606.27562v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "locally adaptive non-hydrostatic extension of shallow water equations for efficient flood wave simulation",
+      "llm_evidence_cn": "局部自适应非静水浅水方程扩展，用于高效洪水波模拟",
+      "llm_evidence": "局部自适应非静水浅水方程扩展，用于高效洪水波模拟",
+      "canonical_evidence": "局部自适应非静水浅水方程扩展，用于高效洪水波模拟",
+      "llm_tldr_en": "Proposes a locally adaptive non-hydrostatic correction to shallow water equations, reducing computational cost by ~40% while maintaining accuracy in tsunami-like scenarios, applicable to urban flood modeling.",
+      "llm_tldr_cn": "针对非静水修正计算成本高的问题，该论文提出一种二维局部自适应方法，通过在非静水效应显著区域应用修正而忽略其他区域，在类似于海啸的场景中计算量减少约40%且精度几乎不变。这一方法可有效应用于城市洪水模拟，大幅提升计算效率，为实时洪水预警提供可能。",
+      "llm_tldr": "针对非静水修正计算成本高的问题，该论文提出一种二维局部自适应方法，通过在非静水效应显著区域应用修正而忽略其他区域，在类似于海啸的场景中计算量减少约40%且精度几乎不变。这一方法可有效应用于城市洪水模拟，大幅提升计算效率，为实时洪水预警提供可能。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.25820v1",
+      "source": "arxiv",
+      "title": "Operator Learning on the Data-Driven Multiscale Space for Nonlinear Flow in Random Heterogeneous Porous Media",
+      "abstract": "We present an operator learning framework based on a coarse data-driven multiscale space for nonlinear flow in random heterogeneous porous media. The multiscale space is constructed from local representative fine-scale solution snapshots, yielding an accurate low-dimensional representation of the solution manifold. This multiscale basis serves as the trunk of a neural operator, while a branch network predicts the corresponding reduced coefficients from the input permeability field. Unlike Galerkin projection methods, the neural operator learns a global nonlinear mapping from permeability fields to solution coefficients, providing greater flexibility, improved accuracy, and eliminating the need for online nonlinear coarse-grid solves and coefficient evaluations. Numerical results show that the proposed approach achieves good accuracy and substantially lower computational cost than projection-based methods for nonlinear flow in high-contrast heterogeneous media.",
+      "authors": [
+        "Maria Vasilyeva",
+        "Raphael Pangilinan"
+      ],
+      "primary_category": "math.NA",
+      "categories": [
+        "math.NA"
+      ],
+      "published": "2026-06-24T13:36:31+00:00",
+      "link": "https://arxiv.org/pdf/2606.25820v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Operator learning for flow in porous media applicable to urban stormwater infiltration modeling",
+      "llm_evidence_cn": "多孔介质流动的算子学习方法可应用于城市雨水径流渗透建模",
+      "llm_evidence": "多孔介质流动的算子学习方法可应用于城市雨水径流渗透建模",
+      "canonical_evidence": "多孔介质流动的算子学习方法可应用于城市雨水径流渗透建模",
+      "llm_tldr_en": "Proposes an operator learning framework for nonlinear flow in random heterogeneous porous media using a data-driven multiscale space, enabling efficient and accurate modeling of flow processes relevant to urban stormwater management.",
+      "llm_tldr_cn": "该论文提出了一种基于数据驱动多尺度空间的算子学习框架，用于模拟随机非均质多孔介质中的非线性流动。该框架通过局部代表性细尺度解快照构建多尺度基函数，作为神经算子的主干，分支网络从输入渗透率场预测约化系数。与伽辽金投影方法不同，该神经算子学习从渗透率场到解系数的全局非线性映射，提高了灵活性和精度，消除了在线非线性求解的需要。该方法可应用于城市雨洪管理中的土壤入渗和地下水流动模拟，为城市洪水风险评估提供高效的计算工具。",
+      "llm_tldr": "该论文提出了一种基于数据驱动多尺度空间的算子学习框架，用于模拟随机非均质多孔介质中的非线性流动。该框架通过局部代表性细尺度解快照构建多尺度基函数，作为神经算子的主干，分支网络从输入渗透率场预测约化系数。与伽辽金投影方法不同，该神经算子学习从渗透率场到解系数的全局非线性映射，提高了灵活性和精度，消除了在线非线性求解的需要。该方法可应用于城市雨洪管理中的土壤入渗和地下水流动模拟，为城市洪水风险评估提供高效的计算工具。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.24997v1",
+      "source": "arxiv",
+      "title": "What's in an Earth Embedding? An Explainability Analysis of Location Encoders",
+      "abstract": "Geographic implicit neural representations (INRs) learn to map any coordinate on Earth to a location embedding, implicitly encoding geospatial data into the weights of a neural network. Location embeddings are widely used off the shelf as general-purpose geospatial representations, yet users lack principled tools to audit what geographic or semantic information these embeddings capture. In this work, we analyze the information content of geographic INRs through their location embeddings. We decompose these embeddings into human-interpretable features$\\unicode{x2014}$namely, (i) sparse latent concepts, (ii) natural language concepts, and (iii) visual features. The latent concept embeddings are learned using sparse autoencoders. To recover natural language concepts, we apply sparse linear concept embeddings (SpLiCE) over a predefined geospatial dictionary. Finally, visual features are extracted using saliency maps derived from CLIP Surgery. We show that location embeddings can be decomposed into human-interpretable representations while retaining high reconstruction capability, revealing interpretable geographic structures such as forests, deserts, and urban features. Across methods, sparse decompositions expose systematic differences in encoded information, ranging from urban structures to broader biome and climate signals, and pretraining-space saliency maps further highlight complementary features such as roads and landmarks. We hope this work provides a first step toward interpretable geospatial representations.",
+      "authors": [
+        "Livia Betti",
+        "Sebastian Ricke",
+        "Ivica Obadic",
+        "Adam J. Stewart",
+        "Esther Rolf"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-06-23T16:01:17+00:00",
+      "link": "https://arxiv.org/pdf/2606.24997v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Explainability tools for geographic location encoders used in urban flood risk mapping",
+      "llm_evidence_cn": "地理编码器可解释性分析工具，可用于城市洪水风险制图",
+      "llm_evidence": "地理编码器可解释性分析工具，可用于城市洪水风险制图",
+      "canonical_evidence": "地理编码器可解释性分析工具，可用于城市洪水风险制图",
+      "llm_tldr_en": "Analyzes information content of geographic implicit neural representations (location embeddings) by decomposing into sparse latent concepts, natural language, and visual features, providing tools to audit embeddings for flood risk assessment applications.",
+      "llm_tldr_cn": "该论文分析了地理隐式神经表示（位置编码器）的信息内容，将其分解为稀疏潜在概念、自然语言概念和视觉特征。通过稀疏自编码器学习潜在概念嵌入，并利用语言-视觉模型解释嵌入含义。目前位置编码器广泛应用于地理空间任务，但缺乏审计工具。该工作为可解释性提供了方法，有助于在城市洪水风险评估中使用位置编码器时确保其特征合理性，提高模型的透明度和可靠性。",
+      "llm_tldr": "该论文分析了地理隐式神经表示（位置编码器）的信息内容，将其分解为稀疏潜在概念、自然语言概念和视觉特征。通过稀疏自编码器学习潜在概念嵌入，并利用语言-视觉模型解释嵌入含义。目前位置编码器广泛应用于地理空间任务，但缺乏审计工具。该工作为可解释性提供了方法，有助于在城市洪水风险评估中使用位置编码器时确保其特征合理性，提高模型的透明度和可靠性。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.27804v1",
+      "source": "arxiv",
+      "title": "Methods for Uncertainty Representation in Risk Management: A Comparative Review and Decision-Oriented Framework",
+      "abstract": "The consideration of uncertainty is a central but frequently inadequately addressed component of risk management. A systematic treatment of uncertainty is essential for ensuring the quality and traceability of decision-making processes, particularly in complex and safety-critical environments. This review systematically analyzes how established risk management approaches conceptualize and represent uncertainty in both their theoretical foundations and practical applications. Based on a systematic literature review of 370 publications, the identified approaches are classified into five methodological families. These include probabilistic methods, evidence-based and fuzzy-logic approaches, qualitative elicitation techniques, graphical and visual representations and hybrid frameworks. The analysis shows that probabilistic methods remain predominant due to their quantitative rigor, whereas fuzzy and evidence-based approaches are particularly suited to addressing vagueness and epistemic uncertainty. Qualitative and graphical approaches are found to enhance interpretive understanding and support the transparent communication of uncertainty. Despite these developments, the analysis indicates that the practical integration of these approaches into operational risk management remains limited in many domains. The findings highlight the need for more structured guidance in method selection and suggest that future research would benefit from further development of hybrid approaches and visualization techniques.",
+      "authors": [
+        "Albert Kutej",
+        "Stefan Rass"
+      ],
+      "primary_category": "q-fin.RM",
+      "categories": [
+        "q-fin.RM"
+      ],
+      "published": "2026-06-26T07:44:40+00:00",
+      "link": "https://arxiv.org/pdf/2606.27804v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "systematic review of uncertainty representation methods applicable to urban flood risk management",
+      "llm_evidence_cn": "系统性综述了可用于城市洪水风险管理的不确定性表示方法",
+      "llm_evidence": "系统性综述了可用于城市洪水风险管理的不确定性表示方法",
+      "canonical_evidence": "系统性综述了可用于城市洪水风险管理的不确定性表示方法",
+      "llm_tldr_en": "A systematic review classifying uncertainty representation methods in risk management into five families, providing a decision-oriented framework for applications like urban flood risk assessment.",
+      "llm_tldr_cn": "该论文系统梳理了风险管理中不确定性表示的370篇文献，将其分为概率方法、证据与模糊逻辑、定性启发等五大类，并提出了决策导向框架。该框架可指导城市洪水风险评估中不确定性的系统处理，提高决策的严谨性和可追溯性。对于城市防洪规划中的风险分析方法选择具有重要参考价值。",
+      "llm_tldr": "该论文系统梳理了风险管理中不确定性表示的370篇文献，将其分为概率方法、证据与模糊逻辑、定性启发等五大类，并提出了决策导向框架。该框架可指导城市洪水风险评估中不确定性的系统处理，提高决策的严谨性和可追溯性。对于城市防洪规划中的风险分析方法选择具有重要参考价值。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
