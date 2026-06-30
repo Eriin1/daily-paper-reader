@@ -1,0 +1,1070 @@
+Title: Continuous-Time Information Design for Hurricane Evacuation: Disclosure, Congestion, and Optimal Phasing under Model Uncertainty
+
+URL Source: https://arxiv.org/pdf/2606.30320v1
+
+Published Time: Tue, 30 Jun 2026 02:21:23 GMT
+
+Number of Pages: 20
+
+Markdown Content:
+# CONTINUOUS -T IME INFORMATION DESIGN FOR HURRICANE 
+
+# EVACUATION : D ISCLOSURE , C ONGESTION , AND OPTIMAL 
+
+# PHASING UNDER MODEL UNCERTAINTY 
+
+Furkan Sezer *
+
+June 30, 2026 
+
+# ABSTRACT 
+
+We study continuous-time information design for emergency evacuation, where an Emergency Man-agement Agency (the Stackelberg leader) steers strategic evacuation zones via two levers: public advisory precision (information design) and a tiered release schedule . The latent storm is a jump-diffusion process with publicly observed rapid-intensification epochs tracked by an exact finite-dimensional belief filter. Zones play a capacity-constrained congestion game on shared corridors with belief-weighted hazard exposure. The running cost couples beliefs to a convex congestion ex-ternality, making disclosure double-edged: sharper information reduces false-alarm departures but synchronizes genuine ones, and convex congestion penalizes that synchronization. We prove that: (i) the followers’ game admits a potential reduction to a convex control problem; (ii) the leader’s distributionally robust relative-entropy problem is characterized by an Isaacs equation whose value is the unique viscosity solution, with verification valid for non-smooth bang-bang feedback; and (iii) without transfers, the leader’s first-order condition retains an equilibrium-response term, positioning optimal information design as a second-best congestion toll. Structurally, we show that a staggered evacuation order dominates simultaneous advisories; phased evacuation emerges endogenously as optimal information design. Furthermore, public-signal precision is sign-ambiguous due to an in-formational Braess effect, where vague advisories are optimal unless complemented by a staggered order. Calibrated to Hurricane Rita using NHC archives, TxDOT capacities, and HRRC surveys, the model reproduces the observed gridlock along the Interstate 45 (I-45) evacuation corridor in Texas. The optimal policy removes essentially all in-transit congestion exposure, reducing social cost by 
+
+89 %, while staggered disclosure alone yields a 70 % reduction. 
+
+Keywords information design, differential games, Stackelberg equilibrium, viscosity solutions, congestion games, hurricane evacuation 
+
+Mathematics Subject Classification (2020): 91A65, 93E20, 49L25, 91A23, 90C47, 49N90, 35Q93 
+
+# 1 Introduction 
+
+Climate-induced extreme weather events present some of the most complex, high-stakes operational challenges for public asset management and regional emergency response. When intense meteorological shocks, Hurricanes Katrina, Rita, Harvey, Irma, or Ian, threaten dense coastal corridors, public safety hinges on clearing large populations before landfall. Two opposite failures recur. In Hurricane Rita (2005), an alarming and undifferentiated public message triggered a near-simultaneous mass departure that saturated the Houston evacuation corridors; the resulting gridlock, not the storm, became the dominant source of casualties. In Hurricane Harvey (2017), the absence of a mandatory order left a major metropolitan population in place during catastrophic flooding. The first is an over-disclosure (syn-chronisation) failure; the second an under-disclosure (inertia) failure. A theory of evacuation information design must explain both, and must locate the optimal advisory between them. 
+
+> ∗
+
+Texas A&M University (furkan.sezer@tamu.edu, furkanszr@yahoo.com). 
+
+> arXiv:2606.30320v1 [math.OC] 29 Jun 2026
+
+CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+Historically, emergency management has relied on coarse, deterministic, and decentralised command. Local munic-ipalities issue orders independently, under fragmented information and timelines, while the physical infrastructure exhibits hard, non-linear capacity limits: when multiple dense zones flood shared arteries, the network transitions abruptly from free flow to gridlock cascade, trapping evacuees in exposed clusters. Public advisories from the Na-tional Hurricane Center (NHC) and FEMA are powerful coordination tools, but risk communication has traditionally been treated as passive meteorological transparency, ignoring the behavioural externalities it triggers on the ground. We formalise evacuation as a continuous-time stochastic Stackelberg game. A central agency commits to a public-signalling channel and a tiered release schedule; a network of zones plays a capacity-constrained congestion game whose hazard exposure is governed by their beliefs about the storm. The single structural departure from recent joint information–mechanism design models for power systems [1] is that the followers’ cost couples beliefs to a convex shared-corridor congestion term. As we show, this makes disclosure double-edged and produces qualitative results that monotone-benefit information design cannot. 
+
+1.1 Contributions and main results. 
+
+1. Well-posed belief dynamics. The jump-diffusion storm admits a finite-dimensional belief filter that is exact 
+
+between publicly observed rapid-intensification epochs, with a covariance reset at each (Lemma 1). 2. Congestion subgame and externality. Zones play a potential congestion game on shared corridors; the Wardrop equilibrium over-loads corridors relative to the social optimum, the price-of-anarchy wedge (Re-mark 3). The gridlock-cascade threshold ρ(Γ−1H) < 1 governs the conditioning of that equilibrium. 3. Robust master problem. The leader’s distributionally robust Stackelberg problem over (α, θ ) is charac-terised by an Isaacs equation (Section 3.5). 4. Potential reduction. The followers’ game collapses to a single strictly convex control problem with the 
+
+Beckmann running cost, not social welfare; the gap is the externality (Lemma 2). 5. Viscosity characterisation. The value is the unique viscosity solution of the Isaacs equation, treated piece-wise across activation epochs; verification holds without smoothness and semiconcavity yields a Lebesgue-null switching set and a well-posed Filippov closed loop (Theorems 4–6; Proposition 8). 6. Information as a second-best toll. With no incentive-aligning transfer, the leader’s stationarity retains an MPEC equilibrium-response term equal to the marginal externality times the equilibrium sensitivity; it van-ishes iff no corridor binds (Proposition 7). 7. The value of precision is sign-ambiguous (informational Braess). Sharpening a single public advisory syn-chronises departures and can raise social cost, so a deliberately vague signal is optimal in the cascade regime, and precision becomes valuable only once orders are staggered, with which it is complementary; in the scalar symmetric case this sign-reversal is explicit, with an interior/corner disclosure threshold (Proposition 9). 8. Tiered phasing as optimal information. A single simultaneous advisory is dominated: the optimal infor-mation structure is a publicly announced, staggered evacuation order, so phased evacuation emerges endoge-nously as optimal information design; the scalar symmetric case gives the explicit two-tier threshold and continuous-tier fill-to-capacity limit in closed form (Proposition 10). 9. Calibration to Hurricane Rita. Calibrated to the 2005 event, two experiments quantify the two levers. When the regulator meters egress directly (Experiment 1), the realised synchronised order reproduces the documented I-45 gridlock (1–2 mph), while the solved optimum spreads egress to hold the corridor at ca-pacity, cutting social cost by 89% and the over-capacity exposure from 46.6 to 0 corridor-hours. Simpler coarse two-tier stagger approach brings 77% cost reduction and reducing exposure to 5 corridor-hours as well. When the regulator can only disclose (Experiment 2), a staggered-disclosure design lowers social cost by 70% relative to a single simultaneous advisory, and signal precision is valuable only in combination with that staggering (Section 6).           
+
+> Problem at a glance. The controlled state is ( ˆXt,Πt, Y t): the belief mean and error covariance of the jump-diffusion storm (a finite-dimensional sufficient statistic between observed intensification jumps) and the zones’ at-risk backlogs Yt. The leader’s controls are the disclosure gain αt(advisory precision) and a tiered activation schedule θ(who is told to go, and when); the leader does not dispatch traffic. Zones choose egress rates, endogenous through a lower-level congestion (Wardrop) equilibrium on shared corridors. The leader minimises the worst-case (relative-entropy) social cost, belief-weighted hazard exposure plus convex corridor congestion, anticipating the zones’ equilibrium response.
+
+2CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+# 2 Related Work and Positioning 
+
+Our work sits at the confluence of information design, information-design-for-congestion, evacuation operations re-search, robust control, and nonlinear filtering. 
+
+2.1 Information design and Bayesian persuasion. 
+
+The disclosure layer descends from Bayesian persuasion [2] and dynamic/continuous-time information design [3, 4], with multi-receiver public-signal structures formalised as correlated-equilibrium recommendations [5]. We use the public, zone-addressed recommendation as the primitive (orders are broadcast and commonly observed), and add a jump-diffusion latent state and a physical congestion externality absent from that literature. Closest in spirit is the line on information provision in routing and congestion: optimal traffic-information disclosure and obfuscation, and the informational Braess paradox in which more information can raise congestion [6–8]. That literature is largely static and network-routing-centric; we lift it to a continuous-time, distributionally robust Stackel-berg problem with a jump-diffusion belief state, and show the optimal disclosure is interior precisely because of the convex congestion externality. 
+
+2.2 Evacuation operations research. 
+
+A large transportation-OR literature studies evacuation scheduling, contraflow, and behavioural departure mod-elling [9–11]. This work is predominantly deterministic-optimisation or simulation based, and treats the advisory as exogenous. We make the advisory and the release schedule the designed controls, derive phased evacuation as the optimal information structure, and tie the behavioural risk parameter to the empirical departure “S-curves.” 
+
+2.3 Robust control, viscosity solutions, filtering. 
+
+The relative-entropy ambiguity neighbourhood follows Hansen–Sargent [12]; verification rests on viscosity-solution theory [13–15] and semiconcavity/Filippov theory [16, 17]; the belief layer uses nonlinear filtering [18], exact here between observed jumps. Recently, 
+
+2.4 Positioning. 
+
+Our framework extends the literature on continuous-time stochastic Stackelberg differential games under partial in-formation patterns. While recent formulations investigate jump-diffusion or feedback systems under overlapping or partial observation patterns [19, 20], they primarily rely on the tractability of linear-quadratic structures to derive ex-plicit verification equations or stochastic maximum principles. Applied infrastructure markets, such as peer-to-peer energy sharing, frequently demand non-smooth optimization tools to map decentralized inefficiencies [21], which are often evaluated via information-centric extensions of the Price of Anarchy [22]. Unlike these preceding works that rely on linear dynamics or unconstrained state spaces, our model introduces a nested information-design mechanism operating over a non-smooth jump-diffusion network, leveraging viscosity solutions to explicitly account for hard capacity bounds. Relative to joint information-mechanism design [1], the evacuation setting has no welfare-aligning transfer, so there is no efficiency collapse; instead we obtain a potential reduction with a residual externality, a second-best-toll inter-pretation of information, an interior optimal disclosure (the sign-reversal of monotone benefit), and tiered phasing as optimal information design. These are, to our knowledge, new. 
+
+# 3 The Model 
+
+We formalise the evacuation problem as a continuous-time Stackelberg game with one leader (the Emergency Manage-ment Agency, EMA) and N followers (the evacuation zones). The leader commits to a public-signalling channel; the followers play a capacity-constrained congestion game on a shared road network whose hazard exposure is governed by their beliefs about the storm. The single structural departure here is that the followers’ running cost couples the belief state to a convex shared-corridor congestion term. As Section 3.6 makes precise, this is exactly what renders disclosure double-edged: better beliefs reduce wasteful (false-alarm) departures but synchronise the genuine ones, and convex congestion punishes synchronisation. 
+
+3CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+3.1 The latent storm state 
+
+Let (Ω , F , {Ft}t≥0, P) satisfy the usual conditions and fix a crisis horizon [0 , T ]. The latent hazard state Xt ∈ Rn
+
+collects the storm descriptors that drive evacuation urgency, maximum sustained wind, central pressure deficit, and landfall-track coordinates, and a macro steering factor Ft ∈ Rk (the synoptic flow) evolves as a mean-reverting Ornstein–Uhlenbeck process. 
+
+Assumption 1 (Storm dynamics with observed intensification jumps) . The pair (Xt, F t) solves 
+
+dXt =  AtXt + BF t
+
+dt + Σ tdWt + d Jt, (1) 
+
+dFt = Θ( ¯F − Ft)d t + Σ F dW Ft , (2) 
+
+where At ∈ Rn×n is the steering matrix, Θ ≻ 0, Wt, W Ft are independent Brownian motions, and Jt is an indepen-dent compound Poisson process with intensity λ and jump law N (0, ΣJ ) modelling rapid intensification (RI) events. Crucially, the RI epochs {τk} are publicly observed : the National Hurricane Center reports intensity at each advisory, so a step change in wind/pressure is an observable discrete event. 
+
+The observability of the jump epochs is not a convenience assumption: it is a physical fact about hurricanes (unlike a latent component failure, a hurricane’s RI event is publicly announced). It is precisely what lets the belief filter close in finite dimension; see Remark 1. 
+
+3.2 Public signalling and the belief filter 
+
+Zones do not observe Xt. The EMA partially observes it and broadcasts a public advisory stream ξt ∈ Rm,
+
+dξt = αtXtdt + Σ ξ dW ξt , R := Σ ξ Σ⊤ 
+
+> ξ
+
+≻ 0, (3) where αt ∈ Rm×n is the disclosure gain (the design lever: the precision/credibility of the advisory) and W ξt is independent of (W, W F , J ). The public filtration is Gt = σ(ξs, s ≤ t) ∨ σ({τk ≤ t}): all zones share the same 
+
+advisory, so all zones hold the same belief ˆXt = E[Xt | G t]. This common-belief structure is what couples the zones through information and drives the synchronisation channel below. 
+
+Lemma 1 (Belief filter with jump resets) . Under Assumptions 1 and channel (3) , between consecutive observed jump epochs the conditional law of Xt is Gaussian N ( ˆXt, Πt) with 
+
+d ˆXt =  At ˆXt + B ˆFt
+
+dt + Π tα⊤ 
+
+> t
+
+R−1 dξt − αt ˆXtdt, (4) 
+
+˙Πt = AtΠt + Π tA⊤ 
+
+> t
+
++ Σ tΣ⊤ 
+
+> t
+
+− Πtα⊤ 
+
+> t
+
+R−1αtΠt, (5) 
+
+where ˆFt is the Kalman–Bucy estimate of Ft. At each observed epoch τk the covariance is reset, Πτk = Π τ −
+
+> k
+
++ Σ J ,and the mean is reset by the observed mark (or left unchanged if only the epoch, not the magnitude, is observed). The gain Kt = Π tα⊤ 
+
+> t
+
+R−1 minimises Tr Π t.Proof. On each inter-jump interval the observation (3) is linear-Gaussian and the latent continuous part is conditionally Gaussian, so the innovation dIt = d ξt −αt ˆXtdt is, by L´ evy’s characterisation, an R-scaled Gt-Wiener process and the Kalman–Bucy equations give the mean dynamics (4) with gain Kt = Π tα⊤ 
+
+> t
+
+R−1 minimising Tr Π t, and the Riccati (5). At an observed epoch τk the jump is a Gt-measurable event; conditioning on the (possibly noisy) mark updates the mean and adds the jump second moment ΣJ to the covariance, Πτk = Π τ −
+
+> k
+
++ Σ J (no covariance reset if the mark is observed exactly). Between epochs the system is genuinely linear-Gaussian, so the filter is exact; the unobserved-jump fallback of Remark 1 replaces the reset by the deterministic rate λΣJ and is then a Gaussian projection. 
+
+Remark 1 (Why this closes, and the unobserved-jump fallback) . Conditional on the observed jump path the system is linear–Gaussian, so (4) –(5) are exact between epochs, no projection is needed. If one instead treats RI epochs as latent, the conditional law becomes a Gaussian mixture indexed by the unknown jump count, the exact Kushner–Stratonovich filter is infinite-dimensional, and (5) must be read as a Gaussian assumed-density (projection) approximation with the deterministic rate +λΣJ replacing the reset. We adopt the observed-jump baseline; the projection version is the robustness fallback. 
+
+Two features of (4)–(5) matter downstream. First, Πt is deterministic given α (an ODE with jump resets), so the leader commits to a deterministic uncertainty trajectory, the same structural fact that makes the bilevel problem well posed. Second, the disclosure gain enters the belief volatility through Πtα⊤ 
+
+> t
+
+R−1/2: higher disclosure makes beliefs track the truth more tightly and react more sharply to each advisory. The first effect is the benefit of disclosure; the second, interacting with congestion, is its cost. 
+
+4CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+3.3 The evacuation congestion subgame 3.3.1 Zones, backlog, and controls. 
+
+Index zones by A = {1, . . . , N }. Let Yi,t ≥ 0 be the at-risk backlog : the population (or vehicle count) still in zone i
+
+awaiting egress. Zone i chooses an egress rate ui,t ∈ [0 , ¯ui], where ¯ui is the free-flow capacity of its immediate egress (vphpl × lanes, from the DOT inventory). The backlog drains at the egress rate, 
+
+dYi,t = − ui,t dt, Yi, 0 = N 0 
+
+> i
+
+, Yi,t ≥ 0, (6) with N 0 
+
+> i
+
+the initial at-risk population. (A re-entry/spillback inflow +mi( ˆXt)d t can be added without changing the structure.) 
+
+3.3.2 Shared corridors and the congestion externality. 
+
+Let L be the set of shared downstream corridors (e.g. the I-45 trunk north of Houston) and Φ ∈ R|L|× N 
+
+> ≥0
+
+the routing matrix, so that the load on corridor ℓ is 
+
+qℓ,t = X
+
+> i∈A
+
+Φℓi ui,t . (7) Each corridor has a smooth-flow capacity κℓ. The primitive is the per-user congestion exposure (latency/risk) suffered by each traveller on ℓ,
+
+gℓ(q) := ηℓ (q − κℓ)+ ≥ 0, ϕℓ(q) := 
+
+Z q
+
+> 0
+
+gℓ(s) d s = ηℓ
+
+> 2
+
+ (q − κℓ)+2, ϕsoc  
+
+> ℓ
+
+(q) := q g ℓ(q), (8) where ϕℓ is the Beckmann potential (the object the user equilibrium minimises) and ϕsoc  
+
+> ℓ
+
+(q) = q g ℓ(q) is the total 
+
+congestion exposure on ℓ, load times per-user delay, the object social welfare counts. Both are convex; ϕsoc  
+
+> ℓ
+
+≥ ϕℓ, with the gap ϕsoc  
+
+> ℓ
+
+− ϕℓ = ηℓκℓ(q − κℓ)+ the congestion externality. Below capacity, flow is free and costless; above it, the convex penalty models gridlock and the in-transit exposure (heat, fuel-outage, storm arrival) that made evacuation itself the dominant source of casualties in Hurricane Rita. The per-user congestion exposure gℓ is the marginal delay/risk on ℓ. Convexity of ϕsoc  
+
+> ℓ
+
+is the formal content of “synchronisation is costly”: for a fixed time-integral of corridor flow, a peaked (synchronised) load profile costs strictly more than a spread (staggered) one (Jensen). 
+
+3.3.3 Targeting tiers and the phasing schedule. 
+
+The EMA cannot send a private message to each zone, evacuation orders are broadcast and commonly observed, but it can address orders to a coarse partition of the map, exactly as coastal states already do (Florida’s A–E surge zones, the Texas coastal-county phased timeline). Fix a partition P = {B1, . . . , B K } of A into K tiers ( K small; K = 2 , 3 in practice), with k(i) the tier of zone i. The EMA commits to an activation schedule θ = ( θ1 ≤ · · · ≤ θK ): the public “go” order for tier k becomes live at time θk, and we write ai,t = 1{t ≥ θk(i)}. Orders are public, every zone sees that tier 1 was released first, so this is a public, obedient correlated recommendation in the sense of Bergemann–Morris, not a private signal. The schedule is the EMA’s second design lever, alongside the disclosure intensity αt; K = 1 (one undifferentiated order) is the unmanaged benchmark, and K = N recovers full zone targeting as a limiting case. 
+
+Remark 2 (Activation times vs. the general gain schedule) . We take the phasing lever to be the finite-dimensional vec-tor of activation times θ ∈ ΘK (each tier’s order is off, then on), which keeps the leader’s problem finite-dimensional and reduces the optimal schedule to a deterministic peak-spreading problem (Section 5). The general case replaces each indicator ai,t by a per-tier gain schedule α(k) 
+
+> t
+
+∈ Rm×n, so that tier k’s advisory precision ramps on its own timeline and the design object is a path {α(k) 
+
+> ·
+
+}k≤K rather than a release time. All structural results below carry over (the per-tier channels enter the filter and Hamiltonian exactly as αt does); the activation-time model is the bang–bang specialisation α(k) 
+
+> t
+
+= αt1{t ≥ θk}, which we adopt for the main results. 
+
+3.3.4 Private and social costs. 
+
+Hazard exposure is the belief-weighted at-risk stock: let ρi( ˆX) ≥ 0 be the believed hazard intensity at zone i’s location (increasing in believed severity; e.g. ρi( ˆX) = ( e⊤ 
+
+> i
+
+ˆX)+ after a coordinate map), and let Γi > 0 be zone i’s behavioural 
+
+5CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+risk aversion, the parameter the Lindell-style departure S-curves calibrate. Zone i’s private objective is 
+
+Ji(ui; u−i, α ) = E
+
+ Z T
+
+> 0
+
+
+
+ai,t Γi ρi( ˆXt) Yi,t 
+
+| {z }
+
+> hazard exposure (order live)
+
++ ci(ui,t )
+
+| {z } 
+
+> mobilisation
+
++ ui,t 
+
+X
+
+> ℓ∈L
+
+Φℓi gℓ(qℓ,t )
+
+| {z }
+
+> experienced congestion
+
+
+
+dt
+
++ Θ iρi(XT )Yi,T 
+
+
+
+, (9) where ci is C1, strictly convex, ci(0) = 0 , c′ 
+
+> i
+
+> 0 (the increasing marginal cost of mobilising faster), and Θi prices unevacuated population at landfall. The social running cost replaces the experienced congestion by the total corridor exposure ϕsoc  
+
+> ℓ
+
+= qℓgℓ(qℓ),
+
+ℓsoc (t, ˆX, Y, u, α ) = X
+
+> i∈A
+
+ai,t Γiρi( ˆX)Yi + X
+
+> i∈A
+
+ci(ui) + X
+
+> ℓ∈L
+
+qℓ gℓ(qℓ) + Tr( αΛα⊤), (10) with Λ ≻ 0 pricing disclosure. The wedge between the private cost, in which a zone bears only the delay it experiences ,
+
+ui
+
+P 
+
+> ℓ
+
+Φℓi gℓ, adding up across zones to the Beckmann potential P 
+
+> ℓ
+
+ϕℓ, and the social cost P 
+
+> ℓ
+
+qℓgℓ is the congestion externality P
+
+> ℓ
+
+(ϕsoc  
+
+> ℓ
+
+− ϕℓ) = P 
+
+> ℓ
+
+ηℓκℓ(qℓ − κℓ)+ ≥ 0: a zone does not internalise the delay it imposes on co-users. This is the gap that a welfare-aligning (Groves) transfer closes in the joint information–mechanism design setting [1]; here we leave it open and show (Section 3.6) that the EMA can attack it with information instead of transfers. The activation gate ai,t is what makes phasing bite. A zone bears the “you should have left” running exposure only once its order is live, so the EMA takes responsibility for timing: it can hold a tier back to keep the corridor clear without charging that tier for waiting. The terminal term Θiρi(XT )Yi,T is not gated, anyone still in the zone at landfall is exposed regardless of what they were told, so the schedule cannot be stretched arbitrarily. Staggering thus trades a lower congestion peak (later tiers stay off the corridor while earlier tiers drain) against higher landfall exposure for the late tiers (they leave closer to the storm). This trade-off is deterministic and is solved in closed form in Section 5. 
+
+Remark 3 (Potential-game structure and the price of anarchy) . At fixed ( ˆX, ∇Y V ) the egress stage game is a con-gestion (potential) game. By Beckmann’s theorem the Nash (Wardrop) equilibrium minimises the Beckmann potential P 
+
+> i
+
+ci(ui) + P 
+
+> ℓ
+
+ϕℓ(qℓ), whereas the social optimum minimises P 
+
+> i
+
+ci(ui) + P 
+
+> ℓ
+
+qℓgℓ(qℓ). The two objectives differ by the externality P 
+
+> ℓ
+
+ηℓκℓ(qℓ − κℓ)+ and coincide only when no corridor is over capacity; otherwise the equilibrium over-loads shared corridors, the price-of-anarchy gap the EMA’s information levers work to close. 
+
+3.3.5 Saturated feedback. 
+
+By the dynamic programming principle the zone-i value Vi(t, ˆX, Y ) satisfies an HJB equation whose control minimi-sation, by strict convexity of ci and the box [0 , ¯ui], yields a saturated feedback 
+
+u⋆i,t = Proj [0 ,¯ui]
+
+h
+
+(c′
+
+> i
+
+)−1 ∇Yi Vi − P 
+
+> ℓ
+
+Φℓi gℓ(qℓ,t )i
+
+, (11) i.e. zone i evacuates at the rate that equates its marginal mobilisation cost to the marginal value of draining the at-risk backlog net of the corridor congestion price P 
+
+> ℓ
+
+Φℓi gℓ. Equation (11) is the evacuation analogue of saturated generation in a transfer-based design, with the congestion price playing the role the transfer plays there. Unlike that design’s inter-area exchange, the egress control is not bang-bang because mobilisation cost is strictly convex; a genuinely bang-bang lever survives in the discrete contraflow decision (Remark 4). 
+
+Remark 4 (Contraflow as a bang-bang capacity control) . The capacity κℓ may itself be a discrete control κℓ(t) ∈{κ0 
+
+> ℓ
+
+, 2κ0 
+
+> ℓ
+
+} (contraflow off/on) [23], entering ϕℓ linearly through the threshold. The associated switching feedback is bang-bang and recovers the non-smooth, viscosity-and-Filippov machinery; we treat the continuous-κ case in the main text and relegate contraflow switching to the robustness analysis. 
+
+3.4 The gridlock-cascade threshold, corrected 
+
+The draft’s spectral condition ρ(Γ −1H) < 1 can now be stated precisely. Linearising the best-response map (11) in the congested regime ( qℓ > κ ℓ, so g′ 
+
+> ℓ
+
+= ηℓ) gives the induced zone-to-zone coupling 
+
+H := Φ ⊤ diag( ηℓ 1{qℓ > κ ℓ}) Φ ∈ RN ×N 
+
+> ⪰0
+
+, (12) which is exactly the (formerly unspecified) spillover matrix of the draft. With Γ = diag( c′′  
+
+> 1
+
+, . . . , c ′′  
+
+> N
+
+) the marginal-cost curvatures, strict convexity of the ci already makes the Beckmann potential strictly convex, so the Wardrop equilibrium 
+
+6CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+is always unique (Lemma 2); what (12) governs is the conditioning of that equilibrium. The equilibrium response to a belief shock is contractive, bounded sensitivity ∂u ⋆/∂ ˆX, iff 
+
+ρ Γ−1H < 1. (13) When (13) is approached, highly shared corridors (dense Φ), severe gridlock penalties (large η), or cheap mobili-sation (small c′′  
+
+> i
+
+), the equilibrium becomes ill-conditioned: ∥∂u ⋆/∂ ˆX∥ → ∞ , so small synchronised belief shocks produce arbitrarily large load swings, a gridlock cascade . This is the regime in which the synchronisation cost ν of Proposition 9 blows up and additional disclosure becomes actively harmful. 
+
+3.5 The designer’s robust master problem 
+
+The EMA chooses the disclosure policy and the phasing schedule to minimise the worst-case social cost over a relative-entropy ambiguity set Q around P (Hansen–Sargent), with multiplier γ > 0, anticipating the zones’ equilibrium response u⋆(α, θ ):
+
+inf 
+
+> (α,θ )∈U L×ΘK
+
+sup 
+
+> Q∈Q
+
+EQ
+
+"Z T
+
+> 0
+
+ℓsoc  t, ˆXt, Y t, u ⋆t (α, θ ), α t
+
+dt
+
+#
+
+(P) subject to the belief filter (4)–(5), backlog dynamics (6), the egress box, the activation gate ai,t = 1{t ≥ θk(i)}, and the equilibrium constraint (11). Here UL is the set of admissible disclosure gains and ΘK = {0 ≤ θ1 ≤ · · · ≤ θK ≤ T }
+
+the ordered activation times. The continuous lever α controls belief accuracy and within-tier synchronisation; the dis-crete lever θ controls across-tier synchronisation. Note the leader’s objective in (P) is the genuine social aggregate (10) of the followers’ costs, not a separate quadratic, so the Stackelberg value is the welfare object the zones’ equilibrium actually determines. With the worst-case drift distortion ψt entering the belief mean as +Π tα⊤ 
+
+> t
+
+ψt dt and penalised at rate γ|ψt|2, the master value S(t, ˆX, Π, Y ) solves the robust Isaacs equation 
+
+∂tS + ∇ ˆX S⊤(At ˆX + B ˆFt) + 12 Tr  ∇2ˆX S Πtα⊤ 
+
+> t
+
+R−1αtΠt
+
+ + 14γ αtΠt∇ ˆX S 2
+
++ Tr  ∂ΠS ˙Πt
+
+ + X
+
+> i∈A
+
+∇Yi S (−u⋆i,t ) + ℓsoc = 0 , (14) with worst-case distortion ψ⋆t = 12γ αtΠt∇ ˆX S and S(T, ·) = P 
+
+> i
+
+Θiρi(·)Yi,T . Equations (14) carry the same R−1
+
+correction as the filter. 
+
+3.6 Where disclosure helps, and where it hurts 
+
+The economic content of the model is the sign decomposition of the leader’s marginal value of disclosure. Differenti-ating the master value along α and using the filter sensitivities ∂αΠ and ∂α(Π α⊤R−1αΠ) gives, schematically, 
+
+ddα (social cost ) = Tr  ∂ΠS ∂ α ˙Π| {z } 
+
+> (A) accuracy: <0
+
++ X
+
+> ℓ
+
+Eϕ′′  
+
+> ℓ
+
+(qℓ) ∂αqℓ
+
+-type term 
+
+| {z } 
+
+> (B) synchronisation: >0
+
++ 2Λ α|{z}  
+
+> (C) disclosure cost: >0
+
+(15) Term (A) is the classical value-of-information effect: more disclosure lowers belief variance Π, reducing both failures-to-evacuate and false-alarm departures, and is welfare-improving. Term (B) is new and evacuation-specific: because all zones share the public belief, a sharper advisory makes their egress responses co-move , most violently at an observed RI jump, when every zone updates upward at once, raising the peak corridor load qℓ; convexity of ϕℓ (ϕ′′  
+
+> ℓ
+
+= ηℓ > 0
+
+above capacity) turns that synchronised peak into a strictly increasing cost. Absent a shared-capacity externality, term (B) vanishes (cost is Γa 
+
+> 2
+
+|Ya|2, convex in a private state with no shared capacity), which is why disclosure is then monotonically good and information and coupling are complements. Here (A) and (B) have opposite signs, and the optimal disclosure is interior. These opposing signs are the economic content of the model. Because term (A) lowers the marginal value of dis-closure while term (B) raises it, the optimal disclosure intensity is interior : some public information is optimal, full transparency is not, and in a sufficiently gridlock-prone network the optimum is the corner at which the agency dis-closes nothing, an informational Braess effect with no counterpart in the monotone-disclosure benchmark. The same convexity penalises a synchronised release, so the optimal information structure is a publicly announced, tiered, stag-gered evacuation order: managed phasing is derived as optimal design rather than assumed, and acts as a second-best substitute for the congestion toll the agency does not levy. Both statements are made precise and proved in closed form for the scalar symmetric network. 
+
+7CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+# 4 Viscosity Solutions and Bilevel Verification 
+
+The saturated egress feedback (11), the congestion kink of gℓ at capacity, and the time-discontinuous activation gate 
+
+ai,t make the value functions non-C2 and the running cost discontinuous in t, so the master Isaacs equation (14) must be read in the viscosity sense. We proceed in five steps. Section 4.1 reduces the followers’ congestion game to a 
+
+single strictly convex control problem, the potential reduction , the evacuation counterpart of (but not the same as) an efficiency collapse, since the reduced objective is the private Beckmann potential, not social welfare. Section 4.2 records the optimised leader Hamiltonian and its admissible structure. Section 4.3 proves the leader value is the unique viscosity solution, piecewise in time across the activation epochs. Section 4.4 gives a verification theorem valid without classical regularity and isolates the MPEC stationarity term through which information acts as a second-best toll. Section 4.5 establishes semiconcavity, a Lebesgue-null switching set, and a well-posed Filippov closed loop. Throughout, the joint state is w := ( ˆX, Y, Π) ∈ Rn × RN × Sn 
+
+> +
+
+=: O, and we work on the well-conditioned regime 
+
+ρ(Γ−1H) < 1 of (13); the complementary regime is exactly where Proposition 9(ii) makes silence optimal. 
+
+4.1 Potential reduction of the followers’ game Lemma 2 (Potential reduction) . Fix an admissible leader policy (α, θ ) and a worst-case distortion ψ. Suppose each 
+
+ci is C1 and strictly convex, the reserve dynamics dYi,t = −ui,t dt are decoupled across zones, and the exposure cost 
+
+P 
+
+> i
+
+ai,t Γiρi( ˆX)Yi is separable. Then the lower-level feedback-Nash (Wardrop) equilibrium u⋆(t, w, p ), p = ( ∇Yi Vi)i,exists, is unique, and coincides with the unique minimiser of the strictly convex Beckmann program 
+
+u⋆(t, w, p ) = arg min 
+
+> u∈Q
+> i[0 ,¯ui]
+
+n X 
+
+> i∈A
+
+ ci(ui) − piui
+
+ + X
+
+> ℓ∈L
+
+ϕℓ
+
+  P  
+
+> j
+
+Φℓj uj
+
+ o
+
+, (16) 
+
+which is the saturated feedback (11) . The map p 7 → u⋆(t, w, p ) is single-valued and globally Lipschitz, with ∥∂pu⋆∥ ≤ ∥(Γ − H)−1∥ on the congested cone, finite precisely when ρ(Γ−1H) < 1.Proof. The zone-i Wardrop stationarity underlying (11) is c′
+
+> i
+
+(ui) + P 
+
+> ℓ
+
+Φℓi gℓ(q) = pi on the interior of the box, with the usual complementarity on the faces. Since ∂ui
+
+P 
+
+> ℓ
+
+ϕℓ(qℓ) = P 
+
+> ℓ
+
+Φℓi ϕ′
+
+> ℓ
+
+(qℓ) = P 
+
+> ℓ
+
+Φℓi gℓ(qℓ), these are exactly the KKT conditions of the box-constrained program (16). The objective is strictly convex (strictly convex P 
+
+> i
+
+ci plus convex P 
+
+> ℓ
+
+ϕℓ), so the minimiser is unique and the KKT point is the global minimum; hence the Wardrop equilibrium is unique and equals (16). Because the dynamics are decoupled and the exposure is separable, the costate pi = ∇Yi Vi
+
+solves the scalar adjoint − ˙pi = ai,t Γiρi( ˆX), pi(T ) = Θ iρi(XT ), free of the coupling, so the same p enters both the Nash system and (16). Lipschitz dependence and the sensitivity bound follow from the implicit-function theorem applied to the strictly monotone map u 7 → ∇ c(u) + Φ ⊤g(Φ u), whose Jacobian on the congested cone is Γ + H ≻ 0
+
+with inverse bounded by ∥(Γ − H)−1∥ under (13). The economic content is the contrast with joint information–mechanism design under a welfare-aligning transfer [1]: there the Groves transfer makes each follower’s objective the social cost, so the equilibrium is the social optimum (efficiency collapse). Here the reduction is to the Beckmann potential , which differs from social welfare by the externality P 
+
+> ℓ
+
+ηℓκℓ(qℓ − κℓ)+. The followers solve a single convex control problem, but the wrong one from the planner’s view, and the leader must steer that problem with information. 
+
+4.2 The optimised leader Hamiltonian 
+
+Let 0 = θ0 ≤ θ1 ≤ · · · ≤ θK ≤ θK+1 = T be the activation epochs. On each open interval Ik := ( θk, θ k+1 ) the gate ai,t is constant, and substituting the Wardrop response of Lemma 2 into the leader’s Bellman operator gives, for 
+
+S ∈ C1,2,
+
+∂tS + ¯H(t, w, ∇S, ∇2ˆX S) = 0 on Ik, S(T, ·) = P 
+
+> i
+
+Θiρi(·)Yi, (17) with the optimised Hamiltonian 
+
+¯H(t, w, p, M ) = min  
+
+> α
+
+sup 
+
+> ψ
+
+n
+
+ℓsoc  t, w, u ⋆(t, w, p Y ), α  − γ|ψ|2 + p⊤
+
+> ˆX
+
+ At ˆX + B ˆFt + Λ αψ
+
+− X
+
+> i
+
+pYi u⋆i (t, w, p Y ) + Tr( pΠ ˙Πα) + 12 Tr( M Λα)
+
+o
+
+, (18) 
+
+8CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+where Λα = Π α⊤R−1αΠ, ˙Πα is the Riccati right-hand side (5), and u⋆ is the Beckmann minimiser, note it enters the 
+
+social running cost ℓsoc , the source of the externality wedge. The inner sup ψ is the concave quadratic resolved in the main text, contributing 14γ p⊤ 
+
+> ˆX
+
+Λαp ˆX .
+
+Lemma 3 (Admissible structure of ¯H). Under the standing assumptions ( At, B, ˆFt bounded Lipschitz; Da, ¯Tab re-placed here by Lipschitz ρi; strictly convex C1 costs ci; convex C1,1 Beckmann potentials ϕℓ; compact control sets), on each Ik the map ¯H is finite and continuous on [0 , T ] × O × Rn+N +dim Π × Sn and satisfies: (H1) Degenerate ellipticity: ¯H(t, w, p, M ) ≤ ¯H(t, w, p, M ′) for M ⪯ M ′ (the only second-order term  
+
+> 12
+
+Tr( M Λα) is monotone, Λα ⪰ 0, and min / sup preserve monotonicity); (H2) Lipschitz in the gradient: | ¯H(t, w, p, M ) − ¯H(t, w, q, M )| ≤ C(1 + |w|)|p − q| uniformly on bounded M ,because u⋆(·, p Y ) is globally Lipschitz (Lemma 2) and the congestion kink is absorbed into this Lipschitz dependence; (H3) State modulus: the Crandall–Ishii estimate holds with a modulus ω, from Lipschitz dependence of 
+
+ℓsoc , u ⋆, A t ˆX, Λα, ˙Πα on w;(H4) Linear growth: | ¯H(t, w, 0, 0) | ≤ C(1 + |w|).Proof. Identical in form to the structure lemma of the transfer-aligned setting, with one new input: the Wardrop response u⋆(t, w, p Y ) replaces an explicit min over u. By Lemma 2 it is single-valued and globally Lipschitz in pY , so 
+
+p 7 → ℓsoc (u⋆(pY )) − P 
+
+> i
+
+pYi u⋆i (pY ) is locally Lipschitz with the stated growth; the congestion non-smoothness lands in this p-dependence as a Lipschitz kink, never in the M -term. The remaining terms are as in the linear-quadratic-Gaussian case. (H1)–(H4) then follow exactly as before. As in the transfer-aligned setting, the non-smoothness is confined to a Lipschitz p-kink and the equation is a proper, Lipschitz, degenerate-parabolic Isaacs equation of Crandall–Ishii–Lions type [15]; the only structural novelty is the time-discontinuity across the θk, handled next. 
+
+4.3 Existence and comparison, piecewise in time Definition 1 (Viscosity solution across activation epochs) . A continuous S of polynomial growth is a viscosity solution of the master problem if, on each open interval Ik, it is a viscosity sub- and supersolution of ∂tS + ¯H = 0 in the usual sense, it is continuous across each epoch ( S(θ− 
+
+> k
+
+, ·) = S(θ+ 
+
+> k
+
+, ·)), and S(T, ·) = P 
+
+> i
+
+ΘiρiYi.
+
+Theorem 4 (The value function solves the Isaacs equation) . Under the standing assumptions the leader value 
+
+S(t, w ) = inf 
+
+> (α,θ )∈U L×ΘK
+
+sup 
+
+> ψ∈Ψ
+
+Eψh Z Tt
+
+ℓsoc  s, w s, u ⋆s , α s
+
+ds wt = w
+
+i
+
+(19) 
+
+is continuous, of at most quadratic growth, and a viscosity solution in the sense of Definition 1. Proof. Fix the (finitely many) activation epochs determined by θ. On IK = ( θK , T ] the gate is constant and the dynamic-programming principle, tested against smooth φ touching S from above/below, yields the sub/supersolution inequalities with Hamiltonian (18); this is the standard derivation (Fleming–Soner [13], Ch. V; Bardi–Capuzzo-Dolcetta [14]). Continuity and the growth bound follow from bounded controls, Lipschitz coefficients (including the Lipschitz u⋆ of Lemma 2), and Gronwall estimates. Proceeding backward, on each Ik the value with terminal data 
+
+S(θk+1 , ·) (already constructed) is again a viscosity solution by the same argument; the DPP guarantees continuity of 
+
+S across θk+1 . Gluing the K + 1 pieces gives the claim. 
+
+Theorem 5 (Comparison and uniqueness) . Let S (USC) and S (LSC) be viscosity sub- and supersolutions in the sense of Definition 1, of polynomial growth, with S(T, ·) ≤ S(T, ·). Then S ≤ S on [0 , T ] × O , so the master problem has a unique viscosity solution, namely (19) .Proof. On IK apply the Crandall–Ishii–Lions comparison principle: the change ˜S = eκt S supplies zeroth-order strict monotonicity, the penalisation −εe λ(T −t)(1 + |w|2) localises on the unbounded O, and variable doubling with 
+
+|w − w′|2/2η together with (H1)–(H3) drives the penalised maximum to a contradiction as η, ε ↓ 0 ([15], Thm. 8.2); 
+
+Π enters only through first-order and Lipschitz terms and is handled as the Y -variables. This gives S ≤ S on IK up to t = θK , where continuity transfers the inequality to the terminal data of IK−1. Induction over the finitely many intervals yields the result on [0 , T ]; uniqueness follows, and Theorem 4 identifies the solution with the value. 
+
+9CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+4.4 Verification, and information as a second-best toll Theorem 6 (Verification without classical regularity) . Let S be the value function (19) , i.e. the unique viscosity solution of Theorems 4–5. Let (α⋆, θ ⋆, ψ ⋆) be a measurable selection attaining the pointwise min α sup ψ in (18) for 
+
+p = ∇S, M = ∇2ˆX S at every point of differentiability of S, with the closed-loop system well posed in the sense of Section 4.5. Then: (i) S(0 , w 0) is the optimal robust Stackelberg value (19) ;(ii) α⋆, θ ⋆ are optimal leader policies and ψ⋆ the worst-case distortion; (iii) along the optimal trajectory the Wardrop response u⋆ is a feedback-Nash equilibrium of the lower-level congestion game. No C1,2 regularity of S is required. Proof. The lower bound is the subsolution property integrated along trajectories: the nonsmooth Dynkin inequality for viscosity solutions gives, on each interval and then glued across the continuous epochs, S(0 , w 0) ≤ sup ψ Eψ R T 
+
+> 0
+
+ℓsoc 
+
+for every admissible (α, θ ). The reverse inequality at (α⋆, θ ⋆) uses the supersolution property along the closed-loop flow of Section 4.5, on which S is differentiable a.e. (Proposition 8); there ∂tS + ¯H = 0 holds pointwise a.e. and the selection attains the Hamiltonian, so the value is achieved, proving (i)–(ii). Claim (iii) is Lemma 2: the Beckmann minimiser is the unique Wardrop equilibrium of the lower-level game along the path. The verification is genuinely bilevel: with no welfare-aligning transfer, no efficiency collapse aligns the levels, so the leader’s stationarity carries an equilibrium-sensitivity term. The next proposition isolates it and gives it economic meaning. 
+
+Proposition 7 (MPEC stationarity: information as a second-best toll) . At an interior optimum the leader’s stationarity in α is 
+
+∂α ¯H + X
+
+> ℓ
+
+ηℓκℓ 1{qℓ > κ ℓ}  Φ ∂αu⋆
+
+> ℓ
+
+| {z }  
+
+> externality ×equilibrium response
+
+= 0 , (20) 
+
+where ∂αu⋆ = −(Γ + H)−1 ∂αp is the Wardrop-response sensitivity from Lemma 2. The second term is the marginal externality ηℓκℓ on each binding corridor times the sensitivity of equilibrium load to disclosure. It does not vanish (contrast a transfer-aligned design, where the Danskin envelope eliminates the analogous term because the followers already internalise the social cost); it is precisely the channel through which disclosure and phasing substitute for the congestion toll the EMA does not levy, and it is O(externality ), vanishing iff no corridor binds. Proof. Write the leader value at fixed α as V(α) = sup ψ {ℓsoc (u⋆(α), α ) + . . . }. The total derivative is dV/dα =
+
+∂α ¯H + ∂uℓsoc · ∂αu⋆. At the Wardrop point u⋆ minimises the Beckmann potential, so ∂u[P 
+
+> i
+
+ci + P 
+
+> ℓ
+
+ϕℓ] − p = 0 ;substituting into ∂uℓsoc = ∂u[P 
+
+> i
+
+ci + P 
+
+> ℓ
+
+qℓgℓ] − p leaves exactly the externality gradient ∂u
+
+P
+
+> ℓ
+
+(ϕsoc  
+
+> ℓ
+
+− ϕℓ) = P 
+
+> ℓ
+
+ηℓκℓ1{qℓ > κ ℓ}Φℓ·. Pairing with ∂αu⋆ gives (20); the Jacobian inverse is finite under (13). The Danskin envelope would kill this term only if ∂uℓsoc = 0 at u⋆, i.e. only under efficiency alignment, which holds here iff no corridor is over capacity. 
+
+4.5 Semiconcavity, the switching set, and the closed loop Proposition 8 (Semiconcavity and a.e. well-defined feedback) . Assume in addition ci ∈ C1,1 and that ρi, ¯ui are semiconcave in ˆX. Then on each interval Ik the value S(t, ·) is semiconcave in Y , uniformly on compacts, and: (a) ∇Y S(t, ·) exists Lebesgue-a.e., is BV , and the singular set Σt is countably HN −1-rectifiable with LN (Σ t) = 0;(b) the saturation faces {u⋆i ∈ { 0, ¯ui}} and the congestion kinks {qℓ = κℓ} meet Σt in a null set, so the saturated feedback (11) is single-valued a.e.; the only genuinely bang-bang lever, the contraflow switch of Remark 4, has a measure-zero switching locus; (c) semiconcavity makes −∇ Y S one-sided Lipschitz, so the closed-loop drift is one-sided Lipschitz and the Filippov inclusion ˙wt ∈ co F (t, w t) has a unique absolutely continuous solution from each initial condition on each Ik, concatenated across the activation epochs. 
+
+10 CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+Proof. The Y -dynamics are affine in u with C1,1 running cost, and u⋆ is the Lipschitz Beckmann minimiser (Lemma 2); semiconcavity of S(t, ·) in Y on Ik is the value-function semiconcavity theorem for finite-horizon control with semiconcave data and convex velocity sets ([16], Thm. 7.4.11), the second-order ˆX-block a bounded perturba-tion. (a) is Alexandrov’s theorem and the singular-set structure of semiconcave functions ([16], Ch. 4). (b): on the differentiability set the egress feedback is the Lipschitz map of Lemma 2, whose kink loci, the saturation faces and the corridor thresholds {qℓ = κℓ}, are Lipschitz hypersurfaces crossed transversally by the flow a.e., hence null. (c): one-sided Lipschitz drift yields existence and uniqueness of Filippov solutions (Filippov; Clarke et al. [17]); concatenating the finitely many intervals gives the global closed loop. 
+
+Remark 5 (Net effect) . Proposition 8 discharges the classical-regularity hypothesis: the master value S is the unique viscosity solution of (14) , the verification conclusions of Theorem 6 hold without C1,2, the saturated/contraflow feed-back is single-valued a.e. with a Lebesgue-null switching set, and the closed loop is a well-posed Filippov flow. The one feature with no analogue in the transfer-aligned setting is the MPEC stationarity term of Proposition 7: because incentives are not aligned by a transfer, the leader’s first-order condition retains the equilibrium-response channel, and that channel is the formal sense in which optimal information design is a second-best congestion toll. 
+
+# 5 Structural Special Case: Scalar Symmetric Network 
+
+To expose the sign structure that the general Isaacs equation (14) encodes but does not display, we solve the scalar symmetric case in closed form: n = m = 1 ; identical zones with mean-reverting severity drift a = −¯a < 0 (¯a > 0), so intensification is carried by the jump term; constant coefficients αt ≡ α, Σt ≡ σ, R ≡ r, and s := σ2 + λΣJ
+
+the total predicted state variance rate. We use the certainty-equivalent (steady-state) reduction throughout. The closed forms below are the qualitative predictions, an interior disclosure optimum and a phasing threshold, that the numerical solves of Section 6 probe on the calibrated Rita network. The interior disclosure optimum is a knife-edge: on the asymmetric calibrated instance of Section 6.4 it resolves to a corner (precision is self-defeating as a single broadcast), and the operative lever is the staggering of orders, the disclosure-side counterpart of the phasing threshold derived here. 
+
+5.1 The disclosure lever: interior optimum and informational Braess 
+
+Write the disclosure intensity β := α2/r ≥ 0. The stabilising root of the scalar algebraic Riccati equation 2aΠ + s −
+
+βΠ2 = 0 is 
+
+Π∞(β) = a + pa2 + βs β = s
+
+2¯ a − π0 β + O(β2), π0 := s2
+
+8¯ a3 > 0, (21) strictly decreasing in β from the prior (Ornstein–Uhlenbeck stationary) variance Π∞(0) = s/ 2¯ a toward 0: more disclosure lowers belief variance. The steady belief-innovation volatility (the amplitude of the common belief’s fluc-tuation, hence of the synchronised egress response) is 
+
+V(β) := Π ∞(β)2 β = v0 β + O(β2), v0 := 
+
+ s
+
+> 2¯ a
+
+2
+
+= s2
+
+4¯ a2 > 0, (22) strictly increasing from 0 (frozen belief, no disclosure) toward s (belief tracks the truth): more disclosure makes the shared belief, and therefore every zone’s egress, swing harder and more in unison. Reducing the master problem (P) to steady state, the per-unit-time social cost as a function of disclosure intensity is 
+
+C(β) = μ Π∞(β)
+
+| {z } 
+
+> (A) accuracy ↓
+
++ ν V(β)
+
+| {z }  
+
+> (B) synchronisation ↑
+
++ ˜Λ β
+
+|{z}  
+
+> (C) disclosure ↑
+
+, (23) where μ > 0 scales the expected mis-evacuation cost in belief variance (the LQG value of information), ν > 0 scales the convex congestion response to a synchronised egress spike, ν ∝ η · ∂q ϕ at the binding corridor, amplified as the gridlock-cascade condition (13) approaches equality, and ˜Λ = rΛ prices disclosure. 
+
+Proposition 9 (Interior optimal disclosure; informational Braess corner) . For C in (23) :(i) If μ π 0 > ν v 0 + ˜Λ , equivalently μ > 2¯ a ν + 8¯ a3
+
+s2 ˜Λ , then C′(0) < 0 while C(β) → +∞, so the optimum 
+
+β⋆ ∈ (0 , ∞) is interior and solves μ Π′∞(β⋆) + ν V′(β⋆) + ˜Λ = 0 .
+
+11 CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+(ii) If μ π 0 ≤ ν v 0 + ˜Λ then C′(0) ≥ 0 and the optimum is the corner β⋆ = 0 : disclosing nothing is optimal. This is the informational Braess regime, congestion sensitivity ν is large enough that any sharpening of the common advisory raises social cost. (iii) The interior optimum is decreasing in congestion sensitivity: ∂β ⋆/∂ν < 0. As the network approaches the gridlock-cascade threshold ( ρ(Γ−1H) ↑ 1, hence ν ↑ ∞ ), β⋆ ↓ 0.Proof. Write C′(β) = μ Π′∞(β) + ν V′(β) + ˜Λ. The expansions (21)–(22) give Π′∞(0) = −π0 and V′(0) = v0, so 
+
+C′(0) = −μπ 0 +νv 0 + ˜Λ; the stated equivalent form follows from π0 = s2/8¯ a3 and v0 = s2/4¯ a2. (i) If μπ 0 > νv 0 + ˜Λ
+
+then C′(0) < 0. Since Π∞(β) ↓ 0 and V(β) ↑ s remain bounded while ˜Λβ → ∞ , C(β) → ∞ ; hence a global minimiser is interior and solves the first-order condition μΠ′∞ + νV′ + ˜Λ = 0 . (ii) If μπ 0 ≤ νv 0 + ˜Λ then C′(0) ≥ 0,so no infinitesimal disclosure lowers cost. In the gridlock-cascade regime that defines this case the synchronisation marginal νV′+˜Λ dominates the accuracy marginal −μΠ′∞ for all β ≥ 0, whence C′ ≥ 0 and the minimiser is the corner 
+
+β⋆ = 0 . (iii) Implicit differentiation of the interior first-order condition gives ∂β ⋆/∂ν = −V ′(β⋆)/C′′ (β⋆) < 0, since 
+
+C′′ (β⋆) > 0 at a minimum and V′ > 0. As ν → ∞ the first-order condition forces V′(β⋆) → 0+, i.e. β⋆ → 0.This is the exact sign-reversal of the monotone-disclosure benchmark, where disclosure is monotonically beneficial (ν ≡ 0, term (B) absent) and the only force limiting β⋆ is the disclosure price ˜Λ. Here a congested shared corridor makes the optimal advisory strictly more conservative, and a gridlock-prone network can make silence optimal. 
+
+5.2 The phasing lever: two-tier closed form 
+
+Now fix disclosure and isolate the schedule. Split the N zones into two tiers B1, B 2 of aggregate population N1, N2
+
+and aggregate free-flow egress ¯U1, ¯U2, both routing onto one shared corridor of capacity κ with congestion ϕ(q) =  
+
+> η
+> 2
+
+(( q − κ)+)2. In the post-revelation, near-landfall regime each active tier is in the saturated branch of (11) (exposure dominates mobilisation cost), so an active backlogged tier pushes its full ¯Uk onto the corridor. Assume each tier alone fits but the two together do not, ¯U1 ≤ κ, ¯U2 ≤ κ, ¯U1 + ¯U2 > κ, (24) and let ¯ρ be the average believed hazard over tier 2’s drain window. Tier 1 activates at 0, tier 2 at θ ≥ 0.
+
+Proposition 10 (Optimal two-tier stagger) . Under (24) the social cost is, up to θ-independent terms, 
+
+C(θ) = η ( ¯U1 + ¯U2)( ¯U1 + ¯U2 − κ)   N1 
+
+> ¯U1
+
+− θ+
+
+| {z }
+
+> total gridlock exposure during overlap
+
++ Γ N2 ¯ρ θ 
+
+| {z }
+
+> added exposure of tier 2
+
+, (25) 
+
+where the congestion coefficient is the total-delay rate q g (q) = ( ¯U1 + ¯U2) η( ¯U1 + ¯U2 − κ) at the overlap load 
+
+q = ¯U1 + ¯U2. The optimal activation gap is bang-bang, 
+
+θ⋆ = N1
+
+¯U1
+
+1 η ( ¯U1 + ¯U2)( ¯U1 + ¯U2 − κ) > Γ N2 ¯ρ . (26) 
+
+That is, the EMA fully separates the tiers, staggering tier 2 until tier 1 has cleared, which drives the congestion term to zero, iff the marginal gridlock exposure avoided exceeds the marginal hazard exposure incurred by the delay; otherwise it releases both at once. Partial overlap is never optimal in the piecewise-linear case. Proof. On θ ∈ [0 , N1/ ¯U1] the two tiers overlap for a duration (N1/ ¯U1 − θ), during which the corridor carries q =¯U1 + ¯U2 > κ at total-delay rate η( ¯U1 + ¯U2)( ¯U1 + ¯U2 − κ); staggering also delays tier 2’s clearance, adding hazard exposure ΓN2 ¯ρ θ . This is (25), which is affine in θ with slope −η( ¯U1 + ¯U2)( ¯U1 + ¯U2 − κ) + Γ N2 ¯ρ. A linear objective on an interval is minimised at an endpoint: at full separation θ⋆ = N1/ ¯U1 (overlap, hence congestion, driven to zero) when the slope is negative, i.e. when the avoided gridlock rate exceeds the marginal delay-hazard ΓN2 ¯ρ, and at θ⋆ = 0 
+
+otherwise. This is (26); no interior θ can be optimal because the objective is affine, which is the asserted bang-bang structure. The threshold in (26) is the model’s account of Rita: a deadly corridor (large η) and a clearance time short relative to the storm’s approach (moderate ¯ρ) put the system on the “stagger” side, yet the realized policy was effectively K = 1 
+
+(simultaneous release), which (25) prices at the full overlap-congestion cost. The comparative statics are the policy content: the case for phasing strengthens in the gridlock penalty η and the shared-corridor excess ¯U1 + ¯U2 − κ, and weakens as the storm’s believed onset ¯ρ accelerates. 
+
+12 CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+Table 1: What each figure shows. The experiments solve the full model numerically; the structural results of Section 5 give the qualitative reading, not the evidence. 
+
+Figure What it shows What it validates / showcases Fig. 1 (Calib.) the HRRC departure histogram and the I-45 corridor queue under synchronised vs. de-synchronised two-tier departure loading motivation: 53% of evacuees left on the warn-ing day, synchronising the exodus, and de-synchronising removes ≈ 84% of the peak queue, previewing the solve Fig. 2 (Exp. 1) solved value W (0 , Y 1, Y 2), the switching curve 
+
+∂Y1 W = ∂Y2 W , and the curvature histogram the Isaacs solve is a well-posed, semiconcave viscosity solution; the bang-bang switching set is measure-zero, so the feedback is single-valued a.e. and the closed loop is a Filippov flow Fig. 3 (Exp. 1) realised social cost and congestion exposure for the solved optimum, the realised K = 1 order, and a two-tier stagger model validation: K = 1 reproduces the ob-served Rita gridlock; optimal phasing removes essentially all over-capacity exposure ( 89% cost cut) and two tiers capture most of it ( 77% )Fig. 4 (Exp. 1) implied I-45 mean speed for the realised order, the two-tier stagger, and the solved optimum, against documented Rita and DTA speed bands external validation: the realised branch repro-duces the documented 1–2 mph gridlock and the optimum holds free flow, with the DTA bands [24] as independent reference Fig. 5 (Exp. 2) social cost versus the inland hold, and corridor load under simultaneous vs. staggered orders staggered disclosure (order coast first, hold then release inland) beats a single simultaneous order by ≈ 70% at an interior optimal hold; the opti-mal policy keeps the corridor within capacity Fig. 6 (Exp. 2) social cost versus public-signal precision under a single common signal vs. under staggered orders precision is Braess-prone alone (optimal preci-sion → 0, vague) but complementary with se-quencing (full precision optimal): sequencing unlocks the value of precision 
+
+5.3 The continuous-tier limit 
+
+With K tiers and convex ϕ, the optimal schedule equalises corridor load over the clearance window; as K → ∞ the release schedule θ(·) converges to the one that holds the corridor exactly at capacity, 
+
+q(t) ≡ κ until the network is cleared, (27) never gridlocked and never idle, the “fill-to-capacity” clearance curve. Because ϕ is convex, the marginal gain from refining the partition is decreasing, so coarse tiers ( K = 2 , 3) recover most of the gap between simultaneous release and (27). This is the precise sense in which the optimal information structure is the tiered, staggered, publicly an-nounced order that agencies already approximate, now derived, with an explicit account of how many tiers are worth the trouble. 
+
+# 6 Numerical Illustration: The 2005 Hurricane Rita Evacuation 
+
+We instantiate the framework on the September 2005 Hurricane Rita evacuation of the Houston–Galveston region, the event that motivates the model. The numerical study has two purposes. First, it validates the model against the realised event: the calibrated congestion dynamics reproduce the observed I-45 gridlock, and the solved optimal information structure would have removed most of it. Second, it solves the full model on a real network and reports what the solution prescribes, the optimal phasing and disclosure and the welfare each delivers. The closed-form scalar analysis of Section 5 supplies the qualitative reading of these solves, but the experiments stand on the numerical solution of the full model, not on those reductions. Table 1 summarises what each figure shows. All calibration constants and their sources are collected in Table 2; the realised event is the unmanaged K = 1 benchmark throughout. 
+
+6.1 Calibration 
+
+The model objects are calibrated from public archival data: the binding-corridor capacity from the TxDOT roadway inventory, the public signal ξt from the National Hurricane Center (NHC) strike-probability archive, the latent storm state Xt from the NHC forecast/advisory archive, the activation schedule θ from the NHC public-advisory archive, and 
+
+13 CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION                                                           
+
+> Model object Calibrated value Source Binding corridor ℓI-45 North rural trunk; lane drop 8→4at ≈84 mi N of Houston (160 mi) TxDOT RHINO inventory Capacity κℓ4,400 vph (2 NB lanes ×2200 ); contraflow 8,800
+> vph TxDOT RHINO; directional Contraflow switch (Rem. 4)
+> κ0
+> ℓ→2κ0
+> ℓ
+> noon, Thu 22 Sep (planned 4:08, approved 6:00) after-action report [26] Backlog N0(corridor) 1.5×10 5vehicles (documented jam volume) event record [26] Departure curve 25/53/19/1% on 21/22/23/24 Sep (peak on the warn-ing day) HRRC survey [25] Public signal ξtGalveston strike probability: cumulative 16 →29% ;near-term 0→20% (Thu) NHC strike-probability archive Latent state Xt, jump ΣJVmax 95 →150 kt, pmin 965 →897 mb in 24 h (rapid intensification) NHC forecast/advisory archive Schedule θ(realised) WATCH Wed 16:00, WARNING Thu 10:00, single coastwide zone: K= 1
+> NHC public-advisory archive Risk aversion Γibehavioural; aggregate departure timing as above HRRC survey [25]
+
+Table 2: Calibration of the model to Hurricane Rita. Times are US Central (CDT). the evacuation demand and departure timing from the Texas A&M Hazard Reduction and Recovery Center (HRRC) survey of Rita evacuees [25]. The mapping is summarised in Table 2. 
+
+6.1.1 The synchronisation problem, in the data 
+
+The HRRC departure curve already exhibits the mechanism the rest of this section formalises. A single day, the warning day (Thursday 22 September), accounts for 53% of all departures, collapsing a multi-day evacuation into one synchronised pulse onto the binding I-45 trunk. Figure 1 pairs that departure histogram with the corridor queue the loading produces: under the realised synchronised order the queue peaks on the warning day with tens of thousands of vehicles held in transit and exposed, whereas a de-synchronised two-tier loading, the coast first and the inland zone a day later, keeps each pulse near capacity and removes about 84% of the peak queue. The Isaacs solve below replaces this hand-set two-tier counterfactual with the optimal egress feedback. The realised schedule is decisive for the comparison: the Texas hurricane warning was issued as a single coastwide zone, i.e. K = 1 in the notation of Section 3.3, the unmanaged benchmark. An intended coastal-first staggered design existed but was overrun by spontaneous evacuation from higher-elevation inland zones, so the operative policy was simultaneous release. 
+
+6.2 Methodology: solving the Isaacs equation 
+
+Both experiments solve the master Isaacs equation (14) numerically; the scalar reductions of Section 5 enter only as the qualitative predictions the solves are tested against, not as the experiments themselves. Where that special case takes the two zones identical to expose the sign structure in closed form, the experiments calibrate the coastal and inland zones to distinct demand, capacity, hazard, and fragility parameters (Table 2); the solves therefore probe the heteroge-neous network that the closed forms idealise. We reduce the binding I-45 trunk to the two zones that share it, coastal (zone 1) and inland Houston-metro (zone 2), with backlogs (Y1, Y 2) draining at egress rates (u1, u 2) (6) onto the com-mon corridor of time-varying capacity κℓ(t), coupled through the convex congestion exposure (8). With the saturated egress (11) substituted, the leader’s robust problem at fixed disclosure reduces to a social-planner value W (t, Y 1, Y 2)
+
+solving the Isaacs equation (14). We integrate ∂τ W = ¯H backward from the terminal exposure W (T, ·) = P 
+
+> i
+
+ΘiYi
+
+with a monotone semi-Lagrangian (departure-point) scheme; the scheme is a contraction and converges to the unique viscosity solution. Experiment 1 solves W (t, Y 1, Y 2) at fixed disclosure, recovers the optimal egress feedback, compares the realised social cost under the solved optimum against the realised synchronised K = 1 order and a two-tier stagger, and checks the viscosity-theory predictions on the solved value. Experiment 2 instead solves the information designer’s problem over the zones’ decentralised response, with two instruments, the per-zone evacuation-order times (sequencing) and the public-signal precision α, on asymmetric zones whose hazard is charged on the realised storm state; it locates the optimal staggered order and the optimal precision, and quantifies how the two interact. 
+
+14 CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+Figure 1: Top: the HRRC departure histogram for Rita ( n = 1265 ), with the WATCH, WARNING, and contraflow times marked; 53% of evacuees departed on the warning day, synchronising the exodus. Bottom: the resulting I-45 corridor queue, obtained by loading the documented backlog onto the binding trunk under a smooth departure profile. The realised synchronised order ( K = 1 ) peaks on the warning day; a de-synchronised two-tier loading ( K = 2 , coast then inland) removes about 84% of the peak queue, previewing the formal solve. 
+
+6.3 Experiment 1: the Isaacs solve, synchronisation versus optimal phasing 
+
+We solve W (t, Y 1, Y 2) on a 121 × 121 backlog grid over the 60 -hour horizon (Wed 00:00 to Fri 12:00 CDT), the I-45 capacity stepping from κ0 = 4 ,400 to 2κ0 = 8 ,800 vph at the noon-Thursday contraflow switch, and the belief-weighted hazard rising toward the Saturday landfall through the observed rapid-intensification jump (Table 2). Figure 2 shows the solved value. The bang-bang switching curve {∂Y1 W = ∂Y2 W } is a one-dimensional locus, 1.6% 
+
+of grid cells, hence Lebesgue-null in the state plane, and the curvature ∂2 
+
+> Y1
+
+W is bounded above. The solved value is therefore semiconcave: the optimal feedback is single-valued almost everywhere and the closed loop is a well-posed Filippov flow. Forward-simulating the calibrated dynamics under three policies (Figure 3) gives the central result. The realised synchronised K = 1 order drives the corridor far over capacity (peak load 9.6 against κ) and accumulates 46 .6
+
+corridor-hours of over-capacity exposure, the observed Rita gridlock. The solved Isaacs optimum spreads egress to hold the corridor at capacity, removing the over-capacity exposure entirely and cutting realised social cost by 89% ;the coarse two-tier stagger captures most of this ( 77% cost reduction, 5.0 corridor-hours). The value of phasing is thus first-order, and two tiers already recover most of the continuous optimum. 
+
+6.3.1 External validation against documented speeds 
+
+The same three policies admit an independent check in corridor-speed terms (Figure 4). Mapping the corridor queue to an implied mean speed on the binding stretch, with the single scale parameter fixed so that the realised synchronised branch reproduces the documented Rita gridlock of 1–2 mph, the realised order sits in that recorded band, the solved Isaacs optimum holds the corridor at free flow throughout, and the two-tier stagger recovers above the gridlock band after a brief dip. The dynamic-traffic-assignment study of the same evacuation [24] independently brackets I-45 at 
+
+15 CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+Figure 2: Experiment 1 (Isaacs solve). Left: solved value W (0 , Y 1, Y 2) over the two zone backlogs and the bang-bang switching curve ∂Y1 W = ∂Y2 W (a measure-zero locus). Right: the curvature ∂2 
+
+> Y1
+
+W is bounded above (semiconcav-ity). 
+
+Figure 3: Experiment 1 (Isaacs solve). Realised social cost and in-transit congestion exposure under the realised synchronised K = 1 order, a coarse two-tier stagger, and the solved optimum. The solved optimum removes the over-capacity exposure and cuts social cost by 89% ; two tiers capture most of the gain. 
+
+25 –30 mph in its base case and 45 –50 mph under full contraflow, with the solved optimum at or above the upper band. Because only the one congestion-speed parameter is pinned to the historical record, the optimal and two-tier speeds are predictions of the solve rather than fitted quantities. 
+
+6.4 Experiment 2: staggered disclosure and the value of precision 
+
+Experiment 1 solves the social planner’s problem, in which egress is metered directly. The information designer cannot meter egress; it controls only what each zone is told and when. Experiment 2 therefore solves the designer’s problem over the zones’ decentralised response, with two instruments: the per-zone evacuation-order times (the sequencing of public advisories) and the precision of the public signal. Two asymmetric zones share the binding I-45 trunk: a coastal zone whose landfall and storm-surge hazard arrive early and whose evacuation routes flood at a surge deadline, and a larger inland zone whose hazard peaks later. Corridor demand exceeds capacity, so the trunk is genuinely binding; gridlock is modelled as throughput breakdown, with vehicles unable to move held in place and exposed; hazard is 
+
+16 CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+Figure 4: Implied mean speed on the binding I-45 stretch under the realised synchronised order ( K = 1 ), the two-tier stagger ( K = 2 ), and the solved Isaacs optimum, against the documented Rita gridlock ( 1–2 mph) and the dynamic-traffic-assignment bands for the same event [24] (base case 25 –30 mph, full contraflow 45 –50 mph). The queue-to-speed scale is fixed so the realised branch matches the recorded gridlock; the optimal (free-flow) and two-tier speeds are then predictions. The contraflow switch is marked. charged on the realised storm state. The designer minimises the worst-case (relative-entropy) social cost over storm severity. Unlike the planner of Experiment 1, the designer cannot stop a zone from synchronising once it is told the danger is high, which is what makes sequencing and precision the binding choices. 
+
+6.4.1 Staggered disclosure 
+
+A single simultaneous advisory ( K = 1 ) forces the coastal and inland exodus to share the corridor; neither clears, and the coastal zone is caught by its early surge. Ordering the coast first and holding the inland zone, then releasing it once the coast has cleared ( K = 2 ), keeps demand within capacity in each window. Figure 5 reports the social cost against the length of the inland hold. The optimum is interior: too short a hold and the shared corridor cannot clear the coast before its surge deadline; too long and the inland zone is caught by its own later landfall. The optimal hold of about ten hours lowers social cost by roughly 70% relative to the simultaneous order, and the corridor load (right panel) stays within capacity in each window rather than breaking down. The policy is the deliberate, temporary withholding the designer’s problem prescribes: tell the coast to leave now, keep the inland zone calm and in place although its risk is real and comparable, then tell it to evacuate once the road is clear. This is the disclosure-timing analogue of the two-tier phasing of Section 5, achieved through the sequencing of advisories rather than direct metering. The hold is robust to the worst-case storm severity (the optimal hold is unchanged under the relative-entropy adversary) and stable under sample refinement. 
+
+The value of precision. The second instrument is the precision of the public signal, the belief sharpness α controlling 
+
+Π∞(α) through (21). Its value depends entirely on whether the designer can sequence (Figure 6). Under a single common advisory ( K = 1 ), raising precision raises social cost: a sharp common signal makes every zone cross its evacuation threshold at once, concentrating the exodus and deepening the gridlock, so the optimal precision is the corner α → 0, a deliberately vague advisory. This is the informational-Braess effect of Section 5, here on the precision margin and confirmed on the calibrated, asymmetric network. Under staggered orders ( K = 2 ) the sign reverses: with the zones separated in time, a sharp signal lets each evacuate decisively within its own window, and full precision is optimal. Sequencing and precision are therefore complements : precision is self-defeating as a single broadcast but valuable once the designer can stagger. The interior disclosure optimum of the scalar special case is thus a knife-edge 
+
+17 CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+Figure 5: Experiment 2, staggered disclosure. Left: expected social cost versus the length of the inland hold; a single simultaneous order ( K = 1 , square) is dominated by an interior optimal hold of about ten hours ( K = 2 , circle), which lowers cost by roughly 70% . Right: corridor load under the two policies against capacity κ(t); the staggered policy keeps each window within capacity, the surge route-closure time marked. 
+
+Figure 6: Experiment 2, the value of precision. Expected social cost versus public-signal precision α. Under a single common signal ( K = 1 ) cost rises with precision and the optimum is the vague corner α → 0 (informational Braess); under staggered orders ( K = 2 ) the sign reverses and full precision is optimal. Sequencing and precision are complements. between these two regimes; on the calibrated network the optimum is a corner whose sign is set by whether sequencing is available, and the structural lever is the staggering itself. 
+
+6.5 Discussion 
+
+The two experiments separate the model’s two levers on a single calibrated event. Experiment 1 shows that the phasing schedule θ has first-order welfare value exactly when a shared corridor is gridlock-prone: the realised K = 1 release 
+
+18 CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+reproduces the Rita gridlock; the solved optimum cuts social cost by about 89% , and a coarse two-tier stagger captures most of that reduction (a 77% cut). Mapped to corridor speed, the realised branch reproduces the documented 1–2 mph Rita gridlock once a single scale is pinned, and the solved optimum then holds free flow, in line with the dynamic-traffic-assignment bands for the same event [24] (Figure 4). Experiment 2 solves the designer’s two instruments on asymmetric zones with hazard charged on the realised storm: a staggered order (clear the coast, hold the inland zone, then release it) lowers social cost by about 70% relative to a simultaneous advisory at an interior optimal hold, while sharpening a single common advisory raises social cost, the informational-Braess sign-reversal of the monotone-disclosure benchmark, so that the optimal precision of a lone broadcast is vague; precision becomes valuable only once orders are staggered, the two instruments acting as complements. Both the phasing and the synchronisation effects are driven by the same force, the convexity of the total-delay exposure ϕsoc  
+
+> ℓ
+
+that prices synchronisation, and the Rita record supports the mechanism on both the demand side (a 53% warning-day departure spike, with the warning-day cohort suffering the worst delays) and the structural side (coastal–inland convergence on the I-45 trunk, signal-driven and demographic-invariant departure timing). The policy reading is that an emergency manager facing a capacity-limited shared corridor should not treat advisory transparency and order timing as free goods: the optimal information structure is a deliberately staggered, coarsely tiered, publicly announced schedule, and a lone common advisory should be kept vague unless it can be sequenced, a structure that agencies already approximate and that the model derives. 
+
+Remark 6 (Scope: why Hurricane Harvey (2017) is not a second case) . The mechanism this paper isolates is disclosure-induced synchronisation of egress onto capacity-limited shared corridors: a common advisory moves zones in unison, the convex total-delay exposure ϕsoc  
+
+> ℓ
+
+of (8) prices that synchronisation, and the resulting forces are the in-terior (or corner) optimal disclosure of Proposition 9 and the staggered release of Proposition 10. Hurricane Rita (2005) is the canonical instance of this regime. Hurricane Harvey (2017) is deliberately not treated here, because it lies outside it: Houston authorities issued no general evacuation order, and the dominant hazard was distributed rainfall flooding rather than corridor congestion, so no shared corridor is over capacity and the externality P 
+
+> ℓ
+
+ηℓκℓ(qℓ −κℓ)+
+
+does not bind. A Harvey calibration would therefore test a different mechanism, the evacuate-versus-shelter decision under a spatially distributed hazard, rather than validate the present one. Tellingly, the decision to withhold a general order in 2017 was widely reported as a response to the Rita experience [27], i.e. a judgement that the synchronisation risk of a sharp common advisory outweighed the exposure of leaving residents in place. In the language of (23) that is the same tradeoff between the value of information (term A) and the synchronisation cost (term B) that governs β⋆,resolved at the no-disclosure corner of Proposition 9(ii). Harvey thus corroborates the tension the model formalises while falling outside its congestion-driven scope; extending the framework to the evacuate–shelter margin and to non-corridor (distributed) hazard is left to future work. 
+
+# 7 Conclusion 
+
+We developed a continuous-time stochastic Stackelberg framework in which an emergency-management agency steers strategic evacuation zones through a public advisory and a tiered release schedule, rather than through the dynamics. A belief filter, exact between observed intensification jumps, summarises the jump-diffusion storm; the zones play a congestion game whose Wardrop equilibrium reduces to a single convex control problem (a potential reduction) but 
+
+not to the social optimum, the wedge is the congestion externality. The leader’s distributionally robust problem is the unique viscosity solution of an Isaacs equation, verified without smoothness and across activation epochs, with a Lebesgue-null switching set and a well-posed Filippov closed loop. Because no transfer aligns incentives, the leader’s first-order condition retains an MPEC equilibrium-response term, the precise sense in which optimal information design is a second-best congestion toll. Two structural findings have no monotone-disclosure analogue: the optimal information structure is a publicly announced, staggered order (deriving phased evacuation from optimality), and the value of advisory precision is sign-ambiguous, self-defeating as a single broadcast (an informational Braess effect) but complementary with staggering; on the Rita calibration a staggered-disclosure design lowers social cost by about 
+
+70% relative to a simultaneous advisory. A calibration to the 2005 Hurricane Rita evacuation (Section 6) bears out the theory: the model reproduces the observed I-45 gridlock and shows that the optimal staggered release would have cut social cost by about 89% , removing essentially all of the in-transit congestion exposure, with two tiers capturing most of that reduction. 
+
+# References          
+
+> [1] Furkan Sezer. Distributionally robust joint information and mechanism design for multi-area power system coordination, 2026. URL https://arxiv.org/abs/2606.24015 .[2] Emir Kamenica and Matthew Gentzkow. Bayesian persuasion. American Economic Review , 101(6):2590–2615, October 2011. DOI: 10.1257/aer.101.6.2590. URL https://www.aeaweb.org/articles?id=10.1257/aer.101.6.2590 .[3] Jeffrey C. Ely. Beeps. American Economic Review , 107(1):31–53, 2017. DOI: 10.1257/aer.20150218.
+
+19 CONTINUOUS-TIME INFORMATION DESIGN FOR HURRICANE EVACUATION 
+
+[4] Fr´ ed´ eric Koessler and Vasiliki Skreta. Informed information design. Journal of Political Economy , 131(11):3186–3232, 2023. DOI: 10.1086/724843. [5] Dirk Bergemann and Stephen Morris. Information design: A unified perspective. Journal of Economic Literature , 57(1):44– 95, March 2019. DOI: 10.1257/jel.20181489. URL https://www.aeaweb.org/articles?id=10.1257/jel.20181489 .[6] Sanmay Das, Emir Kamenica, and Renee Mirka. Reducing congestion through information design. In 2017 55th Annual Allerton Conference on Communication, Control, and Computing (Allerton) , pages 1279–1284, 2017. DOI: 10.1109/ALLER-TON.2017.8262884. [7] Daron Acemoglu, Ali Makhdoumi, Azarakhsh Malekian, and Asuman Ozdaglar. Informational braess’ paradox: The effect of information on traffic congestion. Operations Research , 66(4):893–917, 2018. DOI: 10.1287/opre.2017.1712. URL 
+
+https://doi.org/10.1287/opre.2017.1712 .[8] Hamidreza Tavafoghi and Demosthenis Teneketzis. Informational incentives for congestion games. In 2017 55th Annual Allerton Conference on Communication, Control, and Computing (Allerton) , page 1285–1292, Monticello, IL, USA, 2017. IEEE Press. DOI: 10.1109/ALLERTON.2017.8262885. [9] Pamela Murray-Tuite and Brian Wolshon. Evacuation transportation modeling: An overview of research, devel-opment, and practice. Transportation Research Part C: Emerging Technologies , 27:25–45, 2013. ISSN 0968-090X. DOI: https://doi.org/10.1016/j.trc.2012.11.005. URL https://www.sciencedirect.com/science/article/ pii/S0968090X12001386 .[10] Brian Wolshon, Elba Urbina Hamilton, Marc Levitan, and Chester Wilmot. Review of policies and practices for hurri-cane evacuation. ii: Traffic operations, management, and control. Natural Hazards Review , 6(3):143–161, 2005. DOI: 10.1061/(ASCE)1527-6988(2005)6:3(143). [11] Hayssam Sbayti and Hani S. Mahmassani. Optimal scheduling of evacuation operations. Transportation Research Record ,1964(1):238–246, 2006. DOI: 10.1177/0361198106196400126. [12] Lars Peter Hansen and Thomas J. Sargent. Robustness . Princeton University Press, Princeton, NJ, 2008. [13] Wendell H. Fleming and Halil Mete Soner. Controlled Markov Processes and Viscosity Solutions . Springer, New York, NY, 2nd edition, 2006. DOI: 10.1007/0-387-31071-1. [14] Martino Bardi and Italo Capuzzo-Dolcetta. Optimal Control and Viscosity Solutions of Hamilton–Jacobi–Bellman Equations .Birkh¨ auser, Boston, MA, 1997. DOI: 10.1007/978-0-8176-4755-1. [15] Michael G. Crandall, Hitoshi Ishii, and Pierre-Louis Lions. User’s guide to viscosity solutions of second order partial differ-ential equations. Bulletin of the American Mathematical Society , 27:1–67, 1992. URL https://www.ams.org/journals/ bull/1992-27-01/S0273-0979-1992-00266-5/S0273-0979-1992-00266-5.pdf .[16] Piermarco Cannarsa and Carlo Sinestrari. Semiconcave Functions, Hamilton–Jacobi Equations, and Optimal Control , vol-ume 58 of Progress in Nonlinear Differential Equations and Their Applications . Birkh¨ auser, Boston, MA, 2004. ISBN 978-0-8176-4084-2. DOI: 10.1007/b138356. [17] Francis H. Clarke, Yuri S. Ledyaev, Ronald J. Stern, and Peter R. Wolenski. Nonsmooth Analysis and Control Theory .Springer, New York, NY, 1998. DOI: 10.1007/b97650. [18] Robert S. Liptser and Albert N. Shiryaev. Statistics of Random Processes I: General Theory . Springer, Heidelberg, Germany, 2nd edition, 2001. DOI: 10.1007/978-3-662-13043-8. [19] Qi Huang and Jingtao Shi. Stackelberg stochastic differential games in feedback information pattern with applications. 
+
+Dynamic games and applications , 14(5):1191–1224, 2024. DOI: 10.1007/s13235-023-00549-0. [20] Jinyoung Lee, Qingxin Meng, and Jun Moon. Linear-quadratic stochastic stackelberg differential games for jump-diffusion systems under general partial information. Dynamic Games and Applications , 16(1):157–197, 2026. DOI: 10.1007/s13235-025-00659-x. [21] Yiting Wu and Junyu Zhang. Discounted stochastic stackelberg games for peer-to-peer energy sharing. Dynamic Games and Applications , pages 1–23, 2026. DOI: 10.1007/s13235-026-00703-4. [22] Tamer Bas ¸ar and Quanyan Zhu. Prices of anarchy, information, and cooperation in differential games. Dynamic Games and Applications , 1(1):50–73, 2011. DOI: 10.1007/s13235-010-0002-3. [23] Brian Wolshon. “one-way-out”: Contraflow freeway operation for hurricane evacuation. Natural Hazards Review , 2(3): 105–112, 2001. DOI: 10.1061/(ASCE)1527-6988(2001)2:3(105). [24] Praprut Songchitruksa, Russell Henk, Steven Venglar, and Xiaosi Zeng. Dynamic traffic assignment evaluation of hurricane evacuation strategies for the houston–galveston, texas, region. Transportation Research Record , 2312(1):108–119, 2012. DOI: 10.3141/2312-11. [25] Hao-Che Wu, Michael K. Lindell, and Carla S. Prater. Logistics of hurricane evacuation in hurricanes katrina and rita. Transportation Research Part F: Traffic Psychology and Behaviour , 15(4):445–461, 2012. ISSN 1369-8478. DOI: https://doi.org/10.1016/j.trf.2012.03.005. [26] Jeff Lindner. Hurricane Rita, September 18–26, 2005. Meteorological event report, Texas Floodplain Management Asso-ciation, Houston, TX, 2005. URL https://cdn.ymaws.com/www.tfma.org/resource/resmgr/Center_Page_News_ Brief/Hurricane_Rita.pdf .[27] Camila Domonoske. Why didn’t officials order the evacuation of Houston? NPR, The Two-Way, August 2017. URL https://www.npr.org/sections/thetwo-way/2017/08/28/546721363/ why-didn-t-officials-order-the-evacuation-of-houston . Accessed June 2026. 
+
+20

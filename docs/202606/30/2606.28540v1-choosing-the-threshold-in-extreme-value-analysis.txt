@@ -1,0 +1,2023 @@
+Title: Choosing the threshold in extreme value analysis
+
+URL Source: https://arxiv.org/pdf/2606.28540v1
+
+Published Time: Tue, 30 Jun 2026 00:09:25 GMT
+
+Number of Pages: 52
+
+Markdown Content:
+Submitted to the Brazilian Journal of Probability and Statistics 
+
+## Choosing the Threshold in Extreme Value Analysis 
+
+Léo R. Belzile 1,a and Anthony C. Davison 2,b 
+
+> 1Department of Decision Sciences HEC Montréal 3000, chemin de la Côte-Sainte-Catherine Montréal (Québec) Canada, H3T 2A7
+> aleo.belzile@hec.ca
+> 2Institute of Mathematics École polytechnique fédérale de Lausanne EPFL-SB-PH, Station 8 1015 Lausanne Switzerland
+> banthony.davison@epfl.ch
+
+Abstract. One of the two dominant approaches for univariate extreme value analysis is to model exceedances above a large threshold, the choice of which has a large impact on inference and whose uncertainty is often subsequently ignored. In this article we review more than 40 threshold selection procedures, including semiparametric methods based on Hill’s estimator, visual diagnostics, goodness-of-fit tests, and others based on extended generalized Pareto models. Starting with the statistical properties underlying the various proposals, we provide a critical assessment of their strengths and weaknesses, discuss how they might be automated and describe the results of an extensive simulation study used to identify the most promising procedures. The approaches are compared using a long time series of daily rainfall totals from Padova. 
+
+1 Introduction 
+
+Natural catastrophes and economic disasters have impacted much of the globe over the past two decades, leading to a widespread appreciation of the potential impacts of rare events. A central role in the study of such events is played by extreme-value analysis, which employs statistical models to extrapolate from the data available to more severe, as-yet unseen, risks. The visibility of this domain of statistics has greatly increased, with a large community of researchers working on all of its aspects and mounting application of related methods. Extreme-value theory is usually developed in terms of large events, typically analysed ei-ther as maxima of blocks of successive observations, or as exceedances above some high threshold. These approaches are linked by a unifying asymptotic framework that combines the theories of point processes for event times and of regular variation for event sizes. These limiting results provide asymptotic models that are fitted to non-asymptotic data, so an ad-equate fit of the models to the data is crucial to subsequent inferences, and in particular determines the trustworthiness of any extrapolation. The initial theoretical results and applications of extreme-value theory considered block maxima (Fisher and Tippett, 1928; Gnedenko, 1943; Gumbel, 1958), but in the early 1970s attention turned to threshold exceedances (Todorovic and Zelenhasic, 1970; Todorovic and Rousselle, 1971; Balkema and de Haan, 1974; Pickands, 1975), and since the introduction of related statistical methods (Davison, 1984; Smith, 1984; Davison and Smith, 1990), the so-called ‘peaks over threshold’ (POT) approach has become widely applied. The key idea is 
+
+Keywords and phrases. generalized Pareto distribution, Padova rainfall series, peaks over threshold analysis, penultimate approximation, statistics of extremes, threshold selection. 
+
+1 
+
+> arXiv:2606.28540v1 [stat.ME] 26 Jun 2026 2Belzile and Davison
+
+that the extremes of data from a stationary time series be modelled by considering only those observations Y that exceed a threshold u, since under mild conditions it can be shown that there exists a positive function σu such that as u approaches the upper support point of Y ,
+
+Pr {(Y − u)/σ u > x | Y > u } → (1 + ξx )−1/ξ  
+
+> +
+
+, x > 0, (1) uniformly in x. Here b+ = max( b, 0) and the parameter ξ takes values in the real num-bers; the right-hand side of eq. (1) is replaced by exp( −x) when ξ = 0 . This implies that an exceedance X = Y − u over a sufficiently high threshold u approximately follows the generalized Pareto distribution (GPD), i.e., 
+
+Pr( X ≤ x) ≈ G(x) = 
+
+(
+
+1 − (1 + ξx/σ u)−1/ξ  
+
+> +
+
+, ξ̸ = 0 ,
+
+1 − exp( −x/σ u), ξ = 0 , x > 0. (2) Below we write X ∼ GP (σu, ξ ) when X has the distribution on the right-hand side of eq. (2), and use Y to denote general random variables. The distribution (2) depends on two parameters. The shape parameter ξ determines the upper tail weight of the density function, which is Pareto-like when ξ > 0, exponential for 
+
+ξ = 0 , and has support only in the interval (0 , −σu/ξ ) when ξ < 0. We shall see below that the scale parameter σu depends on the chosen threshold u.In the simplest applications a high but finite threshold u is chosen using the available data, the parameters of eq. (2) are estimated from the nu exceedances over u, and this fitted model is used for extrapolation, often to values of x that lie beyond the observed sample. The (1 − 1/T )-quantile of the distribution of annual maxima, or T -year return level (T > 
+
+1) , is often the target of inference. In practice there may be numerous complications, most commonly that the series is non-stationary and that local dependence leads to the clustering of exceedances. In the original applied literature only the largest observation (the ‘peak’) in each cluster was retained, but in line with current usage we shall use the abbreviation POT to refer to this entire approach to extremes. There is a further trade-off between quality of fit to the available data and extrapolation be-yond them. In Section 2.1, we shall see that expression (2) is rather flexible, and that “penul-timate” approximations to the left-hand side of eq. (1) have the same form with different parameter values. This implies that a good fit to the available data should be balanced against the quality of extrapolation to higher, especially much higher, quantiles. It also suggests that different approaches to choosing the threshold u may be appropriate when the purpose of an analysis is to estimate a particular parameter, such as a value-at-risk or an expectile, rather than to fit a model for subsequent general use. The choice of threshold u is critical to the successful application of POT methods, and the goal of this paper is to review methods of choosing it. Taking u too high means that the number of exceedances nu is small, thus increasing the uncertainty of subsequent inferences, whereas taking u too low may lead to poor extrapolation owing to the inclusion of non-extreme data. This trade-off has led to many suggestions for threshold selection, ranging from simple graphical procedures using stability properties of the GPD (e.g., Davison and Smith, 1990; Coles, 2001) to sophisticated analytical procedures requiring stringent restrictions on the tail of Y . Certain procedures were compared numerically in Gomes and Oliveira (2001), Schneider, Krajina and Krivobokova (2021), Murphy, Tawn and Varty (2025) and elsewhere. The most comprehensive previous reviews of threshold selection are Scarrott and MacDonald (2012), Caeiro and Gomes (2016) and Langousis et al. (2016). Scarrott and MacDonald (2012) cover the main ideas, with a focus on the splicing models described in Section 4.3. Most of the methods covered by Caeiro and Gomes (2016) are semiparametric (cf. Section 6). Many further procedures for threshold selection have been proposed since these articles and book chapter appeared and are reviewed for the first time here. Choosing the threshold in extreme value analysis 3
+
+We illustrate our discussion using daily rainfall data from Padova (Marani and Zanetti, 2015). Exploratory analysis reveals strong seasonality, particularly for the number of rainy days, which form around 25% of the total; we reduce the effect of such artefacts by taking only the months of July–September for the years 1878–2016, yielding n = 3311 rainfall totals over 2mm. Although there are fewer rainy days during these summer months, the corresponding episodes of precipitation can be more extreme. For simplicity and since our objective is to illustrate and compare the results of threshold selection procedures, we treat the summer data as stationary. The paper is organized as follows. In Section 2, we sketch properties of the generalized Pareto distribution. and then in the following three sections describe threshold selection pro-cedures. These can be broadly categorized based on the approach taken: threshold stability (Section 3), extension of the GPD (Section 4), goodness-of-fit methods (Section 5), or semi-parametric procedures when ξ > 0 (Section 6). Section 7 outlines the results of extensive comparisons fully described in Appendices C and D and the results of applying the selection methods to the Padova series; other appendices give details for which there is insufficient space in the paper. Section 8 contains a brief general discussion. 
+
+2 Generalized Pareto distribution 
+
+2.1 Basic notions 
+
+2.1.1 First- and second-order conditions The generalized Pareto limit of (1) for rescaled threshold exceedances hold in wide generality. Let Y be a random variable with distribution function F , define F −(p) = inf {y : F (y) ≥ p} for p ∈ (0 , 1) , and for t > 1 let b(t) = F −(1 −
+
+1/t ). Then the so-called first order condition, which yields the generalized Pareto limit, holds if there exists a positive function a such that (de Haan and Ferreira, 2006, Theorem 1.1.6) 
+
+lim 
+
+> t→∞
+
+b(ty ) − b(t)
+
+a(t) =
+
+Z y
+
+> 1
+
+sξ−1ds =
+
+(
+
+(yξ − 1) /ξ, ξ̸ = 0 ,
+
+log y, ξ = 0 , y > 0.
+
+A simple interpretation of the roles of a(·) and ξ is possible if F is twice differentiable and has cumulative hazard function H(y) = − log {1 − F (y)} and reciprocal hazard function 
+
+r(y) = 1 /{dH(y)/dy}. Then we can take a(t) = r{b(t)}, write ξt = r′{b(t)}, and find that 
+
+ξ = lim t→∞ ξt.Smith (1987) shows that taking (2) with ξt rather than ξ may give a better, so-called penultimate, approximation to the left-hand side of (1). A well-known case is the limiting exponential distribution for Gaussian exceedances, for which ξ = 0 , which is reached so slowly that for all practical purposes the shape parameter is negative (Fisher and Tippett, 1928), and this is what is found when fitting (2) to Gaussian data. Such slow convergence might seem worrisome, but in practice the major issue is whether the GPD can provide useful extrapolations from data to levels likely to be used in applications, and of course this depends on the context. We illustrate this numerically in Section B. Penultimate approximations can be related to further tail properties of F , which is said to be generalized regularly varying of second order at infinity if there exists a function A(t)
+
+such that (de Haan and Ferreira, 2006, §2.3) 
+
+Hξ,ρ (y) := lim 
+
+> t→∞
+
+b(ty ) − b(t) − a(t) R y 
+
+> 1
+
+sξ−1dsa(t)A(t) (3) 
+
+=
+
+Z y
+
+> 1
+
+sξ−1
+
+Z s
+
+> 1
+
+uρ−1duds, y > 0, ρ ≤ 0, (4) 4 Belzile and Davison 
+
+and such that Hξ,ρ (y) is not proportional to R y 
+
+> 1
+
+s−ξ−1ds. The second-order auxiliary function 
+
+A(t) is regularly varying at infinity with tail index ρ ≤ 0, i.e., lim t→∞ |A(ty )/A (t)| = yρ for 
+
+ρ ≤ 0, and also lim t→∞ A(t) = 0 with A(t) ultimately not changing sign, so sign {A(ys)} =sign {A(t + ys)} for some ys > 0 and for all t > 0. If b(t) is twice differentiable and b′(t) is eventually positive, then (de Haan and Resnick, 1996, Theorem 2.1) 
+
+A(t) := tb ′′ (t)
+
+b′(t) − ξ + 1 = r′{b(t)} − ξ = ξt − ξ; (5) this is the difference between the penultimate and limiting values of the shape parameter. Bücher and Zhou (2021) discuss these and similar conditions that apply to block maxima. Many methods mentioned in Section 6 focus on the Hall and Welsh (1985) class of distri-butions, whose survival function admits the asymptotic expansion 
+
+1 − F (y) = αy −1/ξ n
+
+1 + βy ρ/ξ + o( yρ/ξ )
+
+o
+
+, y → ∞ , (6) equivalent to a polynomial second-order auxiliary function A(t) = βt ρ for β̸ = 0 and ρ < 0.Although useful in theoretical work, the second-order functions such as A or Hξ,ρ turn out to be extremely difficult to estimate, and it seems impossible to exploit this further structure in data analysis. 2.1.2 Threshold stability The GPD is threshold-stable: if Y − u ∼ GP (σu, ξ ) and v > u is such that Pr( Y > v ) > 0, then the conditional distribution of Y − v given Y > v is also GPD, with the same ξ and scale parameter σv = σu + ξ(v − u). When ξ < 1 we have E(Y − u) = 
+
+σu/(1 − ξ), so E(Y − v | Y > v ) = {σu + ξ(v − u)}/(1 − ξ). This is the basis for threshold stability plots, which display the empirical version of this conditional expectation and should be linear in v if the GPD is adequate. The property also suggests diagnostics obtained by fitting the model over a grid of thresholds. 2.1.3 Inhomogeneous Poisson process formulation The GPD can also be derived from a limiting Poisson process P under which events occur in the (t, y )-plane with measure 
+
+Λ[( t′, t ) × [u, ∞)] = ( t − t′){1 + ξ(u − η)/τ }−1/ξ  
+
+> +
+
+, u ∈ R, t > t ′, η ∈ R, τ > 0.
+
+The measure of the set Cu = [0 , 1] × [u, ∞) under this model is 
+
+μ(u) = {1 + ξ(u − η)/τ }−1/ξ  
+
+> +
+
+, (7) so the probability that the restriction of P to Cu has no points in Cu+x for x > 0 is μ(x +
+
+u)/μ (u) = (1 + ξx/σ u)−1/ξ  
+
+> +
+
+, where σu = τ + ξ(u − η), corresponding to eq. (1). The vertical coordinates of the Poisson process P on C−∞ can be generated by transforming a unit-rate Poisson process on the positive half line, E1, E 1 + E2, . . . , where the Ej are independent standard exponential random variables, into the inhomogeneous process with points 
+
+η + τξ
+
+( rX
+
+> j=1
+
+Ej
+
+!−ξ
+
+− 1
+
+)
+
+, r = 1 , 2, . . . , (8) which lie in the subset of the real line for which μ(x) > 0. Hence if we use an estimate of 
+
+μ to transform the data to a unit-rate Poisson process, the choice of threshold amounts to choosing the smallest value of u above which the transformed observations are consistent with this process. Choosing the threshold in extreme value analysis 5
+
+2.1.4 Martingale residuals The Markov properties of the order statistics X(1) ≤ · · · ≤ X(n)
+
+of a GP (σ, ξ ) random sample, which follow from the Poisson process construction described in Section 2.1.3, allied to threshold stability, imply that the joint density of the order statistics can be written as 
+
+> n
+
+Y
+
+> j=2
+
+f (x(j) | x(j−1) )f (x(1) ) = 
+
+> n
+
+Y
+
+> j=1
+
+1
+
+σj
+
+
+
+1 + ξn + 1 − j
+
+(x(j) − x(j−1) )
+
+σj
+
+−(n+1 −j)/ξ −1+
+
+, (9) where σj = ( σ + ξx j−1)/(n + 1 − j) and x(0) = 0 (cf. Oorschot, Segers and Zhou, 2023, Appendix A). This extends the Rényi (1953) representation for exponential data, as the small-est order statistic X(1) ∼ GP (σ/n, ξ/n ) and the increments X(j) − X(j−1) , conditional on 
+
+X(j−1) = x(j−1) have GP {σj , ξ/ (n + 1 − j)} distributions, for j = 2 , . . . , n , in addition to being conditionally independent of the lower order statistics. Stein (2023) explores using this representation to replace choosing the threshold by weighting the observations. 
+
+2.2 Statistical properties of the generalized Pareto distribution 
+
+In this paper we consider the choice of threshold u, either within a fixed grid of ordered thresholds u1 < · · · < u J or within a subset of the order statistics Y(1) < · · · < Y (n) of a random sample Y1, . . . , Y n; we write U for the grid and call it fixed or random, respectively. If u is chosen, then we fit (2) using the nu positive values of Yj − u; nu is then random. Conversely we may choose nu and take u = Y(n−nu) as the (random) threshold. As the limit in (1) holds as u increases to the upper support point y+ of Y , we must use a so-called inter-mediate sequence for which nu/n → 0 as n → ∞ in order for the estimator to be consistent, so that as nu increases the number of exceedances retained grows but comprises an increas-ingly small proportion of the original data. Simple rules such as using a fixed proportion of the data by setting nu ≈ np for some fixed p are inappropriate; we must rather use smaller fractions nu/n in larger samples, for example taking the ⌈n − nq⌉ largest order statistics, with q = 0 .995 or q = 0 .999 . In practice a minimum number of observations is needed for fitting, whatever the size of the entire sample, so we must have nu ≥ 20 , say. 2.2.1 Maximum likelihood estimator Maximum likelihood estimation makes no assump-tion on the sign of the shape parameter and is readily extended to more complex settings; the parameter estimators have large-sample normal distributions if eq. (1) holds and ξ > −1/2
+
+(Smith, 1985), though the normal approximation may be poor in small samples (Süveges and Davison, 2010). Numerical problems can arise when ξ < 0, because the support of the density, {x : σu + ξx > 0}, then depends on the parameters, but these can be eased using a reparametrisation due to R. L. Smith (cf. Davison, 1984) that reduces the optimization to a unidimensional problem (Grimshaw, 1993) by expressing the model in terms of ξ and 
+
+η = −ξ/σ u. Apart from constants and when η̸ = 0 , its profile log likelihood, 
+
+ℓp(η) = −n log 
+
+(
+
+− 1
+
+nη 
+
+> n
+
+X
+
+> i=1
+
+log(1 − ηx i)
+
+)
+
+−
+
+> n
+
+X
+
+> i=1
+
+log(1 − ηx i), η < 1/x (n),
+
+attains an overall maximum of +∞ as η → 1/x (n) and has a global maximum if the sample coefficient of variation exceeds unity and ξ > 0 (del Castillo and Daoudi, 2009). The asymptotic covariance matrix of the maximum likelihood estimators (ˆ σu, ˆξ) depends on whether u is fixed or an order statistic (Drees, Ferreira and de Haan, 2004, Remark 2.3), though ˆξ has asymptotic variance (1 + ξ)2 in both cases (Drees, Ferreira and de Haan, 2004, Corollary 2.1). These estimators can have large bias in small samples. 6 Belzile and Davison 
+
+2.2.2 Hill’s estimator The well-known Hill (1975) estimator of a positive shape parameter 
+
+ξ averages the log spacings of the nu largest order statistics of a random sample relative to the random threshold u = Y(n−nu), assumed to be positive: 
+
+Hn,n u = 1
+
+nunuX
+
+> i=1
+
+log Y(n−i+1) − log Y(n−nu) . (10) If the upper tail is Pareto-like ( ξ > 0), the Weissman (1978) estimator of the quantile at level 1 − p is Qnu (1 − p) = Y(n−nu){nu/(pn )}Hn,nu . Although Hn,n u is consistent for ξ > 0
+
+for an intermediate sequence nu, it is not location-invariant. Less widely-used estimators for real-valued ξ include the moment estimator of Dekkers and de Haan (1989), those based on generalized median, trimmed mean and mean excess functionals of Beirlant, Vynckier and Teugels (1996a), and a location-scale invariant estimator based on an extreme U -statistic (Oorschot, Segers and Zhou, 2023); the last uses log spacings and thus is undefined in the presence of ties. For the latter, as well as for the shape estimator of Wager (2014), more work is needed to derive accompanying estimators of scale and quantiles, along with confidence intervals. A sufficient condition for asymptotic normality of Hill’s estimator is second order regular variation (cf. Section 2.1.1) with lim nu→∞ nu1/2A(n/n u) = λ ∈ R, subject to which (de Haan and Ferreira, 2006, Theorem 3.2.5) 
+
+n1/2 
+
+> u
+
+(Hn,n u − ξ) → normal {λ/ (1 − ρ), ξ 2}, ρ ≤ 0. (11) The asymptotic bias of λ/ (1 − ρ), which is unknown in applications, is thus dictated by the rate at which the number of extreme observations grows relative to the total sample size and by the function A(t), which is distribution-specific. Hill’s estimator has a smaller asymptotic variance than the maximum likelihood estimator, but is restricted to positive values of ξ.2.2.3 L-moments Probability weighted moments are often used for estimation in hydro-logical applications. For a generalized Pareto variable X with ξ < 1 we can define αr =
+
+E[X{1 − F (X)}r] = σ/ {(1 + r)(1 + r − ξ)} (r = 0 , 1, . . . ), yielding estimators based on the identities ξ = −α0/(α0 − 2α1) + 2 and σ = 2 α0α1/(α0 − 2α1) with the αr replaced by empirical counterparts (Hosking and Wallis, 1987, eq. 5). Such estimators are linear in the observations, and thus have good small-sample properties. They are closely relate to L-moments (Hosking, 1990), which are linear combinations of probability weighted moments of the form 
+
+λs =
+
+> s−1
+
+X
+
+> r=0
+
+(−1) s−1−r
+
+s − 1
+
+r
+
+ s − 1 + rr
+
+
+
+αr, s = 1 , 2, . . . . 
+
+Another estimator based on the L-skew, τ3 = λ3/λ 2, takes ξlmom = (3 τ3 − 1) /(1 + τ3) and 
+
+σlmom (1 − ξlmom )(2 − ξlmom )λ2, where (σlmom , ξ lmom ) are obtained by replacing probability weighted moments by their unbiased estimators. 2.2.4 Padova data Figure 1 illustrates the variability of shape estimates obtained using dif-ferent estimators applied to the Padova data. The U -statistic-based estimator of Oorschot, Segers and Zhou (2023) varies smoothly, but the others are sensitive to the threshold. Esti-mators from nearby thresholds are strongly correlated. The Hill estimator yields very large return levels as nu increases, due to the extrapolation with large shape values. The maximum likelihood and L-moment estimator (not shown) are rather stable and near identical, both close to the results of a Bayesian analysis. Choosing the threshold in extreme value analysis 7−0.50 −0.25 0.00 0.25 0.50 0.75               
+
+> 20 100 200 300 400 500
+> number of exceedances
+> shape
+> 100 200 300 400
+> 20 100 200 300 400 500
+> number of exceedances
+> 100 year return level (in mm)
+> estimator Hill lmom mle osz
+
+Figure 1 Variation with the threshold of shape parameter estimates (left) and 100-year return levels (right) for different estimators: the maximum likelihood and ( MLE ) L-moments (lmom) (Hosking and Wallis, 1987) of the generalized Pareto parameters, the Hill (1975) estimator, and the U -statistic estimator of Oorschot, Segers and Zhou (2023) (osz). Shape estimates are shown with Wald-based 95% confidence intervals. The MLE and 
+
+L-moments return levels are based on the GPD quantile function and with 95% profile-likelihood confidence intervals, ignoring variation due to the random number of exceedances, whereas the Hill estimator uses the Weissman (1978) quantile estimator with the saddlepoint confidence interval estimator of Buitendag, Beirlant and de Wet (2020). 
+
+In most applications good estimation of σu and ξ is not the goal of analysis, and a key aspect is stability of extrapolation to risk functionals such as high quantiles. Figure 1 shows that, while the maximum likelihood estimates of the shape parameter are rather variable, the quantile estimates are more or less constant, whereas those based on the Weissman estimator increase steadily as the number nu of exceedances grows. 
+
+3 Methods based on stability 
+
+3.1 Moment stability plots 
+
+Threshold stability (Section 2.1.2) underpins various graphical diagnostics. If X1, . . . , X n
+
+follow GP (σ, ξ ) above a threshold u, and ξ < 1, then 
+
+e(v) = E( X − v | X > v ) = σu − ξu 
+
+1 − ξ + ξ
+
+1 − ξ v, v ≥ u. (12) This motivates the mean excess, or mean residual life, plot (cf. Davison and Smith, 1990, § 2), which graphs the empirical mean excesses ˆe(v) = n−1
+
+> v
+
+Pnv
+
+> i=1
+
+(Xi − v)+ against thresholds v
+
+in a grid U , in the hope that the graph will become roughly straight above some threshold. Its interpretation is aided by supplementing the graph with uncertainty bands. Langousis et al. (2016, Section 2.2) proposed automating this informal procedure by tak-ing order statistics as candidate thresholds. Their idea is that for each u ∈ U = {Y(1) ≤· · · ≤ Y(n−20) }, a weighted linear regression should be fitted to pairs {Y(i), ˆe(Y(i))} (i =1, . . . , n − 10) , with jth largest order statistic weighted by the reciprocal sample variance of exceedances over u. The procedure returns the threshold that minimises the weighted mean squared error. Discarding the ten largest order statistics ensures that the weights are not too large, as can arise if there are (near) ties in the largest observations. The left-hand panel of Figure 2 shows the mean residual life plot for the Padova data with U consisting of quantiles at levels 0.8 (13.58mm) to 0.995 (65.49mm) in increments of 8 Belzile and Davison 
+
+0.005; there are 663 and 17 exceedances at the limiting values of u. The plot seems to sta-bilize towards 50mm, but the Langousis et al. (2016) procedure returns the lowest candidate threshold, despite the fitted regression line lying below all observations above 40mm. 
+
+3.2 Parameter stability plots 
+
+Another popular visual procedure is the parameter stability plot (Davison and Smith, 1990). If the generalized Pareto model holds above u, then the shape ξ and/or the modified scale 
+
+σv − ξv are constant for v ≥ u, suggesting that we check for stability of point estimates for values of v in a grid U , with these estimates supplemented by appropriate confidence inter-vals. Such plots can be difficult to interpret because the estimates are based on overlapping samples and do not account for penultimate effects. Moreover they provide no assurance that the model fits adequately, so they should be complemented with diagnostics of fit focused on the upper tail. In an attempt to automate such diagnostics by mimicking common practice, in our simulation study we return the lowest threshold u for which the shape parameter estimate at all higher thresholds falls within the confidence interval of ξ at u. Unless there are strong penultimate effects, this leads to the selection of very low thresholds. The parameter stability plot in the central panel of Figure 2 gives much lower shape es-timates than Hill’s estimator. There is an initial increase of ˆξ until u = 40 or so, but the substantial uncertainty implies that the smallest candidate threshold would be adequate. 
+
+3.3 Hill plots 
+
+Hill plots graph the Hill estimator Hn,n u of eq. (10) against the number of order statistics nu
+
+used for estimation. The usual recommendation is to choose a number of order statistics nu in a region where the Hill estimator stabilizes based on visual inspection of pairs (nu, H n,n u ) for different values of nu. This is notoriously difficult because the sample paths of the process 
+
+{nu, H n,n u } are analogous to those of a modified Brownian motion (Mason and Turova, 1994) and can be very rough; see Figure 1. The estimates are best graphed against the log number of exceedances and may be smoothed using a moving window estimator. Resnick (2006, §§4.4–4.6) describes alternative Hill plots, including ones in which Hn,n u is replaced by a local average. Danielsson et al. (2019) suggest automating the selection of nu by looking for a drop in the variance of the Hill estimator. They use the proportion of the m subsequent tail indexes, say 1/H n,n u+1 , . . . , 1/H n,n u+m, that lie at most ε from 1/H n,n u , suggesting setting ε = 0 .3 and taking the largest value of nu such that 90% of the observations are within the bound. This does not account for the correlation between estimates, and the fact that the variance of the tail index depends on both ξ and nu.The right-hand panel of Figure 2 shows the Hill plot, graphed as recommended against 
+
+log 10 nu, for 20 ≤ nu < 663 . Its estimates of ξ are much higher, and seem stable for nu ≲
+
+150 . The result of the Danielsson et al. (2019) procedure depends on how the range of order statistics is restricted, returning a threshold at 47.6mm with ˆξ = 0 .29 , and nu = 54 if all the non-zero rainfall data are retained, but giving nu = 20 and ˆξ = 0 .28 above the 0.995 quantile, if nu is restricted to be less than 1000. 
+
+3.4 Likelihood-based procedures 
+
+Stability diagnostics can be based on the large-sample distribution of the maximum likeli-hood estimator. Thompson et al. (2009) suggest performing Pearson’s test of normality for differences of the successive estimators ˆσj − ˆξj uj of the scale parameter of the Poisson pro-cess model for thresholds uj in a fixed grid U , stopping when the hypothesis is rejected at level α = 0 .2. If the model applies, then these differences should have mean zero, but their correlation complicates the assessment of significance for the tests. Choosing the threshold in extreme value analysis 910 20 30             
+
+> 20 30 40 50 60 70
+> quantile (in mm)
+> mean residual life
+> 16 33 49 66 99 165 331 662
+> −0.25 00.25 0.5
+> 20 30 40 50 60
+> quantile (in mm)
+> shape
+> −0.25 00.25 0.5
+> 30 100 300
+> number of exceedances (log 10 )
+> shape
+
+Figure 2 Stability plots for the Padova summer rainfall data, with point estimates as a function of the threshold or the number of exeedances, and 95% Wald pontwise (line segment) and simultaneous (shaded area) confidence intervals. Left: mean residual life from eq. (12) , with weighted regression line. Center: stability plot for the shape parameter with pointwise (line) and simultaneous intervals; number of exceedances for selected threshold is shown on top. Right: Hill estimates of the shape parameter against the log 10 of the number of exceedances. 
+
+Wadsworth (2016) supposes that Poisson processes of the form described in Section 2.1.3 apply with possibly different parameters on each interval of U , and shows that, if the asymp-totic regime with a common shape parameter has been reached, differences of the estima-tors ˆξ1, . . . , ˆξJ based on the exceedances of consecutive thresholds can be rescaled to form asymptotically independent standard normal variables, εj = ( ˆξj+1 − ˆξj )/{(I−1 
+
+> j+1
+
+− I−1 
+
+> j
+
+)1/2 
+
+> ξ,ξ
+
+},for j = 1 , . . . , J − 1; here Ij is the Fisher information matrix for exceedances of threshold 
+
+uj , and the subscript (ξ, ξ ) denotes the corresponding matrix element. Her idea is that this standardisation to Gaussian white noise should be effective within the asymptotic regime, but that the εj can be treated as Gaussian white noise with another mean and variance at thresholds below this regime. Thus a likelihood ratio test for a changepoint in the distri-bution of ε1, . . . , ε J−1 should indicate the start of the asymptotic regime, as shown by the lowest threshold above which the p-value for the test exceeds some level α. Experience sug-gests that this procedure is fragile; in particular the difference in inverse Fisher information matrices is often not positive definite, and altering U can lead to completely different con-clusions. The left-hand panel of Figure 3 shows the Wadsworth (2016) white-noise sequence 
+
+εj , which suggests picking the lowest possible threshold for the Padova data. 
+
+4 Extended models 
+
+The fitting of asymptotic models such as the generalized Pareto distribution to a small sub-set of the available data, sometimes called the extremal paradigm , is the dominant approach to the modelling of rare events, but it has drawbacks. One is that the sharp division of the data into ‘extreme’ and ‘bulk’ at a threshold is unrealistic. A smoother transition towards the tail might be achieved by modifying the generalized Pareto model so that its upper-tail properties remain satisfied in the limit but it is more flexible near the threshold, which could then be lowered without serious misspecification. The goal is to balance potential gains in precision of estimation due to including more data against increased uncertainty due to esti-mating additional parameters. In this section we describe the main approaches to extending the generalized Pareto distribution and discuss corresponding threshold choice procedures. 10 Belzile and Davison 
+
+4.1 Piecewise generalized Pareto models 
+
+In Section 2.1.1 we saw that the penultimate shape parameter typically depends on the thresh-old. Wadsworth and Tawn (2012) propose approximating this behaviour using a two-phase inhomogeneous Poisson process with different measures of the form of eq. (7) on intervals 
+
+(u1, u 2] and (u2, +∞). The intensity functions are constrained to be continuous at u2, and tests for equality of the two shape parameters are performed at each pair (u1, u 2) in a fixed grid. The models can be hard to fit, and the procedure entails multiple testing. Northrop and Coleman (2014) instead propose fitting a piecewise generalized Pareto dis-tribution, PGP (σ, ξ 1, . . . , ξ J ), which consists of interval-truncated GPDs with potentially dif-ferent shape parameters on the intervals defined by a fixed grid U ∪ { +∞} . Continuity of the density function at u2, . . . , u J imposes J − 1 restrictions on the scale parameters, so the full model has only J + 1 parameters. The model can be challenging to fit, so the authors propose score tests of the hypotheses that ξj = · · · = ξJ , which correspond to a single gener-alized Pareto model above uj , against the alternative that ξj , . . . , ξ J are different. They plot the corresponding p-values against the thresholds, and for a given significance level α then choose the lowest threshold with a non-significant p-value or at which the p-values for all higher thresholds are all non-significant. The central panel of Figure 3, which shows this plot for the Padova data, leads to the choice of the 0.8 quantile as threshold. Under the original Northrop–Coleman procedure, the rejection probability at any partic-ular threshold is α, but the tests are dependent because the data are re-used. Moreover, its power depends on U and especially on uJ . Neither of their proposed approaches to choosing a threshold controls the overall error rate: the sequence of p-values does not allow compari-son of the null models across thresholds because the data differ for each test. An alternative procedure tests a PGP (σ, ξ 1, . . . , ξ J ) model with ξj = · · · = ξJ for j = 1 , . . . , J − 1 against the full piecewise model using likelihood ratio statistics with J − j degrees of freedom. As the data do not change, this also allows model comparison using information criteria. This entails full fits of J models, first fitting the ordinary generalized Pareto model to all the data above u1, then successively fitting the models with ξ1̸ = · · ·̸ = ξj = · · · = ξJ for j = 2 , . . . , J ,using the final parameter values for one fit as starting-values for the next; this is more sta-ble and faster than direct fitting of the full model. The likelihood will increase when each parameter is added, but the full model remains quite difficult to fit and the shape parameter estimates can vary appreciably between successive intervals. 
+
+4.2 Extended generalized Pareto models 
+
+Starting from Papastathopoulos and Tawn (2013), numerous attempts have been made to embed the GP distribution function G(x; σ, ξ ) in a more flexible model without changing its limiting tail behaviour. Apart from the hope of being able to use a lower threshold for inference on the upper tail, or even entirely avoiding choosing a threshold, this approach may also allow the simultaneous modelling of extremes in both tails (Naveau et al., 2016). A general construction of such models rests on a continuous distribution function Fκ on [0 , 1] ,whose density is fκ. The EGP (σ, ξ, G κ) distribution function is then (Naveau, 2025) 
+
+Pr( X ≤ x) = Fκ{G(x; σ, ξ )},
+
+and the corresponding density and quantile functions are 
+
+f (x; σ, ξ )fκ{G(x; σ, ξ )}, σQ ξ
+
+f −1 
+
+> κ
+
+(p) , 0 < p < 1,
+
+where Qξ(p) = {(1 − p)−ξ − 1}/ξ for ξ̸ = 0 and Q0(p) = − log(1 − p) is the generalized Pareto quantile function. Choosing the threshold in extreme value analysis 11 −2 −1 0123                      
+
+> 0.80 0.85 0.90 0.95 1.00
+> quantile level
+> white noise
+> 00.25 0.5 0.75 1
+> 0.80 0.85 0.90 0.95
+> quantile level
+> p−value
+> 00.5 11.5 2
+> 0.80 0.85 0.90 0.95
+> quantile level
+> κ
+> Figure 3 Threshold selection diagnostics for the Padova rainfall series. Left: white noise sequence diagnostic of Wadsworth (2016) from Section 3.4; rescaled differences of shape parameter estimates, {ξ∗
+> i}. The dashed vertical line indicates the lowest threshold at which we fail to reject the hypothesis that the sequence is standard Gaussian white noise. Center: p-values of the Northrop and Coleman (2014) score test against threshold. The horizontal dashed line at α= 5% gives the cutoff for individual tests. Right: parameter stability plot for κfor the beta extended generalized Pareto model (Gamet and Jalbert, 2022), with pointwise profile-based 95% confidence intervals. Intervals that fail to cover κ= 1 are in grey.
+
+Extended generalized Pareto distributions provide more flexibility for modelling depar-tures from the limiting form, and thus may allow a user to choose lower thresholds and in-crease the sample size, while allowing the additional parameters to capture departures from a generalized Pareto tail for lowest exceedances. In the case of scalar κ, with κ = a retrieving the generalized Pareto model, parameter stability plots can be used to find a region in which 
+
+κ ≈ a and the shape parameter stabilizes. Hypothesis tests for κ = a can also be constructed, although testing will only be regular if a lies inside the parameter space. However, estimators of κ are typically strongly correlated with those of (σ, ξ ), so parameter uncertainty balloons, even if that for return levels increases less sharply. Huet, Naveau and Sabourin (2026) pro-posed fitting an extended generalized Pareto model to (a subset of the) data and picking the largest point above which the density is convex as threshold (the largest zero of the sec-ond derivative of the density arg max x∂2f (x; θ)/∂x 2 = 0 . This is justified by the fact that the generalized Pareto density is strictly convex when ξ > −1/2, and both models should behave similarly in the tail. As EGPD models are appropriate only for positive data, this procedure anyway requires the set of exceedances of an initial threshold. The Papastathopoulos and Tawn (2013) models have prescribed behaviour at x = 0 : for example, if Fκ = uκ for κ > 0, the density at the origin is g(0; σ, ξ ) = 1 /σ but fκ(0) equals zero if κ > 1 or +∞ if κ < 1. Gamet and Jalbert (2022) propose two further models that avoid this behaviour, but only their extended beta model leads to regular asymptotics for comparisons with the generalized Pareto. Stein (2021) considers other constructions. Parameter stability plots for κ for the Padova data and the Gamet and Jalbert (2022) beta model, shown in the right-hand panel of Figure 3, suggest no evidence against the generalized Pareto model from the 0.88 quantile onwards, perhaps due to a lack of power. The estima-tor of κ is highly correlated with that of ξ, which leads to wide confidence intervals and complicates assessment. The 100-year return levels from fitting different extended general-ized Pareto models to these data at different thresholds yield essentially the same inference, although the upper bound of the confidence interval associated with the EGP model tends to be higher, most likely owing to the added uncertainty due to expanding the model class. The two extended generalized Pareto models, the beta model of Gamet and Jalbert (2022) and the power model of Papastathopoulos and Tawn (2013) exhibit similar behaviour for the sampling distribution of the return level estimator. The Huet, Naveau and Sabourin (2026) procedure returns a threshold of zero based on the entire Padova rainfall series, as the EGP fit 12 Belzile and Davison 
+
+is convex over the whole domain, with ˆξ ≈ 0.25 ; depending on the lower bound considered for fitting the EGP, we can however obtain very different thresholds. 
+
+4.3 Mixture and splicing models 
+
+The generalized Pareto model is only valid for exceedances above the threshold u, so it is tempting to splice it together with a specification for the bulk of the data, which lies below 
+
+u. Section 6 of Scarrott and MacDonald (2012) and the discussion in Hu and Scarrott (2018) outline the ideas in the many papers that take this approach; the latter also provides advice and a software implementation. These methods typically do not consider threshold selection, so are not compared in our simulations, but for completeness we sketch them here. The distribution function of a “bulk model-based tail fraction” splicing model has disjoint components below and above u with GPD G(x; σu, ξ ) (Hu and Scarrott, 2018), 
+
+F (y; θ) = 
+
+(
+
+H(y; θ), y ≤ u, H(u; θ) + {1 − H(u; θ)} G(y − u; σu, ξ ), y > u, 
+
+where H is the distribution function of the bulk, whereas a “parametrized tail fraction” model uses a mixture of truncated distributions with mixing probability ϕu,
+
+F (y; θ) = 
+
+(
+
+(1 − ϕu)H(y; θ)/H (u; θ), y ≤ u, 
+
+(1 − ϕu) + ϕuG(y − u, σ u, ξ ), y > u. 
+
+The second specification is more flexible and its likelihood factorises, so it is preferable unless the bulk model fits well: this can be assessed using standard diagnostic tools. Splicing models describe the whole distribution, so users can treat u as a parameter and choose it to give the best fit; its uncertainty can also be taken into account. On the other hand the resulting estimate may be unduly influenced by the bulk model, so robustness of the fit to the choice of u is critical. Goodness-of-fit measures, such as quantile-quantile plots for both parts of the distribution, are often helpful. Profile likelihoods for u can sometimes be plotted, but they are typically uninformative and multimodal: the central panel of Figure 4 shows profile log-likelihood functions for the threshold based on various mixture models for the Padova data, which, though unstable, all point to a low threshold. Using the bulk model-based rather than the parametrized tail fraction does not change the overall picture, but the profiles are smooth when continuity is imposed at u. Neither Weibull (threshold at 0.855 quantile) nor gamma (threshold at quantile 0.8) models fit the bulk adequately, but quantile-quantile plots (not shown) show satisfactory fit in the tails, with shape estimates of respectively 0.08 and 0.16 for the GP component. Continuity of parametric models can be imposed by equating the density, and perhaps its derivatives, at the threshold. This leads to more natural-looking models, but the resulting interaction between the bulk and tail models can lead to poor quantile estimation if either part fits badly. Carreau and Bengio (2009) consider a Gaussian-generalized Pareto splicing model, imposing continuity on the density and its derivative at u, which is treated as a free parameter defined implicitly through the constraints or by constrained optimisation. Rivera Mancia (2014) consider similar smoothness constraints and a Bayesian nonparametric mixture for the generalized Pareto tail model, while MacDonald et al. (2011) use kernel density estimation with a continuity constraint for the bulk, with the kernel bandwidth chosen using a cross-validated likelihood. do Nascimento, Gamerman and Lopes (2012) consider a discontinuous model in the Bayesian paradigm and argue that the discontinuity has no impact for posterior predictive inference about the tail if u is treated as random. Many papers have considered Bayesian estimation, as careful prior specification can help deal with multimodal likelihood functions and capture the uncertainty in threshold selection. Choosing the threshold in extreme value analysis 13 00.05 0.1 0.15 0.2                
+
+> 020 40 60
+> rainfall (in mm)
+> distribution
+> dynamic mixture
+> gen. Pareto
+> Weibull
+> density
+> −10 −7.5 −5 −2.5 0
+> 20 30 40 50 60
+> threshold (in mm)
+> constraint continuous discontinuous distribution gamma weibull
+> profile log−likelihood
+> 040 80 120 160
+> 025 50 75
+> theoretical quantiles
+> sample quantiles
+
+Figure 4 Splicing and dynamic mixture models for the Padova data, and threshold selection diagnostics. Left: dy-namic Weibull-generalized Pareto mixture density of Frigessi, Haug and Rue (2002). Center: profile log-likelihood functions for the threshold parameter u for Weibull and gamma splicing models, with and without continuity con-straints at the threshold. Right: quantile-quantile plot for the Murphy, Tawn and Varty (2025) procedure at the selected threshold of u = 13 .58 mm, corresponding to the 0.8 quantile, with tolerance bands (grey) and segments giving the approximate positions of observations, all of which fall within the bands. 
+
+For example, Behrens, Lopes and Gamerman (2004) considered splicing models where u is treated as a model parameter, with a left-truncated distribution centered around high quan-tiles as its prior, and de Zea Bermudez, Amaral Turkman and Turkman (2001) confine the threshold to a reasonable range by using a doubly-truncated Poisson prior for the number of exceedances. Tancredi, Anderson and O’Hagan (2006) used the inhomogeneous point pro-cess parametrization to reduce dependence on the threshold. Splicing mixtures in which the bulk is nonparametrically specified, using a Dirichlet pro-cess mixture of gamma densities, a mixture of uniform densities or kernel density model, are more flexible than their parametric counterparts, but are more computationally demand-ing and convergence can be problematic; Chapter 5 of MacDonald (2011) considers the use of Tukey’s sensitivity curves for maximum likelihood estimators of the extremal mixture parameter, when transferring data between bulk and tail. Splicing and extended generalized Pareto distributions can be combined by smoothly blending the bulk and tail through a transition function that allows the weight in the mix-ture density to vary dynamically (Frigessi, Haug and Rue, 2002), with 
+
+f (y) ∝ { 1 − w(y; ϑ)}h(y; θ) + w(y; ϑ)g(y; σ, ξ ),
+
+and the weighting function w(·) taken to be a location-scale Cauchy distribution function. Here the bulk and tail models are defined over the whole real line, with the tail given by a dynamic weighted mixture. Since the parameters of w govern the mixing weight, there is no guarantee that the generalized Pareto model will dominate in the upper tail, and this approach tends to perform poorly in practice. Scarrott and MacDonald (2012) remark that a transition function with a high density in a small neighborhood yields sharp transitions. The left-hand panel of Figure 4 shows the fit of the Frigessi, Haug and Rue (2002) dynamic mixture model to the Padova rainfall totals greater than 2mm. The generalized Pareto shape parameter takes the reasonable value of 0.06 , but the tail model contributes 50% of the weight from the minimum exceedance onwards, indicating possible contamination of the tail by the bulk. 14 Belzile and Davison 
+
+5 Goodness-of-fit measures 
+
+Threshold stability plots do not measure the fit of the tail model to the data, making it hard to assess whether inference and subsequent extrapolation are reliable. Another natural approach is to base threshold selection on the fit of a generalized Pareto model to the tail data. 
+
+5.1 Quantile-quantile plot distance 
+
+The fit of data to a distribution F0 is often assessed using quantile-quantile (Q-Q) plots of ordered data against plotting positions, typically {pj = j/ (n + 1) : j = 1 , . . . , n }, that have been transformed using the quantile function Q0 of F0. When the shape of F0 depends on pa-rameters, as with the GPD, uncertainty can be assessed by parametric simulation from a fitted distribution ˆF0 (Davison and Hinkley, 1997, §4.2.4). The model is refitted to each simulated sample and the corresponding quantile function is evaluated at the plotting positions. To avoid visual inspection of Q-Q plots for a grid of thresholds, Varty et al. (2021) suggest using a metric such as (weighted) mean absolute or mean square error for agreement of the empirical and theoretical positions. Murphy, Tawn and Varty (2025) suggest fixing grids U
+
+of thresholds and P = {p1, . . . , p m} of plotting points at which to evaluate the fit and using a bootstrap scheme for u ∈ U :• for b = 1 , . . . , B , generate bootstrap samples of exceedances of u and obtain the corre-sponding fitted GP models ˆF (b)0 ;• obtain the x-axis positions using the generalized Pareto quantile function for ˆF (b)0 ,evaluated at P;• obtain the y-axis positions from the empirical quantile function evaluated at P;• compute the average metric over P and the B bootstrap samples. The threshold u giving the smallest average metric is chosen. By modifying the sampling scheme this proposal can be used with censored or non-identically distributed data, and for time-varying thresholds, but it requires an optimization for each bootstrap sample and each threshold. Varty et al. (2021) propose using a nonparametric bootstrap and plotting on the exponential scale with l1 norm as metric, whereas Murphy, Tawn and Varty (2025) compute the metric on the generalized Pareto scale. The latter gives lower mean squared error for quantile estimators when the shape ξ is positive, since the exponential model downweights larger observations and leads to the choice of lower thresholds. The TAILS approach of Collings et al. (2025), who suggest assigning more weight to large values of P and discarding those below a user-selected cutoff p0, leads to the selection of much higher thresholds. Murphy, Tawn and Varty (2025) report simulation studies that suggest reduced root mean squared error for their quantile estimators relative to the procedures of Northrop, Attalides and Jonathan (2017) and Wadsworth (2016). Using this with the l1 norm on the Padova data returns the lowest candidate threshold; the quantile-quantile plot in the right-hand panel of Figure 4 shows a good fit, but very wide uncertainty for the highest quantiles. 
+
+5.2 Minimum distance selection 
+
+A popular approach for fitting to network data exhibiting power-law upper tails (Clauset, Shalizi and Newman, 2009) treats observations above u as an exact sample from a Pareto distribution with survival function (x/u )−1/ξ on [u, ∞). They suggest picking the thresh-old u to minimize the Kolmogorov–Smirnov distance between the empirical distribution function of the exceedances, ˆFnu and the best fitting Pareto model obtained using Hill’s es-timator, and assess uncertainty using a nonparametric bootstrap. Drees et al. (2020) consider Choosing the threshold in extreme value analysis 15 
+
+candidate thresholds among the order statistics and show that the resulting shape parameter estimator has a higher asymptotic mean squared error than Hill’s estimator and that the cho-sen thresholds tend to be higher than would be optimum. A related proposal of Danielsson et al. (2019) suggests picking nu to minimize the supremum distance between Weissman (1978)’s quantile estimator and the empirical quantile of the largest exceedances, but simu-lations of Murphy, Tawn and Varty (2025) suggest that this has high bias that leads to overly high thresholds, due both to the chosen criterion and to not accounting for the variability of the order statistics. For Pareto tails with ξ > 0, Goegebeur, Beirlant and de Wet (2008) also mention choosing nu to minimize a weighted Cramér–von Mises statistic between log exceedances and the fitted exponential quantiles. 
+
+5.3 Bootstrap procedure 
+
+To account for variation in the number of exceedances above a fixed threshold u, one can employ a bootstrap procedure. We estimate as usual the parameters σu, ξ of the generalized Pareto distribution from eq. (2) from the nu exceedances of a threshold u, and consider the mixture distribution function consisting of point mass at observed values and a generalized Pareto tail 
+
+eF (y) = 1
+
+n
+
+> n−nu
+
+X
+
+> i=1
+
+1Y(i)≤y + 1u<y 
+
+nu
+
+n G(y − u, ˆσu, ˆξ). (13) A bootstrap sample is drawn by taking n uniform draws and inverting eq. (13), leading to varying numbers of exceedances above u, to which the generalized Pareto model is fitted. Caers, Beirlant and Maes (1999) suggest minimizing the mean squared error of the shape parameter, which they estimate from the discrepancies between the resulting bootstrap shape estimates and the original estimate value ˆξ. In practice, the variance tends to dominate the bias, so this approach leads to low thresholds. Gonzalo and Olmo (2004) propose checking the fit of the generalized Pareto model using a Kolmogorov–Smirnov statistic that compares the empirical distribution function and fitted GPD, generalizing Pickands (1975), and to use the bootstrap based on eq. (13) to approximate its sampling distribution. 
+
+5.4 Methods based on L-moments 
+
+The scale-invariance of L-moment ratios, τr = λr/λ 2 (r = 3 , . . . ) (Section 2.2.3), can be used to evaluate distributional fit. Silva Lomba and Fraga Alves (2020) propose automating visual selection from plots of these ratios by noting that the L-skewness τ3 = (1 + ξ)/(3 − ξ) of the generalized Pareto distribution is related to its L-kurtosis, τ4 = f (τ3) = τ3(1 + 5 τ3)/(5 + 
+
+τ3). Their idea is to compare their empirical estimates ( ˆτ3, ˆτ4) and the implied L-moments 
+
+{ˆτ3, f (ˆ τ3)} on a plot of τ4 against τ3 for u ∈ U , then choose the threshold u to minimises the 
+
+l2 distance to the theoretical curve, i.e., taking 
+
+ˆu = argmin 
+
+> u
+
+min 
+
+> τ3
+
+{ˆτ3(u) − τ3}2 + {ˆτ4(u) − f (τ3)}2.
+
+Kiran and Srinivas (2021) likewise propose fitting the generalized Pareto distribution to the exceedances of u, mapping them using the probability integral transform to the unit exponential scale and calculating the first L-moment and L-skewness, (ˆλ1, ˆτ3), from the transformed sample. They then use Monte Carlo sampling from unit exponential or analytical approximation to estimate the mean and variance matrix of these estimators, and return the threshold that minimises the Mahalanobis distance between (ˆλ1, ˆτ3) and the “theoretical” values for the unit exponential model, found by simulation. 16 Belzile and Davison 
+
+Solari et al. (2017) use the weighted Anderson–Darling statistic of Sinclair, Spurr and Ahmad (1990), 
+
+A2
+
+> R
+
+(y) = nu
+
+2 −
+
+> nu
+
+X
+
+> i=1
+
+ 2nu − 2i + 1 
+
+nu
+
+log(1 − zi) + 2 zi
+
+
+
+,
+
+for each candidate threshold u and corresponding set of nu exceedances, where zi =
+
+G(y(nu+1 −i) − u; ˆ σu, ˆξ), with G the distribution function of eq. (2) using the L-moment estimates (ˆ σu, ˆξ). The null distribution of A2 
+
+> R
+
+is approximated by parametric bootstrap simu-lation. Solari et al. (2017) recommend choosing the threshold for which the p-value for A2 
+
+> R
+
+is highest, but this would lead to random selection if the data were exactly generalized Pareto. 
+
+5.5 Bayesian predictive measures 
+
+Lee, Fan and Sisson (2015) propose a threshold stability plot that shows the Bayesian p-value for a summary statistic that captures the agreement or ‘surprise’ between sample and data simulated from the posterior distribution. Too low a threshold will be suggested by de-partures from the expected value of 0.5 for p-values, which are uniform if the GPD fits well. Samples from the posterior distribution of the generalized Pareto parameters (σ, ξ ) are then used to compute the test statistic for the observed exceedances and simulated posterior pre-dictive samples. Lee, Fan and Sisson (2015) make box-and-whisker plots of p-values, so the procedure must be replicated to provide decent Monte Carlo estimates of the variability. The results are noisy even with data simulated from the null model, making it hard to diagnose lack of fit. Furthermore, there is some arbitrariness in the choice of goodness-of-fit statis-tic. The partial posterior predictive distribution is based on the posterior conditional on the statistic, and is equivalent to a leave-one-out scheme if the statistic considered is the posterior log density of the rth order statistic. This choice yields overly-variable p-values, visible in simulations of Lee, Fan and Sisson (2015). More work seems to be needed on appropriate measures of surprise and to reduce the computational burden. The left-hand panel of Figure 5 shows measures of surprise for the Padova data using the likelihood of the largest order statistic as validation test statistic and simulating samples from the partial posterior predictive distribution, and using the the reciprocal likelihood based on the full posterior. The former suggests that all thresholds are unsuitable, the latter that the lowest possible threshold would be suitable. It is unclear whether the reciprocal likelihood lacks power to detect poor fit. Northrop, Attalides and Jonathan (2017) propose a Bayesian method based on leave-one-out cross-validation with a binomial-generalized Pareto (BGP) model, whose density for 
+
+τu = Pr( Y > u ) is 
+
+fu(y) = (1 − τu)1y≤u {τug(y − u; σu, ξ )}1y>u .
+
+They use a fixed grid U and a validation threshold v > u J above which they assess model performance: the BGP model above v follows from threshold-stability arguments, with corre-sponding likelihood contribution fv . The ‘cross-validation predictive density’ for the left-out observation xr from x−r = {x1, . . . , x nuj } \ { xr}, the full sample of exceedances minus the 
+
+rth observation exceeding candidate threshold uj , is 
+
+fv(xr | x−r, u j ) = 
+
+Z
+
+fv(xr | θ, x−r)pj (θ | x−r)d θ,
+
+with pj the posterior density of the parameters at threshold uj . The cross-validation predic-tive density, fv(xr | x−r, u j ), is approximated using Monte Carlo samples from pi(θ | x−r)Choosing the threshold in extreme value analysis 17 00.25 0.5 0.75 1                       
+
+> 20 25 30 35 40 45 50 55
+> threshold (in mm)
+> statistic order stat. recip. lik.
+> Bayesian p−value
+> 00.01 0.02 0.03 0.04 0.05
+> 0.8 0.85 0.9 0.95 1
+> quantile level
+> validation 123
+> weights
+> 00.25 0.5 0.75 1
+> 10 20 30 40 50
+> threshold (in mm)
+> gap 123
+> p−value
+
+Figure 5 Threshold selection diagnostics for the Padova rainfall series. Left: Lee, Fan and Sisson (2015) measures of surprise (Section 5.5) with two test statistics, the reciprocal likelihood 1/f (x; θ) or equivalently 
+
+−ℓ(θ; x) and the distribution of the largest order statistic, X(n). The box-and-whiskers plots are based on 100 replications at each threshold. Center: model averaging weights obtained by Bayesian leave-one cross-validation using the top order statistics as validation threshold (Northrop, Attalides and Jonathan, 2017). Right: p-values for the information matrix test of Süveges and Davison (2010) as a function of the maximum gap length K = 1 , . . . , 3.
+
+obtained via importance sampling from the full posterior pj (θ | x). The proposed measure of fit, an estimate of the negative Kullback–Leibler divergence, 
+
+ˆTv(uj ) = 
+
+> nuj
+
+X
+
+> r=1
+
+log ˆfv(xr | x−r, u j ),
+
+uses all exceedances to assess fit, unlike in Lee, Fan and Sisson (2015). The selected thresh-old maximizes this diagnostic over U . Northrop, Attalides and Jonathan (2017) use Bayesian model averaging to account for the uncertainty due to threshold selection, with the prior pre-dictive distribution replaced by the proxy exp { ˆTv(uj )}; weights as a function of the threshold are shown in the central panel of Figure 5 for validation based on up to the three largest can-didate thresholds. The approach is computationally-intensive but the choice of threshold is automatic and is based on the fit of the model. The BGP likelihood allows the comparison of different thresholds, but does not provide a valid joint distribution for the whole sample above the lowest threshold; this seems to impact comparisons of predictive fit. Simulations in Murphy, Tawn and Varty (2025) indicate that the method leads to highly variable threshold choices, and we concur with this. 
+
+5.6 Distributional tests 
+
+One way to automate threshold selection is to fit a generalized Pareto distribution at each threshold in a fixed grid U , compute a goodness-of-fit statistic, and then perform tests se-quentially for u ∈ U until rejection. Choulakian and Stephens (2001) considered Anderson– Darling and Cramér–von Mises statistics for testing whether the data above a threshold are generalized Pareto. They tabulated the null distributions of these statistics, which do not de-pend on the scale parameter, though Langousis et al. (2016) point out that these distributions are valid only for unrounded data and that their validity suffers further under serial corre-lation. Bader, Yan and Zhang (2018) proposed an improved approach using Monte Carlo simulation to approximate the null distribution for more values of the shape parameter, with linear extrapolation for the largest values of the test statistic. Although invalid in this setting, ForwardStop (G’Sell et al., 2016) is used in a bid to control the false positive rate and thus 18 Belzile and Davison 
+
+to alleviate multiple testing concerns. Bader, Yan and Zhang (2018) suggest using the p-values for a goodness-of-fit statistic at each threshold in a fixed grid U to form the sequence 
+
+Dj = −j−1 Pji=1 log(1 − Pi) ( j = 1 , . . . , J ) and choosing the largest threshold for which 
+
+Dj < α . Simulation suggests that the Anderson–Darling statistic gives higher power than other statistics considered, and despite the lack of theoretical guarantees for the control of the false discovery rate, the size distortion of the procedure seems to be small. Simulations in their paper suggest that the approach leads to lower mean squared error for prediction of extreme quantiles than the competing methods considered. Adjustments are needed for the null distribution approximation to be reliable with rounded data. 
+
+5.7 Time series 
+
+Most results so far assume independent data, but clustering of extremes and serial depen-dence are widespread in applications. Under mild conditions, Ferro and Segers (2003) show that the intervals between successive exceedances of a high threshold u of data from a sta-tionary sequence Y1, . . . , Y T approximately follow a mixture of an exponential distribution with rate θλ u and a point mass at zero; here λu is the rate of exceedances over u and the extremal index θ ∈ (0 , 1] is the reciprocal of the limiting mean cluster size. Under condi-tions on extremal clustering, Süveges and Davison (2010) adapt this result and for data with 
+
+nu exceedances and intervals T1, . . . , T nu−1 define the set of truncated intervals S(u, K ) = 
+
+{max {Ti(u) − K, 0} : i = 1 , . . . , n u − 1} for possible gaps K = 0 , 1, . . . , and the correspond-ing log-likelihood function for θ, ℓ{θ; S(u, K )}. If the model is well-specified, then for ev-ery threshold uj in a grid U and gap K, the Fisher information I(θ) = −E[ ℓ′′ {θ; S(uj , K )}]
+
+equals the variance of the score statistic J(θ) = Va[ ℓ′{θ, S (uj , K )}]. Results of White (1982) suggest testing whether D(θ) = J(θ) − I(θ) equals zero, with J and I replaced by their empirical counterparts evaluated at the maximum likelihood estimator and the test statistic compared to its null asymptotic distribution. This procedure gives a p-value for each combi-nation (uj , K ), and leads to multiple testing. Fukutome, Liniger and Süveges (2015) suggest an ad hoc automation that keeps all pairs for which the test statistic is less than 0.05 (i.e., the 
+
+p-value exceeds 0.82) and choosing the combination of run length and threshold that yields the most clusters; they recommend having at least 80 exceedances at every threshold, but this does not palliate the multiple testing. The application of this to the Padova data in the right-hand panel of Figure 5 shows relative insensitivity to K, and suggests that the model misspecification is not significant beyond 25 mm, giving nu = 271 .
+
+6 Semiparametric methods 
+
+Threshold selection for moment estimators is typically based on minimizing an asymptotic mean squared error for Hill’s estimator, eq. (10). Related methods rely on assumptions about the second-order behaviour of the survival function and the sign of the shape parameter, and may perform poorly in finite samples. Most do not account for the noise due to the insertion of point estimators into formulae, and numerical implementations may not respect the need for a minimum number of upper order statistics, n − nu, for estimation to be reliable, so users must check the results with care. 
+
+6.1 Expansions for the asymptotic mean squared error 
+
+Caeiro and Gomes (2016) review, but do not numerically compare, semiparametric proce-dures for positive shape parameters for distributions that are second-order regularly varying; Choosing the threshold in extreme value analysis 19 
+
+see our Simulation study 2. These procedures either require values of higher-order parame-ters that appear in the asymptotic mean squared error formula, which are estimated or fixed, (e.g., setting ρ = −1), or use bootstrap schemes to circumvent having to do so. For the Hall and Welsh (1985) class defined in eq. (6), for example, choosing the in-termediate sequence nu so that λ < ∞ and the asymptotic mean squared error is ξ2/n u +
+
+A2(n/n u)/(1 − ρ)2 , gives 
+
+nu =
+
+ (1 − ρ)2n−2ρ
+
+−2ρβ 2
+
+1/(1 −2ρ)
+
+(14) as the optimal number of threshold exceedances. This is found by inserting estimates of β
+
+and ρ — though the estimation of these second-order quantities requires another choice of intermediate sequence. Algorithm 1 of Caeiro and Gomes (2016) provides a fixed-point iter-ation scheme to estimate nu. Since risk measures are typically high quantiles, minimization of the asymptotic mean squared error for estimation of ξ might appear to be inappropriate, but the method appears to be competitive in simulations. Dupuis and Victoria-Feser (2003) propose selecting the threshold by choosing the number of exceedances nu that minimizes a weighted prediction error criterion for Pareto tails, and in Dupuis and Victoria-Feser (2006) couple this with robust estimation of the shape parameter, which yield threshold-dependent weights for the observations. We did not implement this latter proposal. 
+
+6.2 Bootstrap methods 
+
+Hall (1990, §4) was the first to suggest the use of resampling to evaluate the asymptotic mean squared error of Hill’s estimator and choose nu. Taking m < n observations and n0 initial exceedances, the bootstrap algorithm is as follows: 1. estimate the shape parameter using Hill’s estimator with the n0 largest order statistics; 2. perform B bootstrap replications as follows: resample m = o( n) observations with replacement, compute Hill’s estimator for the nm = 1 , . . . , m largest order statistics, and denote the shifted estimates for the bth replicate by d(b) 
+
+> nm
+
+= ( ˆH(b) 
+
+> m,n m
+
+− ˆHn,n 0 )2;3. for each value of nm, average the d(b) 
+
+> nm
+
+over all bootstrap replications, and select the value ˆnm that minimizes the mean squared error. 4. For given ρ, compute the optimal number of exceedances for the full sample, i.e., 
+
+ˆnu = ˆ nm(n/m )−2ρ/ (1 −2ρ).The method is sensitive to the choices of n0 and m, which are left to the user (Caeiro and Gomes, 2014). Our simulations use the default values of n0 = 2 n1/2 and m = ⌊n0.955 ⌋.The bootstrap procedure requires the index of second-order regular variation to be known or estimated; Hall (1990) took ρ = −1. Fixing ρ can be avoided by using a double bootstrap (Draisma et al., 1999), which requires subsamples of sizes m1 and m2 = n(m1/n )ω < m 1
+
+with ω > 1. If ω = 2 , then m2 = m21/n and ˆn2
+
+> u
+
+(m1)/ˆnu(m2) = ˆ nu(n){1 + o p(1) } as n → ∞ 
+
+(Gomes and Oliveira, 2001). Ostensibly optimal values of ˆnu(n) may turn out to be larger than n or may equal zero. While some authors suggest independent bootstrap runs, picking 
+
+m2 draws from the m1 samples gives better precision, which might be further improved by bootstrap recyling (Ventura, 2002). In summary, the optimal choice of nu(n) is based on the asymptotic relation between the latter and ˆnu(m1) and ˆnu(m2); the relationship also yields an estimate of ρ as a by-product. Other semiparametric shape estimators may have bias properties similar to those of Hill’s estimator (cf. Caeiro and Gomes, 2014, and references therein). Draisma et al. (1999) pro-posed using the double bootstrap for the moment estimator of Dekkers and de Haan (1989), 20 Belzile and Davison 
+
+whereas Danielsson et al. (2001) considered the difference between de Vries’ ˆξv (de Haan and Peng, 1998) and Hill’s estimators. Other choices of intermediate statistics are considered in Gomes and Oliveira (2001), who compare the performance of different bootstrap methods for semiparametric estimation by simulation. Estimation of second-order parameters can add appreciable variability, so some authors have followed Hall (1990) and fixed ρ. Schneider, Krajina and Krivobokova (2021) proposed the SAMSEE estimator of nu, obtained by combining the generalized jackknife estimator 
+
+2 ˆξv 
+
+> n,n u
+
+− Hn,n u to estimate ξ and a bias estimator obtained from the difference between smoothed Hill estimators over different windows; the result estimates the asymptotic mean squared error for ρ = −1. They report that their threshold selection procedure is competitive, with stable performance over a range of sample sizes and heavy-tailed distributions. Drees and Kaufmann (1998) base threshold selection on calculations of the convergence rate of the maximum random fluctuation of the Hill estimator, max i i1/2|Hn,i − ξ − bn,i | =Op{log 1/2(log n)} for the bias bn,i , but Caeiro and Gomes (2016) claim that this is sensitive to tuning parameters; in our simulations, it usually failed to return results whe using the default values for them, and its performance seems to be subpar. 
+
+6.3 Exponential approximations 
+
+Under the assumption of regular variation, and with ξ > 0, the log-spacings form an approx-imate exponential sample, so Hill (1975) suggested increasing the number of order statistics until the exponential model is found to be inadequate. As the departure from the theoretical model is very gradual, this typically selects nu to be too large (Hall and Welsh, 1985). Guillou and Hall (2001) also consider approximating the distribution of Hill’s estimator and a modification thereof based on linear combination of log spacings, obtaining a sum of exponential variables and a bias term to be minimized. The sum of squares of the zero-mean statistic is computed over a moving window and the chosen threshold is the smallest nu for which the estimate exceeds a critical value. Beirlant, Vynckier and Teugels (1996b) note that, when the sample exceedances are tail-equivalent to a Pareto distribution, the shape parameter ξ > 0 can be viewed as the slope in an exponential quantile-quantile plot with plotting positions − log {j/ (nu + 1) } against order statistics Y(n−j), which leads to the Hill estimator and kernel-weighted variants (Csörgo, Deheuvels and Mason, 1985). Under second-order regular variation with ρ ≤ 0, they propose finding the value nu that minimizes 
+
+MSE (Hn,n u ) = 1
+
+nunuX
+
+> j=1
+
+wopt 
+
+> j,n u
+
+
+
+log 
+
+ Y(n−j+1) 
+
+Y(n−nu)
+
+
+
+− Hn,n u log 
+
+ nu + 1 
+
+j
+
+ 2
+
+. (15) The weights wopt  
+
+> j,n u
+
+depend on ρ and provide an estimate of the asymptotic mean squared error of the Hill estimator. Beirlant, Vynckier and Teugels (1996b) propose an iterative procedure with an initial estimate of nu obtained from an unweighted version of eq. (15), estimate ρ
+
+from m > n u order statistics, and then alternate between estimating nu and ρ. This procedure is generalized to real-valued ξ in Beirlant, Vynckier and Teugels (1996a) using the general-ized quantile regression estimator. The weights depend on ξ when it is negative, and the estimator of ρ is erratic and may return positive values. Both m and ρ must be constrained to avoid nonsense output, and, as for any second-order parameter, unrealistically large samples are needed for reliable estimation of ρ. Moreover the optimal weights can be negative, lead-ing to invalid mean squared errors (Gomes and Oliveira, 2001). Sample paths of eq. (15) are variable, and the procedure does not account for the large uncertainty of the MSE estimates. Still under an assumed Pareto upper tail, Beirlant et al. (1999) propose a nonlinear expo-nential regression procedure to estimate the scaling sequence, shape and second-order regular Choosing the threshold in extreme value analysis 21 
+
+variation parameters based on the asymptotic representation of log-spacings of upper order statistics as independent exponential variables (Beirlant et al., 1999), 
+
+Zj = j(log Y(n−j+1) − log Y(n−j)) ·
+
+∼ exp ξ + bn,n u {j/ (nu + 1) }−ρ , j = 1 , . . . , n u.
+
+A similar model is considered in Feuerverger and Hall (1999). The parameters ξ, ρ and 
+
+bn,n u can be estimated by maximum likelihood subject to the constraints ξ > 0, ρ < 0 and 
+
+bn,n u > 0, perhaps with further constraints on ρ to reduce bias and avoid nonsensical values. Beirlant et al. (2002) consider nonlinear least squares estimators under additive noise by joint estimation and by a two-stage procedure obtained by substituting a consistent estimator of ρ
+
+based on n0 order statistics considering the least-square bias with ρ = −1, then estimating other parameters by maximum likelihood. Under the Hall–Welsh class of distributions (6), they derive the optimal nu as a function of these parameters and scale parameter b, shape 
+
+ξ and second-order regular variation index ρ. They suggest an ad hoc automation of their approach by looking at the median estimator obtained by applying the formula for n0 =3, . . . , n/ 2.Goegebeur, Beirlant and de Wet (2008) use kernel weighting to derive alternative tail in-dex estimators and use these to approximate the asymptotic mean squared error of the Hill estimator, with a penalty term. Bladt, Albrecher and Beirlant (2020) use the Rényi represen-tation to define lower-trimmed Hill estimators, which include Hill’s estimator as a special case. Focusing on Hall–Welsh distributions, they derive an explicit relationship between the optimal number of exceedances for the Hill and the lower trimmed Hill estimators under second-order regular variation, and recommend taking the number of exceedances that min-imizes the average left-trimmed estimator variance, which is smooth and depends less on 
+
+nu than does the Hill estimator. They then use the explicit relationship between estimators to find the corresponding nu for Hill’s estimator, assuming ρ = −1. The method crucially depends on the values for nu selected for the left-trimmed estimator, which they take to be at least n/ 5. Threshold selection is followed by check of Pareto tails using ratio statistics. 
+
+6.4 Alternative procedures 
+
+The sample paths of the Hill estimator as a function of nu are non-differentiable, whereas those of the random block maximum estimator proposed by Wager (2014) are infinitely dif-ferentiable, thus facilitating visual inspection and threshold selection. The estimator of Wager (2014) is also asymptotically normal under second-order regular variation with ρ < 0. Wager recommends using empirical risk minimization to choose nu: the procedure is based on a finite-difference approximation of the squared derivative of the process, subject to a penalty term, which corresponds to the expected bias. Although the computational cost is higher than for Hill’s estimator, it can be kept reasonable by restricting nu.
+
+7 Numerical results 
+
+7.1 Simulation study 
+
+Assessing the performance of threshold selection methods is hard because there is no right answer, but there are approaches to avoid. For example, data rarely show sharp changes in tail behaviour, so spliced distributions are typically unrealistic as a basis for comparing meth-ods. Moreover, since the tail index ξ is rarely of direct interest, it is unwise to focus on it, particularly on its limiting value, which can provide a poor fit in finite samples (Section B), while the asymptotic bias involving the second-order conditions would be unknown in prac-tice. Risk measures of more practical interest are typically exceedance probabilities or high 22 Belzile and Davison 
+
+quantiles, whose sampling distributions are usually quite skewed (cf. Belzile and Davison, 2022). Stability of these estimates is crucial, as showcased in Figure 1. Section C describes the results of a very extensive simulation study, whose general find-ings we summarise here. Our study considers a wide range of distributions, and targets their 0.999 quantiles using various sample sizes. A key aspect is the sensitivity of threshold selec-tion procedures to the distribution and sample size, and whether the chosen thresholds depend much, if at all, on the scenario. The threshold selection methods we consider are either para-metric (where parameters are estimated via maximum likelihood) or semiparametric (mostly based on Hill’s estimator or variants thereof, coupled with Weissman’s quantile estimator). In the simulations for the parametric methods, we use a grid U at equispaced quantile levels, estimated empirically for each dataset to ensure constant numbers of exceedances. We devise an oracle that finds the threshold for which the 0.999 quantile estimator is closest to the true one. This returns thresholds that are usually between the 0.87 and the 0.9 quantiles, suggesting that the variability of the estimators is as important as threshold selection. The performance of the maximum likelihood estimator degrades when ξ ≥ 0.5, but such tails arise rarely in applications. Unless there are strong penultimate effects, most methods prioritize large samples, and many of the automated procedures return the lowest possible threshold, with the mode for most scenarios being the 0.8 quantile. The selection methods of Collings et al. (2025) and the maximum posterior weight and Bayesian model averaging estimator of Northrop, Attalides and Jonathan (2017) perform reasonably well, though no procedure is uniformly best across all distributions. Rounding and serial correlation have little impact on threshold selection, although autocorrelation leads to large bias in the return level estimates unless accounted for. Some of the semiparametric threshold selection procedures are promising, but again there is no clear winner. Some procedures yield erratic results, fail to converge, and are very slow. We give advice on which method works best depending on the user case, and list some that should be disregarded altogether. Methods that fix the second-order regular variation parameter tend to be more robust, even if this induces misspecification and bias. Methods that return too small values of nu lead to overly variable results. Bootstrap estimation of the AMSE via bootstrap is expensive, but works seemingly well. The method of Guillou and Hall (2001) and the SAMSEE estimator of Schneider, Krajina and Krivobokova (2021) are also competitive. As one would expect, increasing the sample size n leads to both larger nu and smaller sample fractions kept for inference, i.e., nu/n decreases with n. The semiparametric methods are quite sensitive to the data passed to them, with many giving results that depend strongly on the choice of candidate thresholds. Restricting threshold selection from the set of order statistics to a range of say nu ∈ [20 , 1000] can reduce both the variance of quantile estimates and generally the variance for most methods, although it biases shape parameter estimation when ξ > 0.5.
+
+7.2 Data application 
+
+Tables 1 and 2 report results for the application of most of the threshold selection procedures discussed here to the Padova rainfall data; results for four other data sets are in Section D. Although a wide variety of thresholds and thus of shape parameters are selected, the semi-parametric estimates of the shape based on Hill’s estimator are generally higher than their maximum likelihood counterparts, but mostly give lower quantile estimates; the shape es-timates are largely responsible for these differences, whatever the threshold. Many of the parametric methods return the lowest threshold tested: one could consider lower thresholds, but this would yield a poor fit to the largest observations. Choosing the threshold in extreme value analysis 23 
+
+Table 1 Parametric threshold selection for the Padova rainfall data, using candidate thresholds u equispaced on the quantile levels ranging 0.8 to 0.995 in increments of 0.005. The 100-year return levels (in mm) and shape parameters returned are maximum likelihood estimates, except for the Bayesian model averaging of Northrop, Attalides and Jonathan (2017) which gives posterior means based on validation weights at the 0.99 quantile. 
+
+method u level (%) nu shape return level Caers, Beirlant and Maes (1999) 13.80 80.5 645 0.07 108.4 Gonzalo and Olmo (2004) 53.09 99.0 34 0.09 117.4 Thompson et al. (2009) 18.50 86.5 446 0.09 110.6 Süveges and Davison (2010) 16.00 83.5 544 0.08 109.8 Northrop and Coleman (2014) 53.09 99.0 34 0.09 117.4 Langousis et al. (2016) 13.58 80.0 663 0.08 109.5 Wadsworth (2016) 13.58 80.0 663 0.08 109.5 Northrop, Attalides and Jonathan (2017) 368 0.13 119.0 Silva Lomba and Fraga Alves (2020) 39.97 97.5 83 0.21 122.2 Kiran and Srinivas (2021) 37.93 97.0 100 0.24 124.6 Varty et al. (2021) 13.58 80.0 663 0.08 109.5 Gamet and Jalbert (2022) (beta EGP model) 21.60 89.0 360 0.13 115.2 Murphy, Tawn and Varty (2025) 13.58 80.0 663 0.08 109.5 Collings et al. (2025) 22.49 90.0 332 0.12 114.8 
+
+Table 2 Semiparametric threshold selection for the Padova rainfall data. Columns give the selected threshold u,the number of exceedances nu, the shape parameter based on Hill’s estimator (except for Wager (2014)), and the estimated 100-year return levels (in mm) computed using Weissman’s estimator. 
+
+method u nu shape return level Hall and Welsh (1985) 48.5 41 0.31 139.9 Hall (1990) 33.8 131 0.32 146.7 Beirlant, Vynckier and Teugels (1996a) 13.5 665 0.21 48.0 Drees and Kaufmann (1998) 117.6 1 0.29 107.2 Guillou and Hall (2001) 33.4 138 0.32 144.2 Danielsson et al. (2001) 58.2 28 0.24 118.1 Dupuis and Victoria-Feser (2003) (non-robust) 76.4 10 0.20 113.7 Reiss and Thomas (2007) ( l1) 24.2 297 0.37 180.1 Reiss and Thomas (2007) ( l2) 16.0 548 0.51 347.8 Goegebeur, Beirlant and de Wet (2008) 30.2 179 0.34 159.7 Clauset, Shalizi and Newman (2009) 31.6 167 0.32 146.0 Gomes, Figueiredo and Neves (2012) 48.0 45 0.30 136.1 Gomes et al. (2013) (sample paths) 48.8 39 0.32 143.1 Caeiro and Gomes (2014) 25.4 265 0.37 175.7 Wager (2014) 16.1 541 0.25 69.8 Caeiro and Gomes (2016) (AMSE) 36.0 114 0.31 139.2 Danielsson et al. (2019) (eye-balling) 78.8 7 0.25 118.3 Danielsson et al. (2019) (MAD) 36.8 107 0.30 136.2 Danielsson et al. (2019) (KS) 39.3 88 0.30 134.0 Bladt, Albrecher and Beirlant (2020) 76.6 10 0.20 114.0 Schneider, Krajina and Krivobokova (2021) (SAMSEE) 43.5 62 0.29 131.9 
+
+8 Discussion 
+
+8.1 Practical considerations 
+
+8.1.1 Multiple hypothesis testing The starting point is typically a predefined sequence of potential ordered thresholds U = {u1, . . . , u J }, often high sample quantiles. The highest is chosen to be low enough that estimation based on its exceedances is reliable, and the low-est often lies well inside the dataset. In either case threshold selection is implicitly seen 24 Belzile and Davison 
+
+as equivalent to a sequence of tests of the hypotheses Hj : Y − uj | Y > u j ∼ GP (σj , ξ ),for uj ∈ U . The threshold-stability of the GPD implies that the hypotheses are nested, i.e., 
+
+HJ ⊂ · · · ⊂ H1. If Hj is true, then Hl is true for all l ≥ j, so we seek the smallest k
+
+for which Hk is true. Since H1, . . . , Hk−1 are then false, it seems natural to deal with the multiple testing using a procedure such as ForwardStop or StrongStop (G’Sell et al., 2016), though these rely on independence of the null p-values. Under this assumption both proce-dures control the false discovery rate, and StrongStop also controls the family-wise error rate. In threshold selection this error rate is the probability that the selected threshold is too high, and the overall power is related to the probability that it is too low. The procedures described above do not provide independent null p-values, so the proofs of their properties fail. Since the Hj specify the models only above the uj , the samples differ from one model to the next and so likelihood ratio tests or information criteria cannot be applied. It would be possible to use only exceedances above uJ as test samples, though the asymptotics would be non-standard. Extended models such as those described in Section 4.3, which specify the fit over the whole domain or at least above u1, are not subject to these restrictions. These models are generally difficult to fit but have the advantage that the threshold is amenable to selection using information criteria. 8.1.2 Many series The number of separate variables or time series for which thresholds must be chosen is large in financial data, in spatial settings, and in other large-scale applica-tions. Such settings require some degree of automation, in particular since individual inspec-tion of graphs for huge numbers of series is precluded. Another aspect, typically ignored, is any dependence between series, which should lead one to select similar thresholds. Smooth-ing of some sort could improve estimation, and joint tests of adequacy could be constructed, and perhaps used to borrow strength for threshold selection. 8.1.3 Nonstationarity In many cases, the marginal distribution varies over time or depends on covariates. In such cases applied workers often attempt to obtain approximately stationary data by analysing time windows, such as seasons, and analysing these separately. An alternative is a non-stationary threshold (e.g., Coles, 2001, Chapters 6–7). This can lead to difficulties in obtaining marginal or conditional return levels below the threshold, but there are many such proposals in the literature (e.g., Coelho et al., 2008; Northrop and Jonathan, 2011), including the use of quantile regression using an asymmetric Laplace dis-tribution (Youngman, 2019; Fasiolo et al., 2021) or extremal random forests (Gnecco, Terefe and Engelke, 2024). These methods fix the threshold level relatively low (0.8 or 0.9, say), as such models require appreciable data for reliable estimation. 8.1.4 Ties Much environmental data is recorded with limited accuracy, which prevents use of estimators based on log differences of order statistics. This is awkward in semiparametric settings, but can be handled in a likelihood framework by treating observations as interval-censored; for an example of these impacts and mitigation strategies, see Varty et al. (2021). 
+
+8.2 General 
+
+Our review highlights the inherent limitations of threshold selection procedures. No approach is entirely satisfactory, but the simulation studies and implementations reveal some overar-ching features that are worth highlighting. While asymptotic normality of Hill-type estimators is obtained under an assumption of second-order regular variation, estimates of the second-order parameter ρ are typically far too noisy to be useful: more stable methods are obtained by fixing it to a negative value, Choosing the threshold in extreme value analysis 25 
+
+or bypassing its estimation completely, as in Wager (2014). Many algorithms consider all potential choices of threshold, irrespective of the minimum number of exceedances needed for reliable estimation, or of the fact that only the largest observations should be selected. Parametric methods are generally less easy to automate, and automatic procedures such as that of Langousis et al. (2016) often give unsatisfactory results. We have made prag-matic choices in doing tests sequentially (from the highest selected thresholds) to reflect what seems to be common practice when interpreting threshold stability plots and related procedures. Some of the more promising methods are based on measures of fit and certain apparently ad hoc methods (e.g., Thompson et al., 2009) seem to perform well in practice. Are we barking up the wrong tree? In most cases the transition from the bulk of the distri-bution to the limiting tail behaviour is gradual, so there is no “correct threshold” to be chosen. This has led to the emergence of sub-asymptotic, extended generalised Pareto models, but it is unclear whether the associated increase in uncertainty for the main quantities of interest is a price worth paying. 
+
+Acknowledgements 
+
+We thank Sonia Alouini for valuable discussions and for detailed feedback on an earlier draft, and Marco Marani for providing the Padova data. The work was supported by the Swiss National Science Foundation and by the Natural Sciences and Engineering Research Council through grants RGPIN-2022-05001 and DGECR-2022-00461. 
+
+Reproducibility 
+
+This paper used code from R packages mev (Belzile, 2026), tea (Ossberger, 2020) and 
+
+threshr (Northrop and Attalides, 2026). Code for reproducing the results of this paper is available at https://github.com/lbelzile/choosing-threshold .
+
+References 
+
+BADER , B., Y AN , J. and Z HANG , X. (2018). Automated threshold selection for extreme value analysis via ordered goodness-of-fit tests with adjustment for false discovery rate. The Annals of Applied Statistics 12 
+
+310–329. https://doi.org/10.1214/17-aoas1092 BALKEMA , A. A. and DE HAAN , L. (1974). Residual life time at great age. Annals of Probability 2 792–804. https://doi.org/10.1214/aop/1176996548 BEHRENS , C. N., L OPES , H. F. and G AMERMAN , D. (2004). Bayesian analysis of extreme events with threshold estimation. Statistical Modelling 4 227–244. https://doi.org/10.1191/1471082X04st075oa BEIRLANT , J., D IERCKX , G. and G UILLOU , A. (2005). Estimation of the extreme-value index and generalized quantile plots. Bernoulli 11 949–970. BEIRLANT , J., V YNCKIER , P. and T EUGELS , J. L. (1996a). Excess functions and estimation of the extreme-value index. Bernoulli 2 293–318. BEIRLANT , J., VYNCKIER , P. and TEUGELS , J. L. (1996b). Tail index estimation, Pareto quan-tile plots regression diagnostics. Journal of the American Statistical Association 91 1659–1667. https://doi.org/10.1080/01621459.1996.10476735 BEIRLANT , J., D IERCKX , G., G OEGEBEUR , Y. and M ATTHYS , G. (1999). Tail index estimation and an expo-nential regression model. Extremes 2 177–200. https://doi.org/10.1023/a:1009975020370 BEIRLANT , J., D IERCKX , G., G UILLOU , A. and S T ˘ ARIC ˘ A, C. (2002). On exponential representations of log-spacings of extreme order statistics. Extremes 5 157–180. https://doi.org/10.1023/a:1022171205129 BELZILE , L. R. (2026). mev : Modelling of Extreme Values. R package version 2.2. https://doi.org/10.32614/CRAN.package.mev BELZILE , L. R. and D AVISON , A. C. (2022). Improved inference on risk measures for univariate extremes. The Annals of Applied Statistics 16 1524–1549. https://doi.org/10.1214/21-aoas1555 26 Belzile and Davison BLADT , M., A LBRECHER , H. and B EIRLANT , J. (2020). Threshold selection and trimming in extremes. Ex-tremes 23 629–665. https://doi.org/10.1007/s10687-020-00385-0 BÜCHER , A. and Z HOU , C. (2021). A horse race between the block maxima method and the peak–over–threshold approach. Statistical Science 36 360–378. https://doi.org/10.1214/20-sts795 BUITENDAG , S., B EIRLANT , J. and DE WET , T. (2020). Confidence intervals for extreme Pareto-type quantiles. 
+
+Scandinavian Journal of Statistics 47 36–55. https://doi.org/10.1111/sjos.12396 CAEIRO , F. and G OMES , I. (2014). On the bootstrap methodology for the estimation of the tail sample fraction. In Proceedings of COMPSTAT 2014 545–552. CAEIRO , F. and G OMES , M. I. (2016). Threshold selection in extreme value analysis. In Extreme Value Modeling and Risk Analysis: Methods and Applications (D. K. Dey and J. Yan, eds.) 69–86. CRC Press, Boca Raton, FL. https://doi.org/10.1201/b19721 CAERS , J., B EIRLANT , J. and M AES , M. A. (1999). Statistics for modeling heavy tailed distributions in geology: Part I. Methodology. Mathematical Geology 31 391–410. https://doi.org/10.1023/a:1007538624271 CARREAU , J. and B ENGIO , Y. (2009). A hybrid Pareto mixture for conditional asymmetric fat-tailed distribu-tions. IEEE Transactions on Neural Networks 20 1087–1101. https://doi.org/10.1109/tnn.2009.2016339 CHOULAKIAN , V. and S TEPHENS , M. A. (2001). Goodness-of-fit tests for the generalized Pareto distribution. 
+
+Technometrics 43 478–484. https://doi.org/10.1198/00401700152672573 CLAUSET , A., S HALIZI , C. R. and N EWMAN , M. E. J. (2009). Power-law distributions in empirical data. SIAM Review 51 661–703. https://doi.org/10.1137/070710111 COELHO , C. A. S., F ERRO , C. A. T., S TEPHENSON , D. B. and S TEINSKOG , D. J. (2008). Methods for ex-ploring spatial and temporal variability of extreme events in climate data. Journal of Climate 21 2072–2092. https://doi.org/10.1175/2007jcli1781.1 COLES , S. (2001). An Introduction to Statistical Modeling of Extreme Values . Springer–Verlag, London. https://doi.org/10.1007/978-1-4471-3675-0 COLLINGS , T. P., M URPHY -B ARLTROP , C. J. R., M URPHY , C., H AIGH , I. D., B ATES , P. D. and Q UINN , N. D. (2025). Automated tail-informed threshold selection for extreme coastal sea levels. Natural Hazards and Earth System Sciences 25 4545–4562. https://doi.org/10.5194/nhess-25-4545-2025 CSÖRGO , S., D EHEUVELS , P. and M ASON , D. (1985). Kernel estimates of the tail index of a distribution. The Annals of Statistics 13 1050–1077. https://doi.org/10.1214/aos/1176349656 CURCEAC , S., A TKINSON , P. M., M ILNE , A., W U, L. and H ARRIS , P. (2020). An evaluation of automated GPD threshold selection methods for hydrological extremes across different scales. Journal of Hydrology 585 
+
+124845. https://doi.org/10.1016/j.jhydrol.2020.124845 DANIELSSON , J., DE HAAN , L., P ENG , L. and DE VRIES , C. G. (2001). Using a bootstrap method to choose the sample fraction in tail index estimation. Journal of Multivariate Analysis 76 226–248. https://doi.org/10.1006/jmva.2000.1903 DANIELSSON , J., E RGUN , L., DE VRIES , C. G. and DE HAAN , L. (2019). Tail index estimation: quantile-driven threshold selection. https://doi.org/10.34989/swp-2019-28 DAVISON , A. C. (1984). Modelling excesses over high thresholds, with an application. In Statistical Ex-tremes and Applications , (J. T. de Oliveira, ed.). NATO ASI Series 131 461–482. Springer Netherlands. https://doi.org/10.1007/978-94-017-3069-3_34 DAVISON , A. C. and H INKLEY , D. V. (1997). Bootstrap Methods and Their Application . Cambridge University Press, Cambridge. DAVISON , A. C. and S MITH , R. L. (1990). Models for exceedances over high thresholds (with Discussion). Jour-nal of the Royal Statistical Society. Series B. (Methodological) 52 393–442. https://doi.org/10.1111/j.2517-6161.1990.tb01796.x  
+
+> DE
+
+HAAN , L. and F ERREIRA , A. (2006). Extreme Value Theory: An Introduction . Springer, New York. https://doi.org/10.1007/0-387-34471-3  
+
+> DE
+
+HAAN , L. and P ENG , L. (1998). Comparison of tail index estimators. Statistica Neerlandica 52 60–70. https://doi.org/10.1111/1467-9574.00068  
+
+> DE
+
+HAAN , L. and R ESNICK , S. (1996). Second-order regular variation and rates of convergence in extreme-value theory. The Annals of Probability 24 97–124. https://doi.org/10.1214/aop/1042644709  
+
+> DE
+
+ZEA BERMUDEZ , P., A MARAL TURKMAN , M. A. and T URKMAN , K. F. (2001). A predictive approach to tail probability estimation. Extremes 4 295–314. https://doi.org/10.1023/a:1016546027962 DEKKERS , A. L. M. and DE HAAN , L. (1989). On the estimation of the extreme-value index and large quantile estimation. The Annals of Statistics 17 1795–1832. https://doi.org/10.1214/aos/1176347396  
+
+> DEL
+
+CASTILLO , J. and D AOUDI , J. (2009). Estimation of the generalized Pareto distribution. Statistics & Prob-ability Letters 79 684–688. https://doi.org/10.1016/j.spl.2008.10.021  
+
+> DEL
+
+CASTILLO , J. and P ADILLA , M. (2016). Modelling extreme values by the residual coefficient of variation. 
+
+Statistics and Operations Research Transactions 40 303–320. https://doi.org/10.2436/20.8080.02.45 Choosing the threshold in extreme value analysis 27  
+
+> DO
+
+NASCIMENTO , F. F., G AMERMAN , D. and L OPES , H. F. (2012). A semiparametric Bayesian approach to extreme value estimation. Statistics and Computing 22 661–675. https://doi.org/10.1007/s11222-011-9270-z DRAISMA , G., DE HAAN , L., P ENG , L. and P EREIRA , T. T. (1999). A bootstrap-based method to achieve opti-mality in estimating the extreme-value index. Extremes 2 367–404. https://doi.org/10.1023/a:1009900215680 DREES , H., F ERREIRA , A. and DE HAAN , L. (2004). On maximum likelihood estimation of the extreme value index. The Annals of Applied Probability 14 1179–1201. https://doi.org/10.1214/105051604000000279 DREES , H. and K AUFMANN , E. (1998). Selecting the optimal sample fraction in univariate extreme value estima-tion. Stochastic Processes and their Applications 75 149–172. https://doi.org/10.1016/s0304-4149(98)00017-9DREES , H., J ANSSEN , A., R ESNICK , S. I. and W ANG , T. (2020). On a minimum distance procedure for threshold selection in tail analysis. SIAM Journal on Mathematics of Data Science 2 75–102. https://doi.org/10.1137/19m1260463 DUPUIS , D. J. (1999). Exceedances over high thresholds: a guide to threshold selection. Extremes 1 251–261. https://doi.org/10.1023/a:1009914915709 DUPUIS , D. J. and V ICTORIA -F ESER , M.-P. (2003). A prediction error criterion for choosing the lower quantile in Pareto index estimation Technical Report, University of Geneva. DUPUIS , D. J. and V ICTORIA -F ESER , M.-P. (2006). A robust prediction error criterion for Pareto modelling of upper tails. The Canadian Journal of Statistics 34 639–658. https://doi.org/10.1002/cjs.5550340406 FASIOLO , M., WOOD , S. N., ZAFFRAN , M., NEDELLEC , R. and GOUDE , Y. (2021). Fast cali-brated additive quantile regression. Journal of the American Statistical Association 116 1402–1412. https://doi.org/10.1080/01621459.2020.1725521 FERRO , C. A. T. and S EGERS , J. (2003). Inference for clusters of extreme values. Journal of the Royal Statistical Society: Series B (Statistical Methodology) 65 545–556. https://doi.org/10.1111/1467-9868.00401 FEUERVERGER , A. and H ALL , P. (1999). Estimating a tail exponent by modelling departure from a Pareto distribution. The Annals of Statistics 27 760–781. https://doi.org/10.1214/aos/1018031215 FISHER , R. A. and T IPPETT , L. H. C. (1928). Limiting forms of the frequency distributions of the largest or smallest member of a sample. Mathematical Proceedings of the Cambridge Philosophical Society 24 180– 190. FRIGESSI , A., H AUG , O. and R UE , H. (2002). A dynamic mixture model for unsupervised tail estimation without threshold selection. Extremes 5 219–235. https://doi.org/10.1023/a:1024072610684 FUKUTOME , S., L INIGER , M. A. and S ÜVEGES , M. (2015). Automatic threshold and run parameter selection: a climatology for extreme hourly precipitation in Switzerland. Theoretical and Applied Climatology 120 403– 416. https://doi.org/10.1007/s00704-014-1180-5 GAMET , P. and J ALBERT , J. (2022). A flexible extended generalized Pareto distribution for tail estimation. Envi-ronmetrics 33 . https://doi.org/10.1002/env.2744 GNECCO , N., T EREFE , E. M. and E NGELKE , S. (2024). Extremal random forests. Journal of the American Statistical Association 119 3059–3072. https://doi.org/10.1080/01621459.2023.2300522 GNEDENKO , B. V. (1943). Sur la distribution limite du terme maximum d’une série aléatoire. Annals of Mathe-matics 44 423–453. https://doi.org/10.2307/1968974 GOEGEBEUR , Y., B EIRLANT , J. and DE WET , T. (2008). Linking Pareto-tail kernel goodness-of-fit statistics with tail index at optimal threshold and second order estimation. REVSTAT-Statistical Journal 6 51–69. https://doi.org/10.57805/revstat.v6i1.57 GOMES , M. I., F IGUEIREDO , F. and N EVES , M. M. (2012). Adaptive estimation of heavy right tails: resampling-based methods in action. Extremes 15 463–489. https://doi.org/10.1007/s10687-011-0146-6 GOMES , M. I. and O LIVEIRA , O. (2001). The bootstrap methodology in statistics of extremes—choice of the optimal sample fraction. Extremes 4 331–358. https://doi.org/10.1023/a:1016592028871 GOMES , M. I., H ENRIQUES -R ODRIGUES , L., A LVES , M. I. F. and M ANJUNATH , B. G. (2013). Adaptive PORT–MVRB estimation: an empirical comparison of two heuristic algorithms. Journal of Statistical Com-putation and Simulation 83 1129–1144. https://doi.org/10.1080/00949655.2011.652113 GONZALO , J. and O LMO , J. (2004). Which extreme values are really extreme? Journal of Financial Economet-rics 2 349–369. https://doi.org/10.1093/jjfinec/nbh014 GRIMSHAW , S. D. (1993). Computing maximum likelihood estimates for the generalized Pareto distribution. 
+
+Technometrics 35 185–191. https://doi.org/10.1080/00401706.1993.10485040 G’S ELL , M. G., W AGER , S., C HOULDECHOVA , A. and T IBSHIRANI , R. (2016). Sequential selection procedures and false discovery rate control. Journal of the Royal Statistical Society: Series B (Statistical Methodology) 78 
+
+423–444. https://doi.org/10.1111/rssb.12122 GUILLOU , A. and H ALL , P. (2001). A diagnostic for selecting the threshold in extreme value analysis. Journal of the Royal Statistical Society: Series B (Statistical Methodology) 63 293–305. https://doi.org/10.1111/1467-9868.00286 28 Belzile and Davison GUMBEL , E. J. (1958). Statistics of Extremes . Columbia University Press, New York. https://doi.org/10.7312/gumb92958 HALL , P. (1990). Using the bootstrap to estimate mean squared error and select smoothing parameter in nonpara-metric problems. Journal of Multivariate Analysis 32 177–203. https://doi.org/10.1016/0047-259x(90)90080-2HALL , P. and W ELSH , A. H. (1985). Adaptive estimates of parameters of regular variation. The Annals of Statistics 13 331–341. https://doi.org/10.1214/aos/1176346596 HILL , B. M. (1975). A simple general approach to inference about the tail of a distribution. Annals of Statistics 
+
+3 1163–1174. https://doi.org/10.1214/aos/1176343247 HOSKING , J. R. M. (1990). L-moments: Analysis and estimation of distributions using linear combina-tions of order statistics. Journal of the Royal Statistical Society: Series B (Methodological) 52 105–124. https://doi.org/10.1111/j.2517-6161.1990.tb01775.x HOSKING , J. R. M. and W ALLIS , J. R. (1987). Parameter and quantile estimation for the generalized Pareto distribution. Technometrics 29 339–349. https://doi.org/10.1080/00401706.1987.10488243 HU, Y. and S CARROTT , C. (2018). evmix : An R package for extreme value mixture modeling, thresh-old estimation and boundary corrected kernel density estimation. Journal of Statistical Software 84 1–27. https://doi.org/10.18637/jss.v084.i05 HUET , N., N AVEAU , P. and S ABOURIN , A. (2026). Multi-site modelling and reconstruction of past extreme skew surges along the French Atlantic coast. Journal of the Royal Statistical Society Series C: Applied Statistics 
+
+qlag024. https://doi.org/10.1093/jrsssc/qlag024 KIRAN , K. G. and S RINIVAS , V. V. (2021). A Mahalanobis distance-based automatic threshold selection method for peaks over threshold model. Water Resources Research 57 . https://doi.org/10.1029/2020wr027534 LANGOUSIS , A., M AMALAKIS , A., P ULIGA , M. and D EIDDA , R. (2016). Threshold detection for the general-ized Pareto distribution: Review of representative methods and application to the NOAA NCDC daily rainfall database. Water Resources Research 52 2659–2681. https://doi.org/10.1002/2015WR018502 LEE , J., F AN , Y. and S ISSON , S. A. (2015). Bayesian threshold selection for extremal models using measures of surprise. Computational Statistics & Data Analysis 85 84–99. https://doi.org/10.1016/j.csda.2014.12.004 MAC DONALD , A. E. (2011). Extreme value mixture modelling with medical and industrial applications, PhD thesis, University of Canterbury. https://doi.org/10.26021/1970 MAC DONALD , A. E., S CARROTT , C. J., L EE , D., D ARLOW , B., R EALE , M. and R USSELL , G. (2011). A flexible extreme value mixture model. Computational Statistics & Data Analysis 55 2137–2157. https://doi.org/10.1016/j.csda.2011.01.005 MARANI , M. and Z ANETTI , S. (2015). Long-term oscillations in rainfall extremes in a 268 year daily time series. 
+
+Water Resources Research 51 639–647. https://doi.org/10.1002/2014wr015885 MASON , D. M. and T UROVA , T. S. (1994). Weak convergence of the Hill estimator process In Extreme Value Theory and Applications: Proceedings of the Conference on Extreme Value Theory and Applications 419–431. Springer, Boston, MA. https://doi.org/10.1007/978-1-4613-3638-9_25 MÍNGUEZ , R. (2025). Automatic threshold selection for generalized Pareto and Pareto–Poisson distribu-tions in rainfall analysis: A case study using the NOAA NCDC daily rainfall database. Atmosphere 16 .https://doi.org/10.3390/atmos16010061 MURPHY , C., T AWN , J. A. and V ARTY , Z. (2025). Automated threshold selection and associated inference uncer-tainty for univariate extremes. Technometrics 67 215–224. https://doi.org/10.1080/00401706.2024.2421744 NAVEAU , P. (2025). Jointly modeling bulk and tails. In Handbook of Statistics of Extremes (M. de Carvalho, R. Huser, P. Naveau, and B. J. Reich, eds.) to appear. Chapman & Hall/CRC, Boca Raton. NAVEAU , P., HUSER , R., RIBEREAU , P. and HANNART , A. (2016). Modeling jointly low, moderate, and heavy rainfall intensities without a threshold selection. Water Resources Research 52 2753–2769. https://doi.org/10.1002/2015WR018552 NEVES , C. and F RAGA ALVES , M. I. (2004). Reiss and Thomas’ automatic selection of the number of extremes. 
+
+Computational Statistics & Data Analysis 47 689–704. https://doi.org/10.1016/j.csda.2003.11.011 NORTHROP , P. J., A TTALIDES , N. and J ONATHAN , P. (2017). Cross-validatory extreme value threshold selection and uncertainty with application to ocean storm severity. Journal of the Royal Statistical Society: Series C (Applied Statistics) 66 93–120. https://doi.org/10.1111/rssc.12159 NORTHROP , P. J. and A TTALIDES , N. (2026). threshr : Threshold Selection and Uncertainty for Extreme Value Analysis R package version 1.0.8. https://doi.org/10.32614/CRAN.package.threshr NORTHROP , P. J. and C OLEMAN , C. L. (2014). Improved threshold diagnostic plots for extreme value analyses. 
+
+Extremes 17 289–303. https://doi.org/10.1007/s10687-014-0183-z NORTHROP , P. J. and JONATHAN , P. (2011). Threshold modelling of spatially dependent non-stationary extremes with application to hurricane-induced wave heights. Environmetrics 22 799–809. https://doi.org/10.1002/env.1106 Choosing the threshold in extreme value analysis 29 
+
+OORSCHOT , J., S EGERS , J. and Z HOU , C. (2023). Tail inference using extreme U -statistics. Electronic Journal of Statistics 17 1113–1159. https://doi.org/10.1214/23-ejs2129 OSSBERGER , J. (2020). tea : Threshold Estimation Approaches. R package version 1.1. https://doi.org/10.32614/CRAN.package.tea PAPASTATHOPOULOS , I. and T AWN , J. A. (2013). Extended generalised Pareto models for tail estimation. Jour-nal of Statistical Planning and Inference 143 131–143. https://doi.org/10.1016/j.jspi.2012.07.001 PICKANDS , J. (1975). Statistical inference using extreme order statistics. The Annals of Statistics 3 119–131. https://doi.org/10.1214/aos/1176343003 REISS , R. D. and T HOMAS , M. (2007). Statistical Analysis of Extreme Values: with Applications to Insurance, Finance, Hydrology and Other Fields . Springer Birkhäuser. https://doi.org/10.1007/978-3-7643-7399-3 RÉNYI , A. (1953). On the theory of order statistics. Acta Mathematica Academiae Scientiarum Hungarica 4
+
+191–231. https://doi.org/10.1007/BF02127580 RESNICK , S. I. (2006). Heavy-Tail Phenomena: Probabilistic and Statistical Modeling . Springer, New York. https://doi.org/10.1007/978-0-387-45024-7 RIVERA MANCIA , M. E. (2014). Modelling operational risk using a Bayesian approach to extreme value theory, PhD thesis, McGill University. https://doi.org/10.82308/23628 SCARROTT , C. J. and M AC DONALD , A. E. (2012). A review of extreme-value threshold estimation and uncer-tainty quantification. REVSTAT – Statistical Journal 10 33–60. https://doi.org/10.57805/revstat.v10i1.110 SCHNEIDER , L. F., K RAJINA , A. and K RIVOBOKOVA , T. (2021). Threshold selection in univariate extreme value analysis. Extremes 24 881–913. https://doi.org/10.1007/s10687-021-00405-7 SILVA LOMBA , J. and FRAGA ALVES , M. I. (2020). L-moments for automatic threshold selection in extreme value analysis. Stochastic Environmental Research and Risk Assessment 34 465–491. https://doi.org/10.1007/s00477-020-01789-x SINCLAIR , C. D., S PURR , B. D. and A HMAD , M. I. (1990). Modified Anderson Darling test. Communications in Statistics — Theory and Methods 19 3677–3686. https://doi.org/10.1080/03610929008830405 SMITH , R. L. (1984). Threshold methods for sample extremes. In Statistical Extremes and Applications (J. T. de Oliveira, ed.) 621–638. Reidel, Dordrecht. SMITH , R. L. (1985). Maximum likelihood estimation in a class of nonregular cases. Biometrika 72 67–92. https://doi.org/10.1093/biomet/72.1.67 SMITH , R. L. (1987). Approximations in extreme value theory. Technical Report, Department of Statistics and Operations Research, University of North Carolina. SOLARI , S., E GÜEN , M., P OLO , M. J. and L OSADA , M. A. (2017). Peaks over threshold (POT): A methodology for automatic threshold estimation using goodness of fit p-value. Water Resources Research 53 2833–2849. https://doi.org/10.1002/2016wr019426 STEIN , M. L. (2021). A parametric model for distributions with flexible behavior in both tails. Environmetrics 
+
+32 e2658. https://doi.org/10.1002/env.2658 STEIN , M. L. (2023). A weighted composite log-likelihood approach to parametric estimation of the extreme quantiles of a distribution. Extremes 26 469–507. https://doi.org/10.1007/s10687-023-00466-w SÜVEGES , M. and D AVISON , A. C. (2010). Model misspecification in peaks over threshold analysis. Ann. Appl. Stat. 4 203–221. https://doi.org/10.1214/09-aoas292 TANCREDI , A., A NDERSON , C. and O’H AGAN , A. (2006). Accounting for threshold uncertainty in extreme value estimation. Extremes 9 87–106. https://doi.org/10.1007/s10687-006-0009-8 THOMPSON , P., C AI , Y., R EEVE , D. and S TANDER , J. (2009). Automated threshold selection methods for extreme wave analysis. Coastal Engineering 56 1013–1021. https://doi.org/10.1016/j.coastaleng.2009.06.003 TODOROVIC , P. and R OUSSELLE , J. (1971). Some problems of flood analysis. Water Resources Research 7
+
+1144–1150. https://doi.org/10.1029/WR007i005p01144 TODOROVIC , P. and Z ELENHASIC , E. (1970). A stochastic model for flood analysis. Water Resources Research 
+
+6 1641–1648. https://doi.org/10.1029/WR006i006p01641 VARTY , Z., T AWN , J. A., A TKINSON , P. M. and B IERMAN , S. (2021). Inference for extreme earthquake mag-nitudes accounting for a time-varying measurement process. https://doi.org/10.48550/arXiv.2102.00884 VENTURA , V. (2002). Non-parametric bootstrap recycling. Statistics and Computing 12 261–273. https://doi.org/10.1023/a:1020754911317 WADSWORTH , J. L. (2016). Exploiting structure of maximum likelihood estimators for extreme value threshold selection. Technometrics 58 116–126. https://doi.org/10.1080/00401706.2014.998345 WADSWORTH , J. L., T AWN , J. A. and J ONATHAN , P. (2010). Accounting for choice of measurement scale in extreme value modeling. The Annals of Applied Statistics 4 1558–1578. https://doi.org/10.1214/10-aoas333 WADSWORTH , J. L. and T AWN , J. A. (2012). Likelihood-based procedures for threshold diagnostics and uncer-tainty in extreme value modelling. Journal of the Royal Statistical Society: Series B (Statistical Methodology) 
+
+74 543–567. https://doi.org/10.1111/j.1467-9868.2011.01017.x 30 Belzile and Davison WAGER , S. (2014). Subsampling extremes: From block maxima to smooth tail estimation. Journal of Multivariate Analysis 130 335–353. https://doi.org/10.1016/j.jmva.2014.06.010 WEISSMAN , I. (1978). Estimation of parameters and large quantiles based on the k largest observations. Journal of the American Statistical Association 73 812–815. https://doi.org/10.1080/01621459.1978.10480104 WHITE , H. (1982). Maximum likelihood estimation of misspecified models. Econometrica 50 1–25. https://doi.org/10.2307/1912526 YOUNGMAN , B. D. (2019). Generalized additive models for exceedances of high thresholds with an application to return level estimation for U.S. wind gusts. Journal of the American Statistical Association 114 1865–1879. https://doi.org/10.1080/01621459.2018.1529596 Choosing the threshold in extreme value analysis 31 
+
+Appendix A: Exploratory analysis of the Padova data 
+
+Figure 6 shows the seasonal and temporal trends for the Padova data. Quantile regression indicates some residual seasonality and nonstationarity; in particular there is a small but statistically significant increase of around 3.4 mm in the 90% quantile from 1950 onwards, but this is smaller than the seasonal variability for the period. 
+
+Appendix B: Penultimate approximation 
+
+Section 2.1.1 gives a brief account of the theoretical conditions under which the GPD pro-vides a limiting distribution for exceedances over high thresholds, and mentions that under more restrictive but nevertheless reasonable conditions, the GPD also provides a penultimate approximation, albeit with a shape parameter that does not equal its limiting value. Such re-sults are useful, but it is important to appreciate that empirical fitting can improve on both the limiting and penultimate approximations. We illustrate this by maximum likelihood fit-ting of the GPD to samples of N = 10 7 Gaussian observations lying above the q = 0 .9, 0.95 and 0.99 quantiles, uq , say, of the Gaussian distribution. The idea is not to reproduce sample sizes that might be met in practice, but to assess how closely the generalized Pareto model can match the ‘true’ truncated Gaussian distribution. The quality of the resulting approxima-tion depends on N ; in principle the fitted shape parameter ξN must tend to zero as N → ∞ ,but in practice the tail of the truncated distribution is so short that ξN is appreciably negative even with this huge value of N .Figure 7 shows how well the quantiles of the left-truncated Gaussian distributions are matched by those of the limiting exponential distribution, the penultimate approximation with shape parameter ξt, and the generalized Pareto distribution fitted by maximum likeli-hood estimation based on the N exceedances. Although negative, the fitted shape parameters 
+
+ξN are appreciably closer to zero than the penultimate values, and the corresponding quan-tiles track the true quantiles remarkably well for tail probabilities down to 10 −4 or so. Max-imum likelihood estimators based on samples of size nuq ≪ N would be expected to have means roughly ξN , rather than the limiting or penultimate values of ξ, with O(n−1 
+
+> uq
+
+) bias. Similar computations (large-sample maximum likelihood estimates and penultimate ap-proximations) for the shape parameter of a series of distributions (cf. Section C.1) considered 0.2 0.3 0.4      
+
+> July 1st August 1st September 1st
+> time of year
+> proportion of rainfall days
+> 40 80 120 160
+> 1900 1950 2000
+> date
+> cumulated daily rainfall (in mm)
+> Figure 6 Analysis of seasonality for the Padova data, using only the period for July–September. The left panel shows the proportion of rainy days as a function of the day of the year, with a generalized additive model smooth. The right panel shows the exceedances above 20mm of rainfall, and the estimated quantile regression curve with pointwise Wald 95% confidence intervals, for the 90% of non-zero rainfall.
+
+32 Belzile and Davison 0123456                  
+
+> 0123456
+> y
+> quantile
+> threshold at 0.90 quantile
+> 0123456
+> 0123456
+> y
+> quantile
+> threshold at 0.95 quantile
+> 0123456
+> 0123456
+> y
+> quantile
+> threshold at 0.99 quantile
+
+Figure 7 Penultimate fits for ten million exceedances for the Gaussian model with thresholds at its 0.9, 0.95 and 0.99 quantiles (left to right). The limiting distribution is scaled so that the exceedance probability for y is 10 −y .The panels show scaled excess quantile plots for the true truncated normal (black), penultimate approximation (full blue), best fitted generalized Pareto (dashed orange) and limiting exponential (grey straight line with unit slope). Curves below the diagonal correspond to the implied excess quantiles from generalized Pareto or the true model. The fitted shape parameters ˆξ are −0.123 , −0.117 and −0.088 , while the penultimate values ξt are 
+
+−0.270 , −0.203 and −0.127 .
+
+in the simulation study are reported in Table 3. They show the same phenomenon, namely that the maximum likelihood values are closer to the limit than are the penultimate values. 
+
+Appendix C: Simulation study 
+
+In this section we present results from an extensive simulation study that covers some scenar-ios encountered in applications, including data recorded with limited precision (rounding), and dependent time series with clusters. The data are simulated from a variety of parametric models with different shape parameters and rates of convergence to the limiting model. We consider return levels for quantile level q = 0 .999 , as this could be reasonably inferred from the data while being extreme enough that empirical estimation is infeasible or too noisy to be useful. As some of the distributions considered have infinite first or second moments, or very different scales, we consider relative errors. We compare performance in terms of bias and variance (through sampling distribution and absolute bias measures), all relative to the true value. When relevant, we also report the computing time. We also assess the variability of the proportion of exceedances retained or the number of order statistics above u kept by the selection procedure. Some methods may fail to return a threshold, and the percentage of such failures impacts both their practical usefulness and the ease with which they can be studied by simulation. 
+
+C.1 Target distributions 
+
+Simulation studies should take distributions whose tail behaviour is also plausible in applica-tions — for example, heavy-tailed cases with ξ ≈ 1 are unrealistic outside of specific financial or network applications, whereas most environmental phenomena (e.g., temperature, wind speed, rainfall) would have reasonable values of ξ ∈ [−0.5, 0.25] in practice. Many papers on threshold selection have used mixture models: for example, Lee, Fan and Sisson (2015) considered non-overlapping distributions with a generalized Pareto tail above u, and another distribution, right-truncated at u, for the bulk. Such models have a sharp discontinuity at the Choosing the threshold in extreme value analysis 33 
+
+threshold u, a feature which simplifies threshold selection but is seldom observed in prac-tice. We therefore instead consider distributions featured in simulation studies of Choulakian and Stephens (2001) (a–d), Schneider, Krajina and Krivobokova (2021) (i–m), and extended generalized Pareto models with exact generalized Pareto limits (e, n–p). Here is our full list: (a) gamma with shape 2 and scale 1;(b) standard lognormal; (c) Weibull with scale 1 and shape 0.75 ;(d) Weibull with scale 1 and shape 1.25 ;(e) piecewise generalized Pareto (Northrop and Coleman, 2014) with shape 0.25 up to u = 1 .25 and −0.25 
+
+above (f) standard exponential ( ξ = 0 )(g) generalized Pareto with shape ξ = 0 .15 
+
+(h) generalized Pareto with shape ξ =
+
+−0.15 
+
+(i) folded Student-t with 6 degrees of freedom |T6| (ξ = 1 /6); (j) standard Fréchet with shape ξ = 0 .5;(k) standard Cauchy ( ξ = 1 ) truncated on 
+
+R+;(l) loggamma with density function 
+
+log( x)x−2 for x ≥ 1 (ξ = 1 ); (m) Burr with survival function (1 + x2)−1
+
+for x > 0 (ξ = 0 .5); (n) piecewise generalized Pareto (Northrop and Coleman, 2014) with shape −0.5 up to the 0.9 quantile and 
+
+0.25 above; (o) third extended generalized Pareto model of Papastathopoulos and Tawn (2013) (power model) with ξ = −0.2,unit scale and κ = 0 .25 ;(p) exponential tilting extended general-ized Pareto model with shape ξ = 0 .2
+
+and κ = 0 .1.The distributions (f–h) are threshold-stable, while the penultimate models (n–p) converge rather slowly to the generalized Pareto limit. Table 3 shows that the average maximum like-lihood estimates for the shape for varying quantile levels vary very little, and can differ markedly from the limiting shape value and the penultimate approximation, though the latter tends to be closer to the best fitting model given by the MLE . The fact that the latter barely changes suggests that methods ought to take lowest threshold in most cases, though this does not take into account goodness-of-fit considerations, and small-sample bias is more acute when using higher thresholds. Table 4 shows that, unless convergence to the limit is quite slow (cf. distribution l), the approximation for the 0.999 quantile is quite accurate, that the penultimate approximation can be markedly better than using the limit shape, but that the penultimate approximation is not a panacea, especially at quantiles 0.8 and 0.9. 
+
+C.2 Simulation 1 
+
+We consider datasets of sizes n = 2000 , and use a random grid of candidate thresholds U
+
+at the empirical {0.8, 0.81 , . . . , 0.98 } quantiles, thus giving 20 observations between each threshold. We compare the following threshold selection methods: 
+
+> P1
+
+. the threshold stability plot of Davison and Smith (1990), using the smallest threshold for which point estimates for the shape are included in the profile-likelihood 95% confidence interval for all higher thresholds; 
+
+> P2
+
+. minimization of the mean squared error of the shape parameter by semiparametric bootstrap of Caers, Beirlant and Maes (1999); 
+
+> P3
+
+. Gonzalo and Olmo (2004) with absolute distance, mimicking Pickands (1975); 
+
+> P4
+
+. Gonzalo and Olmo (2004) with the Kolmogorov–Smirnov statistic; 
+
+> P5
+
+. normality tests for coefficients of Thompson et al. (2009) ( ⋆); 
+
+> P6
+
+. the Süveges and Davison (2010) information matrix test with gap K = 1 (⋆); 
+
+> P7
+
+. the score test of Northrop and Coleman (2014) comparing the piecewise generalized Pareto and generalized Pareto models ( ⋆); 34 Belzile and Davison 
+
+Table 3 Shape parameters for varying quantile levels (0.8, 0.9, 0.95, 0.99) obtained using Smith (1987) penulti-mate approximation, maximum likelihood estimation with samples of 1M exceedances, and the limiting value of 
+
+ξ for models without exact generalized Pareto tails. 
+
+penultimate mle limit model 80% 90% 95% 99% 80% 90% 95% 99% 
+
+a −0.11 −0.07 −0.04 −0.02 −0.04 −0.03 −0.02 −0.01 0
+
+b 0.32 0.3 0.28 0.25 0.28 0.26 0.25 0.22 0
+
+c 0.21 0.14 0.11 0.07 0.11 0.09 0.07 0.05 0
+
+d −0.12 −0.09 −0.07 −0.04 −0.06 −0.05 −0.04 −0.03 0
+
+i −0.08 0 0.05 0.11 0.06 0.09 0.11 0.14 0.17 
+
+j 0.43 0.47 0.49 0.5 0.48 0.49 0.5 0.5 0.5
+
+k 0.93 0.98 1 1 0.99 1 1 1 1
+
+l 1.22 1.19 1.17 1.13 1.17 1.15 1.13 1.11 1
+
+m 0.38 0.44 0.47 0.49 0.47 0.48 0.49 0.5 0.5
+
+o 0.31 0.01 −0.1 −0.18 −0.1 −0.15 −0.18 −0.2 −0.25 
+
+p 0.39 0.36 0.31 0.23 0.3 0.27 0.24 0.21 0.2
+
+Table 4 Ratio of estimated 0.999 quantile to the true quantile (in %) for varying quantile levels (0.8, 0.9, 0.95, 0.99) obtained using Smith (1987) penultimate approximation, maximum likelihood estimation with samples of 1M exceedances, and the limiting value of ξ.                                                                                                                                                  
+
+> penultimate mle limit model 80% 90% 95% 99% 80% 90% 95% 99% 80% 90% 95% 99% a90 .296 .298 .599 .999 .599 .9100 100 109 104 .8102 .7100 .6
+> b113 .9109 .2105 .2100 .9102 .8101 100 .199 .750 .559 .468 .386 .8
+> c128 .8110 .7104 .4100 .5102 .2100 .599 .999 .977 .384 .790 97 .1
+> d91 .396 .398 .499 .899 .5100 100 .1100 .1113 .3108 104 .8101 .2
+> i77 .988 .894 .799 .497 .899 .5100 .1100 .2129 .6116 .5109 .2102
+> j83 .394 .298 99 .997 .999 .499 .9100 105 .3102 .2101 100 .1
+> k77 .995 99 100 97 .499 .5100 100 .1103 .3100 .8100 .2100
+> l138 .4121 .5111 .7102 .1111 .2105 102 99 .552 59 .967 .784 .8
+> m72 .789 .596 .299 .896 .398 .999 .7100 .1110 .3104 .4101 .9100 .2
+> o261 .9125 .7106 .4100 .3102 .8100 .299 .8100 69 .884 .892 98 .2
+> p137 .1124 .6112 .4101 107 .1102 .4100 .499 .976 .685 .191 .898 .8
+
+P8. the mean residual life plot using the automated procedure of Langousis et al. (2016), returning the threshold that minimizes the weighted mean squared error; 
+
+P9. the Wadsworth (2016) white noise test, returning the smallest threshold at which the white noise hypothesis cannot be rejected based on a change-point likelihood ratio test; 
+
+P10 . the posterior predictive model of Northrop, Attalides and Jonathan (2017), returning the threshold with the largest posterior weight; 
+
+P11 . Northrop, Attalides and Jonathan (2017), with Bayesian model averaging; 
+
+P12 . goodness-of-fit statistics from Bader, Yan and Zhang (2018) ( ⋆); 
+
+P13 . the Silva Lomba and Fraga Alves (2020) L-moment skewness-kurtosis procedure; 
+
+P14 . Kiran and Srinivas (2021) Mahalanobis-distance minimization with L-moments; 
+
+P15 . metric-based adjustments of Varty et al. (2021) with exponential quantile-quantile plots with weighted mean squared error; Choosing the threshold in extreme value analysis 35 
+
+> P16
+
+. the likelihood ratio test to compare the extended generalized Pareto beta model of Gamet and Jalbert (2022) with the generalized Pareto ( ⋆); 
+
+> P17
+
+. metric-based adjustments of Murphy, Tawn and Varty (2025) with generalized Pareto quantile-quantile plots; 
+
+> P18
+
+. the Collings et al. (2025) TAILS method. All tests are performed at the nominal 5% significance level. Procedures marked with a star ( ⋆) return a sequence of p-values for the ordered thresholds, to which a sequential testing procedure such as ForwardStop (G’Sell et al., 2016) might be applied. By design this systematically leads to the selection of lower thresholds. We use empirical quantiles from simulated datasets to ensure the number of exceedances stays the same, rather than fixing the thresholds to the true quantiles of the distribution. The latter would facilitate comparisons, but could not be applied in practice. We also devise an oracle that minimizes the absolute bias among all candidate thresh-olds; only maximum likelihood estimates evaluated at empirical quantiles in the range {0.8, 0.81, . . . , 0.98} are considered; the loss is estimated using a Monte Carlo average with 1000 samples from each scenario, excluding missing values due to failed convergence, or when methods do not return a threshold. We also checked the effect of varying the sample size, taking n ∈ { 1000 , 2000 , 3000 , 4000 }
+
+and retaining the same quantile level as candidate thresholds, adding the 0.99 quantile for the two largest values of n. We also considered scenarios with serial dependence and round-ing. For the first, time series were drawn from a Gaussian autoregressive process of order 1 with correlation coefficient 0.5, and transformed to have the marginal distribution of interest using the probability integral transform. For the rounding, we multiplied each series by a fac-tor equal to one hundred divided by the 0.9 quantile of the distribution, c = 100 /F −1(0 .9) ,rounded observations up to the nearest integer to avoid creating zeros, then back-transformed them , viz. x 7 → c⌈x/c ⌉. This leads to more rounding at lower quantile levels than higher ones. 
+
+Summary of results for Simulation 1 
+
+Give the number of distributions and methods considered, it is difficult to summarize results. We consider first in Figure 8 the proportion of time a quantile level is returned as threshold (as a function of rounding and truncation), as this is indicative of the sensibility of the method to the underlying data generating process and reveals some methods for which universally, the lowest candidate threshold seems to be favored. Summary statistics of the sampling distribution of the estimated bias of the 0.999 quantile (relative to the true 0.999 quantile), (bq0.999 − q0)/q 0 are shown in Figure 10. A lot of the performance has to do with the maximum likelihood estimator, and many distributions have similar performances because the threshold selection methods return the same (low) thresh-old levels; see Figure 8. The median ration of these absolute biases, relative to the oracle, are reported in Table 5. Increasing the sample size had little effect on choice: most methods display changes of the order 1–2%, so are globally insensitive to sample size. The methods most affected were P4, 
+
+> P6
+
+and P13 , which saw an increase in the proportion of higher thresholds retained. Method P8
+
+displayed the reverse tendency, suggesting that the weighting scheme is wholly inadequate. Methods P5 and P7, on the other hand, are sensitive to the choice of alternatives and the number of thresholds. In all cases, ignoring the serial dependence leads to large positive relative biases of the maximum likelihood estimators of quantiles or return levels. Truncation, however, has little to no impact. The information matrix test of P6, designed for joint estimation of the thresh-old and extremal index, shows a noticeable increase in the proportion of lowest thresholds 36 Belzile and Davison                                                                                                                                                                                                                                                                                                                                       
+
+> Table 5 Median ratio of absolute difference to the true quantile versus oracle |qmethod −q0|/|qoracle −q0|for different estimation methods (rows) and different distributions (columns) for the estimation of 0.999 quantile for Simulation 1. Smaller numbers are preferable
+> abcdefghijklmnop
+> P11.62.32.41.51.41.72.01.51.82.83.13.62.44.02.73.4
+> P21.52.42.31.51.31.72.01.41.72.63.13.92.34.02.63.2
+> P31.72.72.61.61.41.92.11.51.93.03.54.72.63.82.53.4
+> P41.92.82.71.71.42.02.41.62.23.64.85.03.24.02.53.5
+> P51.62.62.61.61.41.92.21.51.93.13.84.72.63.82.63.4
+> P61.72.62.41.61.41.82.21.51.93.13.74.12.64.02.43.2
+> P71.92.82.51.81.41.92.51.62.13.64.65.43.44.22.43.5
+> P81.52.22.21.51.31.62.01.41.82.62.93.62.33.82.73.3
+> P91.72.42.51.61.41.72.11.61.92.73.03.82.43.82.43.4
+> P10 1.52.31.91.51.31.61.91.31.72.73.13.52.54.11.72.6
+> P11 1.82.72.51.71.42.02.51.62.23.44.44.63.04.12.63.4
+> P12 1.82.82.61.71.52.02.31.62.13.34.14.53.03.92.63.4
+> P13 1.72.52.41.61.31.72.11.52.02.93.54.42.73.82.63.4
+> P14 1.93.22.81.81.42.02.51.62.24.04.04.03.54.72.43.8
+> P15 1.72.82.41.61.42.02.41.52.13.33.44.13.03.82.53.4
+> P16 1.62.52.31.61.41.72.01.51.92.83.24.12.53.82.63.2
+> P17 1.72.52.51.61.41.82.11.52.13.33.94.62.83.82.43.6
+> P18 1.62.42.31.61.41.72.01.51.82.73.13.92.33.52.73.1
+> BMA 1.62.42.41.61.41.82.01.51.82.73.13.92.33.62.73.4
+
+chosen, from roughly 40% in the iid case to 77% for the autoregressive model. Method P8
+
+saw a more modest increase of 5% in the frequency at which the 0.8 quantile was chosen. Method P12 is extremely sensitive to rounding, with average differences of around 57% in the proportion of times the 0.8 quantile was chosen as threshold. The reason for this is that the null distribution in the software implementation is obtained by calculating the goodness-of-fit measure based on simulated samples, which are not rounded. Introducing rounding in the parametric Monte Carlo approximation to p-values would solve this. Methods P9, P14 , 
+
+> P15
+
+and P17 are also affected, to a lesser degree, especially for the Weibull distribution (d). • The modal quantile level for many procedures is 0.8, the lowest candidate. The pro-cedures of Thompson et al. (2009) ( P5), Northrop and Coleman (2014) ( P7) and Silva Lomba and Fraga Alves (2020) ( P13 ) select higher thresholds. • Application of ForwardStop (not shown) leads to lower thresholds and is thus is not recommended, as most methods generally give low thresholds. • The methods of Thompson et al. (2009) ( P5), Süveges and Davison (2010) ( P6), Northrop, Attalides and Jonathan (2017) ( P11 ), Silva Lomba and Fraga Alves (2020) (P13 ) and Kiran and Srinivas (2021) ( P14 ) lead to much less agreement and greater vari-ability of selected quantile levels. For P11 , this tallies with Table 2 of Murphy, Tawn and Varty (2025). • Wadsworth (2016) ( P9) sequential testing fails 33% of the time, even after reducing the number of thresholds considered, jittering data, and with sample sizes of 1000 obser-vations. It performs worst with heavy-tailed distributions, but is generally competitive when it works. • The procedures of Caers, Beirlant and Maes (1999) ( P2), Wadsworth (2016) ( P9) and Murphy, Tawn and Varty (2025) ( P17 ) perform well relative to the oracle. • By construction, the Collings et al. (2025) TAILS method ( P18 ) selects higher thresh-olds than Murphy, Tawn and Varty (2025) ( P17 ) and thus performs better than the latter for heavy-tailed distributions. Both methods outperform Varty et al. (2021) ( P16 ). Choosing the threshold in extreme value analysis 37 
+
+• The Bayesian model averaging method of Northrop, Attalides and Jonathan (2017) is competitive in all scenarios. In our simulation, the posterior weights of each quantile levels tended to be more or less uniformly distributed over the set of candidates, with less weight for the largest quantiles. 
+
+C.3 Simulation 2 
+
+Many of the semiparametric methods are not directly comparable with their likelihood-based counterparts because they choose an order statistic among all possible choices, rather than a threshold from a candidate set. Most such methods (except S3 and S14 ) are based on Hill’s estimator, and designed for positive shape parameters, a major practical limitation. Moreover, most methods are designed to provide good point estimators of the shape, which are seldom of interest per se ; there is no guarantee that these properties carry over to risk measures. We compared the following procedures, most of which are implemented in the R packages 
+
+tea (Ossberger, 2020) and mev (Belzile, 2026): 
+
+> S1
+
+. minimization of the asymptotic mean squared error of the Hill estimator (Hall and Welsh, 1985); 
+
+> S2
+
+. smoothing and bootstrap estimation of the mean squared error (Hall, 1990); 
+
+> S3
+
+. the exponential generalized quantile threshold of Beirlant, Vynckier and Teugels (1996b); 
+
+> S4
+
+. the bias-reduction method of Drees and Kaufmann (1998); 
+
+> S5
+
+. minimization of the asymptotic mean squared error of the Hill estimator, estimated using a nonparametric double bootstrap (Danielsson et al., 2001); 
+
+> S6
+
+. the bootstrap diagnostic test for exponentiality of log-spacings (Guillou and Hall, 2001); 
+
+> S7
+
+. the non-robust prediction error C-criterion (non-robust version) of Dupuis and Victoria-Feser (2003); 
+
+> S8
+
+. minimization of (Reiss and Thomas, 2007, p. 137) 
+
+1
+
+nunX
+
+> i=n−nu
+
+iβ |Hn,i − med {Hn,n , . . . , H n,i +1 }| p , 0 ≤ β < 12 ,
+
+for p = 1 , with β = 0 based on recommendations from Neves and Fraga Alves (2004) for Hill’s estimator with heavy-tailed data; 
+
+> S9
+
+. Reiss and Thomas (2007), as above but with p = 2 ;
+
+> S10
+
+. Jackson kernel-based threshold selection (Goegebeur, Beirlant and de Wet, 2008); 
+
+> S11
+
+. minimum distance threshold selection (Clauset, Shalizi and Newman, 2009); 
+
+> S12
+
+. minimization of the asymptotic mean squared error of the Hill estimator, estimated using a double nonparametric bootstrap scheme (Gomes, Figueiredo and Neves, 2012); 
+
+> S13
+
+. a heuristic algorithm based on sample path stability (Gomes et al., 2013); 
+
+> S14
+
+. the random block maxima estimator of Wager (2014) with empirical risk minimization; 
+
+> S15
+
+. a variant of Hall (1990) that estimates second-order parameters (Caeiro and Gomes, 2014); 
+
+> S16
+
+. minimization of the asymptotic mean squared error of the Hill estimator (Caeiro and Gomes, 2016, § 2); 
+
+> S17
+
+. the eyeballing technique of Danielsson et al. (2019) based on moving windows for the Hill plot; 
+
+> S18
+
+. minimization of the mean absolute deviation between the largest observations of the dataset and the theoretical generalized Pareto tail (Danielsson et al., 2019), estimated using Hill’s estimator; 38 Belzile and Davison 
+
+> S19
+
+. the procedure of Danielsson et al. (2019), but with the Kolmogorov–Smirnov distance; 
+
+> S20
+
+. minimization of the asymptotic mean squared error based on the relationship between Hill and trimmed Hill estimators of Bladt, Albrecher and Beirlant (2020); 
+
+> S21
+
+. smooth estimation of the asymptotic mean squared error of the generalized jackknife estimator (SAMSEE) of Schneider, Krajina and Krivobokova (2021). In each case we return the selected threshold, the number of exceedances, the shape param-eter estimate and Weissman’s quantile estimate at level 0.999 . All methods but S3 and S14 
+
+use the Hill estimator. The exponential regression model shape estimator can be negative and, although the estimator described in Remark 2 of Beirlant, Dierckx and Guillou (2005) could be used, results would not be easily comparable. As such, quantile are omitted for this method. 
+
+Robustness of semiparametric methods 
+
+We performed a simulation similar to that of Simulation 1 for rounding and serial correlation, and for determining the effect of sample size on estimates. We focus on generalized Pareto distributions, and those for which the penultimate shape parameter is positive. 
+
+Impacts of rounding and truncation The effect of rounding was not particularly notice-able on the quantile level of the thresholds (Figure 12). On the contrary, serial correlation generally leads to the selection of lower quantiles for heavier-tailed distributions. Failing to account for dependence leads to positively biased shape estimators and thus to fairly system-atic overestimation of high quantiles for heavy-tailed distributions (Figure 13). Methods S3
+
+and S14 , which use different shape estimators, appear more robust to autocorrelation. 
+
+Sample size We consider two different schemes for assessing the impact of sample size and to see whether, in larger samples, increasingly high quantile levels are selected as thresholds. In the first scheme, we consider samples of size n = 2000 , and consider the effect of restricting selection to n = 1000 top observations (i.e., above the sample median) or allowing all n = 2000 as candidate thresholds. Figure 14 shows the distribution of the proportion of exceedances, nu/n , per method and over all distribution scenarios. It shows quantiles of the density, truncated to the range [0 .1, 0.9] , for the unconstrained case (all) and the restricted case. Many methods are very sensitive to the non-extreme observations, and for most the range of selected values for nu becomes both more variable and wider when non-extreme observations are selected as thresholds. Methods S2, S3, S5–S7, S11 –S15 and S21 all see a much wider range for the distribution of nu/n when unrestricted, though the opposite can occur with light-tailed distributions. Generally, selecting lower thresholds (larger nu) in these heavy-tailed scenarios leads to a large increase in the shape parameter estimates (Figure 16) which also become much more dispersed, biasing the estimated quantiles (Figure 15) and increasing the variability of the sampling distribution of the parameter estimators. In the second scheme, we consider samples of sizes n = 1000 , 2000 , 3000 , 4000 . For most methods and distributions, and as one would hope, the quantile level of the thresh-old increased with n. Methods S17 and S19 select very high quantiles (higher than the 0.98 quantile), and likewise for S21 for non-heavy tailed distributions. Some methods such as S20 
+
+(Bladt, Albrecher and Beirlant, 2020) and the MAD minimization of Danielsson et al. (2019) (S18 ) had near constant proportions of exceedances, while this was the case only for some distributions for S5. Figure 17 shows how this proportion generally decreases, even if nu
+
+increases. Choosing the threshold in extreme value analysis 39 
+
+Summary of findings for Simulation 2 
+
+Figures 10 and 11 suggest the following: • The Hill estimator struggles with distributions for which ξ is low, but excels for very heavy-tailed distributions. The exponential estimator and the random block maxima are more variable for the latter case. • Estimates of the 0.999 quantile are more or less adequate even when the Hill estimator is inapplicable, at least if the penultimate behaviour of the distribution is positive. • The Beirlant, Vynckier and Teugels (1996a) procedure ( S3) is extremely variable, both for the selection of nu and for the estimation of ξ. It often fails to fit. • The methods of Hall and Welsh (1985) ( S1) and Caeiro and Gomes (2014) ( S13 ) behave erratically with small shape parameters, giving shape parameter estimates that show strong upward bias. They retain more than 15% of the data for inference, and thus have a tendency to systematically overestimate high quantiles. For method S13 , the median of the ratio of 0.999 to the true quantile is about three. • The proposal of Schneider, Krajina and Krivobokova (2021) ( S21 ) works well in the heavy-tailed case; • The AMSE minimisation procedures of Caeiro and Gomes (2016) and Gomes, Figueiredo and Neves (2012) display low relative root mean squared error for quantile estimation, consistently across all scenarios, but can fail catastrophically for particular datasets. • The method with the lowest relative bias for quantiles is Guillou and Hall (2001), and the lowest mean square errors are obtained using the Danielsson et al. (2019) min-imization of the Kolmogorov–Smirnov distance (for ξ < 0.25 ) and Bladt, Albrecher and Beirlant (2020) ( ξ ≥ 0.5); • The Drees and Kaufmann (1998) procedure fails to return valid values for nu in around 80% of cases. When it works, it leads to small values of nu, and to shape estimates that are below average; the width of the confidence intervals in Figure 10 suggests excess variability. We have not fixed the tuning parameter of the stopping criterion to unity throughout. • The Dupuis and Victoria-Feser (2003) estimator leads to very small nu, and thus vari-able and negatively-biased shape estimates, but performs best for quantile estimation for low shape parameter. • The sampling distributions of the shape parameters for the methods of Reiss and Thomas (2007) ( S8 and S9) are left-skewed. • The procedure of Wager (2014) ( S14 ) provides only an estimate of the shape parameter, and performs very poorly when coupled with Weissman’s estimator, with systematic underestimation of return levels; more work is needed to derive a suitable estimator of the quantile. The more computationally-intensive methods use the bootstrap. The double bootstrap takes over two minutes to run with 1000 exceedances. 
+
+Appendix D: Applications to data 
+
+We considered threshold selection methods for four datasets commonly used in the literature for comparison purposes. These are 1. the River Nidd levels in Yorkshire [ n = 154 , nidd.thresh , evir package], 2. the Danish fire loss [ n = 2167 , danish , evir package], 40 Belzile and Davison 
+
+3. the Fort Collins precipitation series [ n = 4147 , FCwx , extRemes package] 4. the North Sea wave height hindcast data [ n = 628 , ns , threshr package]. For the Fort Collins data, we consider only rainfall between April and November to avoid glaring nonstationarity. The results are shown in Table 6. The first three datasets exhibit heavy tails, while the wave height dataset clearly has a bounded upper tail. Many algorithms for semiparametric methods select very low thresholds for which there are a larger number of exceedances; only providing the largest 1000 or 500 observations, say, would yield different thresholds, as reported in Simulation 2. The Wadsworth (2016) method fails on the first two datasets, but can be fixed by selecting just a handful of thresholds. For the Nidd data, the parametric methods select either the highest threshold or nearly all observations. 
+
+Appendix E: Omitted methods 
+
+Although some may have escaped our scrutiny or have appeared very recently, we have attempted to describe and compare most threshold selection methods in the literature. Others sketched below were excluded from the simulations for a variety of reasons. 
+
+E.1 Mean residual life plot 
+
+Mínguez (2025) includes additional tests, routinely used in linear regression, for outliers based on internally studentized residuals (for the smallest observation) and goodness-of-fit assessment based on the variance of these residuals. He also suggests fitting smoothing splines to the mean squared error values to identify local minima, but the spline ignores the serial correlation of these values and differences in variance of the point estimates. The multi-stage procedure seems to us overly complex. 
+
+E.2 Parameter stability plots 
+
+Curceac et al. (2020) propose to fit a a penalized cubic spline to smooth parameter estimates in parameter stability plots until a plateau emerges. The detection of the latter is difficult, and the method does not account for the dependence of successive estimators. 
+
+E.3 Robust methods 
+
+Robust estimation methods can downweight observations that do not conform with the model, thereby reducing their influence on the fit, but comes at the expense of a loss of information (cf. Davison and Smith, 1990, §5). Dupuis (1999) proposes an optimal B-robust estimator of the generalized Pareto parameters, which returns both parameter estimates and weights for observations. In the upper tail, the weights are non-increasing as the quantile in-creases. Poorly-fitted points are downweighted and thus suspected not to be drawn from the limiting model, but observations from the GPD itself might also be downweighted, so simu-lation is needed to calibrate the weights. To avoid multiple testing, we used a cusum statistic based on the m non-zero weight of the upper tail fit to the original data, and approximated the null distribution by computing the weights for samples drawn from a GPD using the op-timal bias-robust estimator. We get strong indication of missfit for thresholds lower than the 98% for the Padova data, leading to u = 42 .77 mm. The repeated fit is too computationally expensive to consider in a simulation study, and more work on calibration and the choice of summary statistic would be needed for this approach to be properly automated. Choosing the threshold in extreme value analysis 41 
+
+Table 6 Number of exceedances at chosen threshold for four standard datasets. For parametric methods (bot-tom), candidate thresholds consisted of 21st, 31st, . . . , 151st order statistics (Nidd river data), empirical quantiles at level 0.8, 0.81, . . . , 0.99 (Fort Collins precipitation and Danish insurance data), and empirical quantiles at level 0.5, 0.55, . . . , 0.90 quantiles (North Sea wave height). Methods with em-dash (—) indicate that no threshold is returned. Stars ( ⋆) indicate a procedure run with different or smaller number of thresholds. 
+
+method Nidd Danish Fort Collins North Sea Hall and Welsh (1985) 153 19 387 Hall (1990) 141 81 150 Beirlant, Vynckier and Teugels (1996a) 770 Drees and Kaufmann (1998) 64 Danielsson et al. (2001) 139 1262 10 Guillou and Hall (2001) 102 84 61 Dupuis and Victoria-Feser (2003) (non-robust) 21 26 10 Reiss and Thomas (2007) ( l1) 147 1661 66 Reiss and Thomas (2007) ( l2) 137 1547 43 Goegebeur, Beirlant and de Wet (2008) 145 1796 699 Clauset, Shalizi and Newman (2009) 89 1564 586 Gomes, Figueiredo and Neves (2012) 91 1285 13 Gomes et al. (2013) (sample paths) 140 1551 419 Wager (2014) 77 94 2073 Caeiro and Gomes (2014) 86 1163 11 Caeiro and Gomes (2016) (AMSE) 67 546 33 Danielsson et al. (2019) (eye-balling) 6 21 50 Danielsson et al. (2019) (MAD) 12 17 206 Danielsson et al. (2019) (KS) 16 95 6Bladt, Albrecher and Beirlant (2020) 54 591 318 Schneider, Krajina and Krivobokova (2021) (SAMSEE) 77 944 59 Pickands (1975) 89 174 362 157 Davison and Smith (1990) 20 260 810 283 Caers, Beirlant and Maes (1999) 149 434 737 314 Thompson et al. (2009) 20 174 162 314 Northrop and Coleman (2014) 40 65 125 95 Langousis et al. (2016) 149 434 810 157 del Castillo and Padilla (2016) 39 174 810 314 Wadsworth (2016) 810 157 Northrop, Attalides and Jonathan (2017) 127 434 810 189 Bader, Yan and Zhang (2018) 149 195 39 189 Silva Lomba and Fraga Alves (2020) 20 22 39 220 Varty et al. (2021) 149 434 810 314 Kiran and Srinivas (2021) 133 195 125 157 Gamet and Jalbert (2022) (beta EGP model) 195 572 189 Murphy, Tawn and Varty (2025) 30 195 314 
+
+E.4 Coefficient of variation stability 
+
+del Castillo and Padilla (2016) propose using the coefficient of variation for diagnostics and formulate an automated procedure for exceedances of a fixed grid U of thresholds. A gener-alized Pareto random variable GP (σ, ξ ) has coefficient of variation cv( X) = sd( X)/E( X) = (1 − 2ξ)−1/2, which does not depend on the scale parameter and yields a consistent moment-based shape estimator if ξ < 1/2, which, if ξ < 1/4 and suitably renormalized, converges in distribution to a Gaussian process with constant mean and known covariance function. Standard results can be then be used to test whether a realisation of this process has a con-stant mean. del Castillo and Padilla (2016) suggest parametric bootstrap approximations of 42 Belzile and Davison 
+
+the distribution of a related statistic, leading to a sequential procedure that starts with the smallest threshold and stops when the bootstrap p-value is lower than a level α. They also propose transformations that deal with the effect of the constraint ξ < 1/4, which limits the applicability of the idea for heavy-tailed data. However, the transformation affects the rate of convergence of the penultimate approximation (Wadsworth, Tawn and Jonathan, 2010): one needs estimates of σ and ξ, which depend on the threshold, and their methodology requires a preliminary test of the moment condition. Simulation results indicated that this approach is amongst the worst we considered, leading to systematic selection of the lowest possible threshold whenever applicable. We have opted not to discuss it further. It also fails often, and cannot be recommended. 
+
+E.5 Smoothing of Hill’s estimator 
+
+Schneider, Krajina and Krivobokova (2021) use related ideas for the inverse Hill statistic, which approximates the mean integrated squared error of Hill’s estimator relative to an expo-nential density. They use Bayesian nonparametric methods to smooth the resulting estimates and pick nu for which the smoothed mean is smallest. The empirical Bayes procedure pro-posed for the smoothing is computationally intensive in medium to large samples, and the degree of smoothing was unsatisfactory in our numerical work. Choosing the threshold in extreme value analysis 43 OR 
+
+P17 P18 
+
+P15 P16 
+
+P13 P14 
+
+P11 P12 
+
+P9 P10 
+
+P7 P8 
+
+P5 P6 
+
+P3 P4 
+
+P1 P2 
+
+80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 
+
+80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 
+
+rounding iid ar 
+
+rounding iid ar 
+
+rounding iid ar 
+
+rounding iid ar 
+
+rounding iid ar 
+
+rounding iid ar 
+
+rounding iid ar 
+
+rounding iid ar 
+
+rounding iid ar 
+
+rounding iid ar 
+
+quantile level of threshold (%) 
+
+percentage 0 0.25 0.5 0.75 
+
+Figure 8 Heatmap of the percentage of threshold selection per method for each of the different quantile levels (x-axis, from left to right), across scenarios ( y-axis) and distributions a–p (panels). 44 Belzile and Davison OR P18 P17 P16 P15 P14 P13 P12 P10 P9 P8 P7 P6 P5 P4 P3 P2 P1 
+
+−0.05 0.00 0.05 
+
+distribution (e): piece. GP(0.25, −0.25) 
+
+OR P18 P17 P16 P15 P14 P13 P12 P10 P9 P8 P7 P6 P5 P4 P3 P2 P1 
+
+−0.1 0.0 0.1 
+
+distribution (o): ext. GP (power) 
+
+OR P18 P17 P16 P15 P14 P13 P12 P10 P9 P8 P7 P6 P5 P4 P3 P2 P1 
+
+−0.10 −0.05 0.00 0.05 0.10 
+
+distribution (h): GP(−0.15) 
+
+OR P18 P17 P16 P15 P14 P13 P12 P10 P9 P8 P7 P6 P5 P4 P3 P2 P1 
+
+−0.1 0.0 0.1 
+
+distribution (d): Weibull(1.25) 
+
+OR P18 P17 P16 P15 P14 P13 P12 P10 P9 P8 P7 P6 P5 P4 P3 P2 P1 
+
+−0.1 0.0 0.1 
+
+distribution (a): gamma(2,1) 
+
+OR P18 P17 P16 P15 P14 P13 P12 P10 P9 P8 P7 P6 P5 P4 P3 P2 P1 
+
+−0.2 −0.1 0.0 0.1 0.2 
+
+distribution (f): exp(1) 
+
+OR P18 P17 P16 P15 P14 P13 P12 P10 P9 P8 P7 P6 P5 P4 P3 P2 P1 
+
+−0.2 0.0 0.2 
+
+distribution (c): Weibull(0.75) 
+
+OR P18 P17 P16 P15 P14 P13 P12 P10 P9 P8 P7 P6 P5 P4 P3 P2 P1 
+
+−0.2 0.0 0.2 
+
+distribution (i): folded Student(6) 
+
+OR P18 P17 P16 P15 P14 P13 P12 P10 P9 P8 P7 P6 P5 P4 P3 P2 P1 
+
+−0.2 0.0 0.2 0.4 
+
+distribution (g): GP(0.15) 
+
+OR P18 P17 P16 P15 P14 P13 P12 P10 P9 P8 P7 P6 P5 P4 P3 P2 P1 
+
+−0.2 0.0 0.2 0.4 0.6 
+
+distribution (p): ext. GP (exp. tilting) 
+
+OR P18 P17 P16 P15 P14 P13 P12 P10 P9 P8 P7 P6 P5 P4 P3 P2 P1 
+
+−0.2 0.0 0.2 0.4 0.6 
+
+distribution (b): lognormal 
+
+OR P18 P17 P16 P15 P14 P13 P12 P10 P9 P8 P7 P6 P5 P4 P3 P2 P1 
+
+−0.25 0.00 0.25 0.50 
+
+distribution (n): piece. GP(−0.5, 0.25) 
+
+OR P18 P17 P16 P15 P14 P13 P12 P10 P9 P8 P7 P6 P5 P4 P3 P2 P1 
+
+−0.5 0.0 0.5 1.0 
+
+distribution (m): Burr(1,2) 
+
+OR P18 P17 P16 P15 P14 P13 P12 P10 P9 P8 P7 P6 P5 P4 P3 P2 P1 
+
+−0.5 0.0 0.5 1.0 
+
+distribution (j): Fréchet(0.5) 
+
+OR P18 P17 P16 P15 P14 P13 P12 P10 P9 P8 P7 P6 P5 P4 P3 P2 P1 
+
+0 1 2 3
+
+distribution (k): Cauchy 
+
+OR P18 P17 P16 P15 P14 P13 P12 P10 P9 P8 P7 P6 P5 P4 P3 P2 P1 
+
+0 1 2 3
+
+bias of 0.999 quantile 
+
+> method
+
+distribution (l): loggamma(2) 
+
+Figure 9 Results of Simulation 1: median (white circles), 50% (dark grey), 80% (grey) and 95% (light grey) bands for the relative bias of the 0.999 quantile, based on maximum likelihood estimates using candidate thresh-olds at the 0.8, 0.81 , . . . , 0.98 sample quantiles taken from n = 2000 independent and identically distributed observations. The distributions are ordered in increasing level of the penultimate shape parameter (vertical black line) at level 0.999. Choosing the threshold in extreme value analysis 45 S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+0.0 0.2 0.4 0.6 
+
+distribution (h): GP(−0.15) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+0.0 0.2 0.4 0.6 
+
+distribution (f): exp(1) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+0.00 0.25 0.50 0.75 
+
+distribution (c): Weibull(0.75) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+0.0 0.2 0.4 0.6 
+
+distribution (i): folded Student(6) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+0.0 0.2 0.4 0.6 
+
+distribution (g): GP(0.15) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+0.00 0.25 0.50 0.75 
+
+distribution (p): ext. GP (exp. tilting) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+0.0 0.2 0.4 0.6 
+
+distribution (b): lognormal 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+0.0 0.2 0.4 0.6 
+
+distribution (n): piece. GP(−0.5, 0.25) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+0.00 0.25 0.50 0.75 1.00 
+
+distribution (m): Burr(1,2) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+0.00 0.25 0.50 0.75 1.00 
+
+distribution (j): Fréchet(0.5) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+0.0 0.5 1.0 1.5 
+
+distribution (k): Cauchy 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+0.0 0.5 1.0 1.5 2.0 
+
+shape 
+
+> method
+
+distribution (l): loggamma(2) 
+
+Figure 10 Results of Simulation 2: density plots with median, 66% and 95% bands for the shape parameter estimates (top), as a function of the distribution, method for samples of n = 2000 independent and identically distributed observations. The distributions are ordered by increasing level of the penultimate shape parameter (vertical black line). 46 Belzile and Davison S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+30 100 300 1000 
+
+distribution (h): GP(−0.15) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+30 100 300 1000 
+
+distribution (f): exp(1) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+30 100 300 1000 
+
+distribution (c): Weibull(0.75) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+30 100 300 1000 
+
+distribution (i): folded Student(6) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+30 100 300 1000 
+
+distribution (g): GP(0.15) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+30 100 300 1000 
+
+distribution (p): ext. GP (exp. tilting) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+30 100 300 1000 
+
+distribution (b): lognormal 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+30 100 300 1000 
+
+distribution (n): piece. GP(−0.5, 0.25) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+30 100 300 1000 
+
+distribution (m): Burr(1,2) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+30 100 300 1000 
+
+distribution (j): Fréchet(0.5) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+30 100 300 1000 
+
+distribution (k): Cauchy 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 S1 
+
+30 100 300 1000 
+
+nu
+
+> method
+
+distribution (l): loggamma(2) 
+
+Figure 11 Results for Simulation 2: median (white point) 50% (dark grey), 80% (grey) and 95% (light grey) confidence bands for the rank of the threshold (with the number of exceedances on the x-axis shown on the log-scale), chosen as the (n − nu)th order statistic with the same settings of Figure 10. Choosing the threshold in extreme value analysis 47 S19 S20 S21 
+
+S15 S16 S17 S18 
+
+S11 S12 S13 S14 
+
+S7 S8 S9 S10 
+
+S1 S2 S5 S6 
+
+0 50 100 100 200 300 0 250 500 750 1000 
+
+0 200 400 600 800 0 250 500 750 1000 10 20 30 40 0 50 100 150 
+
+0 250 500 750 1000 0 200 400 600 800 250 500 750 1000 0 100 200 300 400 500 
+
+25 50 75 100 0 250 500 750 1000 0 250 500 750 1000 0 250 500 750 1000 
+
+0 250 500 750 1000 250 500 750 0 250 500 750 1000 0 200 400 600 
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+number of exceedances 
+
+> distribution
+
+scenario ar iid rounding level 0.95 0.8 0.5 
+
+Figure 12 Results for Simulation 2: 50%, 80% and 95% (shade) highest density continuous intervals for the number of exceedances for different scenarios (independent and identically distributed, serially correlated and rounded). 48 Belzile and Davison S19 S20 S21 
+
+S15 S16 S17 S18 
+
+S11 S12 S13 S14 
+
+S7 S8 S9 S10 
+
+S1 S2 S5 S6 
+
+0 1 2 3 4 0 1 2 3 4 0 1 2 3 4
+
+0 1 2 3 4 0 1 2 3 4 0 1 2 3 4 0 1 2 3 4
+
+0 1 2 3 4 0 1 2 3 4 0 1 2 3 4 0 1 2 3 4
+
+0 1 2 3 4 0 1 2 3 4 0 1 2 3 4 0 1 2 3 4
+
+0 1 2 3 4 0 1 2 3 4 0 1 2 3 4 0 1 2 3 4
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+ponmlkjihgfedcba
+
+0.999 quantile ratio (estimated/true) 
+
+> distribution
+
+scenario ar iid rounding level 0.95 0.8 0.5 
+
+Figure 13 Results for Simulation 2: 50%, 80% and 95% highest density continuous intervals for the ratio of the 0.999 quantile estimate, relative to the true theoretical counterpart. Choosing the threshold in extreme value analysis 49 S18 S19 S20 S21 
+
+S14 S15 S16 S17 
+
+S10 S11 S12 S13 
+
+S6 S7 S8 S9 
+
+S1 S2 S3 S5 
+
+0.00 0.25 0.50 0.75 0.0 0.1 0.2 0.3 0.4 0.5 0.01 0.02 0.03 0.04 0.05 0.0 0.1 0.2 0.3 0.4 0.5 
+
+0.0 0.1 0.2 0.3 0.4 0.5 0.0 0.1 0.2 0.3 0.4 0.000 0.025 0.050 0.075 0.100 0.125 0.00 0.02 0.04 0.06 
+
+0.0 0.1 0.2 0.3 0.0 0.1 0.2 0.3 0.0 0.1 0.2 0.06 0.09 0.12 0.15 
+
+0.0 0.1 0.2 0.3 0.4 0.0 0.1 0.2 0.0 0.1 0.2 0.3 0.4 0.5 0.2 0.4 0.6 
+
+0.005 0.010 0.015 0.020 0.0 0.1 0.2 0.3 0.0 0.1 0.2 0.3 0.0 0.1 0.2 0.3 0.4 
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+proportion of exceedances 
+
+> distribution
+
+level 0.95 0.8 0.5 type all restricted 
+
+Figure 14 Results for Simulation 2: 50%, 80% and 95% highest density continuous intervals for the proportion of exceedances relative to the sample size for n = 2000 , when restricting the largest 50% or not (color). 50 Belzile and Davison S19 S20 S21 
+
+S15 S16 S17 S18 
+
+S11 S12 S13 S14 
+
+S7 S8 S9 S10 
+
+S1 S2 S5 S6 
+
+0 1 2 3 4 0 1 2 3 4 0 1 2 3 4
+
+0 1 2 3 4 0 1 2 3 4 0 1 2 3 4 0 1 2 3 4
+
+0 1 2 3 4 0 1 2 3 4 0 1 2 3 4 0 1 2 3 4
+
+0 1 2 3 4 0 1 2 3 4 0 1 2 3 4 0 1 2 3 4
+
+0 1 2 3 4 0 1 2 3 4 0 1 2 3 4 0 1 2 3 4
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+pnmlkjihgfcb
+
+0.999 quantile ratio (estimated/truth) 
+
+> distribution
+
+level 0.95 0.8 0.5 type all restricted 
+
+Figure 15 Results for Simulation 2: 50%, 80% and 95% highest density continuous intervals for the ratio of estimated 0.999 quantile to the true theoretical counterpart, when restricting the largest 50% or not (color). The ratio is capped at 4 in the plot. Choosing the threshold in extreme value analysis 51 S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 
+
+0.0 0.5 1.0 1.5 
+
+distribution (h): GP(−0.15) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 
+
+0.0 0.5 1.0 1.5 
+
+distribution (f): exp(1) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 
+
+0.0 0.5 1.0 1.5 
+
+distribution (g): GP(0.15) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 
+
+0.0 0.5 1.0 1.5 
+
+distribution (c): Weibull(0.75) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 
+
+0.0 0.5 1.0 1.5 
+
+distribution (i): folded Student(6) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 
+
+0.0 0.5 1.0 1.5 
+
+distribution (p): ext. GP (exp. tilting) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 
+
+0.0 0.5 1.0 1.5 
+
+distribution (b): lognormal 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 
+
+0.0 0.5 1.0 1.5 
+
+distribution (n): piece. GP(−0.5, 0.25) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 
+
+0.0 0.5 1.0 1.5 
+
+distribution (m): Burr(1,2) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 
+
+0.0 0.5 1.0 1.5 
+
+distribution (j): Fréchet(0.5) 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 
+
+0.0 0.5 1.0 1.5 
+
+distribution (k): Cauchy 
+
+S21 S20 S19 S18 S17 S16 S15 S14 S13 S12 S11 S10 S9 S8 S7 S6 S5 S4 S3 S2 
+
+0.0 0.5 1.0 1.5 
+
+shape 
+
+> method
+
+distribution (l): loggamma(2) 
+
+level 0.95 0.8 0.5 type all restricted 
+
+Figure 16 Results for Simulation 2: 50%, 80% and 95% highest density continuous intervals for the shape parameter estimates for generalized Pareto models (top row) and models with penultimate approximations and heavy tails. The vertical bar in each panel gives the value of the penultimate shape parameter at the 0.999 quantile. 52 Belzile and Davison pnmlkjihgfcb
+
+0.1 0.2 0.3 
+
+method S2
+
+pnmlkjihgfcb
+
+0.0 0.1 0.2 0.3 
+
+method S 5
+
+pnmlkjihgfcb
+
+0.0 0.1 0.2 
+
+method S6
+
+pnmlkjihgfcb
+
+0.01 0.02 0.03 
+
+method S7
+
+pnmlkjihgfcb
+
+0.0 0.1 0.2 0.3 0.4 0.5 
+
+method S 8
+
+pnmlkjihgfcb
+
+0.0 0.1 0.2 0.3 0.4 
+
+method S9
+
+pnmlkjihgfcb
+
+0.0 0.1 0.2 0.3 0.4 0.5 
+
+method S 10 
+
+pnmlkjihgfcb
+
+0.0 0.1 0.2 0.3 0.4 0.5 
+
+method S 11 
+
+pnmlkjihgfcb
+
+0.0 0.1 0.2 0.3 
+
+method S 12 
+
+pnmlkjihgfcb
+
+0.0 0.1 0.2 0.3 0.4 0.5 
+
+method S 14 
+
+pnmlkjihgfcb
+
+0.0 0.1 0.2 0.3 
+
+method S 15 
+
+pnmlkjihgfcb
+
+0.1 0.2 0.3 
+
+method S 16 
+
+pnmlkjihgfcb
+
+0.010 0.015 0.020 0.025 
+
+method S 17 
+
+pnmlkjihgfcb
+
+0.00 0.03 0.06 0.09 
+
+method S 18 
+
+pnmlkjihgfcb
+
+0.00 0.01 0.02 0.03 0.04 0.05 
+
+method S 19 
+
+pnmlkjihgfcb
+
+0.08 0.10 0.12 0.14 0.16 
+
+method S 20 
+
+pnmlkjihgfcb
+
+0.05 0.10 0.15 0.20 
+
+proportion of exceedances 
+
+> distribution
+
+method S 21 
+
+n 1K 2K 3K 4K level 25% 50% 75% 
+
+Figure 17 Results for Simulation 2: quartiles and median (full circle) of the percentage of exceedances relative to the total sample size n ∈ { 1000 , 2000 , 3000 , 4000 } (x-axis) for each distribution ( y-axis) and for selected threshold selection methods (panel), as a function of the sample size (color).
