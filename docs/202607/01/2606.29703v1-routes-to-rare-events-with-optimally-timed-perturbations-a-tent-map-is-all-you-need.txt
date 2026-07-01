@@ -1,0 +1,846 @@
+Title: Routes to rare events with optimally timed perturbations: a Tent Map is all you need
+
+URL Source: https://arxiv.org/pdf/2606.29703v1
+
+Published Time: Tue, 30 Jun 2026 01:36:12 GMT
+
+Number of Pages: 26
+
+Markdown Content:
+# Routes to rare events with optimally timed perturbations: a Tent Map is all you need 
+
+Justin Finkel ∗
+
+Data Science Institute and the Department of Geophysical Sciences, University of Chicago 
+
+Extreme weather events are difficult to understand for the same reason that they are dangerous: they happen rarely, catching victims unprepared when they do occur and scientists unable to assess risks confidently, given such limited precedent to learn from in the real world and high computational expense to simulate more examples. Rare event sampling (RES) algorithms seek to reduce this expense by forcing simulations more directly towards the extremes and then compensating for that forcing in statistical analysis. But the performance of RES hinges on several hyperparameter choices which are ad hoc in practice, and must be better understood if RES is to be broadly useful. This paper addresses one particular parameter, the advance split time (AST), which prescribes when to perturb a simulation to split off the most informative possible ensemble of alternative extreme event scenarios. We prescribe the optimal AST as the time it takes for an initial perturbation to amplify into the size (inverse rarity) of the extreme event being targeted. For the Logistic and Tent maps, two archetypal examples of one-dimensional chaos, we rigorously derive and express the rule as a simple log-ratio between perturbation size and event rarity. The pair of examples also illuminates where the rule breaks down, and subsequently, we generalize the rule into a maximum-entropy criterion that solidifies recent heuristic and empirical results. Despite the idealized setting, our results deliver theoretical clarity that can anchor future developments of principled RES methods applicable to real-world, high-impact weather and climate extremes. 
+
+I. INTRODUCTION 
+
+The traditional boundaries in climate science between physical and statistical models, between “pure” physical and “applied” impacts-oriented research, and between weather and climate timescales, are being blurred. A topic of intense current interest is extreme weather events, not only their detailed physical dynamics but their long-term occurrence frequencies and how they are changing [1–3]. As forecasts extend farther to seasonal and decadal horizons, a probabilistic framing becomes crucial and these extremes become inevitable, even if improbable on any given day [4–6]. But “probability” has several interpretations. Ensemble weather forecasts give subjective probabilities of near-future states given two uncertain inputs: the present state with partial and imprecise measurements, and the dynamical model with structural and parametric errors. Both uncertainties are properties of tech-nology, not of the physical system being predicted, so the resulting forecast distributions can’t be judged for “correctness” but only self-consistency, for example with reliability diagrams [7]. Climate probabilities on the other hand, which we focus on in this work, are objective. “Climatology”, or “steady-state”, refers to the statistics of a dynamical system accumulated over time in the long-term limit where the ergodic hypoth-esis applies and initial conditions don’t matter [8, 9]. Of course the Earth doesn’t attain this limit, having a finite history and changing boundary conditions, but the same dichotomy between weather and climate probabilities applies to model systems. For methodological development purposes, this work will assume a given explicit dynamical system, with fixed parameters ergo a stationary climate, as “truth”, and take on the challenge not of improving its match to the physical world but of estimating climate probabilities of this fixed model. In principle, one can estimate climatological probabilities by “Direct Sampling” (DS): running a model autoregressively for a long enough time until its statistics converge to satisfactory precision. Yet in practice, obtaining that ground truth becomes exceedingly expensive when the quantities of interest pertain to extreme events. Correctly calculating a probability of 1/(250 years) from data is hard precisely because it is small. We can expect to see one such event in a 250-year timeseries (roughly the length of the longest-running temperature records), but the probability of seeing no events at all is (1 − 1250 )250 ≈ e−1, almost as likely as seeing the expected one single event. In other words, getting an estimate 100% off from the truth is almost  
+
+> ∗jfinkel@uchicago.edu
+> arXiv:2606.29703v1 [physics.ao-ph] 29 Jun 2026
+
+2as likely as getting it correct. More importantly, actual simulations of this extreme scenario—so-called “storylines”, which are critical ingredients for risk mitigation and for scientific understanding [10, 11]–accrue at a painfully slow rate when integrating a model in DS mode. Rare event sampling (RES) has gained recent traction in climate science as a collection of computational protocols to accelerate difficult, high-impact estimation problems such as prolonged hot or wet seasons [12– 14], shorter-duration heat waves and storms [15–17], intense tropical cyclones [18], and regime transitions like Atlantic Meridional Overturning Circulation collapse [19], to name a few. RES aims to capture both statistics and storylines at reduced cost relative to DS by interrupting the forward time evolution with small, strategic perturbations on the model state to short-cut the long waiting periods and fast-forward to the extremes, while keeping track of the bias introduced by kicks to compensate for it afterward in statistical estimation. As in forecasting, the perturbations are often ad-hoc, with wildly divergent choices appearing in recent literature, from roundoff error in temperature [20] to uniform noise on log-surface pressure spherical harmonics [12] to red noise forcing on parameterized subgrid tendencies [15]. But unlike in the weather forecasting task, these RES schemes target an actual unique, objective ground-truth distribution: namely, the climatology produced by DS. This makes some perturbation schemes objectively better than others. Our goal in this paper is to establish a principle for optimal perturbations, in the sense of recovering a climatological ground truth distribution both accurately and efficiently. The scope is narrow, with a focus on one specific rare event algorithm known as Ensemble Boosting (EB) introduced in [20], only perturbation 
+
+timing as the thing to optimize given a fixed perturbation structure , and a particular one-dimensional chaotic system known as the Logistic Map. But our solution is exact, expressible as a simple balance between the perturbation’s initial size, its time horizon for growth, and the size in state space of the small rare-event target it aims for (the rarer, the smaller). The result is not universal, but is transparent in its assumptions. By first exploiting and then abstaining from a conjugate transformation to the Tent Map, we provide evidence that a maximum-entropy principle could be the right way to generalize the result, amending a conjecture that we recently made in [21] while refuting some other recently-proposed heuristics. Since EB is a very simple algorithm to implement and the perturbation timing is easy to adjust within complex pre-existing model architectures, we suspect that our simplified but illuminating results can be broadly useful. This paper is structured as follows. Section II recapitulates the EB procedure and identifies the open questions regarding its validity and performance. Section III A introduces the Logistic Map, transforms to the Tent Map to derive and explain the exact solution to optimal perturbation timing, and then returns to the Logistic Map to demonstrate the potential generalizability of the maximum-entropy principle. Section IV discusses the validity of the assumptions made and how they might be generalized, and provides a roadmap for putting the results to practical use. Section V concludes the paper with a summary.  
+
+> II. ENSEMBLE BOOSTING GENERAL PROCEDURE
+
+EB is used to study the rare, extreme fluctuations of a dynamical system x(t) that evolves in time according to some update rule x(t + 1) = F (x(t)), and which over long time periods behaves like a random variable filling out a nontrivial probability distribution, the “climatology”, as opposed to converging to a fixed point or limit cycle. We seek to estimate the complementary cumulative distribution functions (CCDF) of the distribution tail, taking the form Q(ν, μ ) := P{x > ν |x > μ }, where μ is some pre-determined threshold separating the distributions “body” of typical events from its “tail” of extreme events and ν > μ is a higher level within the tail. In the real world, μ might be the height of a dam, and ν might represent thresholds for even greater damage such as the height of a bridge or floodwall. (In general, extremes would be defined by some observable R(x) of a high-dimensional state vector x, but in our simple 1D system we just choose 
+
+R(x) = x.) EB tries to squeeze as much information as possible from the occasional event that appears in simulation. In general, we assume that the baseline threshold μ is just frequent enough that a moderately long DS can estimate the baseline exceedance probability, P{x > μ }, with reasonable confidence, and boosting targets everything above it. Rather than keep simulating the system forward and wait for new favorable initial conditions, EB goes back in time, perturbs the initial conditions already found, and re-simulates a new version of the event. In detail, the procedure is 1. From an initial timeseries x(t), find an exceedance event x∗ = x(t∗) > μ (if there is a cluster of exceedances, choose x∗ as the peak). 32. Choose an advance split time A, and extract the initial condition x(t∗ − A) from the simulation. 3. Apply a small perturbation δx to get a modified initial conditoin, x(t∗ − A) + δx .4. Run the dynamics forward again through the original event timing, generating the short “descendant” timeseries of length A + 1, 
+
+x(t∗ − A) + δx F  x(t∗ − A) + δx  . . . F A x(t∗ − A) + δx  , (1) branching off of the “ancestor” timeseries at time t∗ − A.5. Repeat steps 2-4 to generate an ensemble of D different perturbations {δx d}Dd=1 , resulting in an en-semble of D perturbed descendant peaks {x∗
+
+> d
+
+}Dd=1 (we assume the perturbations are small enough to preserve the timing of local maxima, which is usually valid for lead times of interest in discrete-time systems but needs to be relaxed for continuous-time systems, as in [21]). 6. Repeat step 5 (and by recursion, 2-4) on a collection of ancestor events {x(t∗
+
+> n
+
+)}Nn=1 drawn from the initial timeseries, resulting in N “families”. Enforce a minimum lag time between consecutive clusters to ensure independence between families. 7. From the two-tiered population {x∗
+
+> d,n
+
+}, estimate tail probabilities as 
+
+P{x > ν |x > μ } ≈ bQ(ν, μ ; N, D, A ) := 1
+
+N
+
+> N
+
+X
+
+> n=1
+
+PDd=1 I{x∗ 
+
+> d,n
+
+> ν }
+
+PDd=1 I{x∗ 
+
+> d,n
+
+> μ } . (2) The estimator bQ is called the “mixture of conditional tails” (MoCTail) estimator, formulated in [21] and similar to but distinct from the estimator of [16]. The arguments before the semi-colon ( ν, μ ) specify what the tail region is, and those after the semi-colon ( N, D, A ) are algorithmic parameters. We hope for bQ to approximate the true climatological tail distribution, which can be estimated by DS: that is, running an exremely long simulation of length T in which a growing number N (T ) ∝ T events appear, 
+
+P{x > ν |x > μ } = Q(ν, μ ) = lim  
+
+> T→∞
+
+1
+
+N (T )  
+
+> N(T)
+
+X
+
+> n=1
+
+I{x∗ 
+
+> n
+
+> ν }, (3) where each x∗ 
+
+> n
+
+is a peak over μ. But the estimator’s fundamental validity, let alone its efficiency with small 
+
+N , is not proven, and might depend sensitively on several hyperparameters of the boosting procedure, most notably the advance split time A and the form of perturbation δx . The optimal choice may well be different between families. The next section makes the question more concrete by focusing on the Logistic Map, but along the way take a detour to the Tent Map. The pair of systems together clarify some conditions on δx and A for EB to be valid and efficient.   
+
+> III. ENSEMBLE BOOSTING ON A MINIMAL SYSTEM A. Logistic Map
+
+The essential extreme events and the need for EB are already seen in the Logistic Map, F (x) = L(x) = 4x(1 − x), a common introductory textbook example of chaos [22]. Fig.1 illustrates its behavior, two aspects of which are central for our aims. (i) There is a steady-state PDF with highly compressed tails at x → 0 and 
+
+x → 1, and (ii) trajectories with very similar initial conditions diverge rapidly. The sequence plotted almost repeats itself after 9 steps, but then strays quickly from its past history. EB relies on this error growth to transform tiny perturbations {δx (t∗ − A)} into major differences in event severity ( δx (t∗)). It seems clear that the right choice of AST to boost a peak x∗ should depend on how fast errors grow leading up to x∗. The one-step growth of a small initial error δx 0 is proportional to the local slope of F (x), 4(b) (a) 
+
+(d) (c) 
+
+(f) (e) 
+
+FIG. 1. Illustration of the Logistic Map. (a) Eleven iterations plotted by the visual method: starting from the yellow star, we move vertically to the graph ( x, L (x)) to advance the system to the next timestep, and then horizontally to the diagonal line ( x, x ) to move into position for the next advancement. The zig-zag nearly closes in a loop after 9 iterates, but the small gap already starts to amplify by the 11th iterate. This is the hallmark of chaos. (b) Those same iterates arranged in a line next to the limiting probability density function (PDF) which they are samples from. (c) A timeseries shows sustained irregular, aperiodic behavior. (d) The empirical PDF from a longer timeseries (duration 2 18 ) overlaid on the true PDF to which it would converge given enough time. (e) Exceedances over the threshold μ ≈ 1 − 2−17 , and (f) the complementary cumulative distribution function (CCDF) of peaks, i.e., 
+
+Q(ν, μ ) = P{x > ν |x > μ } conditional on already exceeding the threshold μ. The goal of RES is to efficiently evaluate this CCDF of peaks. 
+
+and after t steps it compounds into 
+
+δx (t) ≈ dx (t)
+
+dx (t − 1) 
+
+dx (t − 1) 
+
+dx (t − 2) . . . dx (1) 
+
+dx (0) δx (0) (4) = F ′(x(t − 1)) F ′(x(t − 2)) . . . F ′(x(0)) δx (0) (5) = ±2tλ (x(0); t)δx (0) (6) where λ(x(0); t) := 1
+
+t log 2 F ′(x(t − 1)) . . . F ′(x(0)) = 1
+
+t lim  
+
+> |δx (0) |→ 0
+
+log 2
+
+δx (t)
+
+δx (0 . (7) 5The finite-time Lyapunov exponent (FTLE) λ(x(0) , t ) quantifies the error growth rate over the fixed time horizon t as an inverse doubling time (for convenience we use base 2 rather than the more standard base e,and all logarithms written henceforth are base 2 by default). It obviously depends in a complicated way on the precise location of x∗, being a joint function of the next t subsequent iterates. So already the choice of A
+
+is complicated, even in the humble Logistic Map. But fortunately, following the textbook analysis presented in [22], we can transform the system to one where all slopes are equal, which will yield an exact form of the steady-state PDF and the optimal AST for approximating it.  
+
+> B. Transformation to the Tent Map
+
+A change of variable x = sin 2( 12 πz ) =: h−1(z) induces an equivalent dynamics on z = 2 
+
+> π
+
+sin −1(√x) =: h(x): 
+
+x(t + 1) = 4 x(t)(1 − x(t)) (8) sin 2  12 πz (t + 1) 
+
+
+
+= 4 sin 2  12 πz (t)
+
+h 
+
+1 − sin 2  12 πz (t)
+
+i 
+
+(9) =
+
+h
+
+2 sin 
+
+ 12 πz (t)
+
+
+
+cos 
+
+ 12 πz (t)
+
+i 2
+
+(10) = sin 2  12 π · 2z(t)
+
+
+
+(11) = sin 2 h 12 π · 2 1 − z(t)i
+
+(sin 2 is even and π-periodic) (12) = sin 2 h 12 π · 2 min {z(t), 1 − z(t)}
+
+i
+
+(combine previous two expressions) (13) 
+
+∴ z(t + 1) = 2 min {z(t), 1 − z(t)} =: T (z(t)) Tent Map (14) The last line of algebra is needed so that z(t + 1) remains in (0 , 1). This is the well known conjugacy mapping h : x 7 → z, which preserves topological properties like fixed points and periodic orbits, but warps the geometry. The Tent Map and its associated dynamics is illustrated in Fig. 2. The ten-step trajectory looks the same topologically as in Fig. 1, but doesn’t go so close to the edges of (0 , 1). The steady-state PDF for T (z) is in fact exactly uniform : if z(t) (the weather today) is a uniform random variable over (0 , 1), its possible states can be visualized as a regularly spaced point cloud. After one timestep, the half of the cloud below 1 /2 will spread evenly along the vertical axis tomorrow—only with half its original density—and so will the subset of points above 1 /2, making tomorrow’s weather exactly uniformly spread out just like today’s. (Contrast this with the Logistic Map L(x), which concentrates probability close to the extremes by sending trajectories readily towards x = 1 and pulling them reluctantly away from x = 0.) The PDF for the Logistic Map can then be calculated simply from the change-of-variable formula: 
+
+px(x) = pz (z)
+
+|dx/dz | = 12 sin( 12 πz ) cos( 12 πz ) · 12 π = 1
+
+πpx(1 − x) , (15) which confirms the high-density boundaries ( p(x) → ∞ as x → 0 and x → 1). Representing z(t) in its binary expansion, the update rule can be reduced to operations on its bits: 
+
+z(t) = 0 .β 1β2β3β4 . . . (16) 
+
+z(t + 1) = 
+
+(
+
+0.β 2β3β4β5 . . . if β1 = 0 0.β 2β3β4β5 . . . if β1 = 1 (where β = 1 − β) (17) A computer with finite memory can only represent so many bits—in our examples, we compute with 32-bit integer arithmetic—and so has to decide what happens to the 32nd bit after each timestep. We set it randomly from an unbiased coin flip. 6(d) (c)  
+
+> (f) (e)
+> (b) (a)
+> FIG. 2. Illustration of the Tent Map, formatted the same as Fig. 1 .
+> C. Ensemble Boosting on the Tent Map
+
+We now walk through the EB steps from Section II on the Tent Map, presenting empirical results while explicitly tracking bits to derive the theoretical prescription for optimal AST. 1. From a DS run of duration 2 16 , we identify peaks {z∗ 
+
+> n
+
+= z(t∗
+
+> n
+
+)}Nn=1 above the threshold μ = 1 − 2−9 =: 1 − 2−M , as shown in Fig. 2. Because z has a uniform distribution, any random snapshot has a 2 −9
+
+chance of exceeding μ, so we expect to find 2 16 −9 = 128 exceedances. For this particular system, every exceedance is an isolated peak (no declustering needed), because (provided μ > 23 ) both the preceding and following states z(t∗ ± 1) < 23 . Enforcing a minimum time delay of t∗ 
+
+> n+1
+
+− t∗ 
+
+> n
+
+≥ 24 = 16 between consecutive peaks to ensure statistical independence (16 is an ample buffer, since it only takes 9 consecutive bits to define a peak) removes a negligible few, leaving exactly N = 128 peaks. Independence is not strictly required, but makes statistical estimates more stable. Fig. 3a shows the DS snippet leading to the first peak. 2. Identify the antecedent states z(t∗ − A), marked in Fig. 3a by vertical red lines, for A ranging from 1 to 12 for going down the column. Since the peak z(t∗) > 1 − 2−M , its binary expansion starts with M
+
+leading 1s, 
+
+z(t∗) = z∗ = 0 . 111 . . . 1| {z }
+
+> M
+
+βM +1 βM +2 βM +3 βM +4 . . . , (18) and winding back the clock by A time units has the effect of inserting A bits in front extracted from 7(a) (b) 
+
+(c) (d) 
+
+FIG. 3. Ensemble Boosting of a single ancestor with the Tent Map, each row showing a different AST from A = 1 to 
+
+A = 12. In this example, the perturbation magnitudes are δz = 2 −K = 2 −14 , and the threshold defining “extreme” is μ = 1 − 2−M = 1 − 2−9. The descendant ensemble size is D = 16 at each AST. (a) An ancestor event (black timeseries) peaks at t∗ (black guideline) above μ (horizontal dashed line, visually indistinguishable from 1). A pool of descendants is launched at t∗ − A (red guideline). Red timeseries show the ensemble mean and the min-max range across all D = 16 descendants at each AST. (b) Scatterplots showing peaks z∗ at time t∗ as a function of the perturbations δz applied earlier at t − t∗. Since δz is a bit truncation followed by a bit-flipping, it is not always symmetric about zero. The ancestor’s peak, in black, sits above the threshold μ. So do the descendants’ peaks for short AST, but for A > 5 they increasingly fall below μ, as quantified in (c) the fraction of descendant peaks still in the tail. (d) Three forms of entropy quantify the spread of descendant severities; they increase in tandem with 
+
+A for A < 5, and subsequently diverge. TotEnt plateaus at 4 bits, the maximum empirical entropy achievable by a 16 (= 2 4)-member descendant ensemble over the 2 −M /(bin width) = 2 −9/2−13 = 2 4 bins of the tail. See text for rationale and definitions. 8(a) 
+
+> (b)
+> (c)
+> (d)
+
+FIG. 4. Performance of EB for the Tent Map, from the same experiment as in Fig. 3 but now aggregated over ancestors. (a) Tail CCDFs according to (gray) empirical CCDFs of ancestor peaks, without boosting; (red) MoCTail estimator from Eq. (2), where a uniform AST is chosen for each ancestor, A = 1 at the rightmost panel and A = 12 at the leftmost panel; (blue) MoCTail estimator with An chosen to maximize extreme-conditional entropy ( XclEnt )separately for each ancestor (in this case, A = 5 is always chosen), and (black) the true tail CCDF. Solid lines and uncertainty bands show the medians and 5-95 percentile ranges for MoCTail estimates using only 16-family subsets of the full 128-family population available. The left three panels ( A ≥ 9) have no MoCTails because all descendants have left the tail. The MoCTails at A = 5 have no uncertainty for the Tent Map, but this will change with the Logistic Map. (b) XclEnt as a function of AST for each family separately (light blue) and XclEnt averaged across all 128 families (dark blue). Here, for the Tent Map, they are all identical; they will not be for the Logistic Map. (c) Histogram of XclEnt -maximizing ASTs across families, i.e., PNn=1 I{family n’s XclEnt is maximized at AST A},as a function of A. Again, this histogram is degenerate for the Tent Map but will have some spread for the Logistic Map. (d) Error in MoCTail estimator measured by KL divergence, as a function of uniformly AST (red) or if each family maximizes XclEnt separately (blue), with error bands made the same way as in (a). Error bands are zero for the XclEnt -COAST rule here, but will have some width for the Logistic Map. 
+
+the timeseries: 
+
+z(t∗ − A) = 0 .α 1 . . . α A
+
+
+
+> M
+
+z }| {
+
+11 . . . 1 βM +1 βM +2 βM +3 βM +4 . . . if α1 + . . . + αA is even 00 . . . 0| {z }
+
+> M
+
+βM +1 βM +2 βM +3 βM +4 . . . if α1 + . . . + αA is odd . (19) Note that any interval on (0 , 1) with length 2 −M could be used as the definition of “extreme”, by prescribing some other sequence of M bits instead of 1 . . . 1, and the same logic would apply. Inci-dentally, this point demonstrates that EB is highly customizable, a major practical asset because of 9the complicated ways that physical weather hazards can propagate through ecosystems. Riffing on adages, one might say that extremity is in the eyes of the stakeholder , who in this example can define the interval of interest by nailing two tent stakes in the ground a distance 2 −M apart, anywhere within the interval (0 , 1). If all you hold is a stake (hammer), anything can look like a tail. 
+
+3. Perturb this antecedent state by a random number δz with magnitude ≤ 2−14 =: 2 −K , randomly flipping each bit past the Kth independently with probability 12 each. The new perturbed state can be written as 
+
+z(t∗ − A) + δz = 0 .α 1 . . . α A
+
+
+
+> M
+
+z }| {
+
+11 . . . 1 βM +1 βM +2 . . . β K−Aγ1γ2 . . . if α1 + . . . + αA is even 00 . . . 0| {z }
+
+> M
+
+βM +1 βM +2 . . . β K−Aγ1γ2 . . . if α1 + . . . + αA is odd , (20) where each γ ∈ { 0, 1} is a random bit. By writing out all of the αs, 1s/0s, and βs/ βs, we’ve assumed 
+
+K > A + M , but in general, there will be min {K, A } leading αs, followed by max {0, min {K − A, M }} 
+
+0s or 1s, and then max {0, K − A − M } βs or βs before the random bits start. These three cases are pivotal to consider in the coming argument. 4. Evolve the perturbed state forward again, arriving after A timesteps at the perturbed descendant peak 
+
+T A(z(t∗ − A) + δz ) = 0 . 
+
+> max {0,min {K−A,M }}
+
+z }| {
+
+11 . . . . . . . . . . . . . . . 1 βM +1 βM +2 . . . β K−A
+
+| {z } 
+
+> max {0,K −A−M}
+
+γ1γ2 . . . . (21) 5. Repeat steps 2-4 with perturbations {δz d}Dd=1 for D = 16 descendants from each AST. Fig. 3b plots the perturbed peaks (red) as a function of the perturbation δz taking place A steps earlier, for each A.We don’t actually choose δz s randomly, but quasi-randomly, with the low-discrepancy van der Corput sequence on the unit interval, with noted favorable properties for sampling and stochastic computing [23]: 
+
+{v1, . . . , v D } =
+
+
+
+0, 12 , 14 , 34 , 18 , 38 , 58 , 78 , 116 , 316 , . . . , 15 16 
+
+
+
+=
+
+n
+
+0.0, 0.1, 0.01 , 0.11 , 0.001 , 0.011 , 0.101 , 0.111 , 0.0001 , 0.0011 , . . . , 0.1111 
+
+o
+
+, (22) and using the corresponding binary expansion to overwrite the ( K +1)th-and-following bits of z(t∗ −A). In other words, 
+
+z(t∗ − A) + δz d = 2 −K 
+
+vd +
+
+j
+
+2K z(t∗ − A)
+
+k 
+
+(23) This defines the δz ds implicitly from vds. The ensemble of δz ds may not be symmetric about zero, depending on z(t∗ − A), which explains why the red point clouds in Fig. 3b are lopsided left or right at each lead time, though on average they are symmetric. The advantage of this quasi-random perturbation sequence is better estimation of statistics like the MoCTail estimator, at least in low dimensions, and this particular sequence is easily extensible in case the initial descendant pool D is deemed too small. Fig. 3 shows how the peak’s height depends jointly on δz and A. At short A, δz has hardly any effect, and all the descendant peaks sit next to the ancestor, safely above the threshold μ.
+
+δz exerts a stronger influence at longer A, enough to knock some descendant peaks below μ. Column (c) shows the fraction of descendants still exceeding μ gets cut in half repeatedly with each increment of 
+
+A from 5 to 10, after which all 16 remain below μ except an occasional fluctuation. A bit of reasoning explains this behavior. A descendant peak exceeds 1 − 2−M if its binary expansion begins with at least 
+
+M 1s, requiring that perturbations are small enough not to interfere with the first A + M bits in the descendant’s initial conditions ( A timesteps pre-peak): K ≥ A + M , so A ≤ K − M = 14 − 9 = 5, which is exactly the longest AST at which all descendants remain in the tail in Fig. 3b. 6. Repeat step 5 (and by recursion, steps 2-4) for ancestors n = 1 , . . . , N . Though the ancestor peaks will vary in position from 1 − 2−M to 1, the descendant pool always remains within the tail given an AST A ≤ K − M , and increasingly leaks out of the tail given longer ASTs. 10 7. Estimate the climatological tail using the MoCTail estimator in Eq. (2). Fig. 4a displays the resulting MoCTail CCDFs (red) for each AST increasing from right to left, overlaid on the true tail CCDF (black) and the empirical CCDF we would obtain from ancestor peaks alone without boosting (formally equivalent to A = 0). Each CCDF uses the same bins, whose lower edges are linearly spaced, 2 −13 
+
+apart, and marked by black circles (note log scales on both axes). Error bands are 90% percentile bootstrap ranges, estimated by sub-sampling the 128 families with replacement into groups of size 16 and repeating 500 times. The solid lines are medians over such sub-samples. A good-quality MoCTail estimator is one that matches the truth with small uncertainty, by which criterion Fig. 4a indicates a clear winner of A = 5 = K − M , the same identified in step 5 as the longest AST that still confines all descendants to the tail. The binary representation of descendant peaks in Eq. (21) explains exactly why: the leading max {0, min {K − A, M }} bits are all 1, the trailing bits from position K + 1 onward (the γs) are random coin flips, and the intermediate max {0, K − A − M } bits are copied from the ancestor. The best possible distribution of descendants is uniform across the tail to match the climatology distribution, which is uniform for the Tent Map. A random number uniformly drawn from the tail has M leading 1s followed by random bits. This is achieved by the descendant ensemble precisely by retaining none of the unnecessary βs—or, to make a genetic analogy, letting descendant genomes mutate as much as possible while retaining some minimal shared ancestry—thus setting K − A − M = 0. To summarize, we have deduced a simple, transparent joint relationship between the size 2 −M of the target set, the maximum perturbation size 2 −K , and the optimal advance split time A:
+
+A = K − M. (24) In one sense, we have just “solved” the EB optimization problem for the Logistic Map, as well as all other maps conjugate to the Tent Map. The recipe is to (1) transform x to z by the conjugacy x = sin 2( 12 πz ); (2) perform EB in z-space by applying perturbations δz given by Eqs. (22-23) with magnitude 2 −K at 
+
+A = K − M timeseps before each peak; and (3) translate the resulting tail estimates of interest back into x-space. This procedure amounts to adjusting the perturbation δx according the initial condition, δx = 
+
+> dx dz
+
+δz = πpx(1 − x)δz , while keeping the AST fixed at K−M . Note that |δx | → 0 as x → ± 1, compensating for faster error growth with smaller perturbations. If a practitioner can invent such a transformation, this procedure is elegant and effective. But in general, optimizing perturbation magnitude and shape can be a daunting search problem in a vast high-dimensional landscape. This is why our recent and present focus is on perturbation timing only, assuming a fixed perturbation shape. The next section lays out a principle for attacking this simpler, one-dimensional optimization problem, to get the best possible performance given a possibly restrictive constraint.  
+
+> D. Interpreting the optimal advance split time
+
+The most intuitive way to read Eq. (24) is 2 −K 2A = 2 −M : A bubble of perturbations that starts with small volume 2 −K will expand, over the course of A timesteps, to a size that matches the target set (1 − 2−M , 1). Another way to read it is in reverse-time, 2 −M 2−A = 2 −K : a cloud of points spread uniformly across the tail at time t∗, with volume 2 −M , is mapped under the backward dynamics T −1({z}) = { z 
+
+> 2
+
+, 1 − z 
+
+> 2
+
+} for A
+
+timesteps into a scattered collection of 2 A possibly-overlapping intervals, each receiving an equal share of the original volume. Thus, z(t∗ − A) sits somewhere in the preimage T −A((1 − 2−M , 1)) on an interval with length at least 2 −M 2−A, dictating how big the perturbation can be. In the current rare-event-sampling literature, there are several competing heuristics for optimal AST, which in light of Eq. (24) can quickly be dispelled as not nuanced enough. 
+
+• One heuristic is to use the Lyapunov (or error-doubling) timescale, which for the Tent Map is 1. Simply setting A = 1 would be obviously wrong, but even setting A as any constant multiple of the Lyapunov time—a value intrinsic to the dynamical system—cannot respect the need for A to vary as a function of K and M . This simplistic criterion is not, to our knowledge, actually promoted in any published studies, but it is the most common first instinct in casual discussions. 
+
+• Another heuristic is to use the time tϵ needed for perturbations to saturate to a fraction ϵ of their long-time size [15, 24]. For the Tent Map, the initial error is 2 −K and the long-time error is 1, so 11 2−K 2tϵ = ϵ =⇒ tϵ = K + log ϵ. This AST prescription now does vary with K, but ϵ is a mysterious hyperparameter that has to be tuned to the system. Our new formula suggests that ϵ = 2 −M . Here, that is simply the overall probability of the tail {z ≥ μ}, but extrapolating this interpretation would be a mistake. In preceding work, we estimated ϵ = 38 in the Lorenz-96 system [24] and ϵ = 23 in an aquaplanet atmospheric model [15], in both cases targeting probabilities ∼ 1/1000. We suspect the discrepancy comes from the coexistence of many timescales in these spatially extended systems, and that the optimal AST lies well beyond the regime of small, exponentially growing errors in which Lyapunov analysis applies. This same point is recognized by [16]. The Tent Map, being piecewise linear, maintains a steady error growth rate all the way to saturation. In general, A might be better interpreted as a finite-size Lyapunov timescale [25], which would incorporate dependence on K. But relating it to M might still be tricky; for example, log ϵ might be interpreted as either the extreme event set’s diameter, volume, or some other notion of measure. 
+
+• Another idea for optimal AST comes from [16], who propose to maximize some fixed upper quantile of the descendant distribution. They compute an explicit formula for AST (what they call “optimal lead time”) on a linear stochastic Gaussian (Ornstein-Uhlenbeck) process with given restoring force and diffusion coefficient, and then translate it into practice by estimating equivalent parameters in a climate model. They go further to aggregate over multiple ASTs. This sensible and pragmatic strategy accounts for the need to go beyond infinitesimal errors, and incorporates dependence on stochastic perturbation strength (the diffusion coefficient) as well as on the user-defined extreme event set of interest. However, the latter dependence is encoded very indirectly through the choice of upper quantile (their parameter k, which also appears in reinforcement learning by the name “Upper Confidence Bound” [26]). Furthermore, their optimal lead time actually increases with noise strength (their Eq. B5), a totally opposite result from what we found with the Lorenz-96 model [24]. We attribute the discrepancy to the Ornstein-Uhlenbeck’s fundamentally non-chaotic, noise-driven character: longer AST gives the noise more time to drive the process into the tail, a very different mechanism from chaotic error growth, and this might limit how much that result can be applied to chaotic systems. We suspect that any effort to generalize Eq. (24) for climate models, with all their added complexity, will have to draw on ergodic theory, fractal geometry, and extreme-value statistics, building on the connections found in [27, 28] and related work. We consider it a high priority to advance theoretical research along these lines, coupled with systematic numerical benchmarking. For lack of a comprehensive theory at present, we defer inspired speculation and re-center the quantitative end goal: to choose an AST that lets the descendant ensembles achieve, collectively through the MoCTail estimator, the best possible approximation of the true climatological tail. In principle, this could be measured by an arbitrary loss function dictated by stakeholder concerns, for example thresholds (like the height of a dam, bridge, or floodwall) where monetary or physical cost jumps. In our current study, we start by making a specific choice of loss function, discussing its ramifications later in Section IV. We choose to quantify tail estimation error by Kullback-Leibler (KL) divergence. Given two probability mass functions (PMFs) q = {qb} and p = {pb} over a set of bins b,KL divergence of p from q = D( p∥q) = X
+
+> b
+
+pb log 
+
+ pb
+
+qb
+
+
+
+. (25) This is a common penalty function used in statistical inference, where one sees random samples from a true distribution p and tries to construct an approximation q. In that setting, D( p∥q) is the expected log-odds ratio that the data came from p rather than q [e.g., 29, ch. 9]. It is never negative, since p did in fact produce the data, and the best q can possibly do is to mimic p exactly and thus achieve D( p∥q) = 0. We will actually reverse the convention and treat q (the second argument) as the climatological truth and 
+
+p (the first argument) as the MoCTail approximation in Eq. (2), for the practical reason of keeping the KL divergence finite. The MoCTail estimator from EB does not always cover every bin in the tail, especially in a resource-limited setting with small N or D, which means some bins may have pb = 0 while qb̸ = 0. Such bins have pb log( pb/q b) = 0 log 0 = 0 by convention, but qb log( qb/p b) = + ∞, which is not very informative. On the other hand, if qb = 0, the bin is completely off the dynamical attractor, which means pb = 0 as well (unless perturbations are unphysical), so the KL divergence is never infinite if we use q as climatological truth and p as the approximating MoCTail. To measure the MoCTail’s performance on the Tent Map, we divide the tail into bins of uniform width 2−13 , with boundaries μ = ν0 < ν 1 < . . . < ν B−1 < ν B = 1, where B = 1−μ 
+
+> 2−13
+
+= 2 −9+13 = 16 is the number of 12 tail bins. (The number and spacing of bins are yet more design choices which will reveal their arbitrariness more starkly in the next two sections, and which we confront more generally in Section IV.) Fig. 4d compares the performance of different ASTs in EB for the Tent Map by plotting the KL divergence from the truth of the resulting MoCTail estimator at each A. Denote the true PMF as qb = Q(νb−1, μ ) − Q(νb, μ ), and denote the MoCTail PMF for each A as bqb = bQ(νb−1, μ ; N, D, A ) − bQ(νb, μ ; N, D, A ) . Then D( bq∥q) = 
+
+> B
+
+X
+
+> b=1
+
+bqb log 
+
+ bqb
+
+qb
+
+
+
+(26) is the objective function. The best possible value is achieved if bq = q, making D( bq∥q) = 0. The worst possible value is achieved if one bin gets all the probability mass, making D( bq∥q) = 1 · log(1 /2−4) = 4. The KL divergence plot in Fig. 4d confirms that A = K − M = 5 is the best-performing AST.  
+
+> E. Generalizing the optimal advance split time with a variational principle
+
+This is a happy ending to one story that played out in a minimalist sandbox, but is only the beginning of a longer story of nuances and complications as we step out of the sandbox and move toward generalizing the result to advance practical RES with realistic models. The fact that A = 5 achieves the theoretical minimum of zero in the preceding example is a hint that our setup so far is too good to be true in general. The first imperfection arises when the bins outnumber the descendants per ancestor, B > D , so that any single family cannot possibly cover every bin. Fig. 5 shows MoCTail performance using the same perturbation amplitude ( K = 14) but with a tail twice as long (M = 8) that includes half-as-rare events of probability 2 −8 rather than 2 −9. The same bin spacing puts 213 −8 = 32 bins in the tail instead of 16, so any single 16-descendant pool can only reach half of them. One obvious solution is to add more descendants. If D were to double to 32 (not shown), we would again recover a perfect tail estimate, not just in the aggregate but for for each family individually . In statistical formalism, the MoCTail for the Tent Map with optimal AST is said to be a consistent estimator of the truth, even with N = 1: bQ(ν, μ ; 1 , D, K − M ) → Q(ν, μ ) as D → ∞ , for the simple reason that the van der Corput sequence from Eq. (22) approaches a uniform distribution over [0 , 1), which propagates to a uniform distribution of descendant peaks over (1 − 2−M , 1), as shown by Eq. (21), which is the climatological truth. The measurable discrepancy between the MoCTail and the truth actually vanishes at D = 2 −M /(bin width) and integer multiples thereof. In general, as D increases further, the estimator becomes less sensitive to A.Fig. 6 shows results for M = 10, in which case there are only 2 13 −10 = 8 bins to fill and the descendant pool does so easily—not just at A = K − M = 4, but at A = 5 when half of them have fallen out of the tail. The other solution besides increasing family size ( D) is to increase the number of families ( N ) by extending the DS and then boosting the new ancestors as they appear. Whichever bins family 1 misses, family 2 might cover, and the tail coverage would improve as N increases. We have empirical evidence (which will be presented later in section III F), though not theoretical proof, that the MoCTail for the Tent Map is consistent for any fixed D with increasing N .The tradeoff between increasing N and increasing D is somewhat artificial for the Tent Map, but will become more fundamental and acute at the slightest extension to the Logistic Map below. To prepare for generalizing, we now reason through a principle for choosing AST that operates at a higher level than the bit expansion and may thus apply more broadly. The most obvious special feature of the Tent Map is its constant error growth rate, |T ′(z)| = 2 for all z.In contrast, the Logistic map’s error growth rate |L′(x)| ranges from 0 to 4, and more generally in nonlinear systems, predictability varies with the initial condition. Since each of the N ancestors came from a different initial condition, each family might have a different optimal AST, {An}Nn=1 , which we call the “conditionally optimal” AST ( COAST ) as in [21]. The pivotal question is: optimal in what sense? The KL objective is a 
+
+joint function all N ASTs , so that in principle, all the N optimization problems have to be coordinated. Worse, if we decide after an initial EB run that we need more ancestors, the optimal combination of ASTs might change. As a tractable, greedy, and parallelizable approximation, we insist on solving N uncoupled optimization problems, treating each family as if it must approximate climatology on its own. That is, 
+
+COAST n = argmax A eD( p(n)(A)∥q), where p(n)(A) is the descendant PMF arising from boosts of the nth ancestor from AST A and q is the true climatology. Explicitly, dropping the n and A dependence for brevity 13 (a)   
+
+> (b)
+> (c)
+> (d)
+> FIG. 5. Same as Fig. 4, but with ( K, M ) = (14 ,8).
+
+and introducing one more bin, b = 0, to encompass the distribution body (0 , μ ]: 
+
+pb = 1
+
+D
+
+> D
+
+X
+
+> d=1
+
+(
+
+I{z∗ 
+
+> d
+
+≤ μ} if b = 0 (the fraction falling outside the tail) 
+
+I{νb−1 < z ∗ 
+
+> d
+
+≤ νb} for 1 ≤ b ≤ B (27) 
+
+eD( p∥q) = 
+
+> B
+
+X
+
+> b=1
+
+ pb
+
+1 − p0
+
+
+
+log 
+
+ pb/(1 − p0)
+
+qb
+
+
+
+. (28) The factor 1 /(1 − p0) normalizes the tail of p. No such factor is needed for the truth q, because q is a distribution over peaks above μ, with zero probability below μ by definition. Expanding the logarithm, we separate out the parts that depend on q:
+
+eD( p∥q) = 
+
+> B
+
+X
+
+> b=1
+
+ pb
+
+1 − p0
+
+
+
+log 
+
+ pb
+
+1 − p0
+
+
+
+−
+
+> B
+
+X
+
+> b=1
+
+ pb
+
+1 − p0
+
+
+
+log qb (29) We call the negative of the first summation the “Extreme-Conditional Entropy” ( XclEnt ), recognizing it as the Shannon entropy of the PMF of descendant peaks conditional on being in the tail. We posit the 
+
+XclEnt alone as a proxy objective function to maximize, since we do not know the terms qb in the second summation. The approximation has pros and cons, which section IV will discuss, but presently we note that when all qbs are constant—as they are for the Tent Map with evenly spaced bins ( qb = 1 /B )—the second term contributes a constant + log B and does not affect the optimization over A. We will call the AST maximizing XclEnt the “ XclEnt -COAST ”, abbreviated AXC where convenient, to recognize that it only approximates the true COAST .14 (a)   
+
+> (b)
+> (c)
+> (d)
+> FIG. 6. Same as Fig. 4, but with ( K, M ) = (14 ,10).
+
+Fig. 3d plots XclEnt as a function of AST, alongside two other related entropies. Thresholded entropy, or ThrEnt , is the Shannon entropy of the unnormalized PMF {p1, . . . , p B }, equivalent to XclEnt with p0
+
+replaced by 0. It was introduced in [21] to encourage both a high mean and a wide spread in descendant 
+
+z∗s, as the maximum-entropy distribution is a uniform distribution. Lastly, total entropy or TotEnt is the Shannon entropy of the full PMF of z∗s, over (0 , 1) with uniform bin spacing 2 −13 throughout. We label the bins below μ as {p0,c : 1 ≤ c ≤ C} with C = 2 13 μ (their probabilities sum to p0). The distribution’s body, consisting of these non-tail bins, has its own entropy that we call DecEnt for “Dull, Everyday Climatological Entropy”. All together, the entropies are defined 
+
+ThrEnt = −
+
+> B
+
+X
+
+> b=1
+
+pb log pb (30) 
+
+DecEnt = −
+
+> C
+
+X
+
+> c=1
+
+p0,c log p0,c (31) 
+
+TotEnt = ThrEnt + DecEnt (32) 
+
+XclEnt = 11 − p0
+
+ ThrEnt  + log(1 − p0) where p0 =
+
+> C
+
+X
+
+> c=1
+
+p0,c = 1 −
+
+> B
+
+X
+
+> b=1
+
+pb (33) 
+
+XclEnt can also be interpreted as the extra entropy gained by resolving the tail into B bins as opposed to 15 lumping it all into one bin (normalized by the total tail weight): 
+
+XclEnt = 11 − p0
+
+
+
+TotEnt − DecEnt − (1 − p0) log(1 − p0)
+
+(34) In Fig. 3d, the three entropies TotEnt , ThrEnt , and XclEnt all increase in lock-step, by one bit per increment of A from 1 to 5. Both ThrEnt and XclEnt peak at A = K − M = 5, the same AST where the descendant scores uniformly fill the tail, and decline thereafter as descendants leave the tail. Meanwhile, 
+
+TotEnt remains at the maximum value of 4 bits, seeing the descendants still occupying 16 separate bins counting those within the body. Fig. 4b shows that every ancestor’s XclEnt profile follows exactly the same pattern, peaking at A = 5. The fact that KL divergence (Fig. 4d) reaches a minimum where XclEnt reaches a maximum is validation of XclEnt as a proxy objective. This fact is trivial for the Tent Map, but becomes actually useful when applied to the Logistic Map, where the theoretical prescription A = K − M breaks down.  
+
+> F. Ensemble Boosting on the Logistic Map
+
+We now apply the same procedure as in section III C to the Logistic Map, but perturbing with the uniform distribution in x-space instead of z-space space (replacing all zs with xs in Eq. (23)). But crucially, we gerrymander bin boundaries to be evenly spaced in the z variable (“ z-regular”) rather than x-regular by mapping ν0, ν 1, . . . , ν B through the conjugacy map h(z) = sin 2( 12 πz ), which means that x bins get thinner towards the boundary. The threshold marking the start of the tail in x-space becomes μ = sin 2   12 π(1 −2−M )
+
+to have the same exceedance probability as z = 1 − 2−M in the Tent Map, which is μ ≈ 1 − 2−17 with M = 5. The advantage of keeping z-regular bins is to make all qbs constant, to satisfy the assumption that XclEnt -
+
+COAST = COAST . It is certainly cheating by using knowledge of the truth q to define the score D( bq∥q), but we press forward anyway with z-regular bins in order to change only one thing at a time: namely, perturbing 
+
+x instead of z, which snarles the orderly relationship we saw in the Tent Map between dynamical evolution and perturbation and makes the Logistic Map problem genuinely harder. Subsequently, in Section IV, we will examine the impact of making the bins x-regular too. Fig. 7 shows the boosting procedure with the Logistic Map from a single ancestor. As in Fig. 3, the descendant scores (column b) spread out increasingly with longer A, but in a more abrupt way. As A goes from 5 to 6, the function x∗ of δx suddenly curves sharply downward, and descendant scores suddenly scatter widely, going from covering only the part of the tail to leaking substantially below it. It is difficult to judge by eye which AST is better, when faced with a tradeoff between diversity and population size inside the tail. No such tradeoff existed in the Logistic Map, in which descendants reach maximum diversity at A = 5 and only afterward start exiting the tail, starting at A = 6. The XclEnt profile in Fig. 7 also indicates a tradeoff by never reaching its theoretical maximum value of log( D) = 4 bits, as it does for the Tent Map. Fig. 8b shows that XclEnt as a function of A varies widely between ancestors (light blue lines), unlike the Tent Map case where they all looked identical. All of the profiles maximize somewhat below 4 bits of entropy, showing that incomplete tail coverage is typical. Moreover, the AST where they maximize (the XclEnt -COAST ) varies widely between ancestors, ranging from 3 to 8 according to the histogram in Fig. 8c. The same patterns are apparent for other combinations of ( K, M ); Figs. 9 and 10 show corresponding results for (14 , 8) and (14 , 10) respectively. The fundamental reason that XclEnt varies between ancestors is that |L′(x)| and therefore the FTLE varies with x (see Eq. 7), even though the asymptotic Lyapunov exponent is still 1 [30]. Earth’s atmosphere also has this feature, known as “flow-dependent predictability” [31], making it clear that AST generally should adjust for different initial conditions. How does our XclEnt -COAST criterion fare at reconstructing the climatological tail? Fig. 8d compares the performance, measured in KL divergence, of two AST selection rules: imposing the same unconditional 
+
+AST on all ancestors, denoted AUC (plotted in red as a function of AUC ), and customizing the AST as the 
+
+XclEnt -COAST , denoted AXC for each ancestor separately (plotted in blue as a constant, since XclEnt -COAST 
+
+is generated from a single rule and produces a single MoCTail). Among all choices for AUC , K − M = 5 is still the best choice in this example, but AXC is unambiguously better still. Its KL divergence from the truth is lower both in typical behavior and in variability. The tail CCDFs plotted in Fig. 8a tell the same story, with the XclEnt -COAST MoCTail plotted in blue following the truth better than any red line. (We overlay the blue in the panel corresponding to AUC = 5, which is the average XclEnt -COAST across families according to 16 (a) (b) 
+
+(c) (d)   
+
+> FIG. 7. Ensemble Boosting of a single ancestor with the Logistic Map with ( K, M ) = (14 ,9), formatted the same as Fig. 3.
+
+the histogram in panel c, but stress that the XclEnt -COAST mixture blends ASTs spanning across the range from 3 to 8). The corresponding Tent Map results (Fig. 4) are degenerate, as AXC = AUC = K − M was found for all ancestors, leaving no difference between red and blue. State-dependent predictability is what makes it essential to condition AST on the ancestor. But just how big is the advantage of AXC relative to AUC , and either rule to DS, given an equal compu-tational budget? The question is another version of the “explore vs. exploit” tradeoff that reinforcement 17 (a)        
+
+> (b)
+> (c)
+> (d)
+> FIG. 8. Performance of Ensemble Boosting with the Logistic Map with ( K, M ) = (14 ,9), aggregated across ancestors, formatted the same as Fig. 4 but with noticeable differences: (b) each family has a different XclEnt as a function of
+> A, (c) there is a range of ASTs where they maximize ( XclEnt -COAST s), and (d) there is a nonzero spread in possible KL divergences when using XclEnt -COAST as the AST selection rule.
+
+learning grapples with: explore alternative routes into the tail by extending the DS to generate more ances-tors, or exploit the initial conditions already discovered by riffing on the existing ancestors. Which strategy wins is hard to say a priori in general, but some limiting cases are clear. If the computational budget affords ample ancestors ( N ∼ 10 × the number of bins), then DS is the right choice because each sample is independent. If the budget is small, then boosting is probably a safer method to find new extremes, but only incrementally larger ones. Thus we compare their performances across a range of simulation costs, calculated as a function of the number of ancestors N :Cost of DS = N ×  average return period 
+
+Cost of EB with fixed AST AUC = N ×  average return period + D × AUC  (35) Cost of EB with XclEnt -COAST AXC ≈ N ×  average return period + D × (K − M ).
+
+Here, the mean return period is computed empirically from the DS, and is typically ∼ 2M but varies due to random sampling and the minimum imposed buffer time. We also use K − M as a close approximation for mean XclEnt -COAST , just for cost-counting purposes. Fig. 11 shows KL divergence as a function of cost for each method, revealing that different methods win in different situations. The small-budget regime (leftward on the plot) is where boosting wins most handily over DS—but only with an appropriate choice of AST. Short ASTs (yellow) perform similarly to DS, adding slightly more diversity to each ancestor at a slight extra cost. Very long ASTs (brown) are at best similar to the short ASTs, and at worst far inferior to DS, since perturbing initial conditions too far ahead of time erodes 18 (a)   
+
+> (b)
+> (c)
+> (d)
+> FIG. 9. Same as Fig. 8, but with ( K, M ) = (14 ,8).
+
+the peaks back to the climatological distribution and even shifts their timing, undermining any potential efficiency gains. Among all possible uniform-AST rules, AUC = K − M is always superior for the Tent Map (as we proved), but is also usually best for the Logistic Map. But allowing A to be optimized per-ancestor unlocks greater gains: A = AXC generally outperforms all choices of uniform AST. The Tent Map has starker performance gaps than the Logistic Map, except for the perfectly optimal choice AXC ≡ AUC = K −M which zeros out KL divergence when M = 9 (no more bins than descendants). Performance gaps are narrower at lower thresholds and larger budgets. Even straightforward DS is competitive in that regime because new ancestors are relatively cheap to find. Another, perhaps equivalent perspective is that longer return periods imply more rarefied tails, which imply fewer routes into the tail according to Large Deviation Theory [32, 33], which suggests that a small handful of ancestors should already capture all qualitatively distinct routes and that boosting can fill in the incremental variations. The cost estimates for AXC in Fig. 11 are optimistic because they disregard the cost of estimating the value of AXC for each ancestor. We envision mitigating this cost with adaptive optimization, either with adjoint-based methods [e.g., 34, 35] or adjoint-free methods such as Ensemble Kalman Inversion [36] or the cross-entropy method [37]. Still, it is enticing to generalize Eq. (24) accounting for state-dependent predictability on theoretical grounds. We search for some interpretable patterns in Fig. 12 by plotting AXC 
+
+as a function of x(t∗ − AXC ) (the antecedent conditions identified as maximally XclEnt -producing). There is an overall pattern of shorter XclEnt -COAST near the domain boundaries, where |L′(x)| is largest, which suggests that AXC might scale inversely with the FTLE. However, a scatterplot of AXC vs. FTLE shows no such decisive relationship. This is not surprising, as FTLE is a function of the entire trajectory segment from 
+
+x(t∗ − AXC ) to x(t∗). A peak x(t∗) is near 1 by definition, which means x(t∗ − 1) is near 1 /2, where the error growth rate is near zero. x(t∗ − 2) is then near either 0 .146 or 1 − 0.146 = 0 .854, where the growth rate is near 2.8, and so on. The trajectory segment passes through regions of such widely varying error growth rates 19 (a)   
+
+> (b)
+> (c)
+> (d)
+> FIG. 10. Same as Fig. 8, but with ( K, M ) = (14 ,10).
+
+that the FTLE rapidly homogenizes. In light of this complexity, we don’t pursue the theoretical extension of Eq. (24) at present, but emphasize that the physical origins of AXC are a high-value target for rare event research.  
+
+> IV. DISCUSSION OF ARBITRARY CHOICES AND GENERALIZABILITY
+
+The Tent Map’s special properties are now clearer in light of the preceding just-barely more complicated Logistic Map exercise, which gives a sense of the challenges for generalizing our EB recipe. 1. The Tent Map has no tradeoff between diversity ( ThrEnt ) and total population (1 − p0) of descendants inside the tail: as AST increases, the descendant pool spreads out uniformly across the tail before any escape it. The Logistic Map, however, can in a single timestep scatter descendants from a small crowded region of the tail into a wide diaspora across the body, skipping over wide swaths of tail. Fundamentally, the reason relates to error growth: when a bit in the binary expansion flips somewhere beyond the Kth position, the action of the Tent Map propagates the disturbance leftward by one position per time unit. The disturbance advances through the positions [ K + 1 , K, . . . , A + M + 1] which control where the peak lands inside the tail, before having a chance to tamper with the positions [A + M, A + M − 1, . . . , A + 1] which controls whether the peak lands inside the tail. On the other hand, the Logistic Map dynamics advances the disturbance erratically, by 0-2 bit positions with each time step due to variations in |L′(x)| from 0.0-4.0. 2. The true climatological PDF is uniform for the Tent Map, which makes a “good” ensemble easy to recognize: it should be as uniform as possible across uniformly spaced bins in the tail. 20 Tent map Logistic map (a) (b)                            
+
+> (c) (d)
+> FIG. 11. Performance vs. cost of different estimation methods. At a range of ancestor populations N, we calculate CCDFs using using boosting and the MoCTail estimator, using for the advance split time both the XclEnt -COAST
+> (A=AXC , blue) and range of fixed ASTs ( A=AUC , orange for AUC < K −Mand red for AUC =K−Mand brown for AUC > K −M). The center of the cost range, near 2 13 , is where the 16-ancestor results from Fig. 8 fall in panel (a). For comparison we also estimate the CCDF with DS, both with the ancestors without boosting (gray) and from an extended DS (black) for validation. Each method incurs some KL divergence, which is plotted as a function of its total cost. Total cost is linear in N, but with different constant factors for the different methods because of the overhead cost of boosting (see Eq. 36).
+
+To solve the Logistic Map exercise by only adjusting the AST (rather than transforming to the Tent Map, which effectively adjusts perturbation size and symmetry), we made two simplifying approxima-tions. First, we chose to optimize the Ans separately, tasking each family with the impossible goal of covering the tail single-handedly with its own PMF p = p(n)(A), which contributes to the MoCTail by 
+
+bq = 1
+
+> N
+
+PNn=1 p(n)(AXC  
+
+> n
+
+). Second, with eD( p(n)∥q) as the objective for the nth family, we relaxed the mini-mization problem for eD( p(n)(A)∥q) into the maximization problem for XclEnt n(A), ignoring terms with qb
+
+in eD( p(n)(A)∥q) (second summation in Eq. 29). The two problems are exactly equivalent if all qbs are equal, which we ensured by gerrymandering bins to be z-regular. But this relied on knowing the very same tail we are trying to estimate! Figs. 13 and 14 show that the plot thickens when bins are x-regular rather than z-regular. Error bands are wider and KL divergences are higher across the board, although numerical values aren’t straightforwardly comparable with a different binning. The starker and more interesting difference is seen in Fig. 13a, where 
+
+AUC = 5 now edges out AXC as the best AST rule. Their KL divergences are essentially tied (panel e), but the AXC -based MoCTail seen in Fig. 13 (blue in top row) systematically underestimates the truth. It makes sense when considering that XclEnt favors uniformity across bins, whereas the true PMF puts more weight on the highest bins, thanks to the singularities of the Logistic Map’s PDF at x = 0 , 1 (Fig. 1). It seems that choosing the same AST for all families somehow regularizes the MoCTail away from systematic underestimation. Yet we argue that XclEnt is still a useful criterion for several reasons. Figs. 8, 9, and 10 as well as other (K, M ) combinations not shown suggest that both of the following averaged quantities are very accurate predictors of the optimal unconditional AST AUC :
+
+• The maximizer of mean XclEnt s across ancestors, AUC = argmax A{ 1
+
+> N
+
+PNn=1 XclEnt n(A)}, which is the A at which the dark blue curve in Fig. 13 (row 2) is maximized. 
+
+• The mean of the AXC s across ancestors, AUC = AXC = 1
+
+> N
+
+PNn=1 argmax A{XclEnt n(A)}, which is the mean of the histogram in Fig. 13c. In principle these can differ, but empirically they differ by at most 1. Fig. 14 also shows that the XclEnt 21 (a) (b)  
+
+> (c) (d)
+
+FIG. 12. Initial condition dependence of XclEnt -COAST in the Logistic Map, for four different combinations of ( K, M ). For each peak {x(t∗
+
+> n
+
+)}Nn=1 and corresponding value AXC of the XclEnt -COAST , AXC is plotted as the ordinate, against the abscissa x(t∗ 
+
+> n
+
+− AXC ) in the left panels, and the finite-time Lyapunov exponent (FTLE, expressed in base 2 as an inverse error-doubling time) in the right panels. The FTLE is calculated over the time horizon from t∗ 
+
+> n
+
+− AXC to t∗
+
+> n
+
+.
+
+criterion remains superior in the low-budget regime, up until some threshold cost near 2 13 (Fig. 14a,c), but then plateaus in performance while the other methods continue to improve. In brief, XclEnt appears efficient at small sample size but persistently biased at large sample sizes. The low-budget success of XclEnt -COAST might be explained by a weaker, local version of the uniform-q
+
+approximation. Picture each pool of descendants sampling the tail as the fingers of a blind man grasping a small section of elephant. When the men are few and far between, like the sparse tail samples that a computer model produces within a truncated DS, a reasonable strategy to assemble the clearest possible elephant picture is for each man to explore as widely as possible, since the risk of bumping into each other or double-counting elephant sections is low. Mathematically, we capture the situation in three assumptions. (i) The nth family’s boosting PMF p(n) = [ p(n) 
+
+> b
+
+]Bb=1 is positive only on an “accessible” subset of bins 
+
+S(n) ⊆ { 1, . . . , B }, which cannot adjust with AST. This is a caricature of the scenario in Fig. 7b, where the descendants spread out only within the top half of the tail while A < 5 before hemorrhaging out of the tail at longer A.(ii) qb = q(n) = constant for all b ∈ S(n), which is reasonable to expect if S(n) is a narrow contiguous block of bins and the true tail PDF is smooth. (iii) Different families have non-overlapping boosting PMFs: S(n) ∩ S(ℓ) = ∅ if n̸ = ℓ. This is reasonable to expect when ancestors are very few in number, so likely sparsely distributed across the tail. Then the full KL divergence can be decomposed over families ( n) instead of bins ( b): D( bq∥q) = 
+
+> B
+
+X
+
+> b=1
+
+1
+
+N
+
+> N
+
+X
+
+> n=1
+
+p(n)
+
+> b
+
+1 − p(n)0
+
+!
+
+log 1
+
+N
+
+> N
+
+X
+
+> ℓ=1
+
+p(ℓ)
+
+> b
+
+1 − p(ℓ)0
+
+· 1
+
+qb
+
+!
+
+(36) = 1
+
+N
+
+> N
+
+X
+
+> n=1
+
+X
+
+> b∈S(n)
+
+p(n)
+
+> b
+
+1 − p(n)0
+
+!" 
+
+log p(n)
+
+> b
+
+1 − p(n)0
+
++ X
+
+> ℓ̸=n
+
+p(ℓ)
+
+> b
+
+1 − p(ℓ)0
+
+!
+
+− log( N q b)
+
+#
+
+(37) = 1
+
+N
+
+> N
+
+X
+
+> n=1
+
+− XclEnt n − log( N q (n))1 − p(n)0
+
+X
+
+> b∈S(n)
+
+p(n)
+
+> b
+
+!
+
+. (38) 22 The last line drops terms in the ( ℓ̸ = n) sum, which is zero by assumption (iii). Further, the second term in parentheses in the last line does not change with A by assumptions (i) and (ii), so it can be dropped from the objective function. Ultimately, minimizing D( bq∥q) amounts to maximizing each XclEnt n separately, recovering AXC as the proper target. Having now examined the validity and limitations of the various AST rules, we conclude this section by listing four practical strategies to leverage the best properties of each AST rule within a rare event sampling pipeline. 1. Extend a DS piecemeal, boosting each peak over μ as it appears. Boost the early peaks at their individual AXC s, which will deliver the best possible initial tail statistics. For later peaks, having seen enough examples to discern the distribution of AXC s, switch to boosting at a uniform AST of 
+
+AUC = AXC , which will deliver the best long-term tail statistics. Transition smoothly between these strategies with some annealing schedule. 2. Actually attempt to construct z-regular bins by fitting a statistical model, such as a Generalized Extreme Value or Generalized Pareto distribution, to the early peaks [38]. Recall that the major added value of rare event sampling is not just to construct a return period curve, but to simulate realizations of the extreme events in their full spatiotemporal complexity. 3. Extend an EB pipeline piecemeal, refining bins sequentially in stages. For example, start by dividing the tail into two bins of equal estimated probability (which should be robustly estimable). After boosting to maximize XclEnt over this two-bin PMF, the data should reveal where to place a new bin boundary to sub-divide whichever bin(s) are of interest, and then repeat boosting on the refined PMF, either by drawing fresh ancestors from the DS or boosting the first-stage descendants. Multi-stage boosting has been implemented before [20], and the same rough scheme resembles the TEAMS algorithm [15, 24]. 4. Actually try to convert the problem into the Tent Map, or another system with the key desirable properties of uniform tails and uniform error growth that led to the exact prescription A = K − M .For example, one might train an autoencoder neural network to learn a conjugate mapping from the target dynamical variable, x, to a latent variable z, and thereby learn a state-dependent perturbation (δx = δz |h′(x)|) that precisely compensates for the state-dependent error growth. Machine learning of conjugate maps is already an active research field, recently demonstrated as a viable method for discovering unstable periodic orbits implementing chaos control algorithms [39]. The sampling problem suggests a different set of loss terms, and we will pursue this idea in follow-up research.  
+
+> V. CONCLUSION
+
+To overcome the data-scarcity problem inherent to extreme events, the climate science community has taken up rare event sampling (RES) as a strategy to simulate more extremes more efficiently than straight-forward model simulation can do. Strategically placed perturbations can trigger extreme events, and proper bookkeeping in the tilted ensemble can recover un-tilted statistics, enabling detailed risk analysis both quali-tative and quantitative. RES is naturally framed as an “applied” toolset to enable risk analysis of hazardous weather with high societal impact, and understandably the trend has been to apply it to complex, cou-pled, expensive models. But there are fundamental open questions around the optimality of perturbations: what timing, structure, and magnitude of perturbation will deliver the most computationally efficient and statistically reliable sampling of the extreme events of interest? Dispatching these choices too hastily with heuristics can sacrifice major efficiency gains. In this paper, we have deliberately turned to the simplest possible one-dimensional chaotic systems to isolate and solve for one aspect of optimality: perturbation timing within the framework of Ensemble Boost-ing (EB), a particular RES algorithm that is popular for its simplicity and flexibility. The closed formula that we derived and validated, though it applies strictly to only a specific toy system, relates directly to previously-used heuristics such as Lyapunov timescale and error saturation time and shows that neither is a complete answer without considering the level of severity being targeted. The new measure of ensemble spread that we derived, the extreme-conditional entropy ( XclEnt ), provides a working proxy objective that can be used in Ensemble Boosting to choose conditionally optimal advance split times ( COAST s). Although 23 (evenly spaced bins) (a)          
+
+> (b)
+> (c)
+> (d)
+> FIG. 13. Performance of Ensemble Boosting with the Logistic Map with ( K, M ) = (14 ,9), with bins uniformly spaced in x(x-regular) rather than z-regular, where x= sin 2(12πz ). Figure format is the same as Fig. 8.
+
+XclEnt -COAST might be a biased estimator when applied independently across different initial conditions, it does seem to be optimally efficient in the regime of few initial conditions, which is a common practical setting. We have provided an exposition of a rare event algorithm and characterized its optimal parameters. The result is mathematically sound, and although it is planted within a toy sandbox, we have confidence that a more general theory can grow from it, in large part by drawing connections between ergodic theory, control theory, extreme value statistics, and atmospheric science. We eagerly invite active conversation and collaboration in the process. 
+
+> ACKNOWLEDGMENTS
+
+J.F. gratefully acknowledges support from the University of Chicago through the Data Science Institute’s AI for Climate (DSI-AICE) initiative, as well as the Institute for Climate and Sustainable Growth. Pedram Hassanzadeh, Dorian Abbot, and Paul O’Gorman provided invaluable advice and support. Many discussions with them as well as colleagues, especially Anna Asch, Alexander Wikner, and Zhixing Liu, helped to develop the ideas. 24 Logistic Map (evenly spaced bins)   
+
+> (a) (b)
+> (c) (d)
+
+FIG. 14. Results of Ensemble Boosting on the Logistic Map with x-regular bins, with ( K, M ) = (14 , 9). (a,c) Performance vs. cost, formatted the same as Fig. 11(a,c). (b,d) State dependence of the XclEnt -COAST , formatted the same as Fig. 12(a,c). 
+
+DATA AVAILABILITY 
+
+The Julia code used to run all the experiments and display results is publicly available in the Zenodo repository, COAST [40, https://doi.org/10.5281/zenodo.20978271 ]. Interested readers are encouraged to contact J.F. for using the code. 
+
+[1] D. Coumou and S. Rahmstorf, A decade of weather extremes, Nature Climate Change 2, 491 (2012). [2] E. M. Fischer, S. Sippel, and R. Knutti, Increasing probability of record-shattering climate extremes, Nature Climate Change 11 , 689 (2021). [3] D. Faranda, G. Messori, T. Alberti, C. Alvarez-Castro, T. Caby, L. Cavicchia, E. Coppola, R. V. Donner, B. Dubrulle, V. M. Galfi, E. Holmberg, V. Lembo, R. Noyelle, P. Yiou, B. Spagnolo, D. Valenti, S. Vaienti, and C. Wormell, Statistical physics and dynamical systems perspectives on geophysical extreme events, Phys. Rev. E 110 , 041001 (2024). [4] C. J. White, H. Carlsen, A. W. Robertson, R. J. Klein, J. K. Lazo, A. Kumar, F. Vitart, E. Coughlan de Perez, A. J. Ray, V. Murray, S. Bharwani, D. MacLeod, R. James, L. Fleming, A. P. Morse, B. Eggen, R. Graham, E. Kjellstr¨ om, E. Becker, K. V. Pegion, N. J. Holbrook, D. McEvoy, M. Depledge, S. Perkins-Kirkpatrick, T. J. Brown, R. Street, L. Jones, T. A. Remenyi, I. Hodgson-Johnston, C. Buontempo, R. Lamb, H. Meinke, B. Arheimer, and S. E. Zebiak, Potential applications of subseasonal-to-seasonal (S2S) predictions, Meteorological Applications 24 , 315 (2017), https://rmets.onlinelibrary.wiley.com/doi/pdf/10.1002/met.1654. [5] F. Vitart, C. Ardilouze, A. Bonet, A. Brookshaw, M. Chen, C. Codorean, M. D´ equ´ e, L. Ferranti, E. Fucile, M. Fuentes, H. Hendon, J. Hodgson, H.-S. Kang, A. Kumar, H. Lin, G. Liu, X. Liu, P. Malguzzi, I. Mallas, M. Manoussakis, D. Mastrangelo, C. MacLachlan, P. McLean, A. Minami, R. Mladek, T. Nakazawa, S. Najm, Y. Nie, M. Rixen, A. W. Robertson, P. Ruti, C. Sun, Y. Takaya, M. Tolstykh, F. Venuti, D. Waliser, S. Wool-nough, T. Wu, D.-J. Won, H. Xiao, R. Zaripov, and L. Zhang, The Subseasonal to Seasonal (S2S) Prediction Project Database, Bulletin of the American Meteorological Society 98 , 163 (2017). 25 
+
+[6] H. C. Bloomfield, D. J. Brayshaw, P. L. M. Gonzalez, and A. Charlton-Perez, Sub-seasonal forecasts of demand and wind power and solar power generation for 28 European countries, Earth System Science Data 13 , 2259 (2021). [7] D. S. Wilks, Chapter 9 - Forecast Verification, in Statistical Methods in the Atmospheric Sciences (Fourth Edition) (Elsevier, 2019) fourth edition ed., pp. 369–483. [8] M. Ghil and V. Lucarini, The physics of climate variability and climate change, Rev. Mod. Phys. 92 , 035002 (2020). [9] D. Patel and E. Ott, Using machine learning to anticipate tipping points and extrapolate to post-tipping dynamics of non-stationary dynamical systems, Chaos: An Interdisciplinary Journal of Nonlinear Science 33 , 023143 (2023). [10] T. G. Shepherd, E. Boyd, R. A. Calel, S. C. Chapman, S. Dessai, I. M. Dima-West, H. J. Fowler, R. James, D. Maraun, O. Martius, C. A. Senior, A. H. Sobel, D. A. Stainforth, S. F. B. Tett, K. E. Trenberth, B. J. J. M. van den Hurk, N. W. Watkins, R. L. Wilby, and D. A. Zenghelis, Storylines: an alternative approach to representing uncertainty in physical aspects of climate change, Climatic Change 151 , 555 (2018). [11] J. Sillmann, T. G. Shepherd, B. van den Hurk, W. Hazeleger, O. Martius, J. Slingo, and J. Zscheischler, Event-Based Storylines to Address Climate Risk, Earth’s Future 9, e2020EF001783 (2021), e2020EF001783 2020EF001783, https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2020EF001783. [12] F. Ragone, J. Wouters, and F. Bouchet, Computation of extreme heat waves in climate models us-ing a large deviation algorithm, Proceedings of the National Academy of Sciences 115 , 24 (2018), https://www.pnas.org/content/115/1/24.full.pdf. [13] J. Wouters, R. K. H. Schiemann, and L. C. Shaffrey, Rare Event Simulation of Extreme European Winter Rainfall in an Intermediate Complexity Climate Model, Journal of Ad-vances in Modeling Earth Systems 15 , e2022MS003537 (2023), e2022MS003537 2022MS003537, https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2022MS003537. [14] R. Noyelle, A. Caubel, Y. Meurdesoif, P. Yiou, and D. Faranda, Statistical and Dynamical Aspects of Extremely Hot Summers in Western Europe Sampled with a Rare Event Algorithm, Journal of Climate 38 , 4763 (2025). [15] J. Finkel and P. A. O’Gorman, Rare Event Sampling for Moving Targets: Extremes of Temperature and Daily Precipitation in a General Circulation Model, Journal of Ad-vances in Modeling Earth Systems 18 , e2025MS005456 (2026), e2025MS005456 2025MS005456, https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2025MS005456. [16] L. Bloin-Wibe, R. Noyelle, V. Humphrey, U. Beyerle, R. Knutti, and E. Fischer, Estimating return periods for extreme events in climate models through Ensemble Boosting, Weather and Climate Dynamics 6, 1147 (2025). [17] A. Lancelin, A. Wikner, L. Dubus, C. L. Priol, D. S. Abbot, F. Bouchet, P. Hassanzadeh, and J. Weare, AI-boosted rare event sampling to characterize extreme weather (2026), arXiv:2510.27066 [physics.ao-ph]. [18] R. J. Webber, D. A. Plotkin, M. E. O’Neill, D. S. Abbot, and J. Weare, Practical rare event sampling for extreme mesoscale weather, Chaos: An Interdisciplinary Journal of Nonlinear Science 29 , 053109 (2019), https://doi.org/10.1063/1.5081461. [19] V. Jacques-Dumas, R. M. van Westen, and H. A. Dijkstra, Estimation of AMOC Transition Probabilities Using a Machine Learning–Based Rare-Event Algorithm, Artificial Intelligence for the Earth Systems 3, e240002 (2024). [20] C. Gessner, E. M. Fischer, U. Beyerle, and R. Knutti, Very Rare Heat Extremes: Quantifying and Understanding Using Ensemble Reinitialization, Journal of Climate 34 , 6619 (2021). [21] J. Finkel and P. A. O’Gorman, Boosting ensembles for statistics of tails at conditionally optimal advance split times, Nonlinear Processes in Geophysics 33 , 233 (2026). [22] E. Ott, Chaos in Dynamical Systems , 2nd ed. (Cambridge University Press, 2002). [23] M. Shoushtari Moghadam, S. Aygun, M. Riahi Alam, J. I. Schmidt, M. H. Najafi, and N. Taherinejad, Accurate and Energy-Efficient Stochastic Computing with Van Der Corput Sequences, in Proceedings of the 18th ACM International Symposium on Nanoscale Architectures , NANOARCH ’23 (Association for Computing Machinery, New York, NY, USA, 2024). [24] J. Finkel and P. A. O’Gorman, Bringing Statistics to Storylines: Rare Event Sampling for Sudden, Transient Extreme Events, Journal of Advances in Modeling Earth Systems 16 , e2024MS004264 (2024), e2024MS004264 2024MS004264, https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2024MS004264. [25] G. Boffetta, P. Giuliani, G. Paladin, and A. Vulpiani, An Extension of the Lyapunov Analysis for the Predictabil-ity Problem, Journal of the Atmospheric Sciences 55 , 3409 (1998). [26] O. Capp´ e, A. Garivier, O.-A. Maillard, R. Munos, and G. Stoltz, KULLBACK-LEIBLER UPPER CONFI-DENCE BOUNDS FOR OPTIMAL SEQUENTIAL ALLOCATION, The Annals of Statistics 41 , 1516 (2013). [27] V. Lucarini, D. Faranda, J. Wouters, and T. Kuna, Towards a General Theory of Extremes for Observables of Chaotic Dynamical Systems, Journal of Statistical Physics 154 , 723 (2014). [28] V. Lucarini, D. Faranda, J. M. M. de Freitas, M. Holland, T. Kuna, M. Nicol, M. Todd, S. Vaienti, et al. ,
+
+Extremes and recurrence in dynamical systems (John Wiley & Sons, 2016). [29] L. Wasserman, All of statistics (Springer, New York, 2004). [30] Using ergodicity, the Lyapunov exponent is the domain-average of log |L′(x)| under the stationary distribu-tion px. Using z = h(x), T (z) = h ◦ L(x), and pz (z) dz = px(x) dx , it follows that Ex∼px log | dL (x) 
+
+> dx
+
+| =26 
+
+Ez∼pz log | dT (z) 
+
+> dz
+
+( dz dx / dT (z) 
+
+> dL (x)
+
+)| = Ez log | dT (z) 
+
+> dz
+
+|+Ez log |h′ ◦h−1 ◦T (z)|− E log |h′ ◦h−1(z)|. The last two expectations cancel out, since h′ ◦ h−1 is just an example of an observable function whose expectation is preserved at station-arity, i.e., when x ∼ px (equivalent to z ∼ pz ). So the global Lyapunov exponent is preserved, but integration over the entire domain was crucial. [31] L. Ferranti, S. Corti, and M. Janousek, Flow-dependent verification of the ECMWF ensemble over the Euro-Atlantic sector, Quarterly Journal of the Royal Meteorological Society 141 , 916 (2015), https://rmets.onlinelibrary.wiley.com/doi/pdf/10.1002/qj.2411. [32] V. M. G´ alfi, V. Lucarini, F. Ragone, and J. Wouters, Applications of large deviation theory in geophysical fluid dynamics and climate science, La Rivista del Nuovo Cimento 44 , 291 (2021). [33] R. Noyelle, P. Yiou, and D. Faranda, Investigating the typicality of the dynamics leading to extreme temperatures in the IPSL-CM6A-LR model, Climate Dynamics 62 , 1329 (2023), eGU General Assembly 2023, Vienna, Austria, 24–28 Apr 2023, EGU23-2644. [34] M. Mu, W. S. Duan, and B. Wang, Conditional nonlinear optimal perturbation and its applications, Nonlinear Processes in Geophysics 10 , 493 (2003). [35] P. T. Vonich and G. J. Hakim, Predictability Limit of the 2021 Pacific Northwest Heatwave From Deep-Learning Sensitivity Analysis, Geophysical Research Letters 51 , e2024GL110651 (2024), e2024GL110651 2024GL110651, https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2024GL110651. [36] N. B. Kovachki and A. M. Stuart, Ensemble Kalman inversion: a derivative-free technique for machine learning tasks, Inverse Problems 35 , 095005 (2019). [37] P.-T. de Boer, D. P. Kroese, S. Mannor, and R. Y. Rubinstein, A Tutorial on the Cross-Entropy Method, Annals of Operations Research 134 , 19 (2005). [38] S. Coles, An introduction to statistical modeling of extreme values , 1st ed., Springer Series in Statistics (Springer, 2001). [39] J. J. Bramburger, S. L. Brunton, and J. Nathan Kutz, Deep learning of conjugate mappings, Physica D: Nonlinear Phenomena 427 , 133008 (2021). [40] justinfocus12, justinfocus12/coast: Release for upload/submission of xclent-coast manuscript (2026), https: //doi.org/10.5281/zenodo.20978271 .

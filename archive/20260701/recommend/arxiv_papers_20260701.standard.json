@@ -1,0 +1,202 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-01T21:55:40.606656+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2606.27562v1",
+      "source": "arxiv",
+      "title": "Two-Dimensional Locally Adaptive Non-Hydrostatic Extension of Shallow Water Equations",
+      "abstract": "We introduce a two-dimensional non-hydrostatic model for shallow water wave dispersion. The model is based on a locally adapted application of a non-hydrostatic correction to the hydrostatic shallow water equations (SWE) in a predictor-corrector scheme. Applying the non-hydrostatic correction uniformly to the entire domain demands a high computational cost, since an elliptic system of equations needs to be solved for the correction terms. We demonstrate that by determining the area where the non-hydrostatic effects are significant, and applying the correction only locally, the computational effort can be reduced by approximately 40\\% without sacrificing accuracy in tsunami-like scenarios. As indicators for the non-hydrostatic effect, we use the ratio between total water depth and surface elevation, as well as horizontal velocity norms. Results are shown for several well-known test cases, including wave trains over a semi-circular shoal, static, and moving bottom tsunami-like wave propagation.",
+      "authors": [
+        "Kemal Firdaus",
+        "Jörn Behrens"
+      ],
+      "primary_category": "physics.flu-dyn",
+      "categories": [
+        "physics.flu-dyn",
+        "math.NA"
+      ],
+      "published": "2026-06-25T21:34:45+00:00",
+      "link": "https://arxiv.org/pdf/2606.27562v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "locally adaptive non-hydrostatic SWE for flood wave simulation",
+      "llm_evidence_cn": "局部自适应非静水浅水方程用于洪水波模拟",
+      "llm_evidence": "局部自适应非静水浅水方程用于洪水波模拟",
+      "canonical_evidence": "局部自适应非静水浅水方程用于洪水波模拟",
+      "llm_tldr_en": "Introduces a 2D locally adaptive non-hydrostatic extension of shallow water equations, reducing computational cost by 40% in tsunami-like scenarios without sacrificing accuracy",
+      "llm_tldr_cn": "传统非静水校正应用于全域计算成本高，该论文提出局部自适应非静水浅水方程扩展，通过识别非静水效应显著区域仅局部施加校正。在海啸场景测试中，计算量降低约40%且精度不损失，为城市洪水模拟提供高效数值方法。",
+      "llm_tldr": "传统非静水校正应用于全域计算成本高，该论文提出局部自适应非静水浅水方程扩展，通过识别非静水效应显著区域仅局部施加校正。在海啸场景测试中，计算量降低约40%且精度不损失，为城市洪水模拟提供高效数值方法。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood mitigation techniques in cities",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.30821v1",
+      "source": "arxiv",
+      "title": "Mind the Residual Gap: Probabilistic Downscaling under Real-World Bias",
+      "abstract": "Probabilistic downscaling is the task of modeling the conditional distribution of high-resolution fields given coarse inputs, and is a central challenge to atmospheric science, climate modeling, and other multiscale physical systems. A widely used paradigm decomposes the problem into a deterministic mean predictor followed by a stochastic residual generator. While effective in idealized settings, this mean--residual approach frequently produces biased and under-dispersive ensembles in real-world applications. Is this merely generic predictive uncertainty miscalibration? We show that the root cause is more fundamental: residual target misspecification, the residual distribution induced during training differs systematically from the one required at test time due to downscaling bias. To close this gap, we introduce ReMatch (Residual Distribution Matching). ReMatch aligns the training residual distribution toward the test-time regime via optimal transport in a low-dimensional PCA space. This preserves the statistical benefits of the mean--residual framework while reducing the train--test mismatch in the residual targets seen by the stochastic generator. On a controlled synthetic benchmark with varying bias levels and a real-world HRRR--ERA5 wind field downscaling task, ReMatch substantially reduces under-dispersion, improves calibration (SSR and CRPS), and outperforms strong baselines, including the standard mean--residual model and its variants, as well as state-of-the-art super-resolution models. Our code is available at https://github.com/sdean-group/ReMatch.git.",
+      "authors": [
+        "Yujin Kim",
+        "Nidhi Soma",
+        "Sarah Dean"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.CE"
+      ],
+      "published": "2026-06-29T18:47:34+00:00",
+      "link": "https://arxiv.org/pdf/2606.30821v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "probabilistic downscaling method addressing bias in climate model outputs used for flood risk assessment",
+      "llm_evidence_cn": "概率降尺度方法，解决用于洪水风险评估的气候模型输出偏差",
+      "llm_evidence": "概率降尺度方法，解决用于洪水风险评估的气候模型输出偏差",
+      "canonical_evidence": "概率降尺度方法，解决用于洪水风险评估的气候模型输出偏差",
+      "llm_tldr_en": "Identifies and fixes residual target misspecification in probabilistic downscaling, improving ensemble calibration for climate and flood risk applications.",
+      "llm_tldr_cn": "概率降尺度是大气科学和洪水风险评估的关键技术。本文发现常见的均值-残差降尺度范式在真实应用中产生有偏和欠分散的集合，根源是残差目标错配。通过重新定义训练目标，提出的方法在校准性和确定性上显著优于现有方法，为高分辨率洪水风险模拟提供更可靠的输入。",
+      "llm_tldr": "概率降尺度是大气科学和洪水风险评估的关键技术。本文发现常见的均值-残差降尺度范式在真实应用中产生有偏和欠分散的集合，根源是残差目标错配。通过重新定义训练目标，提出的方法在校准性和确定性上显著优于现有方法，为高分辨率洪水风险模拟提供更可靠的输入。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.26699v1",
+      "source": "arxiv",
+      "title": "Modelling convective cell occurrence in proximity to cold fronts using extreme gradient boosting",
+      "abstract": "Machine learning is emerging as a valuable tool for convection-related applications such as post-processing numerical weather prediction output, improving understanding of convective storm climatology and potentially improving existing convective parameterization schemes. In a rapidly developing field, it is vital to assess the strengths and limitations of machine learning approaches across different applications. Here, a probabilistic model is developed using a convective cell dataset as ground truth and predictors primarily from ERA5. The model's ability to reproduce the convective cell climatology at different regions relative to cold fronts (i.e. post-frontal and pre-frontal) is assessed during the warm-season in Germany. The optimal number of features (predictors) is selected using a feature elimination strategy. Overall, the optimised model exhibits high skill in reproducing the spatial and temporal cell frequency at different regions relative to the front. While the highest cell frequency is correctly identified near the surface front, the model underestimates the actual cell count in this region. Feature importance analysis shows that the model depends most heavily on CAPE to make its predictions. Additionally, the time of day predictor is key for accurately capturing the diurnal cycle of convective cells on both sides of the cold front. The study highlights both the advantages and the limitations of data-driven models, offering valuable insights for future data-driven climate and weather prediction models.",
+      "authors": [
+        "George Pacey",
+        "Stephan Pfahl",
+        "Lisa Schielicke"
+      ],
+      "primary_category": "physics.ao-ph",
+      "categories": [
+        "physics.ao-ph"
+      ],
+      "published": "2026-06-25T07:32:05+00:00",
+      "link": "https://arxiv.org/pdf/2606.26699v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "models convective cell occurrence near cold fronts, a key driver of pluvial flooding",
+      "llm_evidence_cn": "对冷锋附近对流单体发生进行建模，是暴雨洪水的关键驱动因素",
+      "llm_evidence": "对冷锋附近对流单体发生进行建模，是暴雨洪水的关键驱动因素",
+      "canonical_evidence": "对冷锋附近对流单体发生进行建模，是暴雨洪水的关键驱动因素",
+      "llm_tldr_en": "Uses extreme gradient boosting to probabilistically model convective cell occurrence near cold fronts, validated with ERA5 data over Germany.",
+      "llm_tldr_cn": "该论文利用极端梯度提升算法对冷锋附近对流单体的发生概率进行建模，以ERA5再分析数据为预测因子，在德国暖季进行了验证。模型能够复现不同锋面区域的对流单体气候学特征，有助于理解暴雨（城市内涝的主要成因）的发生机制，为城市雨洪管理提供气象依据。",
+      "llm_tldr": "该论文利用极端梯度提升算法对冷锋附近对流单体的发生概率进行建模，以ERA5再分析数据为预测因子，在德国暖季进行了验证。模型能够复现不同锋面区域的对流单体气候学特征，有助于理解暴雨（城市内涝的主要成因）的发生机制，为城市雨洪管理提供气象依据。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "pluvial flooding causes and impacts in urban areas",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.27614v1",
+      "source": "arxiv",
+      "title": "Structural Change Detection in Dynamic Systems",
+      "abstract": "Structural changes often arise in real-world dynamic systems due to external interventions or environmental shifts, such as policy changes in epidemiology or climate forcing in environmental science. In this paper, we propose a unified framework for detecting and localizing structural changes in dynamic systems governed by ordinary differential equations. Unlike existing methods that assume mean or linear trend changes, our approach accommodates complex, nonlinear dynamics with both stable and diverging trajectories. We develop a new test statistic that combines residual-based discrepancy and normalized parameter contrast, capturing evidence for structural changes from both model fit and parameter shifts. Candidate structural changes are efficiently screened using a multiscale seeded-narrowest-over-threshold algorithm with a data-driven thresholding strategy. To refine selections and control false discoveries, we introduce a false discovery rate control procedure that leverages order-preserved sample splitting and symmetric contrast calibration. Theoretical guarantees are established, including detection consistency, near-minimax localization accuracy, and valid FDR control under weak dependence. Extensive simulations demonstrate superior performance over existing methods in both accuracy and FDR control. Applications to real-world data sets, including COVID-19 dynamics and global temperature trends, highlight the practical relevance and broad applicability of our method.",
+      "authors": [
+        "Wei Zhang",
+        "Fang Yao"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME"
+      ],
+      "published": "2026-06-26T00:08:03+00:00",
+      "link": "https://arxiv.org/pdf/2606.27614v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "detecting structural changes in dynamic systems applied to climate forcing",
+      "llm_evidence_cn": "检测动态系统中的结构变化，应用于气候强迫",
+      "llm_evidence": "检测动态系统中的结构变化，应用于气候强迫",
+      "canonical_evidence": "检测动态系统中的结构变化，应用于气候强迫",
+      "llm_tldr_en": "A unified framework for detecting structural changes in ODE-governed dynamic systems, applicable to environmental shifts.",
+      "llm_tldr_cn": "城市化导致洪水频率和强度变化，准确检测这种结构性转变至关重要。本文提出一种基于微分方程的框架，能同时捕捉模型拟合和参数变化，检测非线性动态系统中的结构突变。该方法可应用于识别城市化对洪水统计特征的影响。",
+      "llm_tldr": "城市化导致洪水频率和强度变化，准确检测这种结构性转变至关重要。本文提出一种基于微分方程的框架，能同时捕捉模型拟合和参数变化，检测非线性动态系统中的结构突变。该方法可应用于识别城市化对洪水统计特征的影响。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "impact of urbanization on flood frequency and severity",
+      "matched_requirement_id": "req-10",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.29703v1",
+      "source": "arxiv",
+      "title": "Routes to rare events with optimally timed perturbations: a Tent Map is all you need",
+      "abstract": "Extreme weather events are difficult to understand for the same reason that they are dangerous: they happen rarely, catching victims unprepared when they do occur and scientists unable to assess risks confidently, given such limited precedent to learn from in the real world and high computational expense to simulate more examples. Rare event sampling (RES) algorithms seek to reduce this expense by forcing simulations more directly towards the extremes and then compensating for that forcing in statistical analysis. But the performance of RES hinges on several hyperparameter choices which are ad hoc in practice, and must be better understood if RES is to be broadly useful. This paper addresses one particular parameter, the \\emph{advance split time} (AST), which prescribes when to perturb a simulation to split off the most informative possible ensemble of alternative extreme event scenarios. We prescribe the optimal AST as the time it takes for an initial perturbation to amplify into the size (inverse rarity) of the extreme event being targeted. For the Logistic and Tent maps, two archetypal examples of one-dimensional chaos, we rigorously derive and express the rule as a simple log-ratio between perturbation size and event rarity. The pair of examples also illuminates where the rule breaks down, and subsequently, we generalize the rule into a maximum-entropy criterion that solidifies recent heuristic and empirical results. Despite the idealized setting, our results deliver theoretical clarity that can anchor future developments of principled RES methods applicable to real-world, high-impact weather and climate extremes.",
+      "authors": [
+        "Justin Finkel"
+      ],
+      "primary_category": "physics.ao-ph",
+      "categories": [
+        "physics.ao-ph",
+        "nlin.CD",
+        "physics.data-an"
+      ],
+      "published": "2026-06-29T02:11:34+00:00",
+      "link": "https://arxiv.org/pdf/2606.29703v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "rare event sampling method for extreme weather risk assessment",
+      "llm_evidence_cn": "极端天气事件采样方法，可用于城市洪灾风险评估",
+      "llm_evidence": "极端天气事件采样方法，可用于城市洪灾风险评估",
+      "canonical_evidence": "极端天气事件采样方法，可用于城市洪灾风险评估",
+      "llm_tldr_en": "Proposes a rare event sampling method using tent map perturbations to efficiently simulate extreme weather events, reducing computational cost for risk assessment",
+      "llm_tldr_cn": "极端天气事件罕见且模拟代价高，该论文提出基于帐篷映射的稀有事件采样方法，通过最佳扰动路径加速样本生成，并补偿统计偏差。该方法可迁移至城市洪灾风险评估，显著降低计算成本，为罕见洪水的概率分析提供更高效的采样策略。",
+      "llm_tldr": "极端天气事件罕见且模拟代价高，该论文提出基于帐篷映射的稀有事件采样方法，通过最佳扰动路径加速样本生成，并补偿统计偏差。该方法可迁移至城市洪灾风险评估，显著降低计算成本，为罕见洪水的概率分析提供更高效的采样策略。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for urban flood risk assessment",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
