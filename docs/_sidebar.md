@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-07-02 <!--dpr-date:20260702-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/02/2607.00331v1-coupling-precipitation-forecasting-and-early-warning-with-reverse-martingale-recurrent-neural-networks" data-sidebar-item="{&quot;title&quot;: &quot;Coupling Precipitation Forecasting and Early Warning with Reverse-Martingale Recurrent Neural Networks&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2607.00331v1-coupling-precipitation-forecasting-and-early-warning-with-reverse-martingale-recurrent-neural-networks&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;urban-flood&quot;}], &quot;evidence&quot;: &quot;降水预测与洪水早期预警方法&quot;}">Coupling Precipitation Forecasting and Early Warning with Reverse-Martingale Recurrent Neural Networks</a>
   * 2026-07-01 <!--dpr-date:20260701-->
     * 精读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/01/2606.27562v1-two-dimensional-locally-adaptive-non-hydrostatic-extension-of-shallow-water-equations" data-sidebar-item="{&quot;title&quot;: &quot;Two-Dimensional Locally Adaptive Non-Hydrostatic Extension of Shallow Water Equations&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.27562v1-two-dimensional-locally-adaptive-non-hydrostatic-extension-of-shallow-water-equations&quot;, &quot;score&quot;: &quot;9.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;urban-flood&quot;}], &quot;evidence&quot;: &quot;局部自适应非静水浅水方程用于洪水波模拟&quot;}">Two-Dimensional Locally Adaptive Non-Hydrostatic Extension of Shallow Water Equations</a>

@@ -1,0 +1,53 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-02T20:38:52.864566+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2607.00331v1",
+      "source": "arxiv",
+      "title": "Coupling Precipitation Forecasting and Early Warning with Reverse-Martingale Recurrent Neural Networks",
+      "abstract": "Precipitation forecasts are judged by accuracy, but the decisions they support -- when to restrict water, when to warn of drought -- turn on noticing when a local regime is becoming abnormal, which forecast scores alone do not reveal. We ask whether one recurrent model can do both with little or no loss in forecast skill. We add a backward-coherence (reverse-martingale) penalty that keeps the network's hidden state smooth when read backward in time; the size of the resulting reconstruction defect becomes an online warning signal, monitored by a sequential change-point detector. The design is deliberately conservative. On real daily station data from four contrasting climates -- monsoonal Taiwan, semi-arid Texas, temperate Germany, and Mediterranean Anatolia (Turkey) -- the model matches a standard network's forecast skill everywhere, and makes the hidden state markedly steadier in every region. The novelty is the added information: on these real droughts the signal can alarm well ahead of the operational SPI-3 index, giving lead that neither the forecast nor the index provides. This benefit is not uniform across the four regions -- large in one, partial in two others, and near-absent in the fourth. We offer the hydroclimatic character of drought onset, whether it precedes or merely coincides with the rainfall deficit, as a plausible explanation to be tested in future work, supported by a controlled synthetic study with known onset times. The contribution is thus a new and conservative way to read precipitation records: no loss in forecast skill, a steadier model, and an early-warning signal beyond the standard index.",
+      "authors": [
+        "Hui-Mean Foo",
+        "Yuan-chin Ivan Chang"
+      ],
+      "primary_category": "stat.AP",
+      "categories": [
+        "stat.AP"
+      ],
+      "published": "2026-07-01T02:13:55+00:00",
+      "link": "https://arxiv.org/pdf/2607.00331v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "precipitation forecasting and early warning for floods",
+      "llm_evidence_cn": "降水预测与洪水早期预警方法",
+      "llm_evidence": "降水预测与洪水早期预警方法",
+      "canonical_evidence": "降水预测与洪水早期预警方法",
+      "llm_tldr_en": "Proposes a recurrent neural network with reverse-martingale penalty for both precipitation forecasting and regime-change early warning, demonstrated on real station data from four climates.",
+      "llm_tldr_cn": "该论文针对降水预测与异常预警的耦合问题，提出一种反向鞅正则化循环神经网络，在保持预测精度的同时，通过逆向重构误差监测环境异常。利用四个气候区的实测数据验证，模型可同时提供准确降水预报和洪水干旱早期预警信号，为城市洪水风险评估提供了低成本、可扩展的预警工具。",
+      "llm_tldr": "该论文针对降水预测与异常预警的耦合问题，提出一种反向鞅正则化循环神经网络，在保持预测精度的同时，通过逆向重构误差监测环境异常。利用四个气候区的实测数据验证，模型可同时提供准确降水预报和洪水干旱早期预警信号，为城市洪水风险评估提供了低成本、可扩展的预警工具。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for urban flood risk assessment",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

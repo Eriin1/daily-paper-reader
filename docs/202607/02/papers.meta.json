@@ -1,0 +1,24 @@
+{
+  "label": "2026-07-02",
+  "date": "2026-07-02",
+  "generated_at": "2026-07-02T20:40:14",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202607/02/2607.00331v1-coupling-precipitation-forecasting-and-early-warning-with-reverse-martingale-recurrent-neural-networks",
+      "section": "quick",
+      "title_en": "Coupling Precipitation Forecasting and Early Warning with Reverse-Martingale Recurrent Neural Networks",
+      "authors": "Hui-Mean Foo, Yuan-chin Ivan Chang",
+      "date": "2026-07-01",
+      "pdf": "https://arxiv.org/pdf/2607.00331v1",
+      "score": "7.0",
+      "evidence": "降水预测与洪水早期预警方法",
+      "tldr": "降水预测注重准确性，但实际决策需要提前发现异常。本文在循环网络中引入反向鞅惩罚，使隐藏状态向后平滑，利用重建缺陷作为在线预警信号，并结合变化点检测。在四个不同气候区的真实数据上，模型预测技能无损失，隐藏状态更稳定；对真实干旱，可提前于SPI-3指数发出警报，但收益因气候类型而异。该方法实现了预测与预警的兼顾，为降水记录解读提供了新途径。",
+      "tags": "query:urban-flood",
+      "abstract_en": "Precipitation forecasts are judged by accuracy, but the decisions they support -- when to restrict water, when to warn of drought -- turn on noticing when a local regime is becoming abnormal, which forecast scores alone do not reveal. We ask whether one recurrent model can do both with little or no loss in forecast skill. We add a backward-coherence (reverse-martingale) penalty that keeps the network's hidden state smooth when read backward in time; the size of the resulting reconstruction defect becomes an online warning signal, monitored by a sequential change-point detector. The design is deliberately conservative. On real daily station data from four contrasting climates -- monsoonal Taiwan, semi-arid Texas, temperate Germany, and Mediterranean Anatolia (Turkey) -- the model matches a standard network's forecast skill everywhere, and makes the hidden state markedly steadier in every region. The novelty is the added information: on these real droughts the signal can alarm well ahead of the operational SPI-3 index, giving lead that neither the forecast nor the index provides. This benefit is not uniform across the four regions -- large in one, partial in two others, and near-absent in the fourth. We offer the hydroclimatic character of drought onset, whether it precedes or merely coincides with the rainfall deficit, as a plausible explanation to be tested in future work, supported by a controlled synthetic study with known onset times. The contribution is thus a new and conservative way to read precipitation records: no loss in forecast skill, a steadier model, and an early-warning signal beyond the standard index.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
