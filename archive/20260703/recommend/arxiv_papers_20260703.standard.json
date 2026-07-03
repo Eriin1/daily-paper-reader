@@ -1,0 +1,279 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-03T20:52:09.096317+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2607.01621v1",
+      "source": "arxiv",
+      "title": "Spatial Support Matters: Geometry-Aware Graph Fusion for Rainfall Field Reconstruction",
+      "abstract": "Fine-scale rainfall reconstruction is critical for urban flood modeling, but real rainfall sensing systems observe the field through incompatible spatial supports: gauges measure points, microwave links measure paths, and radar/satellite products measure gridded areas. These differences in measurement support impose geometrically distinct constraints on the rainfall field, yet existing heterogeneous graph approaches reconcile such sources in feature space, giving each its own embedding while discarding the geometry of its support. We propose a geometry-aware multi-support heterogeneous graph neural network that represents each observation according to its support type (0D point, 1D line, or 2D grid) as a distinct node layer, and fuses them through cross-support message passing into a point-support prediction layer from which the field is reconstructed. An inductive masked-node formulation decouples prediction resolution from sensing resolution, allowing the same trained model to reconstruct the field at user-defined target locations or display grids. On Singapore data, the proposed method reduces RMSE by 23.2\\% over the classical interpolation baseline, inverse-distance weighting, and consistently outperforms other neural architectures such as convolutional fusion and support-agnostic heterogeneous graph baselines. A generalization study using data from Sydney, Australia lets us characterize when multi-support fusion helps: the available skill appears to depend on gauge spacing relative to the spatial correlation length of the field, so fusion delivers the largest gains where the field is under-sampled relative to its correlation length and little when it is already resolved. Code and models will be open-sourced upon paper acceptance.",
+      "authors": [
+        "Low Jun Yu",
+        "Niramay Kachhadiya",
+        "Herath Mudiyanselage Viraj Vidura Herath",
+        "Sanka Rasnayaka",
+        "Lucy Amanda Marshall"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-02T02:38:59+00:00",
+      "link": "https://arxiv.org/pdf/2607.01621v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "directly addresses rainfall field reconstruction for urban flood modeling",
+      "llm_evidence_cn": "直接针对城市洪水建模中的降雨场重建",
+      "llm_evidence": "直接针对城市洪水建模中的降雨场重建",
+      "canonical_evidence": "直接针对城市洪水建模中的降雨场重建",
+      "llm_tldr_en": "Proposes a geometry-aware multi-support heterogeneous GNN to reconstruct rainfall fields from point, line, and grid observations, improving urban flood modeling accuracy.",
+      "llm_tldr_cn": "针对城市洪水建模中降雨观测空间支撑不一致（点、线、面）的问题，提出了一种几何感知的多支撑异构图神经网络。该方法将不同支撑类型的观测表示为不同节点层，通过图融合保留几何信息。实验表明该方法能有效重建精细尺度降雨场，为城市雨洪评估提供关键输入。这有助于提升城市洪水管理的准确性。",
+      "llm_tldr": "针对城市洪水建模中降雨观测空间支撑不一致（点、线、面）的问题，提出了一种几何感知的多支撑异构图神经网络。该方法将不同支撑类型的观测表示为不同节点层，通过图融合保留几何信息。实验表明该方法能有效重建精细尺度降雨场，为城市雨洪评估提供关键输入。这有助于提升城市洪水管理的准确性。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.02437v1",
+      "source": "arxiv",
+      "title": "Extreme Adaptive Transformer for Time Series Forecasting",
+      "abstract": "Time series forecasting remains challenging when the underlying data contain rare but critical extreme events. This issue is particularly important in hydrologic forecasting, where streamflow distributions are often highly skewed and extreme peaks can have substantial impacts on flood monitoring, water resource management, and early warning systems. Although Transformer-based forecasting models have achieved strong performance by modeling long-range temporal dependencies, they typically treat all time points uniformly and may therefore underrepresent rare extreme patterns. In this paper, we propose the Extreme-Adaptive Transformer (Exformer), a forecasting framework designed to explicitly model temporal dependencies involving both normal and extreme events. Exformer introduces an extreme-adaptive attention mechanism composed of three sparse components: Local, Stride, and Extreme. The Local and Stride components capture short-term and periodic temporal dependencies, respectively, while the Extreme component selectively models event-aware dependencies between normal and extreme streamflow patterns. Experiments on four real-world hydrologic streamflow datasets show that Exformer achieves superior 3-day forecasting performance compared with state-of-the-art baselines. Our findings demonstrate that explicitly incorporating extreme-aware attention improves the forecasting capacity of Transformer models on imbalanced time series with rare but consequential events.",
+      "authors": [
+        "Sanjeev Shrestha",
+        "Hui Liu",
+        "Yifan Zhang"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-07-02T17:09:14+00:00",
+      "link": "https://arxiv.org/pdf/2607.02437v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "hydrologic forecasting for flood monitoring and early warning",
+      "llm_evidence_cn": "水文预测用于洪水监测和预警",
+      "llm_evidence": "水文预测用于洪水监测和预警",
+      "canonical_evidence": "水文预测用于洪水监测和预警",
+      "llm_tldr_en": "Proposes Exformer, a Transformer that adaptively models both normal and extreme temporal dependencies, improving flood forecasting and early warning.",
+      "llm_tldr_cn": "针对时间序列中极端事件预测困难的问题，提出了极限自适应Transformer（Exformer），该模型能够显式建模正常与极端事件的时间依赖关系，在水文预测中显著提升了对洪水高峰的预报精度，为洪水监测和早期预警提供了有力工具。",
+      "llm_tldr": "针对时间序列中极端事件预测困难的问题，提出了极限自适应Transformer（Exformer），该模型能够显式建模正常与极端事件的时间依赖关系，在水文预测中显著提升了对洪水高峰的预报精度，为洪水监测和早期预警提供了有力工具。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.27277v1",
+      "source": "arxiv",
+      "title": "EO-WM: A Physically Informed World Model for Probabilistic Earth Observation Forecasting",
+      "abstract": "Earth Observation (EO) forecasting aims to predict future Earth surface dynamics from satellite observations under changing meteorological conditions. In this paper, we view this task as a partially observed, weather-driven world modeling problem, in which weather acts as a conditioning signal, while forecasting remains uncertain due to sparse observations and unobserved land-surface states. However, existing methods do not fully capture this setting: deterministic models collapse uncertainty into a single future prediction, while diffusion-based methods typically treat weather variables as undifferentiated conditioning signals, and existing benchmarks focus mainly on reconstruction accuracy rather than whether forecasts respond correctly to changed weather forcing.We introduce EO-WM, a video diffusion transformer for multispectral EO forecasting. EO-WM incorporates a physically informed conditioning framework that represents meteorological forcing through a climatological baseline, weather anomalies, and cumulative physical stress signals. Specifically, it separates baseline and anomaly through distinct conditioning pathways, and accumulates anomalous forcing over time to capture sustained heat and drought stress. To evaluate weather-response behavior beyond standard metrics, we introduce two diagnostic benchmarks: an Extreme Summer Benchmark for severity-aware prediction of vegetation degradation under extreme weather, and a Seasonal Matched-Pair Benchmark for testing response fidelity under changed weather forcing. Experiments show that EO-WM reduces the error in predicted Normalized Difference Vegetation Index (NDVI) decline amplitude by a relative 5.63% and improves directional hit rate by a relative 7.80%, while remaining competitive on standard pixel-level metrics. The benchmarks and model will be made open-source at https://github.com/Luo-Z13/EO-WM.",
+      "authors": [
+        "Junwei Luo",
+        "Shuai Yuan",
+        "Zhenya Yang",
+        "Yansheng Li",
+        "Zhe Liu",
+        "Hengshuang Zhao"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CV"
+      ],
+      "published": "2026-06-25T16:53:30+00:00",
+      "link": "https://arxiv.org/pdf/2606.27277v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "probabilistic Earth observation forecasting under weather conditions, applicable to flood risk",
+      "llm_evidence_cn": "基于天气条件的地球观测概率预测，可应用于洪水风险评估",
+      "llm_evidence": "基于天气条件的地球观测概率预测，可应用于洪水风险评估",
+      "canonical_evidence": "基于天气条件的地球观测概率预测，可应用于洪水风险评估",
+      "llm_tldr_en": "EO-WM models Earth surface dynamics as a weather-driven world model, producing probabilistic forecasts that improve flood risk assessment.",
+      "llm_tldr_cn": "现有地球观测预测方法难以处理不确定性和与天气的响应关系，本文提出物理信息引导的世界模型EO-WM，将天气预报作为条件信号，生成概率性地表动态预测，在洪水风险评估等任务中展现出更准确的响应关系。",
+      "llm_tldr": "现有地球观测预测方法难以处理不确定性和与天气的响应关系，本文提出物理信息引导的世界模型EO-WM，将天气预报作为条件信号，生成概率性地表动态预测，在洪水风险评估等任务中展现出更准确的响应关系。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.29172v1",
+      "source": "arxiv",
+      "title": "CORDEX-ML-Bench: A Benchmark for Data-Driven Regional Climate Downscaling -Experiment Design and Overview",
+      "abstract": "Machine learning (ML) has emerged as a cost-effective approach to complement dynamical downscaling for producing high-resolution regional climate projections. However, the absence of standardised training and evaluation protocols, applied consistently across multiple domains, continues to hinder meaningful model intercomparison. We introduce CORDEX-ML-Bench, a benchmark aligned with CORDEX, which constitutes the first phase of a community initiative to advance data-driven downscaling toward operational readiness, and complement future dynamical downscaling efforts under CMIP7. The framework targets downscaled daily maximum temperature and precipitation to ~10 km resolution (20x increase) across three pilot regions; European Alps, New Zealand, and Southern Africa. Using a perfect-model experimental design, we evaluate 40 ML configurations developed independently, spanning traditional ML, convolutional U-Nets, vision transformers, graph neural networks, and generative models based on diffusion, flow matching, and generative adversarial networks. Models are trained under two experimental periods, an empirical-statistical downscaling pseudo-reality (historical period only) and Emulator (historical and future periods) -and are evaluated against a core set of metrics developed specifically for assessing downscaling skill. Generative models consistently outperform deterministic approaches for precipitation, better capturing fine-scale variability and extremes. For temperature, the generative advantage narrows and deterministic architectures remain competitive. Models trained solely on the historical period systematically underestimate future climate-change signals while those additionally trained on a future period perform better. These findings raise concerns about historically trained models widely used in an operational setting, underscoring the need for rigorous extrapolation testing.",
+      "authors": [
+        "Neelesh Rampal",
+        "José González-Abad",
+        "Henry Addison",
+        "Jorge Baño-Medina",
+        "Maria Laura Bettolli",
+        "Valentina Blasone",
+        "Ben Booth",
+        "Erika Coppola",
+        "Serafina Di Gioia",
+        "Joshua Oldham-Dorrington",
+        "Antoine Doury",
+        "Francois Engelbrecht",
+        "Ramón Fuentes-Franco",
+        "Peter B. Gibson",
+        "Luca Glawion",
+        "Caroline Hardy",
+        "Mikhail Ivanov",
+        "Hugo Kyo Lee",
+        "Mikel N. Legasa",
+        "Matias Olmo",
+        "Andrew Orr",
+        "Julius Polz",
+        "Martin S. J. Rogers",
+        "Maybritt Schillinger",
+        "Shivani Sharma",
+        "Pedro M. M. Soares",
+        "Stefan Sobolowski",
+        "Jessica Steinkopf",
+        "Wenchang Tang",
+        "Jr-Ben Tian",
+        "Ricardo Tomé",
+        "Ko-Chih Wang",
+        "Yi-Chi Wang",
+        "Peter A. G. Watson",
+        "Tom Wetherell",
+        "Martin Widmann",
+        "José M. Gutiérrez"
+      ],
+      "primary_category": "physics.ao-ph",
+      "categories": [
+        "physics.ao-ph"
+      ],
+      "published": "2026-06-28T03:36:57+00:00",
+      "link": "https://arxiv.org/pdf/2606.29172v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "climate downscaling benchmark that produces high-resolution precipitation data useful for urban flood risk assessment",
+      "llm_evidence_cn": "气候降尺度基准可生成高分辨率降水数据，用于城市洪水风险评估",
+      "llm_evidence": "气候降尺度基准可生成高分辨率降水数据，用于城市洪水风险评估",
+      "canonical_evidence": "气候降尺度基准可生成高分辨率降水数据，用于城市洪水风险评估",
+      "llm_tldr_en": "CORDEX-ML-Bench provides a standardized benchmark for data-driven climate downscaling, enabling high-resolution precipitation projections that can support urban flood risk assessment.",
+      "llm_tldr_cn": "CORDEX-ML-Bench是一个与CORDEX对齐的数据驱动气候降尺度基准，旨在标准化训练和评估协议。该框架将日最高气温和降水降尺度至约10公里分辨率，覆盖三个试点区域。这些高分辨率降水数据可为城市洪水风险评估提供输入，但并非专门针对城市雨洪。",
+      "llm_tldr": "CORDEX-ML-Bench是一个与CORDEX对齐的数据驱动气候降尺度基准，旨在标准化训练和评估协议。该框架将日最高气温和降水降尺度至约10公里分辨率，覆盖三个试点区域。这些高分辨率降水数据可为城市洪水风险评估提供输入，但并非专门针对城市雨洪。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.29798v1",
+      "source": "arxiv",
+      "title": "Scalable coarse-to-fine spatial downscaling",
+      "abstract": "This study proposes coarse-to-fine downscaling (CF-DS), a scalable spatial downscaling method extending coarse-to-fine spatial modeling. Unlike conventional spatial-statistical downscaling methods such as area-to-point kriging, CF-DS does not require covariance matrix inversion or likelihood evaluation. Instead, it represents latent spatial processes through the synthesis of multi-scale local models, substantially reducing computational cost while approximately satisfying the aggregation constraint. Monte Carlo experiments show that CF-DS achieves predictive accuracy comparable to area-to-point kriging with dramatically shorter computation times, particularly for large datasets. An application to downscaling electricity consumption in the Tokyo metropolitan area further demonstrates its practical usefulness. The results suggest that CF-DS provides an efficient alternative for large-scale spatial downscaling problems. CF-DS is implemented in an R package spCF (https://cran.r-project.org/web/packages/spCF/index.html).",
+      "authors": [
+        "Daisuke Murakami",
+        "Yongwan Chun",
+        "Takahiro Yoshida",
+        "Hajime Seya"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME"
+      ],
+      "published": "2026-06-29T05:26:45+00:00",
+      "link": "https://arxiv.org/pdf/2606.29798v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "scalable spatial downscaling method applicable to flood hazard data",
+      "llm_evidence_cn": "可扩展的空间降尺度方法，适用于洪水灾害数据降尺度",
+      "llm_evidence": "可扩展的空间降尺度方法，适用于洪水灾害数据降尺度",
+      "canonical_evidence": "可扩展的空间降尺度方法，适用于洪水灾害数据降尺度",
+      "llm_tldr_en": "Proposes coarse-to-fine downscaling that avoids covariance inversion, achieving comparable accuracy to kriging with much lower computation, applicable to downscaling coarse flood risk maps.",
+      "llm_tldr_cn": "针对传统空间降尺度方法计算量大的问题，提出了由粗到细降尺度（CF-DS）方法。该方法通过多尺度局部模型合成潜在空间过程，避免了协方差矩阵求逆，在大数据集上计算时间显著缩短。实验表明其精度与克里金法相当，可用于将粗分辨率洪水风险数据降尺度到城市精细尺度，支持更高分辨率的风险评估。",
+      "llm_tldr": "针对传统空间降尺度方法计算量大的问题，提出了由粗到细降尺度（CF-DS）方法。该方法通过多尺度局部模型合成潜在空间过程，避免了协方差矩阵求逆，在大数据集上计算时间显著缩短。实验表明其精度与克里金法相当，可用于将粗分辨率洪水风险数据降尺度到城市精细尺度，支持更高分辨率的风险评估。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for urban flood risk assessment",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.01605v1",
+      "source": "arxiv",
+      "title": "pykci: A Compact Urban Knowledge Graph for Semantic and Spatial Queries using LLMs",
+      "abstract": "CityGML, the OGC standard for modeling, storage, and exchange of semantic 3D city models, describes urban objects with detailed semantics, geometry, and topology. Yet this richness is difficult to query directly: CityGML's XML encoding is designed for exchange rather than analysis, and relational mappings expose it through schemas requiring expert knowledge. We present pykci (Python Knowledge Graph for Cities), an open-source system that transforms CityGML 2.0 datasets into a compact urban knowledge graph in Neo4j and makes it queryable in natural language. The graph schema covers all thematic feature modules of CityGML 2.0 across all levels of detail and is spatially indexed with an R-tree for efficient geometric retrieval. A complete end-to-end Python pipeline ingests CityGML datasets into the knowledge graph, exports them to OGC 3D Tiles for interactive visualization, and supports lossless round-trip export of all content back to CityGML. For querying, the graph is paired with a large language model through a model-agnostic text-to-Cypher mechanism: the graph schema is supplied as context, and the model translates natural-language questions into Cypher queries executed against the graph. We evaluate both a locally running open-weight model, which keeps sensitive city data on-premise, and a state-of-the-art commercial model for the most demanding spatial and semantic queries. Answers are grounded in exact city data rather than the model's parametric memory, reducing hallucination and providing auditable provenance for every response. We demonstrate the system on open-government CityGML LoD2 datasets from Hamburg, Germany, including complex semantic and spatial queries such as identifying roof surfaces suitable for greening. pykci enables urban planners, GIS practitioners, and citizens to interact with semantic 3D city models without expertise in query languages and database schemas.",
+      "authors": [
+        "Huynh Duc An Son Nguyen",
+        "Lukas Arzoumanidis",
+        "Youness Dehbi"
+      ],
+      "primary_category": "cs.DB",
+      "categories": [
+        "cs.DB"
+      ],
+      "published": "2026-07-02T02:07:54+00:00",
+      "link": "https://arxiv.org/pdf/2607.01605v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "urban knowledge graph for semantic and spatial queries, supporting urban flood modeling and data management",
+      "llm_evidence_cn": "城市知识图谱支持语义和空间查询，可助力城市洪涝建模与数据管理",
+      "llm_evidence": "城市知识图谱支持语义和空间查询，可助力城市洪涝建模与数据管理",
+      "canonical_evidence": "城市知识图谱支持语义和空间查询，可助力城市洪涝建模与数据管理",
+      "llm_tldr_en": "Transforms CityGML data into a compact urban knowledge graph queryable via natural language, with spatial indexing.",
+      "llm_tldr_cn": "该论文针对CityGML城市模型查询困难的问题，开发了pykci系统，将CityGML 2.0数据集转换为Neo4j知识图谱，支持自然语言查询和R树空间索引。覆盖所有细节层次的主题特征模块。该系统可集成城市雨洪模型所需的地物、管网、地形等信息，通过语义查询快速获取相关数据，支撑城市洪涝风险评估和治理决策。",
+      "llm_tldr": "该论文针对CityGML城市模型查询困难的问题，开发了pykci系统，将CityGML 2.0数据集转换为Neo4j知识图谱，支持自然语言查询和R树空间索引。覆盖所有细节层次的主题特征模块。该系统可集成城市雨洪模型所需的地物、管网、地形等信息，通过语义查询快速获取相关数据，支撑城市洪涝风险评估和治理决策。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
