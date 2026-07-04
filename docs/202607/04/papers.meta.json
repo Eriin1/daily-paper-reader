@@ -1,0 +1,69 @@
+{
+  "label": "2026-07-04",
+  "date": "2026-07-04",
+  "generated_at": "2026-07-04T19:58:25",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202607/04/2607.01621v1-spatial-support-matters-geometry-aware-graph-fusion-for-rainfall-field-reconstruction",
+      "section": "deep",
+      "title_en": "Spatial Support Matters: Geometry-Aware Graph Fusion for Rainfall Field Reconstruction",
+      "authors": "Low Jun Yu, Niramay Kachhadiya, Herath Mudiyanselage Viraj Vidura Herath, Sanka Rasnayaka, Lucy Amanda Marshall",
+      "date": "2026-07-02",
+      "pdf": "https://arxiv.org/pdf/2607.01621v1",
+      "score": "9.0",
+      "evidence": "针对城市洪水建模的降雨场重建方法",
+      "tldr": "降雨场重建中，站点、微波链路和雷达等观测的空间支持类型（点、线、面）不同，现有方法忽略其几何结构导致精度受限。本文提出几何感知的多支持异构图神经网络，将各支持类型作为独立节点层，通过跨支持消息传递融合到点预测层。在新加坡数据上RMSE降低23.2%，优于多种基线；在悉尼数据上发现融合收益取决于测站间距与空间相关长度的相对关系，欠采样时增益显著。该工作首次在融合中显式建模支持几何，并揭示了多支持融合的有效条件。",
+      "tags": "query:urban-flood",
+      "abstract_en": "Fine-scale rainfall reconstruction is critical for urban flood modeling, but real rainfall sensing systems observe the field through incompatible spatial supports: gauges measure points, microwave links measure paths, and radar/satellite products measure gridded areas. These differences in measurement support impose geometrically distinct constraints on the rainfall field, yet existing heterogeneous graph approaches reconcile such sources in feature space, giving each its own embedding while discarding the geometry of its support. We propose a geometry-aware multi-support heterogeneous graph neural network that represents each observation according to its support type (0D point, 1D line, or 2D grid) as a distinct node layer, and fuses them through cross-support message passing into a point-support prediction layer from which the field is reconstructed. An inductive masked-node formulation decouples prediction resolution from sensing resolution, allowing the same trained model to reconstruct the field at user-defined target locations or display grids. On Singapore data, the proposed method reduces RMSE by 23.2\\% over the classical interpolation baseline, inverse-distance weighting, and consistently outperforms other neural architectures such as convolutional fusion and support-agnostic heterogeneous graph baselines. A generalization study using data from Sydney, Australia lets us characterize when multi-support fusion helps: the available skill appears to depend on gauge spacing relative to the spatial correlation length of the field, so fusion delivers the largest gains where the field is under-sampled relative to its correlation length and little when it is already resolved. Code and models will be open-sourced upon paper acceptance.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/04/2607.01451v1-sampling-for-region-aggregated-spatial-scan-statistics",
+      "section": "quick",
+      "title_en": "Sampling for Region-Aggregated Spatial Scan Statistics",
+      "authors": "Foad Namjoo, Drew McClelland, Michael Matheny, Jeff M. Phillips",
+      "date": "2026-07-01",
+      "pdf": "https://arxiv.org/pdf/2607.01451v1",
+      "score": "7.0",
+      "evidence": "空间扫描统计用于异常检测，可应用于城市洪水风险热点识别",
+      "tldr": "空间异常检测中，数据常聚合为区域，但高效扫描算法处理点数据。常用方法将区域简化为质心，丢失空间范围，导致统计功效显著下降。本文提出将每个区域均匀采样20-50个点并均匀分配数值，从而提高检测功效，同时保持计算效率。收敛分析表明少量样本即足够，推荐将此方法作为处理区域聚合数据的默认方案。",
+      "tags": "query:urban-flood",
+      "abstract_en": "Anomaly detection in geospatial data is a crucial tool in geographic information science (GIS), with applications ranging from national security to public-health surveillance to the study of societal disparities. This work focuses on spatial scan statistics and addresses a key mismatch: spatial counts are typically aggregated into predefined regions (census tracts, zip codes, counties), whereas the most efficient scan algorithms operate on spatial point data. The standard remedy -- collapsing each region to its centroid, as in widely used tools such as SaTScan -- is convenient but, as we show, discards the region's spatial extent and causes a significant loss in statistical power. To resolve this, we propose a simple yet scalable fix: replace each spatial region with 20-50 points sampled uniformly from its geometry and spread the region's values evenly across them. This approach improves statistical power while maintaining computational tractability. A convergence analysis explains why so few samples per region suffice. We recommend this sampling-based conversion as the default way to apply point-based spatial scan statistics to region-aggregated data for anomaly detection.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/04/2606.27650v1-genworld-empirically-grounded-urban-simulation-infrastructure-for-scalable-llm-agent-studies",
+      "section": "quick",
+      "title_en": "GenWorld: Empirically Grounded Urban Simulation Infrastructure for Scalable LLM-Agent Studies",
+      "authors": "Gen Li, Jieyuan Lan, Pengcheng Xu, Zongyuan Wu, Masaki Ogura, Tao Feng",
+      "date": "2026-06-26",
+      "pdf": "https://arxiv.org/pdf/2606.27650v1",
+      "score": "6.0",
+      "evidence": "城市模拟基础设施可用于洪水情景",
+      "tldr": "LLM-agent模拟面临城市环境接地和计算扩展的双重挑战。GenWorld通过构建建筑级合成城市、结构化agent-环境接口，并将LLM决策信号离线编译为查找策略，实现可扩展的城市模拟。在日本东广岛实例中，生成了19.6万合成居民，基于人口普查和地理数据验证其统计一致性，并用手机数据诊断通勤距离。通过工作日运行、工作日-周末对比和警报响应扰动三个案例，展示了其作为可重复、接地且可扩展研究平台的价值。",
+      "tags": "query:urban-flood",
+      "abstract_en": "LLM-agent simulation faces a joint grounding and scaling problem: agents should act in environments that reflect real urban constraints, yet direct online LLM calls for city-scale populations are computationally prohibitive. We present GenWorld, an empirically grounded urban simulation infrastructure that combines a building-level synthetic city, a structured agent-environment interface, and offline compilation of LLM-derived decision signals into lookup policies for scalable rollout. In a reference instantiation for Higashihiroshima, Japan, GenWorld grounds 196,608 synthetic residents in census and geospatial data, validates demographic consistency against census tabulations, and uses YJMob100K mobile-phone data as a commuting-distance diagnostic. We demonstrate the infrastructure through three reproducible cases: a full-city weekday rollout, a weekday-weekend behavioral contrast, and a warning-response perturbation with auditable replanning traces. These cases support GenWorld as a reproducible platform for grounded and scalable LLM-agent studies, while calibrated forecasting for traffic, evacuation, or policy outcomes remains future work.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/04/2607.01605v1-pykci-a-compact-urban-knowledge-graph-for-semantic-and-spatial-queries-using-llms",
+      "section": "quick",
+      "title_en": "pykci: A Compact Urban Knowledge Graph for Semantic and Spatial Queries using LLMs",
+      "authors": "Huynh Duc An Son Nguyen, Lukas Arzoumanidis, Youness Dehbi",
+      "date": "2026-07-02",
+      "pdf": "https://arxiv.org/pdf/2607.01605v1",
+      "score": "6.0",
+      "evidence": "城市知识图谱支持城市对象的语义和空间查询，可用于城市洪水管理",
+      "tldr": "CityGML城市语义3D模型因XML编码和关系映射导致查询困难，需专家知识。pykci系统将其转换为Neo4j紧凑知识图谱，集成R-tree空间索引，并通过LLM实现自然语言到Cypher的翻译查询。在汉堡LoD2数据集上，系统成功完成如识别适合绿化的屋顶表面等复杂查询，且支持无损格式转换和可审计溯源。该方法降低了查询门槛，减少幻觉，促进非专家对3D城市模型的交互。",
+      "tags": "query:urban-flood",
+      "abstract_en": "CityGML, the OGC standard for modeling, storage, and exchange of semantic 3D city models, describes urban objects with detailed semantics, geometry, and topology. Yet this richness is difficult to query directly: CityGML's XML encoding is designed for exchange rather than analysis, and relational mappings expose it through schemas requiring expert knowledge. We present pykci (Python Knowledge Graph for Cities), an open-source system that transforms CityGML 2.0 datasets into a compact urban knowledge graph in Neo4j and makes it queryable in natural language. The graph schema covers all thematic feature modules of CityGML 2.0 across all levels of detail and is spatially indexed with an R-tree for efficient geometric retrieval. A complete end-to-end Python pipeline ingests CityGML datasets into the knowledge graph, exports them to OGC 3D Tiles for interactive visualization, and supports lossless round-trip export of all content back to CityGML. For querying, the graph is paired with a large language model through a model-agnostic text-to-Cypher mechanism: the graph schema is supplied as context, and the model translates natural-language questions into Cypher queries executed against the graph. We evaluate both a locally running open-weight model, which keeps sensitive city data on-premise, and a state-of-the-art commercial model for the most demanding spatial and semantic queries. Answers are grounded in exact city data rather than the model's parametric memory, reducing hallucination and providing auditable provenance for every response. We demonstrate the system on open-government CityGML LoD2 datasets from Hamburg, Germany, including complex semantic and spatial queries such as identifying roof surfaces suitable for greening. pykci enables urban planners, GIS practitioners, and citizens to interact with semantic 3D city models without expertise in query languages and database schemas.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
