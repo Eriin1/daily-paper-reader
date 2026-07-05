@@ -1,0 +1,104 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-05T20:27:05.641095+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2607.01621v1",
+      "source": "arxiv",
+      "title": "Spatial Support Matters: Geometry-Aware Graph Fusion for Rainfall Field Reconstruction",
+      "abstract": "Fine-scale rainfall reconstruction is critical for urban flood modeling, but real rainfall sensing systems observe the field through incompatible spatial supports: gauges measure points, microwave links measure paths, and radar/satellite products measure gridded areas. These differences in measurement support impose geometrically distinct constraints on the rainfall field, yet existing heterogeneous graph approaches reconcile such sources in feature space, giving each its own embedding while discarding the geometry of its support. We propose a geometry-aware multi-support heterogeneous graph neural network that represents each observation according to its support type (0D point, 1D line, or 2D grid) as a distinct node layer, and fuses them through cross-support message passing into a point-support prediction layer from which the field is reconstructed. An inductive masked-node formulation decouples prediction resolution from sensing resolution, allowing the same trained model to reconstruct the field at user-defined target locations or display grids. On Singapore data, the proposed method reduces RMSE by 23.2\\% over the classical interpolation baseline, inverse-distance weighting, and consistently outperforms other neural architectures such as convolutional fusion and support-agnostic heterogeneous graph baselines. A generalization study using data from Sydney, Australia lets us characterize when multi-support fusion helps: the available skill appears to depend on gauge spacing relative to the spatial correlation length of the field, so fusion delivers the largest gains where the field is under-sampled relative to its correlation length and little when it is already resolved. Code and models will be open-sourced upon paper acceptance.",
+      "authors": [
+        "Low Jun Yu",
+        "Niramay Kachhadiya",
+        "Herath Mudiyanselage Viraj Vidura Herath",
+        "Sanka Rasnayaka",
+        "Lucy Amanda Marshall"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-02T02:38:59+00:00",
+      "link": "https://arxiv.org/pdf/2607.01621v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "rainfall reconstruction for urban flood modeling",
+      "llm_evidence_cn": "面向城市洪涝建模的降雨场重建",
+      "llm_evidence": "面向城市洪涝建模的降雨场重建",
+      "canonical_evidence": "面向城市洪涝建模的降雨场重建",
+      "llm_tldr_en": "Proposes a geometry-aware graph fusion method for fine-scale rainfall reconstruction from multi-support sensors, directly supporting urban flood modeling and risk assessment.",
+      "llm_tldr_cn": "针对城市洪涝建模中降雨数据多源异构（点线面）的问题，提出一种几何感知的多支撑异构图神经网络，将不同测量支撑类型（0D点、1D线、2D网格）作为独立节点层进行融合，保留了支撑的几何信息。实验表明该方法有效提升了降雨场重建精度，为城市洪水风险评估与管理提供了高质量数据基础。",
+      "llm_tldr": "针对城市洪涝建模中降雨数据多源异构（点线面）的问题，提出一种几何感知的多支撑异构图神经网络，将不同测量支撑类型（0D点、1D线、2D网格）作为独立节点层进行融合，保留了支撑的几何信息。实验表明该方法有效提升了降雨场重建精度，为城市洪水风险评估与管理提供了高质量数据基础。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.31248v1",
+      "source": "arxiv",
+      "title": "Scaling Storm-Resolving Atmospheric AI Simulation to the Entire Planet",
+      "abstract": "Kilometer-scale convection shapes precipitation extremes, tropical organization, and cloud feedbacks, but most global atmospheric models approximate these processes at 25-100 km resolution. Global storm-resolving physics models resolve convective systems explicitly, but at a cost -- roughly one MWh per simulated day on exascale supercomputers -- that limits long-duration simulation. We introduce STRATA (Storm-resolving Tile-based autoRegressive Atmosphere Transformer Architecture), the first autoregressive AI emulator for global storm-resolving atmospheric dynamics. STRATA is trained on the highest-resolution atmospheric dataset yet used for global AI emulation: 17 days of SCREAM physics-model output at 4.9-km resolution (~25 million grid cells) sampled every 10 minutes. Our central premise is that on 10-minute timescales atmospheric dynamics are predominantly local, so training on small spatial tiles trades scarce global temporal samples for abundant local spatial samples and enables global rollout via overlapping-tile blending. STRATA combines 3D patch embedding and local 3D neighborhood attention, a novel Stereographic Rotary Position Embedding (StereoRoPE) for grid-invariant encoding, and a pixel-space de-aliasing decoder that suppresses patch-scale rollout artifacts. An iso-FLOP scaling study reveals that km-scale emulation requires ~10x more FLOPs per grid point than coarse-resolution AI weather models, consistent with the higher information density of convective-scale dynamics. Trained on only 17 days of data, STRATA produces stable 24-hour global rollouts with realistic km-scale dynamics across diverse regimes, though large-scale biases develop with lead time. It achieves 48 simulation days per megawatt-hour -- about 50 times better energy efficiency than the SCREAM physics model -- and 741 simulated days per wall-clock day at 512 H100 GPUs. Code and dataset are publicly available.",
+      "authors": [
+        "Zeyuan Hu",
+        "Akshay Subramaniam",
+        "Noel Keen",
+        "Tao Ge",
+        "Jaideep Pathak",
+        "Mohammad Shoaib Abbas",
+        "Suman Ravuri",
+        "Karthik Kashinath",
+        "Naser Mahfouz",
+        "Peter Caldwell",
+        "Mike Pritchard",
+        "Noah Brenowitz"
+      ],
+      "primary_category": "physics.ao-ph",
+      "categories": [
+        "physics.ao-ph",
+        "cs.CE",
+        "cs.LG"
+      ],
+      "published": "2026-06-30T07:24:33+00:00",
+      "link": "https://arxiv.org/pdf/2606.31248v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "high-resolution global storm simulation AI can predict extreme precipitation for urban flood modeling",
+      "llm_evidence_cn": "高分辨率全球风暴模拟AI可预测极端降水，用于城市洪水建模",
+      "llm_evidence": "高分辨率全球风暴模拟AI可预测极端降水，用于城市洪水建模",
+      "canonical_evidence": "高分辨率全球风暴模拟AI可预测极端降水，用于城市洪水建模",
+      "llm_tldr_en": "STRATA is an autoregressive AI emulator for global storm-resolving atmospheric dynamics at 4.9km resolution, capable of simulating precipitation extremes directly relevant to urban flood risk assessment.",
+      "llm_tldr_cn": "该论文提出了STRATA，首个自回归AI仿真器，以4.9公里分辨率模拟全球风暴解析大气动力学。它基于SCREAM物理模型训练，能直接生成极端降水事件。虽然目前仅训练了17天，但其方法为城市洪水风险预警提供了低成本、高分辨率降水模拟的潜力。",
+      "llm_tldr": "该论文提出了STRATA，首个自回归AI仿真器，以4.9公里分辨率模拟全球风暴解析大气动力学。它基于SCREAM物理模型训练，能直接生成极端降水事件。虽然目前仅训练了17天，但其方法为城市洪水风险预警提供了低成本、高分辨率降水模拟的潜力。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

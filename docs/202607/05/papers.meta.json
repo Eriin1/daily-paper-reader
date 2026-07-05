@@ -1,0 +1,39 @@
+{
+  "label": "2026-07-05",
+  "date": "2026-07-05",
+  "generated_at": "2026-07-05T20:29:37",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202607/05/2607.01621v1-spatial-support-matters-geometry-aware-graph-fusion-for-rainfall-field-reconstruction",
+      "section": "deep",
+      "title_en": "Spatial Support Matters: Geometry-Aware Graph Fusion for Rainfall Field Reconstruction",
+      "authors": "Low Jun Yu, Niramay Kachhadiya, Herath Mudiyanselage Viraj Vidura Herath, Sanka Rasnayaka, Lucy Amanda Marshall",
+      "date": "2026-07-02",
+      "pdf": "https://arxiv.org/pdf/2607.01621v1",
+      "score": "8.0",
+      "evidence": "面向城市洪涝建模的降雨场重建",
+      "tldr": "降雨场重建面临测量空间支持不兼容的问题（点、线、网格），现有方法忽略几何结构。本文提出几何感知多支持异构图网络，按支持类型分层并通过跨支持消息传递融合，利用归纳掩码节点解耦预测与感知分辨率。在新加坡数据上RMSE降低23.2%，优于IDW等基线。分析表明融合在欠采样区域增益显著，为多源融合提供了几何先验指导。",
+      "tags": "query:urban-flood",
+      "abstract_en": "Fine-scale rainfall reconstruction is critical for urban flood modeling, but real rainfall sensing systems observe the field through incompatible spatial supports: gauges measure points, microwave links measure paths, and radar/satellite products measure gridded areas. These differences in measurement support impose geometrically distinct constraints on the rainfall field, yet existing heterogeneous graph approaches reconcile such sources in feature space, giving each its own embedding while discarding the geometry of its support. We propose a geometry-aware multi-support heterogeneous graph neural network that represents each observation according to its support type (0D point, 1D line, or 2D grid) as a distinct node layer, and fuses them through cross-support message passing into a point-support prediction layer from which the field is reconstructed. An inductive masked-node formulation decouples prediction resolution from sensing resolution, allowing the same trained model to reconstruct the field at user-defined target locations or display grids. On Singapore data, the proposed method reduces RMSE by 23.2\\% over the classical interpolation baseline, inverse-distance weighting, and consistently outperforms other neural architectures such as convolutional fusion and support-agnostic heterogeneous graph baselines. A generalization study using data from Sydney, Australia lets us characterize when multi-support fusion helps: the available skill appears to depend on gauge spacing relative to the spatial correlation length of the field, so fusion delivers the largest gains where the field is under-sampled relative to its correlation length and little when it is already resolved. Code and models will be open-sourced upon paper acceptance.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/05/2606.31248v1-scaling-storm-resolving-atmospheric-ai-simulation-to-the-entire-planet",
+      "section": "quick",
+      "title_en": "Scaling Storm-Resolving Atmospheric AI Simulation to the Entire Planet",
+      "authors": "Zeyuan Hu, Akshay Subramaniam, Noel Keen, Tao Ge, Jaideep Pathak, Mohammad Shoaib Abbas, Suman Ravuri, Karthik Kashinath, Naser Mahfouz, Peter Caldwell, Mike Pritchard, Noah Brenowitz",
+      "date": "2026-06-30",
+      "pdf": "https://arxiv.org/pdf/2606.31248v1",
+      "score": "7.0",
+      "evidence": "高分辨率全球风暴模拟AI可预测极端降水，用于城市洪水建模",
+      "tldr": "全球风暴解析物理模型计算成本极高（每模拟天约1MWh），限制了长期气候仿真。本文提出STRATA，首个全球风暴解析级AI仿真器，基于局部空间tile训练，结合3D邻域注意力和立体旋转位置编码，仅用17天4.9km分辨率数据即可实现24小时稳定全局滚动。其能量效率达每MWh模拟48天，比物理模型提升50倍，计算速度达741天/日。该工作大幅降低了风暴解析仿真的计算门槛，为高精度气候模拟提供可行方案。",
+      "tags": "query:urban-flood",
+      "abstract_en": "Kilometer-scale convection shapes precipitation extremes, tropical organization, and cloud feedbacks, but most global atmospheric models approximate these processes at 25-100 km resolution. Global storm-resolving physics models resolve convective systems explicitly, but at a cost -- roughly one MWh per simulated day on exascale supercomputers -- that limits long-duration simulation. We introduce STRATA (Storm-resolving Tile-based autoRegressive Atmosphere Transformer Architecture), the first autoregressive AI emulator for global storm-resolving atmospheric dynamics. STRATA is trained on the highest-resolution atmospheric dataset yet used for global AI emulation: 17 days of SCREAM physics-model output at 4.9-km resolution (~25 million grid cells) sampled every 10 minutes. Our central premise is that on 10-minute timescales atmospheric dynamics are predominantly local, so training on small spatial tiles trades scarce global temporal samples for abundant local spatial samples and enables global rollout via overlapping-tile blending. STRATA combines 3D patch embedding and local 3D neighborhood attention, a novel Stereographic Rotary Position Embedding (StereoRoPE) for grid-invariant encoding, and a pixel-space de-aliasing decoder that suppresses patch-scale rollout artifacts. An iso-FLOP scaling study reveals that km-scale emulation requires ~10x more FLOPs per grid point than coarse-resolution AI weather models, consistent with the higher information density of convective-scale dynamics. Trained on only 17 days of data, STRATA produces stable 24-hour global rollouts with realistic km-scale dynamics across diverse regimes, though large-scale biases develop with lead time. It achieves 48 simulation days per megawatt-hour -- about 50 times better energy efficiency than the SCREAM physics model -- and 741 simulated days per wall-clock day at 512 H100 GPUs. Code and dataset are publicly available.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

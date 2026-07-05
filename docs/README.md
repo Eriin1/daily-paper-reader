@@ -6,32 +6,26 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-07-04
-- 运行时间：2026-07-04 19:58:18 UTC
+- 最新运行日期：2026-07-05
+- 运行时间：2026-07-05 20:29:30 UTC
 - 运行状态：成功
-- 本次总论文数：4
+- 本次总论文数：2
 - 精读区：1
-- 速读区：3
+- 速读区：1
 
 ### 今日简报（AI）
-今日精读1篇高分论文《Spatial Support Matters: Geometry-Aware Graph Fusion for Rainfall Field Reconstruction》，速读3篇涉及空间统计、城市模拟与知识图谱。建议优先关注精读中提出的几何感知图融合方法，对空间重构任务有显著提升。后续可结合速读中的区域聚合扫描统计与城市知识图谱，拓展空间分析应用。
-- 详情：[/202607/04/README](/202607/04/README)
+今日推荐2篇AI+气象论文，精读1篇降雨场重建，速读1篇全球大气模拟。最值得关注的是《Spatial Support Matters: Geometry-Aware Graph Fusion》提出利用几何感知图融合提升降雨场重建精度。建议对气象AI或空间数据融合感兴趣的读者重点精读该文，并关注全球大气模拟的扩展思路。
+- 详情：[/202607/05/README](/202607/05/README)
 
 ### 精读区论文标签
-1. [Spatial Support Matters: Geometry-Aware Graph Fusion for Rainfall Field Reconstruction](/202607/04/2607.01621v1-spatial-support-matters-geometry-aware-graph-fusion-for-rainfall-field-reconstruction)  
-   标签：评分：9.0/10、query:urban-flood
-   evidence：针对城市洪水建模的降雨场重建方法
+1. [Spatial Support Matters: Geometry-Aware Graph Fusion for Rainfall Field Reconstruction](/202607/05/2607.01621v1-spatial-support-matters-geometry-aware-graph-fusion-for-rainfall-field-reconstruction)  
+   标签：评分：8.0/10、query:urban-flood
+   evidence：面向城市洪涝建模的降雨场重建
 
 ### 速读区论文标签
-1. [Sampling for Region-Aggregated Spatial Scan Statistics](/202607/04/2607.01451v1-sampling-for-region-aggregated-spatial-scan-statistics)  
+1. [Scaling Storm-Resolving Atmospheric AI Simulation to the Entire Planet](/202607/05/2606.31248v1-scaling-storm-resolving-atmospheric-ai-simulation-to-the-entire-planet)  
    标签：评分：7.0/10、query:urban-flood
-   evidence：空间扫描统计用于异常检测，可应用于城市洪水风险热点识别
-2. [GenWorld: Empirically Grounded Urban Simulation Infrastructure for Scalable LLM-Agent Studies](/202607/04/2606.27650v1-genworld-empirically-grounded-urban-simulation-infrastructure-for-scalable-llm-agent-studies)  
-   标签：评分：6.0/10、query:urban-flood
-   evidence：城市模拟基础设施可用于洪水情景
-3. [pykci: A Compact Urban Knowledge Graph for Semantic and Spatial Queries using LLMs](/202607/04/2607.01605v1-pykci-a-compact-urban-knowledge-graph-for-semantic-and-spatial-queries-using-llms)  
-   标签：评分：6.0/10、query:urban-flood
-   evidence：城市知识图谱支持城市对象的语义和空间查询，可用于城市洪水管理
+   evidence：高分辨率全球风暴模拟AI可预测极端降水，用于城市洪水建模
 
 
 <div class="dpr-home-promo-card">
