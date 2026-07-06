@@ -1,0 +1,277 @@
+Title: The Course of News Events: A Comparison of Bottom-Up and Top-Down Approaches for Collecting Text-Based Data about Disasters
+
+URL Source: https://arxiv.org/pdf/2607.00849v1
+
+Published Time: Thu, 02 Jul 2026 00:58:48 GMT
+
+Number of Pages: 11
+
+Markdown Content:
+# The Course of News Events: A Comparison of Bottom-Up and Top-Down Approaches for Collecting Text-Based Data about Disasters 
+
+Brielen Madureira 1,2 , Andreas Niekler 1,3 , Mariana Madruga de Brito 2,1   
+
+> 1LeipzigLab – Climate Discourse, Leipzig University, Germany 2Helmholtz Centre for Environmental Research, Germany
+> 3Computational Humanities, Leipzig University, Germany
+> Correspondence: brielen.madureira@uni-leizig.de
+
+Abstract 
+
+News articles are an important source of in-formation on disaster impacts and adapta-tion. A key methodological challenge in socio-environmental studies is how to select a rep-resentative data sample. Two approaches are common: querying news databases top-down with the aid of an existing disaster inventory or using NLP methods to cluster news texts bottom-up based on temporal and spatial fea-tures. Using a dataset of German news about landslides worldwide, we compare these ap-proaches and discuss variations in event cov-erage. Such research design decision can in-fluence the resulting news sample, affecting its use in studies of inequality in media coverage, disaster monitoring and inventory enrichment. 
+
+1 Introduction 
+
+Understanding how humans experience and re-spond to disasters calls for interdisciplinary col-laboration between environmental and (computa-tional) social science (Meehl et al., 2000; Albeverio et al., 2006; McPhillips et al., 2018; de Brito and Sodoge, 2023). At this intersection blossom funda-mental questions about the consequences of climate hazards to society, the relation between adaptation measures and risk reduction, and inequalities in exposure and impact across societal groups. En-suing findings can ultimately inform allocation of disaster-relief funds (Chapman et al., 2022) and democratic decision making (Soroka et al., 2012). Synthesizing such knowledge requires gathering information that sprouts on various sources, from sensor-based measurements to digital documents. When text data is in view, the Natural Language Processing field joins that interdisciplinary table with methods for e.g. classification, information ex-traction, geoparsing and modelling complex social constructs in language use (de Brito et al., 2026). A fundamental challenge comprises identifying the time, location and impact of disasters (e.g. land-News  
+
+> Events
+> about
+> Disasters
+> News
+> Database
+> Disaster
+> Inventory
+> News
+> Database
+> Disaster
+> Inventory
+> News
+> Events
+> about
+> Disasters
+> targeted
+> queries selection
+> classification,
+> geolocation,
+> clustering...
+> validation or
+> alignment
+> Bottom-Up
+> Top-Down
+
+Figure 1: Illustrative comparison of two approaches to detect references to disasters in the news. 
+
+slides, wildfires and floods). Numerous studies (see Section 2) use global disaster inventories like EM-DAT (Delforge et al., 2025), which is based on high-quality, manually curated data but is also incomplete and unavoidably biased. As a conse-quence, when the scientific community overly re-lies on a single source serving as ground truth, the derived collective knowledge may overfit traits of the database rather than the actual phenomena. To counteract this problem, news databases can provide additional event information via two ap-proaches (Figure 1): top-down procedures use known events in external disaster inventories to 
+
+query news databases for targeted content (e.g. Cai et al., 2025), whereas bottom-up procedures iden-tify, geolocate and cluster news into segmented events, which can then be aligned to or validated against external inventories (e.g. Valkenborg et al., 2026). But neither is infallible: while the first over-looks events not recorded in inventories, the latter ignores events that were not deemed newsworthy by the media represented in the news database. This paper looks more closely into this matter. We compare news events identified via top-down and bottom-up approaches in dataset of German news about landslides and discuss their advantages and shortcomings. Such methodological insights, grounded in empirical observations, can strengthen NLP-supported socio-environmental studies. 
+
+> arXiv:2607.00849v1 [cs.CL] 1 Jul 2026
+
+2 Related Work 
+
+The International Disaster Database (EM-DAT, Delforge et al., 2025) is a widely used global inven-tory of 27k+ events, often regarded as the ground truth. However, its coverage is constrained by its inclusion criteria and the difficulty of gathering detailed information for all countries. Even the recorded events have missing data (Jones et al., 2022). Despite such limitations, hundreds of em-pirical studies rely on it (Jones et al., 2023). Concomitantly, news articles have long been seen as a source of information about disasters that serves to create or enrich inventories (Guzzetti et al., 1994; Llasat et al., 2009; Taylor et al., 2015; Alencar et al., 2024; Sodoge et al., 2024; Avcıo˘ glu et al., 2025, inter alia ), monitor hazard events in near real-time (Tanev et al., 2008) and study me-dia attention to them (Yan and Bissell, 2015; Kong and Purves, 2026). Disaster inventories and impact information derived from large-scale textual data require careful validation (de Brito et al., 2026). For example, observations can be aligned with EM-DAT entries for calibration (Li et al., 2025; Dahr et al., 2026; Valkenborg et al., 2026). 
+
+3 Data and Event Matching 
+
+We used a dataset comprised of almost 55k news ar-ticles in German about landslides worldwide, con-structed by Madureira et al. (2026). That study queried the wiso-net news database (in the period from 2000 to 2024) using landslide-related key-words, identified relevant articles and geoparsed them at the country level with the aid of Large Lan-guage Models (LLMs). Then, news events were identified in a bottom-up approach. A news event was defined as a sequence of news articles refer-ring to landslides in the same country, starting on the first day with at least one observation and end-ing right before at least θ = 5 consecutive days 1
+
+without any coverage occurred. Our analysis was based on matching events be-tween the bottom-up news events from that study and the top-down events in EM-DAT. For that, we extracted a list of 2,014 landslide events (of type main or associated) for 138 countries from EM-DAT, whose entries contain the event’s onset date, country and location, among other information. A visualisation of how bottom-up events and top-down EM-DAT entries are temporally dispersed is presented in Figures 5 and 6 (Appendix).     
+
+> 1This parameter can vary, but we kept it for consistency. days T+ ΔaT-Δb
+> any EM-DAT event with onset
+> within this window?
+> initial day of
+> news event
+> onset day of
+> em-dat event
+> days T-Δb
+> any news event occurring
+> within this window?
+> TT+ Δa
+> T
+> Bottom-Up Alignment
+> Top-Down Query
+> Figure 2: Illustration of the event matching procedures.
+
+Bottom-up approach Using time series segmen-tation upon the geolocated news articles, Madureira et al. (2026) identified 4,567 news events for 152 countries (see that publication for methodological details). For each news event, the provided data file contained metadata such as its initial date, duration in days and the associated news articles. To per-form event matching, we considered a news event to be temporally aligned with an EM-DAT entry if the entry’s onset date is near the beginning of the news event (from ∆b days before to ∆a days after its initial date), as in Figure 2 (top). 
+
+Top-down approach For each EM-DAT en-try, event matching was performed by querying 
+
+the news database around the entry’s onset date (i.e. from ∆b days before to ∆a days after it) for news about the country. If at least one news arti-cle was retrieved, we considered that the EM-DAT event temporally coincided with a news event, as in Figure 2. Instead of setting a fixed retrieval period, we allowed for news events with varying durations following the same rationale used in the bottom-up approach: the news event started on the first day with a news article in [∆ b, ∆a] and ended before θ
+
+days without any observed news for the country. To select the ∆ values for this study, we regarded the onset date in EM-DAT as correct and acknowl-edged that some events may take a few days to appear in international news. Therefore, for the top-down approach, we set ∆b = 1 and ∆a = 5 ,meaning that the queried news must start within 5 days after the known onset date. The 1 day be-fore should account for potential errors and early warnings. Conversely, for the bottom-up approach, we set ∆b = 5 and ∆a = 1 , meaning that, if an event is already in the news, its onset date cannot be later than the first news (1-day tolerance), but could have been some days earlier. Future studies can investigate the impact of using other parameters. 4 Analysis 
+
+We first compared the outcomes of the two event matching strategies by quantifying (i) how many bottom-up news events temporally aligned with an EM-DAT entry and (ii) how many EM-DAT entries temporally matched news events through querying .As shown in Table 1, the bottom-up approach iden-tified more than twice as many news events as the number of entries in EM-DAT. However, less than 17% of the news events temporally aligned with an EM-DAT entry. In contrast, the top-down queries successfully queried temporally coinciding news events for almost 43% of the EM-DAT entries. The alignment and querying procedures are not bijective. On the one hand, EM-DAT entries with distinct onset dates can end up querying the same news event at different days throughout it (espe-cially news events of long duration). On the other hand, bottom-up news events can be aligned with multiple EM-DAT entries whose onset dates are close in time. Such partial or multiple matches between EM-DAT entries and news events would require further disambiguation steps. Figure 3 depicts the confusion matrices with the overlap between aligned and queried events in each type of event source. The 851 success-ful queries covered 779 unique news events. 89 queries matched news events midway through and 60 news events were queried by more than one EM-DAT entry. Such cases require post-processing decisions on whether two distinct news topics were inappropriately merged in the bottom-up approach (e.g. because they overlapped in time), or whether the event matching was simply spurious in terms of content. Even in the top-down approach, such rea-soning would require bottom-up information about when underlying news events begin and end. Figure 3 also shows that 737 aligned bottom-up events covered 762 EM-DAT entries (one of them twice). 26 news events had multiple alignments with EM-DAT entries and only one news event was aligned but not detected via querying (because the query captured an immediately preceding news event). Again, post-processing decisions would be needed to determine which EM-DAT entry properly reflects the content of the news event. The core finding is that the two approaches coin-cided in temporally matching 762 EM-DAT entries to 736 news events. 57.7% of EM-DAT events had empty queries, meaning that there was no relevant news near their onset dates. Similarly, 82.9% of     
+
+> Bottom-up
+> news events 4,567 aligned to EM-DAT 737 (16.1%)
+> Top-down
+> EM-DAT events 2,014 queried in the news 851 (42.2%)
+
+Table 1: Number of bottom-up news events and top-down EM-DAT entries with the portion of temporally matched events. no yes aligned      
+
+> no yes queried  1163 089 762 top-down events (EM-DAT) no yes aligned
+> no yes queried  3787 143 736 bottom-up events (news)
+
+Figure 3: Confusion matrices with the number of aligned and/or queried events in both sources. 
+
+the bottom-up news events did not align with any EM-DAT entry. These results indicate that, on the one hand, EM-DAT contains entries that could not be detected in the German news, and, on the other hand, that the media may form news events that are not recorded in EM-DAT. Had only top-down queries been used, many news events would have been missed, while a bottom-up approach alone would have ignored more than half of the known landslides worldwide that did not appear in the German media (as represented in this data sample). Although alignment can be used to calibrate bottom-up news events, in practice the decision about which news sample to use lies between the 
+
+queried EM-DAT entries or all bottom-up news events. Country-level analyses would be impacted by this research design choice. Figure 4 shows how many events were detected for observed countries in each approach. The maps in Figures 7, 8 and 9 (Appendix) illustrate the spatial coverage and gaps of each approach. The bottom-up approach gener-ally detected more news events per country than the successful queries, with noticeable variations in the resulting sample distribution. For instance, 54.3% of the bottom-up news events are assigned to the Global South, compared to 81.4% of the queried news events; 47.7% of the bottom-up news events refer to high income countries versus 20.6% of the queried news events; and 35.8% of the for-mer are in Europe in contrast to 9.7% of the latter (see detailed Tables in the Appendix). 0 50 100 150 200 250 300 350 
+
+> number of bottom-up events
+> 0
+> 50
+> 100
+> 150
+> number of queried
+> top-down events Figure 4: Number of detected news events by country.
+
+5 Discussion 
+
+Numerical results alone may give the impression that bottom-up news events are more advantageous, as they exceed the number of queried news events and can also aid near real-time monitoring. But caution is warranted: news events do not always reflect new real-world events relevant to disaster in-ventories. False positives stemming from errors in the NLP pipeline add noise to the sample and can form spurious news events. Moreover, many news events bring the topic of landslides in a country to the public’s attention without reporting about re-cent or ongoing events. Based on an initial manual verification of 150+ news events, we identified a few common types of bottom-up news events: • concrete in progress : texts that refer to ongo-ing or recent specific landslides in a country; • concrete but past : texts that refer to land-slides that happened in the near or distant past in a country (e.g. aftermath of an event after some time, memories of previous disasters, ju-dicial decisions about past events, pre-historic events that shaped landscapes etc.); • indefinite : texts about landslides in a country with no reference to specific events having taken place (e.g. studies, aggregated outcome during a period, warnings, references to risk, preventive measures, hypothetical events, the phenomenon as a whole, underspecified or implicit sentences etc.); • vague : texts that refer to landslides in fiction works or just as rhetorical examples; • fully false positives : misclassified texts (e.g. figurative uses of landslide terms, wrong or unclear geolocation). News events detected bottom-up can also mix texts of different types that coincide in time or repeat the same text in distinct events when the news article is republished after many days. Both approaches have advantages and disadvan-tages and should be regarded as complementary. The bottom-up approach may detect events not present in EM-DAT, but it also captures news on the general topic of landslides in a country and is prone to noise due to the impossibility of perfect classification and geolocation. It is suitable for studies of media attention but requires refinement to serve as a source of information to create invento-ries. The top-down approach is more controllable but requires disambiguation of news events cap-tured midway through and remains constrained to a subsample of known events. It may be more appro-priate for enriching existing disaster databases with impact data, but it introduces the inventory’s biases into subsequent conclusions about media coverage. Both approaches share the limitation that events not covered by the media represented in the sample are left out, making a top-down reference important for quantifying the lack of media coverage. The biases in media coverage and EM-DAT in-clusion are arguably not random. EM-DAT focuses on severe events, whereas the media may devote more attention to events in more populous or eco-nomically relevant regions, or to events that attract greater public interest. Further studies can unravel the differences in which happenings get to be con-sidered “events” in each source. 
+
+6 Conclusion 
+
+Despite their potential for broad temporal and geo-graphic coverage of disaster events, news-based datasets are shaped by how the media selects, frames and reports disasters. Besides, articles often refer to past or hypothetical events, and unstruc-tured information is sometimes left underspecified. Large-scale datasets can conceal shortcomings that affect derived conclusions. Automated infor-mation extraction from texts does not eliminate all false positives, thereby hindering temporal and spa-tial precision. Regardless of whether a sample of disaster news is constructed via a bottom-up or top-down approach, measures to ensure data quality and to understand which events were (or were not) captured are imperative. Diagnostic analyses can expose problems that otherwise go unnoticed in the big data paradigm. By discussing observed differ-ences between the two approaches, this work has contributed to best practices in text-based climate impact research, supporting authors in making in-formed methodological choices. References 
+
+Sergio Albeverio, Volker Jentsch, and Holger Kantz. 2006. Extreme events in nature and society . Springer Science & Business Media. Pedro Henrique Lima Alencar, Jan Sodoge, Eva Nora Paton, and Mariana Madruga De Brito. 2024. Flash droughts and their impacts—using newspa-per articles to assess the perceived consequences of rapidly emerging droughts. Environmental Research Letters , 19(7):074048. Aydo˘ gan Avcıo˘ glu, Ogün Demir, and Tolga Görüm. 2025. An automated approach for developing geo-hazard inventories using news: integrating natural language processing (nlp), machine learning, and mapping. Natural Hazards and Earth System Sci-ences , 25(7):2421–2435. Erica Cai, Xi Chen, Reagan Grey Keeney, Ethan Zuckerman, Brendan O’Connor, and Przemyslaw A. Grabowicz. 2025. Identifying and investigating global news coverage of critical events such as disas-ters and terrorist attacks. Proceedings of the Interna-tional AAAI Conference on Web and Social Media ,19(1):307–323. Cassandra M. Chapman, Matthew J. Hornsey, Kelly S. Fielding, and Robyn Gulliver. 2022. International media coverage promotes donations to a climate dis-aster. Disasters , 47(3):725–744. Iman Dahr, Anna Cabre, Irina Marinov, and Erik Wibbels. 2026. Climate change and migration in central america: Evidence from new environmental event data. Kleinman Center for Energy Policy at the University of Pennsylvania. Mariana Madruga de Brito, Brielen Madureira, Taís Maria Nunes Carvalho, Damien Delforge, Aglaé Jézéquel, Murathan Kurfalı, Ni Li, Gabriele Messori, Joakim Nivre, Barbara Pernici, Niko Speybroeck, Ste-fano Terzi, Wim Thiery, Bram Valkenborg, Jingxian Wang, Shorouq Zahra, Jakob Zscheischler, and Jan Sodoge. 2026. Assessing socio-economic climate impacts from text data. Preprint , arXiv:2605.20793. Mariana Madruga de Brito and Jan Sodoge. 2023. Computational social sciences in der umweltsozi-ologie. In Handbuch Umweltsoziologie , pages 1–15. Springer. Damien Delforge, Valentin Wathelet, Regina Below, Cinzia Lanfredi Sofia, Margo Tonnelier, Joris A.F. van Loenhout, and Niko Speybroeck. 2025. Em-dat: the emergency events database. International Journal of Disaster Risk Reduction , 124:105509. Fausto Guzzetti, Mauro Cardinali, and Paola Reichen-bach. 1994. The avi project: A bibliographical and archive inventory of landslides and floods in italy. 
+
+Environmental Management , 18(4):623–633. Rebecca Louise Jones, Debarati Guha-Sapir, and Sandy Tubeuf. 2022. Human and economic impacts of natu-ral disasters: can we trust the global data? Scientific Data , 9(1). Rebecca Louise Jones, Aditi Kharb, and Sandy Tubeuf. 2023. The untold story of missing data in disaster research: a systematic review of the empirical litera-ture utilising the emergency events database (em-dat). 
+
+Environmental Research Letters , 18(10):103006. Inhye Kong and Ross S. Purves. 2026. Analyzing geo-graphic bias of newspaper articles reporting global climate disasters. Annals of the American Associa-tion of Geographers , 116(2):270–288. Ni Li, Wim Thiery, Shorouq Zahra, Mariana Madruga de Brito, Koffi Worou, Murathan Kurfalı, Seppe Lampe, Paul Muñoz, Clare Flynn, Camila Trigoso, Joakim Nivre, Jakob Zscheischler, and Gabriele Messori. 2025. Wikimpacts 1.0: A new global climate impact database based on automated information extraction from wikipedia. M. C. Llasat, M. Llasat-Botija, and L. López. 2009. A press database on natural risks and its ap-plication in the study of floods in northeastern spain. Natural Hazards and Earth System Sciences ,9(6):2049–2061. Brielen Madureira, Andreas Niekler, Marc Keuschnigg, and Mariana Madruga de Brito. 2026. How loud rumbles hit newsstands: A data analysis of coverage and spatial bias in german news about landslides around the world. Preprint , arXiv:2605.18105. Lauren E. McPhillips, Heejun Chang, Mikhail V. Chester, Yaella Depietri, Erin Friedman, Nancy B. Grimm, John S. Kominoski, Timon McPhearson, Pablo Méndez-Lázaro, Emma J. Rosi, and Javad Shafiei Shiva. 2018. Defining extreme events: A cross-disciplinary review. Earth’s Future , 6(3):441– 455. Gerald A. Meehl, Thomas Karl, David R. Easterling, Stanley Changnon, Roger Pielke, David Changnon, Jenni Evans, Pavel Ya. Groisman, Thomas R. Knut-son, Kenneth E. Kunkel, Linda O. Mearns, Camille Parmesan, Roger Pulwarty, Terry Root, Richard T. Sylves, Peter Whetton, and Francis Zwiers. 2000. An introduction to trends in extreme weather and climate events: Observations, socioeconomic im-pacts, terrestrial ecological impacts, and model pro-jections. Bulletin of the American Meteorological Society , 81(3):413 – 416. Jan Sodoge, Christian Kuhlicke, Miguel D. Mahecha, and Mariana Madruga de Brito. 2024. Text mining uncovers the unique dynamics of socio-economic impacts of the 2018–2022 multi-year drought in ger-many. Natural Hazards and Earth System Sciences ,24(5):1757–1777. Stuart Soroka, Stephen Farnsworth, Andrea Lawlor, and Lori Young. 2012. Mass media and policy-making. In Routledge handbook of public policy , pages 204– 214. Routledge. Hristo Tanev, Jakub Piskorski, and Martin Atkinson. 2008. Real-Time News Event Extraction for Global Crisis Monitoring , page 207–218. Springer Berlin Heidelberg. Faith E. Taylor, Bruce D. Malamud, Katy Freeborough, and David Demeritt. 2015. Enriching great britain’s national landslide database by searching newspaper archives. Geomorphology , 249:52–68. Bram Valkenborg, Olivier Dewitte, and Benoît Smets. 2026. Unravelling information on impactful geo-hydrological hazard events with hazminer, a multilin-gual text mining method developed through a global scale coverage application. EGUsphere , 2026:1–45. Yan Yan and Kim Bissell. 2015. The sky is falling: Pre-dictors of news coverage of natural disasters world-wide. Communication Research , 45(6):862–886. 
+
+A Appendix 
+
+Limitations 
+
+This analysis faces some limitations. First, it relies on country-level event matching, which may merge distinct landslides occurring close in time within the same country. Important parameters ( θ, ∆a and ∆b) were set to fixed values. Further sensitivity analyses should examine how other values would affect the results and whether different countries or types of events require different values (e.g. events in a neighbour-ing country may possibly hit the headlines faster than events in geographically and culturally distant countries). Depending on the use case, further investigation is also needed to refine the bottom-up approach so as to capture only concrete and current real-world events. Finally, both the alignment and the querying event matching strategies were limited to the tem-poral aspect and the country. Detailed error anal-yses regarding content matching should still be conducted to ensure that the content of the news event actually refers to the EM-DAT entry. While the specific location toponyms in EM-DAT could help further refine the queries, news articles do not always mention them, typos and name varia-tion are frequent, and specific places may remain unreported when hazards affect a broad region. 
+
+Details and Additional Results 
+
+Table 2 shows the distribution of identified and queried news events by country category, men-tioned in Section 4. Table 3 lists the number of                           
+
+> % of news events Identified Queried bottom-up top-down Development Group
+> Global North 45.63 18.56 Global South 54.36 81.43
+> Income level
+> High 47.79 20.68 Upper middle 24.72 43.12 Unknown 1.05 0.94 Lower middle 21.94 30.55 Low 4.48 4.70
+> Region
+> Africa 6.28 5.64 Americas 23.42 24.44 Asia 31.74 58.04 Europe 35.88 9.75 Oceania 2.64 2.11
+
+Table 2: Distribution of bottom-up news events and top-down queried news events by country category. 
+
+(aligned) news events and (queried) EM-DAT en-tries by country. Figures 5 and 6 plot the onset date of EM-DAT events and the first active day of news events along the time period (x axis) for the 20 countries with the most observed news events. Figure 5 is a broad overview of the whole period, whereas Figure 6 zooms in on the year 2024 for a more detailed in-spection. These illustrations show the three typical (mis)matching cases: isolated EM-DAT events that (most likely) had no media coverage in German newspapers; isolated news events that do not seem to have been recorded in EM-DAT; and the matches, i.e. EM-DAT and news events that occur in neigh-bouring days, subject to alignment and querying. Figures 7, 8 and 9 are meant for comparing the differences in spatial distribution of each source: EM-DAT events, EM-DAT events for which news articles could be queried, and news events. This evidence indicates that the chosen method can yield samples with considerable differences in coverage that would influence subsequent analyses. Italy EM-DAT news 
+
+Switzerland 
+
+Austria 
+
+China 
+
+United States of America 
+
+India 
+
+Philippines 
+
+Nepal 
+
+Brazil 
+
+Indonesia 
+
+France 
+
+Spain 
+
+Japan 
+
+Peru 
+
+Colombia 
+
+Pakistan 
+
+Norway 
+
+Czechia 
+
+United Kingdom of Great Britain and Northern Ireland                         
+
+> 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023 2024
+
+Greece Figure 5: Broad overview of the temporal dispersion of the onset days of EM-DAT entries (green circles) and initial days of news events (purple diamonds) for the 20 countries with most news events. The x-axis lists all days in the period from Jan 1, 2000 to Dec 31, 2024. Italy EM-DAT news 
+
+Switzerland 
+
+Austria 
+
+China 
+
+United States of America 
+
+India 
+
+Philippines 
+
+Nepal 
+
+Brazil 
+
+Indonesia 
+
+France 
+
+Spain 
+
+Japan 
+
+Peru 
+
+Colombia 
+
+Pakistan 
+
+Norway 
+
+Czechia 
+
+United Kingdom of Great Britain and Northern Ireland            
+
+> jan feb mar apr may jun jul aug sep oct nov dec
+
+Greece Figure 6: Broad overview of the temporal dispersion of the onset days of EM-DAT entries (green circles) and initial days of news events (purple diamonds) for the 20 countries with most news events. The x-axis lists all days in the period from Jan 1, 2024 to Dec 31, 2024. no observations 
+
+50 
+
+100 
+
+150 
+
+> number of
+> EM-DAT events
+
+Figure 7: Spatial distribution of EM-DAT entries referring to landslides. Germany (in black) was not analysed. no observations 
+
+50 
+
+100 
+
+> number of
+> queried events
+
+Figure 8: Spatial distribution of EM-DAT entries referring to landslides that could be queried (top-down) in the news database. Germany (in black) was not analysed. no observations 
+
+100 
+
+200 
+
+300 
+
+> number of
+> news events
+
+Figure 9: Spatial distribution of (bottom-up) news events referring to landslides. Germany (in black) was not analysed. Bottom Up Top Down 
+
+news events aligned EM-DAT queried ABW 1 0 0 0AFG 38 8 53 9AGO 1 0 2 0ALB 2 0 4 0ARG 10 1 5 1ARM 0 0 1 0ASM 0 0 1 0AUS 37 1 4 1AUT 237 4 7 5AZE 0 0 2 0BDI 7 2 8 2BEL 6 0 2 0BFA 2 0 0 0BGD 42 8 23 8BGR 5 0 3 0BHS 1 0 0 0BIH 17 5 10 5BOL 22 3 21 3BRA 138 40 77 43 BRB 0 0 1 0BTN 5 1 2 1CAF 1 0 0 0CAN 27 1 1 1CHE 306 6 8 6CHL 45 6 14 6CHN 217 80 170 114 CIV 2 1 9 1CMR 18 4 8 4COD 36 8 26 8COG 1 0 4 0COL 100 23 65 25 COM 1 0 2 0CPV 0 0 1 0CRI 16 3 18 3CUB 6 2 7 2CYM 2 0 0 0CZE 74 0 3 0DJI 0 0 2 0DMA 7 2 2 2DNK 11 0 0 0DOM 17 6 16 6DZA 4 1 4 1ECU 44 5 21 5EGY 9 1 1 1ERI 1 0 0 0ESP 116 3 4 3ETH 13 3 9 3FJI 4 1 8 1FRA 120 11 16 11 FSM 1 0 0 0GBR 67 1 1 1GEO 10 2 12 2GHA 4 0 1 0GIN 1 0 1 0GLP 0 0 1 0GMB 1 0 0 0GRC 61 7 11 7continues... 
+
+Bottom Up Top Down 
+
+news events aligned EM-DAT queried GRD 0 0 2 0GRL 8 0 0 0GTM 55 15 38 15 GUF 0 0 1 0GUM 0 0 1 0HKG 3 0 0 0HND 26 6 14 6HRV 9 0 1 0HTI 48 6 24 8HUN 9 0 0 0IDN 136 54 160 71 IND 173 39 87 43 IRL 2 0 0 0IRN 10 2 9 2IRQ 2 0 1 0ISL 4 0 0 0ISR 6 0 0 0ITA 314 27 40 30 JAM 10 4 6 4JOR 1 0 0 0JPN 114 35 62 41 KAZ 3 1 1 1KEN 18 3 17 3KGZ 8 3 14 4KHM 4 0 1 0KIR 1 0 0 0KOR 16 6 16 7LAO 4 0 4 0LBN 1 0 0 0LBR 1 0 0 0LBY 1 1 1 1LCA 0 0 2 0LIE 2 0 0 0LKA 33 10 33 11 LSO 2 0 0 0LUX 15 0 1 0LVA 1 0 0 0MAC 0 0 1 0MAR 9 2 4 2MDA 2 0 0 0MDG 16 1 11 1MEX 61 18 53 28 MKD 1 1 5 1MLT 1 0 0 0MMR 28 7 22 7MNE 4 0 0 0MNG 1 0 2 0MOZ 6 1 2 1MRT 1 0 0 0MTQ 1 0 2 0MUS 1 0 0 0MWI 5 1 3 1MYS 17 3 13 3NER 0 0 1 0NGA 2 0 3 0NIC 38 2 9 2NLD 6 0 0 0continues... Bottom Up Top Down 
+
+news events aligned EM-DAT queried NOR 80 2 2 2NPL 142 18 45 25 NZL 46 8 10 8OMN 0 0 2 0PAK 89 19 46 21 PAN 16 2 17 2PER 103 13 42 13 PHL 153 62 138 75 PNG 20 5 22 5POL 23 0 0 0PRI 2 0 5 0PRK 13 0 7 0PRT 30 5 7 5PRY 3 0 2 0REU 0 0 2 0ROU 20 2 9 2RUS 53 2 11 2RWA 11 3 18 3SAU 2 0 1 0SCG 0 0 1 0SLB 3 2 5 2SLE 18 2 6 2SLV 32 8 17 10 SOM 3 0 1 0SPI 0 0 1 0SRB 11 1 6 1STP 0 0 1 0SUR 1 0 0 0SVK 4 0 1 0SVN 13 2 4 2SWE 8 0 0 0SYC 2 0 1 0SYR 2 1 1 1TCD 0 0 1 0THA 18 2 17 2TJK 6 2 30 2TLS 1 1 2 1TON 1 0 0 0TTO 1 1 4 1TUN 4 0 0 0TUR 43 6 14 6TWN 47 12 18 13 TZA 15 3 7 3UGA 36 9 22 9UKR 4 0 0 0URY 3 0 1 0USA 191 16 38 17 UZB 0 0 2 0VAT 1 0 0 0VCT 2 0 3 0VEN 33 4 10 5VIR 0 0 1 0VNM 54 20 56 21 VUT 5 1 6 1WSM 3 0 0 0YEM 8 3 6 3ZAF 28 2 4 2continues... 
+
+Bottom Up Top Down 
+
+news events aligned EM-DAT queried ZMB 2 0 1 0ZWE 4 0 1 0
+
+Table 3: Number of (aligned and total) news events and (queried and total) EM-DAT entries by country.

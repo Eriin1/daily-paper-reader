@@ -1,0 +1,1655 @@
+Title: Constrained Distributed Heterogeneous Two-Facility Location Problems with Max-Variant Cost
+
+URL Source: https://arxiv.org/pdf/2607.02314v1
+
+Published Time: Fri, 03 Jul 2026 01:30:27 GMT
+
+Number of Pages: 27
+
+Markdown Content:
+# Constrained Distributed Heterogeneous Two-Facility Location Problems with Max-Variant Cost 
+
+Xinru Xu a, Wenjing Liu a,b, ∗, Qizhi Fang a,
+
+> aSchool of Mathematical Sciences, Ocean University of China, Qingdao, 266100, China
+> bLaboratory of Marine Mathematics, Ocean University of China, Qingdao, 266100, China
+
+Abstract 
+
+This paper investigates a constrained distributed heterogeneous two-facility location problem under the max-variant cost model. In this setting, a set of agents with private locations on the real line is partitioned into disjoint groups. The constraint stipulates that facilities must be situated within a given multiset of candidate locations, with the restriction that each candi-date location can host at most one facility. Under the max-variant model, an agent’s individual cost is defined as the distance from their location to the farthest facility. Our objective is to design strategyproof distributed mechanisms that incentivize agents to report their locations truthfully while approximating social objectives. Such mechanisms operate in two stages: first, for each group, a pair of candidate locations is selected as representa-tives based solely on local reports; subsequently, the mechanism outputs two final facility locations from the set of all representatives. We focus on a class of deterministic strategyproof distributed mechanisms and estab-lish constant lower and upper bounds on the distortion under four social objectives: Average-of-Average, Max-of-Max, Average-of-Max, and Max-of-Average costs. 
+
+Keywords: Facility location, Mechanism design, Strategyproof, Distributed, Distortion      
+
+> ∗Corresponding author.
+> Email addresses: xuxinru1207@stu.ouc.edu.cn (Xinru Xu), liuwj@ouc.edu.cn
+> (Wenjing Liu), qfang@ouc.edu.cn (Qizhi Fang)
+> arXiv:2607.02314v1 [cs.GT] 2 Jul 2026
+
+1. Introduction 
+
+As a fundamental problem in combinatorial optimization, the facility lo-cation problem seeks to determine optimal facility placements under specific constraints to optimize a given social objective. In many practical settings, however, the social planner does not have direct access to agents’ private information, such as their exact residential addresses. Instead, the planner must rely on information reported by the agents themselves. This creates a conflict of interest: while the planner aims for social optimality, individ-ual agents may misreport their locations to reduce their own costs. The goal, therefore, is to design strategyproof mechanisms that ensure truthful reporting while (approximately) optimizing the social objective. This line of research on approximate mechanism design without money was initiated by Procaccia and Tennenholtz [18] and has since led to a variety of models (see the survey by Chan et al. [5]). In real-world scenarios, collective decision-making is often distributed . In such processes, agents are divided into groups where each group first reaches a local decision independently of others; these local outcomes are then ag-gregated into a final collective decision. A typical example is the selection of national scholarship recipients at a university: each faculty first nominates its own candidates, and the final winners are chosen from this pool. To ana-lyze these complex dynamics, Filos-Ratsikas et al. [12] introduced the study of distributed social choice from a voting perspective, employing two-step mechanisms: each group elects a representative based on local preferences, and the mechanism then selects an overall winner from these representa-tives. To quantify the resulting efficiency loss, they extended the notion of 
+
+distortion , defined as the worst-case ratio between the social objective value achieved by a mechanism and the theoretical optimum. In follow-up work, Filos-Ratsikas and Voudouris [13] investigated a distributed single-facility location problem aimed at minimizing the social cost, which represents the sum of all agents’ costs. While classic models often assume that facilities can be placed anywhere in a metric space, many practical applications involve constrained facility location. Feasible regions or the capacity of specific sites may be limited due to land-use regulations, environmental protection, or human factors. This has motivated research into mechanism design for facility location within restricted sets of locations. In this paper, we study a constrained distributed heterogeneous two-2facility location problem. We assume each agent requires access to both facilities, and her individual cost is defined by the distance to the farther one, known as the max-variant cost . This cost model reflects scenarios such as an express delivery outlet that must dispatch regular packages to an ordinary distribution center and cold-chain packages to a specialized one. Assuming the outlet has multiple vehicles traveling at the same speed, its total waiting time depends on the distance to the more distant center. Our work pro-vides lower and upper bounds on the distortion of strategyproof distributed mechanisms under four distinct social objectives. 
+
+1.1. Our Results 
+
+We study a constrained, distributed, and heterogeneous two-facility loca-tion problem. In this model, facilities can only be deployed within a prede-termined set of candidate locations, with a capacity of at most one facility per site. We consider a set of agents with private locations on the real line, partitioned into disjoint groups. Once the two facilities are located, each agent’s individual cost is determined by the distance to the farther facility (the max-variant cost). Our objective is to design strategyproof distributed mechanisms that take agents’ reported locations as input and output the final locations of the two facilities. Such mechanisms operate in two steps: first, for each group, the mechanism selects two candidate locations as represen-tatives based solely on local reports; second, it chooses the final two facility locations from the aggregated pool of representatives. Our mechanisms are evaluated under four social objectives: 
+
+• Average-of-Average cost : The arithmetic mean of the average indi-vidual costs across all groups. 
+
+• Max-of-Max cost : The maximum individual cost among all agents. 
+
+• Max-of-Average cost : The maximum of the average individual costs of all groups. 
+
+• Average-of-Max cost : The average of the maximum individual costs within each group. While the Average-of-Average cost and the Max-of-Max cost are adapta-tions of classic objectives from non-distributed settings, the Max-of-Average cost and the Average-of-Max cost are fairness-inspired metrics specifically 3meaningful in distributed environments. For each of these objectives, we es-tablish lower and upper bounds on the distortion of strategyproof distributed mechanisms. A summary of our main results is provided in Table 1. 
+
+> Table 1: Lower and upper bounds on the distortion
+
+Social objective Lower bound Upper bound Average-of-Average cost 3 [Theorem 2] 9 [Theorem 3] Max-of-Max cost 3 [Theorem 4] 3 [Theorem 5] Max-of-Average cost 7/2 [Theorem 6] 2 + √5 [Theorem 7] Average-of-Max cost 3 [Theorem 8] 2 + √5 [Theorem 9] 
+
+1.2. Related work 
+
+The framework of approximate mechanism design without money was es-tablished by Procaccia and Tennenholtz [18], who developed strategyproof mechanisms with constant approximation ratios for facility location problems on the real line. Their foundational study covered both single-facility and homogeneous two-facility models under social cost and maximum cost objec-tives. Since then, the field has expanded significantly: Alon et al. [1] explored facility location on circles and graphs, while Tang et al. [20] considered con-strained models where facilities are restricted to a discrete set of candidate locations. Other variations include obnoxious facility games, where agents seek to maximize their distance from the facility [7], and studies focused on envy-based objectives [4, 9]. Below, we highlight the two research threads most relevant to our work: heterogeneous and distributed facility location. 
+
+Heterogeneous facility location. This line of research considers mod-els where facilities may provide different utilities to agents. Zou and Li [23] investigated dual preferences where a facility could be either desirable or ob-noxious. Serafino and Ventre [19] introduced an optional preference model where each agent approves either one facility or both. In their setting, agents’ locations are public while their preferences remain private, and the individual cost is defined as the sum of distances to the facilities of interest (referred to as sum-variant cost). Later, Chen et al. [6] extended this optional preference model to include max-variant and min-variant costs, with the results for the latter subsequently refined by Li et al. [17]. Anastasiadis and Deligkas [2] analyzed heterogeneous k-facility location problems with min-variant. In sce-narios where agents’ locations are private but preferences are public, Zhao et al. [22] explored the optional preference model with max-variant cost, while 4Kanellopoulos et al. [16] focused on the sum-variant cost. Additionally, Kanellopoulos and Voudouris [15] addressed obnoxious two-facility location with optional preferences, and Deligkas et al. [8] examined heterogeneous facility location under limited resources. Finally, Fong et al. [14] proposed a fractional preference model where an agent’s preference for a facility is rep-resented by a value between 0 and 1, a setting further studied by Fang and Liu [10] in the context of limited resources. 
+
+Distributed facility location. Filos-Ratsikas et al. [12] initiated the study of distortion in distributed social choice, which was further extended by Anshelevich et al. [3] to a distributed metric social choice setting where voters and alternatives are represented as points in a metric space. Voudouris [21] investigated the metric distortion of obnoxious distributed voting. Closely related to our work, Filos-Ratsikas and Voudouris [13] analyzed a distributed single-facility location problem under the social cost objective, considering both the discrete setting (where facilities are restricted to a finite set of candidate locations) and the continuous setting (where facilities can be placed at any point on the real line). For the discrete case, they established a tight bound of 7 for strategyproof distributed mechanisms, while for the continuous case, they derived a tight bound of 3. Further, Filos-Ratsikas et al. [11] explored a continuous distributed single-facility location problem under four social objectives: the average cost, the max cost, the average-of-max cost, and the max-of-average cost. A summary of their results is provided in Table 2. 
+
+> Table 2: Tight bounds on the distortion in Filos-Ratsikas et al. [11].
+
+Social objective Tight bounds Average cost 3 [11] Max cost 2 [11] Max-of-Average cost 1 + √2 [11] Average-of-Max cost 1 + √2 [11] 
+
+2. Preliminaries 
+
+Let N = {1, 2, ..., n } be a set of agents. Each agent i ∈ N has a private location xi ∈ R and denote by x = ( x1, ..., x n) ∈ Rn the location profile of all agents. The agents are partitioned into k (≥ 1) disjoint groups, denoted by the set D = {1, ..., k }. For each group d ∈ D, let Nd ⊆ N be the set 5of agents belonging to group d, and let nd = |Nd| represent the number of agents in that group. Let F = {F1, F 2} be the two heterogeneous facilities to be located. Define 
+
+A = {a1, ..., a m} ∈ Rm as a multiset of candidate locations, with the con-straint that at most one facility can be placed at each location in A. Without loss of generality, assume a1 ≤ a2 ≤ · · · ≤ am. An instance of the problem is denoted by the tuple I = ( N, x, D, A ).
+
+Distributed Mechanism . A distributed mechanism M is a function that maps an instance I to a facility location profile w through two steps, i.e. 
+
+M (I) = w = ( w1, w 2), where w1 ∈ A is the location of F1 and w2 ∈ A \ { w1}
+
+is the location of F2. Specifically, for a given instance I, the mechanism M
+
+operates in two steps: 
+
+• Step 1. For each group d ∈ D, M selects two representative locations 
+
+yd(1) ∈ A, yd(2) ∈ A \ yd(1) based solely on the locations reported by agents in Nd.
+
+• Step 2. M outputs a final facility location profile w = ( w1, w 2), where 
+
+w1, w 2 ∈ { yd(1) , y d(2) }d∈D and w1̸ = w2, chosen from the set of all group representatives.. 
+
+Remark 1. Following the distributed framework in Filos-Ratsikas et al. [11], Properties (P1) and (P2) represent the inherent structural characteristics of the mechanism, reflecting the fundamental information-restricted nature of the two-stage decision process: 
+
+• P1 (Local Aggregation) : The representative of each group is deter-mined solely by the positions of agents within that group. 
+
+• P2 (Information Restriction) : The final facility location profile must be a function of the group representatives, as the mechanism only has access to this summarized information in the second stage. These properties are also essential for deriving our distortion lower bounds. 
+
+For any two points x, y ∈ R, let δ(x, y ) = |x−y| be the distance between x
+
+and y. In our model, we assume that all agents approve the two heterogeneous facilities. The individual cost of each agent i for a facility location profile w
+
+is the distance to the farthest facility, which we refer to as the max-variant cost :
+
+c(xi, w) = max {δ(xi, w 1), δ (xi, w 2)} .
+
+6Social Objectives . We consider four standard cost-minimization social objectives, defined as follows: (1) The Average-of-Average cost of a facility location profile w is the arithmetic mean of the average individual costs across all groups: 
+
+AoA (w|I) = 1
+
+k
+
+X
+
+> d∈D
+
+(
+
+1
+
+nd
+
+X
+
+> i∈Nd
+
+c(xi, w)
+
+)
+
+.
+
+(2) The Max-of-Max cost of a facility location profile w is the maximum individual cost among all agents: 
+
+M oM (w|I) = max  
+
+> d∈D
+
+max 
+
+> i∈Nd
+
+c(xi, w).
+
+(3) The Max-of-Average cost of a facility location profile w is the maxi-mum of the average individual costs of all groups: 
+
+M oA (w|I) = max 
+
+> d∈D
+
+(
+
+1
+
+nd
+
+X
+
+> i∈Nd
+
+c(xi, w)
+
+)
+
+.
+
+(4) The Average-of-Max cost of a facility location profile w is the average of the maximum individual costs within each group: 
+
+AoM (w|I) = 1
+
+k
+
+X
+
+> d∈D
+
+max 
+
+> i∈Nd
+
+c(xi, w).
+
+Strategyproofness. A mechanism M is strategyproof if each agent can never benefit by misreporting her location, regardless of the locations re-ported by the other agents, i.e., for every i ∈ N , for every x ∈ Rn, and for every x′ 
+
+> i
+
+∈ R, it must hold that 
+
+c(xi, M (N, (xi, x−i), D, A ) ≤ c(xi, M (N, (x′
+
+> i
+
+, x−i), D, A )) ,
+
+where x−i = ( x1, . . . , x i−1, x i+1 , . . . , x n) is the location profile of N \ { i}.
+
+Distortion. In the distributed setting, due to lack of global information and the requirement for strategyproofness of a mechanism, the facility loca-tion profile chosen by a distributed mechanism may be suboptimal. Here, we adopt the notion of distortion to quantify the performance gap between a mechanism and the optimal mechanism. Formally, the distortion of a dis-tributed mechanism M is the worst-case ratio between the social objective 7value obtained by M and the optimal social objective value, taken over all possible instances: dist (M ) = sup 
+
+> I
+
+cost (M (I) | I)
+
+cost (OP T (I) | I),
+
+where OP T (I) denotes the optimal solution for instance I and cost ∈ { AoA, M oM, M oA, AoM } represents the social objective function. For notational simplicity, we abbreviate cost (M (I)|I) as cost (M |I).For each agent i ∈ N , let t(i) denote the closest candidate location to i in the set A, and s(i) denote the closest candidate location to i in A\{ t(i)}. We now introduce a class of distributed mechanisms, termed the (α, β )-Quantile Mechanism (with α, β ∈ [0 , 1] ). 
+
+(α, β )-Quantile Mechanism 1
+
+• Step 1. For each group d ∈ D, let αd be the ⌈α · nd⌉-th leftmost agent in Nd. Define yd(1) = t(αd) and yd(2) = s(αd) as the two representative locations for group d.
+
+• Step 2. Initialize zd = yd(1) for all d ∈ D and let w1 be the ⌈β · k⌉-th leftmost location in the set {zd}d∈D. For each group d ∈ D, update zd
+
+to yd(2) if yd(1) = w1, then set w2 to be the ⌈β · k⌉-th leftmost location in the updated set {zd}d∈D.
+
+Remark 2. The (α, β )-Quantile Mechanism naturally satisfies the following key properties. For every group d, yd(1) , yd(2) are consecutive candidate lo-cations, which implies that the pairs (yd(1) , y d(2) ) and (yd′(1) , y d′(2) ) are never "interlaced" 2 for any two distinct groups d and d′. Consequently, the output locations w1, w2 of the mechanism must correspond to the two consecutive representative locations of a single group d, i.e., w1 = yd(1) , w2 = yd(2) .
+
+We will prove that the (α, β )-Quantile Mechanism is strategyproof. 
+
+Theorem 1. The (α, β )-Quantile Mechanism is strategyproof.                      
+
+> 1For the boundary cases: when α= 0 , the ⌈α·nd⌉-th leftmost agent in Ndis defined as the leftmost agent in Nd; similarly, when β= 0 , the ⌈β·k⌉-th leftmost location is defined as the leftmost location in the corresponding set.
+> 2Here, "interlaced" refers to the scenario where the representative pairs of two distinct groups overlap in order, i.e., yd(1) < y d′(1) < y d(2) < y d′(2) for d̸=d′.
+
+8Proof. Consider any instance I, and let w = ( w1, w 2) be the facility location profile output by the mechanism. By the property of the mechanism estab-lished in Remark 2, w1 and w2 must be two consecutive candidate locations that are the closest and second-closest to some agent j, i.e., w1 = t(xj ),
+
+w2 = s(xj ).Let i be any agent in group d, and assume without loss of generality (w.l.o.g.) that xi ≤ xαd (the ⌈α · nd⌉-th leftmost agent in Nd). We analyze all possible orderings of xi, x j , x αd to show that agent i has no incentive to misreport its location. 
+
+Case 1 : xi ≤ xαd ≤ xj . To alter the mechanism’s output, agent i must first become the ⌈α · nd⌉-th leftmost agent in Nd, which requires reporting 
+
+x′ 
+
+> i
+
+> x αd . If xj ≥ x′ 
+
+> i
+
+> x αd , the mechanism’s output remains unchanged, so agent i has no incentive to misreport. If x′ 
+
+> i
+
+> x j , The output becomes the two consecutive locations closest to some agent k with xk ≥ xj . This cannot decrease agent i’s cost, so i still has no incentive to misreport. 
+
+Case 2 : xi < x j < x αd . To alter the output, agent i would need to report x′ 
+
+> i
+
+> x αd to become the ⌈α · nd⌉-th leftmost agent in Nd. However, this manipulation leaves the mechanism’s output unchanged, so i has no incentive to misreport. 
+
+Case 3 : xj < x i ≤ xαd . This case is symmetric to Case 1, and agent i
+
+has no incentive to misreport its location. Thus, the (α, β )-Quantile Mechanism is strategyproof. In the subsequent sections, we analyze the upper bounds on the distortion of the (α, β )-Quantile Mechanism under four social objective functions, by tuning the parameters α and β.
+
+Notations. Let l, r, and m denote the leftmost, rightmost, and median agent in N , respectively. Similarly, let ld, r d, and md denote the leftmost, rightmost, and median agent in Nd, respectively. For a facility location profile 
+
+w = ( w1, w 2) and any agent i ∈ N , let w(xi) denote the location in {w1, w 2}
+
+that is farther from agent i.
+
+3. Average-of-Average cost 
+
+In this section, we study the Average-of-Average cost, defined as the arith-metic mean of the average individual costs across all groups. For the lower bound, we prove that the distortion of any strategyproof mechanism is at 9least 3−ϵ for any ϵ > 0. For the upper bound, we analyze the  12 , 12
+
+-Quantile Mechanism 3, which achieves a distortion of at most 9.
+
+Theorem 2. For the Average-of-Average cost, the distortion of any strate-gyproof mechanism is at least 3 − ϵ, for any ϵ > 0.Proof. We proceed by contradiction. Assume there exists a strategyproof mechanism M with distortion strictly smaller than 3 − ϵ for some ϵ > 0, and let θ > 0 be an infinitesimal. We derive a contradiction by analyzing the following instances, with the set of candidate locations A = {0, 0, 1, 1}.
+
+Instance I1. Consider an instance I1 with a single group containing one agent located at x11 = 0 . By strategyproofness, M must output (0 , 0) as the group’s representative, i.e., M (I1) = (0 , 0) ; otherwise, the distortion of M
+
+would be unbounded. 
+
+Instance I2. Consider an instance I2 with a single group containing one agent located at x21 = 12 − θ. If M (I2)̸ = (0 , 0) , then c(x21, M (I2)) =  
+
+> 12
+
++ θ. Since c(x21, M (I1)) = 12 − θ, the agent could strictly reduce her cost by misreporting her location as 0, violating strategyproofness. Thus, M (I2) = (0 , 0) .
+
+Instance I3. Consider an instance I3 with a single group containing one agent located at x31 = 1 . By the same argument as in I1, we obtain 
+
+M (I3) = (1 , 1) .
+
+Instance I4. Consider an instance I4 with a single group containing one agent located at x41 = 12 + θ. By the same argument as in I2, we conclude that M (I4) = (1 , 1) .
+
+Instance I5. Consider an instance I5 with two groups: 
+
+• In group 1, there is a single agent located at 12 − θ.
+
+• In group 2, there is a single agent located at 1.By M (I2) = (0 , 0) and M (I3) = (1 , 1) , (P 1) implies that the repre-sentatives of group 1 and group 2 in I5 are (0 , 0) and (1 , 1) , respectively. Since AoA (0 , 0) = 34 − θ 
+
+> 2
+
+, AoA (0 , 1) = AoA (1 , 0) = 34 + θ 
+
+> 2
+
+and AoA (1 , 1) =  
+
+> 14
+
++ θ 
+
+> 2
+
+, Thus, M must output (1 , 1) as the global facility location profile, i.e.,    
+
+> 3We use the method of undetermined coefficients to show that the (1 /2,1/2) -Quantile mechanism attains the minimum possible distortion upper bound among all (α, β )-Quantile mechanisms.
+
+10 M (I5) = (1 , 1) . Otherwise, the distortion of M is at least 32 −θ  
+
+> 12+θ
+
+≥ 3 − ϵ, for 
+
+θ ≤ ϵ 
+
+> 8−2ϵ
+
+.
+
+Instance I6. We now derive a contradiction by considering the following instance I6 with two groups: 
+
+• In group 1, there is a single agent located at 12 + θ.
+
+• In group 2, there is a single agent located at 0.By M (I4) = (1 , 1) and M (I1) = (0 , 0) , (P 1) implies that the representa-tives of group 1 and group 2 in I6 are (1 , 1) and (0 , 0) , respectively. Since the group representatives in I5 and I6 are identical, (P 2) guarantees that 
+
+M (I6) = (1 , 1) . Since AoA (0 , 0) = 14 + θ 
+
+> 2
+
+, AoA (0 , 1) = AoA (1 , 0) = 34 + θ 
+
+> 2
+
+and 
+
+AoA (1 , 1) = 34 − θ 
+
+> 2
+
+, the distortion of M is at least 32 −θ  
+
+> 12+θ
+
+≥ 3 − ϵ, for θ ≤ ϵ 
+
+> 8−2ϵ
+
+.This directly contradicts the assumption that M achieves a distortion strictly smaller than 3 − ϵ.We next present the  12 , 12
+
+-Quantile Mechanism and prove that its dis-tortion is at most 9. 
+
+ 12 , 12
+
+-Quantile Mechanism 
+
+• Step 1. For each group d ∈ D , set yd(1) = t(md), yd(2) = s(md).
+
+• Step 2. Initialize zd = yd(1) for all d ∈ D and let w1 be the median location in the set {zd}d∈D. For each group d ∈ D, update zd to yd(2) 
+
+if yd(1) = w1, then set w2 to be the median location in the updated set 
+
+{zd}d∈D.
+
+Theorem 3. For the Average-of-Average cost, the distortion of the  12 , 12
+
+-Quantile Mechanism is at most 9.Proof. Given any instance I , let w = ( w1, w 2) be the location profile chosen by the mechanism and o = ( o1, o 2) be an optimal solution. Without loss of generality, we assume that w1 ≤ w2 and o1 ≤ o2. By the property of the mechanism, there exists a group d∗ such that w1 = yd∗(1) = t(md∗ ) and 
+
+w2 = yd∗(2) = s(md∗ ). For each group d ∈ D, let Nd(1) = {i ∈ Nd|w(xi) = w1}
+
+11 and Nd(2) = {i ∈ Nd|w(xi) = w2}. Using the triangle inequality, we have 
+
+AoA (w) = 1
+
+k
+
+X
+
+> d∈D
+
+
+
+1
+
+nd
+
+X
+
+> i∈Nd(1)
+
+δ(xi, w 1) + 1
+
+nd
+
+X
+
+> i∈Nd(2)
+
+δ(xi, w 2)
+
+
+
+≤ 1
+
+k
+
+X
+
+> d∈D
+
+
+
+1
+
+nd
+
+X
+
+> i∈Nd(1)
+
+[δ(xi, o 1) + δ(o1, w 1)] + 1
+
+nd
+
+X
+
+> i∈Nd(2)
+
+[δ(xi, o 2) + δ(o2, w 2)] 
+
+
+
+= AoA (o) + 1
+
+k
+
+X
+
+> d∈D
+
+
+
+1
+
+nd
+
+X
+
+> i∈Nd(1)
+
+δ(o1, w 1) + 1
+
+nd
+
+X
+
+> i∈Nd(2)
+
+δ(o2, w 2)
+
+ .
+
+Case 1 : o1 ≤ o2 < w 1 ≤ w2. Since δ(o1, w 1) ≤ δ(o1, w 2) and δ(o2, w 2) ≤
+
+δ(o1, w 2), we have 
+
+AoA (w) ≤ AoA (o) + 1
+
+k
+
+X
+
+> d∈D
+
+
+
+1
+
+nd
+
+X
+
+> i∈Nd(1)
+
+δ(o1, w 1) + 1
+
+nd
+
+X
+
+> i∈Nd(1)
+
+δ(o2, w 2)
+
+
+
+≤ AoA (o) + δ(o1, w 2).
+
+(1) Let S = {d ∈ D | yd(1) ≥ w1, y d(2) ≥ w1}. For each group d ∈ D, since 
+
+yd(1) , yd(2) are consecutive, w1 is the median location in {zd}d∈D = {yd(1) }d∈D,and w2 is the median location in the updated {zd}d∈D, we have |S| ≥ 12 k.For each group d ∈ S, let Td = {i ∈ Nd | xi ≥ xmd }. By the definition of md,we have |Td| ≥ 12 nd. As w1 and w2 are the closest locations to md∗ , it holds that xmd∗ ≥ o2+w2 
+
+> 2
+
+. Thus, we have δ(xi, o 1) ≥ δ(o1, o 2) + δ(o2,w 2)2 ≥ δ(o1,w 2)2 for all d ∈ S and i ∈ Td. Hence, 
+
+AoA (o) ≥ 1
+
+k
+
+X
+
+> d∈D
+
+(
+
+1
+
+nd
+
+X
+
+> i∈Nd
+
+δ(xi, o 1)
+
+)
+
+≥ 1
+
+k
+
+X
+
+> d∈S
+
+(
+
+1
+
+nd
+
+X
+
+> i∈Td
+
+δ(xi, o 1)
+
+)
+
+≥ 1
+
+k
+
+X
+
+> d∈S
+
+(
+
+1
+
+nd
+
+X
+
+> i∈Td
+
+δ(o1, w 2)2
+
+)
+
+≥ δ(o1, w 2)8 .
+
+(2) Combining (1) and (2), we obtain 
+
+AoA (w) ≤ AoA (o) + δ(o1, w 2) ≤ 9 · AoA (o).
+
+Case 2 : o1 < o 2 = w1 < w 2. Similar to Case 1, we obtain AoA (w) ≤
+
+9 · AoA (o).
+
+12 Case 3 : w1 ≤ w2 < o 1 ≤ o2. In this case, since δ(o1, w 1) ≤ δ(o2, w 1) and 
+
+δ(o2, w 2) ≤ δ(o2, w 1), we have 
+
+AoA (w) ≤ AoA (o) + δ(o2, w 1). (3) Similar to Case 1, let S′ = {d ∈ D | yd(1) ≤ w1}. As w1 is the median location in {yd(1) }d∈D, we have |S′| ≥ 12 k. For each group d ∈ S′, let T ′ 
+
+> d
+
+=
+
+{i ∈ Nd | xi ≤ xmd }. By the definition of md, |T ′
+
+> d
+
+| ≥ 12 nd. Since w1 and w2
+
+are the closest locations to md∗ , it holds that xmd∗ ≤ w1+w2 
+
+> 2
+
+. Thus, we have 
+
+δ(xi, o 2) ≥ δ(o2, w 2) + δ(w1,w 2)2 ≥ δ(o2,w 1)2 for all d ∈ S′ and i ∈ T ′
+
+> d
+
+. Hence, 
+
+AoA (o) ≥ 1
+
+k
+
+X
+
+> d∈S′
+
+
+
+1
+
+nd
+
+X 
+
+> i∈T′
+> d
+
+δ(xi, o 2)
+
+ ≥ 1
+
+k
+
+X
+
+> d∈S′
+
+
+
+1
+
+nd
+
+X 
+
+> i∈T′
+> d
+
+δ(o2, w 1)2
+
+ ≥ δ(o2, w 1)8 .
+
+(4) Therefore, combining (3) and (4), we obtain 
+
+AoA (w) ≤ AoA (o) + δ(o2, w 1) ≤ 9 · AoA (o).
+
+Case 4 : w1 < w 2 = o1 ≤ o2. Similar to Case 3, we obtain AoA (w) ≤
+
+9 · AoA (o).
+
+Case 5 : o1 < w 1 ≤ w2 ≤ o2. In this case, AoA (w) ≤ AoA (o) + δ(o1, o 2).
+
+Clearly, 
+
+AoA (o) ≥ 1
+
+k
+
+X
+
+> d∈D
+
+(
+
+1
+
+nd
+
+X
+
+> i∈Nd
+
+δ(xi, o 1)
+
+)
+
+, AoA (o) ≥ 1
+
+k
+
+X
+
+> d∈D
+
+(
+
+1
+
+nd
+
+X
+
+> i∈Nd
+
+δ(xi, o 2)
+
+)
+
+Using the triangle inequality, we have 
+
+AoA (o) ≥ 12k
+
+X
+
+> d∈D
+
+(
+
+1
+
+nd
+
+X
+
+> i∈Nd
+
+[δ(xi, o 1) + δ(xi, o 2)] 
+
+)
+
+≥ 12k
+
+X
+
+> d∈D
+
+(
+
+1
+
+nd
+
+X
+
+> i∈Nd
+
+δ(o1, o 2)
+
+)
+
+≥ δ(o1, o 2)2 .
+
+Therefore, we obtain AoA (w) ≤ 3 · AoA (o).
+
+Case 6 : o1 = w1 ≤ w2 < o 2. Similar to Case 5, we obtain AoA (w) ≤
+
+3 · AoA (o).
+
+Thus, we conclude that AoA (w) ≤ 9 · AoA (o).
+
+Remark 3. In the facility location problem, the most natural social objective is the social cost. In fact, our results under the average-of-average cost can be easily generalized to the social cost. 
+
+13 4. Max-of-Max cost 
+
+In this section, we study the Max-of-Max cost, defined as the maximum individual cost among all agents. For the lower bound, we prove that the distortion of any strategyproof mechanism is at least 3 − ϵ for any ϵ > 0. For the upper bound, we analyze the (1 , 1) -Quantile mechanism 4, which achieves a distortion of at most 3.
+
+Theorem 4. For the Max-of-Max cost, the distortion of any strategyproof mechanism is at least 3 − ϵ, for any ϵ > 0.Proof. We proceed by contradiction. Assume that there exists a strate-gyproof mechanism M with distortion strictly smaller than 3−ϵ for some ϵ > 
+
+0, and let θ > 0 be sufficiently small. We derive a contradiction by construct-ing a sequence of instances with candidate location set A = {0, 0, 2, 2, 4, 4}.
+
+Instance I1. Consider an instance I1 consisting of a single group with two agents located at −1 and 1 − θ. By computing the MoM cost for all possible facility location pairs in A, we have OP T (I1) = (0 , 0) . Thus, M (I1) = (0 , 0) ;otherwise its distortion would be at least 3, contradicting the assumption. 
+
+Instance I2. Consider an instance I2 with a single group containing two agents both at 1 − θ. If M does not output (0 , 0) on I2, then the agent’s cost would be at least 1 + θ. Since the agent can reduce her cost to 1 − θ by misreporting her location as −1, strategyproofness implies M (I2) = (0 , 0) .
+
+Instance I3. Consider an instance I3 with a single group containing two agents at 5 and 3 + θ. By symmetry with I1, we have OP T (I3) = (4 , 4) , so 
+
+M must output (4 , 4) to avoid distortion at least 3.
+
+Instance I4. Consider an instance I4 with a single group containing two agents both at 3 + θ. Using the same strategyproofness argument as in I2,we obtain M (I4) = (4 , 4) .
+
+Instance I5. Consider an instance I5 with two groups: group 1 has two agents at 1 − θ, and group 2 has two agents at 3 + θ. By M (I2) = (0 , 0) and M (I4) = (4 , 4) , (P1) implies that the group representatives in I5
+
+are (0 , 0) and (4 , 4) . Therefore, M can only output (0 , 0) , (0 , 4) , (4 , 0) , or 
+
+(4 , 4) , all of which yield MoM cost 3 + θ. However, OP T (I5) = (2 , 2) and        
+
+> 4In fact, whatever values αand βtake, the (α, β )-Quantile Mechanism would achieve a distortion of at most 3under the max-of-max cost.
+
+14 M oM (OP T |I5) = 1 + θ. As a result, the distortion of M is at least 
+
+3 + θ
+
+1 + θ ≥ 3 − ϵ, 
+
+for sufficiently small θ, which is a contradiction. We next present the (1 , 1) -Quantile Mechanism and prove that its distor-tion is at most 3. 
+
+(1 , 1) -Quantile Mechanism 
+
+• Step 1. For each group d ∈ D , set yd(1) = t(rd), yd(2) = s(rd).
+
+• Step 2. Initialize zd = yd(1) for all d ∈ D and let w1 be the rightmost location in the set {zd}d∈D. For each group d ∈ D, update zd to yd(2) 
+
+if yd(1) = w1, then set w2 to be the rightmost location in the updated set {zd}d∈D.
+
+Theorem 5. For the Max-of-Max cost, the distortion of the (1 , 1) -Quantile mechanism is at most 3. Proof. Given any instance I, let w = ( w1, w 2) be the location profile chosen by the mechanism and o = ( o1, o 2) be an optimal solution. By the property of the mechanism, we have w1 = t(r) and w2 = s(r). Let i∗ denote the agent such that M oM (w) = max {δ(xi∗ , w 1), δ (xi∗ , w 2)} = δ(xi∗ , w (xi∗ )) . As 
+
+w1 = t(r) and w2 = s(r) are the closest candidate locations to r and using the triangle inequality, we have 
+
+M oM (w) = δ(xi∗ , w (xi∗ )) 
+
+≤ δ(xi∗ , o 1) + δ(o1, x r) + δ(xr, w (xi∗ )) 
+
+≤ δ(xi∗ , o (xi∗ )) + δ(xr, o (xr)) + δ(xr, w (xr)) 
+
+≤ δ(xi∗ , o (xi∗ )) + 2 · δ(xr, o (xr)) .
+
+For the optimal solution o, we have M oM (o) ≥ δ(xi, o (xi)) for all i ∈ N .Thus, we obtain 
+
+M oM (w) ≤ δ(xi∗ , o (xi∗ )) + 2 · δ(xr, o (xr)) ≤ 3 · M oM (o).
+
+15 5. Max-of-Average cost 
+
+In this section, we study the Max-of-Average cost, defined as the maxi-mum of the average individual costs of all groups. For the lower bound, we prove that the distortion of any strategyproof mechanism is at least 72 − ϵ for any ϵ > 0. For the upper bound, we analyze the (3−√52 , 1) -Quantile Mecha-nism, which achieves a distortion of at most 2 + √5.
+
+Theorem 6. For the Max-of-Average cost, the distortion of any strategyproof mechanism is at least 72 − ϵ, for any ϵ > 0.Proof. We proceed by contradiction. Assume that there exists a strate-gyproof mechanism M with distortion strictly smaller than 72 − ϵ for some 
+
+ϵ > 0, and let θ > 0 be sufficiently small. We consider the following instances with candidate location set A = {0, 0, 1, 1, 2, 2}.
+
+Instance I1. Consider an instance I1 with a single group containing five agents located at 0, 0, 0, 0, 1. We compute the MoA costs for all facility location pairs in A, and obtain that OP T (I1) = (0 , 0) . Thus, M (I1) = (0 , 0) ; otherwise the distortion would be at least 4, which contradicts the assumption. 
+
+Instance I2. Consider an instance I2 with a single group containing five agents located at 12 − θ, 0, 0, 0, 1. If M does not output (0 , 0) on I2, then the cost of the agent at 12 − θ would be at least 12 + θ. Since the agent can reduce her cost to 12 − θ by misreporting her location as 0, strategyproofness implies 
+
+M (I2) = (0 , 0) .
+
+Instance I3. Consider an instance I3 with a single group containing five agents located at 12 − θ, 12 − θ, 12 − θ, 12 − θ, 1. By the same strategyproofness argument as in I2, we have M (I3) = (0 , 0) .
+
+Instance I4. Consider an instance I4 with a single group containing five agents located at 2, 2, 2, 2, 1. By symmetry with I1, we have OP T (I4) = (2 , 2) , and thus M (I4) = (2 , 2) .
+
+Instance I5. Consider an instance I5 with a single group containing five agents located at 32 + θ, 32 + θ, 32 + θ, 32 + θ, 1. By the same strategyproofness argument as in I3, we obtain M (I5) = (2 , 2) .
+
+Instance I6. Consider an instance I6 with two groups: the first group contains four agents at 12 −θ and one agent at 1, and the second group contains four agents at 32 +θ and one agent at 1. By M (I3) = (0 , 0) and M (I5) = (2 , 2) ,(P1) implies that the group representatives in I6 are (0 , 0) and (2 , 2) . There-fore, M can only output (0 , 0) , (0 , 2) , (2 , 0) , or (2 , 2) , and the corresponding 16 MoA cost is 7+4 θ 
+
+> 5
+
+. However, OP T (I6) = (1 , 1) and M oA (OP T |I6) = 2+4 θ 
+
+> 5
+
+.As a result, the distortion of M is at least 
+
+7 + 4 θ
+
+2 + 4 θ ≥ 72 − ϵ, 
+
+for sufficiently small θ, which is a contradiction. We first present the (α, 1) -Quantile Mechanism and analyze its perfor-mance. 
+
+(α, 1) -Quantile Mechanism 
+
+• Step 1. For each group d ∈ D , let αd denote the ⌈α · nd⌉-th leftmost agent in Nd. Set yd(1) = t(αd), yd(2) = s(αd).
+
+• Step 2. Initialize zd = yd(1) for all d ∈ D and let w1 be the rightmost location in {zd}d∈D. For each group d ∈ D, update zd to yd(2) if yd(1) =
+
+w1, then set w2 to be the rightmost location in {zd}d∈D.
+
+Lemma 1. For the Max-of-Average cost, the distortion of the (α, 1) -Quantile Mechanism is at most max 
+
+n
+
+1 + 2(1 −α) 
+
+> α
+
+, 1 + 21−α
+
+o
+
+.Proof. Given any instance I, let w = ( w1, w 2) be the location profile chosen by the mechanism and o = ( o1, o 2) be an optimal solution. Assume w.l.o.g. that w1 ≤ w2 and o1 ≤ o2. By the property of the mechanism, there exists a group d∗ such that w1 = yd∗(1) = t(αd∗ ) and w2 = yd∗(2) = s(αd∗ ). Let 
+
+d′ denote the group with the maximum average individual cost under w, so that M oA (w) = 1
+
+> nd′
+
+P 
+
+> i∈Nd′
+
+δ(xi, w (xi)) . Let Nd′(1) = {i ∈ Nd′ |w(xi) = w1}
+
+and Nd′(2) = {i ∈ Nd′ |w(xi) = w2}.
+
+Case 1 : o1 ≤ o2 < w 1 ≤ w2. By the definition of d′ and the triangle inequality, we have 
+
+M oA (w) = 1
+
+nd′
+
+X
+
+> i∈Nd′(1)
+
+δ(xi, w 1) + 1
+
+nd′
+
+X
+
+> i∈Nd′(2)
+
+δ(xi, w 2)
+
+≤ 1
+
+nd′
+
+X
+
+> i∈Nd′
+
+δ(xi, o (xi)) + 1
+
+nd′
+
+X
+
+> i∈Nd′(1)
+
+δ(o1, w 1) + 1
+
+nd′
+
+X
+
+> i∈Nd′(2)
+
+δ(o2, w 2)
+
+≤ M oA (o) + δ(o1, w 2).
+
+(5) 17 Let S = {i ∈ Nd∗ |xi ≥ xαd∗ }. By the definition of αd∗ , |S| ≥ (1 − α) · nd∗ .Since o1 ≤ o2 < w 1 ≤ w2 and w1, w2 are the closest locations to αd∗ ,all agents in S are closer to w = ( w1, w 2) than o = ( o1, o 2). So we have 
+
+δ(xi, o 2) ≥ δ(o2,w 2)2 and δ(xi, o 1) ≥ δ(o1, o 2) + δ(o2,w 2)2 for all i ∈ S. Using these properties, we have 
+
+M oA (o) ≥ 1
+
+nd∗
+
+X
+
+> i∈Nd∗
+
+δ(xi, o (xi)) ≥ 1
+
+nd∗
+
+X
+
+> i∈S
+
+δ(xi, o 1)
+
+≥ (1 − α) ·
+
+δ(o2, w 2)2 + δ(o1, o 2)
+
+
+
+,
+
+and 
+
+M oA (o) ≥ 1
+
+nd∗
+
+X
+
+> i∈S
+
+δ(xi, o 2) ≥ (1 − α) · δ(o2, w 2)2 .
+
+Then, it follows that 
+
+M oA (o) ≥ (1 − α)2 · δ(o1, w 2). (6) Comining (5) and (6), we obtain 
+
+M oA (w) ≤ M oA (o) + δ(o1, w 2) ≤
+
+
+
+1 + 21 − α
+
+
+
+· M oA (o).
+
+Case 2 : o1 < o 2 = w1 < w 2. Similar to Case 1, we obtain 
+
+M oA (w) ≤
+
+
+
+1 + 21 − α
+
+
+
+· M oA (o).
+
+Case 3 : w1 ≤ w2 < o 1 ≤ o2. Let L be the set of agents in Nd′ from the first leftmost agent to αd′ and R be the set of remaining agents in Nd′ . By the definition of αd′ , we have |L| = α · nd′ and |R| = (1 − α) · nd′ . Since 
+
+w1 = max yd(1) d∈D, it follows that yd′(1) ≤ w1 ≤ w2 < o 1 ≤ o2. As yd′(1) is the closest location to αd′ , we have δ(xi, w (xi)) ≤ δ(xi, o (xi)) for all i ∈ L.18 Using these properties, we obtain 
+
+M oA (w) = 1
+
+nd′
+
+X
+
+> i∈L
+
+δ(xi, w (xi)) + 1
+
+nd′
+
+X
+
+> i∈R
+
+δ(xi, w (xi)) 
+
+≤ 1
+
+nd′
+
+X
+
+> i∈L
+
+δ(xi, o (xi)) + 1
+
+nd′
+
+X
+
+> i∈R∩Nd′(1)
+
+δ(xi, w 1) + 1
+
+nd′
+
+X
+
+> i∈R∩Nd′(2)
+
+δ(xi, w 2)
+
+≤ 1
+
+nd′
+
+X
+
+> i∈L
+
+δ(xi, o (xi)) + 1
+
+nd′
+
+X
+
+> i∈R∩Nd′(1)
+
+[δ(xi, o 1) + δ(o1, w 1)] + 1
+
+nd′
+
+X
+
+> i∈R∩Nd′(2)
+
+[δ(xi, o 2) + δ(o2, w 2)] 
+
+≤ M oA (o) + (1 − α) · δ(o2, w 1).
+
+(7) Since all agents in L are closer to w = ( w1, w 2) than o = ( o1, o 2), we have δ(xi, o 2) ≥ δ(w1,w 2)2 + δ(o2, w 2) (when w1̸ = w2) and δ(xi, o 2) ≥ δ(o1,w 2)2 +
+
+δ(o1, o 2) (when w1 = w2) for all i ∈ L. Thus, 
+
+M oA (o) ≥ 1
+
+nd′
+
+X
+
+> i∈Nd′
+
+δ(xi, o (xi)) ≥ 1
+
+nd′
+
+X
+
+> i∈L
+
+δ(xi, o 2)
+
+≥ α ·
+
+δ(w1, w 2) + δ(o2, w 2)2
+
+
+
+≥ α
+
+2 · δ(o2, w 1).
+
+(8) Comining (7) and (8), we obtain 
+
+M oA (w) ≤ M oA (o) + (1 − α) · δ(o2, w 1) ≤
+
+
+
+1 + 2(1 − α)
+
+α
+
+
+
+· M oA (o).
+
+Case 4 : w1 < w 2 = o1 ≤ o2. Similar to Case 3, we obtain 
+
+M oA (w) ≤
+
+
+
+1 + 2(1 − α)
+
+α
+
+
+
+· M oA (o).
+
+Case 5 : o1 < w 1 ≤ w2 ≤ o2. By the definition of d′ and the triangle inequality, we have 
+
+M oA (w) = 1
+
+nd′
+
+X
+
+> i∈Nd′(1)
+
+δ(xi, w 1) + 1
+
+nd′
+
+X
+
+> i∈Nd′(2)
+
+δ(xi, w 2)
+
+≤ M oA (o) + δ(o1, o 2).
+
+(9) 19 Clearly, M oA (o) ≥ 1
+
+> nd′
+
+P 
+
+> i∈Nd′
+
+δ(xi, o 1) and M oA (o) ≥ 1
+
+> nd′
+
+P 
+
+> i∈Nd′
+
+δ(xi, o 2).Adding these two inequalities and applying the triangle inequality again, we have 
+
+M oA (o) ≥ 12nd′
+
+· X
+
+> i∈Nd′
+
+[δ(xi, o 1) + δ(xi, o 2)] ≥ 12 · δ(o1, o 2) (10) Combining (9) and (10), we obtain M oA (w) ≤ 3 · M oA (o).
+
+Case 6 : o1 = w1 ≤ w2 < o 2. Similar to Case 5, we obtain M oA (w) ≤
+
+3 · M oA (o).
+
+Combining all cases, an upper bound of the distortion is given by 
+
+max 
+
+
+
+1 + 2(1 − α)
+
+α , 1 + 21 − α , 3
+
+
+
+= max 
+
+
+
+1 + 2(1 − α)
+
+α , 1 + 21 − α
+
+
+
+.
+
+By solving the equation 1 + 2(1 −α) 
+
+> α
+
+= 1 + 21−α , we establish the following theorem. 
+
+Theorem 7. For the Max-of-Average cost, the distortion of the (3−√52 , 1) -Quantile Mechanism is at most 2 + √5.
+
+6. Average-of-Max cost 
+
+In this section, we study the Average-of-Max cost, defined as the average of the maximum individual costs within each group. For the lower bound, we prove that the distortion of any strategyproof mechanism is at least 3 − ϵ
+
+for any ϵ > 0. For the upper bound, we analyze the (1 , 3−√52 )-Quantile Mechanism, which achieves a distortion of at most 2 + √5.
+
+Theorem 8. For the Average-of-Max cost, the distortion of any strategyproof mechanism is at least 3 − ϵ, for any ϵ > 0.Proof. We proceed by contradiction. Assume there exists a strategyproof mechanism M with distortion strictly smaller than 3 − ϵ for some ϵ > 0, and let θ > 0 be an infinitesimal. We derive a contradiction by analyzing the following instances, with the set of candidate locations A = {0, 0, 1, 1}.
+
+Instance I1. Consider an instance I1 with a single group containing two agents located at 12 and 32 . We compute the AoM costs for all candidate 20 facility pairs and obtain that OP T (I1) = (1 , 1) , so M (I1) = (1 , 1) must hold; otherwise, the distortion of M would be at least 3, contradicting our assumption. 
+
+Instance I2. Consider an instance I2 with a single group containing two agents, with x21 = 12 and x22 = 12 + θ. If M (I2)̸ = (1 , 1) , then c(x22, M (I2)) =  
+
+> 12
+
++ θ. Since c(x22, M (I1)) = 12 − θ, the agent at x22 could strictly reduce her cost by misreporting her location as 32 , violating strategyproofness. Thus, 
+
+M (I2) = (1 , 1) .
+
+Instance I3. Consider an instance I3 with a single group containing one agent, with x31 = 0 . By strategyproofness, the mechanism M must output (0 , 0) as the group’s representative, i.e., M (I3) = (0 , 0) ; otherwise, the distortion of M would be infinite. 
+
+Instance I4. Consider an instance I4 with a single group containing one agent, with x41 = 12 − θ. If M (I4)̸ = (0 , 0) , then c(x41, M (I4)) = 12 + θ.Since c(x41, M (I3)) = 12 − θ, the agent at x41 could strictly reduce her cost by misreporting her location as 0, violating strategyproofness. Thus, M (I4) = (0 , 0) .
+
+Instance I5. Consider an instance I5 with two groups: group 1 contains one agent at 12 − θ, whose representative is (0 , 0) by I4, and group 2 contains one agent at 1, whose representative is (1 , 1) by the same argument as I3.We compute the AoM costs for all possible facility location pairs: 
+
+AoM (0 , 0) = 34− θ
+
+2, AoM (0 , 1) = AoM (1 , 0) = 34+ θ
+
+2, AoM (1 , 1) = 14+ θ
+
+2.
+
+Thus, M (I5) = (1 , 1) . Otherwise, the distortion of M would be at least     
+
+> 34−θ
+> 212+θ
+
+≥ 3 − ϵ for θ ≤ ϵ 
+
+> 8−2ϵ
+
+, which contradicts our assumption. 
+
+Instance I6. We now reach a contradiction by considering instance I6
+
+with two groups: group 1 contains two agents at 12 and 12 + θ, whose repre-sentative is (1 , 1) by I2, and group 2 contains one agent at 0, whose repre-sentative is (0 , 0) by I3. By I5 and (P 2) , we conclude that M (I6) = (1 , 1) .We compute the AoM costs for all facility location pairs: 
+
+AoM (0 , 0) = 14 + θ
+
+2, AoM (0 , 1) = AoM (1 , 0) = 34 + θ
+
+2, AoM (1 , 1) = 34.
+
+Thus, the distortion of M is at least 3412 +θ ≥ 3 − ϵ for θ ≤ ϵ 
+
+> 8−2ϵ
+
+, which is a contradiction. 21 We next present the (1 , β )-Quantile Mechanism and analyze its perfor-mance. 
+
+(1 , β )-Quantile Mechanism 
+
+• Step 1. For each group d ∈ D , set yd(1) = t(rd), yd(2) = s(rd).
+
+• Step 2. Initialize zd = yd(1) for all d ∈ D and let w1 be the ⌈β · k⌉-th leftmost location in {zd}d∈D. For each group d ∈ D, update zd to yd(2) if 
+
+yd(1) = w1, then set w2 to be the ⌈β · k⌉-th leftmost location in {zd}d∈D.
+
+Lemma 2. For the Average-of-Max cost, the distortion of the (1 , β )-Quantile mechanism is at most max 
+
+n
+
+1 + 2(1 −β) 
+
+> β
+
+, 1 + 21−β
+
+o
+
+.Proof. Given any instance I, let w = ( w1, w 2) be the solution chosen by the mechanism and o = ( o1, o 2) be an optimal solution. W.l.o.g., we assume that w1 ≤ w2 and o1 ≤ o2. By the property of the mechanism, there exists a group d∗ such that w1 = yd∗(1) = t(rd∗ ) and w2 = yd∗(2) = s(rd∗ ). For each group d, let id and i′ 
+
+> d
+
+denote the agents in Nd with the maximum individual cost under w and o, respectively. Then we have 
+
+AoM (w) = 1
+
+k
+
+X
+
+> d∈D
+
+
+
+max 
+
+> i∈Nd
+
+δ(xi, w (xi)) 
+
+
+
+= 1
+
+k
+
+X
+
+> d∈D
+
+δ(xid , w (xid )) ,AoM (o) = 1
+
+k
+
+X
+
+> d∈D
+
+
+
+max 
+
+> i∈Nd
+
+δ(xi, o (xi)) 
+
+
+
+= 1
+
+k
+
+X
+
+> d∈D
+
+δ(xid′ , o (xi′ 
+
+> d
+
+)) .
+
+Let D1 = {d ∈ D|w(xid ) = w1} and D2 = {d ∈ D|w(xid ) = w2}.
+
+Case 1 : o1 ≤ o2 < w 1 ≤ w2. Using the triangle inequality, and since 
+
+δ(xid , o (xid )) ≤ δ(xi′ 
+
+> d
+
+, o (xi′ 
+
+> d
+
+)) , we have 
+
+AoM (w) = 1
+
+k
+
+X
+
+> d∈D1
+
+δ(xid , w 1) + 1
+
+k
+
+X
+
+> d∈D2
+
+δ(xid , w 2)
+
+≤ 1
+
+k
+
+X
+
+> d∈D
+
+δ(xid , o (xid )) + |D1|
+
+k · δ(o1, w 1) + |D2|
+
+k · δ(o2, w 2)
+
+≤ AoM (o) + δ(o1, w 2).
+
+(11) Let S = {d ∈ D | yd(1) ≥ w1, y d(2) ≥ w1}. For each group d ∈ D, since 
+
+yd(1) , yd(2) are consecutive, w1 is the ⌈β · k⌉-th leftmost location in {yd(1) }d∈D
+
+22 and w2 is the ⌈β · k⌉-th leftmost location in the updated {zd}d∈D, we have 
+
+|S| ≥ (1 − β) · k. Since w1 and w2 are the closest locations to xrd∗ , it holds that xrd∗ ≥ o2+w2 
+
+> 2
+
+. Then, we have δ(xrd , o 1) ≥ δ(o1, o 2) + δ(o2,w 2)2 for all d ∈ S.Hence, 
+
+AoM (o) ≥ 1
+
+k
+
+X
+
+> d∈S
+
+δ(xrd , o 1) ≥ (1 − β)2 · δ(o1, w 2). (12) Comining (11) and (12), we have 
+
+AoM (w) ≤ AoM (o) + δ(o1, w 2) ≤
+
+
+
+1 + 21 − β
+
+
+
+· AoM (o).
+
+Case 2 : o1 < o 2 = w1 < w 2. Similar to Case 1, we obtain AoM (w) ≤
+
+1 + 21−β
+
+
+
+· AoM (o).
+
+Case 3 : w1 ≤ w2 < o 1 ≤ o2. Let L denote the set of groups from the leftmost group in {yd(1) }d∈D to the group at the ⌈β · k⌉-th position in 
+
+{yd(1) }d∈D and R the set of remaining groups. Then, for every d ∈ L, i ∈ Nd,since yd(1) is the closest location to xrd and yd(1) ≤ w1 ≤ w2 < o 1 ≤ o2, we have δ(xi, w (xi)) = δ(xi, w 2) ≤ δ(xi, o (xi)) = δ(xi, o 2)
+
+By the triangle inequality, we have 
+
+AoM (w) = 1
+
+k
+
+X
+
+> d∈L
+
+δ(xid , w 2) + 1
+
+k
+
+X
+
+> d∈R
+
+δ(xid , w (xid )) 
+
+≤ 1
+
+k
+
+X
+
+> d∈L
+
+δ(xid , o (xid )) + 1
+
+k
+
+X
+
+> d∈R∩D1
+
+δ(xid , w 1) + 1
+
+k
+
+X
+
+> d∈R∩D2
+
+δ(xid , w 2)
+
+≤ AoM (o) + (1 − β) · δ(o2, w 1).
+
+(13) Since w1 and w2 are the closest locations to xrd∗ , it holds that xrd∗ ≤ 
+
+> w1+w2
+> 2
+
+(when w1̸ = w2) or xrd∗ ≤ w2+o1 
+
+> 2
+
+(when w1 = w2). Then, for every d ∈ L, we have δ(xrd , o 2) ≥ δ(w2,o 2)+ δ(w1,w 2)2 .
+
+Hence, 
+
+AoM (o) ≥ 1
+
+k
+
+X
+
+> d∈L
+
+δ(xrd , o 2) ≥ β
+
+2 · δ(o2, w 1). (14) Combining (13) and (14), we obtain 
+
+AoM (w) ≤ AoM (o) + (1 − β) · δ(o2, w 1) ≤
+
+
+
+1 + 2(1 − β)
+
+β
+
+
+
+· AoM (o).
+
+23 Case 4 : w1 < w 2 = o1 ≤ o2. Similar to Case 3, we obtain AoM (w) ≤
+
+1 + 2(1 −β)
+
+> β
+
+
+
+· AoM (o).
+
+Case 5 : o1 < w 1 ≤ w2 ≤ o2. Using the triangle inequality again, we have 
+
+AoM (w) = 1
+
+k
+
+X
+
+> d∈D
+
+δ(xid , w (xid )) ≤ AoM (o) + δ(o1, o 2).
+
+Clearly, AoM (o) ≥ 1
+
+> k
+
+P 
+
+> d∈D
+
+δ(xi′ 
+
+> d
+
+, o 1) and AoM (o) ≥ 1
+
+> k
+
+P 
+
+> d∈D
+
+δ(xi′ 
+
+> d
+
+, o 2).Using again the triangle inequality, we have 
+
+AoM (o) ≥ 12k · X
+
+> d∈D
+
+[δ(xi′ 
+
+> d
+
+, o 1) + δ(xi′ 
+
+> d
+
+, o 2)] ≥ 12 · δ(o1, o 2).
+
+Therefore, we conclude that AoM (w) ≤ 3 · AoM (o).
+
+Case 6 : o1 = w1 ≤ w2 < o 2. Similar to Case 5, we obtain AoM (w) ≤
+
+3 · AoM (o).
+
+Combining all cases, an upper bound of the distortion is given by 
+
+max 
+
+
+
+1 + 2(1 − β)
+
+β , 1 + 21 − β , 3
+
+
+
+= max 
+
+
+
+1 + 2(1 − β)
+
+β , 1 + 21 − β
+
+
+
+.
+
+By solving the equation 1 + 2(1 −β) 
+
+> β
+
+= 1 + 21−β , we establish the following theorem. 
+
+Theorem 9. For the Average-of-Max cost, the distortion of the (1 , 3−√52 )-Quantile mechanism is at most 2 + √5.
+
+7. Conclusions and Future Work 
+
+In this paper, we studied a constrained distributed heterogeneous two-facility location problem, and established lower and upper bounds on the distortion of strategyproof mechanisms under four social objectives. There are several promising directions for future work. First, it would be of great interest to close the gaps between our derived lower and upper bounds for each objective. Second, it is meaningful to extend our analysis to settings with more than two facilities, as well as to more general metric spaces beyond the real line. Third, one could explore alternative social objectives 24 in distributed environments (such as minimax envy), and consider scenarios where agents have more general preferences over facilities (e.g., fractional preferences). 
+
+Acknowledgments. This research was supported in part by the National Natural Science Foundation of China (12201590, 12171444) and Natural Sci-ence Foundation of Shandong Province (ZR2024MA031). 
+
+Disclosure of Interests. The authors declare that they have no conflict of interest. 
+
+References 
+
+[1] Alon, N., Feldman, M., Procaccia, A.D. & Tennenholtz, M. 2010. Strat-egyproof approximation of the minimax on networks. Mathematics of Operations Research , 35(3), 513–526. [2] Anastasiadis, E. & Deligkas, A. 2018. Heterogeneous facility location games. In Proceedings of the 17th International Conference on Au-tonomous Agents and MultiAgent Systems , 623–631. [3] Anshelevich, E., Filos-Ratsikas, A. & Voudouris, A.A. 2022. The dis-tortion of distributed metric social choice. Artificial Intelligence , 308, 103713. [4] Cai, Q., Filos-Ratsikas, A. & Tang, P. 2016. Facility location with mini-max envy. In Proceedings of the 25th International Joint Conference on Artificial Intelligence , 137–143. [5] Chan, H., Filos-Ratsikas, A., Li, B., Li, M. & Wang, C. 2021. Mechanism design for facility location problems: A survey. In Proceedings of the 30th International Joint Conference on Artificial Intelligence , 4356–4365. [6] Chen, Z., Fong, K.C.K., Li, M., Wang, K., Yuan, H. & Zhang, Y. 2020. Facility location games with optional preference. Theoretical Computer Science , 847, 185–197. [7] Cheng, Y., Yu, W. & Zhang, G. 2013. Strategy-proof approximation mechanisms for an obnoxious facility game on networks. Theoretical Computer Science , 497, 154–163. 25 [8] Deligkas, A., Filos-Ratsikas, A. & Voudouris, A.A. 2023. Heterogeneous facility location with limited resources. Games and Economic Behavior ,139, 200–215. [9] Ding, Y., Liu, W., Chen, X., Fang, Q. & Nong, Q. 2020. Facility location game with envy ratio. Computers & Industrial Engineering , 148, 106710. [10] Fang, J., Fang, Q., Liu, W. & Li, M. 2025. Heterogeneous facility location games with fractional preferences and limited resources. Au-tonomous Agents and Multi-Agent Systems , 39(2), 41. [11] Filos-Ratsikas, A., Kanellopoulos, P., Voudouris, A.A. & Zhang, R. 2024. The distortion of distributed facility location. Artificial Intelli-gence , 328, 104066. [12] Filos-Ratsikas, A., Micha, E. & Voudouris, A.A. 2020. The distortion of distributed voting. Artificial Intelligence , 286, 103343. [13] Filos-Ratsikas, A. & Voudouris, A.A. 2021. Approximate mechanism design for distributed facility location. In International Symposium on Algorithmic Game Theory , 49–63. [14] Fong, K.C.K., Li, M., Lu, P., Todo, T. & Yokoo, M. 2018. Facility location games with fractional preferences. In Proceedings of the 32nd AAAI Conference on Artificial Intelligence , 1039–1046. [15] Kanellopoulos, P. & Voudouris, A.A. 2025. Constrained truthful ob-noxious two-facility location with optional preferences. In International Symposium on Algorithmic Game Theory , 137–155. [16] Kanellopoulos, P., Voudouris, A.A. & Zhang, R. 2025. Truthful two-facility location with candidate locations. Theoretical Computer Science ,1024, 114913. [17] Li, M., Lu, P., Yao, Y. & Zhang, J. 2021. Strategyproof mechanism for two heterogeneous facilities with constant approximation ratio. In 
+
+Proceedings of the 29th International Conference on International Joint Conferences on Artificial Intelligence , 238–245. [18] Procaccia, A.D. & Tennenholtz, M. 2013. Approximate mechanism de-sign without money. ACM Transactions on Economics and Computa-tion , 1(4), 1–26. 26 [19] Serafino, P. & Ventre, C. 2016. Heterogeneous facility location without money. Theoretical Computer Science , 636, 27–46. [20] Tang, Z., Wang, C., Zhang, M. & Zhao, Y. 2020. Mechanism design for facility location games with candidate locations. In International conference on combinatorial optimization and applications , 440–452. [21] Voudouris, A.A. 2025. Metric distortion of obnoxious distributed voting. 
+
+Information Processing Letters , 189, 106559. [22] Zhao, Q., Liu, W., Nong, Q. & Fang, Q. 2023. Constrained heteroge-neous facility location games with max-variant cost. Journal of Combi-natorial Optimization , 45(3), 90. [23] Zou, S. & Li, M. 2015. Facility location games with dual preference. In 
+
+Proceedings of the 2015 international conference on autonomous agents and multiagent systems , 615–623. 27

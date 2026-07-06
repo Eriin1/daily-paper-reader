@@ -1,0 +1,277 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-06T21:44:38.658292+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [
+    {
+      "id": "2607.01621v1",
+      "source": "arxiv",
+      "title": "Spatial Support Matters: Geometry-Aware Graph Fusion for Rainfall Field Reconstruction",
+      "abstract": "Fine-scale rainfall reconstruction is critical for urban flood modeling, but real rainfall sensing systems observe the field through incompatible spatial supports: gauges measure points, microwave links measure paths, and radar/satellite products measure gridded areas. These differences in measurement support impose geometrically distinct constraints on the rainfall field, yet existing heterogeneous graph approaches reconcile such sources in feature space, giving each its own embedding while discarding the geometry of its support. We propose a geometry-aware multi-support heterogeneous graph neural network that represents each observation according to its support type (0D point, 1D line, or 2D grid) as a distinct node layer, and fuses them through cross-support message passing into a point-support prediction layer from which the field is reconstructed. An inductive masked-node formulation decouples prediction resolution from sensing resolution, allowing the same trained model to reconstruct the field at user-defined target locations or display grids. On Singapore data, the proposed method reduces RMSE by 23.2\\% over the classical interpolation baseline, inverse-distance weighting, and consistently outperforms other neural architectures such as convolutional fusion and support-agnostic heterogeneous graph baselines. A generalization study using data from Sydney, Australia lets us characterize when multi-support fusion helps: the available skill appears to depend on gauge spacing relative to the spatial correlation length of the field, so fusion delivers the largest gains where the field is under-sampled relative to its correlation length and little when it is already resolved. Code and models will be open-sourced upon paper acceptance.",
+      "authors": [
+        "Low Jun Yu",
+        "Niramay Kachhadiya",
+        "Herath Mudiyanselage Viraj Vidura Herath",
+        "Sanka Rasnayaka",
+        "Lucy Amanda Marshall"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-02T02:38:59+00:00",
+      "link": "https://arxiv.org/pdf/2607.01621v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "rainfall field reconstruction for urban flood modeling",
+      "llm_evidence_cn": "降雨场重建用于城市洪水建模",
+      "llm_evidence": "降雨场重建用于城市洪水建模",
+      "canonical_evidence": "降雨场重建用于城市洪水建模",
+      "llm_tldr_en": "Proposes a geometry-aware multi-support heterogeneous graph neural network to fuse rainfall observations from gauges, links, and grids, enabling fine-scale rainfall reconstruction critical for urban flood modeling.",
+      "llm_tldr_cn": "针对城市洪水建模中降雨观测数据空间支持不一致的问题，该论文提出了一种几何感知的多支持异构图神经网络，将点、线和网格三种支持类型的观测分别建模为不同节点层，并融合几何信息。该方法有效提升了精细尺度降雨场的重建精度，为城市雨洪评估提供了关键输入数据。实验表明，该方法优于传统特征空间融合方法，具有重要的实际应用价值。",
+      "llm_tldr": "针对城市洪水建模中降雨观测数据空间支持不一致的问题，该论文提出了一种几何感知的多支持异构图神经网络，将点、线和网格三种支持类型的观测分别建模为不同节点层，并融合几何信息。该方法有效提升了精细尺度降雨场的重建精度，为城市雨洪评估提供了关键输入数据。实验表明，该方法优于传统特征空间融合方法，具有重要的实际应用价值。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.29448v1",
+      "source": "arxiv",
+      "title": "Scalable Bayesian Spatial Mixture Modelling for Remote Sensing Image Segmentation",
+      "abstract": "Accurate and scalable land cover classification is essential for global conservation monitoring and policy-making. While remote sensing images provide a cost-effective alternative to ground surveys, current methods often lack principled uncertainty quantification and require substantial labelled data, limiting their usability and reliability in new regions with distribution shifts. We propose a Bayesian spatial mixture modelling approach for image segmentation, extending the classical Potts model by allowing for a generalised spatial dependence structure and incorporating informative priors estimated from pre-existing labelled data. Our framework, called POTTERS (Potts Model for Enhanced Remote Sensing), enables robust uncertainty quantification, accounts for class interactions, and can detect new clusters in the target region of interest. Crucially, our model does not require labelled data from the target region; instead, it incorporates prior information about the labels from pre-existing externally labelled images. To ensure scalability to large remote sensing images, we develop an efficient variational inference algorithm for posterior approximation. We demonstrate the benefits of our approach in simulation studies and apply it to land cover classification in a case study in Scotland, leveraging publicly available remote sensing data from England.",
+      "authors": [
+        "Bao Khanh Nguyen",
+        "Iain Cameron",
+        "Cecilia Balocchi",
+        "Torben Sell"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME",
+        "stat.AP"
+      ],
+      "published": "2026-06-28T15:12:49+00:00",
+      "link": "https://arxiv.org/pdf/2606.29448v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Bayesian spatial mixture model for land cover segmentation useful for flood risk mapping",
+      "llm_evidence_cn": "贝叶斯空间混合模型用于土地覆盖分割，可辅助洪水风险制图",
+      "llm_evidence": "贝叶斯空间混合模型用于土地覆盖分割，可辅助洪水风险制图",
+      "canonical_evidence": "贝叶斯空间混合模型用于土地覆盖分割，可辅助洪水风险制图",
+      "llm_tldr_en": "This paper proposes POTTERS, a Bayesian spatial mixture model for land cover segmentation from remote sensing that provides uncertainty quantification and uses prior knowledge, enabling scalable and reliable classification for applications like flood risk mapping.",
+      "llm_tldr_cn": "现有遥感图像分割方法缺乏不确定度量化且依赖大量标注数据，限制了在新区域的可推广性。本文提出一种贝叶斯空间混合模型POTTERS，扩展经典Potts模型以容纳广义空间依赖结构，并融入预标注数据的先验信息。该方法在土地覆盖分类中实现了鲁棒的不确定度估计，并在多个遥感数据集上验证了其可扩展性和可靠性。该模型可直接辅助城市洪水风险区的土地覆盖映射，为洪水风险建模提供基础数据。",
+      "llm_tldr": "现有遥感图像分割方法缺乏不确定度量化且依赖大量标注数据，限制了在新区域的可推广性。本文提出一种贝叶斯空间混合模型POTTERS，扩展经典Potts模型以容纳广义空间依赖结构，并融入预标注数据的先验信息。该方法在土地覆盖分类中实现了鲁棒的不确定度估计，并在多个遥感数据集上验证了其可扩展性和可靠性。该模型可直接辅助城市洪水风险区的土地覆盖映射，为洪水风险建模提供基础数据。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for urban flood risk assessment",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.29172v1",
+      "source": "arxiv",
+      "title": "CORDEX-ML-Bench: A Benchmark for Data-Driven Regional Climate Downscaling -Experiment Design and Overview",
+      "abstract": "Machine learning (ML) has emerged as a cost-effective approach to complement dynamical downscaling for producing high-resolution regional climate projections. However, the absence of standardised training and evaluation protocols, applied consistently across multiple domains, continues to hinder meaningful model intercomparison. We introduce CORDEX-ML-Bench, a benchmark aligned with CORDEX, which constitutes the first phase of a community initiative to advance data-driven downscaling toward operational readiness, and complement future dynamical downscaling efforts under CMIP7. The framework targets downscaled daily maximum temperature and precipitation to ~10 km resolution (20x increase) across three pilot regions; European Alps, New Zealand, and Southern Africa. Using a perfect-model experimental design, we evaluate 40 ML configurations developed independently, spanning traditional ML, convolutional U-Nets, vision transformers, graph neural networks, and generative models based on diffusion, flow matching, and generative adversarial networks. Models are trained under two experimental periods, an empirical-statistical downscaling pseudo-reality (historical period only) and Emulator (historical and future periods) -and are evaluated against a core set of metrics developed specifically for assessing downscaling skill. Generative models consistently outperform deterministic approaches for precipitation, better capturing fine-scale variability and extremes. For temperature, the generative advantage narrows and deterministic architectures remain competitive. Models trained solely on the historical period systematically underestimate future climate-change signals while those additionally trained on a future period perform better. These findings raise concerns about historically trained models widely used in an operational setting, underscoring the need for rigorous extrapolation testing.",
+      "authors": [
+        "Neelesh Rampal",
+        "José González-Abad",
+        "Henry Addison",
+        "Jorge Baño-Medina",
+        "Maria Laura Bettolli",
+        "Valentina Blasone",
+        "Ben Booth",
+        "Erika Coppola",
+        "Serafina Di Gioia",
+        "Joshua Oldham-Dorrington",
+        "Antoine Doury",
+        "Francois Engelbrecht",
+        "Ramón Fuentes-Franco",
+        "Peter B. Gibson",
+        "Luca Glawion",
+        "Caroline Hardy",
+        "Mikhail Ivanov",
+        "Hugo Kyo Lee",
+        "Mikel N. Legasa",
+        "Matias Olmo",
+        "Andrew Orr",
+        "Julius Polz",
+        "Martin S. J. Rogers",
+        "Maybritt Schillinger",
+        "Shivani Sharma",
+        "Pedro M. M. Soares",
+        "Stefan Sobolowski",
+        "Jessica Steinkopf",
+        "Wenchang Tang",
+        "Jr-Ben Tian",
+        "Ricardo Tomé",
+        "Ko-Chih Wang",
+        "Yi-Chi Wang",
+        "Peter A. G. Watson",
+        "Tom Wetherell",
+        "Martin Widmann",
+        "José M. Gutiérrez"
+      ],
+      "primary_category": "physics.ao-ph",
+      "categories": [
+        "physics.ao-ph"
+      ],
+      "published": "2026-06-28T03:36:57+00:00",
+      "link": "https://arxiv.org/pdf/2606.29172v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Regional climate downscaling benchmark for precipitation and temperature",
+      "llm_evidence_cn": "区域气候降尺度基准，提供高分辨率降水与温度数据，支持洪水建模",
+      "llm_evidence": "区域气候降尺度基准，提供高分辨率降水与温度数据，支持洪水建模",
+      "canonical_evidence": "区域气候降尺度基准，提供高分辨率降水与温度数据，支持洪水建模",
+      "llm_tldr_en": "Introduces CORDEX-ML-Bench, a benchmark for data-driven regional climate downscaling targeting daily max temperature and precipitation at 10km resolution across three regions, facilitating improved climate inputs for flood modeling.",
+      "llm_tldr_cn": "该论文提出了CORDEX-ML-Bench，一个面向数据驱动的区域气候降尺度的标准化基准，旨在提供高分辨率（约10公里）的日最高温度和降水数据。该基准覆盖欧洲、非洲和澳大利亚三个区域，使用CMIP6 GCM输入，并定义了统一的训练和评估协议。这有助于生成更精确的气候输入，从而改善城市洪水风险评估与管理中的水文模型表现。",
+      "llm_tldr": "该论文提出了CORDEX-ML-Bench，一个面向数据驱动的区域气候降尺度的标准化基准，旨在提供高分辨率（约10公里）的日最高温度和降水数据。该基准覆盖欧洲、非洲和澳大利亚三个区域，使用CMIP6 GCM输入，并定义了统一的训练和评估协议。这有助于生成更精确的气候输入，从而改善城市洪水风险评估与管理中的水文模型表现。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.00849v1",
+      "source": "arxiv",
+      "title": "The Course of News Events: A Comparison of Bottom-Up and Top-Down Approaches for Collecting Text-Based Data about Disasters",
+      "abstract": "News articles are an important source of information on disaster impacts and adaptation. A key methodological challenge in socio-environmental studies is how to select a representative data sample. Two approaches are common: querying news databases top-down with the aid of an existing disaster inventory or using NLP methods to cluster news texts bottom-up based on temporal and spatial features. Using a dataset of German news about landslides worldwide, we compare these approaches and discuss variations in event coverage. Such research design decision can influence the resulting news sample, affecting its use in studies of inequality in media coverage, disaster monitoring and inventory enrichment.",
+      "authors": [
+        "Brielen Madureira",
+        "Andreas Niekler",
+        "Mariana Madruga de Brito"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-07-01T12:15:50+00:00",
+      "link": "https://arxiv.org/pdf/2607.00849v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "compares methods for collecting news data on disasters, relevant to disaster monitoring and impact analysis for urban floods",
+      "llm_evidence_cn": "比较灾害新闻数据收集方法，可用于城市洪水的监测与影响分析",
+      "llm_evidence": "比较灾害新闻数据收集方法，可用于城市洪水的监测与影响分析",
+      "canonical_evidence": "比较灾害新闻数据收集方法，可用于城市洪水的监测与影响分析",
+      "llm_tldr_en": "Compares top-down and bottom-up approaches for collecting news data about disasters, offering methodological insights for urban flood monitoring and impact studies.",
+      "llm_tldr_cn": "社会-环境研究中灾害新闻数据的代表性至关重要。本文系统比较了基于现有灾害清单的自上而下查询法和基于NLP时空特征的自下而上聚类法，以德国全球滑坡新闻为例评估两种方法对事件覆盖的差异。研究发现研究设计会影响样本代表性，进而影响灾害监测、媒体不平等研究等下游应用。该工作为城市洪水事件的新闻数据采集提供了方法论借鉴。",
+      "llm_tldr": "社会-环境研究中灾害新闻数据的代表性至关重要。本文系统比较了基于现有灾害清单的自上而下查询法和基于NLP时空特征的自下而上聚类法，以德国全球滑坡新闻为例评估两种方法对事件覆盖的差异。研究发现研究设计会影响样本代表性，进而影响灾害监测、媒体不平等研究等下游应用。该工作为城市洪水事件的新闻数据采集提供了方法论借鉴。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.01605v1",
+      "source": "arxiv",
+      "title": "pykci: A Compact Urban Knowledge Graph for Semantic and Spatial Queries using LLMs",
+      "abstract": "CityGML, the OGC standard for modeling, storage, and exchange of semantic 3D city models, describes urban objects with detailed semantics, geometry, and topology. Yet this richness is difficult to query directly: CityGML's XML encoding is designed for exchange rather than analysis, and relational mappings expose it through schemas requiring expert knowledge. We present pykci (Python Knowledge Graph for Cities), an open-source system that transforms CityGML 2.0 datasets into a compact urban knowledge graph in Neo4j and makes it queryable in natural language. The graph schema covers all thematic feature modules of CityGML 2.0 across all levels of detail and is spatially indexed with an R-tree for efficient geometric retrieval. A complete end-to-end Python pipeline ingests CityGML datasets into the knowledge graph, exports them to OGC 3D Tiles for interactive visualization, and supports lossless round-trip export of all content back to CityGML. For querying, the graph is paired with a large language model through a model-agnostic text-to-Cypher mechanism: the graph schema is supplied as context, and the model translates natural-language questions into Cypher queries executed against the graph. We evaluate both a locally running open-weight model, which keeps sensitive city data on-premise, and a state-of-the-art commercial model for the most demanding spatial and semantic queries. Answers are grounded in exact city data rather than the model's parametric memory, reducing hallucination and providing auditable provenance for every response. We demonstrate the system on open-government CityGML LoD2 datasets from Hamburg, Germany, including complex semantic and spatial queries such as identifying roof surfaces suitable for greening. pykci enables urban planners, GIS practitioners, and citizens to interact with semantic 3D city models without expertise in query languages and database schemas.",
+      "authors": [
+        "Huynh Duc An Son Nguyen",
+        "Lukas Arzoumanidis",
+        "Youness Dehbi"
+      ],
+      "primary_category": "cs.DB",
+      "categories": [
+        "cs.DB"
+      ],
+      "published": "2026-07-02T02:07:54+00:00",
+      "link": "https://arxiv.org/pdf/2607.01605v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "urban knowledge graph supports flood-related spatial queries",
+      "llm_evidence_cn": "城市知识图谱支持洪水相关空间查询",
+      "llm_evidence": "城市知识图谱支持洪水相关空间查询",
+      "canonical_evidence": "城市知识图谱支持洪水相关空间查询",
+      "llm_tldr_en": "Transforms CityGML datasets into a compact urban knowledge graph with natural language querying, enabling efficient semantic and spatial retrieval for urban flood applications.",
+      "llm_tldr_cn": "CityGML标准城市模型数据因XML编码和关系模式复杂而难以直接查询。本文提出pykci系统，将CityGML 2.0数据集转换为Neo4j知识图谱，覆盖所有主题模块，并集成R树空间索引。用户可通过自然语言进行语义和空间查询。该系统为城市洪水相关的数据检索和空间分析提供了便捷工具，支持城市规划与管理场景。",
+      "llm_tldr": "CityGML标准城市模型数据因XML编码和关系模式复杂而难以直接查询。本文提出pykci系统，将CityGML 2.0数据集转换为Neo4j知识图谱，覆盖所有主题模块，并集成R树空间索引。用户可通过自然语言进行语义和空间查询。该系统为城市洪水相关的数据检索和空间分析提供了便捷工具，支持城市规划与管理场景。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.02314v1",
+      "source": "arxiv",
+      "title": "Constrained Distributed Heterogeneous Two-Facility Location Problems with Max-Variant Cost",
+      "abstract": "This paper investigates a constrained distributed heterogeneous two-facility location problem under the max-variant cost model. In this setting, a set of agents with private locations on the real line is partitioned into disjoint groups. The constraint stipulates that facilities must be situated within a given multiset of candidate locations, with the restriction that each candidate location can host at most one facility. Under the max-variant model, an agent's individual cost is defined as the distance from their location to the farthest facility. Our objective is to design strategyproof distributed mechanisms that incentivize agents to report their locations truthfully while approximating social objectives. Such mechanisms operate in two stages: first, for each group, a pair of candidate locations is selected as representatives based solely on local reports; subsequently, the mechanism outputs two final facility locations from the set of all representatives. We focus on a class of deterministic strategyproof distributed mechanisms and establish constant lower and upper bounds on the distortion under four social objectives: Average-of-Average, Max-of-Max, Average-of-Max, and Max-of-Average costs.",
+      "authors": [
+        "Xinru Xu",
+        "Wenjing Liu",
+        "Qizhi Fang"
+      ],
+      "primary_category": "cs.GT",
+      "categories": [
+        "cs.GT"
+      ],
+      "published": "2026-07-02T15:25:06+00:00",
+      "link": "https://arxiv.org/pdf/2607.02314v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "strategyproof mechanisms relate to algorithmic fairness and accountability",
+      "llm_evidence_cn": "策略证明机制与算法公平性和问责相关",
+      "llm_evidence": "策略证明机制与算法公平性和问责相关",
+      "canonical_evidence": "策略证明机制与算法公平性和问责相关",
+      "llm_tldr_en": "Designs strategyproof distributed mechanisms for facility location problems under a max-variant cost model, contributing to fair algorithmic decision-making in governance.",
+      "llm_tldr_cn": "设施选址问题中，代理可能谎报位置以优化自身利益。本文研究分布式环境下具有候选位置约束的异质设施选址问题，提出基于最大变异成本的策略证明机制，保证代理真实汇报位置的同时近似最小化社会成本。该机制为算法治理中的公平性原则提供了理论支撑，可用于城市公共服务设施布局等场景。",
+      "llm_tldr": "设施选址问题中，代理可能谎报位置以优化自身利益。本文研究分布式环境下具有候选位置约束的异质设施选址问题，提出基于最大变异成本的策略证明机制，保证代理真实汇报位置的同时近似最小化社会成本。该机制为算法治理中的公平性原则提供了理论支撑，可用于城市公共服务设施布局等场景。",
+      "llm_tags": [
+        "query:algo-gov:composite"
+      ],
+      "matched_query_tag": "query:algo-gov:composite",
+      "matched_query_text": "Papers central to 请帮我查询关于算法治理的文章, especially work that connects or combines: algorithm governance principles and frameworks; fairness in algorithmic decision making; transparency of algorithms and models; accountability for algorithmic outcomes; ethical considerations in artificial intelligence; detecting bias in machine learning models; challenges and solutions in algorithm governance; impact of algorithm governance on society; best practices for implementing algorithm governance.",
+      "matched_requirement_id": "req-composite-algo-gov",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
