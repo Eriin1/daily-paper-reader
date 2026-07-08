@@ -1,0 +1,211 @@
+Title: stLMM: Bayesian Spatial and Space-Time Linear Mixed Models for Small-Area Ecological Estimation
+
+URL Source: https://arxiv.org/pdf/2607.02836v1
+
+Published Time: Tue, 07 Jul 2026 00:24:05 GMT
+
+Number of Pages: 13
+
+Markdown Content:
+# stLMM : Bayesian Spatial and Space-Time Linear Mixed Models for Small-Area Ecological Estimation 
+
+Andrew O. Finley 1,2 1Department of Forestry, Michigan State University 
+
+> 2
+
+Department of Statistics and Probability, Michigan State University 
+
+# Summary 
+
+1. stLMM is an R package for Bayesian linear mixed models with spatial, temporal, and space-time latent effects. It provides a common formula interface for independent and identically distributed (iid) grouped effects, autoregressive (AR) temporal effects, Gaussian process (GP) and nearest-neighbor Gaussian process (NNGP) point-referenced effects, conditional autoregressive (CAR) and directed acyclic graph autoregressive (DAGAR) areal effects, separable areal space-time effects, and structured varying coefficients. 2. The package is designed for ecological small-area estimation workflows in which analysts must move between direct-estimate and unit-level models, combine sampling variances or residual-variance models with spatial and temporal borrowing, and retain missing response rows as prediction targets. 3. A shared sparse-precision implementation underlies the model terms. Structured latent effects are collapsed during fitting, then recovered or retained for fitted values, diagnostics, prediction, and posterior summaries. This gives users one posterior-draw workflow for propagating uncertainty from model fitting through prediction and aggregation. 4. The package is demonstrated with a Washington county biomass example from the package article series, using Forest Inventory and Analysis (FIA) data and tree canopy cover to estimate county-year biomass means. The full article series provides reproducible source code, data, diagnostics, and related model variants. 
+
+Keywords: Bayesian modeling; forest inventory; Gaussian process; national forest inventory; R package; small-area estimation; spatial statistics; space-time model. 
+
+# 1 Introduction 
+
+stLMM is an R (R Core Team, 2024) package for fitting Bayesian linear mixed models with structured spatial, temporal, and space-time random effects. The package provides a common formula-based interface for models whose latent terms are indexed by groups, times, locations, areas, or combinations of these supports. Implemented terms include independent and identically distributed 1
+
+> arXiv:2607.02836v1 [stat.ME] 3 Jul 2026
+
+(iid) grouped effects, autoregressive (AR) temporal effects, Gaussian process (GP) and nearest-neighbor Gaussian process (NNGP, Datta et al., 2016; Finley et al., 2019) point-referenced effects, conditional autoregressive (CAR) and directed acyclic graph autoregressive (DAGAR, Datta et al., 2019) areal effects, separable areal space-time effects, and structured varying coefficients. The package was developed to support prediction of space- and time-indexed ecological variables, particularly in monitoring programs where users increasingly require estimates for spatial, temporal, and biophysical domains finer than those targeted by the original sampling designs. Large-scale ecological monitoring programs provide essential information about environmental status and change, but their designs are often optimized for broad reporting domains. As a result, many user-defined domains contain too few observations to support reliable direct, design-based estimates (Prisley et al., 2021; Dumelle et al., 2022; Knott et al., 2023). Model-based small-area estimation (SAE) methods address this problem by combining probability-sample observations, auxiliary information, and statistical models that borrow strength across related units or domains (Rao and Molina, 2015). SAE methods are often described as either area-level or unit-level models. In area-level models, the response is a direct estimate for a reporting domain, and the model accounts for its sampling variance while relating the estimate to domain-level covariates. The Fay-Herriot model is the canonical area-level model (Fay and Herriot, 1979). In unit-level models, the response is measured on sampled units, such as plots, and domain summaries are obtained by predicting over the target population or support and then aggregating. The Battese-Harter-Fuller (BHF) model is the canonical unit-level model (Battese et al., 1988). These classical models provide useful reference points, but modern ecological applications often require combinations of model components that extend beyond either formulation alone. Examples include point-referenced plot effects, areal effects over reporting domains, temporal and space-time dependence, residual-variance models for direct estimates, structured varying coefficients, prediction to unsampled supports, and posterior summaries over user-defined reporting domains. 
+
+stLMM was written for this broader model-building and prediction problem. Fixed effects are specified using standard R formula syntax, while special model terms add iid random effects, structured latent processes, and residual-variance models. The package emphasizes latent terms that can be represented by covariance functions or sparse precision matrices using a unifying design, allowing users to specify dependence induced by distances, neighborhoods, adjacency relationships, or directed acyclic graph orderings. This formulation gives users a single interface for fitting models that borrow strength across sampled units, reporting domains, space, and time. The package is designed for both direct-estimate and unit-level workflows. A response may be a domain-level direct estimate or an observation measured at a sampled unit; latent processes may be point-referenced, areal, temporal, or space-time; and fitted models may be used to predict on supported newdata or retained missing-response supports before users aggregate or otherwise transform posterior draws into reporting-domain summaries. Rather than treating these cases as separate software problems, stLMM represents them as combinations of model terms within a shared Bayesian linear mixed-model framework. 22 Modeling framework 
+
+The package uses a latent mixed-model representation whose computation is organized around sparse precision matrices. For Gaussian responses, the basic observation model is 
+
+y = Xβ + Zα + Aw + ε, (1) where X is the fixed-effects design matrix with associated regression coefficients β, Z is the random-effects design matrix for explicit iid grouped effects α, w is the stacked structured latent-process vector, A maps observations to latent process nodes and applies covariate scaling for varying-coefficient terms, and ε is the residual component. The iid grouped effects have conditionally independent Gaussian priors and are sampled directly. They are therefore represented separately from the structured latent processes in w, which are integrated out during fitting and recovered after fitting when needed. The default residual model is homoskedastic, 
+
+ε ∼ N (0, τ 2In), (2) with options for a more general diagonal observation precision, 
+
+W = diag( p1, . . . , p n). (3) Under the default model, pi = τ −2. Other options allow fixed row-specific precisions, such as 
+
+pi = 1 /̂ vi for direct-estimate residual variances, and sampled residual-variance models, such as 
+
+pi = 1 /τ 2 
+
+> i
+
+, with additional options described in the package documentation. For binomial and fixed-size negative binomial responses, stLMM uses Pólya-Gamma data augmentation to recast the likelihood as a conditionally Gaussian problem with a diagonal working precision (Polson et al., 2013; Windle et al., 2013; Zhou et al., 2012). This allows the same linear predictor in Eq. (1) , and the same sparse precision machinery, to support Gaussian, binomial, and count-data models. Each structured process term defines a latent support, such as locations, times, areas, or area-time combinations, and contributes a prior precision to the stacked process vector w. For one process term with latent support s1, . . . , s qk , the finite latent vector is 
+
+wk = ( wk(s1), . . . , w k(sqk )) ⊤ . (4) With K structured process terms, 
+
+w =
+
+> (
+
+w⊤ 
+
+> 1
+
+, . . . , w⊤
+
+> K
+> )⊤
+
+, w ∼ N (0, Q−1 
+
+> w
+
+), Qw = blockdiag( Q1, . . . , QK ), (5) where Qk is the prior precision for the kth structured process term, conditional on its covariance or precision parameters. This block-diagonal prior represents conditional independence among distinct structured process terms, while dependence among observations is induced by mapping the latent processes to the data through A.Given the process map A and observation precision W , the key sparse matrix associated with the structured latent process is 
+
+M = Qw + A⊤W A . (6) This matrix shows how prior structure from the process precision, information from the likelihood, and the observation-to-process mapping combine in one sparse linear-algebra problem. Here A and 3W refer to rows that contribute to the likelihood; missing-response rows may remain in the fitted design and latent support, but they do not add likelihood information. The package’s Markov chain Monte Carlo (MCMC) sampler is collapsed with respect to w: structured latent process values are integrated out during fitting, and the sampler targets the fixed effects, iid grouped effects, residual-variance parameters, and process covariance or precision parameters. Latent process values are then recovered or retained for fitted values, prediction, diagnostics, and posterior summaries. This separation keeps the fitted MCMC state smaller than it would be if all structured latent effects were sampled directly and gives the package a common inferential engine for point-referenced, temporal, areal, and area-time terms. This shared computational structure is based on sparse precision assembly and sparse Cholesky factorization of M . Structured process terms enter the model through covariance functions or precision matrices, with most scalable terms represented through sparse precisions induced by neighbor sets, adjacency relationships, temporal ordering, or directed acyclic graph orderings. These matrices are assembled once the formula terms and latent supports are defined, and the sampler uses the resulting sparse linear-algebra operations rather than separate model-specific fitting routines for each type of spatial or space-time dependence. Sparse matrix operations rely on CHOLMOD through the R Matrix package’s C API (Chen et al., 2008; Bates et al., 2025), while dense operations use the BLAS and LAPACK libraries linked to R (Blackford et al., 2002; Anderson et al., 1999). The sampler treats the factorized M as an operator: collapsed likelihood evaluations, Gaussian coefficient updates, and latent-process recovery are expressed through CHOLMOD-backed solves, sparse matrix-vector products, and inner products. The implementation avoids forming dense observation-space covariance matrices, dense inverse covariance matrices, M −1, or Q−1 
+
+> w
+
+explicitly. Building on CHOLMOD, BLAS, and LAPACK is an important part of the package design because it keeps the computational engine flexible and extensible. These libraries continue to benefit from improvements in hardware, CPU and GPU support, and multithreading. In addition to providing reasonable defaults, the package exposes lower-level controls for CHOLMOD settings such as fill-reducing algorithms and thread controls, allowing computationally focused investigations of the model terms. 
+
+# 3 Package interface and workflow 
+
+The user-facing interface is deliberately small. Models are fit with stLMM() , structured latent processes are recovered with recover() , and posterior predictions are generated with predict() .Standard S3 methods are provided for printing, summaries, fitted values, posterior-sample conversion, and diagnostic plots. A typical workflow is    
+
+> fit <-stLMM (formula, data = dat, ...) rec <-recover (fit, ...) pred <-predict (rec, newdata = newdat, ...)
+
+For models with only fixed effects and iid grouped random effects, fitted values and predictions can be obtained directly from the fitted object. For models with structured spatial, temporal, or space-time process terms, recover() prepares latent process draws for fitted values, diagnostics, and prediction. Posterior draws can be subsampled during recovery and prediction, allowing users 4to control the size of downstream objects. The main model terms are 
+
+• iid() for independent and identically distributed grouped random effects; 
+
+• gp() for dense Gaussian process effects on point-referenced supports; 
+
+• nngp() for nearest-neighbor Gaussian process effects on point-referenced or space-time supports; 
+
+• ar1() for autoregressive temporal effects; 
+
+• car() for conditional autoregressive areal effects; 
+
+• dagar() for directed acyclic graph autoregressive areal effects; 
+
+• car_time() for separable CAR-time effects; 
+
+• dagar_time() for separable DAGAR-time effects. With the exception of gp() , these process terms are represented through sparse precision matrices. Formula interactions turn these terms into group-varying or space-time varying effects. For example, varying effects for a generic covariate x can be written as x:iid() , x:gp() , x:nngp() , x:car() ,
+
+x:dagar() , x:car_time() , or x:dagar_time() . This makes structured varying coefficients part of the same formula grammar used for random intercepts. Point-referenced spatial and space-time data are handled using the gp() and nngp() terms. Co-variance functions are discoverable through get_cor_models() ; current spatial options include the Matérn and exponential, and space-time options include separable and nonseparable models. Any number of coordinate columns can be passed to define the Euclidean space used for constructing the covariance. For space-time covariance models, coordinate order is part of the model, with the final coordinate treated as time. The dense gp() term is intended for smaller supports, whereas 
+
+nngp() provides the scalable point-referenced option. Areal spatial and space-time data are handled using car() and car_time() , and dagar() and 
+
+dagar_time() . The car() and car_time() terms support proper and Leroux CAR specifications (Banerjee et al., 2014; Leroux et al., 1999). A spatial adjacency graph is supplied to each function and can be constructed using car_graph() . The car_time() term fits a separable model in which a time column defines the temporal support; the temporal component can use either an ordered-support AR(1) precision or a continuous-time exponential correlation with a temporal decay parameter. The dagar() term uses the same graph support as car() , but orients the graph according to a user-specified ordering and applies the ordered DAGAR construction (Datta et al., 2019). The dagar_time() term combines this ordered DAGAR spatial precision with the same temporal precision options used by car_time() .Residual precision models are specified separately from structured process terms. The resid() 
+
+term allows Gaussian residual variation to depart from the homoskedastic default through fixed row-specific precisions, group-specific residual variances, and direct-estimate variance models. This is particularly useful for area-level small-area estimation, where the response may be a direct estimate with an associated design-based variance. Formula offsets are supported through offset() and enter as known additive linear-predictor components in fitting, fitted values, recovery, and prediction. The output of predict() is a matrix or array of posterior draws rather than a single point prediction. Posterior predictive inference proceeds by applying any required transformation or aggregation to each retained draw and then summarizing the resulting sample. This convention supports domain-level reporting and summaries of change while propagating uncertainty from model fitting, latent-process recovery, prediction, and aggregation through to the final reported quantities. 54 Software context 
+
+The R ecosystem already contains strong spatial and Bayesian modeling tools, and stLMM is intended to complement them rather than replace them. Stan and NIMBLE are general probabilistic programming frameworks with extensive distributional and matrix-algebra building blocks (Carpenter et al., 2017; de Valpine et al., 2017). They can express spatial and space-time models, including models with user-constructed precision matrices, but the analyst typically writes more of the model, computation and prediction workflow directly. R-INLA is more nearly ready-made for latent Gaussian models, with mature support for areal effects, stochastic partial differential equation (SPDE) spatial fields and many spatial and space-time extensions (Rue et al., 2009; Lindgren et al., 2011; Bakka et al., 2018). Several packages provide mature implementations for narrower spatial or ecological model classes. 
+
+sdmTMB uses TMB (Kristensen et al., 2016), fmesher (Lindgren et al., 2026), and SPDE-based Gaussian Markov random fields to fit fast spatial and spatiotemporal GLMMs, with a rich interface for species distribution models, smooth terms, spatially varying coefficients, delta and hurdle models and prediction (Anderson et al., 2025). FRK takes a fixed-rank approach to spatial and spatio-temporal prediction, including change-of-support workflows (Zammit-Mangion and Cressie, 2021). 
+
+spBayes and spNNGP are established Bayesian tools for point-referenced spatial and space-time models, including scalable NNGP models (Finley et al., 2015, 2022). CARBayes and geostan focus on areal and spatial regression, with geostan providing pre-specified Stan models (Lee, 2013; Donegan, 2022); the ordered DAGAR and DAGAR-time families implemented here are not widely available in mainstream areal packages. Ecology-focused packages such as hSDM , Hmsc , spOccupancy 
+
+and spAbundance offer rich model classes for species distributions, communities, occupancy and abundance, often with spatial random effects (Vieilledent, 2023; Tikhonov et al., 2020; Doser et al., 2022, 2024). These tools also differ in how they represent spatial dependence. SPDE approaches, as used by R-INLA and sdmTMB , approximate a continuous Matérn field with a sparse Gaussian Markov random field on a triangulated mesh and project observations onto that mesh. stLMM instead represents point-referenced dependence through covariance functions or NNGP neighbor conditionals on the point support, and areal dependence through CAR or DAGAR graph precisions on the areal support. While stLMM is less general than some of these alternatives, it targets a specific gap: comparing Bayesian linear mixed models across point, areal, temporal, and space-time supports under one interface and one posterior prediction workflow. Its niche is small-area ecological estimation, where an analyst may need direct-estimate residual variances, structured latent-effect recovery, and posterior aggregation to reporting domains without switching software frameworks. 
+
+# 5 Example application: Washington county biomass 
+
+The package website includes a Washington county biomass small-area estimation series. The series uses a common prepared FIA and tree-canopy-cover data bundle to compare area-response and unit-response workflows, including direct-estimate CAR-time models, scaled residual variance models, spatially varying coefficients, BHF-style unit-level models, and two-stage unit-response models. This section summarizes one article from that series, “Direct-estimate CAR-time model with spatially varying TCC”, to show the main package workflow without reproducing the full tutorial. 6The response rows are county-year direct estimates of live aboveground biomass density. Let ̂ yi be the direct estimate for county ai and year ti, with estimated sampling variance ̂ vi, effective sample size ni, and standardized county mean tree canopy cover xai,t i . The article fits ̂
+
+yi = β0 + {β1 + u(ai)}xai,t i + w(ai, t i) + ei, ei ∼ N (0 , τ 2 
+
+> i
+
+). (7) The spatially varying coefficient u(a) is a county-level CAR process that lets the TCC-biomass association vary across Washington. The county-year term w(a, t ) is a separable CAR-time process that smooths direct estimates over neighboring counties and adjacent years. The direct-estimate variances enter through a scaled residual model, 
+
+log( τ 2 
+
+> i
+
+) = log( κ) + ωi log( ̂vi) + (1 − ωi) log( τ 20 ), ωi = ni
+
+ni + c , (8) so the supplied sampling variances define relative precision while the model can recalibrate their overall scale and shrink low-information rows toward a common variance. In the code below, 
+
+shrinkage = 10 sets c = 10 in this weight. The corresponding stLMM() call highlights the formula syntax used to combine the TCC covariate, spatially varying coefficient, county-time process, and scaled residual variance model. The county graph g is created by car_graph() from the county polygons, with bridge edges added for island components. Rows with missing direct estimates remain in direct_estimates ; they do not enter the likelihood, but they define county-year latent support for fitted values.     
+
+> fit <-stLMM (direct_biomass ~ county_mean_tcc_scaled + county_mean_tcc_scaled: car (county_fips, graph = g, car_model = "leroux") +
+> car_time (county_fips, year, graph = g, car_model = "leroux") +
+> resid (model = "scaled", variance = direct_biomass_vhat_model, n = n, shrinkage = 10), data = direct_estimates, ... )rec <-recover (fit, sub_sample = posterior_sub_sample) theta_draws <-fitted (rec, summary = FALSE )
+
+The object rec contains posterior draws of the recovered CAR and CAR-time latent effects for the retained MCMC samples. The object theta_draws contains posterior draws of the fitted latent county-year biomass means, i.e., draws of θa,t = β0 +{β1 +u(a)}xa,t +w(a, t ) on the same county-year support as direct_estimates . The article summarizes these draws by county and year to produce posterior means and credible intervals. Figure 1 shows those posterior means alongside the direct estimates. The direct estimates are spatially incomplete and noisy in some years, whereas the model-smoothed county-year means are available for the full county-year support and borrow strength according to the county graph, temporal correlation, direct-estimate precision, and TCC covariate structure. 72016 2018 2020 2022 2024     
+
+> direct estimate  model−smoothed mean
+> 122 °W 120 °W 118 °W122 °W 120 °W 118 °W122 °W 120 °W 118 °W122 °W 120 °W 118 °W122 °W 120 °W 118 °W
+> 45 °N46 °N47 °N48 °N
+> 45 °N46 °N47 °N48 °N
+> Mg/ha
+> 0100 200 300
+
+Figure 1: Washington county-year direct estimates and posterior means from the scaled-variance CAR-time model with a spatially varying TCC coefficient. Grey counties have no model-ready direct estimate in that year. The recovered CAR coefficient surface in Figure 2 shows how the biomass association with county mean TCC varies spatially, after adding the global TCC effect to the county-level CAR deviations. Summaries over space and time are assembled from posterior samples. The county time series in Figure 3 show posterior uncertainty for the latent county-year biomass mean, with direct estimates plotted as noisy observations. 45 °N46 °N47 °N48 °N  
+
+> 122 °W120 °W118 °W
+> Mg/ha per SD TCC
+> −100 −50 050 100
+
+Figure 2: Posterior mean tree canopy cover (TCC) coefficient, in Mg/ha per one standard deviation increase in county mean TCC. The full article provides the reproducible Quarto source, extracted R script, data, graph construction, priors, sampler settings, parameter summaries, trace plots, diagnostics, and plotting code used for these figures. The surrounding Washington series then varies one modeling choice at a time, making it a compact companion to this manuscript: the paper describes the shared modeling and computation framework, while the website articles show how the same interface supports a ladder 8Okanogan Yakima             
+
+> Clallam King
+> 1999 2004 2009 2014 2019 2024 1999 2004 2009 2014 2019 2024
+> 100 125 150 175 200
+> 50 75 100 125 150 175
+> 200 250 300 350
+> 20 40 60
+> Year
+> Live aboveground biomass Mg/ha
+> Plot n
+> 0
+> 25
+> 50
+> 75
+> 100
+
+Figure 3: Posterior county-year biomass means and 95% credible intervals for four counties, with direct estimates shown as points sized by FIA plot count. of applied FIA small-area estimation analyses. 
+
+# 6 Recommended use and resources 
+
+stLMM provides a unified Bayesian mixed-model interface for ecological applications that require spatial, temporal, or space-time borrowing of strength and posterior prediction beyond the observed sampling locations or reporting units. Its main contribution is not a new model for a single support type, but a common specification and computation layer for related latent process models. This makes it possible to combine iid and structured terms, move between point-referenced and areal supports, and carry posterior uncertainty through fitted values, latent-process recovery, prediction, and user-defined summaries. The package is most useful when the analyst needs several of the following features in the same workflow: Gaussian direct-estimate models with known or modeled sampling variances; unit-level spatial or space-time models; areal CAR, Leroux CAR, DAGAR, or areal space-time effects; point-referenced GP or NNGP terms; structured varying coefficients; missing response rows retained as prediction targets; binomial or fixed-size negative binomial likelihoods; and posterior prediction on supported newdata or retained missing-response supports. In these settings, the shared formula grammar and posterior-draw workflow can reduce the amount of model-specific code needed to conduct sensitivity analyses and produce reporting-domain summaries. The collapsed sampler is also the package’s main tradeoff. It provides a unified sparse-matrix implementation and avoids storing large structured latent vectors as primary MCMC parameters, but it is not always faster than model-specific latent-variable samplers. Sparse Cholesky factorization, NNGP neighbor construction, Pólya-Gamma augmentation, and posterior prediction can dominate runtime depending on the model and support size. Specialized software may be preferable when one model class is known in advance and speed for that class is the overriding criterion. stLMM is aimed 9instead at small to moderate Bayesian analyses where flexibility, comparable model specification, and support-aware prediction are central. The package vignettes introduce individual model terms and diagnostics, while the companion 
+
+pkgdown site (Wickham et al., 2025) provides a longer-form article index, rendered examples, implementation notes, and the Washington county biomass SAE series summarized in Section 5. Additional website articles provide simulation-based parameter-recovery checks for target model classes, validation comparisons with lme4 (Bates et al., 2015) and NIMBLE (de Valpine et al., 2017) for iid and CAR/DAGAR models, sampler-blocking diagnostics, and runtime notes. An in-depth description of model specifications and the shared sparse-precision computations is provided in the package’s technical reference. The runtime and technical articles also document the development motivation to study collapsed sparse-precision fitting with CHOLMOD, BLAS/LAPACK, and OpenMP controls across computing environments. 
+
+# 7 Software Availability 
+
+stLMM version 0.0.2 is an open-source R package released under the GNU General Public Li-cense (GPL-3). The source code, issue tracker, and development documentation are hosted at 
+
+https://github.com/finleya/stLMM , and the source can be viewed without a login or account. The package website at https://finleya.github.io/stLMM/ provides function-reference pages, package vignettes, extended application articles, and reproducible article source files. The package can be installed from source using standard R package tools. The development version depends on R version 4.4.0 or later, Matrix version 1.7-0 or later (Bates et al., 2025), and BayesLogit version 2.4 or later (Polson et al., 2013). 
+
+stLMM version 0.0.2 has been submitted to CRAN and is awaiting new-package checks and approval 
+
+(this section will be updated with the CRAN information when available) . The CRAN release provides the permanent, versioned archive of record for the package; CRAN retains earlier versions in its archive, and the development source and rendered documentation are maintained at the GitHub and pkgdown sites above. 
+
+# 8 Author Contributions 
+
+A.O.F. designed the package, implemented the software, developed the examples, and wrote the manuscript. 
+
+# 9 Acknowledgments 
+
+The author thanks Sudipto Banerjee, Abhirup Datta, and Paul B. May for contributions to the underlying theory and methods for several model classes implemented in stLMM .
+
+# 10 Conflict of Interest 
+
+The author declares no conflict of interest. 10 11 Data Accessibility 
+
+The Washington county biomass example uses publicly available Forest Inventory and Analysis (FIA) data, obtained from the USDA Forest Service FIA program ( https://www.fia.fs.usda.gov/ ), together with tree canopy cover auxiliary data. The prepared county-year data bundle, reproducible source code, and figure-generating scripts used in Section 5 are distributed with the package and rendered in the application-article series at https://finleya.github.io/stLMM/ .
+
+# References 
+
+Anderson, E., Bai, Z., Bischof, C., Blackford, L. S., Demmel, J., Dongarra, J., Du Croz, J., Greenbaum, A., Hammarling, S., McKenney, A., and Sorensen, D. (1999). LAPACK Users’ Guide .Society for Industrial and Applied Mathematics, Philadelphia, Pennsylvania, 3 edition. Anderson, S. C., Ward, E. J., English, P. A., Barnett, L. A. K., and Thorson, J. T. (2025). sdmTMB: An R package for fast, flexible, and user-friendly generalized linear mixed effects models with spatial and spatiotemporal random fields. Journal of Statistical Software , 115(2):1–46. Bakka, H., Rue, H., Fuglstad, G.-A., Riebler, A., Bolin, D., Illian, J., Krainski, E., Simpson, D., and Lindgren, F. (2018). Spatial modeling with R-INLA: A review. WIREs Computational Statistics ,10(6):e1443. Banerjee, S., Carlin, B., and Gelfand, A. (2014). Hierarchical Modeling and Analysis for Spatial Data, Second Edition . Chapman & Hall/CRC Monographs on Statistics & Applied Probability. Taylor & Francis. Bates, D., Mächler, M., Bolker, B., and Walker, S. (2015). Fitting linear mixed-effects models using lme4. Journal of Statistical Software , 67(1):1–48. Bates, D., Maechler, M., and Jagan, M. (2025). Matrix: Sparse and Dense Matrix Classes and Methods . R package version 1.7-4. Battese, G. E., Harter, R. M., and Fuller, W. A. (1988). An error-components model for prediction of county crop areas using survey and satellite data. Journal of the American Statistical Association ,83(401):28–36. Blackford, L. S., Demmel, J., Dongarra, J., Duff, I., Hammarling, S., Henry, G., Heroux, M., Kaufman, L., Lumsdaine, A., Petitet, A., Pozo, R., Remington, K., and Whaley, R. C. (2002). An updated set of basic linear algebra subprograms (BLAS). ACM Transactions on Mathematical Software , 28(2):135–151. Carpenter, B., Gelman, A., Hoffman, M. D., Lee, D., Goodrich, B., Betancourt, M., Brubaker, M. A., Guo, J., Li, P., and Riddell, A. (2017). Stan: A probabilistic programming language. 
+
+Journal of Statistical Software , 76(1):1–32. Chen, Y., Davis, T. A., Hager, W. W., and Rajamanickam, S. (2008). Algorithm 887: CHOLMOD, supernodal sparse Cholesky factorization and update/downdate. ACM Transactions on Mathe-matical Software , 35(3):1–14. 11 Datta, A., Banerjee, S., Finley, A. O., and Gelfand, A. E. (2016). Hierarchical nearest-neighbor gaussian process models for large geostatistical datasets. Journal of the American Statistical Association , 111(514):800–812. Datta, A., Banerjee, S., Hodges, J. S., and Gao, L. (2019). Spatial disease mapping using directed acyclic graph auto-regressive (DAGAR) models. Bayesian Analysis , 14(4):1221–1244. de Valpine, P., Turek, D., Paciorek, C. J., Anderson-Bergman, C., Temple Lang, D., and Bodik, R. (2017). Programming with models: Writing statistical algorithms for general model structures with NIMBLE. Journal of Computational and Graphical Statistics , 26(2):403–413. Donegan, C. (2022). geostan: An R package for bayesian spatial analysis. Journal of Open Source Software , 7(79):4716. Doser, J. W., Finley, A. O., Kéry, M., and Zipkin, E. F. (2022). spOccupancy: An R package for single-species, multi-species, and integrated spatial occupancy models. Methods in Ecology and Evolution , 13(8):1670–1678. Doser, J. W., Finley, A. O., Kéry, M., and Zipkin, E. F. (2024). spAbundance: An R package for single-species and multi-species spatially explicit abundance models. Methods in Ecology and Evolution , 15(6):1024–1033. Dumelle, M., Higham, M., Ver Hoef, J. M., Olsen, A. R., and Madsen, L. (2022). A comparison of design-based and model-based approaches for finite population spatial sampling and inference. 
+
+Methods in Ecology and Evolution , 13(9):2018–2029. Fay, R. E. and Herriot, R. A. (1979). Estimates of income for small places: An application of James-Stein procedures to census data. Journal of the American Statistical Association ,74(366a):269–277. Finley, A. O., Banerjee, S., and Gelfand, A. E. (2015). spBayes for large univariate and multivariate point-referenced spatio-temporal data models. Journal of Statistical Software , 63(13):1–28. Finley, A. O., Datta, A., and Banerjee, S. (2022). spNNGP R package for nearest neighbor gaussian process models. Journal of Statistical Software , 103(5):1–40. Finley, A. O., Datta, A., Cook, B. D., Morton, D. C., Andersen, H.-E., and Banerjee, S. (2019). Efficient algorithms for bayesian nearest neighbor gaussian processes. Journal of Computational and Graphical Statistics , 28(2):401–414. Knott, J. A., Liknes, G. C., Giebink, C. L., Oh, S., Domke, G. M., McRoberts, R. E., Quirino, V. F., and Walters, B. F. (2023). Effects of outliers on remote sensing-assisted forest biomass estimation: A case study from the united states national forest inventory. Methods in Ecology and Evolution , 14(7):1587–1602. Kristensen, K., Nielsen, A., Berg, C. W., Skaug, H., and Bell, B. M. (2016). TMB: Automatic differentiation and Laplace approximation. Journal of Statistical Software , 70(5):1–21. Lee, D. (2013). CARBayes: An R package for bayesian spatial modeling with conditional autore-gressive priors. Journal of Statistical Software , 55(13):1–24. Leroux, B. G., Lei, X., and Breslow, N. (1999). Estimation of disease rates in small areas: A new mixed model for spatial dependence. In Halloran, M. E. and Berry, D., editors, Statistical Models in Epidemiology, the Environment, and Clinical Trials , pages 135–178. Springer, New York. 12 Lindgren, F., Rue, H., and Lindstrom, J. (2011). An explicit link between gaussian fields and gaussian markov random fields: The stochastic partial differential equation approach. Journal of the Royal Statistical Society: Series B , 73(4):423–498. Lindgren, F., Seaton, A., Ho, S. M., and Bachl, F. E. (2026). fmesher: Triangle Meshes and Related Geometry Tools . R package version 0.8.0. Polson, N. G., Scott, J. G., and Windle, J. (2013). Bayesian inference for logistic models using Pólya-gamma latent variables. Journal of the American Statistical Association , 108(504):1339– 1349. Prisley, S., Bradley, J., Clutter, M., Friedman, S., Kempka, D., Rakestraw, J., and Sonne Hall, E. (2021). Needs for small area estimation: Perspectives from the us private forest sector. Frontiers in Forests and Global Change , 4. R Core Team (2024). R: A Language and Environment for Statistical Computing . R Foundation for Statistical Computing, Vienna, Austria. Rao, J. N. and Molina, I. (2015). Small area estimation . John Wiley & Sons. Rue, H., Martino, S., and Chopin, N. (2009). Approximate bayesian inference for latent gaussian models by using integrated nested laplace approximations. Journal of the Royal Statistical Society: Series B , 71(2):319–392. Tikhonov, G., Opedal, Ø. H., Abrego, N., Lehikoinen, A., de Jonge, M. M. J., Oksanen, J., and Ovaskainen, O. (2020). Joint species distribution modelling with the R-package Hmsc. Methods in Ecology and Evolution , 11(3):442–447. Vieilledent, G. (2023). hSDM: Hierarchical Bayesian Species Distribution Models . R package version 1.4.4. Wickham, H., Hesselberth, J., Salmon, M., Roy, O., and Brüggemann, S. (2025). pkgdown: Make Static HTML Documentation for a Package . R package version 2.2.0. Windle, J., Carvalho, C. M., Scott, J. G., and Sun, L. (2013). Efficient data augmentation in dynamic models for binary and count data. arXiv preprint arXiv:1308.0774 .Zammit-Mangion, A. and Cressie, N. (2021). FRK: An R package for spatial and spatio-temporal prediction with large datasets. Journal of Statistical Software , 98(4):1–48. Zhou, M., Li, L., Dunson, D., and Carin, L. (2012). Lognormal and gamma mixed negative binomial regression. Proceedings of the 29th International Conference on Machine Learning .13

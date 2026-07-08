@@ -1,0 +1,1132 @@
+Title: Scalable Joint Modeling of Dependent Multi-Type Survey Data for Small Area Estimation
+
+URL Source: https://arxiv.org/pdf/2606.31964v1
+
+Published Time: Wed, 01 Jul 2026 01:30:43 GMT
+
+Number of Pages: 27
+
+Markdown Content:
+# Scalable Joint Modeling of Dependent Multi-Type Survey Data for Small Area Estimation 
+
+Zewei Kong 1, Paul A. Parker 2, and Scott H. Holan 3
+
+Abstract 
+
+We develop a Bayesian area-level small area estimation framework that jointly models bi-nomial and Gaussian survey responses through shared spatial random effects. This work is motivated by the American Community Survey (ACS), which provides useful information that contributes to federal funding and policy making decisions, and often yields direct esti-mates with large standard errors in small domains. The proposed Multi-type model borrows strength across outcomes and spatial neighbors to improve the precision of the associated estimates. For the binomial component, P´ olya–Gamma data augmentation yields a condi-tionally Gaussian representation, while spatial basis functions provide dimension reduction for high-dimensional spatial data. Together, these features lead to closed-form conditional posteriors and, thus, an efficient Gibbs sampler. Through empirical simulations, we show that the proposed joint model improves estimation precision relative to independent Uni-variate models. Applying the method to ACS median income and poverty rate data, we find that the proposed Multi-type model yields similar point estimates but smaller posterior variances than the corresponding Univariate models. 
+
+Keywords: Bayesian framework, Gibbs sampling, Mixed models, Multi-type response, P´ olya-Gamma data augmentation, Spatial basis function. 
+
+> 1
+
+(to whom correspondence should be addressed) Department of Statistics and Data Science, University of Missouri, 146 Middlebush Hall, Columbia, MO 65211-6100, zk3bx@mail.missouri.edu 
+
+> 2
+
+Department of Statistics, University of California Santa Cruz, 1156 High Street, Santa Cruz, CA 95064, paulparker@ucsc.edu 
+
+> 3
+
+Department of Statistics and Data Science, University of Missouri 146 Middlebush Hall, Columbia, MO 65211-6100, holans@missouri.edu 
+
+> arXiv:2606.31964v1 [stat.ME] 30 Jun 2026
+
+# 1 Introduction 
+
+Small area estimation (SAE) is important in the context of official statistics for producing estimates in domains with limited sample sizes. In these sparse domains, direct survey es-timates typically have large design-based variances. Model-based SAE improves estimation precision by leveraging dependence and combining direct estimates with auxiliary informa-tion and cross-domain structure. This reduces the variability of the domain-level estimates and provides associated measures of uncertainty (Rao and Molina, 2015). For area-level estimation, the Fay–Herriot (FH) model (Fay III and Herriot, 1979) serves as the foundational framework. By treating the sampling variances of the direct estimates as known and incorporating them into the model, the FH framework allows the resulting estimates to reflect the precision of the direct estimates. Since then, the area-level SAE framework has been extended in several directions. These including spatial FH models (Porter et al., 2014), multivariate FH models (Porter et al., 2015; Benavent and Morales, 2016), spatio-temporal FH models (Marhuenda et al., 2013), and Bayesian modeling under more complex heteroskedastic structures (Parker et al., 2024). However, these developments have mostly focused on settings where the responses are of the same type, most often Gaussian. Within official statistics, in practice, non-Gaussian responses or multiple types of variables are often of interest. For example, the Small Area Income and Poverty Estimates (SAIPE) program requires precise estimates for both me-dian household income, which is continuous, and poverty rates, which are aggregates of the underlying poverty status indicator. Historically, these outcomes have often been modeled separately (Franco and Bell, 2013). Recent work has considered joint modeling for mixed-type outcomes (Ekvall and Molstad, 2022; Sun et al., 2024). For example, Ekvall and Molstad (2022) linked responses of different types through a latent Gaussian framework. We develop a joint Bayesian hierarchical model that directly models Gaussian and binomial responses 1through their respective likelihoods and links them through shared spatial random effects. At the same time, building such a joint Bayesian model is often computationally demand-ing. Combining non-Gaussian data with spatial random effects typically breaks conditional conjugacy. As a result, posterior inference often relies on non-conjugate Markov chain Monte Carlo (MCMC) steps such as Metropolis–Hastings, which can become a computational bot-tleneck when the number of areas is large. Recent work in SAE has addressed this issue by developing scalable Bayesian methods with conjugate structure. For example, Bradley et al. (2020) developed Bayesian hierarchical models with conjugate full conditional distributions for dependent data from the natural exponential family, while Parker et al. (2021) proposed a fully conjugate Bayesian model for heteroskedastic survey data. Motivated by these advances, we propose a scalable Bayesian area-level joint framework that links Gaussian and binomial outcomes through shared spatial random effects. The framework combines three components to address the challenges of non-conjugacy, high-dimensional spatial effects, and design-based variance inputs. First, we apply P´ olya–Gamma data augmentation (Polson et al., 2013) to transform the logistic likelihood into a condition-ally Gaussian form. This yields closed-form updates and enables efficient Gibbs sampling. Second, we use spatial basis functions (Hughes and Haran, 2013; Bradley et al., 2015) to model the spatial random effects in a lower-dimensional form while preserving the main spatial dependence structure. Third, we use an effective sample size (ESS) approximation (Chen et al., 2014) to the variance. This allows the binomial model variance structure to reflect the design-based variances derived from ACS margins of error. In summary, this paper makes three main contributions. First, we develop a scalable area-level joint spatial framework for Gaussian and binomial survey data. Second, by combining P´ olya–Gamma augmentation with a low-rank spatial structure, we obtain a computation-ally efficient Gibbs sampler with closed-form conditional updates. Third, through simulation studies and an ACS application, we show that the joint model yields smaller posterior vari-2ances than separate Univariate models while preserving similar posterior mean surfaces, leading to improved uncertainty quantification. The remainder of this paper is organized as follows. Section 2 introduces the proposed Bayesian framework. Section 3 evaluates the proposed methodology through simulation studies. Section 4 applies our model to 2021 ACS tract-level 5-year period estimates to jointly estimate area-level median household income and poverty rates. Finally, Section 5 provides concluding discussion. 
+
+# 2 Multi-type Model 
+
+We jointly model area-level Gaussian and binomial survey outcomes in a Bayesian hierarchi-cal framework, linking the two responses through a shared low-rank spatial random effect. Conditional on the latent effects, the Gaussian and binomial components are independent. P´ olya-Gamma data augmentation transforms the binomial likelihood into a conditionally Gaussian form, which leads to straightforward Gibbs updates. 
+
+## 2.1 Univariate spatial models 
+
+Let N denote the total number of geographic areas. As baselines, we fit separate spatial models to Gaussian and binomial responses. The Gaussian and binomial outcomes are mod-eled independently using distinct spatial coefficient vectors, denoted u1 and u2. Dimension reduction for the spatial random effects is achieved using spatial basis functions. Let A
+
+denote the N × N binary adjacency matrix of the areal graph, and let 
+
+A = U ΛU ⊤
+
+be its eigendecomposition, where U contains the orthonormal eigenvectors and Λ is the diagonal matrix of eigenvalues. We retain the eigenvectors associated with the positive eigenvalues and use them as spatial basis functions; see Bradley et al. (2016) for a related 3reduced-rank construction. Related adjacency-eigenvector basis representations are also used by Parker et al. (2022). Let J denote the retained index set, with cardinality r = |J|. Let Φ ∈ RN ×r denote the matrix formed by the retained eigenvectors, where ϕ⊤ 
+
+> i
+
+denotes the i-th row of Φ. The vector ϕi ∈ Rr is the spatial basis vector for area i.For the Gaussian response, let Y1i denote the direct estimate on the original scale for area i. We apply a log transformation and then standardize the transformed values so that the Gaussian response is on a scale comparable to the logit-scale binomial component. Let 
+
+Z1i denote the resulting standardized value, and let V1i denote the corresponding estimated design-based variance on the standardized log scale, treated as known in the model. The area-level Gaussian model is specified as 
+
+Z1i | μ1i ∼ N (μ1i, V 1i), μ1i = x⊤
+
+> 1i
+
+β1 + ϕ⊤ 
+
+> i
+
+u1 + ζ1i,
+
+for i = 1 , . . . , N . Here, x1i ∈ Rp1 is the covariate vector, u1 ∈ Rr is the Gaussian-specific spatial coefficient vector, and ζ1i is an unstructured area-specific random effect. We assign independent priors β1 ∼ N (0 , σ 2 
+
+> β
+
+Ip1 ) and u1 | σ2 
+
+> u1
+
+∼ N (0 , σ 2 
+
+> u1
+
+Ir). We set σ2 
+
+> β
+
+= 1000 through-out this paper, corresponding to a weakly informative Gaussian prior. We also assume 
+
+ζ1 | σ2 
+
+> ζ1
+
+∼ N (0 , σ 2 
+
+> ζ1
+
+IN ), where ζ1 = ( ζ11 , . . . , ζ 1N )⊤. Variance components are assigned priors 
+
+σ2 
+
+> u1
+
+∼ InvGamma( au, b u) and σ2 
+
+> ζ1
+
+∼ InvGamma( aζ1 , b ζ1 ). For the binomial response, let ˆ pi denote the direct survey estimate of the rate and let 
+
+dVar(ˆ pi) denote its design-based variance. Following Chen et al. (2014), we define the effective sample size 
+
+mEi = ˆpi(1 − ˆpi)
+
+dVar(ˆ pi) ,
+
+and the corresponding effective count 
+
+ZE 
+
+> 2i
+
+= mEi ˆpi.
+
+We use a binomial likelihood based on the effective sample size construction of Chen et al. 4(2014). Here, πi denotes the area-level mean (i.e., the true population proportion), with logit( πi) given by the linear predictor. Specifically, 
+
+Li(πi | ZE 
+
+> 2i
+
+, m Ei ) ∝ πZE 
+
+> 2i
+> i
+
+(1 − πi)mEi −ZE 
+
+> 2i
+
+,
+
+with logit( πi) = x⊤
+
+> 2i
+
+β2 + ϕ⊤ 
+
+> i
+
+u2 + ζ2i.
+
+The vector u2 ∈ Rr is the binomial-specific spatial coefficient vector and ζ2i is the un-structured random effect. We use analogous priors for the binomial block: β2 ∼ N (0 , σ 2 
+
+> β
+
+Ip2 ), 
+
+u2 | σ2 
+
+> u2
+
+∼ N (0 , σ 2 
+
+> u2
+
+Ir), and ζ2 | σ2 
+
+> ζ2
+
+∼ N (0 , σ 2 
+
+> ζ2
+
+IN ). The variance components are assumed to have independent InvGamma( au, b u) and InvGamma( aζ2 , b ζ2 ) priors. 
+
+## 2.2 Multi-type Response Model 
+
+The separate Univariate models assume independence and therefore fail to borrow strength across the correlated survey responses. To capture cross-response dependence, we introduce a joint Multi-type model with a shared spatial random effect. The joint model incorporates the spatial basis matrix Φ into a shared hierarchical struc-ture 
+
+Z1i | μ1i ∼ N (μ1i, V 1i), μ1i = x⊤
+
+> 1i
+
+β1 + τ1ϕ⊤ 
+
+> i
+
+η + ζ1i,Li(πi | ZE 
+
+> 2i
+
+, m Ei ) ∝ πZE 
+
+> 2i
+> i
+
+(1 − πi)mEi −ZE 
+
+> 2i
+
+, logit( πi) = x⊤
+
+> 2i
+
+β2 + τ2ϕ⊤ 
+
+> i
+
+η + τ3ϕ⊤ 
+
+> i
+
+κ + ζ2i.
+
+The vector η ∈ Rr denotes the shared spatial effect that induces dependence between the two outcomes, while κ ∈ Rr captures spatial variation specific to the binomial outcome. The coefficients τ1 and τ2 scale the shared spatial effect in the Gaussian and binomial components, respectively, and τ3 scales the binomial-specific spatial effect. The unstructured area effects 
+
+ζ1i and ζ2i capture non-spatial residual heterogeneity. 5We assume Gaussian priors for the fixed effects βl ∼ N (0 , σ 2 
+
+> β
+
+Ipl ) for l = 1 , 2. To avoid confounding between the scale of the latent spatial vectors and the coefficients τj , we assign standard normal priors η ∼ N (0 , I r) and κ ∼ N (0 , I r). The coefficients τj are assigned τj ∼
+
+N (0 , σ 2 
+
+> τ
+
+) for j = 1 , 2, 3. We set σ2 
+
+> τ
+
+= 100, corresponding to a vague prior for τj ∼ N (0 , 100) for j = 1 , 2, 3. We further assume ζl | σ2 
+
+> ζl
+
+∼ N (0 , σ 2 
+
+> ζl
+
+IN ) and σ2 
+
+> ζl
+
+∼ InvGamma( al, b l) for 
+
+l = 1 , 2. By representing the spatial random effects in the reduced basis space defined by Φ, the dominant matrix inversions in the MCMC updates are reduced from dimension N to dimension r, so the main computational cost scales with O(r3) rather than O(N 3). Table 1 summarizes the primary notation used in the joint model framework. Table 1: Symbols in the joint model and their interpretation. Symbol Meaning 
+
+Z1i, ZE 
+
+> 2i
+
+Standardized log-transformed direct estimate and effective count for area imEi Effective sample size (ESS) for binomial response in area iV1i Estimated design-based variance on the standardized log scale for area i, treated as known 
+
+x1i, x2i Covariate vectors for the two outcomes 
+
+β1, β2 Fixed effects for Gaussian and binomial means 
+
+A N × N binary adjacency matrix Φ N × r spatial basis matrix extracted from Aη Shared spatial effect inducing cross-response dependence 
+
+κ Binomial-specific spatial effect capturing residual variation 
+
+τ1, τ 2, τ 3 Coefficients scaling the shared and binomial-specific spatial effects 
+
+ζ1i, ζ2i Unstructured area random effect 
+
+ωi Latent P´ olya-Gamma variable for area i
+
+62.3 Posterior Inference 
+
+For the binomial block, we use the P´ olya–Gamma data augmentation (Polson et al., 2013). Conditional on the latent PG variables, the logistic likelihood is Gaussian in the linear predictor, which leads to conjugate Gibbs updates. Consider a generic binomial observation 
+
+y ∼ Binomial( n, p ) with logit( p) = ψ. The likelihood is proportional to 
+
+ eψ
+
+1 + eψ
+
+y  11 + eψ
+
+n−y
+
+= eyψ 
+
+(1 + eψ)n .
+
+If ω ∼ P G (b, 0), then for any ψ ∈ R and a ∈ R, the integral identity is 
+
+eaψ 
+
+(1 + eψ)b = 2 −be˜κψ Eω
+
+
+
+exp 
+
+
+
+−12ωψ 2
+
+ 
+
+,
+
+where ˜ κ = a − b 
+
+> 2
+
+. The corresponding conditional distribution is ω|ψ ∼ P G (b, ψ ). With the binomial likelihood based on the effective sample size above, we introduce latent variables ωi | ψi ∼ P G (mEi , ψ i) for i = 1 , . . . , N . Here mEi need not be an integer. The P´ olya– Gamma representation remains valid for any positive shape parameter, and the BayesLogit 
+
+function rpg() allows non-integer shape inputs, so using P G (mEi , ψ i) is consistent with the working binomial likelihood above. This yields closed-form Gibbs updates for the model blocks. We then sample from the posterior using Gibbs sampling. Posterior computation is carried out by Gibbs sampling using the Gaussian representation induced by the P´ olya–Gamma augmentation. Let 
+
+Z1 = ( Z11 , . . . , Z 1N )⊤, ξi = ZE 
+
+> 2i
+
+− mEi
+
+2 , i = 1 , . . . , N, 
+
+and define 
+
+ξ = ( ξ1, . . . , ξ N )⊤, V = Diag( V11 , . . . , V 1N ), Ω = Diag( ω1, . . . , ω N ).
+
+Also define 
+
+QG = τ 21 Φ⊤V −1Φ, QB = τ 22 Φ⊤ΩΦ .
+
+7Conditional on all other parameters, the shared spatial effect has the full conditional distri-bution 
+
+η | · ∼ N (μη, Ση),
+
+where Ση = ( QG + QB + Ir)−1,μη = Σ η
+
+τ1Φ⊤V −1(Z1 − X1β1 − ζ1) + τ2Φ⊤ {ξ − Ω ( X2β2 + τ3Φκ + ζ2)} .
+
+The posterior covariance matrix Σ η combines information from both the Gaussian and bi-nomial components through the shared spatial effect. The remaining full conditional distri-butions are updated in the same Gibbs sampler and are provided in the Appendix. 
+
+# 3 Simulation Study 
+
+We conduct an empirical simulation study using 2021 ACS tract-level 5-year period esti-mates for South Dakota. As in earlier empirical SAE studies, we treat the ACS tract-level estimates as the “true” values and generate noisy “direct” estimates with sampling variabil-ity consistent with the observed ACS values; see Bradley et al. (2020); Parker and Holan (2023) for related empirical simulation designs. We consider two responses. The Gaussian response is tract-level median household in-come. Let Mi denote the ACS estimate for tract i, and let MOE( Mi) denote its published margin of error (MOE, 90% confidence interval). The corresponding standard error is 
+
+cSE( Mi) = MOE( Mi)1.645 ,
+
+and, using the delta-method approximation, the variance on the log scale is 
+
+dVar {log( Mi)} ≈ cSE( Mi)2
+
+M 2
+
+> i
+
+.
+
+8The binomial response is the 2021 ACS 5-year period tract-level direct estimate of the poverty rate. Let p∗ 
+
+> i
+
+denote the ACS tract-level direct estimate used as the truth in the empirical simulation study, and let MOE( p∗ 
+
+> i
+
+) denote its published margin of error. The corresponding variance is 
+
+dVar( p∗ 
+
+> i
+
+) = 
+
+MOE( p∗ 
+
+> i
+
+)1.645 
+
+2
+
+.
+
+For both responses, we use the same tract-level covariate vector, 
+
+x1i = x2i = (1 , White i)⊤,
+
+where White i is the published proportion of White residents in tract i.
+
+## 3.1 Simulation Design 
+
+Let 
+
+μ∗ 
+
+> 1i
+
+= log( Mi), μ∗ 
+
+> 2i
+
+= logit( p∗ 
+
+> i
+
+),
+
+and let 
+
+σ21i = dVar( μ∗
+
+> 1i
+
+), σ22i = dVar( μ∗
+
+> 2i
+
+)denote the ACS design-based variances on the transformed scales. We generate one simulated-dataset as follows. For each tract i, we draw a correlated pair of simulated data that serves as the direct estimates by 
+
+eμ1i
+
+eμ2i
+
+μ∗
+
+> 1i
+
+μ∗
+
+> 2i
+
+ ∼ N2
+
+μ∗
+
+> 1i
+
+μ∗
+
+> 2i
+
+ , Σi
+
+ ,
+
+where Σi =
+
+ σ21i ρ σ 1iσ2i
+
+ρ σ 1iσ2i σ22i
+
+ , ρ = 0 .9.
+
+We fix ρ = 0 .9 to represent a strong cross-response dependence setting and to assess whether the joint model can borrow strength across the two responses. 9For the Gaussian response, we standardize the simulated direct estimate within the em-pirical simulated dataset 
+
+Z1i = eμ1i − ¯eμ1
+
+seμ1
+
+, eV1i = σ21i
+
+s2
+
+> eμ1
+
+,
+
+where ¯eμ1 and seμ1 are the sample mean and sample standard deviation of eμ1 across tracts. The Gaussian component is fitted on this standardized log-income scale. After model fitting, we transform the Gaussian posterior draws back to the log-income scale using the simulated-dataset-specific mean and standard deviation. Gaussian MSE, coverage, and interval score are then computed on the log-income scale by comparing these back-transformed posterior summaries with μ∗ 
+
+> 1i
+
+= log( Mi). For the binomial response, we map the simulated logit direct estimate back to the prob-ability scale using 
+
+bpi = logit −1(eμ2i) ,
+
+and approximate its variance by 
+
+dVar( bpi) = bpi
+
+ 1 − bpi
+
+ 2 σ22i.
+
+We then compute the effective binomial sample size and effective binomial count 
+
+mEi = bpi (1 − bpi)
+
+dVar( bpi) , ZE 
+
+> 2i
+
+= mEi bpi.
+
+For each empirical simulated dataset, we fit the Univariate model and the Multi-type model using the same covariates, the same spatial basis matrix Φ, and the same prior specification. Each model is run with 1,000 burn-in iterations and 1,000 retained posterior draws for inference. Performance is evaluated by tract-level MSE, empirical coverage of 95% credible intervals, and the 95% interval score. We repeat the entire data-generation and model-fitting procedure 100 times and report the average performance across the 100 empirical simulated datasets. For the Gaussian response, these summaries are computed after back-transforming 10 the model output from the standardized log-income scale to the unstandardized log-income scale. 
+
+## 3.2 Empirical Simulation Results 
+
+We evaluate tract-level MSE, empirical coverage of the 95% credible intervals, and the 95% interval score. For an interval [ l, u ] targeting a parameter θ, the interval score of Gneiting and Raftery (2007) is given by 
+
+Sint  
+
+> α
+
+(l, u ; θ) = ( u − l) + 2
+
+α (l − θ)1{θ < l } + 2
+
+α (θ − u)1{θ > u },
+
+where smaller values indicate better interval performance. We report coverage and interval scores only for the model-based estimators, since the simulation focuses on posterior intervals from the fitted models. To compare the Univariate model and the Multi-type model directly, Figure 1 reports tract-level percentage reductions relative to the Univariate model Red i(L) = 100 × Li, Univariate − Li, Multi-type 
+
+Li, Univariate 
+
+,
+
+where L is either the tract-level MSE or the tract-level interval score. Positive values favor the Multi-type model. Panels A and B show the distributions of tract-level reductions in MSE and interval score. Panels C and D map the tract-level MSE reduction for the Gaussian and binomial responses. Tables 2 and 3 report the overall numerical summaries. For the Gaussian response, evaluated on the log-income scale, the Multi-type model further reduces both MSE and interval score relative to the Univariate model. In particular, the MSE is reduced by about 10% compared with the Univariate model. For the binomial response, the MSE reduction from the Univariate model to the Multi-type model is about 11.77%. Overall, for both responses, the Multi-type model achieves about a 10% additional MSE reduction together 11 with a smaller interval score. These results indicate that the Multi-type model improves on the Univariate model, suggesting that the cross-response borrowing strategy is appropriate. To examine tract-level performance in more detail, we turn to Figure 1. Type MSE ( ×10 −3) Coverage IS MSE Red (%) Direct estimate 15.5 – – –Univariate model 11.2 93.9% 0.449 27.62% Multi-type model 9.7 94.8% 0.416 37.64% Table 2: Empirical simulation results for the Gaussian response. MSE is reported in units of 10 −3 on the log-income scale. IS denotes interval score. Reductions are relative to the direct estimate. Type MSE ( ×10 −3) Coverage IS MSE Red (%) Direct estimate 5.25 – – –Univariate model 1.08 92.7% 0.144 79.50% Multi-type model 0.96 93.4% 0.135 81.66% Table 3: Empirical simulation results for the binomial response. MSE is reported in units of 10 −3. IS denotes interval score. Reductions are relative to the direct estimate. Figure 1 provides a visual indication of the improvement from the Multi-type model at the tract level. Panels A and B show the distributions of tract-level percentage reductions in MSE and interval score relative to the Univariate model, and Panels C and D show the spatial patterns of tract-level MSE reduction for the Gaussian and binomial responses. For both responses, most tracts have positive reductions, indicating that the Multi-type model lowers MSE and interval score in most areas. The spatial plots show that this improvement is broadly distributed across the region. Together with the numerical results in Tables 2 and 3, Figure 1 shows that the Multi-type model provides a clear overall improvement over the Univariate model. 12 Figure 1: Empirical simulation comparison of the Univariate model and the Multi-type model. Panels A and B show tract-level percentage reductions in MSE and interval score relative to the Univariate model. Panels C and D map the tract-level MSE reduction for the Gaussian and binomial responses. Positive values favor the Multi-type model. 13 4 American Community Survey Multi-type Analysis 
+
+We analyze the West North Central region of the United States, consisting of Iowa, Kansas, Minnesota, Missouri, Nebraska, North Dakota, and South Dakota. After removing 48 tracts with missing ACS estimates for income or poverty, 5,859 tracts remain for analysis, and we constructed the adjacency matrix directly on this retained set of tracts using queen contiguity (i.e., where adjacency is defined by sharing a border or a corner). These omitted tracts are few and spatially scattered, so they are unlikely to affect the regional results. As in the simulation study, we consider two responses: log median household income and poverty rate. For both responses, we use the same tract-level covariates: the proportion of White residents, the proportion of adults with at least a bachelor’s degree, and the proportion of households receiving SNAP benefits. 
+
+## 4.1 Posterior Mean Surfaces 
+
+Figure 2 compares the tract-level direct estimates, the Multi-type posterior means, and the Univariate posterior means for both responses over the West North Central region. For the Gaussian response, the three surfaces are very similar and show the same broad spatial pattern. The same is true for the binomial response. Relative to the direct estimates, both model-based surfaces are slightly smoother, but the main geographic structure is preserved. These comparisons show that the Multi-type extension does not materially change the posterior mean surface. The main effect of the joint model therefore appears in posterior uncertainty rather than in the estimated mean pattern. 
+
+## 4.2 Uncertainty Reduction 
+
+Because the posterior mean surfaces are nearly unchanged, we focus on posterior uncertainty. Figure 3 compares tract-level posterior variances under the Univariate and Multi-type models 14 Figure 2: West North Central region: tract-level posterior mean surfaces for the Gaussian and binomial responses. Panel A shows the Gaussian response on the log-income scale, and Panel B shows the binomial response on the poverty-rate scale. In each panel, the columns show the direct estimate, the Multi-type posterior mean, and the Univariate posterior mean. Across both responses, the two model-based posterior mean surfaces remain very close to the direct estimates. 15 for both responses. Points below the red 45-degree line favor the Multi-type model by indicating smaller posterior variance under the Multi-type model. For both the transformed Gaussian and binomial responses, most tracts lie below the reference line, indicating that the Multi-type model typically produces smaller posterior variances than the Univariate model. The numerical summaries show the same pattern. For the transformed Gaussian response, the Multi-type model yields smaller posterior variance in 81.05% of tracts. For the binomial response, the Multi-type model yields smaller posterior variance in 84.96% of tracts. Overall, the ACS analysis shows that the direct estimates, the Univariate posterior means, and the Multi-type posterior means have very similar spatial patterns for both responses. This indicates that the Multi-type model preserves the main structure of the estimated mean surface and produces estimates that remain consistent with the direct estimates. The main difference appears in posterior uncertainty. For both responses, the Multi-type model yields smaller posterior variances for most tracts than the Univariate model. Combined with the empirical simulation results, where the Multi-type model achieves lower MSE and lower interval score, these findings indicate that the Multi-type model improves both estimation precision and uncertainty quantification. 
+
+# 5 Conclusion 
+
+We propose a scalable Bayesian area-level model for jointly analyzing Gaussian and binomial survey responses. The two outcomes are linked through a shared spatial random effect, which allows the model to borrow strength across dependent responses. To retain computational efficiency and account for spatial dependence, we use P´ olya–Gamma data augmentation for the binomial component and represent the shared spatial effect through a reduced-rank basis expansion. This leads to closed-form full conditional distributions and an efficient Gibbs sampler. 16 Figure 3: West North Central region: tract-level posterior variance comparison for the Univariate and Multi-type models. The left panel corresponds to the binomial response, and the right panel corresponds to the transformed Gaussian response. Points below the red 45-degree line favor the Multi-type model by indicating smaller posterior variance under the Multi-type model. For both responses, most tracts lie below the reference line, showing that the Multi-type model yields lower posterior uncertainty in most areas. 17 In the empirical simulation study, the Multi-type model achieves lower tract-level MSE and smaller interval scores than the corresponding Univariate models for both responses. In the West North Central ACS analysis, the posterior mean surfaces from the Multi-type and Univariate models remain very close to the direct estimates, while the Multi-type model yields smaller posterior standard deviations for most tracts. Taken together, these results show that the main gain from the joint model lies in improved estimation precision and uncertainty quantification, while the estimated mean surfaces remain largely unchanged. The proposed framework provides a practical approach for area-level small area estimation with dependent Multi-type responses. The same general modeling strategy may also be extended to other non-Gaussian outcomes, such as count data and multinomial data, through appropriate augmentation schemes and likelihood formulations. 
+
+# Acknowledgments 
+
+This article is released to inform interested parties of ongoing research and to encourage discussion. The views expressed on statistical issues are those of the authors and not those of the NSF. This research was partially supported by the U.S. National Science Foundation (NSF) under NSF grants NCSE-2215168 and NCSE-2215169. 
+
+# References 
+
+Benavent, R. and Morales, D. (2016). Multivariate fay–herriot models for small area esti-mation. Computational Statistics & Data Analysis , 94:372–390. Bradley, J. R., Holan, S. H., and Wikle, C. K. (2015). Multivariate spatio-temporal mod-els for high-dimensional areal data with application to longitudinal employer-household dynamics. 18 Bradley, J. R., Holan, S. H., and Wikle, C. K. (2020). Bayesian hierarchical models with conjugate full-conditional distributions for dependent data from the natural exponential family. Journal of the American Statistical Association , 115(532):2037–2052. Bradley, J. R., Wikle, C. K., and Holan, S. H. (2016). Bayesian spatial change of support for count-valued survey data with application to the american community survey. Journal of the American Statistical Association , 111(514):472–487. Chen, C., Wakefield, J., and Lumely, T. (2014). The use of sampling weights in bayesian hierarchical models for small area estimation. Spatial and spatio-temporal epidemiology ,11:33–43. Ekvall, K. O. and Molstad, A. J. (2022). Mixed-type multivariate response regression with covariance estimation. Statistics in Medicine , 41(15):2768–2785. Fay III, R. E. and Herriot, R. A. (1979). Estimates of income for small places: an application of james-stein procedures to census data. Journal of the American Statistical Association ,74(366a):269–277. Franco, C. and Bell, W. R. (2013). Applying bivariate binomial/logit normal models to small area estimation. In Proceedings of the American Statistical Association, section on survey research methods , pages 690–702. Gneiting, T. and Raftery, A. E. (2007). Strictly proper scoring rules, prediction, and esti-mation. Journal of the American statistical Association , 102(477):359–378. Hughes, J. and Haran, M. (2013). Dimension reduction and alleviation of confounding for spatial generalized linear mixed models. Journal of the Royal Statistical Society: Series B (Statistical Methodology) , 75(1):139–159. Marhuenda, Y., Molina, I., and Morales, D. (2013). Small area estimation with spatio-temporal fay–herriot models. Computational Statistics & Data Analysis , 58:308–325. 19 Parker, P. A. and Holan, S. H. (2023). Computationally efficient bayesian unit-level random neural network modelling of survey data under informative sampling for small area estima-tion. Journal of the Royal Statistical Society Series A: Statistics in Society , 186(4):722–737. Parker, P. A., Holan, S. H., and Janicki, R. (2022). Computationally efficient bayesian unit-level models for non-gaussian data under informative sampling with application to estimation of health insurance coverage. The Annals of Applied Statistics , 16(2):887–904. Parker, P. A., Holan, S. H., and Janicki, R. (2024). Conjugate modeling approaches for small area estimation with heteroscedastic structure. Journal of Survey Statistics and Methodology , 12(4):1061–1080. Parker, P. A., Holan, S. H., and Wills, S. A. (2021). A general bayesian model for het-eroskedastic data with fully conjugate full-conditional distributions. Journal of Statistical Computation and Simulation , 91(15):3207–3227. Polson, N. G., Scott, J. G., and Windle, J. (2013). Bayesian inference for logistic mod-els using p´ olya–gamma latent variables. Journal of the American statistical Association ,108(504):1339–1349. Porter, A. T., Holan, S. H., Wikle, C. K., and Cressie, N. (2014). Spatial fay–herriot models for small area estimation with functional covariates. Spatial Statistics , 10:27–42. Porter, A. T., Wikle, C. K., and Holan, S. H. (2015). Small area estimation via multivariate fay–herriot models with latent spatial dependence. Australian & New Zealand Journal of Statistics , 57(1):15–29. Rao, J. N. K. and Molina, I. (2015). Small Area Estimation . John Wiley & Sons, Hoboken, NJ, 2 edition. Sun, H., Berg, E., and Zhu, Z. (2024). Multivariate small-area estimation for mixed-type response variables with item nonresponse. Journal of Survey Statistics and Methodology ,12(2):320–342. 20 Appendix 
+
+## Notation recap and augmented likelihood 
+
+Let i = 1 , . . . , N index areas, and let r denote the number of retained spatial basis functions. Define Φ =
+
+
+
+ϕ⊤
+
+> 1
+
+...
+
+ϕ⊤
+
+> N
+
+ ∈ RN ×r, R = V −1, V = diag( V11 , . . . , V 1N ), Ω = diag( ω1, . . . , ω N ).
+
+Let 
+
+ξi = ZE 
+
+> 2i
+
+− mEi
+
+2 , ξ = ( ξ1, . . . , ξ N )⊤.
+
+For the joint model, the Gaussian block is 
+
+Z1 | β1, η, τ 1, ζ 1 ∼ N (X1β1 + τ1Φη + ζ1, R −1),
+
+and the binomial linear predictor is 
+
+ψ = X2β2 + τ2Φη + τ3Φκ + ζ2.
+
+Conditional on the P´ olya–Gamma latent variables, the binomial likelihood is 
+
+p(ZE 
+
+> 2
+
+| β2, η, κ, τ 2, τ 3, ζ 2, ω ) ∝ exp 
+
+
+
+ξ⊤ψ − 12ψ⊤Ωψ
+
+
+
+.
+
+Equivalently, exp 
+
+
+
+ξ⊤ψ − 12ψ⊤Ωψ
+
+
+
+∝ exp 
+
+
+
+−12(ψ − Ω−1ξ)⊤Ω( ψ − Ω−1ξ)
+
+
+
+.
+
+The priors used in the joint model are 
+
+βℓ ∼ N (0 , σ 2 
+
+> β
+
+Ipℓ ), ℓ = 1 , 2,
+
+21 η ∼ N (0 , I r), κ ∼ N (0 , I r),τj ∼ N (0 , σ 2 
+
+> τ
+
+), j = 1 , 2, 3,ζℓ | σ2 
+
+> ζℓ
+
+∼ N (0 , σ 2 
+
+> ζℓ
+
+IN ), ℓ = 1 , 2,σ2 
+
+> ζ1
+
+∼ IG (a1, b 1), σ2 
+
+> ζ2
+
+∼ IG (a2, b 2).
+
+## Full conditional distribution of the shared spatial effect 
+
+Proposition 1 Under the augmented joint model, the full conditional distribution of η is 
+
+η | · ∼ N (Q−1 
+
+> η
+
+hη, Q −1 
+
+> η
+
+),
+
+where 
+
+Qη = τ 21 Φ⊤RΦ + τ 22 Φ⊤ΩΦ + Ir,
+
+and 
+
+hη = τ1Φ⊤R(Z1 − X1β1 − ζ1) + τ2Φ⊤ [ξ − Ω( X2β2 + τ3Φκ + ζ2)] .
+
+Proof. Ignoring terms not involving η, the Gaussian block contributes 
+
+−12(Z1 − X1β1 − τ1Φη − ζ1)⊤R(Z1 − X1β1 − τ1Φη − ζ1),
+
+the augmented binomial block contributes 
+
+ξ⊤(X2β2 + τ2Φη + τ3Φκ + ζ2) − 12(X2β2 + τ2Φη + τ3Φκ + ζ2)⊤Ω( X2β2 + τ2Φη + τ3Φκ + ζ2),
+
+and the prior contributes 
+
+−12η⊤η. 
+
+Collecting quadratic and linear terms in η gives log p(η | · ) = −12η⊤Qηη + η⊤hη + const ,
+
+which yields the stated multivariate normal full conditional by completing the square. □
+
+22 Full conditional distributions for the joint model 
+
+For convenience, define 
+
+r1,β = Z1 − τ1Φη − ζ1, r2,β = τ2Φη + τ3Φκ + ζ2,r1,η = Z1 − X1β1 − ζ1, r2,η = ξ − Ω( X2β2 + τ3Φκ + ζ2).
+
+Latent P´ olya–Gamma Variables 
+
+ωi | · ∼ P G (mEi , ψ i), i = 1 , . . . , N. 
+
+Fixed Effects 
+
+β1 | · ∼ N (Q−1 
+
+> β1
+
+hβ1 , Q −1 
+
+> β1
+
+), Qβ1 = X⊤ 
+
+> 1
+
+RX 1 + σ−2 
+
+> β
+
+Ip1 , hβ1 = X⊤ 
+
+> 1
+
+Rr 1,β ,
+
+and 
+
+β2 | · ∼ N (Q−1 
+
+> β2
+
+hβ2 , Q −1 
+
+> β2
+
+), Qβ2 = X⊤ 
+
+> 2
+
+ΩX2 + σ−2 
+
+> β
+
+Ip2 ,hβ2 = X⊤ 
+
+> 2
+
+(ξ − Ωr2,β ) .
+
+Spatial Effects 
+
+η | · ∼ N (Q−1 
+
+> η
+
+hη, Q −1 
+
+> η
+
+),
+
+with Qη and hη given above, and 
+
+κ | · ∼ N (Q−1 
+
+> κ
+
+hκ, Q −1 
+
+> κ
+
+),
+
+where 
+
+Qκ = τ 23 Φ⊤ΩΦ + Ir,
+
+23 hκ = τ3Φ⊤ [ξ − Ω( X2β2 + τ2Φη + ζ2)] .
+
+Area-level Random Effect 
+
+ζ1 | · ∼ N (Q−1 
+
+> ζ1
+
+hζ1 , Q −1 
+
+> ζ1
+
+), Qζ1 = R + σ−2 
+
+> ζ1
+
+IN ,hζ1 = R(Z1 − X1β1 − τ1Φη),
+
+and 
+
+ζ2 | · ∼ N (Q−1 
+
+> ζ2
+
+hζ2 , Q −1 
+
+> ζ2
+
+), Qζ2 = Ω + σ−2 
+
+> ζ2
+
+IN ,hζ2 = ξ − Ω( X2β2 + τ2Φη + τ3Φκ).
+
+Scaling Parameters 
+
+τ1 | · ∼ N (Q−1 
+
+> τ1
+
+hτ1 , Q −1 
+
+> τ1
+
+), Qτ1 = η⊤Φ⊤RΦη + σ−2 
+
+> τ
+
+,hτ1 = η⊤Φ⊤R(Z1 − X1β1 − ζ1),τ2 | · ∼ N (Q−1 
+
+> τ2
+
+hτ2 , Q −1 
+
+> τ2
+
+), Qτ2 = η⊤Φ⊤ΩΦ η + σ−2 
+
+> τ
+
+,hτ2 = η⊤Φ⊤ [ξ − Ω( X2β2 + τ3Φκ + ζ2)] ,
+
+and 
+
+τ3 | · ∼ N (Q−1 
+
+> τ3
+
+hτ3 , Q −1 
+
+> τ3
+
+), Qτ3 = κ⊤Φ⊤ΩΦ κ + σ−2 
+
+> τ
+
+,hτ3 = κ⊤Φ⊤ [ξ − Ω( X2β2 + τ2Φη + ζ2)] .
+
+Variance Parameters 
+
+σ2 
+
+> ζ1
+
+| · ∼ IG 
+
+
+
+a1 + N
+
+2 , b 1 + 12ζ⊤ 
+
+> 1
+
+ζ1
+
+
+
+,σ2 
+
+> ζ2
+
+| · ∼ IG 
+
+
+
+a2 + N
+
+2 , b 2 + 12ζ⊤ 
+
+> 2
+
+ζ2
+
+
+
+.
+
+Thus, all full conditional distributions in the joint model are available in closed form. 24 Univariate Gaussian Baseline 
+
+For the univariate Gaussian baseline, the Gaussian response is modeled separately with its own spatial coefficient vector u1
+
+Z1 | β1, u 1, ζ 1 ∼ N (X1β1 + Φ u1 + ζ1, R −1),
+
+with priors 
+
+β1 ∼ N (0 , σ 2 
+
+> β
+
+Ip1 ), u1 | σ2 
+
+> u1
+
+∼ N (0 , σ 2 
+
+> u1
+
+Ir),ζ1 | σ2 
+
+> ζ1
+
+∼ N (0 , σ 2 
+
+> ζ1
+
+IN ), σ2 
+
+> u1
+
+∼ IG (au, b u), σ2 
+
+> ζ1
+
+∼ IG (aζ1 , b ζ1 ).
+
+The full conditionals are 
+
+β1 | · ∼ N (Q−1 
+
+> β1
+
+hβ1 , Q −1 
+
+> β1
+
+), Qβ1 = X⊤ 
+
+> 1
+
+RX 1 + σ−2 
+
+> β
+
+Ip1 ,hβ1 = X⊤ 
+
+> 1
+
+R(Z1 − Φu1 − ζ1),u1 | · ∼ N (Q−1 
+
+> u1
+
+hu1 , Q −1 
+
+> u1
+
+), Qu1 = Φ ⊤RΦ + σ−2 
+
+> u1
+
+Ir,hu1 = Φ ⊤R(Z1 − X1β1 − ζ1),ζ1 | · ∼ N (Q−1 
+
+> ζ1
+
+hζ1 , Q −1 
+
+> ζ1
+
+), Qζ1 = R + σ−2 
+
+> ζ1
+
+IN ,hζ1 = R(Z1 − X1β1 − Φu1),σ2 
+
+> u1
+
+| · ∼ IG 
+
+
+
+au + r
+
+2, b u + 12u⊤ 
+
+> 1
+
+u1
+
+
+
+,σ2 
+
+> ζ1
+
+| · ∼ IG 
+
+
+
+aζ1 + N
+
+2 , b ζ1 + 12ζ⊤ 
+
+> 1
+
+ζ1
+
+
+
+.
+
+25 Univariate Binomial Baseline 
+
+For the univariate binomial baseline, the binomial response is modeled separately with its own spatial coefficient vector u2
+
+ψ = X2β2 + Φ u2 + ζ2,
+
+and, conditional on P´ olya–Gamma variables, 
+
+p(ZE 
+
+> 2
+
+| β2, u 2, ζ 2, ω ) ∝ exp 
+
+
+
+ξ⊤ψ − 12ψ⊤Ωψ
+
+
+
+.
+
+The priors are 
+
+β2 ∼ N (0 , σ 2 
+
+> β
+
+Ip2 ), u2 | σ2 
+
+> u2
+
+∼ N (0 , σ 2 
+
+> u2
+
+Ir),ζ2 | σ2 
+
+> ζ2
+
+∼ N (0 , σ 2 
+
+> ζ2
+
+IN ), σ2 
+
+> u2
+
+∼ IG (au, b u), σ2 
+
+> ζ2
+
+∼ IG (aζ2 , b ζ2 ).
+
+The full conditionals are 
+
+ωi | · ∼ P G (mEi , ψ i), i = 1 , . . . , N, β2 | · ∼ N (Q−1 
+
+> β2
+
+hβ2 , Q −1 
+
+> β2
+
+), Qβ2 = X⊤ 
+
+> 2
+
+ΩX2 + σ−2 
+
+> β
+
+Ip2 ,hβ2 = X⊤ 
+
+> 2
+
+(ξ − Ω(Φ u2 + ζ2)) ,u2 | · ∼ N (Q−1 
+
+> u2
+
+hu2 , Q −1 
+
+> u2
+
+), Qu2 = Φ ⊤ΩΦ + σ−2 
+
+> u2
+
+Ir,hu2 = Φ ⊤ (ξ − Ω( X2β2 + ζ2)) ,ζ2 | · ∼ N (Q−1 
+
+> ζ2
+
+hζ2 , Q −1 
+
+> ζ2
+
+), Qζ2 = Ω + σ−2 
+
+> ζ2
+
+IN ,hζ2 = ξ − Ω( X2β2 + Φ u2),σ2 
+
+> u2
+
+| · ∼ IG 
+
+
+
+au + r
+
+2, b u + 12u⊤ 
+
+> 2
+
+u2
+
+
+
+,σ2 
+
+> ζ2
+
+| · ∼ IG 
+
+
+
+aζ2 + N
+
+2 , b ζ2 + 12ζ⊤ 
+
+> 2
+
+ζ2
+
+
+
+.
+
+26
