@@ -1,0 +1,209 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-09T22:04:44.720823+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2607.03217v1",
+      "source": "arxiv",
+      "title": "Joint distribution of upstream runoff governs downstream river-discharge prediction uncertainty in distributed ML models",
+      "abstract": "Uncertainty quantification of hydrological predictions is necessary to inform operational decisions. Recent generative machine-learning methods have advanced probabilistic streamflow prediction, but have remained confined to lumped models that predict a basin outlet directly. At the same time, deterministic LSTM runoff models are increasingly applied at grid or catchment scale and routed through river networks to produce spatially continuous, physically consistent discharge fields. This technical note argues that moving probabilistic prediction from lumped to distributed models introduces a specific new requirement: the joint distribution of upstream runoff generation must be sampled jointly. In lumped inference, the model predicts the outlet distribution directly and can modulate spread from basin attributes. In distributed inference, downstream discharge is obtained by routing many upstream runoff predictions, so independent local sampling averages uncertainty away. Using Japan as a case study, we train two probabilistic basin-scale runoff LSTMs and route their runoff through a Hayami routing scheme. Randomly matching upstream ensemble members produces severely under-dispersed downstream ensembles, whereas a simple quantile matching strategy restores much of the spread of the direct basin-scale reference. The shift from lumped to distributed probabilistic hydrology therefore requires explicit attention to the spatial joint structure of runoff uncertainty.",
+      "authors": [
+        "Karan Ruparell",
+        "Tristan Hascoet",
+        "Takemasa Miyoshi",
+        "Kieran M. R. Hunt",
+        "Hannah L. Cloke",
+        "Christel Prudhomme",
+        "Florian Pappenberger"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "stat.AP"
+      ],
+      "published": "2026-07-03T11:31:57+00:00",
+      "link": "https://arxiv.org/pdf/2607.03217v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "hydrological runoff prediction uncertainty directly relevant to urban flood risk assessment",
+      "llm_evidence_cn": "水文径流预测不确定性直接相关城市洪水风险评估",
+      "llm_evidence": "水文径流预测不确定性直接相关城市洪水风险评估",
+      "canonical_evidence": "水文径流预测不确定性直接相关城市洪水风险评估",
+      "llm_tldr_en": "This technical note shows that probabilistic streamflow prediction in distributed ML models requires joint sampling of upstream runoff, advancing uncertainty quantification for flood forecasting.",
+      "llm_tldr_cn": "现有分布式水文ML模型仅提供确定性预测，缺乏不确定性量化。本文指出在分布式设置中进行概率预测时，必须联合采样上游径流的联合分布，否则会低估下游流量预测的不确定性。通过理论论证和案例说明，为洪水预警和风险管理提供了更可靠的概率预测框架，对城市洪水评估具有重要意义。",
+      "llm_tldr": "现有分布式水文ML模型仅提供确定性预测，缺乏不确定性量化。本文指出在分布式设置中进行概率预测时，必须联合采样上游径流的联合分布，否则会低估下游流量预测的不确定性。通过理论论证和案例说明，为洪水预警和风险管理提供了更可靠的概率预测框架，对城市洪水评估具有重要意义。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.07609v1",
+      "source": "arxiv",
+      "title": "Bayesian spatial modelling framework for assessing residential flood risk in property insurance",
+      "abstract": "Spatial heterogeneity in insurance risk modelling is often represented using coarse areal structures, which can obscure fine-scale patterns critical for accurate risk assessment. This study introduces a point-referenced Bayesian framework to model claim occurrence and severity at the policyholder level, avoiding reliance on predefined geographic aggregation. Drawing on a large French insurance portfolio combined with high-resolution environmental variables, rainfall records, and institutional hazard maps, we compare a benchmark GLM with several discrete Bayesian specifications, including independent random effects, intrinsic conditional autoregressive (iCAR) and Besag-York-Mollie (BYM) models, and a continuously indexed Gaussian random field constructed using the stochastic partial differential equation (SPDE) approach. Inference is performed using Integrated Nested Laplace Approximation (INLA), enabling efficient estimation of latent spatial fields and non-linear covariate effects. Our results show that accounting for spatial dependence substantially improves occurrence modelling, while gains in severity prediction are more limited. The SPDE formulation further outperforms areal models by capturing sub-municipal risk gradients and reducing artefacts induced by arbitrary geographic partitioning. By conditioning on detailed building-level attributes, we isolate the contribution of latent spatial effects, refine the interpretation of observed covariates, and improve the allocation of risk premiums across the portfolio. In addition to enhanced predictive performance, the framework provides coherent uncertainty quantification and supports tail-risk assessment. To our knowledge, this is the first application of point-referenced SPDE models to flood insurance, offering a scalable statistical alternative for pricing and managing risks with strong spatial structure.",
+      "authors": [
+        "Mulah Moriah",
+        "Franck Vermet",
+        "Pierre Ailliot",
+        "Philippe Naveau",
+        "Juliette Legrand"
+      ],
+      "primary_category": "stat.AP",
+      "categories": [
+        "stat.AP"
+      ],
+      "published": "2026-07-08T16:27:39+00:00",
+      "link": "https://arxiv.org/pdf/2607.07609v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "point-referenced Bayesian model for residential flood risk assessment using insurance claims and environmental data",
+      "llm_evidence_cn": "使用保险索赔和环境数据的点参考贝叶斯住宅洪水风险评估模型",
+      "llm_evidence": "使用保险索赔和环境数据的点参考贝叶斯住宅洪水风险评估模型",
+      "canonical_evidence": "使用保险索赔和环境数据的点参考贝叶斯住宅洪水风险评估模型",
+      "llm_tldr_en": "Proposes a point-referenced Bayesian spatial framework for residential flood risk assessment, outperforming aggregated models by leveraging high-resolution environmental data and rainfall records, demonstrated on a large French insurance portfolio.",
+      "llm_tldr_cn": "现有保险洪水风险建模多采用粗粒度空间聚合，难以捕捉关键细尺度风险异质性。为此，本文提出一种点参考贝叶斯空间框架，直接在保单持有人层面建模索赔发生和严重性，结合高分辨率环境变量、降雨记录和官方洪水图。在法国大型保险组合上的实验表明，该模型在风险区分度和预测性能上优于传统GLM及离散贝叶斯模型，为城市洪水风险评估和保险定价提供了更精确的工具。",
+      "llm_tldr": "现有保险洪水风险建模多采用粗粒度空间聚合，难以捕捉关键细尺度风险异质性。为此，本文提出一种点参考贝叶斯空间框架，直接在保单持有人层面建模索赔发生和严重性，结合高分辨率环境变量、降雨记录和官方洪水图。在法国大型保险组合上的实验表明，该模型在风险区分度和预测性能上优于传统GLM及离散贝叶斯模型，为城市洪水风险评估和保险定价提供了更精确的工具。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.01605v1",
+      "source": "arxiv",
+      "title": "pykci: A Compact Urban Knowledge Graph for Semantic and Spatial Queries using LLMs",
+      "abstract": "CityGML, the OGC standard for modeling, storage, and exchange of semantic 3D city models, describes urban objects with detailed semantics, geometry, and topology. Yet this richness is difficult to query directly: CityGML's XML encoding is designed for exchange rather than analysis, and relational mappings expose it through schemas requiring expert knowledge. We present pykci (Python Knowledge Graph for Cities), an open-source system that transforms CityGML 2.0 datasets into a compact urban knowledge graph in Neo4j and makes it queryable in natural language. The graph schema covers all thematic feature modules of CityGML 2.0 across all levels of detail and is spatially indexed with an R-tree for efficient geometric retrieval. A complete end-to-end Python pipeline ingests CityGML datasets into the knowledge graph, exports them to OGC 3D Tiles for interactive visualization, and supports lossless round-trip export of all content back to CityGML. For querying, the graph is paired with a large language model through a model-agnostic text-to-Cypher mechanism: the graph schema is supplied as context, and the model translates natural-language questions into Cypher queries executed against the graph. We evaluate both a locally running open-weight model, which keeps sensitive city data on-premise, and a state-of-the-art commercial model for the most demanding spatial and semantic queries. Answers are grounded in exact city data rather than the model's parametric memory, reducing hallucination and providing auditable provenance for every response. We demonstrate the system on open-government CityGML LoD2 datasets from Hamburg, Germany, including complex semantic and spatial queries such as identifying roof surfaces suitable for greening. pykci enables urban planners, GIS practitioners, and citizens to interact with semantic 3D city models without expertise in query languages and database schemas.",
+      "authors": [
+        "Huynh Duc An Son Nguyen",
+        "Lukas Arzoumanidis",
+        "Youness Dehbi"
+      ],
+      "primary_category": "cs.DB",
+      "categories": [
+        "cs.DB"
+      ],
+      "published": "2026-07-02T02:07:54+00:00",
+      "link": "https://arxiv.org/pdf/2607.01605v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "urban knowledge graph enabling spatial queries useful for stormwater management data integration",
+      "llm_evidence_cn": "城市知识图谱支持空间查询，可用于雨水管理数据集成",
+      "llm_evidence": "城市知识图谱支持空间查询，可用于雨水管理数据集成",
+      "canonical_evidence": "城市知识图谱支持空间查询，可用于雨水管理数据集成",
+      "llm_tldr_en": "pykci transforms CityGML data into a compact knowledge graph with spatial indexing, enabling natural language queries for urban applications like stormwater infrastructure analysis.",
+      "llm_tldr_cn": "城市三维模型CityGML数据难以直接查询。本文提出pykci系统，将CityGML转换为Neo4j知识图谱，并集成R-tree空间索引，支持自然语言查询。该系统覆盖所有CityGML模块，可用于城市雨水管理中的设施查询、空间分析和数据集成，为城市洪水评估提供便捷的数据基础。",
+      "llm_tldr": "城市三维模型CityGML数据难以直接查询。本文提出pykci系统，将CityGML转换为Neo4j知识图谱，并集成R-tree空间索引，支持自然语言查询。该系统覆盖所有CityGML模块，可用于城市雨水管理中的设施查询、空间分析和数据集成，为城市洪水评估提供便捷的数据基础。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.03298v1",
+      "source": "arxiv",
+      "title": "A harmonised dataset for Earth system foundation models",
+      "abstract": "Foundation models for Earth systems have so far been trained primarily on physical climate and weather data, with limited representation of the human systems that both drive and respond to environmental change. The lack of a unified global training resource that combines climate, land, ocean, cryosphere, infrastructure, hazards, and socioeconomic data on a common grid hinders progress toward truly multimodal Earth system foundation models. We present WorldTensor, a harmonised global dataset that aligns hundreds of environmental and socioeconomic variables to a standardised 0.25$^\\circ$ spatial grid and annual temporal framework. WorldTensor integrates reanalysis products, remote sensing, emissions inventories, land use reconstructions, hydrological observations, infrastructure and hazard datasets, and socioeconomic indicators within a single representation designed for machine learning workflows. To build the dataset, we regridded inputs across heterogeneous native resolutions and projections, rasterised point and vector datasets into spatially meaningful gridded fields, and reconciled temporal coverages ranging from daily observations to sparse multiyear socioeconomic snapshots. All outputs are distributed as NetCDF files with standardised coordinates, variable metadata, and a common CF metadata convention. WorldTensor provides a reproducible resource for training and evaluating foundation models that learn coupled dynamics across environmental and human systems at planetary scale.",
+      "authors": [
+        "Carlos Rodriguez-Pardo",
+        "Massimo Tavoni"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "econ.GN",
+        "physics.ao-ph"
+      ],
+      "published": "2026-07-03T13:09:17+00:00",
+      "link": "https://arxiv.org/pdf/2607.03298v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "harmonised dataset including hydrological observations useful for urban flood modelling",
+      "llm_evidence_cn": "包含水文观测的整合数据集，可用于城市洪水建模",
+      "llm_evidence": "包含水文观测的整合数据集，可用于城市洪水建模",
+      "canonical_evidence": "包含水文观测的整合数据集，可用于城市洪水建模",
+      "llm_tldr_en": "WorldTensor is a harmonised global dataset that integrates environmental and socioeconomic variables on a common grid, including hydrological data essential for urban flood risk assessment.",
+      "llm_tldr_cn": "当前地球系统基础模型缺乏涵盖人类系统的统一训练资源。本文构建了WorldTensor数据集，将数百个环境和社会经济变量（包括水文观测、基础设施数据等）标准化到0.25°网格上，并建立了年度时间框架。该数据集为城市洪水风险评估模型提供了多模态基础数据，有望推动城市雨洪管理研究的发展。",
+      "llm_tldr": "当前地球系统基础模型缺乏涵盖人类系统的统一训练资源。本文构建了WorldTensor数据集，将数百个环境和社会经济变量（包括水文观测、基础设施数据等）标准化到0.25°网格上，并建立了年度时间框架。该数据集为城市洪水风险评估模型提供了多模态基础数据，有望推动城市雨洪管理研究的发展。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.04226v1",
+      "source": "arxiv",
+      "title": "Minimum Density Power Divergence Estimation for the Gamma Distribution with Applications to Robust Rainfall Modeling",
+      "abstract": "Statistical modeling of rainfall amounts is of considerable importance in meteorology, hydrology, and agriculture. The gamma distribution remains one of the most popular choices for modeling rainfall data due to its flexibility and ability to capture the skewness of rainfall observations. Rainfall datasets often contain atypical observations due to measurement errors and extreme weather events, making maximum likelihood estimation (MLE) highly sensitive to contamination. In this paper, we develop a robust estimation framework for the two-parameter gamma distribution based on the minimum density power divergence estimator (MDPDE). Explicit estimating equations are derived, and several theoretical properties of the proposed estimators are established. In particular, closed-form expressions for the asymptotic covariance matrix are obtained, and robustness is investigated through influence function analysis and asymptotic relative efficiency. The finite-sample performance of the estimators is examined through simulation studies under both pure and contaminated gamma models. The proposed methodology is further implemented to analyze detrended areally weighted monsoon rainfall data from the 36 meteorological subdivisions of India for the period 1951--2014. The results demonstrate that the MDPDE provides a useful compromise between robustness and efficiency, yielding more stable inference than MLE in the presence of outliers while maintaining high efficiency for uncontaminated data.",
+      "authors": [
+        "Arnab Hazra"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME",
+        "stat.AP"
+      ],
+      "published": "2026-07-05T10:51:15+00:00",
+      "link": "https://arxiv.org/pdf/2607.04226v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "robust rainfall modeling method applicable to pluvial flooding analysis",
+      "llm_evidence_cn": "稳健的降雨建模方法，适用于城市暴雨洪水分析",
+      "llm_evidence": "稳健的降雨建模方法，适用于城市暴雨洪水分析",
+      "canonical_evidence": "稳健的降雨建模方法，适用于城市暴雨洪水分析",
+      "llm_tldr_en": "This paper develops a robust estimation framework for the gamma distribution using minimum density power divergence, specifically applied to rainfall data, which is crucial for pluvial flood risk assessment.",
+      "llm_tldr_cn": "针对降雨数据中异常值导致的最大似然估计不稳健问题，本文提出了基于最小密度功率散度估计的稳健伽马分布参数估计方法。推导了显式估计方程并验证了理论性质。该方法能够有效处理测量错误和极端天气导致的异常值，为城市暴雨洪水风险评估提供了更可靠的降雨统计建模工具。",
+      "llm_tldr": "针对降雨数据中异常值导致的最大似然估计不稳健问题，本文提出了基于最小密度功率散度估计的稳健伽马分布参数估计方法。推导了显式估计方程并验证了理论性质。该方法能够有效处理测量错误和极端天气导致的异常值，为城市暴雨洪水风险评估提供了更可靠的降雨统计建模工具。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "pluvial flooding causes and impacts in urban areas",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
