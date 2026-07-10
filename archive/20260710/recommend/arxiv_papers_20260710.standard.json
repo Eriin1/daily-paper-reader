@@ -1,0 +1,260 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-10T21:20:44.717643+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 6,
+    "quick_skim_target": 11,
+    "quick_selected": 6
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2607.03217v1",
+      "source": "arxiv",
+      "title": "Joint distribution of upstream runoff governs downstream river-discharge prediction uncertainty in distributed ML models",
+      "abstract": "Uncertainty quantification of hydrological predictions is necessary to inform operational decisions. Recent generative machine-learning methods have advanced probabilistic streamflow prediction, but have remained confined to lumped models that predict a basin outlet directly. At the same time, deterministic LSTM runoff models are increasingly applied at grid or catchment scale and routed through river networks to produce spatially continuous, physically consistent discharge fields. This technical note argues that moving probabilistic prediction from lumped to distributed models introduces a specific new requirement: the joint distribution of upstream runoff generation must be sampled jointly. In lumped inference, the model predicts the outlet distribution directly and can modulate spread from basin attributes. In distributed inference, downstream discharge is obtained by routing many upstream runoff predictions, so independent local sampling averages uncertainty away. Using Japan as a case study, we train two probabilistic basin-scale runoff LSTMs and route their runoff through a Hayami routing scheme. Randomly matching upstream ensemble members produces severely under-dispersed downstream ensembles, whereas a simple quantile matching strategy restores much of the spread of the direct basin-scale reference. The shift from lumped to distributed probabilistic hydrology therefore requires explicit attention to the spatial joint structure of runoff uncertainty.",
+      "authors": [
+        "Karan Ruparell",
+        "Tristan Hascoet",
+        "Takemasa Miyoshi",
+        "Kieran M. R. Hunt",
+        "Hannah L. Cloke",
+        "Christel Prudhomme",
+        "Florian Pappenberger"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "stat.AP"
+      ],
+      "published": "2026-07-03T11:31:57+00:00",
+      "link": "https://arxiv.org/pdf/2607.03217v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "joint distribution of upstream runoff for discharge prediction uncertainty",
+      "llm_evidence_cn": "上游径流联合分布用于流量预测不确定性量化",
+      "llm_evidence": "上游径流联合分布用于流量预测不确定性量化",
+      "canonical_evidence": "上游径流联合分布用于流量预测不确定性量化",
+      "llm_tldr_en": "Argues that probabilistic streamflow prediction with distributed ML models requires jointly sampling upstream runoff generation, highlighting a new requirement for hydrological uncertainty quantification.",
+      "llm_tldr_cn": "将概率预测从集总式模型扩展到分布式水文模型时，必须对上游径流生成进行联合采样。本文通过技术论证指出当前方法的不足，并强调开发新不确定性量化工具的必要性，以提高洪水预报的可靠性。",
+      "llm_tldr": "将概率预测从集总式模型扩展到分布式水文模型时，必须对上游径流生成进行联合采样。本文通过技术论证指出当前方法的不足，并强调开发新不确定性量化工具的必要性，以提高洪水预报的可靠性。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.03263v1",
+      "source": "arxiv",
+      "title": "Multimodal Nonblocking Supervisory Control Synthesis",
+      "abstract": "Supervisory control synthesis leverages the nonblocking property to show liveness of the supervised system. This property is particularly weak when system models include fault behavior, reconfiguration, or multiple control goals. To capture a more suitable nonblocking property for such system models, this paper introduces modal and multimodal nonblocking. These novel nonblocking variants impose a restriction on the states visited on the path towards a marked state. Synthesis algorithms are presented to construct modal and multimodal nonblocking supervisors. The novel nonblocking variants are illustrated with three intuitive examples, inspired by real synthesis problems encountered while applying supervisory control synthesis to safety-critical water infrastructures. A comparison is made between the novel nonblocking variants and established nonblocking variants to show that they are distinct. Additionally, where possible, conditions are formulated under which one variant implies the other.",
+      "authors": [
+        "Marijn Minkenberg",
+        "Michel Reniers",
+        "Martijn Goorden",
+        "Asia van de Mortel-Fronczak",
+        "Wan Fokkink"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY"
+      ],
+      "published": "2026-07-03T12:30:31+00:00",
+      "link": "https://arxiv.org/pdf/2607.03263v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "supervisory control synthesis for safety-critical water infrastructures can enhance stormwater management",
+      "llm_evidence_cn": "面向安全关键水基础设施的监督控制合成可增强雨洪管理",
+      "llm_evidence": "面向安全关键水基础设施的监督控制合成可增强雨洪管理",
+      "canonical_evidence": "面向安全关键水基础设施的监督控制合成可增强雨洪管理",
+      "llm_tldr_en": "Introduces modal and multimodal nonblocking properties for supervisory control, applied to water infrastructure control, enabling reliable stormwater runoff management.",
+      "llm_tldr_cn": "该论文针对安全关键水基础设施的监督控制问题，提出了模态和多模态非阻塞性质，确保系统在故障和重配置下仍能到达目标状态。通过合成算法实现非阻塞监督，示例包括水基础设施控制。这为城市暴雨径流管理中排水系统的可靠控制提供了理论支撑。",
+      "llm_tldr": "该论文针对安全关键水基础设施的监督控制问题，提出了模态和多模态非阻塞性质，确保系统在故障和重配置下仍能到达目标状态。通过合成算法实现非阻塞监督，示例包括水基础设施控制。这为城市暴雨径流管理中排水系统的可靠控制提供了理论支撑。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for managing urban stormwater runoff",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.03279v1",
+      "source": "arxiv",
+      "title": "From Global to Local: Efficient Regional Weather Downscaling with Global Weather Foundation Model",
+      "abstract": "Accurate regional weather prediction requires resolving fine-scale structure while remaining consistent with global dynamics. Traditional limited area models rely on computationally expensive simulations, while many learning-based approaches frame the problem as super-resolution, overlooking statistical and physical mismatches across scales. We propose a foundation-model-driven downscaling framework that learns regional refinements of global forecasts by augmenting a pretrained weather model backbone with lightweight, multi-scale prediction heads operating directly in its latent space. Despite being trained on substantially coarser inputs, the pretrained backbone supports regional adaptation at resolutions corresponding to a two-order-of-magnitude increase in grid-cell resolution, without the need for retraining. The proposed approach uses regional numerical simulations as training targets and is evaluated not only against gridded datasets but also against ground-based weather station observations, enabling analysis of systematic biases between global reanalysis, regional simulations, and in-situ weather station observations. Our experiments show improved accuracy in comparison to NWP on most of the metrics at the fraction of computational cost. Moreover, we observe that building on a latent space of globally pre-trained weather foundation model offers better downscaling capabilities than the standard image-based super-resolution approaches.",
+      "authors": [
+        "Wiktor Kamzela",
+        "Jakub Kubiak",
+        "Adam Dobosz",
+        "Jędrzej Miczke",
+        "Anatol Kaczmarek",
+        "Piotr Wyrwiński",
+        "Wojciech Stefaniak",
+        "Wojciech Kotłowski"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-07-03T12:49:06+00:00",
+      "link": "https://arxiv.org/pdf/2607.03279v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "regional weather downscaling improves precipitation forecasts for flood risk assessment",
+      "llm_evidence_cn": "区域天气降尺度改进降水预报，支持洪水风险评估",
+      "llm_evidence": "区域天气降尺度改进降水预报，支持洪水风险评估",
+      "canonical_evidence": "区域天气降尺度改进降水预报，支持洪水风险评估",
+      "llm_tldr_en": "Uses a pretrained global weather foundation model to generate high-resolution regional forecasts, enabling finer-scale precipitation data for urban flood risk assessment.",
+      "llm_tldr_cn": "该论文提出一种基于全球天气基础模型的区域降尺度框架，通过轻量级多头预测头学习局部校正。该方法在保持全球一致性的同时生成高分辨率预报，显著提升降水等变量的精细尺度预测能力。这为城市洪水风险评估提供了更准确的降水输入，是洪水建模的关键输入。",
+      "llm_tldr": "该论文提出一种基于全球天气基础模型的区域降尺度框架，通过轻量级多头预测头学习局部校正。该方法在保持全球一致性的同时生成高分辨率预报，显著提升降水等变量的精细尺度预测能力。这为城市洪水风险评估提供了更准确的降水输入，是洪水建模的关键输入。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.03501v1",
+      "source": "arxiv",
+      "title": "STRATOS: Bridging the Symbolic-to-Numeric Gap in Spatio-Temporal Text-to-SQL for Meteorological Data",
+      "abstract": "Copernicus, the European Union's Earth observation program, produces petabytes of Earth observation and climate data, offering immense potential for research, policy, and applications. However, access to these datasets requires advanced programming skills and familiarity with domain-specific formats such as NetCDF or GRIB. Moreover, general-purpose Text-to-SQL systems fail when applied naively to the meteorological domain due to a profound ``Symbolic-to-Numeric'' gap. To overcome these limitations, we present an end-to-end Text-to-SQL framework specifically engineered for real-world, scalable meteorological data exploration. Our system intercepts natural language to resolve spatial and semantic ambiguities \\textit{before} SQL generation. We design STRATOS, a Spatio-Temporal Resolution Agent for Text-to-SQL to dynamically bridge the symbolic-to-numeric gap by mapping fuzzy concepts to a localized ontology and resolving spatial entities via external knowledge bases. Further, our complexity-aware query rewriter rewrites expensive spatial predicates, reducing execution times from hours to seconds. Last, we introduce the STRATOS Evaluation Workload, comprising 7,520 complex query pairs explicitly designed by domain experts to test scalability and symbolic-to-numeric translation across challenging spatio-temporal dimensions previously unexplored by Text-to-SQL systems.",
+      "authors": [
+        "Yi Zhang",
+        "Farhad Nooralahzadeh",
+        "Jonathan Fürst",
+        "Fabio Scherrer",
+        "Antonis Bezes",
+        "Vassiliki Kotroni",
+        "Kurt Stockinger"
+      ],
+      "primary_category": "cs.DB",
+      "categories": [
+        "cs.DB",
+        "cs.AI",
+        "cs.MA"
+      ],
+      "published": "2026-07-03T17:15:24+00:00",
+      "link": "https://arxiv.org/pdf/2607.03501v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Spatio-temporal Text-to-SQL for meteorological data enabling flood risk assessment",
+      "llm_evidence_cn": "面向气象数据的时空文本到SQL框架，可支持洪水风险评估",
+      "llm_evidence": "面向气象数据的时空文本到SQL框架，可支持洪水风险评估",
+      "canonical_evidence": "面向气象数据的时空文本到SQL框架，可支持洪水风险评估",
+      "llm_tldr_en": "STRATOS bridges the symbolic-to-numeric gap in meteorological data querying, enabling natural language access to Copernicus climate data, which can be used for urban flood risk assessment and stormwater management planning.",
+      "llm_tldr_cn": "气象数据查询面临编程门槛和符号到数值的鸿沟。STRATOS提出端到端文本到SQL框架，在查询前解析自然语言中的空间和语义歧义，使Copernicus等气象数据集可通过自然语言访问。该框架能帮助城市规划者和洪水风险评估人员快速获取所需的气候数据，从而支持城市雨洪评估与治理决策。",
+      "llm_tldr": "气象数据查询面临编程门槛和符号到数值的鸿沟。STRATOS提出端到端文本到SQL框架，在查询前解析自然语言中的空间和语义歧义，使Copernicus等气象数据集可通过自然语言访问。该框架能帮助城市规划者和洪水风险评估人员快速获取所需的气候数据，从而支持城市雨洪评估与治理决策。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.05645v1",
+      "source": "arxiv",
+      "title": "Domain-Adaptive Climate Downscaling Under Temporal Distribution Shift",
+      "abstract": "Deep-learning-based climate downscaling aims to learn relationships from historical low-resolution (LR) and high-resolution (HR) climate data to generate HR climate projections. However, this setting faces a temporal out-of-distribution (OOD) challenge: models trained on historical data are commonly applied to future projections whose distributions may differ substantially from the training period. This study investigates temporal OOD shift for daily temperature downscaling over the Continental United States using paired LR-HR model simulations. We propose a temporal domain-adaptive downscaling framework that combines supervised HR reconstruction on historical data with domain alignment between historical and future climate distributions. Experiments across future validation periods show that the proposed domain-adaptive model consistently outperforms statistical and deep-learning-based bias-correction methods, with the largest gains occurring when the temporal distribution shift is strongest. Spatial analyses indicate stronger improvements over high-elevation and topographically complex regions, along with higher spatiotemporal correlation with the HR target. The extreme analysis shows that domain adaptation also reduces upper-tail temperature bias relative to the non-adaptive model. These results demonstrate that temporal domain adaptation can improve the robustness of HR climate projections under non-stationary climate conditions.",
+      "authors": [
+        "Shuochen Wang",
+        "Nishant Yadav",
+        "Auroop R. Ganguly"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "physics.ao-ph"
+      ],
+      "published": "2026-07-06T21:12:48+00:00",
+      "link": "https://arxiv.org/pdf/2607.05645v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "temporal domain-adaptive downscaling addresses distribution shift in climate projections for flood risk",
+      "llm_evidence_cn": "时域自适应降尺度处理气候预估中的分布偏移，支持洪水风险评估",
+      "llm_evidence": "时域自适应降尺度处理气候预估中的分布偏移，支持洪水风险评估",
+      "canonical_evidence": "时域自适应降尺度处理气候预估中的分布偏移，支持洪水风险评估",
+      "llm_tldr_en": "Proposes temporal domain-adaptive climate downscaling combining supervised reconstruction with domain alignment, improving future precipitation projections for flood risk under climate change.",
+      "llm_tldr_cn": "该论文针对深度学习气候降尺度中的时域分布偏移问题，提出一种结合历史监督重建与域对齐的自适应框架。实验表明该方法能有效缓解历史与未来分布差异，生成更可靠的未来高分辨率气候场。这对于评估气候变化下城市洪水频率与严重性至关重要。",
+      "llm_tldr": "该论文针对深度学习气候降尺度中的时域分布偏移问题，提出一种结合历史监督重建与域对齐的自适应框架。实验表明该方法能有效缓解历史与未来分布差异，生成更可靠的未来高分辨率气候场。这对于评估气候变化下城市洪水频率与严重性至关重要。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "flood risk assessment for urban areas",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.04746v1",
+      "source": "arxiv",
+      "title": "Short-Horizon Sparse Model Predictive Control for Precipitation Reduction Using Numerical Weather Prediction",
+      "abstract": "This study proposes a precipitation control framework integrating a realistic Numerical Weather Prediction (NWP) model with model predictive control (MPC). At each control instant in MPC, a finite-difference sensitivity matrix is constructed from the NWP model and used as a local linear model of how perturbations to the atmospheric state affect future precipitation. A sparse convex optimization problem is then solved to compute the control input, which is implemented as a perturbation to the atmospheric state. To reduce computational cost in sensitivity analysis, multiple grid points in the NWP model are treated collectively as a single block, and a uniform perturbation is applied to all points within each block. Moreover, a tailored convex optimization problem is introduced to effectively control the accumulated precipitation at the end of a weather event, using a prediction horizon much shorter than the entire event duration while promoting spatially sparse atmospheric perturbations. To evaluate the proposed MPC method, four control methods are compared: (i) initial-only open-loop optimal control (IO-OL), (ii) full-horizon open-loop optimal control (FH-OL), (iii) shrinking-horizon optimal control (SHOC) with a fixed terminal time, and (iv) single-move MPC with a fixed prediction-horizon length. Numerical experiments on a warm bubble benchmark demonstrate that MPC achieves precipitation reduction comparable to SHOC while reducing the total computational time relative to FH-OL and SHOC. Moreover, despite using a linear prediction model, MPC successfully achieves a challenging level of precipitation reduction, even when open-loop optimal control methods, namely, IO-OL and FH-OL, fail because of nonlinear atmospheric evolution. These findings suggest that MPC is a promising control framework for NWP-based precipitation reduction in complex weather events.",
+      "authors": [
+        "Yuta Tanikawa",
+        "Yuga Tomita",
+        "Toshiyuki Ohtsuka"
+      ],
+      "primary_category": "eess.SY",
+      "categories": [
+        "eess.SY",
+        "math.OC",
+        "physics.ao-ph"
+      ],
+      "published": "2026-07-06T07:32:20+00:00",
+      "link": "https://arxiv.org/pdf/2607.04746v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "precipitation control using model predictive control and NWP for stormwater management",
+      "llm_evidence_cn": "利用数值天气预报和模型预测控制进行降水控制，可服务于暴雨管理",
+      "llm_evidence": "利用数值天气预报和模型预测控制进行降水控制，可服务于暴雨管理",
+      "canonical_evidence": "利用数值天气预报和模型预测控制进行降水控制，可服务于暴雨管理",
+      "llm_tldr_en": "Develops a precipitation control framework integrating NWP with MPC to reduce precipitation via atmospheric perturbation, offering a novel stormwater management approach.",
+      "llm_tldr_cn": "针对城市暴雨管理，提出基于数值天气预报（NWP）与模型预测控制（MPC）的降水控制框架。通过构建灵敏度矩阵求解稀疏优化问题，对大气状态施加扰动以减少降水。该方法为主动式雨洪管理提供新思路，但目前限于短时距控制，实用性有限。",
+      "llm_tldr": "针对城市暴雨管理，提出基于数值天气预报（NWP）与模型预测控制（MPC）的降水控制框架。通过构建灵敏度矩阵求解稀疏优化问题，对大气状态施加扰动以减少降水。该方法为主动式雨洪管理提供新思路，但目前限于短时距控制，实用性有限。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for managing urban stormwater runoff",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
