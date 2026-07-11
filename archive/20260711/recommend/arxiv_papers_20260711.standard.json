@@ -1,0 +1,170 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-11T21:04:43.500114+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2607.03217v1",
+      "source": "arxiv",
+      "title": "Joint distribution of upstream runoff governs downstream river-discharge prediction uncertainty in distributed ML models",
+      "abstract": "Uncertainty quantification of hydrological predictions is necessary to inform operational decisions. Recent generative machine-learning methods have advanced probabilistic streamflow prediction, but have remained confined to lumped models that predict a basin outlet directly. At the same time, deterministic LSTM runoff models are increasingly applied at grid or catchment scale and routed through river networks to produce spatially continuous, physically consistent discharge fields. This technical note argues that moving probabilistic prediction from lumped to distributed models introduces a specific new requirement: the joint distribution of upstream runoff generation must be sampled jointly. In lumped inference, the model predicts the outlet distribution directly and can modulate spread from basin attributes. In distributed inference, downstream discharge is obtained by routing many upstream runoff predictions, so independent local sampling averages uncertainty away. Using Japan as a case study, we train two probabilistic basin-scale runoff LSTMs and route their runoff through a Hayami routing scheme. Randomly matching upstream ensemble members produces severely under-dispersed downstream ensembles, whereas a simple quantile matching strategy restores much of the spread of the direct basin-scale reference. The shift from lumped to distributed probabilistic hydrology therefore requires explicit attention to the spatial joint structure of runoff uncertainty.",
+      "authors": [
+        "Karan Ruparell",
+        "Tristan Hascoet",
+        "Takemasa Miyoshi",
+        "Kieran M. R. Hunt",
+        "Hannah L. Cloke",
+        "Christel Prudhomme",
+        "Florian Pappenberger"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "stat.AP"
+      ],
+      "published": "2026-07-03T11:31:57+00:00",
+      "link": "https://arxiv.org/pdf/2607.03217v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "upstream runoff joint distribution for river discharge uncertainty",
+      "llm_evidence_cn": "上游径流联合分布控制河流流量预测不确定性",
+      "llm_evidence": "上游径流联合分布控制河流流量预测不确定性",
+      "canonical_evidence": "上游径流联合分布控制河流流量预测不确定性",
+      "llm_tldr_en": "Argues that probabilistic streamflow prediction in distributed models requires sampling the joint distribution of upstream runoff, highlighting a key requirement for flood forecasting.",
+      "llm_tldr_cn": "指出分布式机器学习模型进行概率流预测时必须联合采样上游径流生成，这揭示了当前方法在不确定性量化上的关键缺陷；该观点直接适用于城市洪水风险预测中径流建模的不确定性管理，为改进城市雨洪评估提供了方法论指导。",
+      "llm_tldr": "指出分布式机器学习模型进行概率流预测时必须联合采样上游径流生成，这揭示了当前方法在不确定性量化上的关键缺陷；该观点直接适用于城市洪水风险预测中径流建模的不确定性管理，为改进城市雨洪评估提供了方法论指导。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.07215v1",
+      "source": "arxiv",
+      "title": "Robust Indicators of Spatial Association",
+      "abstract": "The Moran statistic, and its accompanying local statistics, are one of the most extensively used exploratory spatial data analysis tools for assessing global and local spatial autocorrelation. The paired visualizations for these statistics, the Moran Scatterplot and LISA map, are likewise central to spatial analysis. Together, these statistics and visualizations are used to identify spatial clusters, regions of a map where observations are similar to one another, or spatial outliers, observations that differ sharply from their surroundings. However, the use of Moran statistics to detect spatial outliers is complicated by their high sensitivity to *distributional* outliers: observations that are extreme relative to the overall data distribution, regardless of their spatial context. Indeed, a single distributional outlier can (I) distort local statistics across the entire map and (II) bias the global estimate of spatial association. Recent work has begun to address (I) and (II) separately using plug-in robust estimators for location, scale, and spatial correlation. In this paper, we offer the first systematic evaluation of robust LISA and global spatial association measures, using variety of plug-in robust estimators, a trimmed least squares (TLS) estimator, and a Theil-Sen-style estimator. We also outline a visualization strategy to create Robust Moran Scatterplots/LISA maps for each. Out of all considered approaches, we find that the Theil-Sen Moran estimator is a better default for exploratory spatial data analysis and visualization, while robust plug-in estimators also offer acceptable performance in large datasets.",
+      "authors": [
+        "Levi John Wolf",
+        "Wei Kang"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME"
+      ],
+      "published": "2026-07-08T09:55:10+00:00",
+      "link": "https://arxiv.org/pdf/2607.07215v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "spatial autocorrelation indicators for detecting spatial outliers, applicable to urban flood risk assessment",
+      "llm_evidence_cn": "空间自相关指标检测空间异常值，可用于城市洪水风险评估",
+      "llm_evidence": "空间自相关指标检测空间异常值，可用于城市洪水风险评估",
+      "canonical_evidence": "空间自相关指标检测空间异常值，可用于城市洪水风险评估",
+      "llm_tldr_en": "Proposes robust indicators of spatial association that reduce sensitivity to distributional outliers, improving detection of spatial outliers in LISA maps.",
+      "llm_tldr_cn": "该研究提出了空间关联的鲁棒指标，以解决传统Moran统计量对分布异常值敏感的问题。新的指标能更准确地识别空间异常值（即与其周围环境显著不同的观测点），改进了LISA地图的可靠性。该方法可直接应用于城市洪水风险空间聚类和异常热点识别。",
+      "llm_tldr": "该研究提出了空间关联的鲁棒指标，以解决传统Moran统计量对分布异常值敏感的问题。新的指标能更准确地识别空间异常值（即与其周围环境显著不同的观测点），改进了LISA地图的可靠性。该方法可直接应用于城市洪水风险空间聚类和异常热点识别。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for urban flood risk assessment",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.03298v1",
+      "source": "arxiv",
+      "title": "A harmonised dataset for Earth system foundation models",
+      "abstract": "Foundation models for Earth systems have so far been trained primarily on physical climate and weather data, with limited representation of the human systems that both drive and respond to environmental change. The lack of a unified global training resource that combines climate, land, ocean, cryosphere, infrastructure, hazards, and socioeconomic data on a common grid hinders progress toward truly multimodal Earth system foundation models. We present WorldTensor, a harmonised global dataset that aligns hundreds of environmental and socioeconomic variables to a standardised 0.25$^\\circ$ spatial grid and annual temporal framework. WorldTensor integrates reanalysis products, remote sensing, emissions inventories, land use reconstructions, hydrological observations, infrastructure and hazard datasets, and socioeconomic indicators within a single representation designed for machine learning workflows. To build the dataset, we regridded inputs across heterogeneous native resolutions and projections, rasterised point and vector datasets into spatially meaningful gridded fields, and reconciled temporal coverages ranging from daily observations to sparse multiyear socioeconomic snapshots. All outputs are distributed as NetCDF files with standardised coordinates, variable metadata, and a common CF metadata convention. WorldTensor provides a reproducible resource for training and evaluating foundation models that learn coupled dynamics across environmental and human systems at planetary scale.",
+      "authors": [
+        "Carlos Rodriguez-Pardo",
+        "Massimo Tavoni"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.AI",
+        "econ.GN",
+        "physics.ao-ph"
+      ],
+      "published": "2026-07-03T13:09:17+00:00",
+      "link": "https://arxiv.org/pdf/2607.03298v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "harmonised dataset for Earth system models, includes hazards and infrastructure data",
+      "llm_evidence_cn": "包含灾害和基础设施数据的统一地球系统数据集",
+      "llm_evidence": "包含灾害和基础设施数据的统一地球系统数据集",
+      "canonical_evidence": "包含灾害和基础设施数据的统一地球系统数据集",
+      "llm_tldr_en": "WorldTensor harmonises hundreds of environmental and socioeconomic variables on a common grid, supporting urban flood studies by integrating data on hazards and infrastructure.",
+      "llm_tldr_cn": "针对地球系统基础模型缺乏社会人文数据的问题，本文构建了WorldTensor统一数据集，将气候、土地、海洋、基础设施、灾害和社会经济数据对齐到0.25°空间网格。该数据集整合了再分析、遥感、排放清单、土地利用重建和水文观测等，为城市洪水风险评估和治理研究提供了关键数据基础，有助于推动多模态地球系统建模。",
+      "llm_tldr": "针对地球系统基础模型缺乏社会人文数据的问题，本文构建了WorldTensor统一数据集，将气候、土地、海洋、基础设施、灾害和社会经济数据对齐到0.25°空间网格。该数据集整合了再分析、遥感、排放清单、土地利用重建和水文观测等，为城市洪水风险评估和治理研究提供了关键数据基础，有助于推动多模态地球系统建模。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.07215v2",
+      "source": "arxiv",
+      "title": "Robust Indicators of Spatial Association",
+      "abstract": "The Moran statistic, and its accompanying local statistics, are one of the most extensively used exploratory spatial data analysis tools for assessing global and local spatial autocorrelation. The paired visualizations for these statistics, the Moran Scatterplot and LISA map, are likewise central to spatial analysis. Together, these statistics and visualizations are used to identify spatial clusters, regions of a map where observations are similar to one another, or spatial outliers, observations that differ sharply from their surroundings. However, the use of Moran statistics to detect spatial outliers is complicated by their high sensitivity to *distributional* outliers: observations that are extreme relative to the overall data distribution, regardless of their spatial context. Indeed, a single distributional outlier can (I) distort local statistics across the entire map and (II) bias the global estimate of spatial association. Recent work has begun to address (I) and (II) separately using plug-in robust estimators for location, scale, and spatial correlation. In this paper, we offer the first systematic evaluation of robust LISA and global spatial association measures, using variety of plug-in robust estimators, a trimmed least squares (TLS) estimator, and a Theil-Sen-style estimator. We also outline a visualization strategy to create Robust Moran Scatterplots/LISA maps for each. Out of all considered approaches, we find that the Theil-Sen Moran estimator is a better default for exploratory spatial data analysis and visualization, while robust plug-in estimators also offer acceptable performance in large datasets.",
+      "authors": [
+        "Levi John Wolf",
+        "Wei Kang"
+      ],
+      "primary_category": "stat.ME",
+      "categories": [
+        "stat.ME"
+      ],
+      "published": "2026-07-08T09:55:10+00:00",
+      "link": "https://arxiv.org/pdf/2607.07215v2",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Robust spatial association indicators applicable to urban flood risk clustering detection",
+      "llm_evidence_cn": "稳健空间关联指标可用于城市洪水风险聚类检测",
+      "llm_evidence": "稳健空间关联指标可用于城市洪水风险聚类检测",
+      "canonical_evidence": "稳健空间关联指标可用于城市洪水风险聚类检测",
+      "llm_tldr_en": "Introduces robust Moran-based indicators that reduce sensitivity to distributional outliers, providing reliable tools for detecting spatial clusters and outliers in urban flood risk analysis.",
+      "llm_tldr_cn": "针对传统Moran统计量对分布异常值敏感、难以准确识别空间异常点的问题，提出稳健的空间关联指标，降低整体分布极端值的影响，保留局部空间自相关结构。该方法可直接应用于城市洪水风险制图中的热点与异常区域识别，提升风险评估可靠性。",
+      "llm_tldr": "针对传统Moran统计量对分布异常值敏感、难以准确识别空间异常点的问题，提出稳健的空间关联指标，降低整体分布极端值的影响，保留局部空间自相关结构。该方法可直接应用于城市洪水风险制图中的热点与异常区域识别，提升风险评估可靠性。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for urban flood risk assessment",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

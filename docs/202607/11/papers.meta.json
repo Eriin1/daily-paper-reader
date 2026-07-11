@@ -1,0 +1,69 @@
+{
+  "label": "2026-07-11",
+  "date": "2026-07-11",
+  "generated_at": "2026-07-11T21:09:02",
+  "count": 4,
+  "papers": [
+    {
+      "paper_id": "202607/11/2607.03217v1-joint-distribution-of-upstream-runoff-governs-downstream-river-discharge-prediction-uncertainty-in-distributed-ml-models",
+      "section": "deep",
+      "title_en": "Joint distribution of upstream runoff governs downstream river-discharge prediction uncertainty in distributed ML models",
+      "authors": "Karan Ruparell, Tristan Hascoet, Takemasa Miyoshi, Kieran M. R. Hunt, Hannah L. Cloke, Christel Prudhomme, Florian Pappenberger",
+      "date": "2026-07-03",
+      "pdf": "https://arxiv.org/pdf/2607.03217v1",
+      "score": "9.0",
+      "evidence": "上游径流联合分布控制河流流量预测不确定性",
+      "tldr": "分布式机器学习模型进行概率径流预测时，下游流量由多个上游径流经汇流得到。若独立采样上游径流，汇流后不确定性被平均化而低估。提出分位数匹配策略以保持上游径流的空间联合结构，在日本案例中恢复了下游汇流预测的分散度。该工作强调分布式概率水文预报需显式考虑径流不确定性的空间联合分布。",
+      "tags": "query:urban-flood",
+      "abstract_en": "Uncertainty quantification of hydrological predictions is necessary to inform operational decisions. Recent generative machine-learning methods have advanced probabilistic streamflow prediction, but have remained confined to lumped models that predict a basin outlet directly. At the same time, deterministic LSTM runoff models are increasingly applied at grid or catchment scale and routed through river networks to produce spatially continuous, physically consistent discharge fields. This technical note argues that moving probabilistic prediction from lumped to distributed models introduces a specific new requirement: the joint distribution of upstream runoff generation must be sampled jointly. In lumped inference, the model predicts the outlet distribution directly and can modulate spread from basin attributes. In distributed inference, downstream discharge is obtained by routing many upstream runoff predictions, so independent local sampling averages uncertainty away. Using Japan as a case study, we train two probabilistic basin-scale runoff LSTMs and route their runoff through a Hayami routing scheme. Randomly matching upstream ensemble members produces severely under-dispersed downstream ensembles, whereas a simple quantile matching strategy restores much of the spread of the direct basin-scale reference. The shift from lumped to distributed probabilistic hydrology therefore requires explicit attention to the spatial joint structure of runoff uncertainty.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/11/2607.07215v1-robust-indicators-of-spatial-association",
+      "section": "quick",
+      "title_en": "Robust Indicators of Spatial Association",
+      "authors": "Levi John Wolf, Wei Kang",
+      "date": "2026-07-08",
+      "pdf": "https://arxiv.org/pdf/2607.07215v1",
+      "score": "7.0",
+      "evidence": "空间自相关指标检测空间异常值，可用于城市洪水风险评估",
+      "tldr": "Moran统计用于空间自相关分析，但对分布异常值高度敏感，单个异常值会扭曲全局和局部指标。本文系统评估了多种稳健估计方法（包括plug-in、Trimmed Least Squares和Theil-Sen）以构建稳健的LISA和全局空间关联指标，并设计了对应的稳健Moran散点图和LISA地图。实验表明，Theil-Sen Moran估计器在探查性空间数据分析中表现最佳，而稳健plug-in估计器在大数据集中也可接受。该研究为空间聚类和异常值检测提供了更可靠的工具。",
+      "tags": "query:urban-flood",
+      "abstract_en": "The Moran statistic, and its accompanying local statistics, are one of the most extensively used exploratory spatial data analysis tools for assessing global and local spatial autocorrelation. The paired visualizations for these statistics, the Moran Scatterplot and LISA map, are likewise central to spatial analysis. Together, these statistics and visualizations are used to identify spatial clusters, regions of a map where observations are similar to one another, or spatial outliers, observations that differ sharply from their surroundings. However, the use of Moran statistics to detect spatial outliers is complicated by their high sensitivity to *distributional* outliers: observations that are extreme relative to the overall data distribution, regardless of their spatial context. Indeed, a single distributional outlier can (I) distort local statistics across the entire map and (II) bias the global estimate of spatial association. Recent work has begun to address (I) and (II) separately using plug-in robust estimators for location, scale, and spatial correlation. In this paper, we offer the first systematic evaluation of robust LISA and global spatial association measures, using variety of plug-in robust estimators, a trimmed least squares (TLS) estimator, and a Theil-Sen-style estimator. We also outline a visualization strategy to create Robust Moran Scatterplots/LISA maps for each. Out of all considered approaches, we find that the Theil-Sen Moran estimator is a better default for exploratory spatial data analysis and visualization, while robust plug-in estimators also offer acceptable performance in large datasets.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/11/2607.07215v2-robust-indicators-of-spatial-association",
+      "section": "quick",
+      "title_en": "Robust Indicators of Spatial Association",
+      "authors": "Levi John Wolf, Wei Kang",
+      "date": "2026-07-08",
+      "pdf": "https://arxiv.org/pdf/2607.07215v2",
+      "score": "7.0",
+      "evidence": "稳健空间关联指标可用于城市洪水风险聚类检测",
+      "tldr": "Moran统计量及其局部指标广泛应用于空间自相关分析，但其对分布异常值高度敏感，单个异常值会扭曲全局估计和局部统计量。本文系统评估了多种鲁棒估计方法，包括Theil-Sen估计量、修剪最小二乘法和鲁棒插件估计量，并设计了对应的鲁棒Moran散点图和LISA图。实验表明，Theil-Sen Moran估计量作为默认工具在探索性空间数据分析中表现最佳，而鲁棒插件估计量在大数据集上仍有良好性能。该工作为空间聚类和异常值检测提供了更可靠的统计框架。",
+      "tags": "query:urban-flood",
+      "abstract_en": "The Moran statistic, and its accompanying local statistics, are one of the most extensively used exploratory spatial data analysis tools for assessing global and local spatial autocorrelation. The paired visualizations for these statistics, the Moran Scatterplot and LISA map, are likewise central to spatial analysis. Together, these statistics and visualizations are used to identify spatial clusters, regions of a map where observations are similar to one another, or spatial outliers, observations that differ sharply from their surroundings. However, the use of Moran statistics to detect spatial outliers is complicated by their high sensitivity to *distributional* outliers: observations that are extreme relative to the overall data distribution, regardless of their spatial context. Indeed, a single distributional outlier can (I) distort local statistics across the entire map and (II) bias the global estimate of spatial association. Recent work has begun to address (I) and (II) separately using plug-in robust estimators for location, scale, and spatial correlation. In this paper, we offer the first systematic evaluation of robust LISA and global spatial association measures, using variety of plug-in robust estimators, a trimmed least squares (TLS) estimator, and a Theil-Sen-style estimator. We also outline a visualization strategy to create Robust Moran Scatterplots/LISA maps for each. Out of all considered approaches, we find that the Theil-Sen Moran estimator is a better default for exploratory spatial data analysis and visualization, while robust plug-in estimators also offer acceptable performance in large datasets.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/11/2607.03298v1-a-harmonised-dataset-for-earth-system-foundation-models",
+      "section": "quick",
+      "title_en": "A harmonised dataset for Earth system foundation models",
+      "authors": "Carlos Rodriguez-Pardo, Massimo Tavoni",
+      "date": "2026-07-03",
+      "pdf": "https://arxiv.org/pdf/2607.03298v1",
+      "score": "6.0",
+      "evidence": "包含灾害和基础设施数据的统一地球系统数据集",
+      "tldr": "当前地球系统基础模型主要训练于物理气候数据，缺乏对人类系统的表征。为此，WorldTensor数据集将数百个环境和社会经济变量统一到0.25°网格和年时间框架，整合再分析、遥感、排放清单等多源数据。通过重新网格化、栅格化点/矢量数据并协调时间覆盖，生成标准化NetCDF文件。该资源支持训练跨环境与人类系统耦合动力学的基础模型，助力多模态地球系统建模。",
+      "tags": "query:urban-flood",
+      "abstract_en": "Foundation models for Earth systems have so far been trained primarily on physical climate and weather data, with limited representation of the human systems that both drive and respond to environmental change. The lack of a unified global training resource that combines climate, land, ocean, cryosphere, infrastructure, hazards, and socioeconomic data on a common grid hinders progress toward truly multimodal Earth system foundation models. We present WorldTensor, a harmonised global dataset that aligns hundreds of environmental and socioeconomic variables to a standardised 0.25$^\\circ$ spatial grid and annual temporal framework. WorldTensor integrates reanalysis products, remote sensing, emissions inventories, land use reconstructions, hydrological observations, infrastructure and hazard datasets, and socioeconomic indicators within a single representation designed for machine learning workflows. To build the dataset, we regridded inputs across heterogeneous native resolutions and projections, rasterised point and vector datasets into spatially meaningful gridded fields, and reconciled temporal coverages ranging from daily observations to sparse multiyear socioeconomic snapshots. All outputs are distributed as NetCDF files with standardised coordinates, variable metadata, and a common CF metadata convention. WorldTensor provides a reproducible resource for training and evaluating foundation models that learn coupled dynamics across environmental and human systems at planetary scale.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
