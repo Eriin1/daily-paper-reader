@@ -6,34 +6,28 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-07-11
-- 运行时间：2026-07-11 21:08:56 UTC
+- 最新运行日期：2026-07-12
+- 运行时间：2026-07-12 20:48:43 UTC
 - 运行状态：成功
-- 本次总论文数：4
-- 精读区：1
-- 速读区：3
+- 本次总论文数：1
+- 精读区：0
+- 速读区：1
 
 ### 今日简报（AI）
-今日精读了一篇高分水文预测论文，并速读了空间关联与地球系统基础模型数据集相关研究。  
-最值得关注的是上游径流联合分布如何影响下游预测不确定性，以及稳健空间关联指标。  
-建议优先阅读精读论文，深入理解分布式ML模型中不确定性传导机制。
-- 详情：[/202607/11/README](/202607/11/README)
+今日专注一篇非洲贫民窟遥感绘图研究，通过Sentinel-1纹理与局地气候区数据提升识别精度。
+
+值得留意方向：多源遥感特征融合（雷达纹理+气候分区）可弥补光学影像在云覆盖区的不足，适用于资源匮乏地区。
+
+建议先从Local Climate Zones概念入手，再结合哨兵1号免费数据尝试局部迁移验证。
+- 详情：[/202607/12/README](/202607/12/README)
 
 ### 精读区论文标签
-1. [Joint distribution of upstream runoff governs downstream river-discharge prediction uncertainty in distributed ML models](/202607/11/2607.03217v1-joint-distribution-of-upstream-runoff-governs-downstream-river-discharge-prediction-uncertainty-in-distributed-ml-models)  
-   标签：评分：9.0/10、query:urban-flood
-   evidence：上游径流联合分布控制河流流量预测不确定性
+- 本次无精读推荐。
 
 ### 速读区论文标签
-1. [Robust Indicators of Spatial Association](/202607/11/2607.07215v1-robust-indicators-of-spatial-association)  
-   标签：评分：7.0/10、query:urban-flood
-   evidence：空间自相关指标检测空间异常值，可用于城市洪水风险评估
-2. [Robust Indicators of Spatial Association](/202607/11/2607.07215v2-robust-indicators-of-spatial-association)  
-   标签：评分：7.0/10、query:urban-flood
-   evidence：稳健空间关联指标可用于城市洪水风险聚类检测
-3. [A harmonised dataset for Earth system foundation models](/202607/11/2607.03298v1-a-harmonised-dataset-for-earth-system-foundation-models)  
+1. [Context-Aware Slum Mapping in Sub-Saharan Africa Using Sentinel-1 Texture and Local Climate Zones](/202607/12/2607.07532v1-context-aware-slum-mapping-in-sub-saharan-africa-using-sentinel-1-texture-and-local-climate-zones)  
    标签：评分：6.0/10、query:urban-flood
-   evidence：包含灾害和基础设施数据的统一地球系统数据集
+   evidence：利用遥感和局部气候区进行贫民窟制图，辅助城市洪水风险评估
 
 
 <div class="dpr-home-promo-card">

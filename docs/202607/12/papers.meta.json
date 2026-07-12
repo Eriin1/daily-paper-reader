@@ -1,0 +1,24 @@
+{
+  "label": "2026-07-12",
+  "date": "2026-07-12",
+  "generated_at": "2026-07-12T20:48:51",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202607/12/2607.07532v1-context-aware-slum-mapping-in-sub-saharan-africa-using-sentinel-1-texture-and-local-climate-zones",
+      "section": "quick",
+      "title_en": "Context-Aware Slum Mapping in Sub-Saharan Africa Using Sentinel-1 Texture and Local Climate Zones",
+      "authors": "Peterson Chepkilot, Babak Memar, Paolo Gamba",
+      "date": "2026-07-08",
+      "pdf": "https://arxiv.org/pdf/2607.07532v1",
+      "score": "6.0",
+      "evidence": "利用遥感和局部气候区进行贫民窟制图，辅助城市洪水风险评估",
+      "tldr": "针对亚撒哈拉非洲城市中非正规住区（LCZ 7）与紧凑低层区（LCZ 3）在光学影像上难以区分的问题，本文提出结合Sentinel-2光谱和Sentinel-1纹理的上下文感知框架。采用三层次SAR集成策略（校准后向散射、GLCM纹理、物理引导特征），在内罗毕和埃尔多雷特评估。光学-SAR模型总体精度达0.816（干季）和0.807（湿季），显著优于WUDAPT基线（0.704），并将关键混淆降至7%。研究表明SAR纹理主导性能提升，跨季节稳定，但跨城市迁移仍需本地适配。",
+      "tags": "query:urban-flood",
+      "abstract_en": "Accurate mapping of informal settlements remains a major challenge in Sub-Saharan African (SSA) cities because optical imagery often fails to distinguish Informal Settlements (defined here as LCZ 7) from spectrally similar formal Compact Low-Rise areas (LCZ 3). This study presents a context-aware, reproducible Optical-SAR framework that improves informal settlement delineation using Sentinel-2 spectral features and Sentinel-1 structural information within an adapted Local Climate Zone (LCZ) taxonomy. We implement a three-tier SAR integration strategy: calibrated backscatter, GLCM textures, and a physics-guided feature engineered to capture the high structural disorder and weak radar return characteristic of SSA informal settlements. Using reference data across Nairobi and Eldoret (Kenya), we evaluate performance via a stratified hold-out protocol and a season-aware ablation study. Results show that SAR textures provide the dominant performance gain for LCZ 7 detection. The Optical-SAR model achieves overall accuracy of 0.816 (dry) and 0.807 (wet), significantly outperforming the WUDAPT baseline (OA 0.704) and reducing the critical LCZ 3 - LCZ 7 confusion to 7%. Seasonal analysis indicates that while optical-only separability varies with phenology, SAR-derived textures stabilize informal settlement mapping across seasons. These findings demonstrate that the incorporation of SAR-derived features yields consistent improvements for urban morphology mapping in data-scarce environments across seasons and across the evaluated source cities, while cross-city transfer remains limited without local adaptation strategies.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
