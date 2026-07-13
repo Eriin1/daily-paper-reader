@@ -1,0 +1,54 @@
+{
+  "label": "2026-07-13",
+  "date": "2026-07-13",
+  "generated_at": "2026-07-13T21:26:42",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202607/13/2607.09614v1-inunda-a-gpu-native-agent-enabled-differentiable-solver-for-high-resolution-flood-inundation-modeling",
+      "section": "deep",
+      "title_en": "Inunda: A GPU-Native, Agent-enabled, Differentiable Solver for High-Resolution Flood Inundation Modeling",
+      "authors": "Zhi Li",
+      "date": "2026-07-10",
+      "pdf": "https://arxiv.org/pdf/2607.09614v1",
+      "score": "9.0",
+      "evidence": "直接针对城市洪水淹没建模",
+      "tldr": "传统洪水模型计算昂贵而纯数据驱动方法缺乏物理保证。Inunda是一种GPU原生的二维浅水方程求解器，采用质量守恒的局部惯性格式，在单GPU上数分钟内模拟数百万网格的多天事件。可微分设计允许通过梯度下降自动校准参数。在哈维飓风回算中，平均绝对误差0.67m，纳什效率系数0.72，远超国家水模型。还用于概率预报和野火后水文恢复校准。",
+      "tags": "query:urban-flood",
+      "abstract_en": "Predicting where floodwater goes and how deep it gets, at high resolution and across large domains, remains computationally expensive with conventional hydraulic solvers, while purely data-driven surrogates are fast but lack physical guarantees and generalize poorly beyond their training events. We present Inunda, a GPU-native flood inundation model that solves the two-dimensional shallow water equations. Inunda uses a mass-conservative local-inertial scheme and runs multi-day events over millions of cells in minutes on a single GPU. Because every operator is autograd-compatible, the solver is differentiable by construction: model parameters can be estimated by gradient descent against gage observations through reverse-mode automatic differentiation of the full simulation. We demonstrate Inunda on three case studies. For a hindcast of Hurricane Harvey (2017) in Harris County, Texas, Inunda matches surveyed high-water marks to a mean absolute error of 0.67 m, competitive with or better than a suite of established flood models, and reaches a median gage water-level Nash Sutcliffe efficiency of +0.72, more than double the +0.31 of the operational National Water Model v3.0. For the July 2025 Central Texas flash flood, Inunda is driven by an 18-member 1-km convection-allowing precipitation ensemble to produce probabilistic flood forecasts whose skill improves systematically as lead time to the crest shortens. For a post-fire flash-flood application in the Rio Ruidoso burn scar, differentiable calibration recovers the saturated hydraulic conductivity as a spatially explicit field at the model's own resolution and traces its multi-year post-fire recovery. Inunda provides an open, end-to-end pipeline for real-event flood modeling that couples the accuracy of physics-based hydraulics with the calibration and coupling advantages of modern differentiable programming.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/13/2607.05452v1-exogenous-dropout-a-simple-strong-baseline-for-corruption-robust-time-series-forecasting-with-covariates",
+      "section": "quick",
+      "title_en": "Exogenous Dropout: A Simple, Strong Baseline for Corruption-Robust Time Series Forecasting with Covariates",
+      "authors": "Hao Hu, Xue-shan Ai",
+      "date": "2026-07-05",
+      "pdf": "https://arxiv.org/pdf/2607.05452v1",
+      "score": "7.0",
+      "evidence": "鲁棒时间序列预测方法，可用于水文预测",
+      "tldr": "外生协变量在时间序列预测中易受噪声、错位或缺失影响，导致性能严重下降。本文提出外生Dropout，训练时随机将整个外生通道置零，模型无关且简单。在电力价格、水文和气象数据上，该方法在保持干净准确性的同时，显著提升了对高斯噪声、时间错位和完全缺失通道的鲁棒性。实验表明，无需专门的有界架构，外生Dropout即可超越精心设计的BoundEx模型。",
+      "tags": "query:urban-flood",
+      "abstract_en": "Time series forecasters that use exogenous covariates are fragile in deployment: when those covariates are noised, temporally misaligned, or missing, strong exogenous-fusion and exogenous-adapted models can degrade far above the endogenous-only floor. We study whether such robustness requires specialized architectures, or whether it can be obtained through a simple training intervention. We propose exogenous dropout, a model-agnostic method that randomly zeros whole exogenous channels during training. Across electricity-price forecasting, reservoir hydrology, and meteorology, exogenous dropout substantially improves robustness under Gaussian noise, temporal misalignment, and fully missing channels, while preserving clean accuracy. Applied to a dual-correlation network, it yields the most robust model in our experiments, outperforming a deliberately strong bounded architectural foil, BoundEx, which combines a learnable gate, a fallback residual to the endogenous backbone, and per-channel exogenous FiLM modulation. Architecture-by-dropout ablations, gate-behavior diagnostics, and a representation-level bound show that explicit architectural boundedness is not necessary for this robustness: an unbounded model trained with exogenous dropout is more robust than the bounded model in every domain. We release a corruption-robustness benchmark and recommend exogenous dropout as a simple, strong baseline for future work on time series forecasting with covariates.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/13/2607.09578v1-knowledge-graphs-and-explainable-ai-as-complementary-resources-for-urban-mining",
+      "section": "quick",
+      "title_en": "Knowledge Graphs and Explainable AI as Complementary Resources for Urban Mining",
+      "authors": "Jan Gronewald, Andreas Emrich, Nijat Mehdiyev",
+      "date": "2026-07-10",
+      "pdf": "https://arxiv.org/pdf/2607.09578v1",
+      "score": "7.0",
+      "evidence": "可解释AI与知识图谱用于决策问责",
+      "tldr": "城市采矿的预拆除评估依赖AI辅助，但决策必须可辩护。现有知识图谱与可解释AI集成研究描述丰富而结构不足。本文基于资源互补性，提出四种集成模式（提升、约束、类型化、修正），每种模式解锁可辩护性的特定维度，如可读性、来源可溯和可争议性。通过防火门实例验证，为构建符合监管要求的评估制品提供结构化指导。",
+      "tags": "query:algo-gov",
+      "abstract_en": "Pre-demolition assessment, the regulated audit process at the heart of urban mining, is an information process in which AI support must serve qualified auditors who remain accountable for the decisions taken. The relevant unit of value is not prediction accuracy alone, but the defensibility of the supported decisions: their legibility, plausibility, sourcing, and contestability. Explainable AI techniques and domain knowledge graphs each address parts of this requirement, and existing taxonomies have catalogued their integration. The literature is descriptively rich but structurally under-specified: what remains less developed is a structural account of why specific integrations produce artefacts neither resource can provide alone. This paper offers a complementarity-theoretic interpretation grounded in the IS resource-based tradition. We propose four consolidated KG-XAI integration modes (Lifting, Constraining, Typing, and Revising), each defined as a typed operation over XAI artefacts and knowledge-graph substrate structures. Each mode unlocks a distinct property of defensibility and contributes to the kind of regulatory artefact pre-demolition assessment demands. A fire-door example from the urban-mining process illustrates the modes using the W3C Linked Building Data stack and valuation extensions.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

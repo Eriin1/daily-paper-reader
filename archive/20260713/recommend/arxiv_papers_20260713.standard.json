@@ -1,0 +1,125 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-13T21:24:08.290181+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [
+    {
+      "id": "2607.09614v1",
+      "source": "arxiv",
+      "title": "Inunda: A GPU-Native, Agent-enabled, Differentiable Solver for High-Resolution Flood Inundation Modeling",
+      "abstract": "Predicting where floodwater goes and how deep it gets, at high resolution and across large domains, remains computationally expensive with conventional hydraulic solvers, while purely data-driven surrogates are fast but lack physical guarantees and generalize poorly beyond their training events. We present Inunda, a GPU-native flood inundation model that solves the two-dimensional shallow water equations. Inunda uses a mass-conservative local-inertial scheme and runs multi-day events over millions of cells in minutes on a single GPU. Because every operator is autograd-compatible, the solver is differentiable by construction: model parameters can be estimated by gradient descent against gage observations through reverse-mode automatic differentiation of the full simulation. We demonstrate Inunda on three case studies. For a hindcast of Hurricane Harvey (2017) in Harris County, Texas, Inunda matches surveyed high-water marks to a mean absolute error of 0.67 m, competitive with or better than a suite of established flood models, and reaches a median gage water-level Nash Sutcliffe efficiency of +0.72, more than double the +0.31 of the operational National Water Model v3.0. For the July 2025 Central Texas flash flood, Inunda is driven by an 18-member 1-km convection-allowing precipitation ensemble to produce probabilistic flood forecasts whose skill improves systematically as lead time to the crest shortens. For a post-fire flash-flood application in the Rio Ruidoso burn scar, differentiable calibration recovers the saturated hydraulic conductivity as a spatially explicit field at the model's own resolution and traces its multi-year post-fire recovery. Inunda provides an open, end-to-end pipeline for real-event flood modeling that couples the accuracy of physics-based hydraulics with the calibration and coupling advantages of modern differentiable programming.",
+      "authors": [
+        "Zhi Li"
+      ],
+      "primary_category": "physics.geo-ph",
+      "categories": [
+        "physics.geo-ph"
+      ],
+      "published": "2026-07-10T17:13:19+00:00",
+      "link": "https://arxiv.org/pdf/2607.09614v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "direct flood inundation modeling for urban areas",
+      "llm_evidence_cn": "直接针对城市洪水淹没建模",
+      "llm_evidence": "直接针对城市洪水淹没建模",
+      "canonical_evidence": "直接针对城市洪水淹没建模",
+      "llm_tldr_en": "Inunda is a GPU-native flood model solving 2D shallow water equations at high resolution, enabling fast, differentiable simulation for flood risk assessment.",
+      "llm_tldr_cn": "Inunda是一个GPU原生洪水淹没模型，求解二维浅水方程，支持高分辨率快速模拟。它采用质量守恒局部惯性格式，可在单GPU上数分钟内模拟数百万单元的洪水事件。所有算子可自动微分，因此模型参数可通过梯度下降从观测数据中估计。该模型为城市洪水风险评估提供了高效且物理可解释的工具。",
+      "llm_tldr": "Inunda是一个GPU原生洪水淹没模型，求解二维浅水方程，支持高分辨率快速模拟。它采用质量守恒局部惯性格式，可在单GPU上数分钟内模拟数百万单元的洪水事件。所有算子可自动微分，因此模型参数可通过梯度下降从观测数据中估计。该模型为城市洪水风险评估提供了高效且物理可解释的工具。",
+      "llm_tags": [
+        "query:urban-flood:composite"
+      ],
+      "matched_query_tag": "query:urban-flood:composite",
+      "matched_query_text": "Papers central to 关于城市雨洪评估与治理的文章, especially work that connects or combines: methods for managing urban stormwater runoff; flood risk assessment for urban areas; urban flood risk assessment and management; stormwater management strategies for cities; flood mitigation techniques in cities; pluvial flooding causes and impacts in urban areas; methods for urban flood risk assessment; effective stormwater management practices; design of green infrastructure for stormwater management in cities; impact of urbanization on flood frequency and severity.",
+      "matched_requirement_id": "req-composite-urban-flood",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.05452v1",
+      "source": "arxiv",
+      "title": "Exogenous Dropout: A Simple, Strong Baseline for Corruption-Robust Time Series Forecasting with Covariates",
+      "abstract": "Time series forecasters that use exogenous covariates are fragile in deployment: when those covariates are noised, temporally misaligned, or missing, strong exogenous-fusion and exogenous-adapted models can degrade far above the endogenous-only floor. We study whether such robustness requires specialized architectures, or whether it can be obtained through a simple training intervention. We propose exogenous dropout, a model-agnostic method that randomly zeros whole exogenous channels during training. Across electricity-price forecasting, reservoir hydrology, and meteorology, exogenous dropout substantially improves robustness under Gaussian noise, temporal misalignment, and fully missing channels, while preserving clean accuracy. Applied to a dual-correlation network, it yields the most robust model in our experiments, outperforming a deliberately strong bounded architectural foil, BoundEx, which combines a learnable gate, a fallback residual to the endogenous backbone, and per-channel exogenous FiLM modulation. Architecture-by-dropout ablations, gate-behavior diagnostics, and a representation-level bound show that explicit architectural boundedness is not necessary for this robustness: an unbounded model trained with exogenous dropout is more robust than the bounded model in every domain. We release a corruption-robustness benchmark and recommend exogenous dropout as a simple, strong baseline for future work on time series forecasting with covariates.",
+      "authors": [
+        "Hao Hu",
+        "Xue-shan Ai"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-07-05T15:59:15+00:00",
+      "link": "https://arxiv.org/pdf/2607.05452v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "robust time series forecasting method applicable to hydrological prediction",
+      "llm_evidence_cn": "鲁棒时间序列预测方法，可用于水文预测",
+      "llm_evidence": "鲁棒时间序列预测方法，可用于水文预测",
+      "canonical_evidence": "鲁棒时间序列预测方法，可用于水文预测",
+      "llm_tldr_en": "Proposes exogenous dropout for corruption-robust time series forecasting, evaluated on reservoir hydrology and meteorology, directly applicable to urban flood forecasting.",
+      "llm_tldr_cn": "该文提出一种模型无关的\"外生随机失活\"训练方法，通过在训练时随机置零外生通道来提高预测器对噪声、时间错位和缺失数据的鲁棒性。在电力价格、水库水文和气象三个任务上评估，该方法在保持干净数据性能的同时大幅提升了鲁棒性。该方法可便捷地应用于城市洪水预测等依赖外生协变量的场景。",
+      "llm_tldr": "该文提出一种模型无关的\"外生随机失活\"训练方法，通过在训练时随机置零外生通道来提高预测器对噪声、时间错位和缺失数据的鲁棒性。在电力价格、水库水文和气象三个任务上评估，该方法在保持干净数据性能的同时大幅提升了鲁棒性。该方法可便捷地应用于城市洪水预测等依赖外生协变量的场景。",
+      "llm_tags": [
+        "query:urban-flood"
+      ],
+      "matched_query_tag": "query:urban-flood",
+      "matched_query_text": "methods for managing urban stormwater runoff",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.09578v1",
+      "source": "arxiv",
+      "title": "Knowledge Graphs and Explainable AI as Complementary Resources for Urban Mining",
+      "abstract": "Pre-demolition assessment, the regulated audit process at the heart of urban mining, is an information process in which AI support must serve qualified auditors who remain accountable for the decisions taken. The relevant unit of value is not prediction accuracy alone, but the defensibility of the supported decisions: their legibility, plausibility, sourcing, and contestability. Explainable AI techniques and domain knowledge graphs each address parts of this requirement, and existing taxonomies have catalogued their integration. The literature is descriptively rich but structurally under-specified: what remains less developed is a structural account of why specific integrations produce artefacts neither resource can provide alone. This paper offers a complementarity-theoretic interpretation grounded in the IS resource-based tradition. We propose four consolidated KG-XAI integration modes (Lifting, Constraining, Typing, and Revising), each defined as a typed operation over XAI artefacts and knowledge-graph substrate structures. Each mode unlocks a distinct property of defensibility and contributes to the kind of regulatory artefact pre-demolition assessment demands. A fire-door example from the urban-mining process illustrates the modes using the W3C Linked Building Data stack and valuation extensions.",
+      "authors": [
+        "Jan Gronewald",
+        "Andreas Emrich",
+        "Nijat Mehdiyev"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-10T16:27:29+00:00",
+      "link": "https://arxiv.org/pdf/2607.09578v1",
+      "tags": [
+        "keyword:urban-flood",
+        "query:urban-flood"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "explainable AI and knowledge graphs for accountability in decision-making",
+      "llm_evidence_cn": "可解释AI与知识图谱用于决策问责",
+      "llm_evidence": "可解释AI与知识图谱用于决策问责",
+      "canonical_evidence": "可解释AI与知识图谱用于决策问责",
+      "llm_tldr_en": "This paper integrates explainable AI and domain knowledge graphs to support auditors in urban mining by improving legibility, plausibility, sourcing, and contestability of AI-supported decisions.",
+      "llm_tldr_cn": "该论文针对城市采矿中预拆除评估的审计需求，提出将可解释AI技术与领域知识图谱相结合的方法，以增强AI支持决策的可读性、合理性、溯源性和可争议性。研究分析了现有整合方案的不足，强调了结构化的理论解释的重要性，为算法治理中的透明性和问责性提供了方法论贡献。",
+      "llm_tldr": "该论文针对城市采矿中预拆除评估的审计需求，提出将可解释AI技术与领域知识图谱相结合的方法，以增强AI支持决策的可读性、合理性、溯源性和可争议性。研究分析了现有整合方案的不足，强调了结构化的理论解释的重要性，为算法治理中的透明性和问责性提供了方法论贡献。",
+      "llm_tags": [
+        "query:algo-gov:composite"
+      ],
+      "matched_query_tag": "query:algo-gov:composite",
+      "matched_query_text": "Papers central to 请帮我查询关于算法治理的文章, especially work that connects or combines: algorithm governance principles and frameworks; fairness in algorithmic decision making; transparency of algorithms and models; accountability for algorithmic outcomes; ethical considerations in artificial intelligence; detecting bias in machine learning models; challenges and solutions in algorithm governance; impact of algorithm governance on society; best practices for implementing algorithm governance.",
+      "matched_requirement_id": "req-composite-algo-gov",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
